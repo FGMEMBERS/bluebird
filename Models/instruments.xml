@@ -1,0 +1,591 @@
+<?xml version="1.0"?>
+<!-- Bluebird Explorer Hover Flyer  version 5.0 for FlightGear v1.0 PLIB -->
+
+<PropertyList>
+
+<!-- instruments placement for center console of bluebird cockpit
+     top row, top    line: x=-8.327 z=1.240 y=+-0.280 
+     top row, bottom line: x=-8.305 z=1.155 y=+-0.282
+     row 1 rise/run= 0.085/0.022 = 3.86 = angle= -14.5 degrees from vertical
+     2nd row, top    line: x=-8.217 z=1.186 y=+-0.263
+     2nd row, bottom line: x=-8.183 z=1.101 y=+-0.266 
+     row 2 rise/run= 0.085/0.034 = 2.5 = angle= -21.8 deg 
+     3rd row, top    line: x=-8.106 z=1.133 y=+-0.246
+     3rd row, bottom line: x=-8.060 z=1.048 y=+-0.249 
+     row 3 rise/run= 0.085/0.046 = 1.85 = -28.4 deg 
+     4th row, top    line: x=-7.996 z=1.079 y=+-0.229 
+     4th row, bottom line: x=-7.885 z=1.025 y=+-0.212
+     row 4 rise/run= 0.215/0.442 = 0.4864 = angle= -25.94 deg
+     
+     ========== side consoles, front1 ================
+     axis:  (8.327,0.280,1.240) - (7.891,0.819,1.240)
+            (7.885,0.212,1.025) - (7.671,0.477,1.025) = 25.68
+     angle= 28.90 on x axis , and 50.90 on z axis
+
+     ========= front2 junction with angle to 3 ========
+            (7.696,0.966,1.240) - (7.521,0.580,1.025) = 0.215/0.423817 = 26.898
+     angle= 27.45 on x axis, 34.2 on z axis
+     ========= side3 ==================================
+            (7.573,1.304,1.078) - (7.521,0.580,1.025) = 0.053/0.72586 = 4.176
+     angle= 4.45 on x axis, 22.35 on z axis
+     ========= side4 monitor ==========================
+     angle= 14.1 on x axis, 21.05 on z axis
+     ========= side5 monitor ==========================
+     angle= 58.0 on x axis, 5.8 on z axis
+ -->
+
+ <!-- Front hotspots -->
+ <panel> 
+   <path>Aircraft/bluebird/Instruments-3d/digital2/hotspots1C.xml</path>
+   <bottom-left> 
+     <x-m>-8.305</x-m>
+     <y-m>-0.282</y-m>
+     <z-m>1.155</z-m>
+   </bottom-left>
+   <bottom-right> 
+     <x-m>-8.305</x-m>
+     <y-m> 0.282</y-m>
+     <z-m>1.155</z-m>
+   </bottom-right>
+   <top-left> 
+     <x-m>-8.327</x-m>
+     <y-m>-0.280</y-m>
+     <z-m> 1.240</z-m>
+   </top-left>
+   <top-right>
+     <x-m>-8.327</x-m>
+     <y-m> 0.280</y-m>
+     <z-m> 1.240</z-m>
+   </top-right>
+ </panel>
+
+<!-- No cockpit instruments currently on 2nd or 3rd row with hotspots
+      stub in place for future expansion
+ <panel> 
+   <path>Aircraft/bluebird/Instruments-3d/hotspots2C.xml</path>
+   <bottom-left> 
+     <x-m>-8.183</x-m>
+     <y-m>-0.266</y-m>
+     <z-m>1.102</z-m>
+   </bottom-left>
+   <bottom-right> 
+     <x-m>-8.183</x-m>
+     <y-m> 0.266</y-m>
+     <z-m>1.101</z-m>
+   </bottom-right>
+   <top-left> 
+     <x-m>-8.217</x-m>
+     <y-m>-0.263</y-m>
+     <z-m> 1.186</z-m>
+   </top-left>
+   <top-right>
+     <x-m>-8.217</x-m>
+     <y-m> 0.263</y-m>
+     <z-m> 1.186</z-m>
+   </top-right>
+ </panel>
+
+ <panel> 
+   <path>Aircraft/bluebird/Instruments-3d/hotspots3C.xml</path>
+   <bottom-left> 
+     <x-m>-8.060</x-m>
+     <y-m>-0.249</y-m>
+     <z-m>1.048</z-m>
+   </bottom-left>
+   <bottom-right> 
+     <x-m>-8.060</x-m>
+     <y-m> 0.249</y-m>
+     <z-m>1.048</z-m>
+   </bottom-right>
+   <top-left> 
+     <x-m>-8.106</x-m>
+     <y-m>-0.246</y-m>
+     <z-m> 1.133</z-m>
+   </top-left>
+   <top-right> 
+     <x-m>-8.106</x-m>
+     <y-m> 0.246</y-m>
+     <z-m> 1.133</z-m>
+   </top-right>
+ </panel>
+-->
+
+ <model>
+   <name>ALTITUDE</name>
+   <path>Aircraft/bluebird/Instruments-3d/digital2/altitude2.xml</path>
+   <offsets>
+     <x-m>-8.323</x-m>
+     <y-m>-0.175</y-m>
+     <z-m>1.222</z-m>
+     <pitch-deg>-14.5</pitch-deg>
+     <w>512</w>
+     <h>512</h>
+   </offsets>
+ </model>
+
+ <model>
+   <name>HEADING</name>
+   <path>Aircraft/bluebird/Instruments-3d/digital2/heading1.xml</path>
+   <offsets>
+     <x-m>-8.323</x-m>
+     <y-m>0.00</y-m>
+     <z-m>1.222</z-m>
+     <pitch-deg>-14.5</pitch-deg>
+     <w>512</w>
+     <h>512</h>
+   </offsets>
+ </model>
+
+ <model>
+   <name>VELOCITY</name>
+   <path>Aircraft/bluebird/Instruments-3d/digital2/velocity2.xml</path>
+   <offsets>
+     <x-m>-8.323</x-m>
+     <y-m>0.175</y-m>
+     <z-m>1.222</z-m>
+     <pitch-deg>-14.5</pitch-deg>
+     <w>512</w>
+     <h>512</h>
+   </offsets>
+ </model>
+
+ <model>
+   <name>ENGINE POWER GRAPH</name>
+   <path>Aircraft/bluebird/Instruments-3d/digital2/engine2.xml</path>
+   <offsets>
+     <x-m>-8.312</x-m>
+     <y-m>0.175</y-m>
+     <z-m>1.1815</z-m>
+     <pitch-deg>-14.5</pitch-deg>
+     <w>512</w>
+     <h>512</h>
+   </offsets>
+ </model>
+
+ <model>
+   <name>MAGCI</name>
+   <path>Aircraft/Instruments-3d/mag-compass.xml</path>
+   <offsets>
+     <x-m>-8.303</x-m>
+     <y-m>0</y-m>
+     <z-m>1.163</z-m>
+     <pitch-deg>-14.5</pitch-deg>
+     <w>512</w>
+     <h>512</h>
+   </offsets>
+ </model>
+
+ <model>
+   <name>GPS</name>
+   <path>Aircraft/bluebird/Instruments-3d/digital2/gps2.xml</path>
+   <offsets>
+     <x-m>-8.312</x-m>
+     <y-m>-0.175</y-m>
+     <z-m>1.1815</z-m>
+     <pitch-deg>-14.5</pitch-deg>
+     <w>512</w>
+     <h>512</h>
+   </offsets>
+ </model>
+
+ <model>
+   <name>ALT</name>
+   <path>Aircraft/bluebird/Instruments-3d/alt-2/alt2-3d-b.xml</path>
+   <offsets>
+     <x-m>-8.199</x-m>
+     <y-m>-0.22</y-m>
+     <z-m>1.143</z-m>
+     <pitch-deg>-21.8</pitch-deg>
+     <w>512</w>
+     <h>512</h>
+   </offsets>
+ </model>
+
+<!-- Attitude Indicator needs this workaround for the ufo flight model -->
+ <model>
+   <name>AI</name>
+   <path>Aircraft/bluebird/Instruments-3d/ai/ai-ufo.xml</path>
+   <offsets>
+     <x-m>-8.192</x-m>
+     <y-m>0.22</y-m>
+     <z-m>1.143</z-m>
+     <pitch-deg>-21.8</pitch-deg>
+     <w>512</w>
+     <h>512</h>
+   </offsets>
+ </model>
+
+ <model>
+   <name>CONTROLS</name>
+   <path>Aircraft/bluebird/Instruments-3d/controls/controls-b.xml</path>
+   <offsets>
+     <x-m>-8.192</x-m>
+     <y-m>0.0</y-m>
+     <z-m>1.143</z-m>
+     <pitch-deg>-21.8</pitch-deg>
+   </offsets>
+ </model>
+
+ <model>
+   <name>CLOCK</name>
+   <path>Aircraft/bluebird/Instruments-3d/clock/clock-b.xml</path>
+   <offsets>
+     <x-m>-8.082</x-m>
+     <y-m>0.2</y-m>
+     <z-m>1.091</z-m>
+     <pitch-deg>-28.4</pitch-deg>
+     <w>512</w>
+     <h>512</h>
+   </offsets>
+ </model>
+
+ <animation>
+   <type>material</type>
+   <object-name>altitude.frame</object-name>
+   <emission>
+     <red-prop>sim/model/bluebird/lighting/emission/I5-red</red-prop>
+     <green-prop>sim/model/bluebird/lighting/emission/I5-green</green-prop>
+     <blue-prop>sim/model/bluebird/lighting/emission/I5-blue</blue-prop>
+     <factor>1</factor>
+   </emission>
+   <specular>
+     <factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </specular>
+ </animation>
+
+ <animation>
+   <type>material</type>
+   <object-name>altitude.button</object-name>
+   <emission>
+     <red-prop>sim/model/bluebird/lighting/emission/I5-red</red-prop>
+     <green-prop>sim/model/bluebird/lighting/emission/I5-green</green-prop>
+     <blue-prop>sim/model/bluebird/lighting/emission/I5-blue</blue-prop>
+     <factor>1</factor>
+   </emission>
+   <specular>
+     <factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </specular>
+ </animation>
+
+ <animation>
+   <type>material</type>
+   <object-name>heading.frame</object-name>
+   <emission>
+     <red-prop>sim/model/bluebird/lighting/emission/I5-red</red-prop>
+     <green-prop>sim/model/bluebird/lighting/emission/I5-green</green-prop>
+     <blue-prop>sim/model/bluebird/lighting/emission/I5-blue</blue-prop>
+     <factor>1</factor>
+   </emission>
+   <specular>
+     <factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </specular>
+ </animation>
+
+ <animation>
+   <type>material</type>
+   <object-name>heading.button</object-name>
+   <emission>
+     <red-prop>sim/model/bluebird/lighting/emission/I5-red</red-prop>
+     <green-prop>sim/model/bluebird/lighting/emission/I5-green</green-prop>
+     <blue-prop>sim/model/bluebird/lighting/emission/I5-blue</blue-prop>
+     <factor>1</factor>
+   </emission>
+   <specular>
+     <factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </specular>
+ </animation>
+
+ <animation>
+   <type>material</type>
+   <object-name>velocity.frame</object-name>
+   <emission>
+     <red-prop>sim/model/bluebird/lighting/emission/I5-red</red-prop>
+     <green-prop>sim/model/bluebird/lighting/emission/I5-green</green-prop>
+     <blue-prop>sim/model/bluebird/lighting/emission/I5-blue</blue-prop>
+     <factor>1</factor>
+   </emission>
+   <specular>
+     <factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </specular>
+ </animation>
+
+ <animation>
+   <type>material</type>
+   <object-name>velocity.button</object-name>
+   <emission>
+     <red-prop>sim/model/bluebird/lighting/emission/I5-red</red-prop>
+     <green-prop>sim/model/bluebird/lighting/emission/I5-green</green-prop>
+     <blue-prop>sim/model/bluebird/lighting/emission/I5-blue</blue-prop>
+     <factor>1</factor>
+   </emission>
+   <specular>
+     <factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </specular>
+ </animation>
+
+ <animation>
+   <type>material</type>
+   <object-name>gps.frame</object-name>
+   <emission>
+     <red-prop>sim/model/bluebird/lighting/emission/I5-red</red-prop>
+     <green-prop>sim/model/bluebird/lighting/emission/I5-green</green-prop>
+     <blue-prop>sim/model/bluebird/lighting/emission/I5-blue</blue-prop>
+     <factor>1</factor>
+   </emission>
+   <specular>
+     <factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </specular>
+ </animation>
+
+ <animation>
+   <type>material</type>
+   <object-name>gps.button</object-name>
+   <emission>
+     <red-prop>sim/model/bluebird/lighting/emission/I5-red</red-prop>
+     <green-prop>sim/model/bluebird/lighting/emission/I5-green</green-prop>
+     <blue-prop>sim/model/bluebird/lighting/emission/I5-blue</blue-prop>
+     <factor>1</factor>
+   </emission>
+   <specular>
+     <factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </specular>
+ </animation>
+
+ <animation>
+   <type>material</type>
+   <object-name>engine.frame</object-name>
+   <emission>
+     <red-prop>sim/model/bluebird/lighting/emission/I5-red</red-prop>
+     <green-prop>sim/model/bluebird/lighting/emission/I5-green</green-prop>
+     <blue-prop>sim/model/bluebird/lighting/emission/I5-blue</blue-prop>
+     <factor>1</factor>
+   </emission>
+   <specular>
+     <factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </specular>
+ </animation>
+
+ <animation>
+   <type>material</type>
+   <object-name>engine.button.up</object-name>
+   <emission>
+     <red-prop>sim/model/bluebird/lighting/emission/I5-red</red-prop>
+     <green-prop>sim/model/bluebird/lighting/emission/I5-green</green-prop>
+     <blue-prop>sim/model/bluebird/lighting/emission/I5-blue</blue-prop>
+     <factor>1</factor>
+   </emission>
+   <specular>
+     <factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </specular>
+ </animation>
+
+ <animation>
+   <type>material</type>
+   <object-name>engine.button.down</object-name>
+   <emission>
+     <red-prop>sim/model/bluebird/lighting/emission/I5-red</red-prop>
+     <green-prop>sim/model/bluebird/lighting/emission/I5-green</green-prop>
+     <blue-prop>sim/model/bluebird/lighting/emission/I5-blue</blue-prop>
+     <factor>1</factor>
+   </emission>
+   <specular>
+     <factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </specular>
+ </animation>
+
+ <animation>
+   <type>material</type>
+   <object-name>altitude-lit</object-name>
+   <emission>
+     <factor-prop>sim/model/material/instruments/factor</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </emission>
+ </animation>
+
+ <animation>
+   <type>material</type>
+   <object-name>heading-lit</object-name>
+   <emission>
+     <factor-prop>sim/model/material/instruments/factor</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </emission>
+ </animation>
+
+ <animation>
+   <type>material</type>
+   <object-name>velocity-lit</object-name>
+   <emission>
+     <factor-prop>sim/model/material/instruments/factor</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </emission>
+ </animation>
+
+ <animation>
+   <type>material</type>
+   <object-name>engine-lit</object-name>
+   <emission>
+     <factor-prop>sim/model/material/instruments/factor</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </emission>
+ </animation>
+
+ <animation>
+   <type>material</type>
+   <object-name>gps-lit</object-name>
+   <emission>
+     <factor-prop>sim/model/material/instruments/factor</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </emission>
+ </animation>
+
+<!-- alt-2 emissions -->
+ <animation>
+   <type>material</type>
+   <object-name>Ring</object-name>
+   <emission>
+     <factor-prop>sim/model/material/instruments/factor</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </emission>
+ </animation>
+
+ <animation>
+   <type>material</type>
+   <object-name>needle10000</object-name>
+   <emission>
+     <factor-prop>sim/model/material/instruments/factor</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </emission>
+ </animation>
+
+ <animation>
+   <type>material</type>
+   <object-name>needle1000</object-name>
+   <emission>
+     <factor-prop>sim/model/material/instruments/factor</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </emission>
+ </animation>
+
+ <animation>
+   <type>material</type>
+   <object-name>needle100</object-name>
+   <emission>
+     <factor-prop>sim/model/material/instruments/factor</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </emission>
+ </animation>
+
+ <animation>
+   <type>material</type>
+   <object-name>ALTface</object-name>
+   <emission>
+     <factor-prop>sim/model/material/instruments/factor</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </emission>
+ </animation>
+
+ <animation>
+   <type>material</type>
+   <object-name>inhg</object-name>
+   <emission>
+     <factor-prop>sim/model/material/instruments/factor</factor-prop>
+     <red>1</red>
+     <green>1</green>
+     <blue>1</blue>
+   </emission>
+ </animation>
+
+<!-- Gear and Hatches hotspots -->
+ <panel> 
+   <path>Aircraft/bluebird/Instruments-3d/hotspotsR.xml</path>
+   <bottom-left> 
+     <x-m>-8.067</x-m>
+     <y-m>0.260</y-m>
+     <z-m>1.122</z-m>
+   </bottom-left>
+   <bottom-right> 
+     <x-m>-7.782</x-m>
+     <y-m>0.613</y-m>
+     <z-m>1.122</z-m>
+   </bottom-right>
+   <top-left> 
+     <x-m>-8.229</x-m>
+     <y-m>0.392</y-m>
+     <z-m>1.239</z-m>
+   </top-left>
+ </panel>
+
+<!-- Power and Engine hotspots -->
+ <panel> 
+   <path>Aircraft/bluebird/Instruments-3d/hotspotsL.xml</path>
+   <bottom-left> 
+     <x-m>-7.803</x-m>
+     <y-m>-0.631</y-m>
+     <z-m>1.136</z-m>
+   </bottom-left>
+   <bottom-right> 
+     <x-m>-8.088</x-m>
+     <y-m>-0.278</y-m>
+     <z-m>1.136</z-m>
+   </bottom-right>
+   <top-left> 
+     <x-m>-7.943</x-m>
+     <y-m>-0.744</y-m>
+     <z-m>1.236</z-m>
+   </top-left>
+ </panel>
+
+</PropertyList>

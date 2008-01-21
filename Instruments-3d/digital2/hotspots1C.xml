@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<!--== Bluebird Explorer Hover Flyer  version 3.3 ==-->
+
+  <!DOCTYPE PropertyList SYSTEM "panel.dtd">
+  <!-- This part should be the same for any 3D panel.  Customize the actions section -->
+  <PropertyList> 
+    <name>Bluebird Panel Hotspots1</name>
+    <background>Aircraft/Generic/Panels/Textures/transparent-bg.rgb</background>
+    <w>1024</w>
+    <h>768</h>
+    <y-offset>0</y-offset>
+    <instruments>
+      <instrument>
+        <name>Center top panel</name>
+        <x>512</x>
+        <y>384</y>
+        <w>1024</w>
+        <h>768</h>
+        <w-base>1024</w-base>
+        <h-base>1024</h-base>
+        <layers> 
+          <layer> 
+            <name>background</name>
+            <texture> 
+              <path>Aircraft/Generic/Panels/Textures/transparent-bg.rgb</path>
+              <x1>0.0</x1>
+              <y1>0.0</y1>
+              <x2>1.0</x2>
+              <y2>1.0</y2>
+            </texture>
+          </layer>
+
+        </layers>
+        <!-- define hotspot actions below -->
+        <actions> 
+          <!-- ************** hsi hotspots ************** -->
+          <action>
+            <name>altitude-mode-select</name>
+            <button>0</button>
+            <x>-216</x>
+            <y>0</y>
+            <w>80</w>
+            <h>511</h>
+            <binding>
+              <command>property-adjust</command>
+              <property>instrumentation/digital/altitude-mode</property>
+              <step>1</step>
+              <min>0</min>
+              <max>2</max>
+              <wrap>true</wrap>
+            </binding>
+          </action>
+
+          <action>
+            <name>heading-mode-select</name>
+            <button>0</button>
+            <x>0</x>
+            <y>0</y>
+            <w>106</w>
+            <h>511</h>
+            <binding>
+              <command>property-adjust</command>
+              <property>instrumentation/digital/heading-mode</property>
+              <step>1</step>
+              <min>0</min>
+              <max>2</max>
+              <wrap>true</wrap>
+            </binding>
+          </action>
+
+          <action>
+            <name>velocity-mode-select</name>
+            <button>0</button>
+            <x>160</x>
+            <y>0</y>
+            <w>192</w>
+            <h>511</h>
+            <binding>
+              <command>property-adjust</command>
+              <property>instrumentation/digital/velocity-mode</property>
+              <step>1</step>
+              <min>0</min>
+              <max>4</max>
+              <wrap>true</wrap>
+            </binding>
+          </action>
+
+          <action>
+            <name>gps-mode-select</name>
+            <button>0</button>
+            <x>-448</x>
+            <y>-488</y>
+            <w>312</w>
+            <h>472</h>
+            <binding>
+              <command>property-adjust</command>
+              <property>sim/lon-lat-format</property>
+              <step>1</step>
+              <min>0</min>
+              <max>3</max>
+              <wrap>true</wrap>
+            </binding>
+          </action>
+
+          <action>
+            <name>engine-power-increase</name>
+            <button>0</button>
+            <x>448</x>
+            <y>-488</y>
+            <w>52</w>
+            <h>472</h>
+            <binding>
+              <command>nasal</command>
+              <script>controls.flapsDown(-1)</script>
+            </binding>
+          </action>
+
+          <action>
+            <name>engine-power-decrease</name>
+            <button>0</button>
+            <x>352</x>
+            <y>-488</y>
+            <w>56</w>
+            <h>472</h>
+            <binding>
+              <command>nasal</command>
+              <script>controls.flapsDown(1)</script>
+            </binding>
+          </action>
+
+        </actions>
+      </instrument>
+    </instruments>
+</PropertyList>

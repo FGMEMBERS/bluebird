@@ -1,0 +1,114 @@
+Version# Vertices PolygonFaces Comments
+2008.Jan.19
+5.0	23239	19644	change all model origins and center references
+	Fix long standing bug in jumping when too close to ground.
+	Add wheels to landing gear.
+	  drive on roads (with hover and main engines off)
+	Fix yoke movement for hover up and down.
+	Fix rear hatch to be at ground level for cargo loading.
+	Fix responsiveness of hover up from cold start.
+	Adjust minimum speed for aerodynamics/flying without counter-grav on.
+	Adjust triggers for skidding and landing sound effects.
+	Remove gear sound at startup.
+	Enable rumble sound at startup.
+
+2008.Jan.11
+4.4	18881	15357	change to instruments and aircraft model
+	Fix extra line in instruments.
+	Fix instrument pick definitions.
+	Fix walking button [w] to be repeatable so it can be held down.
+	Fix overlapping surface missing proper color and shadow.
+
+2008.Jan.08
+4.3	18887	15363
+	Add buttons to door frames.
+	Big change for walking around in direction of looking.
+	Fix gear animation for osg version.
+	Remove extra edge from instruments.
+	Add basic instructions to the readme file.
+
+2008.Jan.06
+4.2	18678	15302	change to instruments
+	Fix hotspot and pick errors.
+
+2008.Jan.05
+4.1	18678	15302	no change to 3d models
+	Fix serious property name error that affected primary engines.
+
+2008.Jan.04
+4.0	18678	15302	change is in 3d-instruments
+	Fix minor property duplication.
+	Fix crash handling and detection.
+	Fix interior lighting over-tinting.
+	Fix sound pitch for engine level.
+	Handle more negative numbers on instrument panel.
+
+2008.Jan.03
+3.4	18678	15302	no change to 3d model
+	Add bounds checking for orbital velocities.
+
+2008.Jan.03
+3.3	18678	15302	major change to instrument panel
+	Integrate major improvement for terrain following.
+	Adjust property paths for multiplayer support.
+	Replace digital instruments with hi-res digital-glass type instruments.
+	Finally fix a long-standing bug causing excessively sticky ground with gear up.
+
+2007.Dec.27
+3.2	18678	15302	no change to 3d model
+	Improve venting submodels. 
+	Fix mis-alignment in livery-template texture. 
+
+2007.Dec.25
+3.1	18678	15302	no change to 3d model
+	Fix bug in calculating interior lighting 
+	  introduced by adding textures to inside livery.
+	Fix other minor inconsistancies between newly introduced 0.9 and OSG versions.
+
+2007.Dec.23
+3.01	18678	15302	no change to 3d model
+	Add support for older version 0.9.10
+
+2007.Dec.22
+3.0	18678	15302
+	Add livery and color setting dialogs.
+	Remember livery choice.
+	Map textures to hull and interior flooring.
+	Fix condition checking for cockpit walk-around.
+	Simplify debug logging.
+	Add submodel effects for damage.
+	Add pick support for OSG.
+
+2007.Dec.13
+2.0	17222	15287
+	Modify for compatibility with latest release, version 1.0.
+	Add buttons to popup dialog to duplicate all panel buttons.
+	Fix display bug in GPS digital instrument.
+	Synchronize Autopilot settings for Lat/Lon with GPS display mode.
+	Move property definitions and startup values to the -set.xml file.
+	Change ramp grooves to polygons.
+	Add Engine detail under hull covers.
+	Separate 2d "fast and simple" shadow from the rendering options 3d shadow.
+	Mute VOR background by setting instrument frequencies to zero.
+
+2007.Dec.01
+1.2	14304	12720
+	Fix lighting/emissions bug in door.
+
+2007.Dec.01
+1.1	no change to 3d model
+	Integrate generic instruments and reorganize instrument directories.
+	Make all nasal variables local to this model.
+	Add CRLF to make unix files more readable in DOS.
+	Re-arrange help popup to fit on screen.
+
+2007.Aug.21
+1	14284	12720	
+	First release. See readme file for details.
+
+
+future plans:
+	Add retractable wheels to gear. 
+	Add communications instrumentation.
+	Add weather radar to viewscreen in cockpit. 
+
