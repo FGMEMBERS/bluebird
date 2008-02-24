@@ -1,9 +1,33 @@
 Version# Vertices PolygonFaces Comments
+2008.Feb.23
+6.0	23337	19664	new model and texture files
+	Split up some more objects for proper lighting/colors.
+	Add more labels and lights to instrument buttons.
+	Rewrite panel button lighting and color tinting, much faster.
+	Update and replace shadow shape.
+	Add the other seating positions to the [e] key.
+	Fix [E] so it does jump to cockpit view.
+	Realign power graph for more realistic settings.
+	Add functionality to collective lever, to change countergrav power factor.
+	Adjust hotspots to fit the buttons better.
+	Fix some routines from being called every cycle.
+	Brighten instruments during daytime.
+	Fix slant and readability of a few instrument indicators.
+	Remove a couple unnecessary leading zero digits.
+	Add MACH to velocity display.
+
+5.1	23239	19644
+	Fix landing lights connection from panel to dialog button.
+	Adjust maximum speed to reflect atmospheric boundaries.
+	Clean up all text files and separate repetitive sections.
+	Add the remaining interior surfaces to include proper tinting.
+	Replace landing gear timing with proper built-in functions.
+
 2008.Jan.19
 5.0	23239	19644	change all model origins and center references
 	Fix long standing bug in jumping when too close to ground.
 	Add wheels to landing gear.
-	  drive on roads (with hover and main engines off)
+	 drive on roads (with hover and main engines off)
 	Fix yoke movement for hover up and down.
 	Fix rear hatch to be at ground level for cargo loading.
 	Fix responsiveness of hover up from cold start.
@@ -62,7 +86,7 @@ Version# Vertices PolygonFaces Comments
 2007.Dec.25
 3.1	18678	15302	no change to 3d model
 	Fix bug in calculating interior lighting 
-	  introduced by adding textures to inside livery.
+	 introduced by adding textures to inside livery.
 	Fix other minor inconsistancies between newly introduced 0.9 and OSG versions.
 
 2007.Dec.23
@@ -106,9 +130,11 @@ Version# Vertices PolygonFaces Comments
 1	14284	12720	
 	First release. See readme file for details.
 
+2007.May.09
+	Start of bluebird modeling.
+
 
 future plans:
-	Add retractable wheels to gear. 
 	Add communications instrumentation.
 	Add weather radar to viewscreen in cockpit. 
 

@@ -19,8 +19,8 @@ Press [?] for help with keyboard shortcuts.
 -------------------------------------------------
 2008 by Stewart Andreason for FlightGear
 
-Release version 5.0   2008.Jan.19
-   23239 vertices, 19644 polygon faces, 393 objects (in primary model)
+Release version 6.0   2008.Feb.23
+   23337 vertices, 19664 polygon faces, 427 objects (in primary model)
 
 Send Suggestions? Comments? Problems? or Encouragement to:
   sandreas41 <at> yahoo <dot> com
@@ -52,7 +52,7 @@ Highlights in this model:
     Create a new file in the Models/Liveries directory by copying an existing one,
      then change the colors as desired.
     See the livery-template.rgb file in the Models/Textures directory, edit with
-     an editor capable of writing SGI and RGB files (like GiMP)
+     an editor capable of writing SGI and RGB files (like GIMP)
      Draw in the non-black areas, following the dots that correspond to the 
      fuselage surface, then save as a new filename.RGB
   Support for next OSG version:
@@ -64,8 +64,7 @@ Current development level is: Early-Production
  All significant bugs within my model are (believed to be) fixed.
  Some further development is always likely or unavoidable.
 
- Wish list:  Get gear to work from an internal timer, like the doors do.
-             Synchronize door sounds when gear is not down fully.
+ Wish list:  Synchronize door sounds when gear is not down fully.
               sound.xml seems limited in select and property conditions.
 
  Known bugs that seem to be unique to the ufo flight model:
@@ -78,11 +77,6 @@ Current development level is: Early-Production
                  workaround is in place, see ufo-ai.xml
              Can not land or drive on hills. Flight attitude is hard linked to 
                joystick controls.
-
- Other known deficiencies:
-             Bounds checking for max-speed miss some rapid requests.
-              You are responsible for any hull damage from flying too fast
-              with doors open! ;)
 
 
  ___________ This model is released under the terms of the GPLv2 ___________

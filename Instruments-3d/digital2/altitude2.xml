@@ -1,286 +1,286 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hover Flyer  version 3.3 ==-->
+<!--== Bluebird Explorer Hovercraft  version 3.3 ==-->
 
 <PropertyList>
 
  <path>altitude2.ac</path>
 
  <animation>
-   <name>altitude-lit</name>
-   <object-name>alt.label</object-name>
-   <object-name>alt.minus</object-name>
-   <object-name>alt.101</object-name>
-   <object-name>alt.102</object-name>
-   <object-name>alt.103</object-name>
-   <object-name>alt.104</object-name>
-   <object-name>alt.105</object-name>
-   <object-name>alt.106</object-name>
-   <object-name>agl.minus</object-name>
-   <object-name>agl.101</object-name>
-   <object-name>agl.102</object-name>
-   <object-name>agl.103</object-name>
-   <object-name>agl.104</object-name>
-   <object-name>agl.105</object-name>
-   <object-name>agl.106</object-name>
-   <object-name>alt.dec</object-name>
-   <object-name>alt.water</object-name>
-   <object-name>alt.agl</object-name>
-   <object-name>alt.elev</object-name>
-   <object-name>alt.ft</object-name>
-   <object-name>alt.m</object-name>
-   <object-name>alt.warn1</object-name>
-   <object-name>alt.warn2</object-name>
-   <object-name>alt.warn3</object-name>
- </animation>
- 
- <animation>
-   <type>textranslate</type>
-   <object-name>alt.101</object-name>
-   <property>instrumentation/digital/altitude-whole</property>
-   <factor>0.000001</factor>
-   <step>100000</step>
-   <axis>
-     <x>1</x>
-     <y>0</y>
-     <z>0</z>
-   </axis>
- </animation>
- 
- <animation>
-   <type>textranslate</type>
-   <object-name>alt.102</object-name>
-   <property>instrumentation/digital/altitude-whole</property>
-   <factor>0.00001</factor>
-   <step>10000</step>
-   <axis>
-     <x>1</x>
-     <y>0</y>
-     <z>0</z>
-   </axis>
- </animation>
- 
- <animation>
-   <type>textranslate</type>
-   <object-name>alt.103</object-name>
-   <property>instrumentation/digital/altitude-whole</property>
-   <factor>0.0001</factor>
-   <step>1000</step>
-   <axis>
-     <x>1</x>
-     <y>0</y>
-     <z>0</z>
-   </axis>
+	<name>altitude-lit</name>
+	<object-name>alt.label</object-name>
+	<object-name>alt.minus</object-name>
+	<object-name>alt.101</object-name>
+	<object-name>alt.102</object-name>
+	<object-name>alt.103</object-name>
+	<object-name>alt.104</object-name>
+	<object-name>alt.105</object-name>
+	<object-name>alt.106</object-name>
+	<object-name>agl.minus</object-name>
+	<object-name>agl.101</object-name>
+	<object-name>agl.102</object-name>
+	<object-name>agl.103</object-name>
+	<object-name>agl.104</object-name>
+	<object-name>agl.105</object-name>
+	<object-name>agl.106</object-name>
+	<object-name>alt.dec</object-name>
+	<object-name>alt.water</object-name>
+	<object-name>alt.agl</object-name>
+	<object-name>alt.elev</object-name>
+	<object-name>alt.ft</object-name>
+	<object-name>alt.m</object-name>
+	<object-name>alt.warn1</object-name>
+	<object-name>alt.warn2</object-name>
+	<object-name>alt.warn3</object-name>
  </animation>
 
  <animation>
-   <type>textranslate</type>
-   <object-name>alt.104</object-name>
-   <property>instrumentation/digital/altitude-whole</property>
-   <factor>0.001</factor>
-   <step>100</step>
-   <axis>
-     <x>1</x>
-     <y>0</y>
-     <z>0</z>
-   </axis>
+	<type>textranslate</type>
+	<object-name>alt.101</object-name>
+	<property>instrumentation/digital/altitude-whole</property>
+	<factor>0.000001</factor>
+	<step>100000</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
  </animation>
 
  <animation>
-   <type>textranslate</type>
-   <object-name>alt.105</object-name>
-   <property>instrumentation/digital/altitude-whole</property>
-   <factor>0.01</factor>
-   <step>10</step>
-   <axis>
-     <x>1</x>
-     <y>0</y>
-     <z>0</z>
-   </axis>
+	<type>textranslate</type>
+	<object-name>alt.102</object-name>
+	<property>instrumentation/digital/altitude-whole</property>
+	<factor>0.00001</factor>
+	<step>10000</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
  </animation>
 
  <animation>
-   <type>textranslate</type>
-   <object-name>alt.106</object-name>
-   <property>instrumentation/digital/altitude-whole</property>
-   <factor>0.1</factor>
-   <step>1</step>
-   <axis>
-     <x>1</x>
-     <y>0</y>
-     <z>0</z>
-   </axis>
+	<type>textranslate</type>
+	<object-name>alt.103</object-name>
+	<property>instrumentation/digital/altitude-whole</property>
+	<factor>0.0001</factor>
+	<step>1000</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
  </animation>
 
  <animation>
-   <type>textranslate</type>
-   <object-name>agl.101</object-name>
-   <property>instrumentation/digital/agl-whole</property>
-   <factor>0.000001</factor>
-   <step>100000</step>
-   <axis>
-     <x>1</x>
-     <y>0</y>
-     <z>0</z>
-   </axis>
- </animation>
- 
- <animation>
-   <type>textranslate</type>
-   <object-name>agl.102</object-name>
-   <property>instrumentation/digital/agl-whole</property>
-   <factor>0.00001</factor>
-   <step>10000</step>
-   <axis>
-     <x>1</x>
-     <y>0</y>
-     <z>0</z>
-   </axis>
- </animation>
- 
- <animation>
-   <type>textranslate</type>
-   <object-name>agl.103</object-name>
-   <property>instrumentation/digital/agl-whole</property>
-   <factor>0.0001</factor>
-   <step>1000</step>
-   <axis>
-     <x>1</x>
-     <y>0</y>
-     <z>0</z>
-   </axis>
- </animation>
- 
- <animation>
-   <type>textranslate</type>
-   <object-name>agl.104</object-name>
-   <property>instrumentation/digital/agl-whole</property>
-   <factor>0.001</factor>
-   <step>100</step>
-   <axis>
-     <x>1</x>
-     <y>0</y>
-     <z>0</z>
-   </axis>
- </animation>
- 
- <animation>
-   <type>textranslate</type>
-   <object-name>agl.105</object-name>
-   <property>instrumentation/digital/agl-whole</property>
-   <factor>0.01</factor>
-   <step>10</step>
-   <axis>
-     <x>1</x>
-     <y>0</y>
-     <z>0</z>
-   </axis>
+	<type>textranslate</type>
+	<object-name>alt.104</object-name>
+	<property>instrumentation/digital/altitude-whole</property>
+	<factor>0.001</factor>
+	<step>100</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
  </animation>
 
  <animation>
-   <type>textranslate</type>
-   <object-name>agl.106</object-name>
-   <property>instrumentation/digital/agl-whole</property>
-   <factor>0.1</factor>
-   <step>1</step>
-   <axis>
-     <x>1</x>
-     <y>0</y>
-     <z>0</z>
-   </axis>
+	<type>textranslate</type>
+	<object-name>alt.105</object-name>
+	<property>instrumentation/digital/altitude-whole</property>
+	<factor>0.01</factor>
+	<step>10</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
  </animation>
 
  <animation>
-   <type>select</type>
-   <object-name>alt.minus</object-name>
-   <condition>
-     <less-than>
-       <property>position/altitude-ft</property>
-       <value>0</value>
-     </less-than>
-   </condition>
+	<type>textranslate</type>
+	<object-name>alt.106</object-name>
+	<property>instrumentation/digital/altitude-whole</property>
+	<factor>0.1</factor>
+	<step>1</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
  </animation>
 
  <animation>
-   <type>select</type>
-   <object-name>agl.minus</object-name>
-   <condition>
-     <less-than>
-       <property>sim/model/bluebird/position/altitude-agl-ft</property>
-       <value>0</value>
-     </less-than>
-   </condition>
+	<type>textranslate</type>
+	<object-name>agl.101</object-name>
+	<property>instrumentation/digital/agl-whole</property>
+	<factor>0.000001</factor>
+	<step>100000</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
  </animation>
 
  <animation>
-   <type>select</type>
-   <object-name>alt.ft</object-name>
-   <condition>
-     <equals>
-       <property>instrumentation/digital/altitude-mode</property>
-       <value>0</value>
-     </equals>
-   </condition>
+	<type>textranslate</type>
+	<object-name>agl.102</object-name>
+	<property>instrumentation/digital/agl-whole</property>
+	<factor>0.00001</factor>
+	<step>10000</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
  </animation>
 
  <animation>
-   <type>select</type>
-   <object-name>alt.m</object-name>
-   <condition>
-     <equals>
-       <property>instrumentation/digital/altitude-mode</property>
-       <value>1</value>
-     </equals>
-   </condition>
+	<type>textranslate</type>
+	<object-name>agl.103</object-name>
+	<property>instrumentation/digital/agl-whole</property>
+	<factor>0.0001</factor>
+	<step>1000</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
  </animation>
 
  <animation>
-   <type>select</type>
-   <object-name>alt.warn1</object-name>
-   <condition>
-     <and>
-       <property>sim/model/bluebird/systems/power-switch</property>
-       <property>sim/model/bluebird/lighting/ground-near</property>
-     </and>
-   </condition>
+	<type>textranslate</type>
+	<object-name>agl.104</object-name>
+	<property>instrumentation/digital/agl-whole</property>
+	<factor>0.001</factor>
+	<step>100</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
  </animation>
 
  <animation>
-   <type>select</type>
-   <object-name>alt.warn2</object-name>
-   <condition>
-     <and>
-       <property>sim/model/bluebird/systems/power-switch</property>
-       <equals>
-         <property>sim/model/bluebird/lighting/ground-warning</property>
-         <value>1</value>
-       </equals>
-     </and>
-   </condition>
+	<type>textranslate</type>
+	<object-name>agl.105</object-name>
+	<property>instrumentation/digital/agl-whole</property>
+	<factor>0.01</factor>
+	<step>10</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
  </animation>
 
  <animation>
-   <type>select</type>
-   <object-name>alt.warn3</object-name>
-   <condition>
-     <and>
-       <property>sim/model/bluebird/systems/power-switch</property>
-       <equals>
-         <property>sim/model/bluebird/lighting/ground-warning</property>
-         <value>2</value>
-       </equals>
-     </and>
-   </condition>
+	<type>textranslate</type>
+	<object-name>agl.106</object-name>
+	<property>instrumentation/digital/agl-whole</property>
+	<factor>0.1</factor>
+	<step>1</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
  </animation>
 
  <animation>
-   <type>select</type>
-   <object-name>alt.water</object-name>
-   <condition>
-     <less-than-equals>
-       <property>position/ground-elev-ft</property>
-       <value>0</value>
-     </less-than-equals>
-   </condition>
+	<type>select</type>
+	<object-name>alt.minus</object-name>
+	<condition>
+		<less-than>
+			<property>position/altitude-ft</property>
+			<value>0</value>
+		</less-than>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>agl.minus</object-name>
+	<condition>
+		<less-than>
+			<property>sim/model/bluebird/position/altitude-agl-ft</property>
+			<value>0</value>
+		</less-than>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>alt.ft</object-name>
+	<condition>
+		<equals>
+			<property>instrumentation/digital/altitude-mode</property>
+			<value>0</value>
+		</equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>alt.m</object-name>
+	<condition>
+		<equals>
+			<property>instrumentation/digital/altitude-mode</property>
+			<value>1</value>
+		</equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>alt.warn1</object-name>
+	<condition>
+		<and>
+			<property>sim/model/bluebird/systems/power-switch</property>
+			<property>sim/model/bluebird/lighting/ground-near</property>
+		</and>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>alt.warn2</object-name>
+	<condition>
+		<and>
+			<property>sim/model/bluebird/systems/power-switch</property>
+			<equals>
+				<property>sim/model/bluebird/lighting/ground-warning</property>
+				<value>1</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>alt.warn3</object-name>
+	<condition>
+		<and>
+			<property>sim/model/bluebird/systems/power-switch</property>
+			<equals>
+				<property>sim/model/bluebird/lighting/ground-warning</property>
+				<value>2</value>
+			</equals>
+		</and>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>alt.water</object-name>
+	<condition>
+		<less-than-equals>
+			<property>position/ground-elev-ft</property>
+			<value>0</value>
+		</less-than-equals>
+	</condition>
  </animation>
 
 </PropertyList>

@@ -7,66 +7,66 @@
  <path>controls-b.ac</path>
 
  <animation>
-  <type>material</type>
-  <object-name>Arrow.Top</object-name>
-  <object-name>Arrow.Left</object-name>
-  <object-name>Arrow.Right</object-name>
-  <object-name>Arrow.Bottom</object-name>
-  <object-name>Controls.Face</object-name>
-  <emission>
-   <red>1</red>
-   <green>0.75</green>
-   <blue>0.75</blue>
-   <factor-prop>sim/model/material/instruments/factor</factor-prop>
-  </emission>
+	<type>material</type>
+	<object-name>Arrow.Top</object-name>
+	<object-name>Arrow.Left</object-name>
+	<object-name>Arrow.Right</object-name>
+	<object-name>Arrow.Bottom</object-name>
+	<object-name>Controls.Face</object-name>
+	<emission>
+	<red>1</red>
+	<green>0.75</green>
+	<blue>0.75</blue>
+	<factor-prop>sim/model/material/instruments/factor</factor-prop>
+	</emission>
  </animation>
 
  <animation>
-  <type>translate</type>
-  <object-name>Arrow.Top</object-name>
-  <property>controls/flight/aileron</property>
-  <factor>0.0375</factor>
-  <axis>
-   <x>0</x>
-   <y>1</y>
-   <z>0</z>
-  </axis>
+	<type>translate</type>
+	<object-name>Arrow.Top</object-name>
+	<property>controls/flight/aileron</property>
+	<factor>0.0375</factor>
+	<axis>
+	<x>0</x>
+	<y>1</y>
+	<z>0</z>
+	</axis>
  </animation>
 
  <animation>
-  <type>translate</type>
-  <object-name>Arrow.Bottom</object-name>
-  <property>controls/flight/rudder</property>
-  <factor>0.0375</factor>
-  <axis>
-   <x>0</x>
-   <y>1</y>
-   <z>0</z>
-  </axis>
+	<type>translate</type>
+	<object-name>Arrow.Bottom</object-name>
+	<property>controls/flight/rudder</property>
+	<factor>0.0375</factor>
+	<axis>
+	<x>0</x>
+	<y>1</y>
+	<z>0</z>
+	</axis>
  </animation>
 
  <animation>
-  <type>translate</type>
-  <object-name>Arrow.Right</object-name>
-  <property>controls/flight/elevator</property>
-  <factor>0.028</factor>
-  <axis>
-   <x>0</x>
-   <y>0</y>
-   <z>1</z>
-  </axis>
+	<type>translate</type>
+	<object-name>Arrow.Right</object-name>
+	<property>controls/flight/elevator</property>
+	<factor>0.028</factor>
+	<axis>
+	<x>0</x>
+	<y>0</y>
+	<z>1</z>
+	</axis>
  </animation>
 
  <animation>
-  <type>translate</type>
-  <object-name>Arrow.Left</object-name>
-  <property>controls/flight/elevator-trim</property>
-  <factor>0.028</factor>
-  <axis>
-   <x>0</x>
-   <y>0</y>
-   <z>1</z>
-  </axis>
+	<type>translate</type>
+	<object-name>Arrow.Left</object-name>
+	<property>controls/flight/elevator-trim</property>
+	<factor>0.028</factor>
+	<axis>
+	<x>0</x>
+	<y>0</y>
+	<z>1</z>
+	</axis>
  </animation>
 
 </PropertyList>

@@ -1,257 +1,288 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hover Flyer  version 3.3 ==-->
+<!--== Bluebird Explorer Hovercraft  version 6.0 ==-->
 
 <PropertyList>
 
  <path>engine2.ac</path>
 
  <animation>
-   <name>engine-lit</name>
-   <object-name>damage.bar</object-name>
-   <object-name>damage.pod.L</object-name>
-   <object-name>damage.pod.R</object-name>
-   <object-name>engine.chart</object-name>
-   <object-name>engineering.label</object-name>
-   <object-name>engine.bar.001</object-name>
-   <object-name>engine.bar.002</object-name>
-   <object-name>engine.bar.003</object-name>
-   <object-name>powergraph.001</object-name>
-   <object-name>powergraph.002</object-name>
-   <object-name>powergraph.003</object-name>
-   <object-name>powergraph.004</object-name>
-   <object-name>powergraph.005</object-name>
-   <object-name>powergraph.006</object-name>
-   <object-name>powergraph.007</object-name>
-   <object-name>powergraph.008</object-name>
-   <object-name>powergraph.009</object-name>
-   <object-name>powergraph.010</object-name>
-   <object-name>powergraph.011</object-name>
-   <object-name>powergraph.012</object-name>
-   <object-name>engine.button.up</object-name>
-   <object-name>engine.button.down</object-name>
+	<name>engine-lit</name>
+	<object-name>damage.bar</object-name>
+	<object-name>damage.pod.L</object-name>
+	<object-name>damage.pod.R</object-name>
+	<object-name>engine.chart</object-name>
+	<object-name>engineering.label</object-name>
+	<object-name>engine.bar.001</object-name>
+	<object-name>engine.bar.002</object-name>
+	<object-name>engine.bar.003</object-name>
+	<object-name>powergraph.001</object-name>
+	<object-name>powergraph.002</object-name>
+	<object-name>powergraph.003</object-name>
+	<object-name>powergraph.004</object-name>
+	<object-name>powergraph.005</object-name>
+	<object-name>powergraph.006</object-name>
+	<object-name>powergraph.007</object-name>
+	<object-name>powergraph.008</object-name>
+	<object-name>powergraph.009</object-name>
+	<object-name>powergraph.010</object-name>
+	<object-name>powergraph.011</object-name>
+	<object-name>powergraph.012</object-name>
+	<object-name>engine.button.up</object-name>
+	<object-name>engine.button.down</object-name>
  </animation>
 
 <!-- damage bar moves 25 count per color -->
  <animation>
-   <type>textranslate</type>
-   <object-name>damage.bar</object-name>
-   <property>sim/model/bluebird/damage/hits-counter</property>
-   <factor>0.005</factor>
-   <step>1</step>
-   <scroll>1</scroll>
-   <axis>
-     <x>1</x>
-     <y>0</y>
-     <z>0</z>
-   </axis>
+	<type>textranslate</type>
+	<object-name>damage.bar</object-name>
+	<property>sim/model/bluebird/damage/hits-counter</property>
+	<factor>0.005</factor>
+	<step>1</step>
+	<scroll>1</scroll>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
  </animation>
 
  <animation>
-   <type>select</type>
-   <object-name>damage.pod.L</object-name>
-   <condition>
-     <and>
-       <not>
-         <property>sim/model/bluebird/components/nacelle-L</property>
-       </not>
-       <or>
-         <not>
-           <property>controls/lighting/alert</property>
-         </not>
-         <and>
-           <property>sim/model/bluebird/lighting/alert1/state</property>
-           <property>controls/lighting/alert</property>
-         </and>
-       </or>
-     </and>
-   </condition>
+	<type>select</type>
+	<object-name>damage.pod.L</object-name>
+	<condition>
+		<and>
+			<not>
+				<property>sim/model/bluebird/components/nacelle-L</property>
+			</not>
+			<or>
+				<not>
+					<property>controls/lighting/alert</property>
+				</not>
+				<and>
+					<property>sim/model/bluebird/lighting/alert1/state</property>
+					<property>controls/lighting/alert</property>
+				</and>
+			</or>
+		</and>
+	</condition>
  </animation>
 
  <animation>
-   <type>select</type>
-   <object-name>damage.pod.R</object-name>
-   <condition>
-     <and>
-       <not>
-         <property>sim/model/bluebird/components/nacelle-R</property>
-       </not>
-       <or>
-         <not>
-           <property>controls/lighting/alert</property>
-         </not>
-         <and>
-           <property>sim/model/bluebird/lighting/alert1/state</property>
-           <property>controls/lighting/alert</property>
-         </and>
-       </or>
-     </and>
-   </condition>
- </animation>
-
-
- <animation>
-   <type>textranslate</type>
-   <object-name>engine.bar.001</object-name>
-   <property>sim/model/bluebird/lighting/engine-glow</property>
-   <factor>0.2</factor>
-   <step>1</step>
-   <scroll>1</scroll>
-   <axis>
-     <x>1</x>
-     <y>0</y>
-     <z>0</z>
-   </axis>
+	<type>select</type>
+	<object-name>damage.pod.R</object-name>
+	<condition>
+		<and>
+			<not>
+				<property>sim/model/bluebird/components/nacelle-R</property>
+			</not>
+			<or>
+				<not>
+					<property>controls/lighting/alert</property>
+				</not>
+				<and>
+					<property>sim/model/bluebird/lighting/alert1/state</property>
+					<property>controls/lighting/alert</property>
+				</and>
+			</or>
+		</and>
+	</condition>
  </animation>
 
  <animation>
-   <type>textranslate</type>
-   <object-name>engine.bar.002</object-name>
-   <property>sim/model/bluebird/lighting/wave-guide-glow</property>
-   <factor>0.15</factor>
-   <step>1</step>
-   <scroll>1</scroll>
-   <axis>
-     <x>1</x>
-     <y>0</y>
-     <z>0</z>
-   </axis>
+	<type>textranslate</type>
+	<object-name>engine.bar.001</object-name>
+	<property>sim/model/bluebird/lighting/engine-glow</property>
+	<factor>0.2</factor>
+	<step>1</step>
+	<scroll>1</scroll>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
  </animation>
 
  <animation>
-   <type>textranslate</type>
-   <object-name>engine.bar.003</object-name>
-   <property>sim/model/bluebird/sound/pitch-level</property>
-   <factor>0.025</factor>
-   <step>1</step>
-   <scroll>1</scroll>
-   <axis>
-     <x>1</x>
-     <y>0</y>
-     <z>0</z>
-   </axis>
- </animation>
-
-
- <animation>
-   <type>select</type>
-   <object-name>powergraph.002</object-name>
-   <condition>
-     <greater-than-equals>
-       <property>engines/engine/speed-max-powerlevel</property>
-       <value>1</value>
-     </greater-than-equals>
-   </condition>
+	<type>textranslate</type>
+	<object-name>engine.bar.002</object-name>
+	<property>sim/model/bluebird/lighting/wave-guide-glow</property>
+	<factor>0.15</factor>
+	<step>1</step>
+	<scroll>1</scroll>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
  </animation>
 
  <animation>
-   <type>select</type>
-   <object-name>powergraph.003</object-name>
-   <condition>
-     <greater-than-equals>
-       <property>engines/engine/speed-max-powerlevel</property>
-       <value>2</value>
-     </greater-than-equals>
-   </condition>
+	<type>textranslate</type>
+	<object-name>engine.bar.003</object-name>
+	<property>sim/model/bluebird/sound/pitch-level</property>
+	<factor>0.025</factor>
+	<step>1</step>
+	<scroll>1</scroll>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
  </animation>
 
  <animation>
-   <type>select</type>
-   <object-name>powergraph.004</object-name>
-   <condition>
-     <greater-than-equals>
-       <property>engines/engine/speed-max-powerlevel</property>
-       <value>3</value>
-     </greater-than-equals>
-   </condition>
+	<type>select</type>
+	<object-name>powergraph.001</object-name>
+	<object-name>powergraph.002</object-name>
+	<condition>
+		<and>
+			<greater-than-equals>
+				<property>engines/engine/speed-max-powerlevel</property>
+				<value>0</value>
+			</greater-than-equals>
+			<property>sim/model/bluebird/systems/power-switch</property>
+		</and>
+	</condition>
  </animation>
 
  <animation>
-   <type>select</type>
-   <object-name>powergraph.005</object-name>
-   <condition>
-     <greater-than-equals>
-       <property>engines/engine/speed-max-powerlevel</property>
-       <value>4</value>
-     </greater-than-equals>
-   </condition>
+	<type>select</type>
+	<object-name>powergraph.003</object-name>
+	<condition>
+		<and>
+			<greater-than-equals>
+				<property>engines/engine/speed-max-powerlevel</property>
+				<value>1</value>
+			</greater-than-equals>
+			<property>sim/model/bluebird/systems/power-switch</property>
+		</and>
+	</condition>
  </animation>
 
  <animation>
-   <type>select</type>
-   <object-name>powergraph.006</object-name>
-   <condition>
-     <greater-than-equals>
-       <property>engines/engine/speed-max-powerlevel</property>
-       <value>5</value>
-     </greater-than-equals>
-   </condition>
+	<type>select</type>
+	<object-name>powergraph.004</object-name>
+	<condition>
+		<and>
+			<greater-than-equals>
+				<property>engines/engine/speed-max-powerlevel</property>
+				<value>2</value>
+			</greater-than-equals>
+			<property>sim/model/bluebird/systems/power-switch</property>
+		</and>
+	</condition>
  </animation>
 
  <animation>
-   <type>select</type>
-   <object-name>powergraph.007</object-name>
-   <condition>
-     <greater-than-equals>
-       <property>engines/engine/speed-max-powerlevel</property>
-       <value>6</value>
-     </greater-than-equals>
-   </condition>
+	<type>select</type>
+	<object-name>powergraph.005</object-name>
+	<condition>
+		<and>
+			<greater-than-equals>
+				<property>engines/engine/speed-max-powerlevel</property>
+				<value>3</value>
+			</greater-than-equals>
+			<property>sim/model/bluebird/systems/power-switch</property>
+		</and>
+	</condition>
  </animation>
 
  <animation>
-   <type>select</type>
-   <object-name>powergraph.008</object-name>
-   <condition>
-     <greater-than-equals>
-       <property>engines/engine/speed-max-powerlevel</property>
-       <value>7</value>
-     </greater-than-equals>
-   </condition>
+	<type>select</type>
+	<object-name>powergraph.006</object-name>
+	<condition>
+		<and>
+			<greater-than-equals>
+				<property>engines/engine/speed-max-powerlevel</property>
+				<value>4</value>
+			</greater-than-equals>
+			<property>sim/model/bluebird/systems/power-switch</property>
+		</and>
+	</condition>
  </animation>
 
  <animation>
-   <type>select</type>
-   <object-name>powergraph.009</object-name>
-   <condition>
-     <greater-than-equals>
-       <property>engines/engine/speed-max-powerlevel</property>
-       <value>8</value>
-     </greater-than-equals>
-   </condition>
+	<type>select</type>
+	<object-name>powergraph.007</object-name>
+	<condition>
+		<and>
+			<greater-than-equals>
+				<property>engines/engine/speed-max-powerlevel</property>
+				<value>5</value>
+			</greater-than-equals>
+			<property>sim/model/bluebird/systems/power-switch</property>
+		</and>
+	</condition>
  </animation>
 
  <animation>
-   <type>select</type>
-   <object-name>powergraph.010</object-name>
-   <condition>
-     <greater-than-equals>
-       <property>engines/engine/speed-max-powerlevel</property>
-       <value>9</value>
-     </greater-than-equals>
-   </condition>
+	<type>select</type>
+	<object-name>powergraph.008</object-name>
+	<condition>
+		<and>
+			<greater-than-equals>
+				<property>engines/engine/speed-max-powerlevel</property>
+				<value>6</value>
+			</greater-than-equals>
+			<property>sim/model/bluebird/systems/power-switch</property>
+		</and>
+	</condition>
  </animation>
 
  <animation>
-   <type>select</type>
-   <object-name>powergraph.011</object-name>
-   <condition>
-     <greater-than-equals>
-       <property>engines/engine/speed-max-powerlevel</property>
-       <value>10</value>
-     </greater-than-equals>
-   </condition>
+	<type>select</type>
+	<object-name>powergraph.009</object-name>
+	<condition>
+		<and>
+			<greater-than-equals>
+				<property>engines/engine/speed-max-powerlevel</property>
+				<value>7</value>
+			</greater-than-equals>
+			<property>sim/model/bluebird/systems/power-switch</property>
+		</and>
+	</condition>
  </animation>
 
  <animation>
-   <type>select</type>
-   <object-name>powergraph.012</object-name>
-   <condition>
-     <greater-than-equals>
-       <property>engines/engine/speed-max-powerlevel</property>
-       <value>11</value>
-     </greater-than-equals>
-   </condition>
+	<type>select</type>
+	<object-name>powergraph.010</object-name>
+	<condition>
+		<and>
+			<greater-than-equals>
+				<property>engines/engine/speed-max-powerlevel</property>
+				<value>8</value>
+			</greater-than-equals>
+			<property>sim/model/bluebird/systems/power-switch</property>
+		</and>
+	</condition>
  </animation>
 
+ <animation>
+	<type>select</type>
+	<object-name>powergraph.011</object-name>
+	<condition>
+		<and>
+			<greater-than-equals>
+				<property>engines/engine/speed-max-powerlevel</property>
+				<value>9</value>
+			</greater-than-equals>
+			<property>sim/model/bluebird/systems/power-switch</property>
+		</and>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>powergraph.012</object-name>
+	<condition>
+		<and>
+			<greater-than-equals>
+				<property>engines/engine/speed-max-powerlevel</property>
+				<value>10</value>
+			</greater-than-equals>
+			<property>sim/model/bluebird/systems/power-switch</property>
+		</and>
+	</condition>
+ </animation>
 
 </PropertyList>
