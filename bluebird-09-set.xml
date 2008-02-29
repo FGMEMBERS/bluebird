@@ -8,7 +8,29 @@
 		<path>Aircraft/bluebird/Models/bluebird-plib.xml</path>
 	</model>
 
-	<lon-lat-format type="double">0</lon-lat-format>
+	<menubar>
+		<default>
+			<menu n="10">
+				<label>Bluebird</label>
+				<enabled type="bool">true</enabled>
+				<item>
+					<label>Systems</label>
+					<binding>
+						<command>nasal</command>
+						<script>bluebird.showDialog1()</script>
+					</binding>
+				</item>
+				<item>
+					<label>Configuration</label>
+					<binding>
+						<command>nasal</command>
+						<script>bluebird.showDialog2()</script>
+					</binding>
+				</item>
+			</menu>
+		</default>
+	</menubar>
+
 	<submodels>
 		<serviceable>true</serviceable>
 		<path>Aircraft/bluebird/Models/submodels-09.xml</path>
@@ -17,6 +39,7 @@
 
  <nasal>
 	<bluebird>
+		<file>Aircraft/bluebird/Nasal/bluebird-base.nas</file>
 		<file>Aircraft/bluebird/Nasal/bluebird-09.nas</file>
 	</bluebird>
 	<digitalPanel>

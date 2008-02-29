@@ -4,7 +4,7 @@
  <sim>
 	<aero>bluebird</aero>
 	<status>early-production</status>
-	<aircraft-version>6.0</aircraft-version>
+	<aircraft-version>6.1</aircraft-version>
 	<author>S Andreason</author>
 	<aircraft-status>
 		<fdm>beta</fdm>
@@ -492,9 +492,9 @@
 				<fuselage-top>
 					<texture>livery.rgb</texture>
 					<diffuse>
-						<red>0.1</red>
-						<green>0.1</green>
-						<blue>0.1</blue>
+						<red>0.2</red>
+						<green>0.3</green>
+						<blue>0.5</blue>
 					</diffuse>
 					<ambient>
 						<red>0.4</red>
@@ -512,9 +512,9 @@
 				<fuselage-upper>
 					<texture>livery.rgb</texture>
 					<diffuse>
-						<red>0.1</red>
-						<green>0.1</green>
-						<blue>0.1</blue>
+						<red>0.25</red>
+						<green>0.35</green>
+						<blue>0.5</blue>
 					</diffuse>
 					<ambient>
 						<red>0.5</red>
@@ -532,9 +532,9 @@
 				<fuselage-lower>
 					<texture>livery.rgb</texture>
 					<diffuse>
-						<red>0.1</red>
-						<green>0.1</green>
-						<blue>0.1</blue>
+						<red>0.4</red>
+						<green>0.4</green>
+						<blue>0.4</blue>
 					</diffuse>
 					<ambient>
 						<red>0.8</red>
@@ -552,9 +552,9 @@
 				<hull-trim>
 					<texture>livery.rgb</texture>
 					<diffuse>
-						<red>0.1</red>
-						<green>0.1</green>
-						<blue>0.1</blue>
+						<red>0.2</red>
+						<green>0.3</green>
+						<blue>0.5</blue>
 					</diffuse>
 					<ambient>
 						<red>0.4</red>
@@ -592,9 +592,9 @@
 				<hull-wings>
 					<texture>livery.rgb</texture>
 					<diffuse>
-						<red>0.5</red>
-						<green>0.5</green>
-						<blue>0.5</blue>
+						<red>0.7</red>
+						<green>0.7</green>
+						<blue>0.7</blue>
 					</diffuse>
 					<ambient>
 						<red>0.7</red>
@@ -678,7 +678,7 @@
 		<title>Bluebird Explorer</title>
 		<key n="0">
 			<name>tab</name>
-			<desc>open/close configuration dialog</desc>
+			<desc>open/close systems dialog</desc>
 		</key>
 		<key n="1">
 			<name>tilde~</name>
@@ -754,6 +754,7 @@
 		</key>
 	</help>
 
+	<lon-lat-format type="double">0</lon-lat-format>
 	<panel>
 		<visibility>false</visibility>
 	</panel>
@@ -827,10 +828,10 @@
 	<keyboard>
 		<key n="9">
 			<name>Ctrl-I</name>
-			<desc>Show configuration dialog</desc>
+			<desc>Show systems dialog</desc>
 			<binding>
 				<command>nasal</command>
-				<script>bluebird.showDialog()</script>
+				<script>bluebird.showDialog1()</script>
 			</binding>
 		</key>
 		<key n="126">
@@ -976,21 +977,11 @@
 			<tumble-flag type="bool">true</tumble-flag>
 		</config>
 	</attitude-indicator>
-	<radar>
-		<serviceable type="bool">true</serviceable>
-		<switch type="string" archive="y">on</switch>
-		<range type="double" archive="y">40</range>
-		<mode-control type="int" archive="y">2</mode-control>
-		<limit-deg type="double">180</limit-deg>
-		<mode type="string" archive="y">WX</mode>
-		<lightning type="bool" archive="y">true</lightning>
-		<display-mode type="string" archive="y">plan</display-mode>
-		<display-controls>
-			<WX type="bool" archive="y">false</WX>
-			<data type="bool" archive="y">true</data>
-			<pos type="bool" archive="y">true</pos>
-		</display-controls>
-	</radar>
+	<digital>
+		<altitude-mode type="double">0</altitude-mode>
+		<heading-mode type="double">0</heading-mode>
+		<velocity-mode type="double">1</velocity-mode>
+	</digital>
 	<nav n="0">
 		<frequencies>
 			<selected-mhz type="double">0</selected-mhz>

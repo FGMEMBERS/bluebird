@@ -1,4 +1,14 @@
 Version# Vertices PolygonFaces Comments
+2008.Feb.28
+6.1	Replace splash screen
+	Remove experimental radar properties.
+	Remember instrumentation configuration.
+	Separate repetitive sections from nasal files.
+	Separate configuration from systems dialogs.
+	Fix beacon in 0.9.10 version.
+
+6.01	Update splash screen
+
 2008.Feb.23
 6.0	23337	19664	new model and texture files
 	Split up some more objects for proper lighting/colors.

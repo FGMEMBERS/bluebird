@@ -32,10 +32,17 @@
 				<label>Bluebird</label>
 				<enabled type="bool">true</enabled>
 				<item>
+					<label>Systems</label>
+					<binding>
+						<command>nasal</command>
+						<script>bluebird.showDialog1()</script>
+					</binding>
+				</item>
+				<item>
 					<label>Configuration</label>
 					<binding>
 						<command>nasal</command>
-						<script>bluebird.showDialog()</script>
+						<script>bluebird.showDialog2()</script>
 					</binding>
 				</item>
 				<item>
@@ -43,6 +50,13 @@
 					<binding>
 						<command>nasal</command>
 						<script>aircraft.livery.dialog.toggle()</script>
+					</binding>
+				</item>
+				<item>
+					<label>Toggle venting/contrails</label>
+					<binding>
+						<command>nasal</command>
+						<script>bluebird.toggle_venting_both()</script>
 					</binding>
 				</item>
 			</menu>
@@ -106,10 +120,13 @@
 
  <nasal>
 	<bluebird>
+		<file>Aircraft/bluebird/Nasal/bluebird-base.nas</file>
 		<file>Aircraft/bluebird/Nasal/bluebird.nas</file>
+		<file>Aircraft/bluebird/Nasal/saveconfig.nas</file>
 	</bluebird>
 	<digitalPanel>
 		<file>Aircraft/bluebird/Instruments-3d/digital2/digital2.nas</file>
+		<file>Aircraft/bluebird/Instruments-3d/digital2/savedata.nas</file>
 	</digitalPanel>
  </nasal>
 </PropertyList>

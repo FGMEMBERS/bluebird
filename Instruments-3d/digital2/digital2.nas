@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 6.0 =====
+# ===== Bluebird Explorer Hovercraft  version 6.1 =====
 
 # instrumentation ===================================================
 var lat_whole = props.globals.getNode("instrumentation/digital/lat-whole", 1);
@@ -12,12 +12,9 @@ var alt_whole = props.globals.getNode("instrumentation/digital/altitude-whole", 
 var agl_whole = props.globals.getNode("instrumentation/digital/agl-whole", 1);
 var throttle_whole = props.globals.getNode("instrumentation/digital/throttle-whole", 1);
 var head_mode = props.globals.getNode("instrumentation/digital/heading-mode", 1);
-	head_mode.setValue(0);
 var vel_mode = props.globals.getNode("instrumentation/digital/velocity-mode", 1);
-	vel_mode.setValue(1);  # startup in Knots
 var gps_mode = props.globals.getNode("sim/lon-lat-format", 1);
 var altitude_mode = props.globals.getNode("instrumentation/digital/altitude-mode", 1);
-	altitude_mode.setValue(0);  # startup in Feet
 
 instrumentation_update = func {
 	if (getprop("sim/current-view/view-number") == 0) {
