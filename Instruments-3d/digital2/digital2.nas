@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 6.1 =====
+# ===== Bluebird Explorer Hovercraft  version 6.3 =====
 
 # instrumentation ===================================================
 var lat_whole = props.globals.getNode("instrumentation/digital/lat-whole", 1);
@@ -74,7 +74,8 @@ instrumentation_update = func {
 			var ii = xx * 1.150779448;
 		} elsif (vm == 3) {  # kmph
 			var ii = xx * 1.852;
-		} elsif (vm == 4) {  # mach at fixed pressure and temperature
+		} elsif (vm == 4) {  # mach at fixed pressure and temperature for 755mph
+			# speed of sound at: 60F = 760mph , -80F at 65,000ft = 650mph , at 100,000ft = 480mph
 			var ii = xx * 1.524;
 		} else {        # knots
 			var ii = xx;

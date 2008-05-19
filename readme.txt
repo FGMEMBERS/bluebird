@@ -19,13 +19,13 @@ Press [?] for help with keyboard shortcuts.
 -------------------------------------------------
 2008 by Stewart Andreason for FlightGear
 
-Release version 6.1   2008.Feb.29
+Release version 6.26   2008.May.17
    23337 vertices, 19664 polygon faces, 427 objects (in primary model)
 
 Send Suggestions? Comments? Problems? or Encouragement to:
   sandreas41 <at> yahoo <dot> com
 Stay current with latest version. This model came from: 
-  http://www.geocities.com/sandreas41/flightgear_aircraft.html
+  http://seahorse.10gbfreehost.com/flightgear_aircraft.html
 
 Highlights in this model:
   Hover capable
@@ -55,6 +55,12 @@ Highlights in this model:
      an editor capable of writing SGI and RGB files (like GIMP)
      Draw in the non-black areas, following the dots that correspond to the 
      fuselage surface, then save as a new filename.RGB
+
+  Capable of walking around cockpit and around aircraft,
+   out the doors or hatches to ground, 
+   or jump when airborne like a sky diver.
+  Free fall with or without a parachute at terminal velocity.
+
   Support for next OSG version:
      start with aircraft=bluebird-osg
   Compatibility with previous Flightgear version 0.9.10:

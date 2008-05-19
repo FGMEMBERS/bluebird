@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Bluebird Explorer Hovercraft  version 6.0 for FlightGear v1.0 PLIB -->
+<!-- Bluebird Explorer Hovercraft  version 6.2 for FlightGear v1.0 PLIB -->
 
 <PropertyList>
 
@@ -257,6 +257,40 @@
 
  <animation>
 	<type>material</type>
+	<object-name>alt.hold.button</object-name>
+	<emission>
+		<red-prop>sim/model/bluebird/lighting/emission/I5-red</red-prop>
+		<green-prop>sim/model/bluebird/lighting/emission/I5-green</green-prop>
+		<blue-prop>sim/model/bluebird/lighting/emission/I5-blue</blue-prop>
+		<factor>1</factor>
+	</emission>
+	<specular>
+		<factor-prop>sim/model/bluebird/lighting/specular/interior</factor-prop>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</specular>
+ </animation>
+
+ <animation>
+	<type>material</type>
+	<object-name>agl.hold.button</object-name>
+	<emission>
+		<red-prop>sim/model/bluebird/lighting/emission/I5-red</red-prop>
+		<green-prop>sim/model/bluebird/lighting/emission/I5-green</green-prop>
+		<blue-prop>sim/model/bluebird/lighting/emission/I5-blue</blue-prop>
+		<factor>1</factor>
+	</emission>
+	<specular>
+		<factor-prop>sim/model/bluebird/lighting/specular/interior</factor-prop>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</specular>
+ </animation>
+
+ <animation>
+	<type>material</type>
 	<object-name>altitude.button</object-name>
 	<emission>
 		<red-prop>sim/model/bluebird/lighting/emission/I5-red</red-prop>
@@ -275,6 +309,23 @@
  <animation>
 	<type>material</type>
 	<object-name>heading.frame</object-name>
+	<emission>
+		<red-prop>sim/model/bluebird/lighting/emission/I5-red</red-prop>
+		<green-prop>sim/model/bluebird/lighting/emission/I5-green</green-prop>
+		<blue-prop>sim/model/bluebird/lighting/emission/I5-blue</blue-prop>
+		<factor>1</factor>
+	</emission>
+	<specular>
+		<factor-prop>sim/model/bluebird/lighting/specular/interior</factor-prop>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</specular>
+ </animation>
+
+ <animation>
+	<type>material</type>
+	<object-name>head.hold.button</object-name>
 	<emission>
 		<red-prop>sim/model/bluebird/lighting/emission/I5-red</red-prop>
 		<green-prop>sim/model/bluebird/lighting/emission/I5-green</green-prop>

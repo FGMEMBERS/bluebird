@@ -45,5 +45,8 @@
 	<digitalPanel>
 		<file>Aircraft/bluebird/Instruments-3d/digital2/digital2.nas</file>
 	</digitalPanel>
+	<walk>
+		<file>Aircraft/bluebird/Nasal/walk-09.nas</file>
+	</walk>
  </nasal>
 </PropertyList>

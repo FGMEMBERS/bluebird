@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 6.0 ==-->
+<!--== Bluebird Explorer Hovercraft  version 6.2 ==-->
 
 <PropertyList>
 
@@ -27,8 +27,6 @@
 	<object-name>powergraph.010</object-name>
 	<object-name>powergraph.011</object-name>
 	<object-name>powergraph.012</object-name>
-	<object-name>engine.button.up</object-name>
-	<object-name>engine.button.down</object-name>
  </animation>
 
 <!-- damage bar moves 25 count per color -->

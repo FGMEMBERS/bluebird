@@ -404,6 +404,20 @@
 	</animation>
 
 	<animation>
+		<object-name>Nose:DoorL.Step1.6</object-name>
+		<object-name>Nose:DoorL.Step1.9</object-name>
+		<object-name>Nose:DoorL.Step2.6</object-name>
+		<object-name>Nose:DoorL.Step2.9</object-name>
+		<object-name>Nose:DoorL.Step3.6</object-name>
+		<object-name>Nose:DoorL.Step3.9</object-name>
+		<object-name>Nose:DoorL.Step4.6</object-name>
+		<object-name>Nose:DoorL.Step4.9</object-name>
+		<object-name>Nose:DoorL.Step5.6</object-name>
+		<object-name>Nose:DoorL.Step5.9</object-name>
+		<enable-hot>false</enable-hot>
+	</animation>
+
+	<animation>
 		<type>rotate</type>
 		<object-name>Nose:DoorL.Step1.6</object-name>
 		<object-name>Nose:DoorL.Step1.9</object-name>
@@ -967,6 +981,20 @@
 			<y2-m>2.627</y2-m>
 			<z2-m>0.495</z2-m>
 		</axis>
+	</animation>
+
+	<animation>
+		<object-name>Nose:DoorR.Step1.6</object-name>
+		<object-name>Nose:DoorR.Step1.9</object-name>
+		<object-name>Nose:DoorR.Step2.6</object-name>
+		<object-name>Nose:DoorR.Step2.9</object-name>
+		<object-name>Nose:DoorR.Step3.6</object-name>
+		<object-name>Nose:DoorR.Step3.9</object-name>
+		<object-name>Nose:DoorR.Step4.6</object-name>
+		<object-name>Nose:DoorR.Step4.9</object-name>
+		<object-name>Nose:DoorR.Step5.6</object-name>
+		<object-name>Nose:DoorR.Step5.9</object-name>
+		<enable-hot>false</enable-hot>
 	</animation>
 
 	<animation>
@@ -2194,6 +2222,13 @@
 			<y>1</y>
 			<z>0</z>
 		</axis>
+	</animation>
+
+	<animation>
+		<object-name>Mesh:HatchB.EmL</object-name>
+		<object-name>Mesh:HatchB.Em1</object-name>
+		<object-name>Mesh:HatchB.Em8</object-name>
+		<enable-hot>false</enable-hot>
 	</animation>
 
 	<animation>

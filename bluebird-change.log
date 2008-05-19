@@ -1,5 +1,47 @@
 Version# Vertices PolygonFaces Comments
-2008.Feb.28
+2008.May.19
+6.27	Add acceleration to hovering on keyboard controls.
+	Add running to walker when outside.
+	Fix keyboard problem with mod-up, for walker and hover functions.
+	Disable view limits.
+
+2008.May.17
+6.26	Fine tune the physics of falling for smoothness in all 3 dimensions.
+
+2008.May.16
+6.25	Add parachute for falling sky diving walker to land safely.
+
+2008.May.15
+6.24	Add calculations for terminal velocity and free fall,
+	and use correct physics formulas for the path of a sky diver.
+	Fix accuracy for east longitude and southern latitudes.
+	Include vertical velocity in crash damage.
+
+2008.May.13
+6.23	Finish complex trigonometry for conversion from x,y to latitude,longitude.
+	Fix exiting from doors and hatches.
+	Fix correct orientation including Backing out the door
+
+2008.May.07
+6.22	Fix ground-near-plane setting for FlightGear version 1.0
+	Fix key bindings for version 1.0 compiled with glut.
+
+2008.May.06
+6.21	Solidify doors, regain equilibrium after jumping out of moving aircraft. (stop leaning)
+	Import changes I made for ufo in March to add acceleration to hovering.
+
+2008.May.06
+6.2	23337	19664	no change to primary model, minor changes to digital instruments.
+	Add walker for outside on terrain.
+	Add boundaries for walking inside around cabin.
+	Add thresholds at the doors and hatches to go outside by walking out the door.
+	Add altitude and heading autopilot-like hold buttons (non-functional for now).
+	Fix key description for Home/End keys.
+	Fix button emmissions on engineering panel.
+	Remove some repetitive comments.
+	Add hot (height over terrain) tags to hatches. experimental or non-functional.
+
+2008.Feb.29
 6.1	Replace splash screen
 	Remove experimental radar properties.
 	Remember instrumentation configuration.

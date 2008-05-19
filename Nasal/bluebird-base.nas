@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 6.1 common base =====
+# ===== Bluebird Explorer Hovercraft  version 6.27 common base =====
 
 # Add second popupTip to avoid being overwritten by primary joystick messages ==
 var tipArg2 = props.Node.new({ "dialog-name" : "PopTip2" });
@@ -20,20 +20,14 @@ var popupTip2 = func {
 	settimer(func { if(currTimer2 == thisTimer2) { fgcommand("dialog-close", tipArg2); } }, 1.5, 1);
 }
 
-#==========================================================================
-#             === define global nodes and constants ===
-
-# define damage variables -------------------------------------------
-	# significant damage occurs above 50 impacts, each exceeding 600 fps per clock cycle
-	# changing this number also requires changing <value> and <ind> in both xml files.
-var destruction_threshold = 50;
+# === global nodes, and constants ===================================
 
 # view nodes and offsets --------------------------------------------
 var zNoseNode = props.globals.getNode("sim/view/config/y-offset-m", 1);
 var xViewNode = props.globals.getNode("sim/current-view/z-offset-m", 1);
 var yViewNode = props.globals.getNode("sim/current-view/x-offset-m", 1);
 var hViewNode = props.globals.getNode("sim/current-view/heading-offset-deg", 1);
-var vertical_offset = 0.5830;  
+var vertical_offset_ft = 0.5830;
 	# keep shadow off ground at expense of keeping wheels and gear
 	# at ground level. Also adjust bluebird.xml line# 9564 with negative
 	# of change. Default offset in model = 0.483 feet for gear on ground
@@ -82,6 +76,9 @@ var current = props.globals.getNode("engines/engine/speed-max-powerlevel", 1);
 # VTOL counter-grav -------------------------------------------------
 # ---  expect joystick hat to provide best VTOL control ----
 var joystick_elevator = props.globals.getNode("input/joysticks/js/axis[1]/binding/setting", 1);
+var vert_factor = 0.1;
+var up_dir = 0;
+var up_watch = 0;
 
 # ground detection and adjustment -----------------------------------
 var altitude_ft_Node = props.globals.getNode("position/altitude-ft", 1);
@@ -91,8 +88,12 @@ var roll_deg = props.globals.getNode("orientation/roll-deg", 1);
 var roll_control = props.globals.getNode("controls/flight/aileron", 1);
 var pitch_control = props.globals.getNode("controls/flight/elevator", 1);
 
-#==========================================================================
-#    === define nasal non-local variables at startup ===
+# define damage variables -------------------------------------------
+	# significant damage occurs above 50 impacts, each exceeding 600 fps per clock cycle
+	# changing this number also requires changing <value> and <ind> in both xml files.
+var destruction_threshold = 50;
+
+# === define nasal non-local variables at startup ===================
 # interior lighting and emissions -----------------------------------
 	# surface# color/location SEE LINE# 1509 for location of calculations
 	#  0       Overhead lights
@@ -117,11 +118,11 @@ var livery_I1AB = 1.0;
 var livery_I1R_add = 0.5;  # factor to calculate ambient from livery
 var livery_I1G_add = 0.0;  #  accounting for alert_level
 var livery_I1B_add = -0.25;
-var livery_I2R = 0.0;   # material 2 ceiling light frames
+var livery_I2R = 0.0;
 var livery_I2G = 0.0;
-var livery_I3R = 0.0;   # material 3 grey60 buttons
+var livery_I3R = 0.0;
 var livery_I3G = 0.0;
-var livery_I4R = 0.0;   # material 4 lower walls
+var livery_I4R = 0.0;
 var livery_I4G = 0.0;
 var livery_I4B = 0.0;
 var livery_I4AR = 0.60;
@@ -130,7 +131,7 @@ var livery_I4AB = 0.60;
 var livery_I4R_add = 0.0;
 var livery_I4G_add = 0.0;
 var livery_I4B_add = 0.0;
-var livery_I5R = 0.0;  # material 5 panels
+var livery_I5R = 0.0;
 var livery_I5G = 0.0;
 var livery_I5B = 0.0;
 var livery_I5AR = 0.0;
@@ -139,7 +140,7 @@ var livery_I5AB = 0.0;
 var livery_I5R_add = 0.0;
 var livery_I5G_add = 0.0;
 var livery_I5B_add = 0.0;
-var livery_I7R = 0.0;  # material 7 chairs
+var livery_I7R = 0.0;
 var livery_I7G = 0.0;
 var livery_I7B = 0.0;
 var livery_I7AR = 0.0;
@@ -148,7 +149,7 @@ var livery_I7AB = 0.0;
 var livery_I7R_add = 0.0;
 var livery_I7G_add = 0.0;
 var livery_I7B_add = 0.0;
-var livery_I8R = 0.0;  # material 8 hatch-flooring
+var livery_I8R = 0.0;
 var livery_I8G = 0.0;
 var livery_I8B = 0.0;
 var livery_I8AR = 0.0;
@@ -157,7 +158,7 @@ var livery_I8AB = 0.0;
 var livery_I8R_add = 0.0;
 var livery_I8G_add = 0.0;
 var livery_I8B_add = 0.0;
-var livery_IAR = 0.0;   # material A door panels
+var livery_IAR = 0.0;
 var livery_IAG = 0.0;
 var livery_IAB = 0.0;
 var livery_IAAR = 0.50;
@@ -166,7 +167,7 @@ var livery_IAAB = 0.90;
 var livery_IAR_add = 0.0;
 var livery_IAG_add = 0.0;
 var livery_IAB_add = 0.0;
-var livery_IUR = 0.0;   # material U upper walls
+var livery_IUR = 0.0;
 var livery_IUG = 0.0;
 var livery_IUB = 0.0;
 var livery_IUAR = 0.70;
@@ -216,15 +217,15 @@ var damage_count = 0;
 var lose_altitude = 0;   # drift or sink when damaged or power shuts down
 var damage_blocker = 0;
 # ------ nav lights ------
-var sun_angle = 0;  # down to 0 at high noon, 2 at midnight, depending on latitude
-var visibility = 16000;                # 16Km
+var sun_angle = 0;	# down to 0 at high noon, 2 at midnight, depending on latitude
+var visibility = 16000;		# 16Km
 # --------- gear ---------
 var gear_looping = 0;          # keep track of gear loop, so there is only one instance per call
 var gear_position = 1;
 var gear_mode = 0;             # 0 = full pressure, stiff gear (or) 1 = lower, settle closer to ground
 var active_gear_button = [1, 3];
 var gear_height = 2.47;           # Height of gear
-		# or, zero when gear down at base of model offset.
+		# zero when gear down at base of model offset.
 var wheel_looping = 0;         # keep track of wheel loop
 var wheel_position = 0;
 var wheels_switch = 0;           # 0 = not extended, land on skid plates (or) 1 = extend wheels down
@@ -295,13 +296,14 @@ var max_to = 5;
 var sound_level = 0;
 var sound_state = 0;
 var alert_level = 0;
+# -------
 var cockpitView = 0;
 var active_nav_button = [3, 3, 1];
 var active_landing_button = [3, 1, 3];
 var config_dialog = nil;
 var systems_dialog = nil;
 
-var reinit_bluebird = func {   # make it possible to reset the above variables
+var reinit_bluebird = func {	# reset the above variables
 	damage_blocker = 0;
 	damage_count = 0;
 	lose_altitude = 0;
@@ -443,6 +445,17 @@ var door_update = func(door_number) {
 		} else {
 			door0_adjpos.setValue(door0_position);
 		}
+		# check for closing door while standing on ramp
+		if (getprop("sim/current-view/view-number") == 0 and door0_position < 0.62) {
+			var y_position = yViewNode.getValue();
+			if (y_position < -1.3) {
+				var x_position = xViewNode.getValue();
+				if (x_position > -3.2 and x_position < -2.0) {
+					# between front hatches
+					yViewNode.setValue(-1.3);
+				}
+			}
+		}
 	} elsif (door_number == 1) {
 		var gear_position2 = (gear_position * gear_position * 0.204304) + (gear_position * 0.0627) + 0.733;
 		door1_position = door1_pos.getValue();
@@ -450,6 +463,16 @@ var door_update = func(door_number) {
 			door1_adjpos.setValue(gear_position2);
 		} else {
 			door1_adjpos.setValue(door1_position);
+		}
+		if (getprop("sim/current-view/view-number") == 0 and door1_position < 0.62) {
+			var y_position = yViewNode.getValue();
+			if (y_position > 1.3) {
+				var x_position = xViewNode.getValue();
+				if (x_position > -3.2 and x_position < -2.0) {
+					# between front hatches
+					yViewNode.setValue(1.3);
+				}
+			}
 		}
 	} elsif (door_number == 5) {
 		var gear_position2 = (gear_position * gear_position * 0.1207) + (gear_position * 0.2299) + 0.79;
@@ -461,6 +484,12 @@ var door_update = func(door_number) {
 			door5_adjpos.setValue(gear_position2);
 		} else {
 			door5_adjpos.setValue(door5_position);
+		}
+		if (getprop("sim/current-view/view-number") == 0 and door5_position < 0.62) {
+			var x_position = xViewNode.getValue();
+			if (x_position > 9.2) {
+				xViewNode.setValue(9.2);
+			}
 		}
 	}
 }
@@ -601,7 +630,7 @@ var recalc_material_1 = func {
 	var red_amb_flr_R = livery_I1AR * 1.5;     # tint calculations
 	var red_amb_flr_G = livery_I1AG * 0.75;
 	var red_amb_flr_B = livery_I1AB * 0.75;
-	if (red_amb_flr_R > 1.0) {  # bounds checking
+	if (red_amb_flr_R > 1.0) {
 		red_amb_flr_R = 1.0;
 	} elsif (red_amb_flr_R < 0.5) {
 		red_amb_flr_R = 0.5;
@@ -622,7 +651,7 @@ var set_I2_ambient = func {
 	var calc_amb_G = 0.80 + (-0.2 * alert_level * int_switch * power_switch);
 	setprop("sim/model/bluebird/lighting/ambient/I2-A-red", calc_amb_R);
 	setprop("sim/model/bluebird/lighting/ambient/I2-A-gb", calc_amb_G);
-	livery_I2R = calc_amb_R * 0.07;  # emission calculations base
+	livery_I2R = calc_amb_R * 0.07;
 	livery_I2G = calc_amb_G * 0.07;
 }
 
@@ -631,7 +660,7 @@ var set_I3_ambient = func {
 	var calc_amb_G = 0.60 + (-0.2 * alert_level * int_switch * power_switch);
 	setprop("sim/model/bluebird/lighting/ambient/I3-A-red", calc_amb_R);
 	setprop("sim/model/bluebird/lighting/ambient/I3-A-gb", calc_amb_G);
-	livery_I3R = calc_amb_R * 0.07;  # emission calculations base
+	livery_I3R = calc_amb_R * 0.07;
 	livery_I3G = calc_amb_G * 0.07;
 }
 
@@ -642,17 +671,16 @@ var set_I4_ambient = func {
 	setprop("sim/model/bluebird/lighting/ambient/I4-A-red", calc_amb_R);
 	setprop("sim/model/bluebird/lighting/ambient/I4-A-green", calc_amb_G);
 	setprop("sim/model/bluebird/lighting/ambient/I4-A-blue", calc_amb_B);
-	livery_I4R = calc_amb_R * 0.1;  # emission calculations base
+	livery_I4R = calc_amb_R * 0.1;
 	livery_I4G = calc_amb_G * 0.1;
 	livery_I4B = calc_amb_B * 0.1;
 }
 
 var recalc_material_4 = func {
-	# calculate emission and ambient base levels upon loading new livery
-	var red_amb_flr_R = livery_I4AR * 1.5;     # tint calculations
+	var red_amb_flr_R = livery_I4AR * 1.5;
 	var red_amb_flr_G = livery_I4AG * 0.75;
 	var red_amb_flr_B = livery_I4AB * 0.75;
-	if (red_amb_flr_R > 1.0) {  # bounds checking
+	if (red_amb_flr_R > 1.0) {
 		red_amb_flr_R = 1.0;
 	} elsif (red_amb_flr_R < 0.5) {
 		red_amb_flr_R = 0.5;
@@ -663,7 +691,7 @@ var recalc_material_4 = func {
 	if (red_amb_flr_B < 0.0) {
 		red_amb_flr_B = 0.0;
 	}
-	livery_I4R_add = red_amb_flr_R - livery_I4AR;  # amount to add when calculating alert_level
+	livery_I4R_add = red_amb_flr_R - livery_I4AR;
 	livery_I4G_add = red_amb_flr_G - livery_I4AG;
 	livery_I4B_add = red_amb_flr_B - livery_I4AB;
 }
@@ -675,7 +703,7 @@ var set_I5_ambient = func {
 	setprop("sim/model/bluebird/lighting/ambient/I5-A-red", calc_amb_R);
 	setprop("sim/model/bluebird/lighting/ambient/I5-A-green", calc_amb_G);
 	setprop("sim/model/bluebird/lighting/ambient/I5-A-blue", calc_amb_B);
-	livery_I5R = calc_amb_R * 0.07;  # emission calculations base
+	livery_I5R = calc_amb_R * 0.07;
 	livery_I5G = calc_amb_G * 0.07;
 	livery_I5B = calc_amb_B * 0.07;
 }
@@ -687,7 +715,7 @@ var set_I7_ambient = func {
 	setprop("sim/model/bluebird/lighting/ambient/I7-A-red", calc_amb_R);
 	setprop("sim/model/bluebird/lighting/ambient/I7-A-green", calc_amb_G);
 	setprop("sim/model/bluebird/lighting/ambient/I7-A-blue", calc_amb_B);
-	livery_I7R = calc_amb_R * 0.07;  # emission calculations base
+	livery_I7R = calc_amb_R * 0.07;
 	livery_I7G = calc_amb_G * 0.07;
 	livery_I7B = calc_amb_B * 0.07;
 }
@@ -699,7 +727,7 @@ var set_I8_ambient = func {
 	setprop("sim/model/bluebird/lighting/ambient/I8-A-red", calc_amb_R);
 	setprop("sim/model/bluebird/lighting/ambient/I8-A-green", calc_amb_G);
 	setprop("sim/model/bluebird/lighting/ambient/I8-A-blue", calc_amb_B);
-	livery_I8R = calc_amb_R * 0.07;  # emission calculations base
+	livery_I8R = calc_amb_R * 0.07;
 	livery_I8G = calc_amb_G * 0.07;
 	livery_I8B = calc_amb_B * 0.07;
 }
@@ -711,17 +739,16 @@ var set_IA_ambient = func {
 	setprop("sim/model/bluebird/lighting/ambient/IA-A-red", calc_amb_R);
 	setprop("sim/model/bluebird/lighting/ambient/IA-A-green", calc_amb_G);
 	setprop("sim/model/bluebird/lighting/ambient/IA-A-blue", calc_amb_B);
-	livery_IAR = calc_amb_R * 0.07;  # emission calculations base
+	livery_IAR = calc_amb_R * 0.07;
 	livery_IAG = calc_amb_G * 0.07;
 	livery_IAB = calc_amb_B * 0.07;
 }
 
 var recalc_material_A = func {
-	# calculate emission and ambient base levels upon loading new livery
-	var red_amb_flr_R = livery_IAAR * 1.5;     # tint calculations
+	var red_amb_flr_R = livery_IAAR * 1.5;
 	var red_amb_flr_G = livery_IAAG * 0.75;
 	var red_amb_flr_B = livery_IAAB * 0.75;
-	if (red_amb_flr_R > 1.0) {  # bounds checking
+	if (red_amb_flr_R > 1.0) {
 		red_amb_flr_R = 1.0;
 	} elsif (red_amb_flr_R < 0.5) {
 		red_amb_flr_R = 0.5;
@@ -732,7 +759,7 @@ var recalc_material_A = func {
 	if (red_amb_flr_B < 0.0) {
 		red_amb_flr_B = 0.0;
 	}
-	livery_IAR_add = red_amb_flr_R - livery_IAAR;  # amount to add when calculating alert_level
+	livery_IAR_add = red_amb_flr_R - livery_IAAR;
 	livery_IAG_add = red_amb_flr_G - livery_IAAG;
 	livery_IAB_add = red_amb_flr_B - livery_IAAB;
 }
@@ -744,17 +771,16 @@ var set_IU_ambient = func {
 	setprop("sim/model/bluebird/lighting/ambient/IU-A-red", calc_amb_R);
 	setprop("sim/model/bluebird/lighting/ambient/IU-A-green", calc_amb_G);
 	setprop("sim/model/bluebird/lighting/ambient/IU-A-blue", calc_amb_B);
-	livery_IUR = calc_amb_R * 0.07;  # emission calculations base
+	livery_IUR = calc_amb_R * 0.07;
 	livery_IUG = calc_amb_G * 0.07;
 	livery_IUB = calc_amb_B * 0.07;
 }
 
 var recalc_material_U = func {
-	# calculate emission and ambient base levels upon loading new livery
-	var red_amb_flr_R = livery_IUAR * 1.5;     # tint calculations
+	var red_amb_flr_R = livery_IUAR * 1.5;
 	var red_amb_flr_G = livery_IUAG * 0.75;
 	var red_amb_flr_B = livery_IUAB * 0.75;
-	if (red_amb_flr_R > 1.0) {  # bounds checking
+	if (red_amb_flr_R > 1.0) {
 		red_amb_flr_R = 1.0;
 	} elsif (red_amb_flr_R < 0.5) {
 		red_amb_flr_R = 0.5;
@@ -765,7 +791,7 @@ var recalc_material_U = func {
 	if (red_amb_flr_B < 0.0) {
 		red_amb_flr_B = 0.0;
 	}
-	livery_IUR_add = red_amb_flr_R - livery_IUAR;  # amount to add when calculating alert_level
+	livery_IUR_add = red_amb_flr_R - livery_IUAR;
 	livery_IUG_add = red_amb_flr_G - livery_IUAG;
 	livery_IUB_add = red_amb_flr_B - livery_IUAB;
 }
@@ -1138,10 +1164,6 @@ var panel_lighting_update = func {
 	setprop("sim/model/material/instruments/factor", (1 - (ipsa * 0.4)));
 	panel_ambient_R = 0.60 + (0.2 * alert_level * int_switch * power_switch);
 	panel_ambient_GB = 0.60 + (-0.2 * alert_level * int_switch * power_switch);
-	# set emissions based on interior lighting or button lighting
-	# then determine if any buttons should be lit
-	# thus changing each R,G, and B to lit or unlit based on desired color
-	# unlit is actually a button that is lit, but not in that color spectrum.
 	old_button_1 = button_RT9;
 	if (power_switch) {
 		if (int_switch) {	# lights on = 9green
@@ -1645,7 +1667,7 @@ setlistener("gear/gear[0]/position-norm", func {
 	if (door5_position > 0.7) {
 		door_update(5);
 	}
-	contact_altitude = altitude_ft_Node.getValue() - vertical_offset - gear_height - hover_add;
+	contact_altitude = altitude_ft_Node.getValue() - vertical_offset_ft - gear_height - hover_add;
 	panel_lighting_update();
 });
 
@@ -1671,7 +1693,7 @@ setlistener("gear/gear[1]/position-norm", func {
 	}
 	gear_height = (gear_position * 2.47) + wheel_height;
 	# contact = altitude origin - offset - gear - (keep nacelle and nose from touching)
-	contact_altitude = altitude_ft_Node.getValue() - vertical_offset - gear_height - hover_add;
+	contact_altitude = altitude_ft_Node.getValue() - vertical_offset_ft - gear_height - hover_add;
 	panel_lighting_update();
 });
 
@@ -1886,6 +1908,41 @@ var settle_to_level = func {
 	pitch_control.setValue(hg_pitch);
 }
 
+var check_damage = func (dmg_add) {
+	var dmg = getprop("sim/model/bluebird/damage/hits-counter") + dmg_add;
+	setprop("sim/model/bluebird/damage/hits-counter", dmg);
+	if (dmg > destruction_threshold) { 
+		# set condition-red damage
+		alert_switch_Node.setBoolValue(1);
+		if (damage_blocker == 0) {
+			damage_blocker = 1;
+			damage_count += 1;
+			settimer(reset_impact, 2);
+			setprop("sim/model/bluebird/position/crash-wow", "true");
+			settimer(reset_crash, 5);
+			setprop("sim/model/bluebird/damage/major-counter", damage_count);
+			strobe_switch.setValue(0);
+			zNoseNode.setValue(2.4);
+			setprop("sim/model/bluebird/systems/nacelle-L-venting", "true");
+			setprop("sim/model/bluebird/systems/nacelle-R-venting", "true");
+			set_cockpit(cockpitView);
+			interior_lighting_update();
+			if (int(100 * rand()) > 80 or dmg > (destruction_threshold * 1.5)) {  # 80% chance a nacelle is destroyed
+				setprop("sim/model/bluebird/components/nacelle-L", 0);
+				setprop("sim/model/bluebird/components/engine-cover1", 0);
+				setprop("sim/model/bluebird/systems/nacelle-L-venting", "false");
+				setprop("ai/submodels/engine-L-flaring", "true");
+				if (int(100 * rand()) > 90 or dmg > (destruction_threshold * 2)) {  # how likely both were
+					setprop("sim/model/bluebird/components/nacelle-R", 0);
+					setprop("sim/model/bluebird/components/engine-cover4", 0);
+					setprop("sim/model/bluebird/systems/nacelle-R-venting", "false");
+					setprop("ai/submodels/engine-R-flaring", "true");
+				}
+			}
+		}
+	}
+}
+
 #==========================================================================
 # -------- MAIN LOOP called by itself every cycle --------
 
@@ -1917,12 +1974,12 @@ var update_main = func {
 			} else {
 				init_agl -= 0.05;
 			}
-			if (init_agl <= 0) { 
-			setprop("controls/engines/engine/throttle",0);
+			if (init_agl <= 0) {
+				setprop("controls/engines/engine/throttle",0);
 			}
 		}
 		var hover_ft = 0;
-		contact_altitude = altitude - vertical_offset - gear_height - hover_add;   # adjust calculated altitude for gear up and nacelle/nose dip
+		contact_altitude = altitude - vertical_offset_ft - gear_height - hover_add;   # adjust calculated altitude for gear up and nacelle/nose dip
 		# ----- only check hover if near ground ------------------
 		var new_ground_near = 0;   # see if indicator lights can be turned off
 		var new_ground_warning = 0;
@@ -1981,9 +2038,9 @@ var update_main = func {
 				# likely over ocean water
 				gnd_elev = 0;  # keep above water until there is ocean bottom
 			}
-			contact_altitude = altitude - vertical_offset - gear_height - hover_add;   # update with new hover amounts
-			hover_target_altitude = gnd_elev + hover_ft + hover_add + vertical_offset;  # includes gear_height
-			h_contact_target_alt = hover_target_altitude - gear_height - hover_add - vertical_offset;
+			contact_altitude = altitude - vertical_offset_ft - gear_height - hover_add;   # update with new hover amounts
+			hover_target_altitude = gnd_elev + hover_ft + hover_add + vertical_offset_ft;  # includes gear_height
+			h_contact_target_alt = hover_target_altitude - gear_height - hover_add - vertical_offset_ft;
 			if (altitude < hover_target_altitude) {
 				# below ground/flight level
 				if (altitude > 0) {            # check for skid, smoothen sound effects
@@ -2022,11 +2079,11 @@ var update_main = func {
 					altitude = hover_target_altitude;
 				}
 				altitude_ft_Node.setDoubleValue(altitude);  # force above ground elev to hover elevation at contact
-				contact_altitude = altitude - vertical_offset - gear_height - hover_add;
+				contact_altitude = altitude - vertical_offset_ft - gear_height - hover_add;
 				if (pitch_d > 0 or pitch_d < -0.5) {
 					# If aircraft hits ground, then nose/tail gets thrown up
 					if (asas > 500) {  # new pitch adjusted for airspeed
-						var airspeed_pch = 0.2;
+						var airspeed_pch = 0.2;  # rough ride
 					} else {
 						var airspeed_pch = asas / 500 * 0.2;
 					}
@@ -2070,38 +2127,7 @@ var update_main = func {
 						dmg_factor = angle_of_damage_max;
 					}
 				}
-				var dmg = getprop("sim/model/bluebird/damage/hits-counter") + dmg_factor;
-				setprop("sim/model/bluebird/damage/hits-counter", dmg);
-				if (dmg > destruction_threshold) { 
-					# set condition-red damage
-					alert_switch_Node.setBoolValue(1);
-					if (damage_blocker == 0) {
-						damage_blocker = 1;
-						damage_count += 1;
-						settimer(reset_impact, 2);
-						setprop("sim/model/bluebird/position/crash-wow", "true");
-						settimer(reset_crash, 5);
-						setprop("sim/model/bluebird/damage/major-counter", damage_count);
-						strobe_switch.setValue(0);
-						zNoseNode.setValue(2.4);
-						setprop("sim/model/bluebird/systems/nacelle-L-venting", "true");
-						setprop("sim/model/bluebird/systems/nacelle-R-venting", "true");
-						set_cockpit(cockpitView);
-						interior_lighting_update();
-						if (int(100 * rand()) > 80 or dmg > (destruction_threshold * 1.5)) {  # 80% chance a nacelle is destroyed
-							setprop("sim/model/bluebird/components/nacelle-L", 0);
-							setprop("sim/model/bluebird/components/engine-cover1", 0);
-							setprop("sim/model/bluebird/systems/nacelle-L-venting", "false");
-							setprop("ai/submodels/engine-L-flaring", "true");
-							if (int(100 * rand()) > 90 or dmg > (destruction_threshold * 2)) {  # how likely both were
-								setprop("sim/model/bluebird/components/nacelle-R", 0);
-								setprop("sim/model/bluebird/components/engine-cover4", 0);
-								setprop("sim/model/bluebird/systems/nacelle-R-venting", "false");
-								setprop("ai/submodels/engine-R-flaring", "true");
-							}
-						}
-					}
-				}
+				check_damage(dmg_factor);
 			}
 			var skid_w_vol = skid_w2 * 0.1;  # factor for volume usage
 			if (skid_w_vol > 1.0) {
@@ -2153,6 +2179,11 @@ var update_main = func {
 				if (!(wave1_level and asas > 150)) {
 					# Wave-guide off and not fast enough to fly without counter-grav
 					lose_altitude += 0.01;
+	# need to adjust terminal velocity based on pitch and add actual physics
+					if (lose_altitude > 17) {
+						# maximum at terminal velocity with nose down unpowered estimated: 1026ft/sec
+						lose_altitude = 17;
+					}
 					if ((contact_altitude - h_contact_target_alt) < 3) {   # really close to ground but not below it
 						if (!reactor_request) {
 							settle_to_level();
@@ -2160,11 +2191,13 @@ var update_main = func {
 					}
 				} else { # fast enough to fly without counter-grav
 					lose_altitude = lose_altitude * 0.5;
-					if (lose_altitude < 0.001) { lose_altitude = 0; }
+					if (lose_altitude < 0.001) {
+						lose_altitude = 0;
+					}
 				}
 			}
 			if (lose_altitude > 0) {
-				hover_grav(-1, lose_altitude, 0);
+				up(-1, lose_altitude, 0);
 			}
 		} else {
 			lose_altitude = 0;
@@ -2226,6 +2259,7 @@ var update_main = func {
 			} else {     # rapid deceleration
 				max_lose = asas * 0.2;
 			}
+	# need to import acceleration physics calculations from walker
 			if (max_lose > 10) {  # don't decelerate too quickly
 				if (agl > 10) {
 					max_lose = 10;
@@ -2234,6 +2268,9 @@ var update_main = func {
 						max_lose = 75;
 					}
 				}
+			}
+			if (asas < 2) {  # already stopped
+				maxspeed.setDoubleValue(0);
 			}
 			max_drift = max_lose;
 		} else {  # power is on
@@ -2485,9 +2522,9 @@ controls.elevatorTrim = func(et_d) {
 	} else {
 		var js1pitch = abs(joystick_elevator.getValue());
 		if (et_d < 0) {
-			hover_grav(-1, js1pitch, 2);
+			up(-1, js1pitch, 2);
 		} elsif (et_d > 0) {
-			hover_grav(1, js1pitch, 2);
+			up(1, js1pitch, 2);
 		}
 	}
 }
@@ -2516,14 +2553,59 @@ var reset_crash = func {
 	setprop("sim/model/bluebird/position/crash-wow", "false");
 }
 
-var hover_grav = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=source of request
+setlistener("sim/model/bluebird/hover/key-up", func {
+	var key_dir = getprop("sim/model/bluebird/hover/key-up");
+	if (key_dir) {	# repetitive input or lack of older mod-up keeps triggering
+		up_dir = key_dir;	# remember current direction
+		if (up_watch == 0) {
+			up_watch = 3;	# start or reset timer for countdown
+			coast_up();	# starting from rest, start new loop
+		} else {
+			up_watch = 3;	# reset watcher
+		}
+	} else {
+		# last heard was zero
+		up_watch -= 1;
+		if (up_watch < 0) {
+			up_watch = 0;
+		}
+	}
+});
+
+var coast_up = func {
+	if (up_watch >= 3) {
+		if (vert_factor < 6.0) {
+			vert_factor += 0.05;
+		}
+		up(up_dir, 0.15, 1);
+	} elsif (up_watch >= 2) {
+		up(up_dir, 0.15, 1);
+		up_watch -= 1;
+	} else {
+		vert_factor = vert_factor * 0.2;
+		if (vert_factor < 0.1) {
+			vert_factor = 0.1;
+			up_watch = 0;
+		} else {
+			up(up_dir, 0.15, 1);
+		}
+	}
+	if (up_watch) {
+		settimer(coast_up,0.05);
+	}
+}
+
+var up = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=source of request
 	var entry_altitude = altitude_ft_Node.getValue();
 	var altitude = entry_altitude;
-	contact_altitude = altitude - vertical_offset - gear_height - hover_add;
-	if (hg_mode) {
-		var hg_rise = hg_thrust * countergrav_factor * hg_dir;
+	contact_altitude = altitude - vertical_offset_ft - gear_height - hover_add;
+	if (hg_mode == 1) {
+		# 1 = keyboard
+		# set anti-grav power level below here. default= *4
+		var hg_rise = hg_thrust * vert_factor * countergrav_factor * hg_dir;
 	} else {
-		var hg_rise = hg_thrust * 4 * hg_dir;
+		# 0 = gravity , 2 = joystick
+		var hg_rise = hg_thrust * countergrav_factor * hg_dir;
 	}
 	var contact_rise = contact_altitude + hg_rise;
 	if (hg_dir < 0) {    # down requested by drift, fall, or VTOL down buttons
@@ -2536,6 +2618,7 @@ var hover_grav = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_powe
 						if (!already_landed) {
 							setprop("sim/model/bluebird/position/landing-wow", "true");
 						}
+						check_damage(lose_altitude * 5);
 						lose_altitude = 0;
 						if (!reactor_request) {
 							settle_to_level();
@@ -2546,6 +2629,7 @@ var hover_grav = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_powe
 				} elsif (lose_altitude > 0.26 and hg_rise < -1.1) {  # ground contact by skidding slowly
 					setprop("sim/model/bluebird/position/squeal-wow", "true");
 						lose_altitude = lose_altitude * 0.5;
+					check_damage(lose_altitude);
 					if (!reactor_request) {
 						settle_to_level();
 					}
@@ -2555,7 +2639,7 @@ var hover_grav = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_powe
 			}
 		}
 		if (!countergrav_request) {  # fall unless countergrav just requested
-			altitude = contact_rise + vertical_offset + gear_height + hover_add;
+			altitude = contact_rise + vertical_offset_ft + gear_height + hover_add;
 			altitude_ft_Node.setDoubleValue(altitude);
 			contact_altitude = contact_rise;
 		}
@@ -2568,17 +2652,17 @@ var hover_grav = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_powe
 		}
 		if (reactor_drift > 0.2 and reactor_level) {  # sufficient power to comply and lift
 			contact_rise = contact_altitude + (reactor_drift * hg_rise);
-			altitude = contact_rise + vertical_offset + gear_height + hover_add;
+			altitude = contact_rise + vertical_offset_ft + gear_height + hover_add;
 			altitude_ft_Node.setDoubleValue(altitude);
 			contact_altitude = contact_rise;
 		}
 	}
 	if (hg_mode) {  # keyboard or joystick request
 		# move control yoke up or down
-		if (hg_mode == 1) {	# keyboard
-			setprop("sim/model/bluebird/position/hover-rise", (14 * hg_thrust * hg_dir));
-		} else {	# joystick
+		if (hg_mode == 2) {	# joystick
 			setprop("sim/model/bluebird/position/hover-rise", (3.3 * hg_thrust * hg_dir));
+		} else {	# keyboard
+			setprop("sim/model/bluebird/position/hover-rise", (14 * hg_thrust * hg_dir));
 		}
 		hover_reset_timer = 1.0;
 	}
@@ -2694,71 +2778,65 @@ var delayed_panel_update = func {
 }
 
 var set_cockpit = func(cockpitPosition) {
+	# axis are different for current-view
+	#  x = right/left
+	#  y = up/down
+	#  z = aft/fore
 	if (getprop("sim/current-view/view-number") == 0) {
 		if (cockpitPosition > 4) { cockpitPosition = 0; }
 		if (cockpitPosition < 0) { cockpitPosition = 4; }
 		if (cockpitPosition == 0) {
-			if (getprop("sim/current-view/view-number") == 0) {
-				setprop("sim/current-view/x-offset-m", 0.0);
-				if (damage_count == 0) {
-					setprop("sim/current-view/z-offset-m", -7.35);
-					setprop("sim/current-view/y-offset-m", 1.47);
+			setprop("sim/current-view/x-offset-m", 0.0);
+			if (damage_count == 0) {
+				setprop("sim/current-view/z-offset-m", -7.35);
+				setprop("sim/current-view/y-offset-m", 1.47);
+			} else {
+				setprop("sim/current-view/z-offset-m", -7.6);
+				if (damage_count == 1) {
+					setprop("sim/current-view/y-offset-m", 1.70);
 				} else {
-					setprop("sim/current-view/z-offset-m", -7.6);
-					if (damage_count == 1) {
-						setprop("sim/current-view/y-offset-m", 1.70);
-					} else {
-						setprop("sim/current-view/y-offset-m", 1.83);
-					}
+					setprop("sim/current-view/y-offset-m", 1.83);
 				}
 			}
 		} elsif (cockpitPosition == 1) {
-			if (getprop("sim/current-view/view-number") == 0) {
-				setprop("sim/current-view/x-offset-m", 0.0);
-				setprop("sim/current-view/z-offset-m", -5.6);
-				if (damage_count == 0) {
-					setprop("sim/current-view/y-offset-m", 2.1);
-				} elsif (damage_count == 1) {
-					setprop("sim/current-view/y-offset-m", 2.33);
-				} else {
-					setprop("sim/current-view/y-offset-m", 2.47);
-				}
+			setprop("sim/current-view/x-offset-m", 0.0);
+			setprop("sim/current-view/z-offset-m", -5.6);
+			if (damage_count == 0) {
+				setprop("sim/current-view/y-offset-m", 2.1);
+			} elsif (damage_count == 1) {
+				setprop("sim/current-view/y-offset-m", 2.33);
+			} else {
+				setprop("sim/current-view/y-offset-m", 2.47);
 			}
 		} elsif (cockpitPosition == 2) {
-			if (getprop("sim/current-view/view-number") == 0) {
-				setprop("sim/current-view/x-offset-m", -0.73);
-				setprop("sim/current-view/z-offset-m", -5.94);
-				if (damage_count == 0) {
-					setprop("sim/current-view/y-offset-m", 1.47);
-				} elsif (damage_count == 1) {
-					setprop("sim/current-view/y-offset-m", 1.68);
-				} else {
-					setprop("sim/current-view/y-offset-m", 1.79);
-				}
+			setprop("sim/current-view/x-offset-m", -0.73);
+			setprop("sim/current-view/z-offset-m", -5.94);
+			if (damage_count == 0) {
+				setprop("sim/current-view/y-offset-m", 1.47);
+			} elsif (damage_count == 1) {
+				setprop("sim/current-view/y-offset-m", 1.68);
+			} else {
+				setprop("sim/current-view/y-offset-m", 1.79);
 			}
 		} elsif (cockpitPosition == 3) {
-			if (getprop("sim/current-view/view-number") == 0) {
-				setprop("sim/current-view/x-offset-m", 0.77);
-				setprop("sim/current-view/z-offset-m", -5.93);
-				if (damage_count == 0) {
-					setprop("sim/current-view/y-offset-m", 1.47);
-				} elsif (damage_count == 1) {
-					setprop("sim/current-view/y-offset-m", 1.68);
-				} else {
-					setprop("sim/current-view/y-offset-m", 1.79);
-				}
+			setprop("sim/current-view/x-offset-m", 0.77);
+			setprop("sim/current-view/z-offset-m", -5.93);
+			if (damage_count == 0) {
+				setprop("sim/current-view/y-offset-m", 1.47);
+			} elsif (damage_count == 1) {
+				setprop("sim/current-view/y-offset-m", 1.68);
+			} else {
+				setprop("sim/current-view/y-offset-m", 1.79);
 			}
 		} else {
-			if (getprop("sim/current-view/view-number") == 0) {
-				setprop("sim/current-view/x-offset-m", 0.0);
-				setprop("sim/current-view/z-offset-m", -3.3);
-				if (damage_count == 0) {
-					setprop("sim/current-view/y-offset-m", 2.1);
-				} elsif (damage_count == 1) {
-					setprop("sim/current-view/y-offset-m", 2.32);
-				} else {
-					setprop("sim/current-view/y-offset-m", 2.43);
-				}
+			setprop("sim/current-view/x-offset-m", 0.0);
+			setprop("sim/current-view/z-offset-m", -3.3);
+			if (damage_count == 0) {
+				setprop("sim/current-view/y-offset-m", 2.1);
+			} elsif (damage_count == 1) {
+				setprop("sim/current-view/y-offset-m", 2.32);
+			} else {
+				setprop("sim/current-view/y-offset-m", 2.43);
 			}
 		}
 		cockpitView = cockpitPosition;
@@ -2772,15 +2850,192 @@ var cycle_cockpit = func(cc_i) {
 		cockpitView += cc_i;
 	}
 	set_cockpit(cockpitView);
+	if (cc_i == 10) {
+		hViewNode.setValue(0.0);
+		setprop("sim/current-view/goal-pitch-offset-deg", 0.0);
+		setprop("sim/current-view/goal-roll-offset-deg", 0.0);
+	}
 }
 
-var walk_about = func(wa_distance) {
+var walk_about_cabin = func(wa_distance) {
+	# x,y,z axis are as expected here. Check boundaries/walls.
+	#  x = aft/fore
+	#  y = right/left
+	#  z = up/down
+	var w_out = 0;
 	if (getprop("sim/current-view/view-number") == 0) {
 		var wa_heading_rad = hViewNode.getValue() * 0.01745329252;
 		var new_x_position = xViewNode.getValue() - (math.cos(wa_heading_rad) * wa_distance);
 		var new_y_position = yViewNode.getValue() - (math.sin(wa_heading_rad) * wa_distance);
-		xViewNode.setValue(new_x_position);
-		yViewNode.setValue(new_y_position);
+		var door0_barrier = (door0_position < 0.62 ? -1.3 : -4.42);
+		var door1_barrier = (door1_position < 0.62 ? 1.3 : 4.42);
+		var door5_barrier = (door5_position < 0.62 ? 9.2 : 10.57);	# 10.8 when hatch up in flight
+		if (new_x_position < -6.25 and getprop("sim/current-view/y-offset-m") > 2.0) {
+			new_x_position = -6.25;
+		}
+		# check outside walls
+		if (new_x_position <= -8.0) {
+			new_x_position = -8.0;
+			if (new_y_position < -0.4) {
+				new_y_position = -0.4;
+			} elsif (new_y_position > 0.4) {
+				new_y_position = 0.4;
+			}
+		} elsif (new_x_position > -8.0 and new_x_position < -5.65) {
+			var y_angle = (new_x_position + 8.0) / 2.35 * 0.9;
+			if (new_y_position < (-0.4 - y_angle)) {
+				new_y_position = -0.4 - y_angle;
+			} elsif (new_y_position > (0.4 + y_angle)) {
+				new_y_position = 0.4 + y_angle;
+			}
+		} elsif (new_x_position >= -5.65 and new_x_position <= -4.55) {
+			if (new_y_position < -1.3) {
+				new_y_position = -1.3;
+			} elsif (new_y_position > 1.3) {
+				new_y_position = 1.3;
+			}
+		} elsif (new_x_position > -4.55 and new_x_position < -4.2) {
+			if (new_y_position < -1.0) {
+				new_x_position = -4.55;
+				if (new_y_position < -1.3) {
+					new_y_position = -1.3;
+				}
+			} elsif (new_y_position < -0.85) {
+				new_y_position = -0.85;
+			} elsif (new_y_position > 1.0) {
+				new_x_position = -4.55;
+				if (new_y_position > 1.3) {
+					new_y_position = 1.3;
+				}
+			} elsif (new_y_position > 0.85) {
+				new_y_position = 0.85;
+			}
+		} elsif (new_x_position >= -4.2 and new_x_position <= -3.95) {
+			if (new_y_position < -0.85) {
+				new_y_position = -0.85;
+			} elsif (new_y_position > 0.85) {
+				new_y_position = 0.85;
+			}
+		} elsif (new_x_position > -3.95 and new_x_position < -3.45) {
+			var y_angle = (new_x_position + 3.95) / 0.5 * 0.25;
+			if (new_y_position < (-0.85 - y_angle)) {
+				new_y_position = -0.85 - y_angle;
+			} elsif (new_y_position > (0.85 + y_angle)) {
+				new_y_position = 0.85 + y_angle;
+			}
+		} elsif (new_x_position >= -3.45 and new_x_position <= -3.1) {
+			if (new_y_position < door0_barrier) {
+				new_x_position = -3.1;
+				new_y_position = door0_barrier;
+			} elsif (new_y_position < -1.4) {
+				new_x_position = -3.1;
+			} elsif (new_y_position < -1.1) {
+				new_y_position = -1.1;
+			} elsif (new_y_position > door1_barrier) {
+				new_x_position = -3.1;
+				new_y_position = door1_barrier;
+			} elsif (new_y_position > 1.4) {
+				new_x_position = -3.1;
+			} elsif (new_y_position > 1.1) {
+				new_y_position = 1.1;
+			}
+		} elsif (new_x_position > -3.1 and new_x_position < -2.1) {
+			# between front hatches
+			if (new_x_position < -3.1 and 
+				(new_y_position < door0_barrier or new_y_position > door1_barrier)) {
+					new_x_position = -3.1;
+			} elsif (new_x_position > -2.1 and 
+				(new_y_position < door0_barrier or new_y_position > door1_barrier)) {
+					new_x_position = -2.1;
+			}
+			if (new_y_position < door0_barrier) {
+				if (door0_position > 0.62) {
+					w_out = 1;
+				}
+				new_y_position = door0_barrier;
+			} elsif (new_y_position > door1_barrier) {
+				if (door1_position > 0.62) {
+					w_out = 2;
+				}
+				new_y_position = door1_barrier;
+			}
+		} elsif (new_x_position >= -2.1 and new_x_position <= -1.92) {
+			if (new_y_position < door0_barrier) {
+				new_x_position = -2.1;
+				new_y_position = door0_barrier;
+			} elsif (new_y_position < -1.4) {
+				new_x_position = -2.1;
+			} elsif (new_y_position < -1.1) {
+				new_y_position = -1.1;
+			} elsif (new_y_position > door1_barrier) {
+				new_x_position = -2.1;
+				new_y_position = door1_barrier;
+			} elsif (new_y_position > 1.4) {
+				new_x_position = -2.1;
+			} elsif (new_y_position > 1.1) {
+				new_y_position = 1.1;
+			}
+		} elsif (new_x_position > -1.92 and new_x_position < -1.2) {
+			if (new_y_position < -0.6) {
+				new_x_position = -1.92;
+				if (new_y_position < -1.3) {
+					new_y_position = -1.3;
+				}
+			} elsif (new_y_position < -0.49) {
+				new_y_position = -0.49;
+			} elsif (new_y_position > 0.6) {
+				new_x_position = -1.92;
+				if (new_y_position > 1.3) {
+					new_y_position = 1.3;
+				}
+			} elsif (new_y_position > 0.49) {
+				new_y_position = 0.49;
+			}
+		} elsif (new_x_position >= -1.2 and new_x_position <= -0.6) {
+			if (new_y_position < -0.49) {
+				new_y_position = -0.49;
+			} elsif (new_y_position > 0.49) {
+				new_y_position = 0.49;
+			}
+		} elsif (new_x_position > -0.6 and new_x_position < 0.06) {
+			if (new_y_position < -0.6) {
+				new_x_position = 0.06;
+				if (new_y_position < -1.65) {
+					new_y_position = -1.65;
+				}
+			} elsif (new_y_position < -0.49) {
+				new_y_position = -0.49;
+			} elsif (new_y_position > 0.6) {
+				new_x_position = 0.06;
+				if (new_y_position > 1.65) {
+					new_y_position = 1.65;
+				}
+			} elsif (new_y_position > 0.49) {
+				new_y_position = 0.49;
+			}
+		} elsif (new_x_position >= 0.06 and new_x_position <= door5_barrier) {
+			if (new_y_position < -1.65) {
+				new_y_position = -1.65;
+			} elsif (new_y_position > 1.65) {
+				new_y_position = 1.65;
+			}
+		} elsif (new_x_position > door5_barrier) {
+			if (door5_position > 0.62) {
+				w_out = 5;
+			}
+			new_x_position = door5_barrier;
+			if (new_y_position < -1.65) {
+				new_y_position = -1.65;
+			} elsif (new_y_position > 1.65) {
+				new_y_position = 1.65;
+			}
+		}
+		if (w_out) {
+			walk.get_out(w_out);
+		} else {
+			xViewNode.setValue(new_x_position);
+			yViewNode.setValue(new_y_position);
+		}
 	}
 }
 

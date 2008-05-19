@@ -8,19 +8,31 @@
 	</model>
 
 	<help>
-		<key n="15">
+		<key n="20">
+			<name>C</name>
+			<desc>Open parachute</desc>
+		</key>
+		<key n="21">
+			<name>o</name>
+			<desc>Jump Outside, walk on ground</desc>
+		</key>
+		<key n="22">
+			<name>O</name>
+			<desc>Return Inside to cabin</desc>
+		</key>
+		<key n="25">
 			<name>L</name>
 			<desc>Load next Livery</desc>
 		</key>
-		<key n="16">
+		<key n="26">
 			<name>l</name>
 			<desc>Livery Selection Dialog</desc>
 		</key>
-		<key n="17">
+		<key n="27">
 			<name>Ctrl-Y</name>
 			<desc>Exterior Material Dialogs</desc>
 		</key>
-		<key n="18">
+		<key n="28">
 			<name>Ctrl-U</name>
 			<desc>Interior Material Dialogs</desc>
 		</key>
@@ -73,7 +85,8 @@
 	<keyboard>
 		<key n="76">
 			<name>L</name>
-			<desc>Select previous variant</desc>
+			<desc>Select next variant</desc>
+			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
 				<script>aircraft.livery.next()</script>
@@ -82,6 +95,7 @@
 		<key n="108">
 			<name>l</name>
 			<desc>Show livery dialog</desc>
+			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
 				<script>aircraft.livery.dialog.toggle()</script>
@@ -90,6 +104,7 @@
 		<key n="21">
 			<name>Ctrl-U</name>
 			<desc>Show interior material dialogs</desc>
+			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
 				<script>
@@ -103,6 +118,7 @@
 		<key n="25">
 			<name>Ctrl-Y</name>
 			<desc>Show exterior material dialogs</desc>
+			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
 				<script>
@@ -113,6 +129,24 @@
 						material.showDialog("sim/model/livery/material/hull-wings/", nil, 810);
 						material.showDialog("sim/model/livery/material/hull-bottom/", nil, 310, 0);
 				</script>
+			</binding>
+		</key>
+		<key n="111">
+			<name>o</name>
+			<desc>Move walker outside</desc>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>walk.get_out(0)</script>
+			</binding>
+		</key>
+		<key n="79">
+			<name>O</name>
+			<desc>Move walker inside</desc>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>walk.get_in(0)</script>
 			</binding>
 		</key>
 	</keyboard>
@@ -128,5 +162,10 @@
 		<file>Aircraft/bluebird/Instruments-3d/digital2/digital2.nas</file>
 		<file>Aircraft/bluebird/Instruments-3d/digital2/savedata.nas</file>
 	</digitalPanel>
+	<walk>
+		<file>Aircraft/bluebird/Nasal/walk-common.nas</file>
+		<file>Aircraft/bluebird/Nasal/walk-1-osg.nas</file>
+		<script>main_loop();</script>
+	</walk>
  </nasal>
 </PropertyList>

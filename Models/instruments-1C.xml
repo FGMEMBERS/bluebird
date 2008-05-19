@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Bluebird Explorer Hovercraft  version 6.0 for FlightGear OSG only -->
+<!-- Bluebird Explorer Hovercraft  version 6.2 for FlightGear OSG only -->
 
 <PropertyList>
 
@@ -182,6 +182,40 @@
 
  <animation>
 	<type>material</type>
+	<object-name>alt.hold.button</object-name>
+	<emission>
+		<red-prop>sim/model/bluebird/lighting/emission/I5-red</red-prop>
+		<green-prop>sim/model/bluebird/lighting/emission/I5-green</green-prop>
+		<blue-prop>sim/model/bluebird/lighting/emission/I5-blue</blue-prop>
+		<factor>1</factor>
+	</emission>
+	<specular>
+		<factor-prop>sim/model/bluebird/lighting/specular/interior</factor-prop>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</specular>
+ </animation>
+
+ <animation>
+	<type>material</type>
+	<object-name>agl.hold.button</object-name>
+	<emission>
+		<red-prop>sim/model/bluebird/lighting/emission/I5-red</red-prop>
+		<green-prop>sim/model/bluebird/lighting/emission/I5-green</green-prop>
+		<blue-prop>sim/model/bluebird/lighting/emission/I5-blue</blue-prop>
+		<factor>1</factor>
+	</emission>
+	<specular>
+		<factor-prop>sim/model/bluebird/lighting/specular/interior</factor-prop>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</specular>
+ </animation>
+
+ <animation>
+	<type>material</type>
 	<object-name>altitude.button</object-name>
 	<emission>
 		<red-prop>sim/model/bluebird/lighting/emission/I5-red</red-prop>
@@ -200,6 +234,23 @@
  <animation>
 	<type>material</type>
 	<object-name>heading.frame</object-name>
+	<emission>
+		<red-prop>sim/model/bluebird/lighting/emission/I5-red</red-prop>
+		<green-prop>sim/model/bluebird/lighting/emission/I5-green</green-prop>
+		<blue-prop>sim/model/bluebird/lighting/emission/I5-blue</blue-prop>
+		<factor>1</factor>
+	</emission>
+	<specular>
+		<factor-prop>sim/model/bluebird/lighting/specular/interior</factor-prop>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</specular>
+ </animation>
+
+ <animation>
+	<type>material</type>
+	<object-name>head.hold.button</object-name>
 	<emission>
 		<red-prop>sim/model/bluebird/lighting/emission/I5-red</red-prop>
 		<green-prop>sim/model/bluebird/lighting/emission/I5-green</green-prop>
@@ -475,6 +526,42 @@
 <!-- hotspot picks -->
  <animation>
 	<type>pick</type>
+	<object-name>alt.hold.button</object-name>
+	<action>
+		<name>altitude-hold-select</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-adjust</command>
+			<property>instrumentation/digital/altitude-hold</property>
+			<step>1</step>
+			<min>0</min>
+			<max>2</max>
+			<wrap>true</wrap>
+		</binding>
+	</action>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>agl.hold.button</object-name>
+	<action>
+		<name>agl-hold-select</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-adjust</command>
+			<property>instrumentation/digital/altitude-hold</property>
+			<step>2</step>
+			<min>0</min>
+			<max>3</max>
+			<wrap>true</wrap>
+		</binding>
+	</action>
+ </animation>
+
+ <animation>
+	<type>pick</type>
 	<object-name>altitude.button</object-name>
 	<action>
 		<name>altitude-mode-select</name>
@@ -483,6 +570,24 @@
 		<binding>
 			<command>property-adjust</command>
 			<property>instrumentation/digital/altitude-mode</property>
+			<step>1</step>
+			<min>0</min>
+			<max>2</max>
+			<wrap>true</wrap>
+		</binding>
+	</action>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>head.hold.button</object-name>
+	<action>
+		<name>heading-hold-select</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-adjust</command>
+			<property>instrumentation/digital/heading-hold</property>
 			<step>1</step>
 			<min>0</min>
 			<max>2</max>
