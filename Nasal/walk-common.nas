@@ -1,4 +1,4 @@
-# ===== common base for walking functions   version 2.1   =====
+# ===== common base for walking functions   version 2.2   =====
 # ===== plus coordinates for Bluebird Explorer Hovercraft =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
@@ -82,7 +82,7 @@ var walk_factor = 1.0;
 
 var momentum_walk = func {
 	if (walk_watch >= 3) {
-		if (walk_factor < 3.5) {
+		if (walk_factor < 4.0) {
 			walk_factor += 0.025;
 		}
 		walk();
@@ -115,6 +115,38 @@ var main_loop = func {
 	} else {
 		if (falling) {
 			ext_mov();
+		}
+		# check for proximity to hatches for entry
+		if (abs(getprop("sim/walker/altitude-ft") - getprop("position/altitude-ft")) < 6) {
+			var posy = getprop("sim/walker/latitude-deg");
+			var posx = getprop("sim/walker/longitude-deg");
+			if (getprop("sim/model/bluebird/doors/door[0]/position-norm") > 0.73) {
+				var door0_ll = xy2LatLon(-2.6,-3.42);
+				var a0 = sin((door0_ll[0] - posy) * 0.5);
+				var b0 = sin((door0_ll[1] - posx) * 0.5);
+				var d0 = 2.0 * ERAD * asin(math.sqrt(a0 * a0 + cos(door0_ll[0]) * cos(posy) * b0 * b0));
+				if (d0 < 1.2) {
+					get_in(1);
+				}
+			}
+			if (getprop("sim/model/bluebird/doors/door[1]/position-norm") > 0.73) {
+				var door1_ll = xy2LatLon(-2.6,3.42);
+				var a1 = sin((door1_ll[0] - posy) * 0.5);
+				var b1 = sin((door1_ll[1] - posx) * 0.5);
+				var d1 = 2.0 * ERAD * asin(math.sqrt(a1 * a1 + cos(door1_ll[0]) * cos(posy) * b1 * b1));
+				if (d1 < 1.2) {
+					get_in(2);
+				}
+			}
+			if (getprop("sim/model/bluebird/doors/door[5]/position-norm") > 0.78) {
+				var door5_ll = xy2LatLon(9.0,0);
+				var a5 = sin((door5_ll[0] - posy) * 0.5);
+				var b5 = sin((door5_ll[1] - posx) * 0.5);
+				var d5 = 2.0 * ERAD * asin(math.sqrt(a5 * a5 + cos(door5_ll[0]) * cos(posy) * b5 * b5));
+				if (d5 < 1.9) {
+					get_in(5);
+				}
+			}
 		}
 	}
 	settimer(main_loop, 0.01)
@@ -247,72 +279,72 @@ var ext_mov = func {
 
 var get_out = func (loc) {
 	var c_view = getprop("sim/current-view/view-number");
+	var head_add = 0;
 	if (c_view == 0) {
 		setprop("sim/walker/keep-inside-offset-x", getprop("sim/current-view/x-offset-m"));
 		setprop("sim/walker/keep-inside-offset-y", getprop("sim/current-view/y-offset-m"));
 		setprop("sim/walker/keep-inside-offset-z", getprop("sim/current-view/z-offset-m"));
 		setprop("sim/walker/keep-pitch-offset-deg", getprop("sim/current-view/pitch-offset-deg"));
-		var c_airspeed_mps = getprop("velocities/airspeed-kt") * 0.51444444;
-		var walk_dir = getprop("sim/walker/walking");
-		if (walk_dir and loc == 5) {
-			c_airspeed_mps -= 1;
-		}
-		var c_head_deg = getprop("orientation/heading-deg");
-		if (c_airspeed_mps < 0) {
-			c_airspeed_mps = abs(c_airspeed_mps);
-			c_head_deg += 180;
-			if (c_head_deg >= 360.0) {
-				c_head_deg -= 360.0;
-			}
-		}
-		var c_head_rad = c_head_deg * 0.01745329252;
-		var c_lat = getprop("position/latitude-deg");
-		var c_lon = getprop("position/longitude-deg");
-		var xy_lat_m = c_airspeed_mps * math.cos(c_head_rad);
-		var xy_lon_m = c_airspeed_mps * math.sin(c_head_rad);
-		var xy_lat = xy_lat_m / (ERAD * math.pi) * 180;
-		var xy_lon = xy_lon_m / (ERAD * cos(c_lat) * math.pi) * 180;
-		setprop("sim/walker/starting-trajectory-lat", xy_lat);
-		setprop("sim/walker/starting-trajectory-lon", xy_lon);
+		head_add = getprop("sim/current-view/heading-offset-deg");
 	}
-	if (c_view == 0 or c_view == view.indexof("Walk View")) {
-		if (loc == 0) {
-			var new_coord = xy2LatLon(-12.0,-8.0);	# coordinates outside front hatch
-		} elsif (loc == 1) {
-			var new_coord = xy2LatLon(xViewNode.getValue(),-4.9);
-		} elsif (loc == 2) {
-			var new_coord = xy2LatLon(xViewNode.getValue(),4.9);
-		} elsif (loc == 5) {
-			var new_coord = xy2LatLon(11.0,yViewNode.getValue());
-		} else {
-			var new_coord = xy2LatLon(xViewNode.getValue(),yViewNode.getValue());
-		}
-		var head = abs(getprop("orientation/heading-deg") -360.00) + getprop("sim/current-view/heading-offset-deg");
-		while (head >= 360.0) {
-			head -= 360.0;
-		}
-		setprop("sim/view[100]/enabled", "true");
-		setprop("sim/walker/outside", 1);
-		setprop("sim/current-view/view-number", view.indexof("Walk View"));
-		var posy = new_coord[0];
-		var posx = new_coord[1];
-		setprop("sim/walker/heading-deg", 0);
-		setprop("sim/walker/roll-deg", 0);
-		setprop("sim/walker/pitch-deg", 0);
-		setprop("sim/walker/latitude-deg", new_coord[0]);
-		setprop("sim/walker/longitude-deg", new_coord[1]);
-		setprop("sim/current-view/pitch-offset-deg", getprop("sim/walker/keep-pitch-offset-deg"));
-		setprop("sim/current-view/roll-offset-deg", 0);
-		yViewNode.setValue(0);
-		zViewNode.setValue(1.87);	# person height when inside
-		xViewNode.setValue(0);
-		setprop("sim/current-view/heading-offset-deg", head);
-		falling = 1;
-		setprop("sim/walker/time-of-exit-sec", getprop("sim/time/elapsed-sec"));
-		setprop("sim/walker/altitude-at-exit-ft", getprop("position/altitude-ft"));
-		setprop("sim/walker/starting-lat", new_coord[0]);
-		setprop("sim/walker/starting-lon", new_coord[1]);
+	var c_airspeed_mps = getprop("velocities/airspeed-kt") * 0.51444444;
+	var walk_dir = getprop("sim/walker/walking");
+	if (walk_dir and loc == 5) {
+		c_airspeed_mps -= 1;
 	}
+	var c_head_deg = getprop("orientation/heading-deg");
+	if (c_airspeed_mps < 0) {
+		c_airspeed_mps = abs(c_airspeed_mps);
+		c_head_deg += 180;
+		if (c_head_deg >= 360.0) {
+			c_head_deg -= 360.0;
+		}
+	}
+	var c_head_rad = c_head_deg * 0.01745329252;
+	var c_lat = getprop("position/latitude-deg");
+	var c_lon = getprop("position/longitude-deg");
+	var xy_lat_m = c_airspeed_mps * math.cos(c_head_rad);
+	var xy_lon_m = c_airspeed_mps * math.sin(c_head_rad);
+	var xy_lat = xy_lat_m / (ERAD * math.pi) * 180;
+	var xy_lon = xy_lon_m / (ERAD * cos(c_lat) * math.pi) * 180;
+	setprop("sim/walker/starting-trajectory-lat", xy_lat);
+	setprop("sim/walker/starting-trajectory-lon", xy_lon);
+	if (loc == 0) {
+		var new_coord = xy2LatLon(-12.0,-8.0);	# coordinates outside front hatch
+	} elsif (loc == 1) {
+		var new_coord = xy2LatLon(xViewNode.getValue(),-4.9);
+	} elsif (loc == 2) {
+		var new_coord = xy2LatLon(xViewNode.getValue(),4.9);
+	} elsif (loc == 5) {
+		var new_coord = xy2LatLon(11.0,yViewNode.getValue());
+	} else {
+		var new_coord = xy2LatLon(xViewNode.getValue(),yViewNode.getValue());
+	}
+	var head = abs(getprop("orientation/heading-deg") -360.00) + head_add;
+	while (head >= 360.0) {
+		head -= 360.0;
+	}
+	setprop("sim/view[100]/enabled", "true");
+	setprop("sim/walker/outside", 1);
+	setprop("sim/current-view/view-number", view.indexof("Walk View"));
+	var posy = new_coord[0];
+	var posx = new_coord[1];
+	setprop("sim/walker/heading-deg", 0);
+	setprop("sim/walker/roll-deg", 0);
+	setprop("sim/walker/pitch-deg", 0);
+	setprop("sim/walker/latitude-deg", new_coord[0]);
+	setprop("sim/walker/longitude-deg", new_coord[1]);
+	setprop("sim/current-view/pitch-offset-deg", getprop("sim/walker/keep-pitch-offset-deg"));
+	setprop("sim/current-view/roll-offset-deg", 0);
+	yViewNode.setValue(0);
+	zViewNode.setValue(2.07);	# matches person height when inside due to aircraft offsets
+	xViewNode.setValue(0);
+	setprop("sim/current-view/heading-offset-deg", head);
+	falling = 1;
+	setprop("sim/walker/time-of-exit-sec", getprop("sim/time/elapsed-sec"));
+	setprop("sim/walker/altitude-at-exit-ft", getprop("position/altitude-ft"));
+	setprop("sim/walker/starting-lat", new_coord[0]);
+	setprop("sim/walker/starting-lon", new_coord[1]);
 	walk_factor = 1.0;
 }
 
@@ -325,29 +357,20 @@ var get_in = func (loc) {
 		setprop("sim/walker/parachute-opened-altitude-ft", 0);
 		setprop("sim/walker/parachute-opened-sec", 0);
 		if (loc == 1) {
-			if (getprop("sim/model/bluebird/doors/door[0]/position-norm") > 0.62) {
-				yViewNode.setValue(-4.3);
-			} else {
-				yViewNode.setValue(-1.3);
-			}
-			zViewNode.setValue(1.87);
+			yViewNode.setValue(-3.4);
+			zViewNode.setValue(2.1);
 			xViewNode.setValue(-2.55);
+			setprop("sim/current-view/heading-offset-deg", 270.0);
 		} elsif (loc == 2) {
-			if (getprop("sim/model/bluebird/doors/door[1]/position-norm") > 0.62) {
-				yViewNode.setValue(4.3);
-			} else {
-				yViewNode.setValue(1.3);
-			}
-			zViewNode.setValue(1.87);
+			yViewNode.setValue(3.4);
+			zViewNode.setValue(2.1);
 			xViewNode.setValue(-2.55);
+			setprop("sim/current-view/heading-offset-deg", 90.0);
 		} elsif (loc == 5) {
 			yViewNode.setValue(0.0);
-			zViewNode.setValue(1.87);
-			if (getprop("sim/model/bluebird/doors/door[5]/position-norm") > 0.62) {
-				xViewNode.setValue(10.56);
-			} else {
-				xViewNode.setValue(9.19);
-			}
+			zViewNode.setValue(2.1);
+			xViewNode.setValue(10.0);
+			setprop("sim/current-view/heading-offset-deg", 0.0);
 		} else {
 			yViewNode.setValue(getprop("sim/walker/keep-inside-offset-x"));
 			zViewNode.setValue(getprop("sim/walker/keep-inside-offset-y"));

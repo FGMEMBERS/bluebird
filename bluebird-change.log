@@ -1,5 +1,9 @@
 Version# Vertices PolygonFaces Comments
 2008.May.19
+6.3	Fix vertical offset
+	Add trig calculations to re-enter cabin from outside.
+	Solidify the remaining inside walls and doors.
+
 6.27	Add acceleration to hovering on keyboard controls.
 	Add running to walker when outside.
 	Fix keyboard problem with mod-up, for walker and hover functions.

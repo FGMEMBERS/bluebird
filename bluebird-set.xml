@@ -4,7 +4,7 @@
  <sim>
 	<description>Bluebird Hovercraft for 1.0</description>
 	<status>early-production</status>
-	<aircraft-version>6.27</aircraft-version>
+	<aircraft-version>6.3</aircraft-version>
 	<author>S Andreason</author>
 	<model>
 		<path>Aircraft/bluebird/Models/bluebird-plib.xml</path>

@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 6.27 common base =====
+# ===== Bluebird Explorer Hovercraft  version 6.3 common base =====
 
 # Add second popupTip to avoid being overwritten by primary joystick messages ==
 var tipArg2 = props.Node.new({ "dialog-name" : "PopTip2" });
@@ -2874,160 +2874,234 @@ var walk_about_cabin = func(wa_distance) {
 			new_x_position = -6.25;
 		}
 		# check outside walls
-		if (new_x_position <= -8.0) {
-			new_x_position = -8.0;
-			if (new_y_position < -0.4) {
-				new_y_position = -0.4;
-			} elsif (new_y_position > 0.4) {
-				new_y_position = 0.4;
-			}
-		} elsif (new_x_position > -8.0 and new_x_position < -5.65) {
-			var y_angle = (new_x_position + 8.0) / 2.35 * 0.9;
-			if (new_y_position < (-0.4 - y_angle)) {
-				new_y_position = -0.4 - y_angle;
-			} elsif (new_y_position > (0.4 + y_angle)) {
-				new_y_position = 0.4 + y_angle;
-			}
-		} elsif (new_x_position >= -5.65 and new_x_position <= -4.55) {
-			if (new_y_position < -1.3) {
-				new_y_position = -1.3;
-			} elsif (new_y_position > 1.3) {
-				new_y_position = 1.3;
-			}
-		} elsif (new_x_position > -4.55 and new_x_position < -4.2) {
-			if (new_y_position < -1.0) {
-				new_x_position = -4.55;
-				if (new_y_position < -1.3) {
-					new_y_position = -1.3;
+		if (new_x_position <= -1.92) {	# divide search by half
+			if (new_x_position <= -8.0) {
+				new_x_position = -8.0;
+				if (new_y_position < -0.4) {
+					new_y_position = -0.4;
+				} elsif (new_y_position > 0.4) {
+					new_y_position = 0.4;
 				}
-			} elsif (new_y_position < -0.85) {
-				new_y_position = -0.85;
-			} elsif (new_y_position > 1.0) {
-				new_x_position = -4.55;
-				if (new_y_position > 1.3) {
-					new_y_position = 1.3;
+			} elsif (new_x_position > -8.0 and new_x_position < -5.65) {
+				var y_angle = (new_x_position + 8.0) / 2.35 * 0.73;
+				if (new_y_position < (-0.4 - y_angle)) {
+					new_y_position = -0.4 - y_angle;
+				} elsif (new_y_position > (0.4 + y_angle)) {
+					new_y_position = 0.4 + y_angle;
 				}
-			} elsif (new_y_position > 0.85) {
-				new_y_position = 0.85;
-			}
-		} elsif (new_x_position >= -4.2 and new_x_position <= -3.95) {
-			if (new_y_position < -0.85) {
-				new_y_position = -0.85;
-			} elsif (new_y_position > 0.85) {
-				new_y_position = 0.85;
-			}
-		} elsif (new_x_position > -3.95 and new_x_position < -3.45) {
-			var y_angle = (new_x_position + 3.95) / 0.5 * 0.25;
-			if (new_y_position < (-0.85 - y_angle)) {
-				new_y_position = -0.85 - y_angle;
-			} elsif (new_y_position > (0.85 + y_angle)) {
-				new_y_position = 0.85 + y_angle;
-			}
-		} elsif (new_x_position >= -3.45 and new_x_position <= -3.1) {
-			if (new_y_position < door0_barrier) {
-				new_x_position = -3.1;
-				new_y_position = door0_barrier;
-			} elsif (new_y_position < -1.4) {
-				new_x_position = -3.1;
-			} elsif (new_y_position < -1.1) {
-				new_y_position = -1.1;
-			} elsif (new_y_position > door1_barrier) {
-				new_x_position = -3.1;
-				new_y_position = door1_barrier;
-			} elsif (new_y_position > 1.4) {
-				new_x_position = -3.1;
-			} elsif (new_y_position > 1.1) {
-				new_y_position = 1.1;
-			}
-		} elsif (new_x_position > -3.1 and new_x_position < -2.1) {
-			# between front hatches
-			if (new_x_position < -3.1 and 
-				(new_y_position < door0_barrier or new_y_position > door1_barrier)) {
+			} elsif (new_x_position >= -5.65 and new_x_position <= -4.57) {
+				var y_angle = (new_x_position + 5.65) / 1.08 * 0.13;
+				if (new_y_position < (-1.13 - y_angle)) {
+					new_y_position = -1.13 - y_angle;
+				} elsif (new_y_position > (1.13 + y_angle)) {
+					new_y_position = 1.13 + y_angle;
+				}
+			} elsif (new_x_position > -4.57 and new_x_position < -4.2) {
+				if (new_y_position < -1.0) {
+					new_x_position = -4.57;
+					if (new_y_position < -1.26) {
+						new_y_position = -1.26;
+					}
+				} elsif (new_y_position < -0.83) {
+					new_y_position = -0.83;
+				} elsif (new_y_position > 1.0) {
+					new_x_position = -4.57;
+					if (new_y_position > 1.26) {
+						new_y_position = 1.26;
+					}
+				} elsif (new_y_position > 0.83) {
+					new_y_position = 0.83;
+				}
+			} elsif (new_x_position >= -4.2 and new_x_position <= -3.95) {
+				if (new_y_position < -0.83) {
+					new_y_position = -0.83;
+				} elsif (new_y_position > 0.83) {
+					new_y_position = 0.83;
+				}
+			} elsif (new_x_position > -3.95 and new_x_position < -3.45) {
+				var y_angle = (new_x_position + 3.95) / 0.5 * 0.27;
+				if (new_y_position < (-0.83 - y_angle)) {
+					new_y_position = -0.83 - y_angle;
+				} elsif (new_y_position > (0.83 + y_angle)) {
+					new_y_position = 0.83 + y_angle;
+				}
+			} elsif (new_x_position >= -3.45 and new_x_position <= -3.1) {
+				if (new_y_position < door0_barrier) {
 					new_x_position = -3.1;
-			} elsif (new_x_position > -2.1 and 
-				(new_y_position < door0_barrier or new_y_position > door1_barrier)) {
+					new_y_position = door0_barrier;
+				} elsif (new_y_position < -1.4) {
+					new_x_position = -3.1;
+				} elsif (new_y_position < -1.1) {
+					new_y_position = -1.1;
+				} elsif (new_y_position > door1_barrier) {
+					new_x_position = -3.1;
+					new_y_position = door1_barrier;
+				} elsif (new_y_position > 1.4) {
+					new_x_position = -3.1;
+				} elsif (new_y_position > 1.1) {
+					new_y_position = 1.1;
+				}
+			} elsif (new_x_position > -3.1 and new_x_position < -2.1) {
+				# between front hatches
+				if (new_x_position < -3.1 and 
+					(new_y_position < door0_barrier or new_y_position > door1_barrier)) {
+						new_x_position = -3.1;
+				} elsif (new_x_position > -2.1 and 
+					(new_y_position < door0_barrier or new_y_position > door1_barrier)) {
+						new_x_position = -2.1;
+				}
+				if (new_y_position < door0_barrier) {
+					if (door0_position > 0.62) {
+						w_out = 1;
+					}
+					new_y_position = door0_barrier;
+				} elsif (new_y_position > door1_barrier) {
+					if (door1_position > 0.62) {
+						w_out = 2;
+					}
+					new_y_position = door1_barrier;
+				}
+			} elsif (new_x_position >= -2.1 and new_x_position <= -1.92) {
+				if (new_y_position < door0_barrier) {
 					new_x_position = -2.1;
-			}
-			if (new_y_position < door0_barrier) {
-				if (door0_position > 0.62) {
-					w_out = 1;
+					new_y_position = door0_barrier;
+				} elsif (new_y_position < -1.4) {
+					new_x_position = -2.1;
+				} elsif (new_y_position < -1.1) {
+					new_y_position = -1.1;
+				} elsif (new_y_position > door1_barrier) {
+					new_x_position = -2.1;
+					new_y_position = door1_barrier;
+				} elsif (new_y_position > 1.4) {
+					new_x_position = -2.1;
+				} elsif (new_y_position > 1.1) {
+					new_y_position = 1.1;
 				}
-				new_y_position = door0_barrier;
-			} elsif (new_y_position > door1_barrier) {
-				if (door1_position > 0.62) {
-					w_out = 2;
+			}
+		} else {
+			if (new_x_position > -1.92 and new_x_position < -1.52) {
+				if (new_y_position < -0.6) {
+					new_x_position = -1.92;
+					if (new_y_position < -1.3) {
+						new_y_position = -1.3;
+					}
+				} elsif (new_y_position < -0.38) {
+					new_y_position = -0.38;
+				} elsif (new_y_position > 0.6) {
+					new_x_position = -1.92;
+					if (new_y_position > 1.3) {
+						new_y_position = 1.3;
+					}
+				} elsif (new_y_position > 0.38) {
+					new_y_position = 0.38;
 				}
-				new_y_position = door1_barrier;
-			}
-		} elsif (new_x_position >= -2.1 and new_x_position <= -1.92) {
-			if (new_y_position < door0_barrier) {
-				new_x_position = -2.1;
-				new_y_position = door0_barrier;
-			} elsif (new_y_position < -1.4) {
-				new_x_position = -2.1;
-			} elsif (new_y_position < -1.1) {
-				new_y_position = -1.1;
-			} elsif (new_y_position > door1_barrier) {
-				new_x_position = -2.1;
-				new_y_position = door1_barrier;
-			} elsif (new_y_position > 1.4) {
-				new_x_position = -2.1;
-			} elsif (new_y_position > 1.1) {
-				new_y_position = 1.1;
-			}
-		} elsif (new_x_position > -1.92 and new_x_position < -1.2) {
-			if (new_y_position < -0.6) {
-				new_x_position = -1.92;
-				if (new_y_position < -1.3) {
-					new_y_position = -1.3;
+				if (new_y_position > -0.40 and new_y_position < 0.40) {
+					if (getprop("sim/model/bluebird/doors/door[2]/position-norm") < 0.7) {
+						if (new_x_position < -1.72) {
+							new_x_position = -1.92;
+						} else {
+							new_x_position = -1.51;
+						}
+					}
 				}
-			} elsif (new_y_position < -0.49) {
-				new_y_position = -0.49;
-			} elsif (new_y_position > 0.6) {
-				new_x_position = -1.92;
-				if (new_y_position > 1.3) {
-					new_y_position = 1.3;
+			} elsif (new_x_position >= -1.52 and new_x_position < -1.22) {
+				if (new_y_position < -0.38) {
+					new_y_position = -0.38;
+				} elsif (new_y_position > 0.38) {
+					new_y_position = 0.38;
 				}
-			} elsif (new_y_position > 0.49) {
-				new_y_position = 0.49;
-			}
-		} elsif (new_x_position >= -1.2 and new_x_position <= -0.6) {
-			if (new_y_position < -0.49) {
-				new_y_position = -0.49;
-			} elsif (new_y_position > 0.49) {
-				new_y_position = 0.49;
-			}
-		} elsif (new_x_position > -0.6 and new_x_position < 0.06) {
-			if (new_y_position < -0.6) {
-				new_x_position = 0.06;
-				if (new_y_position < -1.65) {
-					new_y_position = -1.65;
+			} elsif (new_x_position >= -1.22 and new_x_position <= -0.81) {
+				if (new_y_position < -0.54) {
+					new_x_position = -0.81;
+					if (new_y_position < -1.39) {
+						new_y_position = -1.39;
+					} elsif (getprop("sim/model/bluebird/doors/door[3]/position-norm") < 0.7 and new_y_position > -0.81) {
+						new_y_position = -0.81;
+					}
+				} else {
+					if (new_y_position < -0.38) {
+						new_y_position = -0.38;
+					} elsif (new_y_position > 0.38) {
+						new_y_position = 0.38;
+					}
 				}
-			} elsif (new_y_position < -0.49) {
-				new_y_position = -0.49;
-			} elsif (new_y_position > 0.6) {
-				new_x_position = 0.06;
-				if (new_y_position > 1.65) {
-					new_y_position = 1.65;
+			} elsif (new_x_position > -0.81 and new_x_position < -0.40) {
+				if (new_y_position < -0.38) {
+					if (new_y_position < -1.39) {
+						new_y_position = -1.39;
+					} elsif (getprop("sim/model/bluebird/doors/door[3]/position-norm") < 0.7) {
+						if (new_y_position > -0.54) {
+							new_y_position = -0.38;
+						} elsif (new_y_position > -0.81) {
+							new_y_position = -0.81;
+						}
+					}
+				} elsif (new_y_position > 0.38) {
+					new_y_position = 0.38;
 				}
-			} elsif (new_y_position > 0.49) {
-				new_y_position = 0.49;
-			}
-		} elsif (new_x_position >= 0.06 and new_x_position <= door5_barrier) {
-			if (new_y_position < -1.65) {
-				new_y_position = -1.65;
-			} elsif (new_y_position > 1.65) {
-				new_y_position = 1.65;
-			}
-		} elsif (new_x_position > door5_barrier) {
-			if (door5_position > 0.62) {
-				w_out = 5;
-			}
-			new_x_position = door5_barrier;
-			if (new_y_position < -1.65) {
-				new_y_position = -1.65;
-			} elsif (new_y_position > 1.65) {
-				new_y_position = 1.65;
+			} elsif (new_x_position >= -0.40 and new_x_position < -0.24) {
+				if (new_y_position < -0.54) {
+					new_x_position = -0.40;
+					if (new_y_position < -1.39) {
+						new_y_position = -1.39;
+					} elsif (getprop("sim/model/bluebird/doors/door[3]/position-norm") < 0.7 and new_y_position > -0.81) {
+						new_y_position = -0.81;
+					}
+				} else {
+					if (new_y_position < -0.38) {
+						new_y_position = -0.38;
+					} elsif (new_y_position > 0.38) {
+						new_y_position = 0.38;
+					}
+				}
+			} elsif (new_x_position >= -0.24 and new_x_position <= -0.09) {
+				if (new_y_position < -0.38) {
+					new_y_position = -0.38;
+				} elsif (new_y_position > 0.38) {
+					new_y_position = 0.38;
+				}
+				if (new_y_position > -0.40 and new_y_position < 0.40) {
+					if (getprop("sim/model/bluebird/doors/door[4]/position-norm") < 0.7) {
+						new_x_position = -0.25;
+					}
+				}
+			} elsif (new_x_position > -0.09 and new_x_position < 0.06) {
+				if (new_y_position < -0.6) {
+					new_x_position = 0.06;
+					if (new_y_position < -1.62) {
+						new_y_position = -1.62;
+					}
+				} elsif (new_y_position < -0.38) {
+					new_y_position = -0.38;
+				} elsif (new_y_position > 0.6) {
+					new_x_position = 0.06;
+					if (new_y_position > 1.62) {
+						new_y_position = 1.62;
+					}
+				} elsif (new_y_position > 0.38) {
+					new_y_position = 0.38;
+				}
+				if (new_y_position > -0.40 and new_y_position < 0.40) {
+					if (getprop("sim/model/bluebird/doors/door[4]/position-norm") < 0.7) {
+						new_x_position = 0.07;
+					}
+				}
+			} elsif (new_x_position >= 0.06 and new_x_position <= door5_barrier) {
+				if (new_y_position < -1.62) {
+					new_y_position = -1.62;
+				} elsif (new_y_position > 1.62) {
+					new_y_position = 1.62;
+				}
+			} elsif (new_x_position > door5_barrier) {
+				if (door5_position > 0.62) {
+					w_out = 5;
+				}
+				new_x_position = door5_barrier;
+				if (new_y_position < -1.62) {
+					new_y_position = -1.62;
+				} elsif (new_y_position > 1.62) {
+					new_y_position = 1.62;
+				}
 			}
 		}
 		if (w_out) {
