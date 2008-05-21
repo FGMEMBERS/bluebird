@@ -1,4 +1,4 @@
-# ===== common base for walking functions   version 2.2   =====
+# ===== common base for walking functions   version 2.3   =====
 # ===== plus coordinates for Bluebird Explorer Hovercraft =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
@@ -45,6 +45,15 @@ setlistener("sim/walker/starting-lon", func {
 	starting_lon = getprop("sim/walker/starting-lon");
 });
 
+setlistener("sim/walker/key-triggers/outside-toggle", func {
+	var c_view = getprop ("sim/current-view/view-number");
+	if (c_view == 0) {
+		get_out(0);
+	} elsif (c_view == view.indexof("Walk View")) {
+		get_in(0);
+	}
+});
+
 var distFromCraft = func (lat,lon) {
 	var c_lat = getprop("position/latitude-deg");
 	var c_lon = getprop("position/longitude-deg");
@@ -76,13 +85,54 @@ var xy2LatLon = func (x,y) {
 	return [(c_lat + xy_lat) , (c_lon + xy_lon)];
 }
 
-var walk_dir = 0;
+var walk_heading = 0;
+var calc_heading = func {
+	var w_forward = getprop("sim/walker/key-triggers/forward");
+	var w_left = getprop("sim/walker/key-triggers/slide");
+	var new_head = -999;
+	if (w_forward > 0) {
+		if (w_left < 0) {
+			new_head = 45;
+		} elsif (w_left > 0) {
+			new_head = -45;
+		} else {
+			new_head = 0;
+		}
+	} elsif (w_forward < 0) {
+		if (w_left < 0) {
+			new_head = 135;
+		} elsif (w_left > 0) {
+			new_head = -135;
+		} else {
+			new_head = 180;
+		}
+	} else {
+		if (w_left < 0) {
+			new_head = 90;
+		} elsif (w_left > 0) {
+			new_head = -90;
+		} else {
+			setprop ("sim/walker/walking", 0);
+			return 0;
+		}
+	}
+	walk_heading = new_head;
+	setprop ("sim/walker/walking", 1);
+}
+
+setlistener("sim/walker/key-triggers/forward", func {
+	calc_heading();
+});
+
+setlistener("sim/walker/key-triggers/slide", func {
+	calc_heading();
+});
+
 var walk_watch = 0;
 var walk_factor = 1.0;
-
 var momentum_walk = func {
 	if (walk_watch >= 3) {
-		if (walk_factor < 4.0) {
+		if (walk_factor < 2.0) {
 			walk_factor += 0.025;
 		}
 		walk();
@@ -91,7 +141,7 @@ var momentum_walk = func {
 		walk_watch -= 1;
 	} else {
 		walk_factor = ((walk_factor - 1.0) * 0.5) + 1.0;
-		if (walk_factor < 1.25) {
+		if (walk_factor < 1.1) {
 			walk_factor = 1.0;
 			walk_watch = 0;
 		} else {
@@ -156,7 +206,7 @@ var walk = func {
 	var c_view = getprop ("sim/current-view/view-number");
 	if (c_view == 0) {
 		# inside aircraft
-		bluebird.walk_about_cabin(walk_dir * 0.1);
+		bluebird.walk_about_cabin(0.1, walk_heading);
 	} elsif (c_view == view.indexof("Walk View")) {
 		if (getprop ("sim/walker/outside") == 1) {
 			ext_mov();
@@ -167,13 +217,20 @@ var walk = func {
 }
 
 var ext_mov = func {
-	var speed = getprop("sim/walker/speed") * walk_dir * walk_factor;
-	var head = getprop("sim/current-view/heading-offset-deg");
+	var speed = getprop("sim/walker/speed") * walk_factor;
+	var head0 = getprop("sim/current-view/heading-offset-deg");
 	var posy = getprop("sim/walker/latitude-deg");
 	var posx = getprop("sim/walker/longitude-deg");
 	var posz1 = getprop("sim/walker/altitude-ft");
 	var posz3 = getprop("sim/walker/altitude-at-exit-ft");
 	var check_movement = 1;
+	var head = head0 + walk_heading;
+	while (head >= 360.0) {
+		head -= 360.0;
+	}
+	while (head < 0.0) {
+		head += 360.0;
+	}
 	if (falling) {
 		var elapsed_sec = getprop("sim/time/elapsed-sec");
 		var elapsed_fall_sec = elapsed_sec - exit_time_sec;
@@ -267,7 +324,7 @@ var ext_mov = func {
 			interpolate ("sim/walker/latitude-deg", posy1,0.25,0.3);
 #print(sprintf("lat= %9.8f posy= %9.8f posy1= %9.8f",getprop("sim/walker/latitude-deg"),posy,posy1));
 			interpolate ("sim/walker/longitude-deg", posx1,0.25,0.3);
-#print(sprintf("walker_lat= %9.8f lon= %9.8f heading= %6.2f groundDistance= %3.2f",posy,posx,head,distFromCraft(posy,posx)));
+#print(sprintf("walker_lat= %9.8f lon= %9.8f heading= %6.2f groundDistance= %3.2f",posy,posx,head0,distFromCraft(posy,posx)));
 #			print ("posz1=",posz1," posz2=", posz2);
 
 			if ((posz1+0.4) > posz2 or (posz1-0.4) < posz2) {
@@ -337,7 +394,7 @@ var get_out = func (loc) {
 	setprop("sim/current-view/pitch-offset-deg", getprop("sim/walker/keep-pitch-offset-deg"));
 	setprop("sim/current-view/roll-offset-deg", 0);
 	yViewNode.setValue(0);
-	zViewNode.setValue(2.07);	# matches person height when inside due to aircraft offsets
+	zViewNode.setValue(1.67);	# matches person height when inside due to aircraft offsets
 	xViewNode.setValue(0);
 	setprop("sim/current-view/heading-offset-deg", head);
 	falling = 1;
@@ -350,32 +407,30 @@ var get_out = func (loc) {
 
 var get_in = func (loc) {
 	var c_view = getprop("sim/current-view/view-number");
-	if (c_view == 0 or c_view == view.indexof("Walk View")) {
-		setprop("sim/current-view/view-number", 0);
-		setprop("sim/walker/outside", 0);
-		setprop("sim/view[100]/enabled", "false");
-		setprop("sim/walker/parachute-opened-altitude-ft", 0);
-		setprop("sim/walker/parachute-opened-sec", 0);
-		if (loc == 1) {
-			yViewNode.setValue(-3.4);
-			zViewNode.setValue(2.1);
-			xViewNode.setValue(-2.55);
-			setprop("sim/current-view/heading-offset-deg", 270.0);
-		} elsif (loc == 2) {
-			yViewNode.setValue(3.4);
-			zViewNode.setValue(2.1);
-			xViewNode.setValue(-2.55);
-			setprop("sim/current-view/heading-offset-deg", 90.0);
-		} elsif (loc == 5) {
-			yViewNode.setValue(0.0);
-			zViewNode.setValue(2.1);
-			xViewNode.setValue(10.0);
-			setprop("sim/current-view/heading-offset-deg", 0.0);
-		} else {
-			yViewNode.setValue(getprop("sim/walker/keep-inside-offset-x"));
-			zViewNode.setValue(getprop("sim/walker/keep-inside-offset-y"));
-			xViewNode.setValue(getprop("sim/walker/keep-inside-offset-z"));
-		}
+	setprop("sim/current-view/view-number", 0);
+	setprop("sim/walker/outside", 0);
+	setprop("sim/view[100]/enabled", "false");
+	setprop("sim/walker/parachute-opened-altitude-ft", 0);
+	setprop("sim/walker/parachute-opened-sec", 0);
+	if (loc == 1) {
+		yViewNode.setValue(-3.4);
+		zViewNode.setValue(2.1);
+		xViewNode.setValue(-2.55);
+		setprop("sim/current-view/heading-offset-deg", 270.0);
+	} elsif (loc == 2) {
+		yViewNode.setValue(3.4);
+		zViewNode.setValue(2.1);
+		xViewNode.setValue(-2.55);
+		setprop("sim/current-view/heading-offset-deg", 90.0);
+	} elsif (loc == 5) {
+		yViewNode.setValue(0.0);
+		zViewNode.setValue(2.1);
+		xViewNode.setValue(10.0);
+		setprop("sim/current-view/heading-offset-deg", 0.0);
+	} else {
+		yViewNode.setValue(getprop("sim/walker/keep-inside-offset-x"));
+		zViewNode.setValue(getprop("sim/walker/keep-inside-offset-y"));
+		xViewNode.setValue(getprop("sim/walker/keep-inside-offset-z"));
 	}
 }
 

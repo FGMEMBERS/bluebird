@@ -8,6 +8,13 @@
 		<path>Aircraft/bluebird/Models/bluebird-plib.xml</path>
 	</model>
 
+	<help>
+		<key n="20">
+			<name>W / S</name>
+			<desc>Walk Forward/Backward</desc>
+		</key>
+	</help>
+
 	<menubar>
 		<default>
 			<menu n="10">
@@ -36,6 +43,59 @@
 		<path>Aircraft/bluebird/Models/submodels-09.xml</path>
 	</submodels>
  </sim>
+
+ <input>
+	<keyboard>
+		<key n="119"> 
+			<name>w</name>
+			<desc>Walk forward</desc>
+			<binding>
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/forward</property>
+				<value>1</value>
+			</binding>
+			<mod-up>
+				<binding>
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/forward</property>
+					<value>0</value>
+				</binding>
+			</mod-up>
+		</key>
+		<key n="87"> 
+			<name>W</name>
+			<desc>Walk forward</desc>
+			<binding>
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/forward</property>
+				<value>1</value>
+			</binding>
+			<mod-up>
+				<binding>
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/forward</property>
+					<value>0</value>
+				</binding>
+			</mod-up>
+		</key>
+		<key n="83"> 
+			<name>S</name>
+			<desc>Walk backwards</desc>
+			<binding>
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/forward</property>
+				<value>-1</value>
+			</binding>
+			<mod-up>
+				<binding>
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/forward</property>
+					<value>0</value>
+				</binding>
+			</mod-up>
+		</key>
+	</keyboard>
+ </input>
 
  <nasal>
 	<bluebird>

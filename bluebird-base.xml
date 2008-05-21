@@ -4,7 +4,7 @@
  <sim>
 	<aero>bluebird</aero>
 	<status>early-production</status>
-	<aircraft-version>6.3</aircraft-version>
+	<aircraft-version>6.4</aircraft-version>
 	<author>S Andreason</author>
 	<aircraft-status>
 		<fdm>beta</fdm>
@@ -712,32 +712,40 @@
 			<desc>Reverse direction - fly backwards</desc>
 		</key>
 		<key n="8">
-			<name>d/D</name>
+			<name>f / F</name>
 			<desc>Select Next/Previous Door</desc>
 		</key>
 		<key n="9">
-			<name>Ctrl-d</name>
+			<name>Ctrl-f</name>
 			<desc>Open/Close Selected Door</desc>
 		</key>
 		<key n="10">
+			<name>g / G</name>
+			<desc>main Gear Up/Down</desc>
+		</key>
+		<key n="11">
 			<name>Ctrl-g</name>
 			<desc>Toggle Gear Deployment Mode</desc>
 		</key>
-		<key n="11">
+		<key n="12">
 			<name>Ctrl-w</name>
 			<desc>Toggle Wheel Deployment Mode</desc>
 		</key>
-		<key n="12">
-			<name>e/E</name>
+		<key n="13">
+			<name>c / C</name>
 			<desc>Next/Previous cabin position</desc>
 		</key>
-		<key n="13">
-			<name>Ctrl-E</name>
+		<key n="14">
+			<name>Ctrl-c</name>
 			<desc>Jump to cockpit helm</desc>
 		</key>
-		<key n="14">
-			<name>w/W</name>
+		<key n="15">
+			<name>w / s</name>
 			<desc>Walk Forward/Backward</desc>
+		</key>
+		<key n="16">
+			<name>a / d</name>
+			<desc>Walk: Slide sideways left/right</desc>
 		</key>
 		<key n="30">
 			<name>Joystick</name>
@@ -830,6 +838,11 @@
 		<starting-trajectory-lon type="double">0.0</starting-trajectory-lon>
 		<parachute-opened-altitude-ft type="double">0.0</parachute-opened-altitude-ft>
 		<parachute-opened-sec type="double">0.0</parachute-opened-sec>
+		<key-triggers>
+			<outside-toggle type="bool">false</outside-toggle>
+			<forward type="double">0</forward>
+			<slide type="double">0</slide>
+		</key-triggers>
 	</walker>
  </sim>
 
@@ -981,8 +994,8 @@
 				</binding>
 			</mod-up>
 		</key>
-		<key n="4">
-			<name>Ctrl-D</name>
+		<key n="6">
+			<name>Ctrl-F</name>
 			<desc>Open/Close selected door</desc>
 			<repeatable>false</repeatable>
 			<binding>
@@ -990,8 +1003,8 @@
 				<script>bluebird.toggle_door()</script>
 			</binding>
 		</key>
-		<key n="100">
-			<name>d</name>
+		<key n="102">
+			<name>f</name>
 			<desc>Select next door</desc>
 			<repeatable>false</repeatable>
 			<binding>
@@ -999,8 +1012,8 @@
 				<script>bluebird.next_door()</script>
 			</binding>
 		</key>
-		<key n="68">
-			<name>D</name>
+		<key n="70">
+			<name>F</name>
 			<desc>Select previous door</desc>
 			<repeatable>false</repeatable>
 			<binding>
@@ -1030,26 +1043,26 @@
 				<wrap>true</wrap>
 			</binding>
 		</key>
-		<key n="101">
-			<name>e</name>
-			<desc>Cycle cockpit location - Stand up, walk around, sit down</desc>
+		<key n="99">
+			<name>c</name>
+			<desc>Cycle Cockpit location - Stand up, walk around, sit down</desc>
 			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
 				<script>bluebird.cycle_cockpit(1)</script>
 			</binding>
 		</key>
-		<key n="69">
-			<name>E</name>
-			<desc>Cycle cockpit location - previous</desc>
+		<key n="67">
+			<name>C</name>
+			<desc>Cycle Cockpit location - previous</desc>
 			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
 				<script>bluebird.cycle_cockpit(-1)</script>
 			</binding>
 		</key>
-		<key n="5">
-			<name>Ctrl-E</name>
+		<key n="3">
+			<name>Ctrl-C</name>
 			<desc>Jump to cockpit helm</desc>
 			<repeatable>false</repeatable>
 			<binding>
@@ -1057,48 +1070,90 @@
 				<script>bluebird.cycle_cockpit(10)</script>
 			</binding>
 		</key>
-		<key n="119"> 
-			<name>w</name>
-			<desc>Walk forward</desc>
-			<repeatable>false</repeatable>
-			<binding> 
-				<command>property-assign</command>
-				<property>sim/walker/walking</property>
-				<value>1</value>
-			</binding>
-			<mod-up>
-				<binding>
-					<command>property-assign</command>
-					<property>sim/walker/walking</property>
-					<value>0</value>
-				</binding>
-			</mod-up>
-		</key>
-		<key n="87"> 
-			<name>W</name>
+		<key n="115"> 
+			<name>s</name>
 			<desc>Walk backward</desc>
 			<repeatable>false</repeatable>
-			<binding> 
+			<binding>
 				<command>property-assign</command>
-				<property>sim/walker/walking</property>
+				<property>sim/walker/key-triggers/forward</property>
 				<value>-1</value>
 			</binding>
 			<mod-up>
 				<binding>
 					<command>property-assign</command>
-					<property>sim/walker/walking</property>
+					<property>sim/walker/key-triggers/forward</property>
 					<value>0</value>
 				</binding>
 			</mod-up>
 		</key>
-		<key n="67"> 
-			<name>C</name>
-			<desc>open paraChute</desc>
+		<key n="97"> 
+			<name>a</name>
+			<desc>Slide left</desc>
 			<repeatable>false</repeatable>
 			<binding>
-				<command>nasal</command>
-				<script>walk.open_chute()</script>
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/slide</property>
+				<value>-1</value>
 			</binding>
+			<mod-up>
+				<binding>
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/slide</property>
+					<value>0</value>
+				</binding>
+			</mod-up>
+		</key>
+		<key n="65"> 
+			<name>A</name>
+			<desc>Slide left2, override default assignment</desc>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/slide</property>
+				<value>-1</value>
+			</binding>
+			<mod-up>
+				<binding>
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/slide</property>
+					<value>0</value>
+				</binding>
+			</mod-up>
+		</key>
+		<key n="100"> 
+			<name>d</name>
+			<desc>Slide right</desc>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/slide</property>
+				<value>1</value>
+			</binding>
+			<mod-up>
+				<binding>
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/slide</property>
+					<value>0</value>
+				</binding>
+			</mod-up>
+		</key>
+		<key n="68"> 
+			<name>D</name>
+			<desc>Slide right2</desc>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/slide</property>
+				<value>1</value>
+			</binding>
+			<mod-up>
+				<binding>
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/slide</property>
+					<value>0</value>
+				</binding>
+			</mod-up>
 		</key>
 	</keyboard>
  </input>

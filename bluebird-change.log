@@ -1,4 +1,8 @@
 Version# Vertices PolygonFaces Comments
+2008.May.20
+6.4	Change key mappings for WASD pattern.
+	Add walk sideways left/right.
+
 2008.May.19
 6.3	Fix vertical offset
 	Add trig calculations to re-enter cabin from outside.

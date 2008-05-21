@@ -4,7 +4,7 @@
  <sim>
 	<description>Bluebird Hovercraft for 1.0</description>
 	<status>early-production</status>
-	<aircraft-version>6.3</aircraft-version>
+	<aircraft-version>6.4</aircraft-version>
 	<author>S Andreason</author>
 	<model>
 		<path>Aircraft/bluebird/Models/bluebird-plib.xml</path>
@@ -12,16 +12,16 @@
 
 	<help>
 		<key n="20">
-			<name>C</name>
-			<desc>Open parachute</desc>
+			<name>W</name>
+			<desc>Run Forward outside</desc>
 		</key>
 		<key n="21">
 			<name>o</name>
-			<desc>Jump Outside, walk on ground</desc>
+			<desc>Jump Outside/Inside toggle</desc>
 		</key>
 		<key n="22">
-			<name>O</name>
-			<desc>Return Inside to cabin</desc>
+			<name>r</name>
+			<desc>pull Ripcord, open parachute</desc>
 		</key>
 		<key n="25">
 			<name>L</name>
@@ -136,20 +136,74 @@
 		</key>
 		<key n="111">
 			<name>o</name>
-			<desc>Move walker outside</desc>
+			<desc>Toggle walker outside/inside</desc>
 			<repeatable>false</repeatable>
 			<binding>
-				<command>nasal</command>
-				<script>walk.get_out(0)</script>
+				<command>property-toggle</command>
+				<property>sim/walker/key-triggers/outside-toggle</property>
 			</binding>
 		</key>
-		<key n="79">
-			<name>O</name>
-			<desc>Move walker inside</desc>
+		<key n="119"> 
+			<name>w</name>
+			<desc>Walk forward</desc>
+			<repeatable>false</repeatable>
+			<binding n="0">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/forward</property>
+				<value>1</value>
+			</binding>
+			<binding n="1">
+				<command>property-assign</command>
+				<property>sim/walker/speed</property>
+				<value>0.000006</value>
+			</binding>
+			<mod-up>
+				<binding n="0">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/forward</property>
+					<value>0</value>
+				</binding>
+				<binding n="1">
+					<command>property-assign</command>
+					<property>sim/walker/speed</property>
+					<value>0.000006</value>
+				</binding>
+			</mod-up>
+		</key>
+		<key n="87"> 
+			<name>W</name>
+			<desc>Run forward</desc>
+			<repeatable>false</repeatable>
+			<binding n="0">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/forward</property>
+				<value>1</value>
+			</binding>
+			<binding n="1">
+				<command>property-assign</command>
+				<property>sim/walker/speed</property>
+				<value>0.000018</value>
+			</binding>
+			<mod-up>
+				<binding n="0">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/forward</property>
+					<value>0</value>
+				</binding>
+				<binding n="1">
+					<command>property-assign</command>
+					<property>sim/walker/speed</property>
+					<value>0.000006</value>
+				</binding>
+			</mod-up>
+		</key>
+		<key n="114"> 
+			<name>r</name>
+			<desc>open parachute</desc>
 			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
-				<script>walk.get_in(0)</script>
+				<script>walk.open_chute()</script>
 			</binding>
 		</key>
 	</keyboard>

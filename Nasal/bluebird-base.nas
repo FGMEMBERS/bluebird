@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 6.3 common base =====
+# ===== Bluebird Explorer Hovercraft  version 6.4 common base =====
 
 # Add second popupTip to avoid being overwritten by primary joystick messages ==
 var tipArg2 = props.Node.new({ "dialog-name" : "PopTip2" });
@@ -2857,14 +2857,22 @@ var cycle_cockpit = func(cc_i) {
 	}
 }
 
-var walk_about_cabin = func(wa_distance) {
+var walk_about_cabin = func(wa_distance, walk_offset) {
 	# x,y,z axis are as expected here. Check boundaries/walls.
 	#  x = aft/fore
 	#  y = right/left
 	#  z = up/down
 	var w_out = 0;
 	if (getprop("sim/current-view/view-number") == 0) {
-		var wa_heading_rad = hViewNode.getValue() * 0.01745329252;
+		var view_head = hViewNode.getValue();
+		var heading = walk_offset + view_head;
+		while (heading >= 360.0) {
+			heading -= 360.0;
+		}
+		while (heading < 0.0) {
+			heading += 360.0;
+		}
+		var wa_heading_rad = heading * 0.01745329252;
 		var new_x_position = xViewNode.getValue() - (math.cos(wa_heading_rad) * wa_distance);
 		var new_y_position = yViewNode.getValue() - (math.sin(wa_heading_rad) * wa_distance);
 		var door0_barrier = (door0_position < 0.62 ? -1.3 : -4.42);

@@ -19,7 +19,7 @@ Press [?] for help with keyboard shortcuts.
 -------------------------------------------------
 2008 by Stewart Andreason for FlightGear
 
-Release version 6.3   2008.May.19
+Release version 6.4   2008.May.20
    23337 vertices, 19664 polygon faces, 427 objects (in primary model)
 
 Send Suggestions? Comments? Problems? or Encouragement to:
