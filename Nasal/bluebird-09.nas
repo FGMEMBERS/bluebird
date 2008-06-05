@@ -22,4 +22,4 @@ settimer(interior_lighting_update, 0.5);
 settimer(nav_light_loop, 0.5);
 
 print ("Bluebird Explorer Hovercraft  by Stewart Andreason");
-print ("  version 6.4  release date 2008.May.20  for FlightGear 0.9.10");
+print ("  version 6.5  release date 2008.Jun.04  for FlightGear 0.9.10");

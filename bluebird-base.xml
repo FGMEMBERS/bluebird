@@ -4,7 +4,7 @@
  <sim>
 	<aero>bluebird</aero>
 	<status>early-production</status>
-	<aircraft-version>6.4</aircraft-version>
+	<aircraft-version>6.5</aircraft-version>
 	<author>S Andreason</author>
 	<aircraft-status>
 		<fdm>beta</fdm>
@@ -736,7 +736,7 @@
 			<desc>Next/Previous cabin position</desc>
 		</key>
 		<key n="14">
-			<name>Ctrl-c</name>
+			<name>Alt-c</name>
 			<desc>Jump to cockpit helm</desc>
 		</key>
 		<key n="15">
@@ -1061,14 +1061,16 @@
 				<script>bluebird.cycle_cockpit(-1)</script>
 			</binding>
 		</key>
-		<key n="3">
-			<name>Ctrl-C</name>
+		<key n="99">
+			<name>Alt-c</name>
 			<desc>Jump to cockpit helm</desc>
 			<repeatable>false</repeatable>
-			<binding>
-				<command>nasal</command>
-				<script>bluebird.cycle_cockpit(10)</script>
-			</binding>
+			<mod-alt>
+				<binding>
+					<command>nasal</command>
+					<script>bluebird.cycle_cockpit(10)</script>
+				</binding>
+			</mod-alt>
 		</key>
 		<key n="115"> 
 			<name>s</name>

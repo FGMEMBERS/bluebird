@@ -1,4 +1,7 @@
 Version# Vertices PolygonFaces Comments
+2008.Jun.05
+6.5	Restore original binding for ctrl-c, move "jump to helm" to alt-c
+
 2008.May.20
 6.4	Change key mappings for WASD pattern.
 	Add walk sideways left/right.

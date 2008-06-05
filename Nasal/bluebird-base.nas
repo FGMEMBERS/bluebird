@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 6.4 common base =====
+# ===== Bluebird Explorer Hovercraft  version 6.5 common base =====
 
 # Add second popupTip to avoid being overwritten by primary joystick messages ==
 var tipArg2 = props.Node.new({ "dialog-name" : "PopTip2" });
@@ -2969,7 +2969,7 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 					}
 					new_y_position = door1_barrier;
 				}
-			} elsif (new_x_position >= -2.1 and new_x_position <= -1.92) {
+			} elsif (new_x_position >= -2.1 and new_x_position <= -1.94) {
 				if (new_y_position < door0_barrier) {
 					new_x_position = -2.1;
 					new_y_position = door0_barrier;
@@ -2987,16 +2987,16 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 				}
 			}
 		} else {
-			if (new_x_position > -1.92 and new_x_position < -1.52) {
+			if (new_x_position > -1.94 and new_x_position < -1.52) {
 				if (new_y_position < -0.6) {
-					new_x_position = -1.92;
+					new_x_position = -1.94;
 					if (new_y_position < -1.3) {
 						new_y_position = -1.3;
 					}
 				} elsif (new_y_position < -0.38) {
 					new_y_position = -0.38;
 				} elsif (new_y_position > 0.6) {
-					new_x_position = -1.92;
+					new_x_position = -1.94;
 					if (new_y_position > 1.3) {
 						new_y_position = 1.3;
 					}
@@ -3005,8 +3005,8 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 				}
 				if (new_y_position > -0.40 and new_y_position < 0.40) {
 					if (getprop("sim/model/bluebird/doors/door[2]/position-norm") < 0.7) {
-						if (new_x_position < -1.72) {
-							new_x_position = -1.92;
+						if (new_x_position < -1.733) {
+							new_x_position = -1.94;
 						} else {
 							new_x_position = -1.51;
 						}
