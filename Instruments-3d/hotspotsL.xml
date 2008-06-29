@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 3.01 ==-->
+<!--== Bluebird Explorer Hovercraft  version 7.1 ==-->
 
 <!DOCTYPE PropertyList SYSTEM "panel.dtd">
 <!-- This part should be the same for any 3D panel.  Customize the actions section -->
@@ -36,10 +36,10 @@
 				<action>
 					<name>power1-select</name>
 					<button>0</button>
-					<x>-510</x>
-					<y>232</y>
-					<w>89</w>
-					<h>192</h>
+					<x>-512</x>
+					<y>224</y>
+					<w>80</w>
+					<h>206</h>
 					<binding>
 						<command>nasal</command>
 						<script>bluebird.toggle_power(0)</script>
@@ -49,10 +49,10 @@
 				<action>
 					<name>engine2-select2</name>
 					<button>0</button>
-					<x>-420</x>
-					<y>232</y>
-					<w>89</w>
-					<h>192</h>
+					<x>-345</x>
+					<y>224</y>
+					<w>80</w>
+					<h>206</h>
 					<binding>
 						<command>nasal</command>
 						<script>bluebird.toggle_fusion()</script>
@@ -62,10 +62,10 @@
 				<action>
 					<name>engine2-select7</name>
 					<button>0</button>
-					<x>30</x>
-					<y>232</y>
-					<w>89</w>
-					<h>192</h>
+					<x>69</x>
+					<y>226</y>
+					<w>80</w>
+					<h>204</h>
 					<binding>
 						<command>nasal</command>
 						<script>bluebird.toggle_fusion()</script>
@@ -75,10 +75,10 @@
 				<action>
 					<name>engine8-select</name>
 					<button>0</button>
-					<x>120</x>
-					<y>232</y>
-					<w>89</w>
-					<h>192</h>
+					<x>153</x>
+					<y>226</y>
+					<w>80</w>
+					<h>204</h>
 					<binding>
 						<command>nasal</command>
 						<script>bluebird.toggle_wave1()</script>
@@ -88,10 +88,10 @@
 				<action>
 					<name>engine9-select</name>
 					<button>0</button>
-					<x>210</x>
-					<y>232</y>
-					<w>89</w>
-					<h>192</h>
+					<x>236</x>
+					<y>226</y>
+					<w>80</w>
+					<h>204</h>
 					<binding>
 						<command>nasal</command>
 						<script>bluebird.toggle_wave2()</script>

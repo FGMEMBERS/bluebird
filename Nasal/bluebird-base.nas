@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 6.5 common base =====
+# ===== Bluebird Explorer Hovercraft  version 7.0 common base =====
 
 # Add second popupTip to avoid being overwritten by primary joystick messages ==
 var tipArg2 = props.Node.new({ "dialog-name" : "PopTip2" });
@@ -76,7 +76,7 @@ var current = props.globals.getNode("engines/engine/speed-max-powerlevel", 1);
 # VTOL counter-grav -------------------------------------------------
 # ---  expect joystick hat to provide best VTOL control ----
 var joystick_elevator = props.globals.getNode("input/joysticks/js/axis[1]/binding/setting", 1);
-var vert_factor = 0.1;
+var vert_factor = 0.04;
 var up_dir = 0;
 var up_watch = 0;
 
@@ -302,7 +302,6 @@ var active_nav_button = [3, 3, 1];
 var active_landing_button = [3, 1, 3];
 var config_dialog = nil;
 var systems_dialog = nil;
-
 var reinit_bluebird = func {	# reset the above variables
 	damage_blocker = 0;
 	damage_count = 0;
@@ -402,6 +401,22 @@ var reinit_bluebird = func {	# reset the above variables
  setlistener("sim/signals/reinit", func {
 	reinit_bluebird();
  });
+
+# display screens ---------------------------------------------------
+var screen_3R_on = 0;	# debug screen at 3 right
+setlistener("instrumentation/display-screens/enabled-3R", func {
+	screen_3R_on = getprop("instrumentation/display-screens/enabled-3R");
+}, 1);
+
+var screen_4R_on = 0;	# hover diagnostics screen at 4 right
+setlistener("instrumentation/display-screens/enabled-4R", func {
+	screen_4R_on = getprop("instrumentation/display-screens/enabled-4R");
+}, 1);
+
+var screen_5R_on = 0;	# countergrav diagnostics screen at 5 right
+setlistener("instrumentation/display-screens/enabled-5R", func {
+	screen_5R_on = getprop("instrumentation/display-screens/enabled-5R");
+}, 1);
 
 # door functions ----------------------------------------------------
 
@@ -2041,6 +2056,10 @@ var update_main = func {
 			contact_altitude = altitude - vertical_offset_ft - gear_height - hover_add;   # update with new hover amounts
 			hover_target_altitude = gnd_elev + hover_ft + hover_add + vertical_offset_ft;  # includes gear_height
 			h_contact_target_alt = hover_target_altitude - gear_height - hover_add - vertical_offset_ft;
+			if (screen_4R_on) {
+				var text_4R = sprintf("% 7.3f    % 7.3f    % 8.3f % 11.3f",pitch_d,rolld,hover_add,hover_ft);
+				displayScreens.scroll_4R(text_4R);
+			}
 			if (altitude < hover_target_altitude) {
 				# below ground/flight level
 				if (altitude > 0) {            # check for skid, smoothen sound effects
@@ -2107,7 +2126,7 @@ var update_main = func {
 						}
 					}
 				}
-			} else {  
+			} else {
 				# smoothen to zero
 				var skid_w2 = (skid_last_value) / 2;
 			}
@@ -2128,6 +2147,8 @@ var update_main = func {
 					}
 				}
 				check_damage(dmg_factor);
+				var text_3L = sprintf("%3i  **  %4.1f  **  %4.1f  ** %2.0f",getprop("sim/model/bluebird/damage/hits-counter"),skid_w2,angle_of_damage_max,dmg_factor);
+				displayScreens.scroll_3L(text_3L);
 			}
 			var skid_w_vol = skid_w2 * 0.1;  # factor for volume usage
 			if (skid_w_vol > 1.0) {
@@ -2146,6 +2167,9 @@ var update_main = func {
 			skid_last_value = 0;
 			hover_add = 0;
 			h_contact_target_alt = 0;
+			if (screen_4R_on) {
+				displayScreens.scroll_4R("Above ground envelope");
+			}
 		}
 		# update instrument warning lights if changed
 		if (new_ground_near != ground_near) {
@@ -2208,6 +2232,8 @@ var update_main = func {
 		setprop("sim/model/bluebird/position/shadow-alt-agl-ft", aa);  # shadow doesn't need adjustment for gear
 		var agl = contact_altitude - gnd_elev + hover_add;
 		setprop("sim/model/bluebird/position/altitude-agl-ft", agl);
+		var text_2R = sprintf("%12.2f", agl);
+		displayScreens.scroll_2R(text_2R);
 
 		# ----- handle traveling backwards and update movement variables ------
 		#       including updating sound based on airspeed
@@ -2388,6 +2414,7 @@ var update_main = func {
 			if (slv > 0.5 and countergrav_request > 0) {
 				if (countergrav_request <= 1) {
 					countergrav_request -= 0.025;  # reached sufficient power to turn off trigger
+					setprop("instrumentation/display-screens/t1L-20", "POWERING DOWN  2391");
 					slv -= 0.02;  # hold this level for a couple seconds until either another
 					# keyboard/joystick request confirms startup, or time expires and shutdown
 					if (countergrav_request < 0.1) {
@@ -2430,6 +2457,7 @@ var update_main = func {
 		if (reactor_level) {
 			if (damage_count) {
 				reactor_state = a6 * 0.5;
+				setprop("instrumentation/display-screens/t1L-3", "50%");
 			} else {
 				reactor_state = a6;
 			}
@@ -2439,10 +2467,12 @@ var update_main = func {
 		if (power_switch) {
 			if (reactor_state > reactor_drift) {
 				reactor_drift += 0.04;
+				setprop("instrumentation/display-screens/t1L-3", "POWERING UP");
 				if (reactor_drift > reactor_state) {
 					reactor_drift = reactor_state;
 				}
 			} elsif (reactor_state < reactor_drift) {
+				setprop("instrumentation/display-screens/t1L-3", "POWERING DOWN");
 				if (reactor_level) {
 					reactor_drift = reactor_state;
 				} else {
@@ -2451,6 +2481,7 @@ var update_main = func {
 			}
 		} else {
 			reactor_drift -= 0.02;
+			setprop("instrumentation/display-screens/t1L-3", "POWERING DOWN");
 		}
 		if (reactor_drift < 0) {  # bounds check
 			reactor_drift = 0;
@@ -2498,6 +2529,13 @@ var update_main = func {
 			}
 		}
 		setprop("sim/model/bluebird/lighting/wave-guide-glow", a4);
+		var a9 = (wave_drift * 56.41) - 9;
+		if (a9 > 90) {
+			a9 = 78.898 + (math.sqrt(wave_drift) * 8.38);
+		} elsif (a9 < 0) {
+			a9 = 0;
+		}
+		setprop("instrumentation/display-screens/t1L-10", a9);
 		var a7 = getprop("sim/model/bluebird/lighting/wave-guide-halo-spin");
 		var a8 = a7 + (airspeed * 0.00017);
 		if (a8 < 0) {
@@ -2574,24 +2612,24 @@ setlistener("sim/model/bluebird/hover/key-up", func {
 
 var coast_up = func {
 	if (up_watch >= 3) {
-		if (vert_factor < 6.0) {
-			vert_factor += 0.05;
+		if (vert_factor < 4.0) {
+			vert_factor += 0.03;
 		}
-		up(up_dir, 0.15, 1);
+		up(up_dir, 0.1, 1);
 	} elsif (up_watch >= 2) {
-		up(up_dir, 0.15, 1);
+		up(up_dir, 0.1, 1);
 		up_watch -= 1;
 	} else {
 		vert_factor = vert_factor * 0.2;
-		if (vert_factor < 0.1) {
-			vert_factor = 0.1;
+		if (vert_factor < 0.04) {
+			vert_factor = 0.04;
 			up_watch = 0;
 		} else {
-			up(up_dir, 0.15, 1);
+			up(up_dir, 0.1, 1);
 		}
 	}
 	if (up_watch) {
-		settimer(coast_up,0.05);
+		settimer(coast_up,0.01);
 	}
 }
 
@@ -2619,6 +2657,8 @@ var up = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=sour
 							setprop("sim/model/bluebird/position/landing-wow", "true");
 						}
 						check_damage(lose_altitude * 5);
+						var text_3L = sprintf("%3i  **             %4.1f",getprop("sim/model/bluebird/damage/hits-counter"), (lose_altitude * 5));
+						displayScreens.scroll_3L(text_3L);
 						lose_altitude = 0;
 						if (!reactor_request) {
 							settle_to_level();
@@ -2630,6 +2670,8 @@ var up = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=sour
 					setprop("sim/model/bluebird/position/squeal-wow", "true");
 						lose_altitude = lose_altitude * 0.5;
 					check_damage(lose_altitude);
+					var text_3L = sprintf("%3i  **             %4.1f",getprop("sim/model/bluebird/damage/hits-counter"), (lose_altitude * 5));
+					displayScreens.scroll_3L(text_3L);
 					if (!reactor_request) {
 						settle_to_level();
 					}
@@ -2656,6 +2698,10 @@ var up = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=sour
 			altitude_ft_Node.setDoubleValue(altitude);
 			contact_altitude = contact_rise;
 		}
+	}
+	if (screen_5R_on) {
+		var text_5R = sprintf("% 10.3f   % 8.2f     % 6.2f",hg_rise,reactor_drift,lose_altitude);
+		displayScreens.scroll_5R(text_5R);
 	}
 	if (hg_mode) {  # keyboard or joystick request
 		# move control yoke up or down
@@ -3436,6 +3482,44 @@ var showDialog1 = func {
 
 	w = checkbox("Wheels down");
 	w.set("property", "controls/gear/wheels-switch");
+	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+
+	systems_dialog.addChild("hrule").addChild("dummy");
+
+	g = systems_dialog.addChild("group");
+	g.set("layout", "hbox");
+	g.addChild("empty").set("pref-width", 4);
+	w = g.addChild("text");
+	w.set("halign", "left");
+	w.set("label", "Display screens:");
+	g.addChild("empty").set("stretch", 1);
+
+	w = checkbox("Left #2");
+	w.set("property", "instrumentation/display-screens/enabled-2L");
+	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+
+	w = checkbox("Right #2");
+	w.set("property", "instrumentation/display-screens/enabled-2R");
+	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+
+	g = systems_dialog.addChild("group");
+	g.set("layout", "hbox");
+	g.addChild("empty").set("pref-width", 4);
+	w = g.addChild("text");
+	w.set("halign", "left");
+	w.set("label", "Engineering screens:");
+	g.addChild("empty").set("stretch", 1);
+
+	w = checkbox("Right #3 - ground elevations");
+	w.set("property", "instrumentation/display-screens/enabled-3R");
+	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+
+	w = checkbox("Right #4 - hover diagnostics");
+	w.set("property", "instrumentation/display-screens/enabled-4R");
+	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+
+	w = checkbox("Right #5 - countergrav diagnostics");
+	w.set("property", "instrumentation/display-screens/enabled-5R");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 
 	# finale

@@ -1,37 +1,7 @@
 <?xml version="1.0"?>
-<!-- Bluebird Explorer Hovercraft  version 6.2 for FlightGear v1.0 PLIB -->
+<!-- Bluebird Explorer Hovercraft  version 7.2 for FlightGear PLIB -->
 
 <PropertyList>
-
-<!-- instruments placement for center console of bluebird cockpit
-	top row, top    line: x=-8.327 z=1.240 y=+-0.280 
-	top row, bottom line: x=-8.305 z=1.155 y=+-0.282
-	row 1 rise/run= 0.085/0.022 = 3.86 = angle= -14.5 degrees from vertical
-	2nd row, top    line: x=-8.217 z=1.186 y=+-0.263
-	2nd row, bottom line: x=-8.183 z=1.101 y=+-0.266 
-	row 2 rise/run= 0.085/0.034 = 2.5 = angle= -21.8 deg 
-	3rd row, top    line: x=-8.106 z=1.133 y=+-0.246
-	3rd row, bottom line: x=-8.060 z=1.048 y=+-0.249 
-	row 3 rise/run= 0.085/0.046 = 1.85 = -28.4 deg 
-	4th row, top    line: x=-7.996 z=1.079 y=+-0.229 
-	4th row, bottom line: x=-7.885 z=1.025 y=+-0.212
-	row 4 rise/run= 0.215/0.442 = 0.4864 = angle= -25.94 deg
-
-	========== side consoles, front1 ================
-	axis:  (8.327,0.280,1.240) - (7.891,0.819,1.240)
-		(7.885,0.212,1.025) - (7.671,0.477,1.025) = 25.68
-	angle= 28.90 on x axis , and 50.90 on z axis
-	========= front2 junction with angle to 3 ========
-		(7.696,0.966,1.240) - (7.521,0.580,1.025) = 0.215/0.423817 = 26.898
-	angle= 27.45 on x axis, 34.2 on z axis
-	========= side3 ==================================
-		(7.573,1.304,1.078) - (7.521,0.580,1.025) = 0.053/0.72586 = 4.176
-	angle= 4.45 on x axis, 22.35 on z axis
-	========= side4 monitor ==========================
-	angle= 14.1 on x axis, 21.05 on z axis
-	========= side5 monitor ==========================
-	angle= 58.0 on x axis, 5.8 on z axis
--->
 
 <!-- Front hotspots -->
  <panel> 
@@ -622,8 +592,8 @@
  <panel> 
 	<path>Aircraft/bluebird/Instruments-3d/hotspotsL.xml</path>
 	<bottom-left> 
-		<x-m>-7.803</x-m>
-		<y-m>-0.631</y-m>
+		<x-m>-7.778</x-m>
+		<y-m>-0.662</y-m>
 		<z-m>1.136</z-m>
 	</bottom-left>
 	<bottom-right> 
@@ -632,8 +602,8 @@
 		<z-m>1.136</z-m>
 	</bottom-right>
 	<top-left> 
-		<x-m>-7.943</x-m>
-		<y-m>-0.744</y-m>
+		<x-m>-7.917</x-m>
+		<y-m>-0.775</y-m>
 		<z-m>1.236</z-m>
 	</top-left>
  </panel>

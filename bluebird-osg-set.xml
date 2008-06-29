@@ -216,6 +216,10 @@
 		<file>Aircraft/bluebird/Instruments-3d/digital2/digital2.nas</file>
 		<file>Aircraft/bluebird/Instruments-3d/digital2/savedata.nas</file>
 	</digitalPanel>
+	<displayScreens>
+		<file>Aircraft/bluebird/Nasal/displays-common.nas</file>
+		<file>Aircraft/bluebird/Nasal/displays-1-osg.nas</file>
+	</displayScreens>
 	<walk>
 		<file>Aircraft/bluebird/Nasal/walk-common.nas</file>
 		<file>Aircraft/bluebird/Nasal/walk-1-osg.nas</file>

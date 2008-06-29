@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 6.0 for PLIB                  ==-->
+<!--== Bluebird version 7.2 for PLIB                  ==-->
 
 <PropertyList>
 	<model>
@@ -12,6 +12,7 @@
 		</offsets>
 	</model>
 
+<!-- hotspots -->
 	<panel>
 		<path>Aircraft/bluebird/Models/hotspot-Button0.xml</path>
 		<bottom-left> 
@@ -183,6 +184,101 @@
 		</top-left>
 	</panel>
 
+	<panel> 
+		<path>Aircraft/bluebird/Panels/hotspot-display-2L.xml</path>
+		<bottom-left>
+			<x-m>-7.153</x-m>
+			<y-m>-0.980</y-m>
+			<z-m>1.046</z-m>
+		</bottom-left>
+		<bottom-right>
+			<x-m>-7.498</x-m>
+			<y-m>-0.838</y-m>
+			<z-m>1.046</z-m>
+		</bottom-right>
+		<top-left>
+			<x-m>-7.198</x-m>
+			<y-m>-1.088</y-m>
+			<z-m>1.150</z-m>
+		</top-left>
+	</panel>
+
+	<panel> 
+		<path>Aircraft/bluebird/Panels/hotspot-display-2R.xml</path>
+		<bottom-left>
+			<x-m>-7.498</x-m>
+			<y-m>0.838</y-m>
+			<z-m>1.046</z-m>
+		</bottom-left>
+		<bottom-right>
+			<x-m>-7.153</x-m>
+			<y-m>0.980</y-m>
+			<z-m>1.046</z-m>
+		</bottom-right>
+		<top-left>
+			<x-m>-7.542</x-m>
+			<y-m>0.946</y-m>
+			<z-m>1.150</z-m>
+		</top-left>
+	</panel>
+
+	<panel> 
+		<path>Aircraft/bluebird/Panels/hotspot-display-3R.xml</path>
+		<bottom-left>
+			<x-m>-7.061</x-m>
+			<y-m>1.019</y-m>
+			<z-m>1.046</z-m>
+		</bottom-left>
+		<bottom-right>
+			<x-m>-6.716</x-m>
+			<y-m>1.161</y-m>
+			<z-m>1.046</z-m>
+		</bottom-right>
+		<top-left>
+			<x-m>-7.105</x-m>
+			<y-m>1.126</y-m>
+			<z-m>1.150</z-m>
+		</top-left>
+	</panel>
+
+	<panel> 
+		<path>Aircraft/bluebird/Panels/hotspot-display-4R.xml</path>
+		<bottom-left>
+			<x-m>-6.517</x-m>
+			<y-m>1.252</y-m>
+			<z-m>1.061</z-m>
+		</bottom-left>
+		<bottom-right>
+			<x-m>-6.258</x-m>
+			<y-m>1.359</y-m>
+			<z-m>1.061</z-m>
+		</bottom-right>
+		<top-left>
+			<x-m>-6.560</x-m>
+			<y-m>1.355</y-m>
+			<z-m>1.229</z-m>
+		</top-left>
+	</panel>
+
+	<panel> 
+		<path>Aircraft/bluebird/Panels/hotspot-display-5R.xml</path>
+		<bottom-left>
+			<x-m>-6.195</x-m>
+			<y-m>1.384</y-m>
+			<z-m>1.061</z-m>
+		</bottom-left>
+		<bottom-right>
+			<x-m>-5.937</x-m>
+			<y-m>1.491</y-m>
+			<z-m>1.061</z-m>
+		</bottom-right>
+		<top-left>
+			<x-m>-6.238</x-m>
+			<y-m>1.487</y-m>
+			<z-m>1.229</z-m>
+		</top-left>
+	</panel>
+
 <!-- instrument panel -->
 	<model>
 		<name>Instruments</name>
@@ -206,6 +302,7 @@
 		<object-name>AI</object-name>
 		<object-name>CONTROLS</object-name>
 		<object-name>CLOCK</object-name>
+		<object-name>DISPLAY SCREENS</object-name>
 		<property>sim/model/bluebird/damage/major-counter</property>
 		<interpolation>
 			<entry>
@@ -231,5 +328,38 @@
 			<y>1</y>
 			<z>0</z>
 		</axis>
+	</animation>
+
+<!-- disable pick objects for plib -->
+	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonLT1</object-name>
+		<object-name>Pick:ButtonLT2</object-name>
+		<object-name>Pick:ButtonLT7</object-name>
+		<object-name>Pick:ButtonLT8</object-name>
+		<object-name>Pick:ButtonLT9</object-name>
+		<object-name>Pick:GearUp</object-name>
+		<object-name>Pick:GearMode</object-name>
+		<object-name>Pick:GearDn</object-name>
+		<object-name>Pick:GearWh</object-name>
+		<object-name>Pick:ButtonRT1</object-name>
+		<object-name>Pick:ButtonRT2</object-name>
+		<object-name>Pick:ButtonRT3</object-name>
+		<object-name>Pick:ButtonRT5</object-name>
+		<object-name>Pick:ButtonRT6</object-name>
+		<object-name>Pick:ButtonRT7</object-name>
+		<object-name>Pick:ButtonRT8</object-name>
+		<object-name>Pick:ButtonRT9</object-name>
+		<object-name>Pick:ButtonDoor0t</object-name>
+		<object-name>Pick:ButtonDoor1t</object-name>
+		<object-name>Pick:ButtonDoor2t</object-name>
+		<object-name>Pick:ButtonDoor3t</object-name>
+		<object-name>Pick:ButtonDoor4tn</object-name>
+		<object-name>Pick:ButtonDoor4tr</object-name>
+		<object-name>Pick:ButtonDoor5t</object-name>
+		<object-name>Pick:ButtonDoor5a</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
 	</animation>
 </PropertyList>

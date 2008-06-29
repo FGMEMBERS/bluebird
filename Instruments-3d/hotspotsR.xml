@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 6.0 ==-->
+<!--== Bluebird Explorer Hovercraft  version 7.1 ==-->
 
 <!DOCTYPE PropertyList SYSTEM "panel.dtd">
 <!-- This part should be the same for any 3D panel.  Customize the actions section -->
@@ -37,9 +37,9 @@
 					<name>gear-up-select</name>
 					<button>0</button>
 					<x>-467</x>
-					<y>-7</y>
+					<y>-3</y>
 					<w>94</w>
-					<h>181</h>
+					<h>177</h>
 					<binding>
 						<command>nasal</command>
 						<script>controls.gearDown(-1)</script>
@@ -50,9 +50,9 @@
 					<name>gear-mode-select</name>
 					<button>0</button>
 					<x>-467</x>
-					<y>-172</y>
+					<y>-169</y>
 					<w>94</w>
-					<h>163</h>
+					<h>160</h>
 					<binding>
 						<command>nasal</command>
 						<script>bluebird.toggle_gear_mode(-1)</script>
@@ -63,9 +63,9 @@
 					<name>gear-down-select</name>
 					<button>0</button>
 					<x>-467</x>
-					<y>-348</y>
+					<y>-346</y>
 					<w>94</w>
-					<h>174</h>
+					<h>172</h>
 					<binding>
 						<command>nasal</command>
 						<script>controls.gearDown(1)</script>
@@ -92,7 +92,7 @@
 				<action>
 					<name>door0-select</name>
 					<button>0</button>
-					<x>-300</x>
+					<x>-298</x>
 					<y>252</y>
 					<w>89</w>
 					<h>183</h>
@@ -109,7 +109,7 @@
 				<action>
 					<name>door1-select</name>
 					<button>0</button>
-					<x>-210</x>
+					<x>-208</x>
 					<y>252</y>
 					<w>89</w>
 					<h>183</h>
@@ -126,7 +126,7 @@
 				<action>
 					<name>door5-select</name>
 					<button>0</button>
-					<x>-120</x>
+					<x>-118</x>
 					<y>252</y>
 					<w>89</w>
 					<h>183</h>
@@ -143,7 +143,7 @@
 				<action>
 					<name>button5-select</name>
 					<button>0</button>
-					<x>60</x>
+					<x>62</x>
 					<y>252</y>
 					<w>89</w>
 					<h>183</h>
@@ -156,7 +156,7 @@
 				<action>
 					<name>button6-select</name>
 					<button>0</button>
-					<x>150</x>
+					<x>153</x>
 					<y>252</y>
 					<w>89</w>
 					<h>183</h>
@@ -169,7 +169,7 @@
 				<action>
 					<name>button7-select</name>
 					<button>0</button>
-					<x>240</x>
+					<x>243</x>
 					<y>252</y>
 					<w>89</w>
 					<h>183</h>
@@ -182,7 +182,7 @@
 				<action>
 					<name>button8-select</name>
 					<button>0</button>
-					<x>330</x>
+					<x>333</x>
 					<y>252</y>
 					<w>89</w>
 					<h>183</h>
@@ -195,7 +195,7 @@
 				<action>
 					<name>button9-select</name>
 					<button>0</button>
-					<x>420</x>
+					<x>423</x>
 					<y>252</y>
 					<w>89</w>
 					<h>183</h>

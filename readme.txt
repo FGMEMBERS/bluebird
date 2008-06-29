@@ -57,6 +57,8 @@ Highlights in this model:
    out the doors or hatches to ground, 
    or jump when airborne like a sky diver.
   Free fall with or without a parachute at terminal velocity.
+  Cockpit display screens ready to be filled with multiplayer, weather radar,
+   gps maps, etc.
 
   Support for next OSG version:
      start with aircraft=bluebird-osg

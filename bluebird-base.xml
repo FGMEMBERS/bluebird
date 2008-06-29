@@ -4,7 +4,7 @@
  <sim>
 	<aero>bluebird</aero>
 	<status>early-production</status>
-	<aircraft-version>6.5</aircraft-version>
+	<aircraft-version>7.2</aircraft-version>
 	<author>S Andreason</author>
 	<aircraft-status>
 		<fdm>beta</fdm>
@@ -875,6 +875,13 @@
 	</gear>
  </controls>
 
+ <engines>
+	<engine>
+		<speed-max-mps type="double">0</speed-max-mps>
+		<speed-max-powerlevel type="double">0</speed-max-powerlevel>
+	</engine>
+ </engines>
+
  <gear>
 	<gear>
 		<position-norm type="double">1</position-norm>
@@ -883,9 +890,6 @@
 		<!-- hint for the route manager -->
 		<wow type="bool">false</wow>
 	</gear>
-	<wheels>
-		<position-norm type="double">0</position-norm>
-	</wheels>
  </gear>
 
  <input>
@@ -1193,5 +1197,149 @@
 			<standby-mhz-fmt type="string">0.00</standby-mhz-fmt>
 		</frequencies>
 	</nav>
+	<display-screens>
+		<t1L-3 type="string">POWERING UP</t1L-3>
+		<t1L-8 type="string">1458 KNOTS</t1L-8>
+		<t1L-9 type="string">STANDARD</t1L-9>
+		<t1L-10 type="double">0</t1L-10>
+		<t1L-20 type="string"> </t1L-20>
+		<t1L-21 type="string"> </t1L-21>
+		<t1L-22 type="string"> </t1L-22>
+		<t1L-23 type="string"> </t1L-23>
+		<t1L-24 type="string"> </t1L-24>
+		<t1R-15 type="string"> </t1R-15>
+		<t1R-16 type="string">NOT AVAILABLE IN FlightGear 0.9.10 </t1R-16>
+		<t1R-17a type="double">0</t1R-17a>
+		<t1R-17b type="double">0</t1R-17b>
+		<t1R-18a type="double">0</t1R-18a>
+		<t1R-18b type="string"> </t1R-18b>
+		<t2L-1 type="string">Nearby aircraft</t2L-1>
+		<t2L-2 type="string"> </t2L-2>
+		<t2L-3 type="string"> </t2L-3>
+		<t2L-4 type="string"> </t2L-4>
+		<t2L-5 type="string"> </t2L-5>
+		<t2L-6 type="string"> </t2L-6>
+		<t2L-7 type="string"> </t2L-7>
+		<t2L-8 type="string"> </t2L-8>
+		<t2L-9 type="string"> </t2L-9>
+		<t2L-10 type="string"> </t2L-10>
+		<t2L-11 type="string"> </t2L-11>
+		<t2L-12 type="string"> </t2L-12>
+		<t2L-13 type="string"> </t2L-13>
+		<t2L-14 type="string"> </t2L-14>
+		<t2L-15 type="string"> </t2L-15>
+		<t2L-16 type="string"> </t2L-16>
+		<t2L-17 type="string"> </t2L-17>
+		<t2L-18 type="string"> </t2L-18>
+		<t2L-19 type="string"> </t2L-19>
+		<t2L-20 type="string"> </t2L-20>
+		<enabled-2L type="bool">false</enabled-2L>
+		<t2R-1 type="string"> </t2R-1>
+		<t2R-2 type="string"> </t2R-2>
+		<t2R-3 type="string"> </t2R-3>
+		<t2R-4 type="string"> </t2R-4>
+		<t2R-5 type="string"> </t2R-5>
+		<t2R-6 type="string"> </t2R-6>
+		<t2R-7 type="string"> </t2R-7>
+		<t2R-8 type="string"> </t2R-8>
+		<t2R-9 type="string"> </t2R-9>
+		<t2R-10 type="string"> </t2R-10>
+		<t2R-11 type="string"> </t2R-11>
+		<t2R-12 type="string"> </t2R-12>
+		<t2R-13 type="string"> </t2R-13>
+		<t2R-14 type="string"> </t2R-14>
+		<t2R-15 type="string"> </t2R-15>
+		<t2R-16 type="string"> </t2R-16>
+		<t2R-17 type="string"> </t2R-17>
+		<t2R-18 type="string"> </t2R-18>
+		<t2R-19 type="string"> </t2R-19>
+		<t2R-20 type="string"> </t2R-20>
+		<enabled-2R type="bool">true</enabled-2R>
+		<t3L-1 type="string"> </t3L-1>
+		<t3L-2 type="string"> </t3L-2>
+		<t3L-3 type="string"> </t3L-3>
+		<t3L-4 type="string"> </t3L-4>
+		<t3L-5 type="string"> </t3L-5>
+		<t3L-6 type="string"> </t3L-6>
+		<t3L-7 type="string"> </t3L-7>
+		<t3L-8 type="string"> </t3L-8>
+		<t3L-9 type="string"> </t3L-9>
+		<t3L-10 type="string"> </t3L-10>
+		<t3L-11 type="string"> </t3L-11>
+		<t3L-12 type="string"> </t3L-12>
+		<t3L-13 type="string"> </t3L-13>
+		<t3L-14 type="string"> </t3L-14>
+		<t3L-15 type="string"> </t3L-15>
+		<t3L-16 type="string"> </t3L-16>
+		<enabled-3L type="bool">false</enabled-3L>
+		<t3R-1 type="string"> </t3R-1>
+		<t3R-2 type="string"> </t3R-2>
+		<t3R-3 type="string"> </t3R-3>
+		<t3R-4 type="string"> </t3R-4>
+		<t3R-5 type="string"> </t3R-5>
+		<t3R-6 type="string"> </t3R-6>
+		<t3R-7 type="string"> </t3R-7>
+		<t3R-8 type="string"> </t3R-8>
+		<t3R-9 type="string"> </t3R-9>
+		<t3R-10 type="string"> </t3R-10>
+		<t3R-11 type="string"> </t3R-11>
+		<t3R-12 type="string"> </t3R-12>
+		<t3R-13 type="string"> </t3R-13>
+		<t3R-14 type="string"> </t3R-14>
+		<t3R-15 type="string"> </t3R-15>
+		<t3R-16 type="string"> </t3R-16>
+		<enabled-3R type="bool">false</enabled-3R>
+		<enabled-4L type="bool">true</enabled-4L>
+		<t4R-1 type="string"> </t4R-1>
+		<t4R-2 type="string"> </t4R-2>
+		<t4R-3 type="string"> </t4R-3>
+		<t4R-4 type="string"> </t4R-4>
+		<t4R-5 type="string"> </t4R-5>
+		<t4R-6 type="string"> </t4R-6>
+		<t4R-7 type="string"> </t4R-7>
+		<t4R-8 type="string"> </t4R-8>
+		<t4R-9 type="string"> </t4R-9>
+		<t4R-10 type="string"> </t4R-10>
+		<t4R-11 type="string"> </t4R-11>
+		<t4R-12 type="string"> </t4R-12>
+		<t4R-13 type="string"> </t4R-13>
+		<t4R-14 type="string"> </t4R-14>
+		<t4R-15 type="string"> </t4R-15>
+		<t4R-16 type="string"> </t4R-16>
+		<t4R-17 type="string"> </t4R-17>
+		<t4R-18 type="string"> </t4R-18>
+		<t4R-19 type="string"> </t4R-19>
+		<t4R-20 type="string"> </t4R-20>
+		<t4R-21 type="string"> </t4R-21>
+		<t4R-22 type="string"> </t4R-22>
+		<t4R-23 type="string"> </t4R-23>
+		<t4R-24 type="string"> </t4R-24>
+		<enabled-4R type="bool">false</enabled-4R>
+		<t5R-1 type="string"> </t5R-1>
+		<t5R-2 type="string"> </t5R-2>
+		<t5R-3 type="string"> </t5R-3>
+		<t5R-4 type="string"> </t5R-4>
+		<t5R-5 type="string"> </t5R-5>
+		<t5R-6 type="string"> </t5R-6>
+		<t5R-7 type="string"> </t5R-7>
+		<t5R-8 type="string"> </t5R-8>
+		<t5R-9 type="string"> </t5R-9>
+		<t5R-10 type="string"> </t5R-10>
+		<t5R-11 type="string"> </t5R-11>
+		<t5R-12 type="string"> </t5R-12>
+		<t5R-13 type="string"> </t5R-13>
+		<t5R-14 type="string"> </t5R-14>
+		<t5R-15 type="string"> </t5R-15>
+		<t5R-16 type="string"> </t5R-16>
+		<t5R-17 type="string"> </t5R-17>
+		<t5R-18 type="string"> </t5R-18>
+		<t5R-19 type="string"> </t5R-19>
+		<t5R-20 type="string"> </t5R-20>
+		<t5R-21 type="string"> </t5R-21>
+		<t5R-22 type="string"> </t5R-22>
+		<t5R-23 type="string"> </t5R-23>
+		<t5R-24 type="string"> </t5R-24>
+		<enabled-5R type="bool">false</enabled-5R>
+	</display-screens>
  </instrumentation>
 </PropertyList>

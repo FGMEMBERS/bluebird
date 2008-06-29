@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 6.0 common base ==-->
+<!--== Bluebird version 7.2 common base ==-->
 
 <PropertyList>
 
-<!--== mesh series 6 == 23337 vertices == 19664 faces ==-->
+<!--== mesh series 7 == 24200 vertices == 20236 faces ==-->
 	<path>bluebird6.ac</path>
 	<texture-path>Textures</texture-path>
 
@@ -789,6 +789,47 @@
 
 	<animation>
 		<type>translate</type>
+		<object-name>Nose.LeftSlideMech</object-name>
+		<property>sim/model/bluebird/doors/door[0]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>-0.012</dep>
+			</entry>
+			<entry>
+				<ind>0.21</ind>
+				<dep>-0.01</dep>
+			</entry>
+			<entry>
+				<ind>0.26</ind>
+				<dep>0.06</dep>
+			</entry>
+			<entry>
+				<ind>0.31</ind>
+				<dep>0.18</dep>
+			</entry>
+			<entry>
+				<ind>0.33</ind>
+				<dep>0.22</dep>
+			</entry>
+			<entry>
+				<ind>0.84</ind>
+				<dep>0.25</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>0.250</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>translate</type>
 		<object-name>Mesh:DoorL2</object-name>
 		<object-name>Mesh:DoorL2b</object-name>
 		<object-name>Mesh:DoorL2d</object-name>
@@ -1364,6 +1405,47 @@
 			<x2-m>-1.950</x2-m>
 			<y2-m>2.290</y2-m>
 			<z2-m>0.672</z2-m>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>Nose.RightSlideMech</object-name>
+		<property>sim/model/bluebird/doors/door[1]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>-0.012</dep>
+			</entry>
+			<entry>
+				<ind>0.21</ind>
+				<dep>-0.01</dep>
+			</entry>
+			<entry>
+				<ind>0.26</ind>
+				<dep>0.06</dep>
+			</entry>
+			<entry>
+				<ind>0.31</ind>
+				<dep>0.18</dep>
+			</entry>
+			<entry>
+				<ind>0.33</ind>
+				<dep>0.22</dep>
+			</entry>
+			<entry>
+				<ind>0.84</ind>
+				<dep>0.25</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>0.25</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
 		</axis>
 	</animation>
 
@@ -2290,72 +2372,6 @@
 <!-- landing gear -->
 	<animation>
 		<type>select</type>
-		<object-name>NoseGear4L</object-name>
-		<condition>
-			<or>
-				<property>gear/gear[0]/position-norm</property>
-				<property>gear/gear[1]/position-norm</property>
-			</or>
-		</condition>
-	</animation>
-
-	<animation>
-		<type>select</type>
-		<object-name>NoseGear4R</object-name>
-		<condition>
-			<or>
-				<property>gear/gear[0]/position-norm</property>
-				<property>gear/gear[1]/position-norm</property>
-			</or>
-		</condition>
-	</animation>
-
-	<animation>
-		<type>select</type>
-		<object-name>LeftGear4L</object-name>
-		<condition>
-			<or>
-				<property>gear/gear[0]/position-norm</property>
-				<property>gear/gear[1]/position-norm</property>
-			</or>
-		</condition>
-	</animation>
-
-	<animation>
-		<type>select</type>
-		<object-name>LeftGear4R</object-name>
-		<condition>
-			<or>
-				<property>gear/gear[0]/position-norm</property>
-				<property>gear/gear[1]/position-norm</property>
-			</or>
-		</condition>
-	</animation>
-
-	<animation>
-		<type>select</type>
-		<object-name>RightGear4L</object-name>
-		<condition>
-			<or>
-				<property>gear/gear[0]/position-norm</property>
-				<property>gear/gear[1]/position-norm</property>
-			</or>
-		</condition>
-	</animation>
-
-	<animation>
-		<type>select</type>
-		<object-name>RightGear4R</object-name>
-		<condition>
-			<or>
-				<property>gear/gear[0]/position-norm</property>
-				<property>gear/gear[1]/position-norm</property>
-			</or>
-		</condition>
-	</animation>
-
-	<animation>
-		<type>select</type>
 		<object-name>Nose.Wheel6</object-name>
 		<condition>
 			<or>
@@ -2502,10 +2518,10 @@
 		<axis>
 			<x1-m>-7.358</x1-m>
 			<y1-m>-0.394</y1-m>
-			<z1-m>-0.147</z1-m>
+			<z1-m>-0.14729</z1-m>
 			<x2-m>-7.358</x2-m>
 			<y2-m>0.394</y2-m>
-			<z2-m>-0.147</z2-m>
+			<z2-m>-0.14729</z2-m>
 		</axis>
 	</animation>
 
@@ -2529,11 +2545,11 @@
 		</interpolation>
 		<axis>
 			<x1-m>-7.358</x1-m>
-			<y1-m>-0.394</y1-m>
-			<z1-m>-0.147</z1-m>
+			<y1-m>-0.39445</y1-m>
+			<z1-m>-0.14729</z1-m>
 			<x2-m>-6.329</x2-m>
-			<y2-m>-0.394</y2-m>
-			<z2-m>-0.147</z2-m>
+			<y2-m>-0.39445</y2-m>
+			<z2-m>-0.14729</z2-m>
 		</axis>
 	</animation>
 
@@ -2557,11 +2573,11 @@
 		</interpolation>
 		<axis>
 			<x1-m>-7.358</x1-m>
-			<y1-m>0.394</y1-m>
-			<z1-m>-0.147</z1-m>
+			<y1-m>0.39445</y1-m>
+			<z1-m>-0.14729</z1-m>
 			<x2-m>-6.329</x2-m>
-			<y2-m>0.394</y2-m>
-			<z2-m>-0.147</z2-m>
+			<y2-m>0.39445</y2-m>
+			<z2-m>-0.14729</z2-m>
 		</axis>
 	</animation>
 
@@ -2680,10 +2696,10 @@
 		<axis>
 			<x1-m>4.642</x1-m>
 			<y1-m>-2.134</y1-m>
-			<z1-m>-0.147</z1-m>
+			<z1-m>-0.14729</z1-m>
 			<x2-m>4.642</x2-m>
 			<y2-m>-1.346</y2-m>
-			<z2-m>-0.147</z2-m>
+			<z2-m>-0.14729</z2-m>
 		</axis>
 	</animation>
 
@@ -2707,11 +2723,11 @@
 		</interpolation>
 		<axis>
 			<x1-m>4.642</x1-m>
-			<y1-m>-2.134</y1-m>
-			<z1-m>-0.147</z1-m>
+			<y1-m>-2.13445</y1-m>
+			<z1-m>-0.14729</z1-m>
 			<x2-m>5.671</x2-m>
-			<y2-m>-2.134</y2-m>
-			<z2-m>-0.147</z2-m>
+			<y2-m>-2.13445</y2-m>
+			<z2-m>-0.14729</z2-m>
 		</axis>
 	</animation>
 
@@ -2735,11 +2751,11 @@
 		</interpolation>
 		<axis>
 			<x1-m>4.642</x1-m>
-			<y1-m>-1.346</y1-m>
-			<z1-m>-0.147</z1-m>
+			<y1-m>-1.34555</y1-m>
+			<z1-m>-0.14729</z1-m>
 			<x2-m>5.671</x2-m>
-			<y2-m>-1.346</y2-m>
-			<z2-m>-0.147</z2-m>
+			<y2-m>-1.34555</y2-m>
+			<z2-m>-0.14729</z2-m>
 		</axis>
 	</animation>
 
@@ -2858,10 +2874,10 @@
 		<axis>
 			<x1-m>4.642</x1-m>
 			<y1-m>1.346</y1-m>
-			<z1-m>-0.147</z1-m>
+			<z1-m>-0.14729</z1-m>
 			<x2-m>4.642</x2-m>
 			<y2-m>2.134</y2-m>
-			<z2-m>-0.147</z2-m>
+			<z2-m>-0.14729</z2-m>
 		</axis>
 	</animation>
 
@@ -2885,11 +2901,11 @@
 		</interpolation>
 		<axis>
 			<x1-m>4.642</x1-m>
-			<y1-m>1.346</y1-m>
-			<z1-m>-0.147</z1-m>
+			<y1-m>1.34555</y1-m>
+			<z1-m>-0.14729</z1-m>
 			<x2-m>5.671</x2-m>
-			<y2-m>1.346</y2-m>
-			<z2-m>-0.147</z2-m>
+			<y2-m>1.34555</y2-m>
+			<z2-m>-0.14729</z2-m>
 		</axis>
 	</animation>
 
@@ -2913,11 +2929,11 @@
 		</interpolation>
 		<axis>
 			<x1-m>4.642</x1-m>
-			<y1-m>2.134</y1-m>
-			<z1-m>-0.147</z1-m>
+			<y1-m>2.13445</y1-m>
+			<z1-m>-0.14729</z1-m>
 			<x2-m>5.671</x2-m>
-			<y2-m>2.134</y2-m>
-			<z2-m>-0.147</z2-m>
+			<y2-m>2.13445</y2-m>
+			<z2-m>-0.14729</z2-m>
 		</axis>
 	</animation>
 
@@ -5878,33 +5894,6 @@
 
 	<animation>
 		<type>material</type>
-		<object-name>Nose:Interior.Em3b</object-name>
-		<emission>
-			<red-prop>sim/model/bluebird/lighting/emission/I3-red</red-prop>
-			<green-prop>sim/model/bluebird/lighting/emission/I3g-3b</green-prop>
-			<blue-prop>sim/model/bluebird/lighting/emission/I3g-3b</blue-prop>
-		</emission>
-		<specular>
-			<factor-prop>sim/model/bluebird/lighting/specular/interior</factor-prop>
-			<red>1</red>
-			<green>1</green>
-			<blue>1</blue>
-		</specular>
-		<ambient>
-			<red-prop>sim/model/bluebird/lighting/ambient/I3-A-red</red-prop>
-			<green-prop>sim/model/bluebird/lighting/ambient/I3-A-gb</green-prop>
-			<blue-prop>sim/model/bluebird/lighting/ambient/I3-A-gb</blue-prop>
-		</ambient>
-		<diffuse>
-			<red-prop>sim/model/bluebird/lighting/ambient/I3-A-red</red-prop>
-			<green-prop>sim/model/bluebird/lighting/ambient/I3-A-gb</green-prop>
-			<blue-prop>sim/model/bluebird/lighting/ambient/I3-A-gb</blue-prop>
-			<factor>0.1</factor>
-		</diffuse>
-	</animation>
-
-	<animation>
-		<type>material</type>
 		<object-name>Nose:Interior.Em3d</object-name>
 		<emission>
 			<red-prop>sim/model/bluebird/lighting/emission/I3-red</red-prop>
@@ -8029,7 +8018,7 @@
 			<red-prop>sim/model/bluebird/lighting/emission/I4-red</red-prop>
 			<green-prop>sim/model/bluebird/lighting/emission/I4-green</green-prop>
 			<blue-prop>sim/model/bluebird/lighting/emission/I4-blue</blue-prop>
-			<factor>0.425</factor>
+			<factor>0.4</factor>
 		</emission>
 		<specular>
 			<factor-prop>sim/model/bluebird/lighting/specular/interior</factor-prop>
@@ -8058,7 +8047,7 @@
 			<red-prop>sim/model/bluebird/lighting/emission/I4-red</red-prop>
 			<green-prop>sim/model/bluebird/lighting/emission/I4-green</green-prop>
 			<blue-prop>sim/model/bluebird/lighting/emission/I4-blue</blue-prop>
-			<factor>0.425</factor>
+			<factor>0.4</factor>
 		</emission>
 		<specular>
 			<factor-prop>sim/model/bluebird/lighting/specular/interior</factor-prop>
@@ -8922,6 +8911,33 @@
 
 	<animation>
 		<type>material</type>
+		<object-name>Nose:Interior.EmLb</object-name>
+		<emission>
+			<red-prop>sim/model/bluebird/lighting/emission/I4-red</red-prop>
+			<green-prop>sim/model/bluebird/lighting/emission/I4-green</green-prop>
+			<blue-prop>sim/model/bluebird/lighting/emission/I4-blue</blue-prop>
+		</emission>
+		<specular>
+			<factor-prop>sim/model/bluebird/lighting/specular/interior</factor-prop>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+		</specular>
+		<ambient>
+			<red-prop>sim/model/bluebird/lighting/ambient/I4-A-red</red-prop>
+			<green-prop>sim/model/bluebird/lighting/ambient/I4-A-green</green-prop>
+			<blue-prop>sim/model/bluebird/lighting/ambient/I4-A-blue</blue-prop>
+		</ambient>
+		<diffuse>
+			<red-prop>sim/model/bluebird/lighting/ambient/I4-A-red</red-prop>
+			<green-prop>sim/model/bluebird/lighting/ambient/I4-A-green</green-prop>
+			<blue-prop>sim/model/bluebird/lighting/ambient/I4-A-blue</blue-prop>
+			<factor>0.1</factor>
+		</diffuse>
+	</animation>
+
+	<animation>
+		<type>material</type>
 		<object-name>Nose:Interior.EmLd</object-name>
 		<emission>
 			<red-prop>sim/model/bluebird/lighting/emission/I4-red</red-prop>
@@ -9199,6 +9215,118 @@
 			<red-prop>sim/model/bluebird/lighting/ambient/IU-A-red</red-prop>
 			<green-prop>sim/model/bluebird/lighting/ambient/IU-A-green</green-prop>
 			<blue-prop>sim/model/bluebird/lighting/ambient/IU-A-blue</blue-prop>
+			<factor>0.1</factor>
+		</diffuse>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Nose:slideL.Em2d</object-name>
+		<emission>
+			<red-prop>sim/model/bluebird/lighting/emission/I2-red</red-prop>
+			<green-prop>sim/model/bluebird/lighting/emission/I2g-2b</green-prop>
+			<blue-prop>sim/model/bluebird/lighting/emission/I2g-2b</blue-prop>
+			<factor>0.45</factor>
+		</emission>
+		<specular>
+			<factor-prop>sim/model/bluebird/lighting/specular/interior</factor-prop>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+		</specular>
+		<ambient>
+			<red-prop>sim/model/bluebird/lighting/ambient/I2-A-red</red-prop>
+			<green-prop>sim/model/bluebird/lighting/ambient/I2-A-gb</green-prop>
+			<blue-prop>sim/model/bluebird/lighting/ambient/I2-A-gb</blue-prop>
+		</ambient>
+		<diffuse>
+			<red-prop>sim/model/bluebird/lighting/ambient/I2-A-red</red-prop>
+			<green-prop>sim/model/bluebird/lighting/ambient/I2-A-gb</green-prop>
+			<blue-prop>sim/model/bluebird/lighting/ambient/I2-A-gb</blue-prop>
+			<factor>0.1</factor>
+		</diffuse>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Nose:slideR.Em2d</object-name>
+		<emission>
+			<red-prop>sim/model/bluebird/lighting/emission/I2-red</red-prop>
+			<green-prop>sim/model/bluebird/lighting/emission/I2g-2b</green-prop>
+			<blue-prop>sim/model/bluebird/lighting/emission/I2g-2b</blue-prop>
+			<factor>0.45</factor>
+		</emission>
+		<specular>
+			<factor-prop>sim/model/bluebird/lighting/specular/interior</factor-prop>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+		</specular>
+		<ambient>
+			<red-prop>sim/model/bluebird/lighting/ambient/I2-A-red</red-prop>
+			<green-prop>sim/model/bluebird/lighting/ambient/I2-A-gb</green-prop>
+			<blue-prop>sim/model/bluebird/lighting/ambient/I2-A-gb</blue-prop>
+		</ambient>
+		<diffuse>
+			<red-prop>sim/model/bluebird/lighting/ambient/I2-A-red</red-prop>
+			<green-prop>sim/model/bluebird/lighting/ambient/I2-A-gb</green-prop>
+			<blue-prop>sim/model/bluebird/lighting/ambient/I2-A-gb</blue-prop>
+			<factor>0.1</factor>
+		</diffuse>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Nose:slideL.Em2k</object-name>
+		<emission>
+			<red-prop>sim/model/bluebird/lighting/emission/I2-red</red-prop>
+			<green-prop>sim/model/bluebird/lighting/emission/I2g-2b</green-prop>
+			<blue-prop>sim/model/bluebird/lighting/emission/I2g-2b</blue-prop>
+			<factor>0.2</factor>
+		</emission>
+		<specular>
+			<factor-prop>sim/model/bluebird/lighting/specular/interior</factor-prop>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+		</specular>
+		<ambient>
+			<red-prop>sim/model/bluebird/lighting/ambient/I2-A-red</red-prop>
+			<green-prop>sim/model/bluebird/lighting/ambient/I2-A-gb</green-prop>
+			<blue-prop>sim/model/bluebird/lighting/ambient/I2-A-gb</blue-prop>
+		</ambient>
+		<diffuse>
+			<red-prop>sim/model/bluebird/lighting/ambient/I2-A-red</red-prop>
+			<green-prop>sim/model/bluebird/lighting/ambient/I2-A-gb</green-prop>
+			<blue-prop>sim/model/bluebird/lighting/ambient/I2-A-gb</blue-prop>
+			<factor>0.1</factor>
+		</diffuse>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Nose:slideR.Em2k</object-name>
+		<emission>
+			<red-prop>sim/model/bluebird/lighting/emission/I2-red</red-prop>
+			<green-prop>sim/model/bluebird/lighting/emission/I2g-2b</green-prop>
+			<blue-prop>sim/model/bluebird/lighting/emission/I2g-2b</blue-prop>
+			<factor>0.2</factor>
+		</emission>
+		<specular>
+			<factor-prop>sim/model/bluebird/lighting/specular/interior</factor-prop>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+		</specular>
+		<ambient>
+			<red-prop>sim/model/bluebird/lighting/ambient/I2-A-red</red-prop>
+			<green-prop>sim/model/bluebird/lighting/ambient/I2-A-gb</green-prop>
+			<blue-prop>sim/model/bluebird/lighting/ambient/I2-A-gb</blue-prop>
+		</ambient>
+		<diffuse>
+			<red-prop>sim/model/bluebird/lighting/ambient/I2-A-red</red-prop>
+			<green-prop>sim/model/bluebird/lighting/ambient/I2-A-gb</green-prop>
+			<blue-prop>sim/model/bluebird/lighting/ambient/I2-A-gb</blue-prop>
 			<factor>0.1</factor>
 		</diffuse>
 	</animation>
@@ -10878,7 +11006,7 @@
 		<property>sim/model/bluebird/position/shadow-alt-agl-ft</property>
 		<factor>0.3</factor>
 		<offset-m>-0.1</offset-m>   <!-- negative = move up from ground -->
-			<!-- adjust vertical_offset at same time, bluebird.nas line 36 -->
+			<!-- adjust vertical_offset at same time, bluebird-base.nas line 30 -->
 			<!-- default offset = -0.1m -->
 		<axis>
 			<x>0</x>
@@ -11018,4 +11146,14 @@
 			<z>0</z>
 		</axis>
 	</animation>
+
+	<model>
+		<name>DISPLAY SCREENS</name>
+		<path>Aircraft/bluebird/Models/display-screens.xml</path>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</offsets>
+	</model>
 </PropertyList>

@@ -1,4 +1,26 @@
 Version# Vertices PolygonFaces Comments
+
+2008.Jun.28
+7.2	revert filenames to previous locations.
+
+2008.Jun.27
+7.1	24190	20230	updated
+	Add condition for pick hotspot helpers to draw conditionally.
+	Fix hotspot map for console-1Left and Right.
+
+2008.Jun.26
+7.0	24200	20236	new base model
+	Fix bug when clicking wheels button.
+	Fix external view of hover-up to be smooth again.
+	Remove unused wheel property.
+	Reshape display screens to accept text at a readable angle.
+	Add text messages to display screens.
+	Separate panels from models directory.
+	Clean up tiny holes and imperfections around doors, and gear.
+	Add some texturing to inside walls, and forward cockpit chair.
+	Smoothen some hull surfaces.
+	Add pick buttons for clearer hotspot illumination with ctrl-c
+
 2008.Jun.05
 6.5	Restore original binding for ctrl-c, move "jump to helm" to alt-c
 

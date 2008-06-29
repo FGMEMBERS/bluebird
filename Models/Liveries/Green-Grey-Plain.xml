@@ -23,7 +23,7 @@
 							<green>0.4</green>
 							<blue>0</blue>
 						</specular>
-						<shininess>30</shininess>
+						<shininess>20</shininess>
 					</fuselage-top>
 
 					<fuselage-upper>
@@ -43,7 +43,7 @@
 							<green>0.5</green>
 							<blue>0</blue>
 						</specular>
-						<shininess>30</shininess>
+						<shininess>20</shininess>
 					</fuselage-upper>
 
 					<hull-trim>
@@ -63,7 +63,7 @@
 							<green>0.5</green>
 							<blue>0</blue>
 						</specular>
-						<shininess>30</shininess>
+						<shininess>20</shininess>
 					</hull-trim>
 
 					<fuselage-lower>
@@ -123,7 +123,7 @@
 							<green>0.6</green>
 							<blue>0.6</blue>
 						</specular>
-						<shininess>30</shininess>
+						<shininess>20</shininess>
 					</hull-wings>
 
 					<hull-sensors>

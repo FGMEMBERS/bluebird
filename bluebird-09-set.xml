@@ -105,6 +105,9 @@
 	<digitalPanel>
 		<file>Aircraft/bluebird/Instruments-3d/digital2/digital2.nas</file>
 	</digitalPanel>
+	<displayScreens>
+		<file>Aircraft/bluebird/Nasal/displays-common.nas</file>
+	</displayScreens>
 	<walk>
 		<file>Aircraft/bluebird/Nasal/walk-09.nas</file>
 	</walk>

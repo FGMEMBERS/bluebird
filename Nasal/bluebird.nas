@@ -30,5 +30,5 @@ aircraft.livery.select(getprop("sim/model/livery/variant"));
  settimer(nav_light_loop, 0.5);
 
  print ("Bluebird Explorer Hovercraft  by Stewart Andreason");
- print ("  version 6.5  release date 2008.Jun.04  for FlightGear 1.0 and OSG");
+ print ("  version 7.2  release date 2008.Jun.28  for FlightGear 1.0 and OSG");
 });

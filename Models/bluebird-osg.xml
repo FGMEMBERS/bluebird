@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 6.0 for OSG                   ==-->
+<!--== Bluebird version 7.1 for OSG                   ==-->
 
 <PropertyList>
 	<model>
@@ -14,7 +14,16 @@
 
 <!-- clickable button block for osg only -->
 	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonLT1</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:ButtonLT1</object-name>
 		<object-name>Mesh:ButtonLT1d</object-name>
 		<action>
 			<name>power1-select</name>
@@ -28,7 +37,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonLT2</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:ButtonLT2</object-name>
 		<object-name>Mesh:ButtonLT2d</object-name>
 		<action>
 			<name>engine2-select</name>
@@ -42,7 +60,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonLT7</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:ButtonLT7</object-name>
 		<object-name>Mesh:ButtonLT7d</object-name>
 		<action>
 			<name>engine7-select</name>
@@ -56,7 +83,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonLT8</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:ButtonLT8</object-name>
 		<object-name>Mesh:ButtonLT8d</object-name>
 		<action>
 			<name>engine8-select</name>
@@ -70,7 +106,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonLT9</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:ButtonLT9</object-name>
 		<object-name>Mesh:ButtonLT9d</object-name>
 		<action>
 			<name>engine9-select</name>
@@ -84,7 +129,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:GearUp</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:GearUp</object-name>
 		<object-name>Mesh:GearUp.Em3d</object-name>
 		<action>
 			<name>gear-up-select</name>
@@ -98,7 +152,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:GearMode</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:GearMode</object-name>
 		<object-name>Mesh:GearMode.Em3d</object-name>
 		<action>
 			<name>gear-mode-select</name>
@@ -112,7 +175,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:GearDn</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:GearDn</object-name>
 		<object-name>Mesh:GearDn.Em3d</object-name>
 		<action>
 			<name>gear-down-select</name>
@@ -126,21 +198,43 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:GearWh</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:GearWh</object-name>
 		<object-name>Mesh:GearWh.Em3d</object-name>
 		<action>
 			<name>gear-wheel-select</name>
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
-				<command>nasal</command>
-				<script>bluebird.toggle_wheel_mode(-1)</script>
+				<command>property-adjust</command>
+				<property>controls/gear/wheels-switch</property>
+				<step>1</step>
+				<min>0</min>
+				<max>2</max>
+				<wrap>true</wrap>
 			</binding>
 		</action>
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonRT1</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:ButtonRT1</object-name>
 		<object-name>Mesh:ButtonRT1d</object-name>
 		<action>
 			<name>door0-select</name>
@@ -158,7 +252,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonRT2</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:ButtonRT2</object-name>
 		<object-name>Mesh:ButtonRT2d</object-name>
 		<action>
 			<name>door1-select</name>
@@ -176,7 +279,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonRT3</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:ButtonRT3</object-name>
 		<object-name>Mesh:ButtonRT3d</object-name>
 		<action>
 			<name>door5-select</name>
@@ -194,7 +306,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonRT5</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:ButtonRT5</object-name>
 		<object-name>Mesh:ButtonRT5d</object-name>
 		<action>
 			<name>button5-select</name>
@@ -208,7 +329,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonRT6</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:ButtonRT6</object-name>
 		<object-name>Mesh:ButtonRT6d</object-name>
 		<action>
 			<name>button6-select</name>
@@ -222,7 +352,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonRT7</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:ButtonRT7</object-name>
 		<object-name>Mesh:ButtonRT7d</object-name>
 		<action>
 			<name>button7-select</name>
@@ -236,7 +375,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonRT8</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:ButtonRT8</object-name>
 		<object-name>Mesh:ButtonRT8d</object-name>
 		<action>
 			<name>button8-select</name>
@@ -250,7 +398,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonRT9</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:ButtonRT9</object-name>
 		<object-name>Mesh:ButtonRT9d</object-name>
 		<action>
 			<name>button9-select</name>
@@ -264,7 +421,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonDoor0t</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:ButtonDoor0t</object-name>
 		<object-name>Mesh:ButtonDoor0t</object-name>
 		<action>
 			<name>door0-select</name>
@@ -282,7 +448,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonDoor1t</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:ButtonDoor1t</object-name>
 		<object-name>Mesh:ButtonDoor1t</object-name>
 		<action>
 			<name>door1-select</name>
@@ -300,7 +475,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonDoor2t</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:ButtonDoor2t</object-name>
 		<object-name>Mesh:ButtonDoor2f</object-name>
 		<action>
 			<name>door2-select</name>
@@ -318,7 +502,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonDoor3t</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:ButtonDoor3t</object-name>
 		<object-name>Mesh:ButtonDoor3f</object-name>
 		<action>
 			<name>door3-select</name>
@@ -336,7 +529,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonDoor4tn</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:ButtonDoor4tn</object-name>
 		<object-name>Mesh:ButtonDoor4ff</object-name>
 		<action>
 			<name>door4-select</name>
@@ -354,7 +556,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonDoor4tr</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:ButtonDoor4tr</object-name>
 		<object-name>Mesh:ButtonDoor4fr</object-name>
 		<action>
 			<name>door4-select</name>
@@ -372,7 +583,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonDoor5t</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:ButtonDoor5t</object-name>
 		<object-name>Mesh:ButtonDoor5t</object-name>
 		<action>
 			<name>door5-select</name>
@@ -390,7 +610,16 @@
 	</animation>
 
 	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonDoor5a</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
 		<type>pick</type>
+		<object-name>Pick:ButtonDoor5a</object-name>
 		<object-name>Mesh:ButtonDoor5a</object-name>
 		<action>
 			<name>gear-mode-select5</name>
@@ -583,6 +812,104 @@
 		</action>
 	</animation>
 
+	<animation>
+		<type>pick</type>
+		<object-name>Pick:Screen2L</object-name>
+		<action>
+			<name>toggle screen 2L</name>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>instrumentation/display-screens/enabled-2L</property>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>Pick:Screen2R</object-name>
+		<action>
+			<name>toggle screen 2R</name>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>instrumentation/display-screens/enabled-2R</property>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>Pick:Screen3L</object-name>
+		<action>
+			<name>toggle screen 3L</name>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>instrumentation/display-screens/enabled-3L</property>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>Pick:Screen3R</object-name>
+		<action>
+			<name>toggle screen 3R</name>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>instrumentation/display-screens/enabled-3R</property>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>Pick:Screen4L</object-name>
+		<action>
+			<name>toggle screen 4L</name>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>instrumentation/display-screens/enabled-4L</property>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>Pick:Screen4R</object-name>
+		<action>
+			<name>toggle screen 4R</name>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>instrumentation/display-screens/enabled-4R</property>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>Pick:Screen5R</object-name>
+		<action>
+			<name>toggle screen 5R</name>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>instrumentation/display-screens/enabled-5R</property>
+			</binding>
+		</action>
+	</animation>
+
 <!-- instrument panel -->
 	<model>
 		<name>Instruments</name>
@@ -606,6 +933,7 @@
 		<object-name>AI</object-name>
 		<object-name>CONTROLS</object-name>
 		<object-name>CLOCK</object-name>
+		<object-name>DISPLAY SCREENS</object-name>
 		<property>sim/model/bluebird/damage/major-counter</property>
 		<interpolation>
 			<entry>
