@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 7.0 common base =====
+# ===== Bluebird Explorer Hovercraft  version 7.3 common base =====
 
 # Add second popupTip to avoid being overwritten by primary joystick messages ==
 var tipArg2 = props.Node.new({ "dialog-name" : "PopTip2" });
@@ -451,7 +451,46 @@ var select_door = func(sd_number) {
 	gui.popupTip("Selecting " ~ doors[active_door].node.getNode("name").getValue());
 }
 
+var door_coord_x_m = [-2.55, -2.55, -1.733, -0.608, -0.083, 9.223];
+var door_coord_y_m = [-1.75, 1.75, 0, -0.66, 0, 0];
+
+var doorProximityVolume = func (current_view, door,x,y) {
+	if (current_view) {	# outside view
+		if (current_view == view.indexof("Walk View")) {
+			var distToDoor_m = walk.distFromCraft(getprop("sim/walker/latitude-deg"),getprop("sim/walker/longitude-deg")) - 10;
+			if (distToDoor_m < 0) {
+				distToDoor_m = 0;
+			}
+			if (door >=2 and door <= 4) {
+				distToDoor_m = distToDoor_m * 3;
+			}
+		} else {
+			if (door >=2 and door <=4) {
+				return 0.1;
+			} else {
+				return 0.5;
+			}
+		}
+	} else {
+		var a = (x - door_coord_x_m[door]);
+		var b = (y - door_coord_y_m[door]);
+		var distToDoor_m = math.sqrt(a * a + b * b);
+	}
+	if (distToDoor_m > 50) {
+		return 0;
+	} elsif (distToDoor_m > 25) {
+		return (50 - distToDoor_m) / 250;
+	} elsif (distToDoor_m > 10) {
+		return (0.1 + ((25 - distToDoor_m) / 60));
+	} else {
+		return (0.35 + ((10 - distToDoor_m) / 15.3846));
+	}
+}
+
 var door_update = func(door_number) {
+	var c_view = getprop("sim/current-view/view-number");
+	var y_position = yViewNode.getValue();
+	var x_position = xViewNode.getValue();
 	if (door_number == 0) {
 		var gear_position2 = (gear_position * gear_position * 0.204304) + (gear_position * 0.0627) + 0.733;
 		door0_position = door0_pos.getValue();
@@ -461,16 +500,15 @@ var door_update = func(door_number) {
 			door0_adjpos.setValue(door0_position);
 		}
 		# check for closing door while standing on ramp
-		if (getprop("sim/current-view/view-number") == 0 and door0_position < 0.62) {
-			var y_position = yViewNode.getValue();
+		if (c_view == 0 and door0_position < 0.62) {
 			if (y_position < -1.3) {
-				var x_position = xViewNode.getValue();
 				if (x_position > -3.2 and x_position < -2.0) {
 					# between front hatches
 					yViewNode.setValue(-1.3);
 				}
 			}
 		}
+		setprop("sim/model/bluebird/sound/door0-volume", doorProximityVolume(c_view, 0, x_position, y_position));
 	} elsif (door_number == 1) {
 		var gear_position2 = (gear_position * gear_position * 0.204304) + (gear_position * 0.0627) + 0.733;
 		door1_position = door1_pos.getValue();
@@ -479,16 +517,21 @@ var door_update = func(door_number) {
 		} else {
 			door1_adjpos.setValue(door1_position);
 		}
-		if (getprop("sim/current-view/view-number") == 0 and door1_position < 0.62) {
-			var y_position = yViewNode.getValue();
+		if (c_view == 0 and door1_position < 0.62) {
 			if (y_position > 1.3) {
-				var x_position = xViewNode.getValue();
 				if (x_position > -3.2 and x_position < -2.0) {
 					# between front hatches
 					yViewNode.setValue(1.3);
 				}
 			}
 		}
+		setprop("sim/model/bluebird/sound/door1-volume", doorProximityVolume(c_view, 1, x_position, y_position));
+	} elsif (door_number == 2) {
+		setprop("sim/model/bluebird/sound/door2-volume", doorProximityVolume(c_view, 2, x_position, y_position));
+	} elsif (door_number == 3) {
+		setprop("sim/model/bluebird/sound/door3-volume", doorProximityVolume(c_view, 3, x_position, y_position));
+	} elsif (door_number == 4) {
+		setprop("sim/model/bluebird/sound/door4-volume", doorProximityVolume(c_view, 4, x_position, y_position));
 	} elsif (door_number == 5) {
 		var gear_position2 = (gear_position * gear_position * 0.1207) + (gear_position * 0.2299) + 0.79;
 		if (gear_position2 > 1.0) {
@@ -500,12 +543,12 @@ var door_update = func(door_number) {
 		} else {
 			door5_adjpos.setValue(door5_position);
 		}
-		if (getprop("sim/current-view/view-number") == 0 and door5_position < 0.62) {
-			var x_position = xViewNode.getValue();
+		if (c_view == 0 and door5_position < 0.62) {
 			if (x_position > 9.2) {
 				xViewNode.setValue(9.2);
 			}
 		}
+		setprop("sim/model/bluebird/sound/door5-volume", doorProximityVolume(c_view, 5, x_position, y_position));
 	}
 }
 
@@ -515,6 +558,18 @@ setlistener("sim/model/bluebird/doors/door[0]/position-norm", func {
 
 setlistener("sim/model/bluebird/doors/door[1]/position-norm", func {
 	door_update(1);
+});
+
+setlistener("sim/model/bluebird/doors/door[2]/position-norm", func {
+	door_update(2);
+});
+
+setlistener("sim/model/bluebird/doors/door[3]/position-norm", func {
+	door_update(3);
+});
+
+setlistener("sim/model/bluebird/doors/door[4]/position-norm", func {
+	door_update(4);
 });
 
 setlistener("sim/model/bluebird/doors/door[5]/position-norm", func {
@@ -535,16 +590,30 @@ var toggle_door = func {
 	var td_dr = doors[active_door].node.getNode("position-norm").getValue();
 	setprop("sim/model/bluebird/sound/door-direction", td_dr);  # attempt to determine direction
 
-	if (active_door <= 1 or active_door == 5) {
-		setprop("sim/model/bluebird/sound/hatch-trigger", "true");
+	if (active_door == 0) {
+		setprop("sim/model/bluebird/sound/hatch0-trigger", "true");
+		settimer(reset_trigger0, 1);
+	} elsif (active_door == 1) {
+		setprop("sim/model/bluebird/sound/hatch1-trigger", "true");
+		settimer(reset_trigger1, 1);
+	} elsif (active_door == 5) {
+		setprop("sim/model/bluebird/sound/hatch5-trigger", "true");
+		settimer(reset_trigger5, 1);
 	}
 	settimer(panel_lighting_loop, 0.05);
-	settimer(reset_trigger, 1);
 }
 
 # give hatch sound effect one second to play ------------------------
-var reset_trigger = func {
-	setprop("sim/model/bluebird/sound/hatch-trigger", "false");
+var reset_trigger0 = func {
+	setprop("sim/model/bluebird/sound/hatch0-trigger", "false");
+}
+
+var reset_trigger1 = func {
+	setprop("sim/model/bluebird/sound/hatch1-trigger", "false");
+}
+
+var reset_trigger5 = func {
+	setprop("sim/model/bluebird/sound/hatch5-trigger", "false");
 }
 
 # systems -----------------------------------------------------------
@@ -2427,9 +2496,13 @@ var update_main = func {
 			}
 			sound_level = slv;
 		}
-		var a1 = (asas * 0.0001);
-		if (a1 < 0.1) {
-			a1 = 0.1;
+		# engine rumble sound
+		if (asas < 200) {
+			var a1 = 0.1 + (asas * 0.002);
+		} elsif (asas < 4000) {
+			var a1 = 0.5 + ((asas - 200) * 0.0001315);
+		} else {
+			var a1 = 1.0;
 		}
 		var a3 = (asas * 0.000187) + 0.25;
 		if (a3 > 0.75) {
@@ -2502,9 +2575,6 @@ var update_main = func {
 			}
 		}
 		var a4 = wave_drift;
-		if (a2 > 0.5) {
-			a2 = 0.5;    # sound dampening
-		}
 		if (!reactor_level and !wave1_level) {
 			a2 = a2 / 2;
 		}

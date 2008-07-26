@@ -1,4 +1,4 @@
-# ===== common base for walking functions   version 2.3   =====
+# ===== common base for walking functions   version 2.4   =====
 # ===== plus coordinates for Bluebird Explorer Hovercraft =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
@@ -306,6 +306,12 @@ var ext_mov = func {
 			if (posz1 < posz2) {	# below ground
 				posz1 = posz2;
 				falling = 0;
+				if (!parachute_ft and dist_traveled_z > 10 and 
+				    getprop("sim/current-view/view-number") == view.indexof("Walk View")) {
+					# did not land on feet
+					setprop("sim/current-view/pitch-offset-deg", -80);
+					setprop("sim/model/bluebird/position/landing-wow", "true");
+				}
 			}
 		} else {
 			falling = 0;

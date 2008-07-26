@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 6.0 ==-->
+<!--== Bluebird Explorer Hovercraft  version 7.3 ==-->
  
 <PropertyList>
  <fx>
@@ -11,13 +11,31 @@
 		<property>velocities/airspeed-kt</property>
 		<volume>
 			<property>sim/model/bluebird/sound/engines-volume-level</property>
-			<factor>1.5</factor>
-			<min>0</min>
 		</volume>
 		<pitch>
 			<property>sim/model/bluebird/sound/pitch-level</property>
-			<factor>1</factor>
-			<offset>0</offset>
+		</pitch>
+	</engine>
+
+	<engine>
+		<name>overdrive</name>
+		<mode>looped</mode>
+		<path>Sounds/jet.wav</path>
+		<condition>
+			<greater-than-equals>
+				<property>velocities/airspeed-kt</property>
+				<value>6000</value>
+			</greater-than-equals>
+		</condition>
+		<volume>
+			<property>engines/engine/speed-max-powerlevel</property>
+			<factor>0.3</factor>
+			<offset>-1.9</offset>
+		</volume>
+		<pitch>
+			<property>engines/engine/speed-max-powerlevel</property>
+			<factor>0.25</factor>
+			<offset>-0.75</offset>
 		</pitch>
 	</engine>
 
@@ -45,7 +63,8 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>0.25</factor>
+			<property>sim/model/bluebird/sound/door0-volume</property>
+			<factor>0.5</factor>
 		</volume>
 	</door>
 
@@ -71,7 +90,8 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>0.15</factor>
+			<property>sim/model/bluebird/sound/door0-volume</property>
+			<factor>0.4</factor>
 		</volume>
 	</door>
 
@@ -97,7 +117,7 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>1.5</factor>
+			<property>sim/model/bluebird/sound/door0-volume</property>
 		</volume>
 	</door>
 
@@ -123,7 +143,8 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>0.25</factor>
+			<property>sim/model/bluebird/sound/door0-volume</property>
+			<factor>0.5</factor>
 		</volume>
 	</door>
 
@@ -149,7 +170,8 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>0.15</factor>
+			<property>sim/model/bluebird/sound/door0-volume</property>
+			<factor>0.4</factor>
 		</volume>
 	</door>
 
@@ -175,7 +197,7 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>1.5</factor>
+			<property>sim/model/bluebird/sound/door0-volume</property>
 		</volume>
 	</door>
 
@@ -201,7 +223,8 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>0.3</factor>
+			<property>sim/model/bluebird/sound/door0-volume</property>
+			<factor>0.6</factor>
 		</volume>
 	</door>
 
@@ -227,7 +250,8 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>0.25</factor>
+			<property>sim/model/bluebird/sound/door1-volume</property>
+			<factor>0.5</factor>
 		</volume>
 	</door>
 
@@ -253,7 +277,8 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>0.15</factor>
+			<property>sim/model/bluebird/sound/door1-volume</property>
+			<factor>0.4</factor>
 		</volume>
 	</door>
 
@@ -279,7 +304,7 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>1.5</factor>
+			<property>sim/model/bluebird/sound/door1-volume</property>
 		</volume>
 	</door>
 
@@ -305,7 +330,8 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>0.25</factor>
+			<property>sim/model/bluebird/sound/door1-volume</property>
+			<factor>0.5</factor>
 		</volume>
 	</door>
 
@@ -331,7 +357,8 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>0.15</factor>
+			<property>sim/model/bluebird/sound/door1-volume</property>
+			<factor>0.4</factor>
 		</volume>
 	</door>
 
@@ -357,7 +384,7 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>1.5</factor>
+			<property>sim/model/bluebird/sound/door1-volume</property>
 		</volume>
 	</door>
 
@@ -383,19 +410,44 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>0.3</factor>
+			<property>sim/model/bluebird/sound/door1-volume</property>
+			<factor>0.6</factor>
 		</volume>
 	</door>
 
 	<door>
-		<name>hatch-button-activate</name>
+		<name>hatch0-button-activate</name>
 		<mode>once</mode>
 		<path>Aircraft/bluebird/Sound/hatch-button.wav</path>
 		<condition>
-					<property>sim/model/bluebird/sound/hatch-trigger</property>
+			<property>sim/model/bluebird/sound/hatch0-trigger</property>
 		</condition>
 		<volume>
-			<factor>1.0</factor>
+			<property>sim/model/bluebird/sound/door0-volume</property>
+		</volume>
+	</door>
+
+	<door>
+		<name>hatch1-button-activate</name>
+		<mode>once</mode>
+		<path>Aircraft/bluebird/Sound/hatch-button.wav</path>
+		<condition>
+			<property>sim/model/bluebird/sound/hatch1-trigger</property>
+		</condition>
+		<volume>
+			<property>sim/model/bluebird/sound/door1-volume</property>
+		</volume>
+	</door>
+
+	<door>
+		<name>hatch5-button-activate</name>
+		<mode>once</mode>
+		<path>Aircraft/bluebird/Sound/hatch-button.wav</path>
+		<condition>
+			<property>sim/model/bluebird/sound/hatch5-trigger</property>
+		</condition>
+		<volume>
+			<property>sim/model/bluebird/sound/door5-volume</property>
 		</volume>
 	</door>
 
@@ -421,7 +473,8 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>0.15</factor>
+			<property>sim/model/bluebird/sound/door2-volume</property>
+			<factor>0.4</factor>
 		</volume>
 	</door>
 
@@ -447,7 +500,8 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>0.15</factor>
+			<property>sim/model/bluebird/sound/door2-volume</property>
+			<factor>0.4</factor>
 		</volume>
 	</door>
 
@@ -473,7 +527,8 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>0.15</factor>
+			<property>sim/model/bluebird/sound/door3-volume</property>
+			<factor>0.4</factor>
 		</volume>
 	</door>
 
@@ -499,7 +554,8 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>0.15</factor>
+			<property>sim/model/bluebird/sound/door3-volume</property>
+			<factor>0.4</factor>
 		</volume>
 	</door>
 
@@ -525,7 +581,8 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>0.15</factor>
+			<property>sim/model/bluebird/sound/door4-volume</property>
+			<factor>0.4</factor>
 		</volume>
 	</door>
 
@@ -551,7 +608,8 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>0.15</factor>
+			<property>sim/model/bluebird/sound/door4-volume</property>
+			<factor>0.4</factor>
 		</volume>
 	</door>
 
@@ -577,7 +635,8 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>0.3</factor>
+			<property>sim/model/bluebird/sound/door5-volume</property>
+			<factor>0.6</factor>
 		</volume>
 	</door>
 
@@ -603,7 +662,8 @@
 			</and>
 		</condition>
 		<volume>
-			<factor>0.25</factor>
+			<property>sim/model/bluebird/sound/door5-volume</property>
+			<factor>0.5</factor>
 		</volume>
 	</door>
 
@@ -633,7 +693,8 @@
 			<factor>0.8</factor>
 		</pitch>
 		<volume>
-			<factor>0.1</factor>
+			<property>sim/model/bluebird/sound/door5-volume</property>
+			<factor>0.25</factor>
 		</volume>
 	</door>
 
@@ -663,7 +724,8 @@
 			<factor>1.9</factor>
 		</pitch>
 		<volume>
-			<factor>0.1</factor>
+			<property>sim/model/bluebird/sound/door5-volume</property>
+			<factor>0.25</factor>
 		</volume>
 	</door>
 
@@ -693,7 +755,8 @@
 			<factor>0.8</factor>
 		</pitch>
 		<volume>
-			<factor>0.1</factor>
+			<property>sim/model/bluebird/sound/door5-volume</property>
+			<factor>0.25</factor>
 		</volume>
 	</door>
 
@@ -723,7 +786,8 @@
 			<factor>1.9</factor>
 		</pitch>
 		<volume>
-			<factor>0.1</factor>
+			<property>sim/model/bluebird/sound/door5-volume</property>
+			<factor>0.25</factor>
 		</volume>
 	</door>
 
@@ -737,7 +801,7 @@
 			</greater-than>
 		</condition>
 		<volume>
-			<factor>0.7</factor>
+			<property>sim/model/bluebird/sound/door5-volume</property>
 		</volume>
 	</door>
 
@@ -751,7 +815,7 @@
 			</less-than>
 		</condition>
 		<volume>
-			<factor>2</factor>
+			<property>sim/model/bluebird/sound/door5-volume</property>
 		</volume>
 	</door>
 

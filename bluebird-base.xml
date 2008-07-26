@@ -4,7 +4,7 @@
  <sim>
 	<aero>bluebird</aero>
 	<status>early-production</status>
-	<aircraft-version>7.2</aircraft-version>
+	<aircraft-version>7.3</aircraft-version>
 	<author>S Andreason</author>
 	<aircraft-status>
 		<fdm>beta</fdm>
@@ -473,8 +473,16 @@
 			<shadow type="bool">true</shadow>	<!-- faster than a 3d rendered shadow -->
 			<sound>
 				<door-direction type="double">0</door-direction>	<!-- crude way to play correct sounds for open and close -->
+				<door0-volume type="double">0</door0-volume>
+				<door1-volume type="double">0</door1-volume>
+				<door2-volume type="double">0</door2-volume>
+				<door3-volume type="double">0</door3-volume>
+				<door4-volume type="double">0</door4-volume>
+				<door5-volume type="double">0</door5-volume>
 				<engines-volume-level type="double">0</engines-volume-level>
-				<hatch-trigger type="bool">false</hatch-trigger>
+				<hatch0-trigger type="bool">false</hatch0-trigger>
+				<hatch1-trigger type="bool">false</hatch1-trigger>
+				<hatch5-trigger type="bool">false</hatch5-trigger>
 				<pitch-level type="double">0</pitch-level>
 			</sound>
 			<systems>
