@@ -4,43 +4,43 @@
 	<sim>
 		<model>
 			<livery>
-				<name type="string">Brown-Tan-Weathered</name>
+				<name type="string">Blue-Tan-Weathered</name>
 				<material>
 					<fuselage-top>
-						<texture>leather.rgb</texture>
+						<texture>leather_cream.rgb</texture>
 						<diffuse>
-							<red>0.92</red>
-							<green>0.75</green>
-							<blue>0.1</blue>
+							<red>0.1</red>
+							<green>0.1</green>
+							<blue>0.5</blue>
 						</diffuse>
 						<ambient>
-							<red>0.69</red>
-							<green>0.54</green>
-							<blue>0.54</blue>
+							<red>0</red>
+							<green>0</green>
+							<blue>1</blue>
 						</ambient>
 						<specular>
-							<red>1.0</red>
-							<green>1.0</green>
+							<red>0.1</red>
+							<green>0.1</green>
 							<blue>1.0</blue>
 						</specular>
 						<shininess>20</shininess>
 					</fuselage-top>
 
 					<fuselage-upper>
-						<texture>leather.rgb</texture>
+						<texture>leather_cream.rgb</texture>
 						<diffuse>
-							<red>0.92</red>
-							<green>0.75</green>
-							<blue>0.1</blue>
+							<red>0</red>
+							<green>0</green>
+							<blue>0.5</blue>
 						</diffuse>
 						<ambient>
-							<red>0.69</red>
-							<green>0.54</green>
-							<blue>0.54</blue>
+							<red>0</red>
+							<green>0</green>
+							<blue>1</blue>
 						</ambient>
 						<specular>
-							<red>1.0</red>
-							<green>1.0</green>
+							<red>0.1</red>
+							<green>0.1</green>
 							<blue>1.0</blue>
 						</specular>
 						<shininess>20</shininess>
@@ -54,36 +54,36 @@
 							<blue>0.1</blue>
 						</diffuse>
 						<ambient>
-							<red>0.49</red>
-							<green>0.41</green>
-							<blue>0.80</blue>
+							<red>0.6</red>
+							<green>0.6</green>
+							<blue>1.0</blue>
 						</ambient>
 						<specular>
-							<red>0.8</red>
-							<green>0.8</green>
-							<blue>0.8</blue>
+							<red>0.9</red>
+							<green>0.9</green>
+							<blue>0.9</blue>
 						</specular>
 						<shininess>70</shininess>
 					</hull-trim>
 
 					<fuselage-lower>
-						<texture>leather.rgb</texture>
+						<texture>leather_cream.rgb</texture>
 						<diffuse>
-							<red>0.1</red>
-							<green>0.1</green>
-							<blue>0.1</blue>
+							<red>0.46</red>
+							<green>0.38</green>
+							<blue>0.05</blue>
 						</diffuse>
 						<ambient>
-							<red>0.49</red>
-							<green>0.41</green>
-							<blue>0.80</blue>
+							<red>0.69</red>
+							<green>0.54</green>
+							<blue>0.54</blue>
 						</ambient>
 						<specular>
 							<red>0.8</red>
 							<green>0.8</green>
 							<blue>0.8</blue>
 						</specular>
-						<shininess>70</shininess>
+						<shininess>35</shininess>
 					</fuselage-lower>
 
 					<hull-bottom>
@@ -94,9 +94,9 @@
 							<blue>0.1</blue>
 						</diffuse>
 						<ambient>
-							<red>0.1</red>
-							<green>0.1</green>
-							<blue>0.1</blue>
+							<red>0.33</red>
+							<green>0.33</green>
+							<blue>0.33</blue>
 						</ambient>
 						<specular>
 							<red>0.1</red>
@@ -148,34 +148,34 @@
 
 					<interior-upper>
 						<ambient>
-							<red>0.70</red>
-							<green>0.69</green>
-							<blue>0.59</blue>
+							<red>0.39</red>
+							<green>0.48</green>
+							<blue>0.64</blue>
 						</ambient>
 					</interior-upper>
 
 					<interior-lower>
 						<ambient>
-							<red>0.6</red>
-							<green>0.6</green>
-							<blue>0.6</blue>
+							<red>0.7</red>
+							<green>0.69</green>
+							<blue>0.59</blue>
 						</ambient>
 					</interior-lower>
 
 					<interior-door-panels>
 						<ambient>
-							<red>0.42</red>
-							<green>0.1</green>
-							<blue>0.24</blue>
+							<red>0.64</red>
+							<green>0.64</green>
+							<blue>0.72</blue>
 						</ambient>
 					</interior-door-panels>
 
 					<interior-flooring>
 						<texture>browncanvas.rgb</texture>
 						<ambient>
-							<red>0.5</red>
+							<red>0.27</red>
 							<green>0.5</green>
-							<blue>0.5</blue>
+							<blue>0.27</blue>
 						</ambient>
 						<shininess>0</shininess>
 					</interior-flooring>

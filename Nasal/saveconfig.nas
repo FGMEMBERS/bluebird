@@ -2,5 +2,5 @@
 
 # config file entries ===============================================
 # save livery choice in your config file to autoload next start
-aircraft.data.add("sim/model/livery/variant");
+aircraft.data.add("sim/model/livery/name");
 aircraft.data.add("sim/model/bluebird/shadow");

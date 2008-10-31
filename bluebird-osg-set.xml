@@ -5,6 +5,11 @@
 	<description>Bluebird Explorer for OSG</description>
 	<model>
 		<path>Aircraft/bluebird/Models/bluebird-osg.xml</path>
+		<bluebird>
+			<particles>
+				<enabled type="bool">true</enabled>
+			</particles>
+		</bluebird>
 	</model>
 
 	<help>
@@ -17,8 +22,12 @@
 			<desc>Jump Outside/Inside toggle</desc>
 		</key>
 		<key n="22">
-			<name>r</name>
-			<desc>pull Ripcord, open parachute</desc>
+			<name>j</name>
+			<desc>Jumper/Jetison/open parachute, pull ripcord</desc>
+		</key>
+		<key n="23">
+			<name>k</name>
+			<desc>toggle smoke or contrails</desc>
 		</key>
 		<key n="25">
 			<name>L</name>
@@ -74,7 +83,6 @@
 			</menu>
 		</default>
 	</menubar>
-
 	<submodels>
 		<serviceable>true</serviceable>
 		<path>Aircraft/bluebird/Models/submodels.xml</path>
@@ -194,13 +202,21 @@
 				</binding>
 			</mod-up>
 		</key>
-		<key n="114"> 
-			<name>r</name>
+		<key n="106"> 
+			<name>j</name>
 			<desc>open parachute</desc>
 			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
 				<script>walk.open_chute()</script>
+			</binding>
+		</key>
+		<key n="107">
+			<name>k</name>
+			<desc>Toggle venting/contrails</desc>
+			<binding>
+				<command>nasal</command>
+				<script>bluebird.toggle_venting_both()</script>
 			</binding>
 		</key>
 	</keyboard>

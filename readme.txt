@@ -20,9 +20,10 @@ Press [?] for help with keyboard shortcuts.
 2008 by Stewart Andreason for FlightGear
 
 Send Suggestions? Comments? Problems? or Encouragement to:
-  sandreas41 <at> yahoo <dot> com
+  sandreas41 <at> gmail <dot> com
 Stay current with latest version. This model came from: 
-  http://seahorse.10gbfreehost.com/flightgear_aircraft.html
+   http://seahorse.oxyhost.com/flightgear_aircraft.html
+  or http://seahorsecorral.org/flightgear_aircraft.html
 
 Highlights in this model:
   Hover capable

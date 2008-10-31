@@ -16,9 +16,8 @@ aircraft.light.new("sim/model/bluebird/lighting/alert1", [2.0, 0.75], alert_swit
 # /sim/model/bluebird/lighting/alert1/state is destination, alert_level drifts to chase alert_state
 
 # Hull and fuselage colors and livery ====================================
-aircraft.livery.init("Aircraft/bluebird/Models/Liveries",
-	"sim/model/livery/variant");
-aircraft.livery.select(getprop("sim/model/livery/variant"));
+aircraft.livery.init("Aircraft/bluebird/Models/Liveries");
+aircraft.livery.select(getprop("sim/model/livery/name"));
 
 #==========================================================================
 #                 === initial calls at startup ===
@@ -30,5 +29,5 @@ aircraft.livery.select(getprop("sim/model/livery/variant"));
  settimer(nav_light_loop, 0.5);
 
  print ("Bluebird Explorer Hovercraft  by Stewart Andreason");
- print ("  version 7.3  release date 2008.Jul.22  for FlightGear 1.0 and OSG");
+ print ("  version 7.4  release date 2008.Oct.29  for FlightGear 1.0 and OSG");
 });

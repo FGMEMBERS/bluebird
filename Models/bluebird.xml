@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 7.2 common base ==-->
+<!--== Bluebird version 7.4 common base ==-->
 
 <PropertyList>
 
@@ -3103,6 +3103,23 @@
 			<x>0</x>
 			<y>0</y>
 			<z>-1</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>Nose.Wheel6</object-name>
+		<property>controls/flight/rudder</property>
+		<factor>-45</factor>
+		<min-deg>-45</min-deg>
+		<max-deg>45</max-deg>
+		<axis>
+			<x1-m>-6.841</x1-m>
+			<y1-m>0</y1-m>
+			<z1-m>0</z1-m>
+			<x2-m>-6.841</x2-m>
+			<y2-m>0</y2-m>
+			<z2-m>1</z2-m>
 		</axis>
 	</animation>
 
@@ -11147,6 +11164,40 @@
 		</axis>
 	</animation>
 
+	<animation>
+		<type>rotate</type>
+		<object-name>PEDALS</object-name>
+		<object-name>YOKE</object-name>
+		<property>orientation/ground-pitch</property>
+		<center>
+			<x-m>-0.841</x-m>
+			<y-m>0</y-m>
+			<z-m>-0.5</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>PEDALS</object-name>
+		<object-name>YOKE</object-name>
+		<property>orientation/ground-roll</property>
+		<center>
+			<x-m>-0.841</x-m>
+			<y-m>0</y-m>
+			<z-m>-0.5</z-m>
+		</center>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
 	<model>
 		<name>DISPLAY SCREENS</name>
 		<path>Aircraft/bluebird/Models/display-screens.xml</path>
@@ -11156,4 +11207,36 @@
 			<z-m>0</z-m>
 		</offsets>
 	</model>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>DISPLAY SCREENS</object-name>
+		<property>orientation/ground-pitch</property>
+		<center>
+			<x-m>-0.841</x-m>
+			<y-m>0</y-m>
+			<z-m>-0.5</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>DISPLAY SCREENS</object-name>
+		<property>orientation/ground-roll</property>
+		<center>
+			<x-m>-0.841</x-m>
+			<y-m>0</y-m>
+			<z-m>-0.5</z-m>
+		</center>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
 </PropertyList>

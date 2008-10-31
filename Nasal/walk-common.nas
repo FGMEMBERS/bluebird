@@ -1,4 +1,4 @@
-# ===== common base for walking functions   version 2.4   =====
+# ===== common base for walking functions   version 2.5   =====
 # ===== plus coordinates for Bluebird Explorer Hovercraft =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
@@ -8,7 +8,7 @@ var ERAD = 6378138.12; 		# Earth radius (m)
 var xViewNode = props.globals.getNode("sim/current-view/z-offset-m", 1);
 var yViewNode = props.globals.getNode("sim/current-view/x-offset-m", 1);
 var zViewNode = props.globals.getNode("sim/current-view/y-offset-m", 1);
-var falling = 0;
+var falling = 0;	# 0/1 = false/true
 
 var exit_time_sec = 0.0;
 setlistener("sim/walker/time-of-exit-sec", func {
@@ -33,6 +33,16 @@ setlistener("sim/walker/starting-trajectory-lat", func {
 var lon_vector = 0.0;
 setlistener("sim/walker/starting-trajectory-lon", func {
 	lon_vector = getprop("sim/walker/starting-trajectory-lon");
+});
+
+var z_vector_mps = 0.0;
+setlistener("sim/walker/starting-trajectory-z-mps", func {
+	z_vector_mps = getprop("sim/walker/starting-trajectory-z-mps");
+});
+
+var time_to_top_sec = 0.0;
+setlistener("sim/walker/time-to-zero-z-sec", func {
+	time_to_top_sec = getprop("sim/walker/time-to-zero-z-sec");
 });
 
 var starting_lat = 0.0;
@@ -62,15 +72,21 @@ var distFromCraft = func (lat,lon) {
 	return 2.0 * ERAD * asin(math.sqrt(a * a + cos(lat) * cos(c_lat) * b * b));
 }
 
-var xy2LatLon = func (x,y) {
+var xy2LatLonZ = func (x,y) {
 	# given the x,y offsets of the cockpit view when walking
 	# or the hatch location upon exit
-	# translate into lat,lon for transfer to outside walker
+	# translate into lat,lon,z-offset for transfer to outside walker
 	var c_head_rad = getprop("orientation/heading-deg") * 0.01745329252; # (math.pi / 180)
 	var c_lat = getprop("position/latitude-deg");
 	var c_lon = getprop("position/longitude-deg");
-	var xy_hyp = math.sqrt((x * x) + (y * y));
-	var a = (xy_hyp == 0 ? 0 : asin(y / xy_hyp));
+	var c_pitch = getprop("orientation/pitch-deg");
+	var c_roll = getprop("orientation/roll-deg");
+	var xZ_factor = math.cos(c_pitch * 0.01745329252);
+	var x_Zadjust = x * xZ_factor;	# adjusted for pitch
+	var y_Zadjust = y * math.cos(c_roll * 0.01745329252);	# adjusted for roll
+#	print(sprintf("x= %6.2f xZ= %6.2f  y= %6.2f yZ= %6.2f",x,x_Zadjust,y,y_Zadjust));
+	var xy_hyp = math.sqrt((x_Zadjust * x_Zadjust) + (y_Zadjust * y_Zadjust));
+	var a = (xy_hyp == 0 ? 0 : asin(y_Zadjust / xy_hyp));
 	if (x > 0) {
 		a = math.pi - a;
 	}
@@ -78,11 +94,16 @@ var xy2LatLon = func (x,y) {
 #	print(sprintf ("c_head= %6.2f a= %6.2f xy_head= %6.2f",(c_head_rad*180/math.pi),(a*180/math.pi),(xy_head_rad*180/math.pi)));
 	var xy_lat_m = xy_hyp * math.cos(xy_head_rad);
 	var xy_lon_m = xy_hyp * math.sin(xy_head_rad);
-#	print(sprintf ("x= %9.8f y= %9.8f xy_lat_m= %9.8f xy_lon_m= %9.8f",x,y,xy_lat_m,xy_lon_m));
+#	print(sprintf ("x= %9.8f y= %9.8f xy_lat_m= %9.8f xy_lon_m= %9.8f",xZ,yZ,xy_lat_m,xy_lon_m));
 	var xy_lat = xy_lat_m / (ERAD * math.pi) * 180;
 	var xy_lon = xy_lon_m / (ERAD * cos(c_lat) * math.pi) * 180;
 #	print(sprintf ("position/lat= %9.8f lon= %9.8f xy_lat= %9.8f xy_lon= %9.8f",c_lat,c_lon,xy_lat,xy_lon));
-	return [(c_lat + xy_lat) , (c_lon + xy_lon)];
+	var zxZ_ft = -(x * math.sin(c_pitch * 0.01745329252) / 0.3048);
+	var zyZ_ft = -(y * math.sin(c_roll * 0.01745329252) / 0.3048 * xZ_factor);	# goes to zero as pitch to 90
+
+# MARK: not right yet: z of hatch and height of walker (1.67m) is not adjusted for.
+#	print (sprintf ("zxZ= %6.2f zyZ= %6.2f z= %6.2f",zxZ_ft,zyZ_ft,(zxZ_ft+zyZ_ft)));
+	return [(c_lat + xy_lat) , (c_lon + xy_lon) , (zxZ_ft + zyZ_ft)];
 }
 
 var walk_heading = 0;
@@ -166,35 +187,41 @@ var main_loop = func {
 		if (falling) {
 			ext_mov();
 		}
-		# check for proximity to hatches for entry
-		if (abs(getprop("sim/walker/altitude-ft") - getprop("position/altitude-ft")) < 6) {
-			var posy = getprop("sim/walker/latitude-deg");
-			var posx = getprop("sim/walker/longitude-deg");
-			if (getprop("sim/model/bluebird/doors/door[0]/position-norm") > 0.73) {
-				var door0_ll = xy2LatLon(-2.6,-3.42);
-				var a0 = sin((door0_ll[0] - posy) * 0.5);
-				var b0 = sin((door0_ll[1] - posx) * 0.5);
-				var d0 = 2.0 * ERAD * asin(math.sqrt(a0 * a0 + cos(door0_ll[0]) * cos(posy) * b0 * b0));
-				if (d0 < 1.2) {
-					get_in(1);
+		# check for proximity to hatches for entry after 0.3 sec.
+		var elapsed_sec = getprop("sim/time/elapsed-sec");
+		var elapsed_fall_sec = elapsed_sec - exit_time_sec;
+		if (elapsed_fall_sec > 0.3) {
+			if (abs(getprop("sim/walker/altitude-ft") - getprop("position/altitude-ft")) < 6) {
+				var posy = getprop("sim/walker/latitude-deg");
+				var posx = getprop("sim/walker/longitude-deg");
+			# the following section is aircraft specific for locations of entry hatches and doors
+				if (getprop("sim/model/bluebird/doors/door[0]/position-norm") > 0.73) {
+					var door0_ll = xy2LatLonZ(-2.6,-3.42);
+					var a0 = sin((door0_ll[0] - posy) * 0.5);
+					var b0 = sin((door0_ll[1] - posx) * 0.5);
+					# doesn't actually check z-axis, mis-alignments in rare orientations
+					var d0 = 2.0 * ERAD * asin(math.sqrt(a0 * a0 + cos(door0_ll[0]) * cos(posy) * b0 * b0));
+					if (d0 < 1.2) {
+						get_in(1);
+					}
 				}
-			}
-			if (getprop("sim/model/bluebird/doors/door[1]/position-norm") > 0.73) {
-				var door1_ll = xy2LatLon(-2.6,3.42);
-				var a1 = sin((door1_ll[0] - posy) * 0.5);
-				var b1 = sin((door1_ll[1] - posx) * 0.5);
-				var d1 = 2.0 * ERAD * asin(math.sqrt(a1 * a1 + cos(door1_ll[0]) * cos(posy) * b1 * b1));
-				if (d1 < 1.2) {
-					get_in(2);
+				if (getprop("sim/model/bluebird/doors/door[1]/position-norm") > 0.73) {
+					var door1_ll = xy2LatLonZ(-2.6,3.42);
+					var a1 = sin((door1_ll[0] - posy) * 0.5);
+					var b1 = sin((door1_ll[1] - posx) * 0.5);
+					var d1 = 2.0 * ERAD * asin(math.sqrt(a1 * a1 + cos(door1_ll[0]) * cos(posy) * b1 * b1));
+					if (d1 < 1.2) {
+						get_in(2);
+					}
 				}
-			}
-			if (getprop("sim/model/bluebird/doors/door[5]/position-norm") > 0.78) {
-				var door5_ll = xy2LatLon(9.0,0);
-				var a5 = sin((door5_ll[0] - posy) * 0.5);
-				var b5 = sin((door5_ll[1] - posx) * 0.5);
-				var d5 = 2.0 * ERAD * asin(math.sqrt(a5 * a5 + cos(door5_ll[0]) * cos(posy) * b5 * b5));
-				if (d5 < 1.9) {
-					get_in(5);
+				if (getprop("sim/model/bluebird/doors/door[5]/position-norm") > 0.78) {
+					var door5_ll = xy2LatLonZ(9.0,0);
+					var a5 = sin((door5_ll[0] - posy) * 0.5);
+					var b5 = sin((door5_ll[1] - posx) * 0.5);
+					var d5 = 2.0 * ERAD * asin(math.sqrt(a5 * a5 + cos(door5_ll[0]) * cos(posy) * b5 * b5));
+					if (d5 < 1.9) {
+						get_in(5);
+					}
 				}
 			}
 		}
@@ -281,15 +308,22 @@ var ext_mov = func {
 			posx1 = starting_lon + (lon_vector * parabola);
 		}
 	}
-	var posz2 = geo.elevation (posy1, posx1) * 3.28084;	# convert to ft
+	var posz2 = geo.elevation (posy1, posx1) / 0.3048;	# convert to ft
 	if (falling) {	# 13,000 to 12,000 ft = 10 sec. 12,000 - 4,000 = 44 sec.
 			# 5.5 sec to cover each 1000 ft at terminal velocity
-		var dist_traveled_z = 0;
+		var dist_traveled_z = 0;	# feet
 		if (posz2 < posz1) {	# ground is below walker
-			if (elapsed_fall_sec > 5.358) {	# time to reach terminal velocity
-				dist_traveled_z = 461.56 + ((elapsed_fall_sec - 5.358) * 172);
-			} else {	# 9.8m/s/s up to terminal velocity 172ft/s 54m/s spread eagle
-				dist_traveled_z = 32.15 * elapsed_fall_sec * elapsed_fall_sec / 2;
+			dist_traveled_z = -32.15 * time_to_top_sec * time_to_top_sec / 2;	# upward half of arc
+			if (elapsed_fall_sec > time_to_top_sec) {	# past zero_z and falling
+				var elapsed2 = elapsed_fall_sec - time_to_top_sec;
+				if (elapsed_fall_sec > (time_to_top_sec + 5.358)) {	# time to reach terminal velocity
+					dist_traveled_z += 461.56 + ((elapsed2 - 5.358) * 172);
+				} else {	# 9.8m/s/s up to terminal velocity 172ft/s 54m/s spread eagle
+					dist_traveled_z += 32.15 * elapsed2 * elapsed2 / 2;
+				}
+			} else {	# started going up, arch to zero_z before falling
+				var elapsed1 = elapsed_fall_sec - time_to_top_sec;
+				dist_traveled_z += 32.15 * elapsed1 * elapsed1 / 2;
 			}
 			if (parachute_ft) {	# chute open
 				var subtract_z = 0;
@@ -356,6 +390,11 @@ var get_out = func (loc) {
 		c_airspeed_mps -= 1;
 	}
 	var c_head_deg = getprop("orientation/heading-deg");
+	var c_pitch = getprop("orientation/pitch-deg");
+	# for powered ejections, add to the next line the rocket thrust
+	var c_z_vector_mps = sin(c_pitch) * c_airspeed_mps;
+	# x and y are in meters, but z axis needs to be in feet once it enters altitude calculations
+	setprop("sim/walker/starting-trajectory-z-mps", c_z_vector_mps);
 	if (c_airspeed_mps < 0) {
 		c_airspeed_mps = abs(c_airspeed_mps);
 		c_head_deg += 180;
@@ -366,23 +405,31 @@ var get_out = func (loc) {
 	var c_head_rad = c_head_deg * 0.01745329252;
 	var c_lat = getprop("position/latitude-deg");
 	var c_lon = getprop("position/longitude-deg");
-	var xy_lat_m = c_airspeed_mps * math.cos(c_head_rad);
-	var xy_lon_m = c_airspeed_mps * math.sin(c_head_rad);
+	var xy_Z_factor = math.cos(c_pitch * 0.01745329252);	# factor to zero when pitch = +- 90
+	var xy_lat_m = c_airspeed_mps * math.cos(c_head_rad) * xy_Z_factor;
+	var xy_lon_m = c_airspeed_mps * math.sin(c_head_rad) * xy_Z_factor;
 	var xy_lat = xy_lat_m / (ERAD * math.pi) * 180;
 	var xy_lon = xy_lon_m / (ERAD * cos(c_lat) * math.pi) * 180;
 	setprop("sim/walker/starting-trajectory-lat", xy_lat);
 	setprop("sim/walker/starting-trajectory-lon", xy_lon);
-	if (loc == 0) {
-		var new_coord = xy2LatLon(-12.0,-8.0);	# coordinates outside front hatch
-	} elsif (loc == 1) {
-		var new_coord = xy2LatLon(xViewNode.getValue(),-4.9);
-	} elsif (loc == 2) {
-		var new_coord = xy2LatLon(xViewNode.getValue(),4.9);
-	} elsif (loc == 5) {
-		var new_coord = xy2LatLon(11.0,yViewNode.getValue());
-	} else {
-		var new_coord = xy2LatLon(xViewNode.getValue(),yViewNode.getValue());
+	var c_time0z_sec = math.sqrt(abs(c_z_vector_mps) / 0.3048 * 2 / 32.15);	# time to top of arc
+	if (c_z_vector_mps < 0) {	# going down
+		c_time0z_sec = 0 - c_time0z_sec;
 	}
+	setprop("sim/walker/time-to-zero-z-sec", c_time0z_sec);
+	# the following section is aircraft specific for locations of exit hatches and doors
+	if (loc == 0) {
+		var new_coord = xy2LatLonZ(-12.0,-8.0);	# coordinates outside front hatch
+	} elsif (loc == 1) {
+		var new_coord = xy2LatLonZ(xViewNode.getValue(),-4.9);
+	} elsif (loc == 2) {
+		var new_coord = xy2LatLonZ(xViewNode.getValue(),4.9);
+	} elsif (loc == 5) {
+		var new_coord = xy2LatLonZ(11.0,yViewNode.getValue());
+	} else {
+		var new_coord = xy2LatLonZ(xViewNode.getValue(),yViewNode.getValue());
+	}
+	# end aircraft specific
 	var head = abs(getprop("orientation/heading-deg") -360.00) + head_add;
 	while (head >= 360.0) {
 		head -= 360.0;
@@ -392,6 +439,7 @@ var get_out = func (loc) {
 	setprop("sim/current-view/view-number", view.indexof("Walk View"));
 	var posy = new_coord[0];
 	var posx = new_coord[1];
+	var posz_ft = new_coord[2];
 	setprop("sim/walker/heading-deg", 0);
 	setprop("sim/walker/roll-deg", 0);
 	setprop("sim/walker/pitch-deg", 0);
@@ -405,7 +453,7 @@ var get_out = func (loc) {
 	setprop("sim/current-view/heading-offset-deg", head);
 	falling = 1;
 	setprop("sim/walker/time-of-exit-sec", getprop("sim/time/elapsed-sec"));
-	setprop("sim/walker/altitude-at-exit-ft", getprop("position/altitude-ft"));
+	setprop("sim/walker/altitude-at-exit-ft", (getprop("position/altitude-ft") + posz_ft));
 	setprop("sim/walker/starting-lat", new_coord[0]);
 	setprop("sim/walker/starting-lon", new_coord[1]);
 	walk_factor = 1.0;
@@ -418,6 +466,7 @@ var get_in = func (loc) {
 	setprop("sim/view[100]/enabled", "false");
 	setprop("sim/walker/parachute-opened-altitude-ft", 0);
 	setprop("sim/walker/parachute-opened-sec", 0);
+	# the following section is aircraft specific for locations of entry hatches and doors
 	if (loc == 1) {
 		yViewNode.setValue(-3.4);
 		zViewNode.setValue(2.1);

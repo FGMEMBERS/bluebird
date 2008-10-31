@@ -4,7 +4,7 @@
 	<sim>
 		<model>
 			<livery>
-				<variant type="string">Green-Grey-Plain</variant>
+				<name type="string">Green-Grey-Plain</name>
 				<material>
 					<fuselage-top>
 						<texture>livery.rgb</texture>

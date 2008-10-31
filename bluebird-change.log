@@ -1,5 +1,17 @@
 Version# Vertices PolygonFaces Comments
 
+2008.Oct.29
+7.4	Adjust window transparency.
+	Add particles for dust, vapor, and smoke in OSG.
+	Rotate front wheel when turning.
+	Place sounds in proper 3d space, and limit volume by distance.
+	Change jumper parachute to [j]
+	Add vertical trajectory to walker upon exiting aircraft.
+	  (Walker should now work with aircraft with ejection seats.)
+	Walker now exits relative to aircraft pitch and roll instead
+	  of leaving at the center line.
+	Update url of my hanger to reflect change in hosting.
+
 2008.Jul.22
 7.3	Increase volume for rumble sound.
 	Make doors sound effects volume relative to view position.

@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 7.3 common base =====
+# ===== Bluebird Explorer Hovercraft  version 7.4 common base =====
 
 # Add second popupTip to avoid being overwritten by primary joystick messages ==
 var tipArg2 = props.Node.new({ "dialog-name" : "PopTip2" });
@@ -302,6 +302,7 @@ var active_nav_button = [3, 3, 1];
 var active_landing_button = [3, 1, 3];
 var config_dialog = nil;
 var systems_dialog = nil;
+
 var reinit_bluebird = func {	# reset the above variables
 	damage_blocker = 0;
 	damage_count = 0;
@@ -621,35 +622,17 @@ var reset_trigger5 = func {
 setlistener("sim/model/bluebird/systems/power-switch", func {
 	power_switch = getprop("sim/model/bluebird/systems/power-switch");
 	if (damage_count) {
-		var ventingL = getprop("ai/submodels/engine-L-venting");
-		var ventingR = getprop("ai/submodels/engine-R-venting");
 		var flaringL = getprop("ai/submodels/engine-L-flaring");
 		var flaringR = getprop("ai/submodels/engine-R-flaring");
-		if (ventingL or flaringL) {
-			if (power_switch) {
-				if (ventingL) {
-					setprop ("ai/submodels/engine-L-venting", "false");
-					setprop ("ai/submodels/engine-L-flaring", "true");
-				}
-			} else {
-				if (flaringL) {
-					setprop ("ai/submodels/engine-L-flaring", "false");
-					setprop ("ai/submodels/engine-L-venting", "true");
-				}
-			}
+		if (!power_switch and flaringL) {
+			setprop ("ai/submodels/engine-L-flaring", "false");
+		} elsif (power_switch and !nacelleL_attached) {
+			setprop ("ai/submodels/engine-L-flaring", "true");
 		}
-		if (ventingR or flaringR) {
-			if (power_switch) {
-				if (ventingR) {
-					setprop ("ai/submodels/engine-R-venting", "false");
-					setprop ("ai/submodels/engine-R-flaring", "true");
-				}
-			} else {
-				if (flaringR) {
-					setprop ("ai/submodels/engine-R-flaring", "false");
-					setprop ("ai/submodels/engine-R-venting", "true");
-				}
-			}
+		if (!power_switch and flaringR) {
+			setprop ("ai/submodels/engine-R-flaring", "false");
+		} elsif (power_switch and !nacelleR_attached) {
+			setprop ("ai/submodels/engine-R-flaring", "true");
 		}
 	}
 });
@@ -986,20 +969,36 @@ setlistener("controls/lighting/alert", func {
 setlistener("sim/model/bluebird/components/nacelle-L", func {
 	nacelleL_attached = getprop("sim/model/bluebird/components/nacelle-L");
 	if (!nacelleL_attached) {
-		if (nacelle_L_venting) {
-			setprop ("sim/model/bluebird/systems/nacelle-L-venting", "false");
+		if (power_switch) {
 			setprop ("ai/submodels/engine-L-flaring", "true");
 		}
+		if (nacelle_L_venting) {
+			setprop ("sim/model/bluebird/systems/nacelle-L-venting", "false");
+		}
+		if (damage_count) {
+			setprop ("ai/submodels/engine-L-venting", "true");
+		}
+	} else {
+		setprop ("ai/submodels/engine-L-flaring", "false");
+		setprop ("ai/submodels/engine-L-venting", "false");
 	}
 }, 1);
 
 setlistener("sim/model/bluebird/components/nacelle-R", func {
 	nacelleR_attached = getprop("sim/model/bluebird/components/nacelle-R");
 	if (!nacelleR_attached) {
-		if (nacelle_R_venting) {
-			setprop ("sim/model/bluebird/systems/nacelle-R-venting", "false");
+		if (power_switch) {
 			setprop ("ai/submodels/engine-R-flaring", "true");
 		}
+		if (nacelle_R_venting) {
+			setprop ("sim/model/bluebird/systems/nacelle-R-venting", "false");
+		}
+		if (damage_count) {
+			setprop ("ai/submodels/engine-R-venting", "true");
+		}
+	} else {
+		setprop ("ai/submodels/engine-R-flaring", "false");
+		setprop ("ai/submodels/engine-R-venting", "false");
 	}
 }, 1);
 
@@ -1062,6 +1061,7 @@ setlistener("sim/model/bluebird/systems/nacelle-L-venting", func {
 	if (!nacelleL_attached) {
 		if (nacelle_L_venting) {
 			setprop ("ai/submodels/engine-L-flaring", "true");
+			setprop ("ai/submodels/engine-L-venting", "true");
 			setprop ("sim/model/bluebird/systems/nacelle-L-venting", "false");
 		}
 	}
@@ -1073,6 +1073,7 @@ setlistener("sim/model/bluebird/systems/nacelle-R-venting", func {
 	if (!nacelleR_attached) {
 		if (nacelle_R_venting) {
 			setprop ("ai/submodels/engine-R-flaring", "true");
+			setprop ("ai/submodels/engine-R-venting", "true");
 			setprop ("sim/model/bluebird/systems/nacelle-R-venting", "false");
 		}
 	}
@@ -1688,32 +1689,21 @@ var nav_lighting_update = func {
 		}
 	}
 	# window shading factor between 0 transparent and 1 opaque
-	#      if lights on   range(0.3-0.9) midnight to noon
-	#    else lights off  range(0.6-1.0)
+	#      if lights on   range(0.2-0.5) midnight to noon
+	#    else lights off  range(0.3-0.6)
 	if (getprop("sim/model/bluebird/lighting/window-opaque")) {
 		var wsv = 1.0;
 	} else {  
 		var wsv = -9999;
 		if (visibility < 5000 or sun_angle > 1.2) {  # dawn/dusk bright side
 			if (int_switch) {      # lights on
-				if (sun_angle < 2.0) {  # dawn/dusk darkest
-					wsv = 1.8 - (sun_angle * 0.75);
-				} else {
-					wsv = 0.3;  # dark night
-				}
+				# dawn/dusk darkest : dark night
+				wsv = (sun_angle < 2.0 ? (0.95 - (sun_angle * 0.375)) : 0.2);
 			} else {            # lights off
-				if (sun_angle < 2.0) {
-					wsv = 1.6 - (sun_angle * 0.5);
-				} else {
-					wsv = 0.6;  # dark night
-				}
+				wsv = (sun_angle < 2.0 ? (1.05 - (sun_angle * 0.375)) : 0.3);
 			}
 		} else {      # daytime
-			if (int_switch) {
-				wsv = 0.9;
-			} else {
-				wsv = 1.0;
-			}
+			wsv = (int_switch ? 0.5 : 0.6);
 		}
 	}
 	setprop("sim/model/bluebird/lighting/window-factor", wsv);
@@ -1729,6 +1719,9 @@ var nav_light_loop = func {
 }
 
 # gear and wheels --------------------------------------------------
+setlistener("position/gear-agl-m", func {
+	gear_height = getprop("position/gear-agl-m");
+});
 
 setlistener("gear/gear[0]/position-norm", func {
 	gear_position = getprop("gear/gear[0]/position-norm");
@@ -1741,7 +1734,7 @@ setlistener("gear/gear[0]/position-norm", func {
 	} else {
 		setprop("gear/gear[0]/position-side-pads", gear_position);
 	}
-	gear_height = (gear_position * 2.47) + wheel_height;
+	setprop ("position/gear-agl-m", (gear_position * 2.47) + wheel_height);
 	if (door0_position > 0.7) {
 		door_update(0);
 	}
@@ -1775,7 +1768,7 @@ setlistener("gear/gear[1]/position-norm", func {
 	} else {
 		wheel_height = 0;
 	}
-	gear_height = (gear_position * 2.47) + wheel_height;
+	setprop ("position/gear-agl-m", (gear_position * 2.47) + wheel_height);
 	# contact = altitude origin - offset - gear - (keep nacelle and nose from touching)
 	contact_altitude = altitude_ft_Node.getValue() - vertical_offset_ft - gear_height - hover_add;
 	panel_lighting_update();
@@ -3285,11 +3278,17 @@ var set_landing_lights = func(sll_i) {
 
 var toggle_venting_both = func {
 	if (!nacelle_L_venting) {
-		setprop("sim/model/bluebird/systems/nacelle-L-venting", "true");
-		setprop("sim/model/bluebird/systems/nacelle-R-venting", "true");
+		if (nacelleL_attached) {
+			setprop("sim/model/bluebird/systems/nacelle-L-venting", "true");
+		}
+		if (nacelleR_attached) {
+			setprop("sim/model/bluebird/systems/nacelle-R-venting", "true");
+		}
+		popupTip2("Smoke venting ON");
 	} else {
 		setprop("sim/model/bluebird/systems/nacelle-L-venting", "false");
 		setprop("sim/model/bluebird/systems/nacelle-R-venting", "false");
+		popupTip2("Smoke venting OFF");
 	}
 }
 

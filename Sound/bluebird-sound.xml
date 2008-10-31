@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 7.3 ==-->
+<!--== Bluebird Explorer Hovercraft  version 7.4 ==-->
  
 <PropertyList>
  <fx>
@@ -15,6 +15,8 @@
 		<pitch>
 			<property>sim/model/bluebird/sound/pitch-level</property>
 		</pitch>
+		<reference-dist>300</reference-dist>
+		<max-dist>3000</max-dist>
 	</engine>
 
 	<engine>
@@ -37,6 +39,8 @@
 			<factor>0.25</factor>
 			<offset>-0.75</offset>
 		</pitch>
+		<reference-dist>1000</reference-dist>
+		<max-dist>6000</max-dist>
 	</engine>
 
 <!-- doors -->
@@ -62,10 +66,17 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>-2.55</x> <!-- + = aft -->
+			<y>-1.75</y> <!-- + = left -->
+			<z>0</z>     <!-- + = up -->
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door0-volume</property>
 			<factor>0.5</factor>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -89,10 +100,17 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>-2.55</x>
+			<y>-1.75</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door0-volume</property>
 			<factor>0.4</factor>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -116,9 +134,16 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>-2.55</x>
+			<y>-1.75</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door0-volume</property>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -142,10 +167,17 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>-2.55</x>
+			<y>-1.75</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door0-volume</property>
 			<factor>0.5</factor>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -169,10 +201,17 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>-2.55</x>
+			<y>-1.75</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door0-volume</property>
 			<factor>0.4</factor>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -196,9 +235,16 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>-2.55</x>
+			<y>-1.75</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door0-volume</property>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -222,10 +268,17 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>-2.55</x>
+			<y>-1.75</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door0-volume</property>
 			<factor>0.6</factor>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -249,10 +302,17 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>-2.55</x>
+			<y>1.75</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door1-volume</property>
 			<factor>0.5</factor>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -276,10 +336,17 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>-2.55</x>
+			<y>1.75</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door1-volume</property>
 			<factor>0.4</factor>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -303,9 +370,16 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>-2.55</x>
+			<y>1.75</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door1-volume</property>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -329,10 +403,17 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>-2.55</x>
+			<y>1.75</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door1-volume</property>
 			<factor>0.5</factor>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -356,10 +437,17 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>-2.55</x>
+			<y>1.75</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door1-volume</property>
 			<factor>0.4</factor>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -383,9 +471,16 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>-2.55</x>
+			<y>1.75</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door1-volume</property>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -409,10 +504,17 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>-2.55</x>
+			<y>1.75</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door1-volume</property>
 			<factor>0.6</factor>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -425,6 +527,8 @@
 		<volume>
 			<property>sim/model/bluebird/sound/door0-volume</property>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -437,6 +541,8 @@
 		<volume>
 			<property>sim/model/bluebird/sound/door1-volume</property>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -449,6 +555,8 @@
 		<volume>
 			<property>sim/model/bluebird/sound/door5-volume</property>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -472,10 +580,17 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>-1.73</x>
+			<y>0</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door2-volume</property>
 			<factor>0.4</factor>
 		</volume>
+		<reference-dist>2</reference-dist>
+		<max-dist>5</max-dist>
 	</door>
 
 	<door>
@@ -499,10 +614,17 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>-1.73</x>
+			<y>0</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door2-volume</property>
 			<factor>0.4</factor>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>10</max-dist>
 	</door>
 
 	<door>
@@ -526,10 +648,17 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>-0.62</x>
+			<y>0.66</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door3-volume</property>
 			<factor>0.4</factor>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>10</max-dist>
 	</door>
 
 	<door>
@@ -553,10 +682,17 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>-0.62</x>
+			<y>0.66</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door3-volume</property>
 			<factor>0.4</factor>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>10</max-dist>
 	</door>
 
 	<door>
@@ -580,10 +716,17 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>-0.08</x>
+			<y>0</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door4-volume</property>
 			<factor>0.4</factor>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>10</max-dist>
 	</door>
 
 	<door>
@@ -607,10 +750,17 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>-0.08</x>
+			<y>0</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door4-volume</property>
 			<factor>0.4</factor>
 		</volume>
+		<reference-dist>3</reference-dist>
+		<max-dist>10</max-dist>
 	</door>
 
 	<door>
@@ -634,10 +784,17 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>9.2</x>
+			<y>0</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door5-volume</property>
 			<factor>0.6</factor>
 		</volume>
+		<reference-dist>4</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -661,10 +818,17 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>9.2</x>
+			<y>0</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door5-volume</property>
 			<factor>0.5</factor>
 		</volume>
+		<reference-dist>4</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -689,6 +853,11 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>9.2</x>
+			<y>0</y>
+			<z>0</z>
+		</position>
 		<pitch>
 			<factor>0.8</factor>
 		</pitch>
@@ -696,6 +865,8 @@
 			<property>sim/model/bluebird/sound/door5-volume</property>
 			<factor>0.25</factor>
 		</volume>
+		<reference-dist>4</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -720,6 +891,11 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>9.2</x>
+			<y>0</y>
+			<z>0</z>
+		</position>
 		<pitch>
 			<factor>1.9</factor>
 		</pitch>
@@ -727,6 +903,8 @@
 			<property>sim/model/bluebird/sound/door5-volume</property>
 			<factor>0.25</factor>
 		</volume>
+		<reference-dist>4</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -751,6 +929,11 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>9.2</x>
+			<y>0</y>
+			<z>0</z>
+		</position>
 		<pitch>
 			<factor>0.8</factor>
 		</pitch>
@@ -758,6 +941,8 @@
 			<property>sim/model/bluebird/sound/door5-volume</property>
 			<factor>0.25</factor>
 		</volume>
+		<reference-dist>4</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -782,6 +967,11 @@
 				</and>
 			</and>
 		</condition>
+		<position>
+			<x>9.2</x>
+			<y>0</y>
+			<z>0</z>
+		</position>
 		<pitch>
 			<factor>1.9</factor>
 		</pitch>
@@ -789,6 +979,8 @@
 			<property>sim/model/bluebird/sound/door5-volume</property>
 			<factor>0.25</factor>
 		</volume>
+		<reference-dist>4</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -800,9 +992,16 @@
 				<value>0.9716</value>
 			</greater-than>
 		</condition>
+		<position>
+			<x>9.2</x>
+			<y>0</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door5-volume</property>
 		</volume>
+		<reference-dist>4</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 	<door>
@@ -814,9 +1013,16 @@
 				<value>0.0284</value>
 			</less-than>
 		</condition>
+		<position>
+			<x>9.2</x>
+			<y>0</y>
+			<z>0</z>
+		</position>
 		<volume>
 			<property>sim/model/bluebird/sound/door5-volume</property>
 		</volume>
+		<reference-dist>4</reference-dist>
+		<max-dist>15</max-dist>
 	</door>
 
 <!-- gears -->
@@ -856,6 +1062,8 @@
 		<volume>
 			<factor>0.15</factor>
 		</volume>
+		<reference-dist>4</reference-dist>
+		<max-dist>15</max-dist>
 	</gear>
 
 	<gear>
@@ -867,6 +1075,8 @@
 				<value>0</value>
 			</equals>
 		</condition>
+		<reference-dist>4</reference-dist>
+		<max-dist>15</max-dist>
 	</gear>
 
 	<gear>
@@ -891,6 +1101,8 @@
 		<volume>
 			<factor>0.1</factor>
 		</volume>
+		<reference-dist>4</reference-dist>
+		<max-dist>15</max-dist>
 	</gear>
 
 	<gear>
@@ -911,6 +1123,8 @@
 		<volume>
 			<factor>0.1</factor>
 		</volume>
+		<reference-dist>4</reference-dist>
+		<max-dist>15</max-dist>
 	</gear>
 
 	<gear>
@@ -925,6 +1139,8 @@
 		<volume>
 			<factor>0.4</factor>
 		</volume>
+		<reference-dist>4</reference-dist>
+		<max-dist>15</max-dist>
 	</gear>
 
 <!-- ground contacts -->
@@ -935,6 +1151,8 @@
 		<condition>
 			<property>sim/model/bluebird/position/landing-wow</property>
 		</condition>
+		<reference-dist>30000</reference-dist>
+		<max-dist>32000</max-dist>
 	</landing>
 
 	<contact-slow>

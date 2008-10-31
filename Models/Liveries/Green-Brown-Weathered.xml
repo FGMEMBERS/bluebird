@@ -4,7 +4,7 @@
 	<sim>
 		<model>
 			<livery>
-				<variant type="string">Green-Brown-Weathered</variant>
+				<name type="string">Green-Brown-Weathered</name>
 				<material>
 					<fuselage-top>
 						<texture>leather.rgb</texture>

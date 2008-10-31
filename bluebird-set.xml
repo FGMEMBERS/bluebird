@@ -4,7 +4,7 @@
  <sim>
 	<description>Bluebird Hovercraft for 1.0</description>
 	<status>early-production</status>
-	<aircraft-version>7.3</aircraft-version>
+	<aircraft-version>7.4</aircraft-version>
 	<author>S Andreason</author>
 	<model>
 		<path>Aircraft/bluebird/Models/bluebird-plib.xml</path>
@@ -20,8 +20,12 @@
 			<desc>Jump Outside/Inside toggle</desc>
 		</key>
 		<key n="22">
-			<name>r</name>
-			<desc>pull Ripcord, open parachute</desc>
+			<name>j</name>
+			<desc>Jumper/Jetison/open parachute, pull ripcord</desc>
+		</key>
+		<key n="23">
+			<name>k</name>
+			<desc>toggle smoke or contrails</desc>
 		</key>
 		<key n="25">
 			<name>L</name>
@@ -80,7 +84,7 @@
 
 	<submodels>
 		<serviceable>true</serviceable>
-		<path>Aircraft/bluebird/Models/submodels.xml</path>
+		<path>Aircraft/bluebird/Models/submodels-10.xml</path>
 	</submodels>
  </sim>
 
@@ -197,13 +201,21 @@
 				</binding>
 			</mod-up>
 		</key>
-		<key n="114"> 
-			<name>r</name>
+		<key n="106"> 
+			<name>j</name>
 			<desc>open parachute</desc>
 			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
 				<script>walk.open_chute()</script>
+			</binding>
+		</key>
+		<key n="107">
+			<name>k</name>
+			<desc>Toggle venting/contrails</desc>
+			<binding>
+				<command>nasal</command>
+				<script>bluebird.toggle_venting_both()</script>
 			</binding>
 		</key>
 	</keyboard>
