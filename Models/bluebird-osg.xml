@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 7.4 for OSG                   ==-->
+<!--== Bluebird version 7.41 for OSG                   ==-->
 
 <PropertyList>
 	<model>
@@ -1009,7 +1009,7 @@
 	<!-- front left -->
 	<particlesystem>
 		<name>dirt</name>
-		<texture>Textures/smoke.png</texture>
+		<texture>../../Generic/Effects/smoke.png</texture>
 		<emissive>false</emissive>
 		<lighting>false</lighting>
 
@@ -1131,7 +1131,7 @@
 	<!-- front right -->
 	<particlesystem>
 		<name>dirt</name>
-		<texture>Textures/smoke.png</texture>
+		<texture>../../Generic/Effects/smoke.png</texture>
 		<emissive>false</emissive>
 		<lighting>false</lighting>
 
@@ -1253,7 +1253,7 @@
 	<!-- rear left -->
 	<particlesystem>
 		<name>dirt</name>
-		<texture>Textures/smoke.png</texture>
+		<texture>../../Generic/Effects/smoke.png</texture>
 		<emissive>false</emissive>
 		<lighting>false</lighting>
 
@@ -1375,7 +1375,7 @@
 	<!-- rear right -->
 	<particlesystem>
 		<name>dirt</name>
-		<texture>Textures/smoke.png</texture>
+		<texture>../../Generic/Effects/smoke.png</texture>
 		<emissive>false</emissive>
 		<lighting>false</lighting>
 

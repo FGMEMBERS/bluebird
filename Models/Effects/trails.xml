@@ -18,7 +18,7 @@
 				<value>35000</value>
 			</less-than>
 		</condition>
-		<texture>../Textures/smoke.png</texture>
+		<texture>../../../Generic/Effects/smoke.png</texture>
 		<emissive>false</emissive>
 		<lighting>false</lighting>
 		<attach>world</attach>

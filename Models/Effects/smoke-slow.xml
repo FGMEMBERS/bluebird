@@ -5,7 +5,7 @@
   <particlesystem>
     <name>smoke2</name>
     <type>normal</type>
-    <texture>../Textures/smoke.png</texture>
+    <texture>../../../Generic/Effects/smoke.png</texture>
 
     <offsets>
       <x-m> 0.0 </x-m>

@@ -1,5 +1,8 @@
 Version# Vertices PolygonFaces Comments
 
+2008.Nov.01
+7.41	change location of reference to particle smoke.png
+
 2008.Oct.29
 7.4	Adjust window transparency.
 	Add particles for dust, vapor, and smoke in OSG.
