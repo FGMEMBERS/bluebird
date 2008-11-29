@@ -21,14 +21,14 @@
 				<label>Bluebird</label>
 				<enabled type="bool">true</enabled>
 				<item>
-					<label>Systems</label>
+					<label>Systems                 [Tab]</label>
 					<binding>
 						<command>nasal</command>
 						<script>bluebird.showDialog1()</script>
 					</binding>
 				</item>
 				<item>
-					<label>Configuration</label>
+					<label>Preferences Configuration</label>
 					<binding>
 						<command>nasal</command>
 						<script>bluebird.showDialog2()</script>

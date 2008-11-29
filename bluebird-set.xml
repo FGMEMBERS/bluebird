@@ -4,7 +4,7 @@
  <sim>
 	<description>Bluebird Hovercraft for 1.0</description>
 	<status>early-production</status>
-	<aircraft-version>7.4</aircraft-version>
+	<aircraft-version>8.0</aircraft-version>
 	<author>S Andreason</author>
 	<model>
 		<path>Aircraft/bluebird/Models/bluebird-plib.xml</path>
@@ -17,7 +17,7 @@
 		</key>
 		<key n="21">
 			<name>o</name>
-			<desc>Jump Outside/Inside toggle</desc>
+			<desc>Jump Outside/inside toggle</desc>
 		</key>
 		<key n="22">
 			<name>j</name>
@@ -51,28 +51,28 @@
 				<label>Bluebird</label>
 				<enabled type="bool">true</enabled>
 				<item>
-					<label>Systems</label>
+					<label>Systems                 [Tab]</label>
 					<binding>
 						<command>nasal</command>
 						<script>bluebird.showDialog1()</script>
 					</binding>
 				</item>
 				<item>
-					<label>Configuration</label>
+					<label>Preferences Configuration</label>
 					<binding>
 						<command>nasal</command>
 						<script>bluebird.showDialog2()</script>
 					</binding>
 				</item>
 				<item>
-					<label>Select Livery</label>
+					<label>Select Livery               [l]</label>
 					<binding>
 						<command>nasal</command>
 						<script>aircraft.livery.dialog.toggle()</script>
 					</binding>
 				</item>
 				<item>
-					<label>Toggle venting/contrails</label>
+					<label>Toggle venting/contrails   [k]</label>
 					<binding>
 						<command>nasal</command>
 						<script>bluebird.toggle_venting_both()</script>
@@ -158,8 +158,8 @@
 			</binding>
 			<binding n="1">
 				<command>property-assign</command>
-				<property>sim/walker/speed</property>
-				<value>0.000006</value>
+				<property>sim/walker/speed-mps</property>
+				<value>0.7</value>
 			</binding>
 			<mod-up>
 				<binding n="0">
@@ -169,8 +169,8 @@
 				</binding>
 				<binding n="1">
 					<command>property-assign</command>
-					<property>sim/walker/speed</property>
-					<value>0.000006</value>
+					<property>sim/walker/speed-mps</property>
+					<value>0.7</value>
 				</binding>
 			</mod-up>
 		</key>
@@ -186,7 +186,7 @@
 			<binding n="1">
 				<command>property-assign</command>
 				<property>sim/walker/speed</property>
-				<value>0.000018</value>
+				<value>6.0</value>
 			</binding>
 			<mod-up>
 				<binding n="0">
@@ -196,8 +196,8 @@
 				</binding>
 				<binding n="1">
 					<command>property-assign</command>
-					<property>sim/walker/speed</property>
-					<value>0.000006</value>
+					<property>sim/walker/speed-mps</property>
+					<value>2.0</value>
 				</binding>
 			</mod-up>
 		</key>

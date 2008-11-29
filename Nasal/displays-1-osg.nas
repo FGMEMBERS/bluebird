@@ -1,5 +1,33 @@
 # ===== text screen functions for version 1.0 and OSG =====
-# ===== for Bluebird Explorer Hovercraft version 7.0 =====
+# ===== for Bluebird Explorer Hovercraft version 7.6 =====
+
+var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
+var cos = func(a) { math.cos(a * math.pi / 180.0) }
+var asin = func(y) { math.atan2(y, math.sqrt(1-y*y)) }	# radians
+var ERAD = 6378138.12; 		# Earth radius (m)
+var m_2_conv = [0.000621371192, 0.001];
+var m_conv_units = [" MI"," KM"];
+var m_conv_format = [" %5.2f "," %4.3f "];
+var ft_2_conv = [1.0, 0.3048];
+var ft_conv_units = [" FT"," M"];
+var ft_conv_format = [" %7.0f "," %8.1f "];
+
+var normbearing = func (a,c) {
+	var h = a - c;
+	while (h >= 180)
+		h -= 360;
+	while (h < -180)
+		h += 360;
+	return h;
+}
+
+var normheading = func (a) {
+	while (a >= 360)
+		a -= 360;
+	while (a < 0)
+		a += 360;
+	return a;
+}
 
 # ======== nearest airport for screen-1R ============================
 var apt_loop = func {
@@ -24,16 +52,6 @@ var apt_loop = func {
 	settimer(apt_loop, 5);
 }
 
-var apt = nil;
-settimer(apt_loop,2);
-
-setlistener("sim/signals/reinit", func {
-	apt = nil;
-});
-
-var asin = func(y) { math.atan2(y, math.sqrt(1-y*y)) }  # radians
-var dist_2_conv = [0.000621371192, 0.001];
-var dist_conv_units = [" MI"," KM"];
 var apt_update = func {
 	if (apt != nil) {
 		var a_mode = getprop("instrumentation/digital/altitude-mode");
@@ -42,26 +60,105 @@ var apt_update = func {
 		var x = apt.lon - getprop("position/longitude-deg");
 		var xy_hyp = math.sqrt((x * x) + (y * y));
 		var head = (xy_hyp == 0 ? 0 : asin(x / xy_hyp)) * 180 / math.pi;
-		while (head >= 360.0) {
-			head -= 360.0;
-		}
-		while (head < 0.0) {
-			head += 360.0;
-		}
+		head = normheading(head);
 		if (c_lat > apt.lat) {
-			head = 180 - head;
-			while (head < 0.0) {
-				head += 360.0;
-			}
+			head = normheading(180 - head);
 		}
 		setprop("instrumentation/display-screens/t1R-18a", head);
-		var range = walk.distFromCraft(apt.lat, apt.lon) * dist_2_conv[a_mode];
-		var txt18 = sprintf("%7.2f",range) ~ dist_conv_units[a_mode];
+		var range = walk.distFromCraft(apt.lat, apt.lon) * m_2_conv[a_mode];
+		var txt18 = sprintf("%7.2f",range) ~ m_conv_units[a_mode];
 		setprop("instrumentation/display-screens/t1R-18b", txt18);
 	}
 	settimer(apt_update,0.25);
 }
+
+# ======== nearest aircraft for screen-2L ============================
+var screen_2L_on = 0;
+setlistener("instrumentation/display-screens/enabled-2L", func {
+	screen_2L_on = getprop("instrumentation/display-screens/enabled-2L");
+	setprop("instrumentation/display-screens/t2L-1", "Callsign                 Distance   Altitude   Bearing");
+	if (screen_2L_on) {
+		settimer(ac_loop,0);
+	}
+}, 1);
+
+var ac_loop = func {
+	var ac = props.globals.getNode("ai/models").getChildren("aircraft");
+	if ((aiac == nil) or (screen_2L_on)) {
+		aiac = ac;	# copy of node vector
+		ac_update();
+	}
+	if (screen_2L_on) {
+		settimer(ac_loop, 1);
+	}
+}
+
+var ac_update = func {
+	var ac = props.globals.getNode("ai/models").getChildren("aircraft");
+	if (ac != nil) {
+		var s = size(ac);
+		var ac_list = [];
+		var c_lat = getprop("position/latitude-deg");
+		var c_lon = getprop("position/longitude-deg");
+		var c_head_deg = getprop("orientation/heading-deg");
+		var a_mode = getprop("instrumentation/digital/altitude-mode");
+		for (var i = 0 ; i < s ; i += 1) {
+			if(ac[i].getNode("callsign") != nil) {
+				var b = ac[i].getNode("position");
+				var alat = b.getNode("latitude-deg").getValue();
+				var alon = b.getNode("longitude-deg").getValue();
+				var y = alat - c_lat;
+				var x = alon - c_lon;
+				var ah1 = sin(y * 0.5);
+				var ah2 = sin(x * 0.5);
+				var adist_m = 2.0 * ERAD * asin(math.sqrt(ah1 * ah1 + cos(alat) * cos(c_lat) * ah2 * ah2));
+				var xy_hyp = math.sqrt((x * x) + (y * y));
+				var head = (xy_hyp == 0 ? 0 : asin(x / xy_hyp)) * 180 / math.pi;
+				var bearing = normbearing(head, c_head_deg);
+				if (c_lat > alat) {
+					bearing = normbearing(180 - head, c_head_deg);
+				}
+				append(ac_list, { callsign:ac[i].getNode("callsign").getValue(), index:i, dist_m:adist_m, alt_ft:b.getNode("altitude-ft").getValue(), bearing:bearing});
+			}
+		}
+		var sac = sort(ac_list, func(a,b) { return (a.dist_m > b.dist_m) });
+		var s = size(sac);
+		for (var i = 0 ; (i < s and i <= 14) ; i += 1) {
+			setprop("instrumentation/display-screens/t2L-" ~ (i+2) ~ "a", sac[i].callsign);
+			var txt2d = sprintf(m_conv_format[a_mode],m_2_conv[a_mode]*sac[i].dist_m) ~ m_conv_units[a_mode];
+			var altn = ft_2_conv[a_mode]*sac[i].alt_ft;
+			if (altn < 10000) { 
+				if (altn < 100) {
+					if (altn < 1) {
+						var txt2a = "   " ~ sprintf(ft_conv_format[a_mode],altn) ~ ft_conv_units[a_mode];
+					} else {
+						var txt2a = "  " ~ sprintf(ft_conv_format[a_mode],altn) ~ ft_conv_units[a_mode];
+					}
+				} else {
+					var txt2a = " " ~ sprintf(ft_conv_format[a_mode],altn) ~ ft_conv_units[a_mode];
+				}
+			} else {
+				var txt2a = sprintf(ft_conv_format[a_mode],altn) ~ ft_conv_units[a_mode];
+			}
+			var txt2h = sprintf(" %3.0f",sac[i].bearing);
+			setprop("instrumentation/display-screens/t2L-" ~ (i+2) ~ "b", txt2d ~ txt2a);
+			setprop("instrumentation/display-screens/t2L-" ~ (i+2) ~ "c", txt2h);
+		}
+	}
+}
+
+# ======== combined aircraft and airport section ===================
+var apt = nil;
+var aiac = nil;
+settimer(apt_loop,2);
+
+setlistener("sim/signals/reinit", func {
+	apt = nil;
+	aiac = nil;
+});
+
 settimer(apt_update,3);
+#settimer(ac_update,3);
 
 # ======== screen-3R ==============================================
 var screen_3R_on = 0;

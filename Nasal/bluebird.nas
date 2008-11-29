@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 6.1 for FlightGear v1.0 (PLIB and OSG) =====
+# ===== Bluebird Explorer Hovercraft  version 7.6 for FlightGear v1.0 (PLIB and OSG) =====
 
 # strobes -----------------------------------------------------------
 var strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
@@ -27,7 +27,10 @@ aircraft.livery.select(getprop("sim/model/livery/name"));
  settimer(interior_lighting_loop, 0.25);
  settimer(interior_lighting_update, 0.5);
  settimer(nav_light_loop, 0.5);
+ if (getprop("sim/ai-traffic/enabled")) {
+ 	setprop("instrumentation/display-screens/enabled-2L", "true");
+ }
 
  print ("Bluebird Explorer Hovercraft  by Stewart Andreason");
- print ("  version 7.4  release date 2008.Oct.29  for FlightGear 1.0 and OSG");
+ print ("  version 8.0  release date 2008.Nov.28  for FlightGear 1.0 and OSG");
 });

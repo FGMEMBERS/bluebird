@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 7.4 common base =====
+# ===== Bluebird Explorer Hovercraft  version 8.0 common base =====
 
 # Add second popupTip to avoid being overwritten by primary joystick messages ==
 var tipArg2 = props.Node.new({ "dialog-name" : "PopTip2" });
@@ -1691,7 +1691,7 @@ var nav_lighting_update = func {
 	# window shading factor between 0 transparent and 1 opaque
 	#      if lights on   range(0.2-0.5) midnight to noon
 	#    else lights off  range(0.3-0.6)
-	if (getprop("sim/model/bluebird/lighting/window-opaque")) {
+	if (!getprop("sim/model/cockpit-visible")) {
 		var wsv = 1.0;
 	} else {  
 		var wsv = -9999;
@@ -2886,12 +2886,24 @@ var delayed_panel_update = func {
 	}
 }
 
+setlistener("sim/model/bluebird/crew/cockpit-position", func {
+	cockpitView = getprop("sim/model/bluebird/crew/cockpit-position");
+	var move_chair = [0,1,0,0,1];
+	if (!getprop("sim/model/bluebird/crew/pilot/visible") and move_chair[cockpitView]) {
+		setprop("sim/model/bluebird/crew/pilot/chair-back", "true");
+	} else {
+		setprop("sim/model/bluebird/crew/pilot/chair-back", "false");
+	}
+});
+
 var set_cockpit = func(cockpitPosition) {
 	# axis are different for current-view
 	#  x = right/left
 	#  y = up/down
 	#  z = aft/fore
 	if (getprop("sim/current-view/view-number") == 0) {
+		var new_walker_x = -0.8;
+		var new_walker_y = 1.2;
 		if (cockpitPosition > 4) { cockpitPosition = 0; }
 		if (cockpitPosition < 0) { cockpitPosition = 4; }
 		if (cockpitPosition == 0) {
@@ -2910,6 +2922,8 @@ var set_cockpit = func(cockpitPosition) {
 		} elsif (cockpitPosition == 1) {
 			setprop("sim/current-view/x-offset-m", 0.0);
 			setprop("sim/current-view/z-offset-m", -5.6);
+			var new_walker_x = -5.6;
+			var new_walker_y = 0;
 			if (damage_count == 0) {
 				setprop("sim/current-view/y-offset-m", 2.1);
 			} elsif (damage_count == 1) {
@@ -2940,6 +2954,8 @@ var set_cockpit = func(cockpitPosition) {
 		} else {
 			setprop("sim/current-view/x-offset-m", 0.0);
 			setprop("sim/current-view/z-offset-m", -3.3);
+			var new_walker_x = -3.3;
+			var new_walker_y = 0;
 			if (damage_count == 0) {
 				setprop("sim/current-view/y-offset-m", 2.1);
 			} elsif (damage_count == 1) {
@@ -2948,7 +2964,9 @@ var set_cockpit = func(cockpitPosition) {
 				setprop("sim/current-view/y-offset-m", 2.43);
 			}
 		}
-		cockpitView = cockpitPosition;
+		setprop("sim/model/bluebird/crew/cockpit-position", cockpitPosition);
+		setprop("sim/model/bluebird/crew/walker/x-offset-m", new_walker_x);
+		setprop("sim/model/bluebird/crew/walker/y-offset-m", new_walker_y);
 	}
 }
 
@@ -2972,8 +2990,9 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 	#  y = right/left
 	#  z = up/down
 	var w_out = 0;
-	if (getprop("sim/current-view/view-number") == 0) {
+	if (getprop("sim/model/bluebird/crew/cockpit-position") != 0) {
 		var view_head = hViewNode.getValue();
+		setprop("sim/model/bluebird/crew/walker/head-offset-deg", view_head);
 		var heading = walk_offset + view_head;
 		while (heading >= 360.0) {
 			heading -= 360.0;
@@ -2982,13 +3001,13 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 			heading += 360.0;
 		}
 		var wa_heading_rad = heading * 0.01745329252;
-		var new_x_position = xViewNode.getValue() - (math.cos(wa_heading_rad) * wa_distance);
-		var new_y_position = yViewNode.getValue() - (math.sin(wa_heading_rad) * wa_distance);
+		var new_x_position = getprop("sim/model/bluebird/crew/walker/x-offset-m") - (math.cos(wa_heading_rad) * wa_distance);
+		var new_y_position = getprop("sim/model/bluebird/crew/walker/y-offset-m") - (math.sin(wa_heading_rad) * wa_distance);
 		var door0_barrier = (door0_position < 0.62 ? -1.3 : -4.42);
 		var door1_barrier = (door1_position < 0.62 ? 1.3 : 4.42);
 		var door5_barrier = (door5_position < 0.62 ? 9.2 : 10.57);	# 10.8 when hatch up in flight
-		if (new_x_position < -6.25 and getprop("sim/current-view/y-offset-m") > 2.0) {
-			new_x_position = -6.25;
+		if (new_x_position < -5.85) {
+			new_x_position = -5.85;
 		}
 		# check outside walls
 		if (new_x_position <= -1.92) {	# divide search by half
@@ -3223,9 +3242,20 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 		}
 		if (w_out) {
 			walk.get_out(w_out);
+			if (w_out ==1) {
+				setprop("sim/model/bluebird/crew/walker/y-offset-m", -2.9);
+			} elsif (w_out ==2) {
+				setprop("sim/model/bluebird/crew/walker/y-offset-m", 2.9);
+			} elsif (w_out ==5) {
+				setprop("sim/model/bluebird/crew/walker/x-offset-m", 9.15);
+			}
 		} else {
-			xViewNode.setValue(new_x_position);
-			yViewNode.setValue(new_y_position);
+			if (getprop("sim/current-view/view-number") == 0) {
+				xViewNode.setValue(new_x_position);
+				yViewNode.setValue(new_y_position);
+			}
+			setprop("sim/model/bluebird/crew/walker/x-offset-m", new_x_position);
+			setprop("sim/model/bluebird/crew/walker/y-offset-m", new_y_position);
 		}
 	}
 }
@@ -3350,21 +3380,21 @@ var showDialog1 = func {
 	}
 
 	# master power switch
-	w = checkbox("master power");
+	w = checkbox("master power                       [~]");
 	w.set("property", "sim/model/bluebird/systems/power-switch");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 	w.prop().getNode("binding[1]/command", 1).setValue("nasal");
 	w.prop().getNode("binding[1]/script", 1).setValue("bluebird.toggle_power(9)");
 
 	# fusion reactor and countergrav glow
-	w = checkbox("countergrav fusion reactor");
+	w = checkbox("countergrav fusion reactor          [\]");
 	w.set("property", "sim/model/bluebird/systems/reactor-request");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 	w.prop().getNode("binding[1]/command", 1).setValue("nasal");
 	w.prop().getNode("binding[1]/script", 1).setValue("bluebird.delayed_panel_update()");
 
 	# Wave-guide drive glow and halos
-	w = checkbox("Primary wave-guide engine");
+	w = checkbox("Primary wave-guide engine    [space]");
 	w.set("property", "sim/model/bluebird/systems/wave1-request");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 	w.prop().getNode("binding[1]/command", 1).setValue("nasal");
@@ -3518,7 +3548,7 @@ var showDialog1 = func {
 	g.addChild("empty").set("pref-width", 4);
 	w = g.addChild("text");
 	w.set("halign", "left");
-	w.set("label", "Landing Gear deployment mode:");
+	w.set("label", "Landing Gear deployment mode: [ctrl-g]");
 	g.addChild("empty").set("stretch", 1);
 
 	g = systems_dialog.addChild("group");
@@ -3549,7 +3579,7 @@ var showDialog1 = func {
 	box.prop().getNode("binding[0]/script", 1).setValue("bluebird.toggle_gear_mode(1)");
 	box;
 
-	w = checkbox("Wheels down");
+	w = checkbox("Wheels down                   [ctrl-w]");
 	w.set("property", "controls/gear/wheels-switch");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 
@@ -3655,8 +3685,8 @@ var showDialog2 = func {
 	}
 
 
-	w = checkbox("Black opaque windows");
-	w.set("property", "sim/model/bluebird/lighting/window-opaque");
+	w = checkbox("Transparent windows");
+	w.set("property", "sim/model/cockpit-visible");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 	w.prop().getNode("binding[1]/command", 1).setValue("nasal");
 	w.prop().getNode("binding[1]/script", 1).setValue("bluebird.nav_lighting_update()");
@@ -3692,6 +3722,14 @@ var showDialog2 = func {
 	w.set("property", "sim/model/bluebird/components/engine-cover4");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 	g.addChild("empty").set("stretch", 1);
+
+	w = checkbox("Pilot visible as separate person");
+	w.set("property", "sim/model/bluebird/crew/pilot/visible");
+	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+
+	w = checkbox("Walker visible");
+	w.set("property", "sim/model/bluebird/crew/walker/visible");
+	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 
 	config_dialog.addChild("hrule").addChild("dummy");
 

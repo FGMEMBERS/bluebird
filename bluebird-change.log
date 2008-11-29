@@ -1,5 +1,24 @@
 Version# Vertices PolygonFaces Comments
 
+2008.Nov.28
+8.0	24216	20243	updated all models
+	Add cockpit chair movement.
+	Resize cockpit controls for pilot.
+	Add pilot model and walker models.
+	Add parachute to walker model.
+	Improve ground detection for walker, for falling from ground objects.
+	Jump and hop down hills.
+	Fix bug when jumping from an aircraft climbing or descending.
+	Scale walker speed based on hardware frame-rate, for consistant walking speed.
+	Add walking from 3rd person perspective. 
+	  Best 3rd person control, near aircraft, is from Fly-by View.
+	Normalize nacelle thickness of caterpillar coils.
+	Replace navigation glows with starburst design.
+	Add nearest aircraft display to left screen #2.
+
+2008.Nov.03
+7.5	for testing development of walker model
+
 2008.Nov.01
 7.41	change location of reference to particle smoke.png
 

@@ -1,5 +1,5 @@
 # ===== common base for text screen functions        =====
-# ===== for Bluebird Explorer Hovercraft version 7.0 =====
+# ===== for Bluebird Explorer Hovercraft version 7.6 =====
 
 # ======== update details for screen-1L =============================
 var mps_2_conv = [1, 1.9438445, 2.2369363, 3.6, 1.9438445];
@@ -43,11 +43,7 @@ var scroll_2L = func (newtext) {
 		setprop("instrumentation/display-screens/t2L-13", getprop("instrumentation/display-screens/t2L-14"));
 		setprop("instrumentation/display-screens/t2L-14", getprop("instrumentation/display-screens/t2L-15"));
 		setprop("instrumentation/display-screens/t2L-15", getprop("instrumentation/display-screens/t2L-16"));
-		setprop("instrumentation/display-screens/t2L-16", getprop("instrumentation/display-screens/t2L-17"));
-		setprop("instrumentation/display-screens/t2L-17", getprop("instrumentation/display-screens/t2L-18"));
-		setprop("instrumentation/display-screens/t2L-18", getprop("instrumentation/display-screens/t2L-19"));
-		setprop("instrumentation/display-screens/t2L-19", getprop("instrumentation/display-screens/t2L-20"));
-		setprop("instrumentation/display-screens/t2L-20", newtext);
+		setprop("instrumentation/display-screens/t2L-16", newtext);
 	}
 }
 

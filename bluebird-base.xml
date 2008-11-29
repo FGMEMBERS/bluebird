@@ -4,7 +4,7 @@
  <sim>
 	<aero>bluebird</aero>
 	<status>early-production</status>
-	<aircraft-version>7.4</aircraft-version>
+	<aircraft-version>8.0</aircraft-version>
 	<author>S Andreason</author>
 	<aircraft-status>
 		<fdm>beta</fdm>
@@ -35,6 +35,7 @@
 	<chase-distance-m type="double">-40.0</chase-distance-m>  
 
 	<model>
+		<cockpit-visible type="bool">true</cockpit-visible>
 		<bluebird>
 			<components>
 				<body type="bool">true</body>	<!-- perhaps make it possible for cockpit to become all that's left after a bad crash -->
@@ -46,6 +47,20 @@
 				<engine-cover3 type="bool">true</engine-cover3>
 				<engine-cover4 type="bool">true</engine-cover4>
 			</components>
+			<crew>
+				<cockpit-position type="double">0</cockpit-position>
+				<pilot>
+					<chair-back type="bool">false</chair-back>
+					<visible type="bool">true</visible>
+				</pilot>
+				<walker>
+					<visible type="bool">true</visible>
+					<x-offset-m type="double">-0.8</x-offset-m>
+					<y-offset-m type="double">1.2</y-offset-m>
+					<z-offset-m type="double">0.0</z-offset-m>
+					<head-offset-deg type="double">0</head-offset-deg>
+				</walker>
+			</crew>
 			<damage>
 				<hits-counter type="double">0</hits-counter>
 				<major-counter type="double">0</major-counter>
@@ -90,7 +105,6 @@
 				<power-glow type="double">1</power-glow>		<!-- default: power up at startup -->
 				<wave-guide-glow type="double">0</wave-guide-glow>
 				<wave-guide-halo-spin type="double">0</wave-guide-halo-spin>
-				<window-opaque type="bool">false</window-opaque>
 				<window-factor type="double">0</window-factor>
 				<ambient>
 					<I1-A-red type="double">0</I1-A-red>
@@ -682,7 +696,6 @@
 				<factor type="double">0</factor>
 			</instruments>
 		</material>
-
 	</model>
 
 	<help>
@@ -774,6 +787,12 @@
 	</help>
 
 	<lon-lat-format type="double">0</lon-lat-format>
+
+	<orientation>
+		<ground-pitch type="double">0.0</ground-pitch>
+		<ground-roll type="double">0.0</ground-roll>
+	</orientation>
+
 	<panel>
 		<visibility>false</visibility>
 	</panel>
@@ -827,7 +846,8 @@
 	<walker>
 		<outside type="bool">false</outside>
 		<walking type="double">0</walking>
-		<speed type="double">0.000006</speed>
+		<walking-momentum type="bool">false</walking-momentum>
+		<speed-mps type="double">3.0</speed-mps>
 		<latitude-deg type="double">0.0</latitude-deg>
 		<longitude-deg type="double">0.0</longitude-deg>
 		<altitude-ft type="double">0.0</altitude-ft>
@@ -846,6 +866,7 @@
 		<starting-trajectory-lon type="double">0.0</starting-trajectory-lon>
 		<starting-trajectory-z-mps type="double">0.0</starting-trajectory-z-mps>
 		<time-to-zero-z-sec type="double">0.0</time-to-zero-z-sec>
+		<parachute-equipped type="bool">false</parachute-equipped>
 		<parachute-opened-altitude-ft type="double">0.0</parachute-opened-altitude-ft>
 		<parachute-opened-sec type="double">0.0</parachute-opened-sec>
 		<key-triggers>
@@ -1225,25 +1246,51 @@
 		<t1R-18a type="double">0</t1R-18a>
 		<t1R-18b type="string"> </t1R-18b>
 		<t2L-1 type="string">Nearby aircraft</t2L-1>
-		<t2L-2 type="string"> </t2L-2>
-		<t2L-3 type="string"> </t2L-3>
-		<t2L-4 type="string"> </t2L-4>
-		<t2L-5 type="string"> </t2L-5>
-		<t2L-6 type="string"> </t2L-6>
-		<t2L-7 type="string"> </t2L-7>
-		<t2L-8 type="string"> </t2L-8>
-		<t2L-9 type="string"> </t2L-9>
-		<t2L-10 type="string"> </t2L-10>
-		<t2L-11 type="string"> </t2L-11>
-		<t2L-12 type="string"> </t2L-12>
-		<t2L-13 type="string"> </t2L-13>
-		<t2L-14 type="string"> </t2L-14>
-		<t2L-15 type="string"> </t2L-15>
-		<t2L-16 type="string"> </t2L-16>
-		<t2L-17 type="string"> </t2L-17>
-		<t2L-18 type="string"> </t2L-18>
-		<t2L-19 type="string"> </t2L-19>
-		<t2L-20 type="string"> </t2L-20>
+		<t2L-2a type="string"> </t2L-2a>
+		<t2L-2b type="string"> </t2L-2b>
+		<t2L-2c type="string"> </t2L-2c>
+		<t2L-3a type="string"> </t2L-3a>
+		<t2L-3b type="string"> </t2L-3b>
+		<t2L-3c type="string"> </t2L-3c>
+		<t2L-4a type="string"> </t2L-4a>
+		<t2L-4b type="string"> </t2L-4b>
+		<t2L-4c type="string"> </t2L-4c>
+		<t2L-5a type="string"> </t2L-5a>
+		<t2L-5b type="string"> </t2L-5b>
+		<t2L-5c type="string"> </t2L-5c>
+		<t2L-6a type="string"> </t2L-6a>
+		<t2L-6b type="string"> </t2L-6b>
+		<t2L-6c type="string"> </t2L-6c>
+		<t2L-7a type="string"> </t2L-7a>
+		<t2L-7b type="string"> </t2L-7b>
+		<t2L-7c type="string"> </t2L-7c>
+		<t2L-8a type="string"> </t2L-8a>
+		<t2L-8b type="string"> </t2L-8b>
+		<t2L-8c type="string"> </t2L-8c>
+		<t2L-9a type="string"> </t2L-9a>
+		<t2L-9b type="string"> </t2L-9b>
+		<t2L-9c type="string"> </t2L-9c>
+		<t2L-10a type="string"> </t2L-10a>
+		<t2L-10b type="string"> </t2L-10b>
+		<t2L-10c type="string"> </t2L-10c>
+		<t2L-11a type="string"> </t2L-11a>
+		<t2L-11b type="string"> </t2L-11b>
+		<t2L-11c type="string"> </t2L-11c>
+		<t2L-12a type="string"> </t2L-12a>
+		<t2L-12b type="string"> </t2L-12b>
+		<t2L-12c type="string"> </t2L-12c>
+		<t2L-13a type="string"> </t2L-13a>
+		<t2L-13b type="string"> </t2L-13b>
+		<t2L-13c type="string"> </t2L-13c>
+		<t2L-14a type="string"> </t2L-14a>
+		<t2L-14b type="string"> </t2L-14b>
+		<t2L-14c type="string"> </t2L-14c>
+		<t2L-15a type="string"> </t2L-15a>
+		<t2L-15b type="string"> </t2L-15b>
+		<t2L-15c type="string"> </t2L-15c>
+		<t2L-16a type="string"> </t2L-16a>
+		<t2L-16b type="string"> </t2L-16b>
+		<t2L-16c type="string"> </t2L-16c>
 		<enabled-2L type="bool">false</enabled-2L>
 		<t2R-1 type="string"> </t2R-1>
 		<t2R-2 type="string"> </t2R-2>
@@ -1265,7 +1312,7 @@
 		<t2R-18 type="string"> </t2R-18>
 		<t2R-19 type="string"> </t2R-19>
 		<t2R-20 type="string"> </t2R-20>
-		<enabled-2R type="bool">true</enabled-2R>
+		<enabled-2R type="bool">false</enabled-2R>
 		<t3L-1 type="string"> </t3L-1>
 		<t3L-2 type="string"> </t3L-2>
 		<t3L-3 type="string"> </t3L-3>
