@@ -1,5 +1,12 @@
 Version# Vertices PolygonFaces Comments
 
+2008.Nov.30
+8.1	24224	20248	update to bluebird, pilot, and walker 3d models
+	Fix missing objects and nasal differences for 0.9.10 and 1.0
+	Fix jumping walker from sitting position.
+	Fix running speed in 1.0
+	Create pilot without textures to fix alpha ordering limitation in 1.0 and earlier.
+
 2008.Nov.28
 8.0	24216	20243	updated all models
 	Add cockpit chair movement.

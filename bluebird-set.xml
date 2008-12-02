@@ -4,7 +4,7 @@
  <sim>
 	<description>Bluebird Hovercraft for 1.0</description>
 	<status>early-production</status>
-	<aircraft-version>8.0</aircraft-version>
+	<aircraft-version>8.1</aircraft-version>
 	<author>S Andreason</author>
 	<model>
 		<path>Aircraft/bluebird/Models/bluebird-plib.xml</path>
@@ -159,7 +159,7 @@
 			<binding n="1">
 				<command>property-assign</command>
 				<property>sim/walker/speed-mps</property>
-				<value>0.7</value>
+				<value>0.9</value>
 			</binding>
 			<mod-up>
 				<binding n="0">
@@ -170,7 +170,7 @@
 				<binding n="1">
 					<command>property-assign</command>
 					<property>sim/walker/speed-mps</property>
-					<value>0.7</value>
+					<value>0.9</value>
 				</binding>
 			</mod-up>
 		</key>
@@ -185,8 +185,8 @@
 			</binding>
 			<binding n="1">
 				<command>property-assign</command>
-				<property>sim/walker/speed</property>
-				<value>6.0</value>
+				<property>sim/walker/speed-mps</property>
+				<value>5.0</value>
 			</binding>
 			<mod-up>
 				<binding n="0">
@@ -197,7 +197,7 @@
 				<binding n="1">
 					<command>property-assign</command>
 					<property>sim/walker/speed-mps</property>
-					<value>2.0</value>
+					<value>0.9</value>
 				</binding>
 			</mod-up>
 		</key>

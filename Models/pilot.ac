@@ -20,7 +20,7 @@ OBJECT poly
 name "arm2.L_0"
 data 8
 Cube.027
-texture "pilot.rgb"
+texture "pilot.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 75
@@ -588,7 +588,7 @@ OBJECT poly
 name "hand.L"
 data 8
 Cube.036
-texture "pilot.rgb"
+texture "pilot.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 111
@@ -1602,7 +1602,7 @@ OBJECT poly
 name "arm1.L_1"
 data 8
 Cube.001
-texture "pilot.rgb"
+texture "pilot.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 70
@@ -2108,7 +2108,7 @@ OBJECT poly
 name "arm2.R_0"
 data 8
 Cube.017
-texture "pilot.rgb"
+texture "pilot.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 75
@@ -2676,7 +2676,7 @@ OBJECT poly
 name "hand.R"
 data 8
 Cube.032
-texture "pilot.rgb"
+texture "pilot.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 111
@@ -3690,7 +3690,7 @@ OBJECT poly
 name "arm1.R_1"
 data 8
 Cube.002
-texture "pilot.rgb"
+texture "pilot.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 70
@@ -4817,7 +4817,7 @@ OBJECT poly
 name "head_0"
 data 8
 Cube.003
-texture "pilot.rgb"
+texture "pilot.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 145
@@ -6470,7 +6470,7 @@ OBJECT poly
 name "chest_0"
 data 8
 Cube.015
-texture "pilot.rgb"
+texture "pilot.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 217
@@ -8214,7 +8214,7 @@ OBJECT poly
 name "collar"
 data 8
 Cube.019
-texture "pilot.rgb"
+texture "pilot.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 72
@@ -8778,7 +8778,7 @@ OBJECT poly
 name "foot.L"
 data 8
 Cube.028
-texture "pilot.rgb"
+texture "pilot.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 94
@@ -9526,7 +9526,7 @@ OBJECT poly
 name "leg2.L_0"
 data 8
 Cube.018
-texture "pilot.rgb"
+texture "pilot.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 59
@@ -9973,7 +9973,7 @@ OBJECT poly
 name "leg1.L_0"
 data 8
 Cube.021
-texture "pilot.rgb"
+texture "pilot.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 64
@@ -10424,7 +10424,7 @@ OBJECT poly
 name "foot.R"
 data 8
 Cube.035
-texture "pilot.rgb"
+texture "pilot.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 94
@@ -11172,7 +11172,7 @@ OBJECT poly
 name "leg2.R_0"
 data 8
 Cube.026
-texture "pilot.rgb"
+texture "pilot.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 59
@@ -11619,7 +11619,7 @@ OBJECT poly
 name "leg1.R_0"
 data 8
 Cube.022
-texture "pilot.rgb"
+texture "pilot.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 64
@@ -12081,7 +12081,7 @@ OBJECT poly
 name "hip_1"
 data 8
 Cube.006
-texture "pilot.rgb"
+texture "pilot.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 99

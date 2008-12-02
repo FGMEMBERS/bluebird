@@ -362,4 +362,142 @@
 			<property>/sim/panel-hotspots</property>
 		</condition>
 	</animation>
+
+<!-- crew -->
+	<model>
+		<path>Aircraft/bluebird/Models/pilot-1.xml</path>
+		<name>pilot</name>
+		<offsets> 
+			<x-m>-7.4</x-m>
+			<y-m>0.0</y-m>
+			<z-m>0.83</z-m>
+		</offsets>
+	</model>
+
+	<animation>
+		<type>select</type>
+		<object-name>pilot</object-name>
+		<condition>
+			<property>sim/model/bluebird/crew/pilot/visible</property>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>head</object-name>
+		<condition>
+			<or>
+				<greater-than>
+					<property>sim/current-view/view-number</property>
+					<value>0</value>
+				</greater-than>
+				<greater-than>
+					<property>sim/model/bluebird/crew/cockpit-position</property>
+					<value>0</value>
+				</greater-than>
+			</or>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>hair</object-name>
+		<condition>
+			<or>
+				<greater-than>
+					<property>sim/current-view/view-number</property>
+					<value>0</value>
+				</greater-than>
+				<greater-than>
+					<property>sim/model/bluebird/crew/cockpit-position</property>
+					<value>0</value>
+				</greater-than>
+			</or>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>shades</object-name>
+		<condition>
+			<or>
+				<greater-than>
+					<property>sim/current-view/view-number</property>
+					<value>0</value>
+				</greater-than>
+				<greater-than>
+					<property>sim/model/bluebird/crew/cockpit-position</property>
+					<value>0</value>
+				</greater-than>
+			</or>
+		</condition>
+	</animation>
+
+	<model>
+		<path>Aircraft/bluebird/Models/walker-in-1.xml</path>
+		<name>walker-inside</name>
+		<offsets> 
+			<x-m>0.0</x-m>
+			<y-m>0.0</y-m>
+			<z-m>1.424</z-m>
+		</offsets>
+	</model>
+
+	<animation>
+		<type>select</type>
+		<object-name>walker-inside</object-name>
+		<condition>
+			<and>
+				<property>sim/model/bluebird/crew/walker/visible</property>
+				<greater-than>
+					<property>sim/current-view/view-number</property>
+					<value>0</value>
+				</greater-than>
+				<not>
+					<property>sim/walker/outside</property>
+				</not>
+				<or>
+					<equals>
+						<property>sim/model/bluebird/crew/cockpit-position</property>
+						<value>1</value>
+					</equals>
+					<equals>
+						<property>sim/model/bluebird/crew/cockpit-position</property>
+						<value>4</value>
+					</equals>
+				</or>
+			</and>
+		</condition>
+	</animation>
+
+<!-- damage rotation in bluebird -->
+	<animation>
+		<type>rotate</type>
+		<object-name>pilot</object-name>
+		<property>sim/model/bluebird/damage/major-counter</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>2</dep>
+			</entry>
+			<entry>
+				<ind>2</ind>
+				<dep>3</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>-0.083</x-m>
+			<y-m>0</y-m>
+			<z-m>2.40</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
 </PropertyList>

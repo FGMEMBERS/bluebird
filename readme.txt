@@ -22,8 +22,7 @@ Press [?] for help with keyboard shortcuts.
 Send Suggestions? Comments? Problems? or Encouragement to:
   sandreas41 <at> gmail <dot> com
 Stay current with latest version. This model came from: 
-   http://seahorse.oxyhost.com/flightgear_aircraft.html
-  or http://seahorsecorral.org/flightgear_aircraft.html
+  http://seahorsecorral.org/flightgear_aircraft.html
 
 Highlights in this model:
   Hover capable

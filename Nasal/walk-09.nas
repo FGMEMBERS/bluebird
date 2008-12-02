@@ -1,4 +1,4 @@
-# ===== walking functions for FlightGear version 0.9.10 ===== version 2.3 =====
+# ===== walking functions v.2.7 for FlightGear version 0.9.10 ===== version 8.1 =====
 # ===== outside walker is not supported =====
 # == customized for Bluebird Explorer Hovercraft =====
 
@@ -48,5 +48,25 @@ setlistener("sim/walker/key-triggers/slide", func {
 
 var get_out = func (loc) {
 	gui.popupTip("Can not go outside. Please upgrade to FlightGear version 1.0 or newer.");
-
 }
+
+var get_in = func (loc) {
+	gui.popupTip("Can not go outside. Please upgrade to FlightGear version 1.0 or newer.");
+}
+
+setlistener("sim/walker/key-triggers/outside-toggle", func {
+	gui.popupTip("Can not go outside. Please upgrade to FlightGear version 1.0 or newer.");
+});
+
+var ext_mov = func (moved) {
+	gui.popupTip("Can not go outside. Please upgrade to FlightGear version 1.0 or newer.");
+}
+
+setlistener("sim/current-view/heading-offset-deg", func {
+	var c_view = getprop("sim/current-view/view-number");
+	if (c_view == 0) {
+		var head_v = getprop("sim/current-view/heading-offset-deg");
+		setprop("sim/model/bluebird/crew/walker/head-offset-deg" , head_v);
+	}
+});
+

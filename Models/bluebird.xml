@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 8.0 common base ==-->
+<!--== Bluebird version 8.1 common base ==-->
 
 <PropertyList>
 
-<!--== mesh series 8 == 24216 vertices == 20243 faces ==-->
+<!--== mesh series 8 == 24224 vertices == 20248 faces ==-->
 	<path>bluebird6.ac</path>
 	<texture-path>Textures</texture-path>
 
@@ -2636,6 +2636,12 @@
 	<animation>
 		<type>range</type>
 		<object-name>Nose.Chair1Base</object-name>
+		<min-m>0</min-m>
+		<max-m>50</max-m>
+	</animation>
+
+	<animation>
+		<type>range</type>
 		<object-name>Nose.Chair1</object-name>
 		<min-m>0</min-m>
 		<max-m>50</max-m>
@@ -2674,8 +2680,6 @@
 	<animation>
 		<type>range</type>
 		<object-name>Nose.Wheel6</object-name>
-		<object-name>Body.LeftWheel6</object-name>
-		<object-name>Body.RightWheel6</object-name>
 		<min-m>0</min-m>
 		<max-m>100</max-m>
 	</animation>
@@ -2692,6 +2696,13 @@
 	</animation>
 
 	<animation>
+		<type>range</type>
+		<object-name>Body.LeftWheel6</object-name>
+		<min-m>0</min-m>
+		<max-m>100</max-m>
+	</animation>
+
+	<animation>
 		<type>select</type>
 		<object-name>Body.LeftWheel6</object-name>
 		<condition>
@@ -2700,6 +2711,13 @@
 				<property>gear/gear[1]/position-norm</property>
 			</or>
 		</condition>
+	</animation>
+
+	<animation>
+		<type>range</type>
+		<object-name>Body.RightWheel6</object-name>
+		<min-m>0</min-m>
+		<max-m>100</max-m>
 	</animation>
 
 	<animation>
@@ -5129,7 +5147,7 @@
 						<value>2</value>
 					</equals>
 				</or>
-		</and>
+			</and>
 		</condition>
 	</animation>
 
@@ -5591,7 +5609,6 @@
 	<animation>
 		<type>range</type>
 		<object-name>NacelleL:Drive</object-name>
-		<object-name>NacelleR:Drive</object-name>
 		<min-m>0</min-m>
 		<max-m>300</max-m>
 	</animation>
@@ -5608,6 +5625,13 @@
 	</animation>
 
 	<animation>
+		<type>range</type>
+		<object-name>NacelleR:Drive</object-name>
+		<min-m>0</min-m>
+		<max-m>300</max-m>
+	</animation>
+
+	<animation>
 		<type>material</type>
 		<object-name>NacelleR:Drive</object-name>
 		<emission>
@@ -5621,7 +5645,6 @@
 	<animation>
 		<type>range</type>
 		<object-name>NacelleL:Inside</object-name>
-		<object-name>NacelleR:Inside</object-name>
 		<min-m>0</min-m>
 		<max-m>160</max-m>
 	</animation>
@@ -5635,6 +5658,13 @@
 			<green>0.2</green>
 			<blue>0.25</blue>
 		</emission>
+	</animation>
+
+	<animation>
+		<type>range</type>
+		<object-name>NacelleR:Inside</object-name>
+		<min-m>0</min-m>
+		<max-m>160</max-m>
 	</animation>
 
 	<animation>
@@ -5652,8 +5682,6 @@
 	<animation>
 		<type>range</type>
 		<object-name>rail_halo_LC</object-name>
-		<object-name>rail_halo_LT</object-name>
-		<object-name>rail_halo_LB</object-name>
 		<min-m>0</min-m>
 		<max-m>100</max-m>
 	</animation>
@@ -5685,6 +5713,13 @@
 	</animation>
 
 	<animation>
+		<type>range</type>
+		<object-name>rail_halo_LT</object-name>
+		<min-m>0</min-m>
+		<max-m>100</max-m>
+	</animation>
+
+	<animation>
 		<type>select</type>
 		<object-name>rail_halo_LT</object-name>
 		<condition>
@@ -5708,6 +5743,13 @@
 			<y>0</y>
 			<z>0</z>
 		</axis>
+	</animation>
+
+	<animation>
+		<type>range</type>
+		<object-name>rail_halo_LB</object-name>
+		<min-m>0</min-m>
+		<max-m>100</max-m>
 	</animation>
 
 	<animation>
@@ -5741,8 +5783,6 @@
 	<animation>
 		<type>range</type>
 		<object-name>rail_halo_RC</object-name>
-		<object-name>rail_halo_RT</object-name>
-		<object-name>rail_halo_RB</object-name>
 		<min-m>0</min-m>
 		<max-m>100</max-m>
 	</animation>
@@ -5774,6 +5814,13 @@
 	</animation>
 
 	<animation>
+		<type>range</type>
+		<object-name>rail_halo_RT</object-name>
+		<min-m>0</min-m>
+		<max-m>100</max-m>
+	</animation>
+
+	<animation>
 		<type>select</type>
 		<object-name>rail_halo_RT</object-name>
 		<condition>
@@ -5797,6 +5844,13 @@
 			<y>0</y>
 			<z>0</z>
 		</axis>
+	</animation>
+
+	<animation>
+		<type>range</type>
+		<object-name>rail_halo_RB</object-name>
+		<min-m>0</min-m>
+		<max-m>100</max-m>
 	</animation>
 
 	<animation>
@@ -11813,107 +11867,11 @@
 		</axis>
 	</animation>
 
-<!-- crew -->
-	<model>
-		<path>Aircraft/bluebird/Models/pilot.xml</path>
-		<name>pilot</name>
-		<nopreview/>
-		<offsets> 
-			<x-m>-7.4</x-m>
-			<y-m>0.0</y-m>
-			<z-m>0.83</z-m>
-		</offsets>
-	</model>
-
-	<animation>
-		<type>select</type>
-		<object-name>pilot</object-name>
-		<condition>
-			<property>sim/model/bluebird/crew/pilot/visible</property>
-		</condition>
-	</animation>
-
-	<animation>
-		<type>select</type>
-		<object-name>shades</object-name>
-		<object-name>head</object-name>
-		<object-name>hair</object-name>
-		<condition>
-			<or>
-				<greater-than>
-					<property>sim/current-view/view-number</property>
-					<value>0</value>
-				</greater-than>
-				<greater-than>
-					<property>sim/model/bluebird/crew/cockpit-position</property>
-					<value>0</value>
-				</greater-than>
-			</or>
-		</condition>
-	</animation>
-
-	<model>
-		<path>Aircraft/bluebird/Models/walker-in.xml</path>
-		<name>walker-inside</name>
-		<offsets> 
-			<x-m>0.0</x-m>
-			<y-m>0.0</y-m>
-			<z-m>1.424</z-m>
-		</offsets>
-	</model>
-
-	<animation>
-		<type>select</type>
-		<object-name>walker-inside</object-name>
-		<condition>
-			<and>
-				<property>sim/model/bluebird/crew/walker/visible</property>
-				<greater-than>
-					<property>sim/current-view/view-number</property>
-					<value>0</value>
-				</greater-than>
-				<not>
-					<property>sim/walker/outside</property>
-				</not>
-			</and>
-		</condition>
-	</animation>
-
 <!-- damage rotations -->
 	<animation>
 		<type>rotate</type>
 		<object-name>PEDALS</object-name>
 		<object-name>YOKE</object-name>
-		<property>sim/model/bluebird/damage/major-counter</property>
-		<interpolation>
-			<entry>
-				<ind>0</ind>
-				<dep>0</dep>
-			</entry>
-			<entry>
-				<ind>1</ind>
-				<dep>2</dep>
-			</entry>
-			<entry>
-				<ind>2</ind>
-				<dep>3</dep>
-			</entry>
-		</interpolation>
-		<center>
-			<x-m>-0.083</x-m>
-			<y-m>0</y-m>
-			<z-m>2.40</z-m>
-		</center>
-		<axis>
-			<x>0</x>
-			<y>1</y>
-			<z>0</z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>pilot</object-name>
 		<property>sim/model/bluebird/damage/major-counter</property>
 		<interpolation>
 			<entry>

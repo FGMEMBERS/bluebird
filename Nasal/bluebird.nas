@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 7.6 for FlightGear v1.0 (PLIB and OSG) =====
+# ===== Bluebird Explorer Hovercraft  version 8.1 for FlightGear v1.0 (PLIB and OSG) =====
 
 # strobes -----------------------------------------------------------
 var strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
@@ -19,6 +19,39 @@ aircraft.light.new("sim/model/bluebird/lighting/alert1", [2.0, 0.75], alert_swit
 aircraft.livery.init("Aircraft/bluebird/Models/Liveries");
 aircraft.livery.select(getprop("sim/model/livery/name"));
 
+var doorProximityVolume = func (current_view, door,x,y) {
+	if (current_view) {	# outside view
+		if (current_view == view.indexof("Walk View")) {
+			var distToDoor_m = walk.distFromCraft(getprop("sim/walker/latitude-deg"),getprop("sim/walker/longitude-deg")) - 10;
+			if (distToDoor_m < 0) {
+				distToDoor_m = 0;
+			}
+			if (door >=2 and door <= 4) {
+				distToDoor_m = distToDoor_m * 3;
+			}
+		} else {
+			if (door >=2 and door <=4) {
+				return 0.1;
+			} else {
+				return 0.5;
+			}
+		}
+	} else {
+		var a = (x - door_coord_x_m[door]);
+		var b = (y - door_coord_y_m[door]);
+		var distToDoor_m = math.sqrt(a * a + b * b);
+	}
+	if (distToDoor_m > 50) {
+		return 0;
+	} elsif (distToDoor_m > 25) {
+		return (50 - distToDoor_m) / 250;
+	} elsif (distToDoor_m > 10) {
+		return (0.1 + ((25 - distToDoor_m) / 60));
+	} else {
+		return (0.35 + ((10 - distToDoor_m) / 15.3846));
+	}
+}
+
 #==========================================================================
 #                 === initial calls at startup ===
  setlistener("sim/signals/fdm-initialized", func {
@@ -32,5 +65,5 @@ aircraft.livery.select(getprop("sim/model/livery/name"));
  }
 
  print ("Bluebird Explorer Hovercraft  by Stewart Andreason");
- print ("  version 8.0  release date 2008.Nov.28  for FlightGear 1.0 and OSG");
+ print ("  version 8.1  release date 2008.Nov.30  for FlightGear 1.0 and OSG");
 });

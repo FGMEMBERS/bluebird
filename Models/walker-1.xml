@@ -2,46 +2,17 @@
 <!--== Bluebird Explorer Hovercraft  version 8.1 ==-->
 
 <PropertyList>
-	<path>pilot.ac</path>
-	<texture-path>Textures</texture-path>
+	<path>pilot-1.ac</path>
 	<offsets>
-		<z-m>0.0</z-m>
+		<z-m>0.96</z-m>
 	</offsets>
-
 	<animation>
-		<type>translate</type>
-		<property>sim/model/bluebird/crew/walker/x-offset-m</property>
-		<axis>
-			<x>1.0</x>
-			<y>0.0</y>
-			<z>0.0</z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>translate</type>
-		<property>sim/model/bluebird/crew/walker/y-offset-m</property>
-		<axis>
-			<x>0.0</x>
-			<y>1.0</y>
-			<z>0.0</z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>translate</type>
-		<property>sim/model/bluebird/crew/walker/z-offset-m</property>
-		<axis>
-			<x>0.0</x>
-			<y>0.0</y>
-			<z>1.0</z>
-		</axis>
+		<enable-hot type="bool">false</enable-hot>
 	</animation>
 
 <!-- hip -->
 	<animation>
 		<type>rotate</type>
-		<object-name>hip</object-name>
 		<property>sim/model/npc[1]/limb[0]/y-deg</property>
 		<offset-deg>0</offset-deg>
 		<center>
@@ -53,23 +24,6 @@
 			<x>0.0</x>
 			<y>1.0</y>
 			<z>0.0</z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>hip</object-name>
-		<property>sim/model/bluebird/crew/walker/head-offset-deg</property>
-		<offset-deg>0</offset-deg>
-		<center>
-			<x-m>0.01</x-m>
-			<y-m>0.0</y-m>
-			<z-m>0.1</z-m>
-		</center>
-		<axis>
-			<x>0.0</x>
-			<y>0.0</y>
-			<z>1.0</z>
 		</axis>
 	</animation>
 
@@ -452,4 +406,15 @@
 			<z>0.0</z>
 		</axis>
 	</animation>
+
+<!-- parachute -->
+	<model>
+		<name>parachute</name>
+		<path>Aircraft/bluebird/Models/chute.xml</path>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</offsets>
+	</model>
 </PropertyList>

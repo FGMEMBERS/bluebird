@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 6.0 for FlightGear v0.9.10 ======
+# ===== Bluebird Explorer Hovercraft  version 8.1 for FlightGear v0.9.10 ======
 
 # strobes -----------------------------------------------------------
 var strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
@@ -14,6 +14,10 @@ aircraft.light.new("sim/model/bluebird/lighting/beacon1", 0.25, 1.25, beacon_swi
 var alert_switch_Node = props.globals.getNode("controls/lighting/alert", 1);
 aircraft.light.new("sim/model/bluebird/lighting/alert1", 2.0, 0.75, alert_switch_Node);
 
+var doorProximityVolume = func (current_view, door,x,y) {
+	return 1.0;
+}
+
 #==========================================================================
 #                 === initial calls at startup ===
 update_main();  # starts continuous loop
@@ -22,4 +26,4 @@ settimer(interior_lighting_update, 0.5);
 settimer(nav_light_loop, 0.5);
 
 print ("Bluebird Explorer Hovercraft  by Stewart Andreason");
-print ("  version 8.0  release date 2008.Nov.28  for FlightGear 0.9.10");
+print ("  version 8.1  release date 2008.Nov.30  for FlightGear 0.9.10");

@@ -142936,7 +142936,7 @@ name "Nose.Chair1Base"
 kids 5
 OBJECT group
 name "Nose.Chair1"
-kids 4
+kids 5
 OBJECT poly
 name "Nose:Chair1.Em5"
 data 19
@@ -142992,6 +142992,57 @@ refs 4
 0 0 0
 7 0 0
 6 0 0
+kids 0
+OBJECT poly
+name "Nose:Chair1.Em5dk"
+data 21
+NoseInterior.g3DK.002
+crease 30.0
+numvert 8
+-7.285559 0.7466 -0.185
+-7.285559 0.7466 0.185
+-7.778942 0.7466 0.185
+-7.778942 0.7466 -0.185
+-7.261507 0.78 -0.185
+-7.261507 0.78 0.185
+-7.802995 0.78 0.185
+-7.802995 0.78 -0.185
+numsurf 5
+SURF 0x20
+mat 32
+refs 4
+0 0 0
+1 0 0
+2 0 0
+3 0 0
+SURF 0x20
+mat 32
+refs 4
+0 0 0
+4 0 0
+5 0 0
+1 0 0
+SURF 0x20
+mat 32
+refs 4
+1 0 0
+5 0 0
+6 0 0
+2 0 0
+SURF 0x20
+mat 32
+refs 4
+2 0 0
+6 0 0
+7 0 0
+3 0 0
+SURF 0x20
+mat 32
+refs 4
+4 0 0
+0 0 0
+3 0 0
+7 0 0
 kids 0
 OBJECT poly
 name "Nose:Chair1.Em7"

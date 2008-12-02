@@ -2,8 +2,7 @@
 <!--== Bluebird Explorer Hovercraft  version 8.1 ==-->
 
 <PropertyList>
-	<path>pilot.ac</path>
-	<texture-path>Textures</texture-path>
+	<path>pilot-1.ac</path>
 	<offsets>
 		<z-m>0.0</z-m>
 	</offsets>

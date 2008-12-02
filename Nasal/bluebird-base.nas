@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 8.0 common base =====
+# ===== Bluebird Explorer Hovercraft  version 8.1 common base =====
 
 # Add second popupTip to avoid being overwritten by primary joystick messages ==
 var tipArg2 = props.Node.new({ "dialog-name" : "PopTip2" });
@@ -454,39 +454,6 @@ var select_door = func(sd_number) {
 
 var door_coord_x_m = [-2.55, -2.55, -1.733, -0.608, -0.083, 9.223];
 var door_coord_y_m = [-1.75, 1.75, 0, -0.66, 0, 0];
-
-var doorProximityVolume = func (current_view, door,x,y) {
-	if (current_view) {	# outside view
-		if (current_view == view.indexof("Walk View")) {
-			var distToDoor_m = walk.distFromCraft(getprop("sim/walker/latitude-deg"),getprop("sim/walker/longitude-deg")) - 10;
-			if (distToDoor_m < 0) {
-				distToDoor_m = 0;
-			}
-			if (door >=2 and door <= 4) {
-				distToDoor_m = distToDoor_m * 3;
-			}
-		} else {
-			if (door >=2 and door <=4) {
-				return 0.1;
-			} else {
-				return 0.5;
-			}
-		}
-	} else {
-		var a = (x - door_coord_x_m[door]);
-		var b = (y - door_coord_y_m[door]);
-		var distToDoor_m = math.sqrt(a * a + b * b);
-	}
-	if (distToDoor_m > 50) {
-		return 0;
-	} elsif (distToDoor_m > 25) {
-		return (50 - distToDoor_m) / 250;
-	} elsif (distToDoor_m > 10) {
-		return (0.1 + ((25 - distToDoor_m) / 60));
-	} else {
-		return (0.35 + ((10 - distToDoor_m) / 15.3846));
-	}
-}
 
 var door_update = func(door_number) {
 	var c_view = getprop("sim/current-view/view-number");
@@ -2890,9 +2857,9 @@ setlistener("sim/model/bluebird/crew/cockpit-position", func {
 	cockpitView = getprop("sim/model/bluebird/crew/cockpit-position");
 	var move_chair = [0,1,0,0,1];
 	if (!getprop("sim/model/bluebird/crew/pilot/visible") and move_chair[cockpitView]) {
-		setprop("sim/model/bluebird/crew/pilot/chair-back", "true");
+		setprop("sim/model/bluebird/crew/pilot/chair-back", 1.0);
 	} else {
-		setprop("sim/model/bluebird/crew/pilot/chair-back", "false");
+		setprop("sim/model/bluebird/crew/pilot/chair-back", 0.0);
 	}
 });
 
@@ -2934,6 +2901,8 @@ var set_cockpit = func(cockpitPosition) {
 		} elsif (cockpitPosition == 2) {
 			setprop("sim/current-view/x-offset-m", -0.73);
 			setprop("sim/current-view/z-offset-m", -5.94);
+			var new_walker_x = -5.94;
+			var new_walker_y = -0.73;
 			if (damage_count == 0) {
 				setprop("sim/current-view/y-offset-m", 1.47);
 			} elsif (damage_count == 1) {
@@ -2944,6 +2913,8 @@ var set_cockpit = func(cockpitPosition) {
 		} elsif (cockpitPosition == 3) {
 			setprop("sim/current-view/x-offset-m", 0.77);
 			setprop("sim/current-view/z-offset-m", -5.93);
+			var new_walker_x = -5.93;
+			var new_walker_y = 0.77;
 			if (damage_count == 0) {
 				setprop("sim/current-view/y-offset-m", 1.47);
 			} elsif (damage_count == 1) {
@@ -2990,7 +2961,8 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 	#  y = right/left
 	#  z = up/down
 	var w_out = 0;
-	if (getprop("sim/model/bluebird/crew/cockpit-position") != 0) {
+	var cpos = getprop("sim/model/bluebird/crew/cockpit-position");
+	if (cpos != 0) {
 		var view_head = hViewNode.getValue();
 		setprop("sim/model/bluebird/crew/walker/head-offset-deg", view_head);
 		var heading = walk_offset + view_head;
@@ -3006,8 +2978,14 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 		var door0_barrier = (door0_position < 0.62 ? -1.3 : -4.42);
 		var door1_barrier = (door1_position < 0.62 ? 1.3 : 4.42);
 		var door5_barrier = (door5_position < 0.62 ? 9.2 : 10.57);	# 10.8 when hatch up in flight
-		if (new_x_position < -5.85) {
-			new_x_position = -5.85;
+		if (cpos == 1 or cpos == 4) {
+			if (new_x_position < -5.85) {
+				new_x_position = -5.85;
+			}
+		} elsif (cpos == 2 or cpos == 3) {
+			if (new_x_position < -6.79) {
+				new_x_position = -6.79;
+			}
 		}
 		# check outside walls
 		if (new_x_position <= -1.92) {	# divide search by half

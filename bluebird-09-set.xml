@@ -6,6 +6,16 @@
 	<description>Bluebird Explorer for v.0.9.10</description>
 	<model>
 		<path>Aircraft/bluebird/Models/bluebird-plib.xml</path>
+		<bluebird>
+			<crew>
+				<pilot>
+					<visible type="bool">false</visible>
+				</pilot>
+				<walker>
+					<visible type="bool">false</visible>
+				</walker>
+			</crew>
+		</bluebird>
 	</model>
 
 	<help>
