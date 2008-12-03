@@ -4,7 +4,7 @@
  <sim>
 	<aero>bluebird</aero>
 	<status>early-production</status>
-	<aircraft-version>8.1</aircraft-version>
+	<aircraft-version>8.2</aircraft-version>
 	<author>S Andreason</author>
 	<aircraft-status>
 		<fdm>beta</fdm>
@@ -985,6 +985,7 @@
 			<outside-toggle type="bool">false</outside-toggle>
 			<forward type="double">0</forward>
 			<slide type="double">0</slide>
+			<speed type="double">0</speed>
 		</key-triggers>
 	</walker>
  </sim>
@@ -1512,4 +1513,9 @@
 		<enabled-5R type="bool">false</enabled-5R>
 	</display-screens>
  </instrumentation>
+
+ <logging>
+	<walker-position type="bool">false</walker-position>
+	<walker-debug type="bool">false</walker-debug>
+ </logging>
 </PropertyList>

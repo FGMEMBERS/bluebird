@@ -1,5 +1,11 @@
 Version# Vertices PolygonFaces Comments
 
+2008.Dec.02
+8.2	Fix landing of skydiver.
+	Fix reset of walker when getting in.
+	Fix checkbox for walker visibility.
+	Add position reporting to the preferences menu.
+
 2008.Nov.30
 8.1	24224	20248	update to bluebird, pilot, and walker 3d models
 	Fix missing objects and nasal differences for 0.9.10 and 1.0

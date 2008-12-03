@@ -1,5 +1,5 @@
-# ===== common base for walking functions   version 2.7   =====
-# ===== plus coordinates for Bluebird Explorer Hovercraft =====
+# ===== common base for walking functions   version 2.8       =====
+# ===== plus coordinates for Bluebird Explorer Hovercraft 8.2 =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
@@ -11,6 +11,15 @@ var yViewNode = props.globals.getNode("sim/current-view/x-offset-m", 1);
 var zViewNode = props.globals.getNode("sim/current-view/y-offset-m", 1);
 var falling = 0;	# 0/1 = false/true
 var last_altitude = 0;	# remember last position to detect falling from ground
+
+# debug section
+var measure_main_count = 0;
+var measure_walk_count = 0;   # momentum_walk loops
+var measure_extmov_count = 0;
+var measure_sec = 0;
+var measure_alt = 0;
+
+var last_elapsed_sec = 0;
 
 var normheading = func (a) {
 	while (a >= 360)
@@ -158,9 +167,18 @@ setlistener("sim/walker/key-triggers/slide", func {
 	calc_heading();
 });
 
+setlistener("sim/model/bluebird/crew/walker/visible", func {
+	if (getprop("sim/model/bluebird/crew/walker/visible")) {
+		walker_model.add();
+	} else {
+		walker_model.remove();
+	}
+});
+
 var walk_watch = 0;
 var walk_factor = 1.0;
 var momentum_walk = func {
+	measure_walk_count += 1;
 	if (walk_watch >= 3) {
 		if (walk_factor < 2.0) {	# speed up when holding down key
 			walk_factor += 0.025;
@@ -186,6 +204,7 @@ var momentum_walk = func {
 }
 
 var main_loop = func {
+	measure_main_count += 1;
 	var c_view = getprop ("sim/current-view/view-number");
 	var moved = 0;
 	if (c_view == 0 and getprop("sim/walker/walking-momentum")) {
@@ -240,12 +259,29 @@ var main_loop = func {
 	} elsif (!moved and getprop("sim/walker/walking-momentum")) {
 		bluebird.walk_about_cabin(0.1, walk_heading);
 	}
+
+	if (getprop("logging/walker-debug")) {
+		var elapsed_sec = getprop("sim/time/elapsed-sec");
+		var t = elapsed_sec - measure_sec;
+		if (t >= 0.991) {
+			var posz1 = getprop("sim/walker/altitude-ft");
+			print(sprintf("========= at %6.2f : %3.0f %3.0f %3.0f : Z-axis %6.2f ft / %6.4f sec = %6.2f mps",elapsed_sec,measure_main_count,measure_walk_count,measure_extmov_count,(measure_alt-posz1),t,((measure_alt-posz1)*0.3028/t)));
+			measure_alt = posz1;
+			measure_sec = elapsed_sec;
+			measure_main_count = 0;
+			measure_walk_count = 0;
+			measure_extmov_count = 0;
+		}
+	}
+
 	settimer(main_loop, 0.01)
 }
 
 var walker_model = {
-	add:	func (to_outside) {
-			# print ("walker_model.add");
+	add:	func {
+			if (getprop("logging/walker-position")) {
+				print("walker_model.add");
+			}
 			if (getprop("sim/model/bluebird/crew/walker/visible")) {
 				aircraft.makeNode("models/model/path");
 				aircraft.makeNode("models/model/longitude-deg-prop");
@@ -265,26 +301,32 @@ var walker_model = {
 				aircraft.makeNode("models/model/load");
 			}
 		},
-	remove:	func (from_outside) {
-			# print ("walker_model.remove");
-			if (getprop("sim/model/bluebird/crew/walker/visible")) {
-				props.globals.getNode("models", 1).removeChild("model", 0);
+	remove:	func {
+			if (getprop("logging/walker-position")) {
+				print("walker_model.remove");
 			}
+#			if (getprop("sim/model/bluebird/crew/walker/visible")) {
+				props.globals.getNode("models", 1).removeChild("model", 0);
+#			}
+			walker_model.reset_fall();
 		},
-	land:	func (lon,lat,alt) {
+	reset_fall: func {
 			falling = 0;
 			walk_factor = 1.0;
 			setprop("sim/walker/parachute-equipped", "false");
 			setprop("sim/walker/parachute-opened-altitude-ft", 0);
 			parachute_deployed_sec = 0;
 			setprop("sim/walker/parachute-opened-sec", 0);
-			setprop("sim/walker/latitude-deg", lat);
-			setprop("sim/walker/longitude-deg", lon);
-			setprop("sim/walker/altitude-ft", alt);
 			setprop("sim/walker/starting-trajectory-lat", 0.0);
 			setprop("sim/walker/starting-trajectory-lon", 0.0);
 			setprop("sim/walker/starting-trajectory-z-mps", 0.0);
 			setprop("sim/walker/time-to-zero-z-sec", 0.0);
+		},
+	land:	func (lon,lat,alt) {
+			walker_model.reset_fall();
+			setprop("sim/walker/latitude-deg", lat);
+			setprop("sim/walker/longitude-deg", lon);
+			setprop("sim/walker/altitude-ft", alt);
 			last_altitude = alt;
 		},
 };

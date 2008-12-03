@@ -65,5 +65,5 @@ var doorProximityVolume = func (current_view, door,x,y) {
  }
 
  print ("Bluebird Explorer Hovercraft  by Stewart Andreason");
- print ("  version 8.1  release date 2008.Nov.30  for FlightGear 1.0 and OSG");
+ print ("  version 8.2  release date 2008.Dec.02  for FlightGear 1.0 and OSG");
 });

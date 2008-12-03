@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 8.1 common base =====
+# ===== Bluebird Explorer Hovercraft  version 8.2 common base =====
 
 # Add second popupTip to avoid being overwritten by primary joystick messages ==
 var tipArg2 = props.Node.new({ "dialog-name" : "PopTip2" });
@@ -3790,6 +3790,16 @@ var showDialog2 = func {
 	box.prop().getNode("binding[0]/command", 1).setValue("nasal");
 	box.prop().getNode("binding[0]/script", 1).setValue("bluebird.set_cockpit(4)");
 	box;
+
+	config_dialog.addChild("hrule").addChild("dummy");
+
+	w = checkbox("Output position of walker/skydiver");
+	w.set("property", "logging/walker-position");
+	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+
+	w = checkbox("Output debug of walker");
+	w.set("property", "logging/walker-debug");
+	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 
 	# finale
 	config_dialog.addChild("empty").set("pref-height", "3");

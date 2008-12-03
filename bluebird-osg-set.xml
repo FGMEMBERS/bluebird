@@ -159,8 +159,8 @@
 			</binding>
 			<binding n="1">
 				<command>property-assign</command>
+				<property>sim/walker/key-triggers/speed</property>
 				<property>sim/walker/speed-mps</property>
-				<value>0.7</value>
 			</binding>
 			<mod-up>
 				<binding n="0">
@@ -170,8 +170,8 @@
 				</binding>
 				<binding n="1">
 					<command>property-assign</command>
+					<property>sim/walker/key-triggers/speed</property>
 					<property>sim/walker/speed-mps</property>
-					<value>0.7</value>
 				</binding>
 			</mod-up>
 		</key>
@@ -186,8 +186,13 @@
 			</binding>
 			<binding n="1">
 				<command>property-assign</command>
+				<property>sim/walker/key-triggers/speed</property>
 				<property>sim/walker/speed-mps</property>
-				<value>4.0</value>
+			</binding>
+			<binding n="2">
+				<command>property-multiply</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<factor>5.0</factor>
 			</binding>
 			<mod-up>
 				<binding n="0">
@@ -197,8 +202,8 @@
 				</binding>
 				<binding n="1">
 					<command>property-assign</command>
+					<property>sim/walker/key-triggers/speed</property>
 					<property>sim/walker/speed-mps</property>
-					<value>0.7</value>
 				</binding>
 			</mod-up>
 		</key>

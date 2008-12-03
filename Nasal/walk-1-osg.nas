@@ -1,4 +1,4 @@
-# == walking functions v2.7 for FlightGear versions 1.0 and OSG == version 8.1 ==
+# == walking functions v2.8 for FlightGear versions 1.0 and OSG == version 8.2 ==
 
 setlistener("sim/walker/walking", func {
 	var wdir = getprop("sim/walker/walking");
@@ -39,6 +39,7 @@ setlistener("sim/walker/key-triggers/outside-toggle", func {
 });
 
 var ext_mov = func (moved) {
+	measure_extmov_count += 1;
 	var c_view = getprop("sim/current-view/view-number");
 	var head_v = getprop("sim/current-view/heading-offset-deg");
 	var c_head_deg = getprop("orientation/heading-deg");
@@ -49,7 +50,7 @@ var ext_mov = func (moved) {
 	var posy2 = posy1;
 	var posz2 = posz1;
 	var check_movement = 1;
-	var speed = getprop("sim/walker/speed-mps") * walk_factor / fps;
+	var speed = getprop("sim/walker/key-triggers/speed") * walk_factor / fps;
 	if (c_view >= 1 and c_view <=3) {
 		head_v = normheading(360 - c_head_deg + head_v);
 	} elsif (c_view == 5) {
@@ -103,7 +104,15 @@ var ext_mov = func (moved) {
 			posx2 = starting_lon + (lon_vector * parabola);
 		}
 	}
-	var posz_geo = geo.elevation(posy2, posx2) / 0.3048;	# convert to ft
+	var posz_geo = geo.elevation(posy2, posx2);
+	if (posz_geo == nil) {
+		var posz_geo = 0;
+		print(sprintf("Error. Attempting to move to latitude %13.8f longitude %13.8f",posy2,posx2));
+	}
+	var posz_geo = posz_geo / 0.3048;	# convert to ft
+#	if (getprop("logging/walker-debug")) {
+#		print(sprintf("walker_lat= , %9.8f , lon= , %9.8f , groundDistanceFromAircraft= , %6.3f , geo.elev= , %8.3f , altitude= , %8.3f",posy2,posx2,distFromCraft(posy2,posx2),posz_geo,posz2));
+#	}
 	if (falling) {	# 13,000 to 12,000 ft = 10 sec. 12,000 - 4,000 = 44 sec.
 			# 5.5 sec to cover each 1000 ft at terminal velocity (ignoring altitude density and surface area)
 		var dist_traveled_z = 0;	# feet
@@ -123,7 +132,9 @@ var ext_mov = func (moved) {
 				}
 			} else {	# started going up, arch to zero_z before falling
 				dist_traveled_z += 32.185 * elapsed1 * elapsed1 / 2;
-				# print(sprintf("time_to_top_sec= %6.2f elapsed1= %6.2f  dist_traveled_z_ft = %8.3f  z_vector_mps= %6.2f exit_alt= %9.3f posz1= %9.3f posz2= %9.3f" , time_to_top_sec,elapsed1,dist_traveled_z,z_vector_mps,getprop("sim/walker/altitude-at-exit-ft"),posz1,(getprop("sim/walker/altitude-at-exit-ft")-posz1)));
+				if (getprop("logging/walker-debug")) {
+					print(sprintf("time_to_top_sec= %6.2f elapsed1= %6.2f  dist_traveled_z_ft = %8.3f  z_vector_mps= %6.2f exit_alt= %9.3f posz1= %9.3f posz2= %9.3f" , time_to_top_sec,elapsed1,dist_traveled_z,z_vector_mps,getprop("sim/walker/altitude-at-exit-ft"),posz1,(getprop("sim/walker/altitude-at-exit-ft")-posz1)));
+				}
 			}
 			if (parachute_ft) {	# chute open
 				# need to better model deceleration due to opening of chute, change in surface area.
@@ -139,15 +150,21 @@ var ext_mov = func (moved) {
 			}
 			posz2 = getprop("sim/walker/altitude-at-exit-ft") - dist_traveled_z;
 			if (posz2 < posz_geo) {	# below ground
-				posz2 = posz_geo;
-				walker_model.land(posx2,posy2,posz_geo);
-				if (!parachute_ft and dist_traveled_z > 20 and 
-				    getprop("sim/current-view/view-number") == view.indexof("Walk View")) {
+				if ((parachute_drag < 0.7) and (dist_traveled_z > 20) and 
+				    (getprop("sim/current-view/view-number") == view.indexof("Walk View"))) {
 					# did not land on feet
-					print(sprintf("OUCH! You fell %9.2f ft from an exit at %10.2f ft.",dist_traveled_z,getprop("sim/walker/altitude-at-exit-ft")));
+					print(sprintf("OUCH! You fell %9.2f ft from an exit at %10.2f ft.  Parachute was Not deployed.",dist_traveled_z,getprop("sim/walker/altitude-at-exit-ft")));
 					setprop("sim/current-view/pitch-offset-deg", -80);
 					setprop("sim/model/bluebird/position/landing-wow", "true");
 					# FIXME walker model needs to rotate also
+				}
+				posz2 = posz_geo;
+				walker_model.land(posx2,posy2,posz_geo);
+			} else {
+				if (getprop("logging/walker-position")) {
+					print(sprintf("falling_lat= %11.8f lon= %13.8f altitude= %9.2f elapsed_fall_sec= %5.2f speed_ft/s= %7.2f chute_drag= %4.2f",posy2,posx2,posz1,elapsed_fall_sec,((measure_alt-posz2)/(elapsed_sec - last_elapsed_sec)),parachute_drag));
+					measure_alt = posz2;
+					last_elapsed_sec = elapsed_sec;
 				}
 			}
 		} else {
@@ -156,12 +173,12 @@ var ext_mov = func (moved) {
 		}
 	} else {	# not falling
 		# check for sudden change in ground elevation
-		if ((abs(posz1 - last_altitude) > 1) or ((posz_geo + 1) < posz1)) {
+		if ((abs(posz1 - last_altitude) > 1.6) or ((posz_geo + 1.6) < posz1)) {
 			setprop("sim/walker/time-of-exit-sec", getprop("sim/time/elapsed-sec"));
 			setprop("sim/walker/altitude-at-exit-ft", last_altitude);
 			# add "forward" momentum upon step out and down
-			var lat_m = getprop("sim/walker/speed-mps") * walk_factor * cos(head_w);
-			var lon_m = getprop("sim/walker/speed-mps") * walk_factor * (0 - sin(head_w));
+			var lat_m = getprop("sim/walker/key-triggers/speed") * walk_factor * cos(head_w);
+			var lon_m = getprop("sim/walker/key-triggers/speed") * walk_factor * (0 - sin(head_w));
 			var lat3 = lat_m * ERAD_deg;
 			var lon3 = lon_m * ERAD_deg / cos(posy1);
 			posy3 = posy1 + lat3;
@@ -181,11 +198,13 @@ var ext_mov = func (moved) {
 					interpolate ("sim/walker/altitude-ft", posz_geo, 0.25, 0.3);
 					posz2 = getprop("sim/walker/altitude-ft");
 				}
-				# print(sprintf("walker_lat= %9.8f lon= %9.8f heading= %6.2f speed= %9.6f groundDistance= %3.2f posz_geo.elev= %8.3f , posz2= %8.3f",posy2,posx2,head_v,speed,distFromCraft(posy2,posx2),posz_geo,posz2));
+				if (getprop("logging/walker-position")) {
+					print(sprintf("walker_lat= %12.8f lon= %11.8f altitude= %9.2f heading= %6.2f groundDistanceFromAircraft= %3.2f geo.elev= %8.3f",posy2,posx2,posz2,head_v,distFromCraft(posy2,posx2),posz_geo));
+				}
 			} else {
-				print (sprintf ("Stopped by wall, has height %6.2f ft above your position.",(posz1-posz_geo)));
-				posx2 = posx1;
-				posy2 = posy1;
+				print(sprintf ("Stopped by wall, has height %6.2f ft above your position.",(posz1-posz_geo)));
+				posx2 -= (5 * (posx2 - posx1));
+				posy2 -= (5 * (posy2 - posy1));
 			}
 		}
 	}
@@ -254,7 +273,9 @@ var get_out = func (loc) {
 		c_time0z_sec = 0 - c_time0z_sec;
 	}
 	setprop("sim/walker/time-to-zero-z-sec", c_time0z_sec);
-	# print(sprintf("get_out: traj-lat= %12.8f traj-lon= %12.8f  c_z_vector_mps= %12.8f",xy_lat,xy_lon,c_z_vector_mps));
+	if (getprop("logging/walker-debug")) {
+		print(sprintf("get_out: traj-lat= %12.8f traj-lon= %12.8f  c_z_vector_mps= %12.8f",xy_lat,xy_lon,c_z_vector_mps));
+	}
 	# the following section is aircraft specific for locations of exit hatches and doors
 	if (loc == 0) {
 		var new_coord = xy2LatLonZ(-12.0,-8.0);	# neutral coordinates outside front port wingtip
@@ -296,17 +317,18 @@ var get_out = func (loc) {
 	var alt1 = getprop("position/altitude-ft") + posz_ft;
 	setprop("sim/walker/altitude-at-exit-ft", alt1);
 	setprop("sim/walker/altitude-ft" , alt1);
+	measure_alt = alt1;
 	if ((alt1 - getprop("position/ground-elev-ft")) > 20) {
 		setprop("sim/walker/parachute-equipped", "true");
 	}
 	setprop("sim/walker/starting-lat", new_coord[0]);
 	setprop("sim/walker/starting-lon", new_coord[1]);
 	walk_factor = 1.0;
-	walker_model.add(1);
+	walker_model.add();
 }
 
 var get_in = func (loc) {
-	walker_model.remove(1);
+	walker_model.remove();
 	setprop("sim/walker/parachute-equipped", "false");
 	var c_view = getprop("sim/current-view/view-number");
 	if (c_view > 0) {
