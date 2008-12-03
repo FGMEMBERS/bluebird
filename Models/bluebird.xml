@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 8.1 common base ==-->
+<!--== Bluebird version 8.21 common base ==-->
 
 <PropertyList>
 
@@ -4169,7 +4169,7 @@
 		<type>range</type>
 		<object-name>nav_halo_L1</object-name>
 		<min-m>0</min-m>
-		<max-m>3000</max-m>
+		<max-m>6000</max-m>
 	</animation>
 
 	<animation>
@@ -4177,9 +4177,9 @@
 		<object-name>nav_halo_L1</object-name>
 		<interpolation>
 			<entry><ind>0</ind><dep>1</dep></entry>
-			<entry><ind>100</ind><dep>2</dep></entry>
-			<entry><ind>400</ind><dep>3</dep></entry>
-			<entry><ind>800</ind><dep>6</dep></entry>
+			<entry><ind>100</ind><dep>1.4</dep></entry>
+			<entry><ind>400</ind><dep>2</dep></entry>
+			<entry><ind>6000</ind><dep>10</dep></entry>
 		</interpolation>
 	</animation>
 
@@ -4286,7 +4286,7 @@
 		<type>range</type>
 		<object-name>nav_halo_L2</object-name>
 		<min-m>0</min-m>
-		<max-m>3000</max-m>
+		<max-m>6000</max-m>
 	</animation>
 
 	<animation>
@@ -4294,9 +4294,9 @@
 		<object-name>nav_halo_L2</object-name>
 		<interpolation>
 			<entry><ind>0</ind><dep>1</dep></entry>
-			<entry><ind>100</ind><dep>2</dep></entry>
-			<entry><ind>400</ind><dep>3</dep></entry>
-			<entry><ind>800</ind><dep>6</dep></entry>
+			<entry><ind>100</ind><dep>1.4</dep></entry>
+			<entry><ind>400</ind><dep>2</dep></entry>
+			<entry><ind>6000</ind><dep>10</dep></entry>
 		</interpolation>
 	</animation>
 
@@ -4396,7 +4396,7 @@
 		<type>range</type>
 		<object-name>nav_halo_R1</object-name>
 		<min-m>0</min-m>
-		<max-m>3000</max-m>
+		<max-m>6000</max-m>
 	</animation>
 
 	<animation>
@@ -4404,9 +4404,9 @@
 		<object-name>nav_halo_R1</object-name>
 		<interpolation>
 			<entry><ind>0</ind><dep>1</dep></entry>
-			<entry><ind>100</ind><dep>2</dep></entry>
-			<entry><ind>400</ind><dep>3</dep></entry>
-			<entry><ind>800</ind><dep>6</dep></entry>
+			<entry><ind>100</ind><dep>1.4</dep></entry>
+			<entry><ind>400</ind><dep>2</dep></entry>
+			<entry><ind>6000</ind><dep>10</dep></entry>
 		</interpolation>
 	</animation>
 
@@ -4513,7 +4513,7 @@
 		<type>range</type>
 		<object-name>nav_halo_R2</object-name>
 		<min-m>0</min-m>
-		<max-m>3000</max-m>
+		<max-m>6000</max-m>
 	</animation>
 
 	<animation>
@@ -4521,9 +4521,9 @@
 		<object-name>nav_halo_R2</object-name>
 		<interpolation>
 			<entry><ind>0</ind><dep>1</dep></entry>
-			<entry><ind>100</ind><dep>2</dep></entry>
-			<entry><ind>400</ind><dep>3</dep></entry>
-			<entry><ind>800</ind><dep>6</dep></entry>
+			<entry><ind>100</ind><dep>1.4</dep></entry>
+			<entry><ind>400</ind><dep>2</dep></entry>
+			<entry><ind>6000</ind><dep>10</dep></entry>
 		</interpolation>
 	</animation>
 
@@ -4606,7 +4606,7 @@
 		<type>range</type>
 		<object-name>strobe_halo_L</object-name>
 		<min-m>0</min-m>
-		<max-m>6000</max-m>
+		<max-m>8000</max-m>
 	</animation>
 
 	<animation>
@@ -4616,7 +4616,8 @@
 			<entry><ind>0</ind><dep>1</dep></entry>
 			<entry><ind>100</ind><dep>2</dep></entry>
 			<entry><ind>400</ind><dep>4</dep></entry>
-			<entry><ind>800</ind><dep>8</dep></entry>
+			<entry><ind>4000</ind><dep>20</dep></entry>
+			<entry><ind>8000</ind><dep>20</dep></entry>
 		</interpolation>
 	</animation>
 
@@ -4699,7 +4700,7 @@
 		<type>range</type>
 		<object-name>strobe_halo_R</object-name>
 		<min-m>0</min-m>
-		<max-m>6000</max-m>
+		<max-m>8000</max-m>
 	</animation>
 
 	<animation>
@@ -4709,7 +4710,8 @@
 			<entry><ind>0</ind><dep>1</dep></entry>
 			<entry><ind>100</ind><dep>2</dep></entry>
 			<entry><ind>400</ind><dep>4</dep></entry>
-			<entry><ind>800</ind><dep>8</dep></entry>
+			<entry><ind>4000</ind><dep>20</dep></entry>
+			<entry><ind>8000</ind><dep>20</dep></entry>
 		</interpolation>
 	</animation>
 
@@ -4791,8 +4793,8 @@
 		<interpolation>
 			<entry><ind>0</ind><dep>1</dep></entry>
 			<entry><ind>100</ind><dep>2</dep></entry>
-			<entry><ind>400</ind><dep>3</dep></entry>
-			<entry><ind>800</ind><dep>6</dep></entry>
+			<entry><ind>400</ind><dep>4</dep></entry>
+			<entry><ind>6000</ind><dep>15</dep></entry>
 		</interpolation>
 	</animation>
 
@@ -4884,8 +4886,8 @@
 		<interpolation>
 			<entry><ind>0</ind><dep>1</dep></entry>
 			<entry><ind>100</ind><dep>2</dep></entry>
-			<entry><ind>400</ind><dep>3</dep></entry>
-			<entry><ind>800</ind><dep>6</dep></entry>
+			<entry><ind>400</ind><dep>4</dep></entry>
+			<entry><ind>6000</ind><dep>15</dep></entry>
 		</interpolation>
 	</animation>
 
