@@ -12,6 +12,23 @@
 		</offsets>
 	</model>
 
+<!--== some components may detach or deform in a crash ==-->
+	<animation>
+		<type>select</type>
+		<object-name>Body</object-name>
+		<condition>
+			<property>sim/model/bluebird/components/body</property>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>Nose</object-name>
+		<condition>
+			<property>sim/model/bluebird/components/nose</property>
+		</condition>
+	</animation>
+
 <!-- clickable button block for osg only -->
 	<animation>
 		<type>select</type>

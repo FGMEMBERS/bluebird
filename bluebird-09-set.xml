@@ -3,7 +3,7 @@
 <PropertyList include="bluebird-base.xml">
 
  <sim>
-	<description>Bluebird Explorer for v.0.9.10</description>
+	<description>Bluebird Explorer Hovercraft  for FlightGear version 0.9.10</description>
 	<model>
 		<path>Aircraft/bluebird/Models/bluebird-plib.xml</path>
 		<bluebird>

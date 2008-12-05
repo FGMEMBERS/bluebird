@@ -1,5 +1,5 @@
 # ===== text screen functions for version 1.0 and OSG =====
-# ===== for Bluebird Explorer Hovercraft version 7.6 =====
+# ===== for Bluebird Explorer Hovercraft version 8.3 =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
@@ -76,7 +76,7 @@ var apt_update = func {
 var screen_2L_on = 0;
 setlistener("instrumentation/display-screens/enabled-2L", func {
 	screen_2L_on = getprop("instrumentation/display-screens/enabled-2L");
-	setprop("instrumentation/display-screens/t2L-1", "Callsign                 Distance   Altitude   Bearing");
+	setprop("instrumentation/display-screens/t2L-2", "Callsign                 Distance   Altitude   Bearing");
 	if (screen_2L_on) {
 		settimer(ac_loop,0);
 	}
@@ -95,13 +95,14 @@ var ac_loop = func {
 
 var ac_update = func {
 	var ac = props.globals.getNode("ai/models").getChildren("aircraft");
+	var mp = props.globals.getNode("ai/models").getChildren("multiplayer");
 	if (ac != nil) {
-		var s = size(ac);
-		var ac_list = [];
 		var c_lat = getprop("position/latitude-deg");
 		var c_lon = getprop("position/longitude-deg");
 		var c_head_deg = getprop("orientation/heading-deg");
 		var a_mode = getprop("instrumentation/digital/altitude-mode");
+		var ac_list = [];
+		var s = size(ac);
 		for (var i = 0 ; i < s ; i += 1) {
 			if(ac[i].getNode("callsign") != nil) {
 				var b = ac[i].getNode("position");
@@ -121,10 +122,32 @@ var ac_update = func {
 				append(ac_list, { callsign:ac[i].getNode("callsign").getValue(), index:i, dist_m:adist_m, alt_ft:b.getNode("altitude-ft").getValue(), bearing:bearing});
 			}
 		}
+		if (mp != nil) {
+			var s = size(mp);
+			for (var i = 0 ; i < s ; i += 1) {
+				if(mp[i].getNode("callsign") != nil) {
+					var b = mp[i].getNode("position");
+					var alat = b.getNode("latitude-deg").getValue();
+					var alon = b.getNode("longitude-deg").getValue();
+					var y = alat - c_lat;
+					var x = alon - c_lon;
+					var ah1 = sin(y * 0.5);
+					var ah2 = sin(x * 0.5);
+					var adist_m = 2.0 * ERAD * asin(math.sqrt(ah1 * ah1 + cos(alat) * cos(c_lat) * ah2 * ah2));
+					var xy_hyp = math.sqrt((x * x) + (y * y));
+					var head = (xy_hyp == 0 ? 0 : asin(x / xy_hyp)) * 180 / math.pi;
+					var bearing = normbearing(head, c_head_deg);
+					if (c_lat > alat) {
+						bearing = normbearing(180 - head, c_head_deg);
+					}
+					append(ac_list, { callsign:mp[i].getNode("callsign").getValue(), index:i, dist_m:adist_m, alt_ft:b.getNode("altitude-ft").getValue(), bearing:bearing});
+				}
+			}
+		}
 		var sac = sort(ac_list, func(a,b) { return (a.dist_m > b.dist_m) });
 		var s = size(sac);
-		for (var i = 0 ; (i < s and i <= 14) ; i += 1) {
-			setprop("instrumentation/display-screens/t2L-" ~ (i+2) ~ "a", sac[i].callsign);
+		for (var i = 0 ; (i < s and i <= 13) ; i += 1) {
+			setprop("instrumentation/display-screens/t2L-" ~ (i+3) ~ "a", sac[i].callsign);
 			var txt2d = sprintf(m_conv_format[a_mode],m_2_conv[a_mode]*sac[i].dist_m) ~ m_conv_units[a_mode];
 			var altn = ft_2_conv[a_mode]*sac[i].alt_ft;
 			if (altn < 10000) { 
@@ -141,8 +164,8 @@ var ac_update = func {
 				var txt2a = sprintf(ft_conv_format[a_mode],altn) ~ ft_conv_units[a_mode];
 			}
 			var txt2h = sprintf(" %3.0f",sac[i].bearing);
-			setprop("instrumentation/display-screens/t2L-" ~ (i+2) ~ "b", txt2d ~ txt2a);
-			setprop("instrumentation/display-screens/t2L-" ~ (i+2) ~ "c", txt2h);
+			setprop("instrumentation/display-screens/t2L-" ~ (i+3) ~ "b", txt2d ~ txt2a);
+			setprop("instrumentation/display-screens/t2L-" ~ (i+3) ~ "c", txt2h);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 8.2 common base =====
+# ===== Bluebird Explorer Hovercraft  version 8.3 common base =====
 
 # Add second popupTip to avoid being overwritten by primary joystick messages ==
 var tipArg2 = props.Node.new({ "dialog-name" : "PopTip2" });
@@ -506,6 +506,9 @@ var door_update = func(door_number) {
 			gear_position2 = 1.0;
 		}
 		door5_position = door5_pos.getValue();
+		if (door5_position > 0.66 and airspeed > 40) {
+			door5_position = 0.66;
+		}
 		if (door5_position > gear_position2) {
 			door5_adjpos.setValue(gear_position2);
 		} else {
@@ -1031,6 +1034,8 @@ setlistener("sim/model/bluebird/systems/nacelle-L-venting", func {
 			setprop ("ai/submodels/engine-L-venting", "true");
 			setprop ("sim/model/bluebird/systems/nacelle-L-venting", "false");
 		}
+	} else {
+		setprop ("sim/model/bluebird/systems/nacelle-L-venting", "false");
 	}
 	update_venting(1);
 }, 1);
@@ -1043,6 +1048,8 @@ setlistener("sim/model/bluebird/systems/nacelle-R-venting", func {
 			setprop ("ai/submodels/engine-R-venting", "true");
 			setprop ("sim/model/bluebird/systems/nacelle-R-venting", "false");
 		}
+	} else {
+		setprop ("sim/model/bluebird/systems/nacelle-R-venting", "false");
 	}
 	update_venting(1);
 }, 1);

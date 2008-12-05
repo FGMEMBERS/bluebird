@@ -1,5 +1,15 @@
 Version# Vertices PolygonFaces Comments
 
+2008.Dec.05
+8.3	22690	17528	update to bluebird
+	Add multiplayer capabilities.
+	   (Low poly model must be downloaded separately and placed in the AI directory)
+	   Fully supported for version 1.9 and OSG
+	   while version 1.0 will not look correct.
+	Add multiplayer aircraft to left screen #2.
+	Fix small hole in gear mesh.
+	Remove extra polygons from wings.
+
 2008.Dec.02
 8.2	Fix landing of skydiver.
 	Fix reset of walker when getting in.

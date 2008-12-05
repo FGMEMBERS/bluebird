@@ -4,7 +4,7 @@
  <sim>
 	<aero>bluebird</aero>
 	<status>early-production</status>
-	<aircraft-version>8.2</aircraft-version>
+	<aircraft-version>8.3</aircraft-version>
 	<author>S Andreason</author>
 	<aircraft-status>
 		<fdm>beta</fdm>
@@ -511,7 +511,9 @@
 			</systems>
 		</bluebird>
 
+		<variant type="int">0</variant>
 		<livery>
+			<file type="string">Blue-Grey-Plain</file>
 			<name type="string">Blue-Grey-Plain</name>
 			<material>
 				<fuselage-top>
@@ -807,8 +809,24 @@
 				<y-deg type="double">0</y-deg>
 			</limb>
 		</npc>
-
 	</model>
+
+	<multiplay>
+		<generic>
+			<int n="0" alias="/sim/model/bluebird/components/nacelle-L"/>
+			<int n="1" alias="/sim/model/bluebird/components/nacelle-R"/>
+			<int n="2" alias="/sim/model/bluebird/systems/power-switch"/>
+			<int n="3" alias="/ai/submodels/nacelle-LR-venting"/>
+			<int n="4" alias="/ai/submodels/nacelle-RR-venting"/>
+			<int n="5" alias="/ai/submodels/engine-L-venting"/>
+			<int n="6" alias="/ai/submodels/engine-R-venting"/>
+			<int n="7" alias="/sim/model/bluebird/damage/major-counter"/>
+			<float n="0" alias="/sim/model/bluebird/doors/door[0]/position-adj"/>
+			<float n="1" alias="/sim/model/bluebird/doors/door[1]/position-adj"/>
+			<float n="2" alias="/sim/model/bluebird/doors/door[5]/position-adj"/>
+			<float n="3" alias="/sim/model/bluebird/lighting/landing-lights"/>
+		</generic>
+	</multiplay>
 
 	<help>
 		<title>Bluebird Explorer</title>
@@ -1359,9 +1377,7 @@
 		<t1R-18a type="double">0</t1R-18a>
 		<t1R-18b type="string"> </t1R-18b>
 		<t2L-1 type="string">Nearby aircraft</t2L-1>
-		<t2L-2a type="string"> </t2L-2a>
-		<t2L-2b type="string"> </t2L-2b>
-		<t2L-2c type="string"> </t2L-2c>
+		<t2L-2 type="string"> </t2L-2>
 		<t2L-3a type="string"> </t2L-3a>
 		<t2L-3b type="string"> </t2L-3b>
 		<t2L-3c type="string"> </t2L-3c>

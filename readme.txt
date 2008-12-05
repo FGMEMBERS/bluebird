@@ -11,10 +11,14 @@ If you are running FlightGear version 1.0 (with Plib)
 
 If you are running FlightGear OSG version:
 --aircraft=bluebird-osg
-which only works with FG cvs built with Openscenegraph, and osgview option.
+which only works with FG version 1.9 or cvs built with Openscenegraph, and osgview option.
 
 After the simulator starts up, you are powered up and ready to throttle up.
 Press [?] for help with keyboard shortcuts.
+
+If you want the multiplayer model for OSG, 
+unzip the bluebird-ai.zip file into your $FGBASE/data directory.
+It will extract into the AI/Aircraft directory.
 
 -------------------------------------------------
 2008 by Stewart Andreason for FlightGear
@@ -59,6 +63,11 @@ Highlights in this model:
   Free fall with or without a parachute at terminal velocity.
   Cockpit display screens ready to be filled with multiplayer, weather radar,
    gps maps, etc.
+  Walker can walk out and in through the hatches,
+   around on the ground, 
+   jump out and parachute to ground, 
+   or climb non-vertical walls.
+  Multiplayer
 
   Support for next OSG version:
      start with aircraft=bluebird-osg

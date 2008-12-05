@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 8.21 common base ==-->
+<!--== Bluebird version 8.3 common base ==-->
 
 <PropertyList>
 
-<!--== mesh series 8 == 24224 vertices == 20248 faces ==-->
+<!--== mesh series 8 == 22690 vertices == 17528 faces ==-->
 	<path>bluebird6.ac</path>
 	<texture-path>Textures</texture-path>
 
@@ -72,23 +72,7 @@
 		<object-name>Nose:IntLights.on</object-name>
 	</animation>
 
-	<animation>
-		<type>select</type>
-		<object-name>Body</object-name>
-		<condition>
-			<property>sim/model/bluebird/components/body</property>
-		</condition>
-	</animation>
-
 <!--== some components may detach or deform in a crash ==-->
-	<animation>
-		<type>select</type>
-		<object-name>Nose</object-name>
-		<condition>
-			<property>sim/model/bluebird/components/nose</property>
-		</condition>
-	</animation>
-
 	<animation>
 		<type>rotate</type>
 		<object-name>Nose</object-name>
@@ -495,15 +479,10 @@
 
 	<animation>
 		<object-name>Nose:DoorL.Step1.6</object-name>
-		<object-name>Nose:DoorL.Step1.9</object-name>
 		<object-name>Nose:DoorL.Step2.6</object-name>
-		<object-name>Nose:DoorL.Step2.9</object-name>
 		<object-name>Nose:DoorL.Step3.6</object-name>
-		<object-name>Nose:DoorL.Step3.9</object-name>
 		<object-name>Nose:DoorL.Step4.6</object-name>
-		<object-name>Nose:DoorL.Step4.9</object-name>
 		<object-name>Nose:DoorL.Step5.6</object-name>
-		<object-name>Nose:DoorL.Step5.9</object-name>
 		<enable-hot>false</enable-hot>
 	</animation>
 
@@ -1182,15 +1161,10 @@
 
 	<animation>
 		<object-name>Nose:DoorR.Step1.6</object-name>
-		<object-name>Nose:DoorR.Step1.9</object-name>
 		<object-name>Nose:DoorR.Step2.6</object-name>
-		<object-name>Nose:DoorR.Step2.9</object-name>
 		<object-name>Nose:DoorR.Step3.6</object-name>
-		<object-name>Nose:DoorR.Step3.9</object-name>
 		<object-name>Nose:DoorR.Step4.6</object-name>
-		<object-name>Nose:DoorR.Step4.9</object-name>
 		<object-name>Nose:DoorR.Step5.6</object-name>
-		<object-name>Nose:DoorR.Step5.9</object-name>
 		<enable-hot>false</enable-hot>
 	</animation>
 
@@ -2630,6 +2604,12 @@
 			<y>-1</y>
 			<z>0</z>
 		</axis>
+	</animation>
+
+<!-- inside floor -->
+	<animation>
+		<object-name>Body:Interior.Em1</object-name>
+		<enable-hot>false</enable-hot>
 	</animation>
 
 <!-- cockpit chair -->

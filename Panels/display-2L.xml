@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 7.6  ==-->
+<!--== Bluebird Explorer Hovercraft  version 8.3  ==-->
 
 <PropertyList>
 	<name>screen messages text 2L</name>
@@ -51,81 +51,25 @@
 				</layer>
 
 				<layer>
-					<name>text line 2a white</name>
+					<name>text line 2 cyan</name>
 					<type>text</type>
 					<font>arial_black</font>
 					<point-size>30</point-size>
 					<color>
-						<red>1</red>
+						<red>0</red>
 						<green>1</green>
 						<blue>1</blue>
 					</color>
 					<chunks>
 						<chunk>
 							<type>text-value</type>
-							<property>instrumentation/display-screens/t2L-2a</property>
+							<property>instrumentation/display-screens/t2L-2</property>
 						</chunk>
 					</chunks>
 					<transformations>
 						<transformation>
 							<type>x-shift</type>
 							<offset>-625</offset>
-						</transformation>
-						<transformation>
-							<type>y-shift</type>
-							<offset>188</offset>
-						</transformation>
-					</transformations>
-				</layer>
-
-				<layer>
-					<name>text line 2b white</name>
-					<type>text</type>
-					<font>arial_black</font>
-					<point-size>30</point-size>
-					<color>
-						<red>1</red>
-						<green>1</green>
-						<blue>1</blue>
-					</color>
-					<chunks>
-						<chunk>
-							<type>text-value</type>
-							<property>instrumentation/display-screens/t2L-2b</property>
-						</chunk>
-					</chunks>
-					<transformations>
-						<transformation>
-							<type>x-shift</type>
-							<offset>-130</offset>
-						</transformation>
-						<transformation>
-							<type>y-shift</type>
-							<offset>188</offset>
-						</transformation>
-					</transformations>
-				</layer>
-
-				<layer>
-					<name>text line 2c white</name>
-					<type>text</type>
-					<font>arial_black</font>
-					<point-size>30</point-size>
-					<color>
-						<red>1</red>
-						<green>1</green>
-						<blue>1</blue>
-					</color>
-					<chunks>
-						<chunk>
-							<type>text-value</type>
-							<property>instrumentation/display-screens/t2L-2c</property>
-						</chunk>
-					</chunks>
-					<transformations>
-						<transformation>
-							<type>x-shift</type>
-							<offset>450</offset>
 						</transformation>
 						<transformation>
 							<type>y-shift</type>

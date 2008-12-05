@@ -1,7 +1,26 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 7.2 for PLIB                  ==-->
+<!--== Bluebird version 8.3 for PLIB                  ==-->
 
 <PropertyList>
+	<nasal>
+		<load>
+			print("Loading bluebird-ai-1.0 ", cmdarg().getPath());
+			var self = cmdarg();
+
+			#--begin compat-- (load random variant for fg/plib)
+			var dir = getprop("/sim/fg-root") ~ "/Aircraft/bluebird/Models/Liveries";
+			var files = [];
+			foreach (var file; directory(dir))
+				if (substr(file, -4) == ".xml")
+					append(files, file);
+
+			var filename = dir ~ "/" ~ files[rand() * size(files)];
+			var targetnode = self.getPath();
+			fgcommand("loadxml", props.Node.new({ filename: filename, targetnode: targetnode, }));
+			#--end compat--
+		</load>
+	</nasal>
+
 	<model>
 		<name>bluebird</name>
 		<path>Aircraft/bluebird/Models/bluebird.xml</path>

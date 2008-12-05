@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 8.1 for FlightGear v1.0 (PLIB and OSG) =====
+# ===== Bluebird Explorer Hovercraft  version 8.3 for FlightGear v1.0 (PLIB and OSG) =====
 
 # strobes -----------------------------------------------------------
 var strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
@@ -64,6 +64,8 @@ var doorProximityVolume = func (current_view, door,x,y) {
  	setprop("instrumentation/display-screens/enabled-2L", "true");
  }
 
- print ("Bluebird Explorer Hovercraft  by Stewart Andreason");
- print ("  version 8.2  release date 2008.Dec.02  for FlightGear 1.0 and OSG");
+ var t = getprop("/sim/description");
+ print (t);
+ var v = getprop("/sim/aircraft-version");
+ print ("  version ",v,"  release date 2008.Dec.05  by Stewart Andreason");
 });

@@ -2,7 +2,7 @@
 
 <PropertyList include="bluebird-base.xml">
  <sim>
-	<description>Bluebird Explorer for OSG</description>
+	<description>Bluebird Explorer Hovercraft  for FlightGear version 1.9 with OSG</description>
 	<model>
 		<path>Aircraft/bluebird/Models/bluebird-osg.xml</path>
 		<bluebird>
