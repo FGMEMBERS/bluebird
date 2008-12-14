@@ -1,5 +1,30 @@
 Version# Vertices PolygonFaces Comments
 
+2008.Dec.12
+8.6		updated center instrument panel
+	Add collective control to joystick axis-4 (hat left-right)
+	  right next to hover vertical control (hat up-down)
+	Add autopilot to buttons on instrument panel.
+	Clean up variable declarations for conserving memory space.
+	Include new instrument in damage rotation.
+	Added precision to heading display.
+	Removed leading zeros.
+	Add other autopilot settings to instrument checking.
+	Fix blinking light introduced by variable change to float.
+	Fix consistancy and on/off control of vapor trail.
+
+2008.Dec.10
+8.5	Add elevation indicator (z-bearing) to VOR tracking instrument.
+	Fix trig bug in homing heading because of latitude on a sphere.
+	Fix calculations across international date line.
+
+2008.Dec.09
+8.4	Add aircraft and airport VOR to center instrument panel.
+	  provides tracking and homing for top AI and MultiPlayer aircraft
+	  and homing to nearest airport, and selected airport.
+	Add loop checking to fix doubling.
+	Fix Nearest Aircraft screen updating bug.
+
 2008.Dec.05
 8.3	22690	17528	update to bluebird
 	Add multiplayer capabilities.

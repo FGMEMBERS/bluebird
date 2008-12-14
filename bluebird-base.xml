@@ -4,7 +4,7 @@
  <sim>
 	<aero>bluebird</aero>
 	<status>early-production</status>
-	<aircraft-version>8.3</aircraft-version>
+	<aircraft-version>8.6</aircraft-version>
 	<author>S Andreason</author>
 	<aircraft-status>
 		<fdm>beta</fdm>
@@ -48,9 +48,9 @@
 				<engine-cover4 type="bool">true</engine-cover4>
 			</components>
 			<crew>
-				<cockpit-position type="double">0.0</cockpit-position>
+				<cockpit-position type="int">0</cockpit-position>
 				<pilot>
-					<chair-back type="double">0.0</chair-back>
+					<chair-back type="int">0</chair-back>
 					<visible type="bool">true</visible>
 				</pilot>
 				<walker>
@@ -58,455 +58,455 @@
 					<x-offset-m type="double">-0.8</x-offset-m>
 					<y-offset-m type="double">1.2</y-offset-m>
 					<z-offset-m type="double">0.0</z-offset-m>
-					<head-offset-deg type="double">0</head-offset-deg>
+					<head-offset-deg type="double">0.0</head-offset-deg>
 				</walker>
 			</crew>
 			<damage>
-				<hits-counter type="double">0</hits-counter>
-				<major-counter type="double">0</major-counter>
+				<hits-counter type="int">0</hits-counter>
+				<major-counter type="int">0</major-counter>
 			</damage>
 			<doors>
 				<door>
-					<position-norm type="double">0.0</position-norm>
+					<position-norm type="float">0.0</position-norm>
 					<name type="string">Left Side Door</name>
 				</door>
 				<door>
-					<position-norm type="double">0.0</position-norm>
+					<position-norm type="float">0.0</position-norm>
 					<name type="string">Right Side Door</name>
 				</door>
 				<door>
-					<position-norm type="double">0.0</position-norm>
+					<position-norm type="float">0.0</position-norm>
 					<name type="string">Inside cockpit door</name>
 				</door>
 				<door>
-					<position-norm type="double">0.0</position-norm>
+					<position-norm type="float">0.0</position-norm>
 					<name type="string">Door to the Head</name>
 				</door>
 				<door>
-					<position-norm type="double">0.0</position-norm>
+					<position-norm type="float">0.0</position-norm>
 					<name type="string">Inside cargo door</name>
 				</door>
 				<door>
-					<position-norm type="double">0.0</position-norm>
+					<position-norm type="float">0.0</position-norm>
 					<name type="string">Rear cargo hatch</name>
 				</door>
 			</doors>
 			<hover>
-				<key-up type="double">0</key-up>
+				<key-up type="float">0</key-up>
 			</hover>
 			<lighting>
-				<engine-glow type="double">0</engine-glow>
+				<engine-glow type="float">0.0</engine-glow>
 				<ground-near type="bool">true</ground-near>
-				<ground-warning type="double">1</ground-warning>
+				<ground-warning type="int">1</ground-warning>
 				<interior-switch type="bool">true</interior-switch>
-				<landing-lights type="double">1</landing-lights>	<!-- default= on at dusk -->
+				<landing-lights type="int">1</landing-lights>	<!-- default= on at dusk -->
 				<nav-lights-state type="bool">true</nav-lights-state>
-				<nav-light-switch type="double">2</nav-light-switch>	<!-- default= stay on -->
-				<power-glow type="double">1</power-glow>		<!-- default: power up at startup -->
-				<wave-guide-glow type="double">0</wave-guide-glow>
-				<wave-guide-halo-spin type="double">0</wave-guide-halo-spin>
-				<window-factor type="double">0</window-factor>
+				<nav-light-switch type="int">2</nav-light-switch>	<!-- default= stay on -->
+				<power-glow type="float">1</power-glow>		<!-- default: power up at startup -->
+				<wave-guide-glow type="float">0</wave-guide-glow>
+				<wave-guide-halo-spin type="float">0</wave-guide-halo-spin>
+				<window-factor type="float">0</window-factor>
 				<ambient>
-					<I1-A-red type="double">0</I1-A-red>
-					<I1-A-green type="double">0</I1-A-green>
-					<I1-A-blue type="double">1.0</I1-A-blue>
-					<I2-A-red type="double">0</I2-A-red>
-					<I2-A-gb type="double">0</I2-A-gb>
-					<I3-A-red type="double">0</I3-A-red>
-					<I3-A-gb type="double">0</I3-A-gb>
-					<I4-A-red type="double">0</I4-A-red>
-					<I4-A-green type="double">0</I4-A-green>
-					<I4-A-blue type="double">0</I4-A-blue>
-					<I5-A-red type="double">0</I5-A-red>
-					<I5-A-green type="double">0</I5-A-green>
-					<I5-A-blue type="double">0</I5-A-blue>
-					<I7-A-red type="double">0</I7-A-red>
-					<I7-A-green type="double">0</I7-A-green>
-					<I7-A-blue type="double">0</I7-A-blue>
-					<I8-A-red type="double">0</I8-A-red>
-					<I8-A-green type="double">0</I8-A-green>
-					<I8-A-blue type="double">0</I8-A-blue>
-					<IA-A-red type="double">0</IA-A-red>
-					<IA-A-green type="double">0</IA-A-green>
-					<IA-A-blue type="double">0</IA-A-blue>
-					<IU-A-red type="double">0</IU-A-red>
-					<IU-A-green type="double">0</IU-A-green>
-					<IU-A-blue type="double">0</IU-A-blue>
-					<IG1e-A-red type="double">0</IG1e-A-red>
-					<IG1f-A-red type="double">0</IG1f-A-red>
-					<IG1e-A-green type="double">0</IG1e-A-green>
-					<IG1f-A-green type="double">0</IG1f-A-green>
-					<IG1e-A-blue type="double">0</IG1e-A-blue>
-					<IG1f-A-blue type="double">0</IG1f-A-blue>
-					<IG2e-A-red type="double">0</IG2e-A-red>
-					<IG2f-A-red type="double">0</IG2f-A-red>
-					<IG2e-A-green type="double">0</IG2e-A-green>
-					<IG2f-A-green type="double">0</IG2f-A-green>
-					<IG2e-A-blue type="double">0</IG2e-A-blue>
-					<IG2f-A-blue type="double">0</IG2f-A-blue>
-					<IG3e-A-red type="double">0</IG3e-A-red>
-					<IG3f-A-red type="double">0</IG3f-A-red>
-					<IG3e-A-green type="double">0</IG3e-A-green>
-					<IG3f-A-green type="double">0</IG3f-A-green>
-					<IG3e-A-blue type="double">0</IG3e-A-blue>
-					<IG3f-A-blue type="double">0</IG3f-A-blue>
-					<IG4e-A-red type="double">0</IG4e-A-red>
-					<IG4f-A-red type="double">0</IG4f-A-red>
-					<IG4e-A-green type="double">0</IG4e-A-green>
-					<IG4f-A-green type="double">0</IG4f-A-green>
-					<IG4e-A-blue type="double">0</IG4e-A-blue>
-					<IG4f-A-blue type="double">0</IG4f-A-blue>
-					<ILT1e-A-red type="double">0</ILT1e-A-red>
-					<ILT1f-A-red type="double">0</ILT1f-A-red>
-					<ILT1e-A-green type="double">0</ILT1e-A-green>
-					<ILT1f-A-green type="double">0</ILT1f-A-green>
-					<ILT1e-A-blue type="double">0</ILT1e-A-blue>
-					<ILT1f-A-blue type="double">0</ILT1f-A-blue>
-					<ILT2e-A-red type="double">0</ILT2e-A-red>
-					<ILT2f-A-red type="double">0</ILT2f-A-red>
-					<ILT2e-A-green type="double">0</ILT2e-A-green>
-					<ILT2f-A-green type="double">0</ILT2f-A-green>
-					<ILT2e-A-blue type="double">0</ILT2e-A-blue>
-					<ILT2f-A-blue type="double">0</ILT2f-A-blue>
-					<ILT6e-A-red type="double">0</ILT6e-A-red>
-					<ILT6f-A-red type="double">0</ILT6f-A-red>
-					<ILT6e-A-green type="double">0</ILT6e-A-green>
-					<ILT6f-A-green type="double">0</ILT6f-A-green>
-					<ILT6e-A-blue type="double">0</ILT6e-A-blue>
-					<ILT6f-A-blue type="double">0</ILT6f-A-blue>
-					<ILT7e-A-red type="double">0</ILT7e-A-red>
-					<ILT7f-A-red type="double">0</ILT7f-A-red>
-					<ILT7e-A-green type="double">0</ILT7e-A-green>
-					<ILT7f-A-green type="double">0</ILT7f-A-green>
-					<ILT7e-A-blue type="double">0</ILT7e-A-blue>
-					<ILT7f-A-blue type="double">0</ILT7f-A-blue>
-					<ILT8e-A-red type="double">0</ILT8e-A-red>
-					<ILT8f-A-red type="double">0</ILT8f-A-red>
-					<ILT8e-A-green type="double">0</ILT8e-A-green>
-					<ILT8f-A-green type="double">0</ILT8f-A-green>
-					<ILT8e-A-blue type="double">0</ILT8e-A-blue>
-					<ILT8f-A-blue type="double">0</ILT8f-A-blue>
-					<ILT9e-A-red type="double">0</ILT9e-A-red>
-					<ILT9f-A-red type="double">0</ILT9f-A-red>
-					<ILT9e-A-green type="double">0</ILT9e-A-green>
-					<ILT9f-A-green type="double">0</ILT9f-A-green>
-					<ILT9e-A-blue type="double">0</ILT9e-A-blue>
-					<ILT9f-A-blue type="double">0</ILT9f-A-blue>
-					<IRT1e-A-red type="double">0</IRT1e-A-red>
-					<IRT1f-A-red type="double">0</IRT1f-A-red>
-					<IRT1e-A-green type="double">0</IRT1e-A-green>
-					<IRT1f-A-green type="double">0</IRT1f-A-green>
-					<IRT1e-A-blue type="double">0</IRT1e-A-blue>
-					<IRT1f-A-blue type="double">0</IRT1f-A-blue>
-					<IRT2e-A-red type="double">0</IRT2e-A-red>
-					<IRT2f-A-red type="double">0</IRT2f-A-red>
-					<IRT2e-A-green type="double">0</IRT2e-A-green>
-					<IRT2f-A-green type="double">0</IRT2f-A-green>
-					<IRT2e-A-blue type="double">0</IRT2e-A-blue>
-					<IRT2f-A-blue type="double">0</IRT2f-A-blue>
-					<IRT3e-A-red type="double">0</IRT3e-A-red>
-					<IRT3f-A-red type="double">0</IRT3f-A-red>
-					<IRT3e-A-green type="double">0</IRT3e-A-green>
-					<IRT3f-A-green type="double">0</IRT3f-A-green>
-					<IRT3e-A-blue type="double">0</IRT3e-A-blue>
-					<IRT3f-A-blue type="double">0</IRT3f-A-blue>
-					<IRT4e-A-red type="double">0</IRT4e-A-red>
-					<IRT4f-A-red type="double">0</IRT4f-A-red>
-					<IRT4e-A-green type="double">0</IRT4e-A-green>
-					<IRT4f-A-green type="double">0</IRT4f-A-green>
-					<IRT4e-A-blue type="double">0</IRT4e-A-blue>
-					<IRT4f-A-blue type="double">0</IRT4f-A-blue>
-					<IRT5e-A-red type="double">0</IRT5e-A-red>
-					<IRT5f-A-red type="double">0</IRT5f-A-red>
-					<IRT5e-A-green type="double">0</IRT5e-A-green>
-					<IRT5f-A-green type="double">0</IRT5f-A-green>
-					<IRT5e-A-blue type="double">0</IRT5e-A-blue>
-					<IRT5f-A-blue type="double">0</IRT5f-A-blue>
-					<IRT6e-A-red type="double">0</IRT6e-A-red>
-					<IRT6f-A-red type="double">0</IRT6f-A-red>
-					<IRT6e-A-green type="double">0</IRT6e-A-green>
-					<IRT6f-A-green type="double">0</IRT6f-A-green>
-					<IRT6e-A-blue type="double">0</IRT6e-A-blue>
-					<IRT6f-A-blue type="double">0</IRT6f-A-blue>
-					<IRT7e-A-red type="double">0</IRT7e-A-red>
-					<IRT7f-A-red type="double">0</IRT7f-A-red>
-					<IRT7e-A-green type="double">0</IRT7e-A-green>
-					<IRT7f-A-green type="double">0</IRT7f-A-green>
-					<IRT7e-A-blue type="double">0</IRT7e-A-blue>
-					<IRT7f-A-blue type="double">0</IRT7f-A-blue>
-					<IRT8e-A-red type="double">0</IRT8e-A-red>
-					<IRT8f-A-red type="double">0</IRT8f-A-red>
-					<IRT8e-A-green type="double">0</IRT8e-A-green>
-					<IRT8f-A-green type="double">0</IRT8f-A-green>
-					<IRT8e-A-blue type="double">0</IRT8e-A-blue>
-					<IRT8f-A-blue type="double">0</IRT8f-A-blue>
-					<IRT9e-A-red type="double">0</IRT9e-A-red>
-					<IRT9f-A-red type="double">0</IRT9f-A-red>
-					<IRT9e-A-green type="double">0</IRT9e-A-green>
-					<IRT9f-A-green type="double">0</IRT9f-A-green>
-					<IRT9e-A-blue type="double">0</IRT9e-A-blue>
-					<IRT9f-A-blue type="double">0</IRT9f-A-blue>
+					<I1-A-red type="float">0</I1-A-red>
+					<I1-A-green type="float">0</I1-A-green>
+					<I1-A-blue type="float">1.0</I1-A-blue>
+					<I2-A-red type="float">0</I2-A-red>
+					<I2-A-gb type="float">0</I2-A-gb>
+					<I3-A-red type="float">0</I3-A-red>
+					<I3-A-gb type="float">0</I3-A-gb>
+					<I4-A-red type="float">0</I4-A-red>
+					<I4-A-green type="float">0</I4-A-green>
+					<I4-A-blue type="float">0</I4-A-blue>
+					<I5-A-red type="float">0</I5-A-red>
+					<I5-A-green type="float">0</I5-A-green>
+					<I5-A-blue type="float">0</I5-A-blue>
+					<I7-A-red type="float">0</I7-A-red>
+					<I7-A-green type="float">0</I7-A-green>
+					<I7-A-blue type="float">0</I7-A-blue>
+					<I8-A-red type="float">0</I8-A-red>
+					<I8-A-green type="float">0</I8-A-green>
+					<I8-A-blue type="float">0</I8-A-blue>
+					<IA-A-red type="float">0</IA-A-red>
+					<IA-A-green type="float">0</IA-A-green>
+					<IA-A-blue type="float">0</IA-A-blue>
+					<IU-A-red type="float">0</IU-A-red>
+					<IU-A-green type="float">0</IU-A-green>
+					<IU-A-blue type="float">0</IU-A-blue>
+					<IG1e-A-red type="float">0</IG1e-A-red>
+					<IG1f-A-red type="float">0</IG1f-A-red>
+					<IG1e-A-green type="float">0</IG1e-A-green>
+					<IG1f-A-green type="float">0</IG1f-A-green>
+					<IG1e-A-blue type="float">0</IG1e-A-blue>
+					<IG1f-A-blue type="float">0</IG1f-A-blue>
+					<IG2e-A-red type="float">0</IG2e-A-red>
+					<IG2f-A-red type="float">0</IG2f-A-red>
+					<IG2e-A-green type="float">0</IG2e-A-green>
+					<IG2f-A-green type="float">0</IG2f-A-green>
+					<IG2e-A-blue type="float">0</IG2e-A-blue>
+					<IG2f-A-blue type="float">0</IG2f-A-blue>
+					<IG3e-A-red type="float">0</IG3e-A-red>
+					<IG3f-A-red type="float">0</IG3f-A-red>
+					<IG3e-A-green type="float">0</IG3e-A-green>
+					<IG3f-A-green type="float">0</IG3f-A-green>
+					<IG3e-A-blue type="float">0</IG3e-A-blue>
+					<IG3f-A-blue type="float">0</IG3f-A-blue>
+					<IG4e-A-red type="float">0</IG4e-A-red>
+					<IG4f-A-red type="float">0</IG4f-A-red>
+					<IG4e-A-green type="float">0</IG4e-A-green>
+					<IG4f-A-green type="float">0</IG4f-A-green>
+					<IG4e-A-blue type="float">0</IG4e-A-blue>
+					<IG4f-A-blue type="float">0</IG4f-A-blue>
+					<ILT1e-A-red type="float">0</ILT1e-A-red>
+					<ILT1f-A-red type="float">0</ILT1f-A-red>
+					<ILT1e-A-green type="float">0</ILT1e-A-green>
+					<ILT1f-A-green type="float">0</ILT1f-A-green>
+					<ILT1e-A-blue type="float">0</ILT1e-A-blue>
+					<ILT1f-A-blue type="float">0</ILT1f-A-blue>
+					<ILT2e-A-red type="float">0</ILT2e-A-red>
+					<ILT2f-A-red type="float">0</ILT2f-A-red>
+					<ILT2e-A-green type="float">0</ILT2e-A-green>
+					<ILT2f-A-green type="float">0</ILT2f-A-green>
+					<ILT2e-A-blue type="float">0</ILT2e-A-blue>
+					<ILT2f-A-blue type="float">0</ILT2f-A-blue>
+					<ILT6e-A-red type="float">0</ILT6e-A-red>
+					<ILT6f-A-red type="float">0</ILT6f-A-red>
+					<ILT6e-A-green type="float">0</ILT6e-A-green>
+					<ILT6f-A-green type="float">0</ILT6f-A-green>
+					<ILT6e-A-blue type="float">0</ILT6e-A-blue>
+					<ILT6f-A-blue type="float">0</ILT6f-A-blue>
+					<ILT7e-A-red type="float">0</ILT7e-A-red>
+					<ILT7f-A-red type="float">0</ILT7f-A-red>
+					<ILT7e-A-green type="float">0</ILT7e-A-green>
+					<ILT7f-A-green type="float">0</ILT7f-A-green>
+					<ILT7e-A-blue type="float">0</ILT7e-A-blue>
+					<ILT7f-A-blue type="float">0</ILT7f-A-blue>
+					<ILT8e-A-red type="float">0</ILT8e-A-red>
+					<ILT8f-A-red type="float">0</ILT8f-A-red>
+					<ILT8e-A-green type="float">0</ILT8e-A-green>
+					<ILT8f-A-green type="float">0</ILT8f-A-green>
+					<ILT8e-A-blue type="float">0</ILT8e-A-blue>
+					<ILT8f-A-blue type="float">0</ILT8f-A-blue>
+					<ILT9e-A-red type="float">0</ILT9e-A-red>
+					<ILT9f-A-red type="float">0</ILT9f-A-red>
+					<ILT9e-A-green type="float">0</ILT9e-A-green>
+					<ILT9f-A-green type="float">0</ILT9f-A-green>
+					<ILT9e-A-blue type="float">0</ILT9e-A-blue>
+					<ILT9f-A-blue type="float">0</ILT9f-A-blue>
+					<IRT1e-A-red type="float">0</IRT1e-A-red>
+					<IRT1f-A-red type="float">0</IRT1f-A-red>
+					<IRT1e-A-green type="float">0</IRT1e-A-green>
+					<IRT1f-A-green type="float">0</IRT1f-A-green>
+					<IRT1e-A-blue type="float">0</IRT1e-A-blue>
+					<IRT1f-A-blue type="float">0</IRT1f-A-blue>
+					<IRT2e-A-red type="float">0</IRT2e-A-red>
+					<IRT2f-A-red type="float">0</IRT2f-A-red>
+					<IRT2e-A-green type="float">0</IRT2e-A-green>
+					<IRT2f-A-green type="float">0</IRT2f-A-green>
+					<IRT2e-A-blue type="float">0</IRT2e-A-blue>
+					<IRT2f-A-blue type="float">0</IRT2f-A-blue>
+					<IRT3e-A-red type="float">0</IRT3e-A-red>
+					<IRT3f-A-red type="float">0</IRT3f-A-red>
+					<IRT3e-A-green type="float">0</IRT3e-A-green>
+					<IRT3f-A-green type="float">0</IRT3f-A-green>
+					<IRT3e-A-blue type="float">0</IRT3e-A-blue>
+					<IRT3f-A-blue type="float">0</IRT3f-A-blue>
+					<IRT4e-A-red type="float">0</IRT4e-A-red>
+					<IRT4f-A-red type="float">0</IRT4f-A-red>
+					<IRT4e-A-green type="float">0</IRT4e-A-green>
+					<IRT4f-A-green type="float">0</IRT4f-A-green>
+					<IRT4e-A-blue type="float">0</IRT4e-A-blue>
+					<IRT4f-A-blue type="float">0</IRT4f-A-blue>
+					<IRT5e-A-red type="float">0</IRT5e-A-red>
+					<IRT5f-A-red type="float">0</IRT5f-A-red>
+					<IRT5e-A-green type="float">0</IRT5e-A-green>
+					<IRT5f-A-green type="float">0</IRT5f-A-green>
+					<IRT5e-A-blue type="float">0</IRT5e-A-blue>
+					<IRT5f-A-blue type="float">0</IRT5f-A-blue>
+					<IRT6e-A-red type="float">0</IRT6e-A-red>
+					<IRT6f-A-red type="float">0</IRT6f-A-red>
+					<IRT6e-A-green type="float">0</IRT6e-A-green>
+					<IRT6f-A-green type="float">0</IRT6f-A-green>
+					<IRT6e-A-blue type="float">0</IRT6e-A-blue>
+					<IRT6f-A-blue type="float">0</IRT6f-A-blue>
+					<IRT7e-A-red type="float">0</IRT7e-A-red>
+					<IRT7f-A-red type="float">0</IRT7f-A-red>
+					<IRT7e-A-green type="float">0</IRT7e-A-green>
+					<IRT7f-A-green type="float">0</IRT7f-A-green>
+					<IRT7e-A-blue type="float">0</IRT7e-A-blue>
+					<IRT7f-A-blue type="float">0</IRT7f-A-blue>
+					<IRT8e-A-red type="float">0</IRT8e-A-red>
+					<IRT8f-A-red type="float">0</IRT8f-A-red>
+					<IRT8e-A-green type="float">0</IRT8e-A-green>
+					<IRT8f-A-green type="float">0</IRT8f-A-green>
+					<IRT8e-A-blue type="float">0</IRT8e-A-blue>
+					<IRT8f-A-blue type="float">0</IRT8f-A-blue>
+					<IRT9e-A-red type="float">0</IRT9e-A-red>
+					<IRT9f-A-red type="float">0</IRT9f-A-red>
+					<IRT9e-A-green type="float">0</IRT9e-A-green>
+					<IRT9f-A-green type="float">0</IRT9f-A-green>
+					<IRT9e-A-blue type="float">0</IRT9e-A-blue>
+					<IRT9f-A-blue type="float">0</IRT9f-A-blue>
 				</ambient>
 				<emission>
-					<I0-red type="double">1</I0-red>
-					<I0g-0b type="double">1</I0g-0b>
-					<I1-red type="double">0</I1-red>
-					<I1-green type="double">0</I1-green>
-					<I1-blue type="double">0</I1-blue>
-					<I2-red type="double">0</I2-red>
-					<I2g-2b type="double">0</I2g-2b>
-					<I3-red type="double">0</I3-red>
-					<I3g-3b type="double">0</I3g-3b>
-					<I4-red type="double">0</I4-red>
-					<I4-green type="double">0</I4-green>
-					<I4-blue type="double">0</I4-blue>
-					<I5-red type="double">0.077</I5-red>
-					<I5-green type="double">0.090</I5-green>
-					<I5-blue type="double">0.087</I5-blue>
-					<I6-red type="double">0</I6-red>
-					<I6g-6b type="double">0</I6g-6b>
-					<I7-red type="double">0</I7-red>
-					<I7-green type="double">0</I7-green>
-					<I7-blue type="double">0</I7-blue>
-					<I8-red type="double">0</I8-red>
-					<I8-green type="double">0</I8-green>
-					<I8-blue type="double">0</I8-blue>
-					<I9r-9g type="double">1.0</I9r-9g>
-					<IA-red type="double">0</IA-red>
-					<IA-green type="double">0</IA-green>
-					<IA-blue type="double">0</IA-blue>
-					<IBr-Bg type="double">0.90</IBr-Bg>
-					<IB-blue type="double">1.0</IB-blue>
-					<IU-red type="double">0</IU-red>
-					<IU-green type="double">0</IU-green>
-					<IU-blue type="double">0</IU-blue>
-					<IG1b-red type="double">0</IG1b-red>
-					<IG1k-red type="double">0</IG1k-red>
-					<IG1d-red type="double">0</IG1d-red>
-					<IG1b-green type="double">0</IG1b-green>
-					<IG1k-green type="double">0</IG1k-green>
-					<IG1d-green type="double">0</IG1d-green>
-					<IG1b-blue type="double">0</IG1b-blue>
-					<IG1k-blue type="double">0</IG1k-blue>
-					<IG1d-blue type="double">0</IG1d-blue>
-					<IG2b-red type="double">0</IG2b-red>
-					<IG2k-red type="double">0</IG2k-red>
-					<IG2d-red type="double">0</IG2d-red>
-					<IG2b-green type="double">0</IG2b-green>
-					<IG2k-green type="double">0</IG2k-green>
-					<IG2d-green type="double">0</IG2d-green>
-					<IG2b-blue type="double">0</IG2b-blue>
-					<IG2k-blue type="double">0</IG2k-blue>
-					<IG2d-blue type="double">0</IG2d-blue>
-					<IG3b-red type="double">0</IG3b-red>
-					<IG3k-red type="double">0</IG3k-red>
-					<IG3d-red type="double">0</IG3d-red>
-					<IG3b-green type="double">0</IG3b-green>
-					<IG3k-green type="double">0</IG3k-green>
-					<IG3d-green type="double">0</IG3d-green>
-					<IG3b-blue type="double">0</IG3b-blue>
-					<IG3k-blue type="double">0</IG3k-blue>
-					<IG3d-blue type="double">0</IG3d-blue>
-					<IG4b-red type="double">0</IG4b-red>
-					<IG4k-red type="double">0</IG4k-red>
-					<IG4d-red type="double">0</IG4d-red>
-					<IG4b-green type="double">0</IG4b-green>
-					<IG4k-green type="double">0</IG4k-green>
-					<IG4d-green type="double">0</IG4d-green>
-					<IG4b-blue type="double">0</IG4b-blue>
-					<IG4k-blue type="double">0</IG4k-blue>
-					<IG4d-blue type="double">0</IG4d-blue>
-					<ILT1b-red type="double">0</ILT1b-red>
-					<ILT1k-red type="double">0</ILT1k-red>
-					<ILT1d-red type="double">0</ILT1d-red>
-					<ILT1b-green type="double">0</ILT1b-green>
-					<ILT1k-green type="double">0</ILT1k-green>
-					<ILT1d-green type="double">0</ILT1d-green>
-					<ILT1b-blue type="double">0</ILT1b-blue>
-					<ILT1k-blue type="double">0</ILT1k-blue>
-					<ILT1d-blue type="double">0</ILT1d-blue>
-					<ILT2b-red type="double">0</ILT2b-red>
-					<ILT2k-red type="double">0</ILT2k-red>
-					<ILT2d-red type="double">0</ILT2d-red>
-					<ILT2b-green type="double">0</ILT2b-green>
-					<ILT2k-green type="double">0</ILT2k-green>
-					<ILT2d-green type="double">0</ILT2d-green>
-					<ILT2b-blue type="double">0</ILT2b-blue>
-					<ILT2k-blue type="double">0</ILT2k-blue>
-					<ILT2d-blue type="double">0</ILT2d-blue>
-					<ILT6b-red type="double">0</ILT6b-red>
-					<ILT6k-red type="double">0</ILT6k-red>
-					<ILT6d-red type="double">0</ILT6d-red>
-					<ILT6b-green type="double">0</ILT6b-green>
-					<ILT6k-green type="double">0</ILT6k-green>
-					<ILT6d-green type="double">0</ILT6d-green>
-					<ILT6b-blue type="double">0</ILT6b-blue>
-					<ILT6k-blue type="double">0</ILT6k-blue>
-					<ILT6d-blue type="double">0</ILT6d-blue>
-					<ILT7b-red type="double">0</ILT7b-red>
-					<ILT7k-red type="double">0</ILT7k-red>
-					<ILT7d-red type="double">0</ILT7d-red>
-					<ILT7b-green type="double">0</ILT7b-green>
-					<ILT7k-green type="double">0</ILT7k-green>
-					<ILT7d-green type="double">0</ILT7d-green>
-					<ILT7b-blue type="double">0</ILT7b-blue>
-					<ILT7k-blue type="double">0</ILT7k-blue>
-					<ILT7d-blue type="double">0</ILT7d-blue>
-					<ILT8b-red type="double">0</ILT8b-red>
-					<ILT8k-red type="double">0</ILT8k-red>
-					<ILT8d-red type="double">0</ILT8d-red>
-					<ILT8b-green type="double">0</ILT8b-green>
-					<ILT8k-green type="double">0</ILT8k-green>
-					<ILT8d-green type="double">0</ILT8d-green>
-					<ILT8b-blue type="double">0</ILT8b-blue>
-					<ILT8k-blue type="double">0</ILT8k-blue>
-					<ILT8d-blue type="double">0</ILT8d-blue>
-					<ILT9b-red type="double">0</ILT9b-red>
-					<ILT9k-red type="double">0</ILT9k-red>
-					<ILT9d-red type="double">0</ILT9d-red>
-					<ILT9b-green type="double">0</ILT9b-green>
-					<ILT9k-green type="double">0</ILT9k-green>
-					<ILT9d-green type="double">0</ILT9d-green>
-					<ILT9b-blue type="double">0</ILT9b-blue>
-					<ILT9k-blue type="double">0</ILT9k-blue>
-					<ILT9d-blue type="double">0</ILT9d-blue>
-					<IRT1b-red type="double">0</IRT1b-red>
-					<IRT1k-red type="double">0</IRT1k-red>
-					<IRT1d-red type="double">0</IRT1d-red>
-					<IRT1b-green type="double">0</IRT1b-green>
-					<IRT1k-green type="double">0</IRT1k-green>
-					<IRT1d-green type="double">0</IRT1d-green>
-					<IRT1b-blue type="double">0</IRT1b-blue>
-					<IRT1k-blue type="double">0</IRT1k-blue>
-					<IRT1d-blue type="double">0</IRT1d-blue>
-					<IRT2b-red type="double">0</IRT2b-red>
-					<IRT2k-red type="double">0</IRT2k-red>
-					<IRT2d-red type="double">0</IRT2d-red>
-					<IRT2b-green type="double">0</IRT2b-green>
-					<IRT2k-green type="double">0</IRT2k-green>
-					<IRT2d-green type="double">0</IRT2d-green>
-					<IRT2b-blue type="double">0</IRT2b-blue>
-					<IRT2k-blue type="double">0</IRT2k-blue>
-					<IRT2d-blue type="double">0</IRT2d-blue>
-					<IRT3b-red type="double">0</IRT3b-red>
-					<IRT3k-red type="double">0</IRT3k-red>
-					<IRT3d-red type="double">0</IRT3d-red>
-					<IRT3b-green type="double">0</IRT3b-green>
-					<IRT3k-green type="double">0</IRT3k-green>
-					<IRT3d-green type="double">0</IRT3d-green>
-					<IRT3b-blue type="double">0</IRT3b-blue>
-					<IRT3k-blue type="double">0</IRT3k-blue>
-					<IRT3d-blue type="double">0</IRT3d-blue>
-					<IRT4b-red type="double">0</IRT4b-red>
-					<IRT4k-red type="double">0</IRT4k-red>
-					<IRT4d-red type="double">0</IRT4d-red>
-					<IRT4b-green type="double">0</IRT4b-green>
-					<IRT4k-green type="double">0</IRT4k-green>
-					<IRT4d-green type="double">0</IRT4d-green>
-					<IRT4b-blue type="double">0</IRT4b-blue>
-					<IRT4k-blue type="double">0</IRT4k-blue>
-					<IRT4d-blue type="double">0</IRT4d-blue>
-					<IRT5b-red type="double">0</IRT5b-red>
-					<IRT5k-red type="double">0</IRT5k-red>
-					<IRT5d-red type="double">0</IRT5d-red>
-					<IRT5b-green type="double">0</IRT5b-green>
-					<IRT5k-green type="double">0</IRT5k-green>
-					<IRT5d-green type="double">0</IRT5d-green>
-					<IRT5b-blue type="double">0</IRT5b-blue>
-					<IRT5k-blue type="double">0</IRT5k-blue>
-					<IRT5d-blue type="double">0</IRT5d-blue>
-					<IRT6b-red type="double">0</IRT6b-red>
-					<IRT6k-red type="double">0</IRT6k-red>
-					<IRT6d-red type="double">0</IRT6d-red>
-					<IRT6b-green type="double">0</IRT6b-green>
-					<IRT6k-green type="double">0</IRT6k-green>
-					<IRT6d-green type="double">0</IRT6d-green>
-					<IRT6b-blue type="double">0</IRT6b-blue>
-					<IRT6k-blue type="double">0</IRT6k-blue>
-					<IRT6d-blue type="double">0</IRT6d-blue>
-					<IRT7b-red type="double">0</IRT7b-red>
-					<IRT7k-red type="double">0</IRT7k-red>
-					<IRT7d-red type="double">0</IRT7d-red>
-					<IRT7b-green type="double">0</IRT7b-green>
-					<IRT7k-green type="double">0</IRT7k-green>
-					<IRT7d-green type="double">0</IRT7d-green>
-					<IRT7b-blue type="double">0</IRT7b-blue>
-					<IRT7k-blue type="double">0</IRT7k-blue>
-					<IRT7d-blue type="double">0</IRT7d-blue>
-					<IRT8b-red type="double">0</IRT8b-red>
-					<IRT8k-red type="double">0</IRT8k-red>
-					<IRT8d-red type="double">0</IRT8d-red>
-					<IRT8b-green type="double">0</IRT8b-green>
-					<IRT8k-green type="double">0</IRT8k-green>
-					<IRT8d-green type="double">0</IRT8d-green>
-					<IRT8b-blue type="double">0</IRT8b-blue>
-					<IRT8k-blue type="double">0</IRT8k-blue>
-					<IRT8d-blue type="double">0</IRT8d-blue>
-					<IRT9b-red type="double">0</IRT9b-red>
-					<IRT9k-red type="double">0</IRT9k-red>
-					<IRT9d-red type="double">0</IRT9d-red>
-					<IRT9b-green type="double">0</IRT9b-green>
-					<IRT9k-green type="double">0</IRT9k-green>
-					<IRT9d-green type="double">0</IRT9d-green>
-					<IRT9b-blue type="double">0</IRT9b-blue>
-					<IRT9k-blue type="double">0</IRT9k-blue>
-					<IRT9d-blue type="double">0</IRT9d-blue>
+					<I0-red type="float">1</I0-red>
+					<I0g-0b type="float">1</I0g-0b>
+					<I1-red type="float">0</I1-red>
+					<I1-green type="float">0</I1-green>
+					<I1-blue type="float">0</I1-blue>
+					<I2-red type="float">0</I2-red>
+					<I2g-2b type="float">0</I2g-2b>
+					<I3-red type="float">0</I3-red>
+					<I3g-3b type="float">0</I3g-3b>
+					<I4-red type="float">0</I4-red>
+					<I4-green type="float">0</I4-green>
+					<I4-blue type="float">0</I4-blue>
+					<I5-red type="float">0.077</I5-red>
+					<I5-green type="float">0.090</I5-green>
+					<I5-blue type="float">0.087</I5-blue>
+					<I6-red type="float">0</I6-red>
+					<I6g-6b type="float">0</I6g-6b>
+					<I7-red type="float">0</I7-red>
+					<I7-green type="float">0</I7-green>
+					<I7-blue type="float">0</I7-blue>
+					<I8-red type="float">0</I8-red>
+					<I8-green type="float">0</I8-green>
+					<I8-blue type="float">0</I8-blue>
+					<I9r-9g type="float">1.0</I9r-9g>
+					<IA-red type="float">0</IA-red>
+					<IA-green type="float">0</IA-green>
+					<IA-blue type="float">0</IA-blue>
+					<IBr-Bg type="float">0.90</IBr-Bg>
+					<IB-blue type="float">1.0</IB-blue>
+					<IU-red type="float">0</IU-red>
+					<IU-green type="float">0</IU-green>
+					<IU-blue type="float">0</IU-blue>
+					<IG1b-red type="float">0</IG1b-red>
+					<IG1k-red type="float">0</IG1k-red>
+					<IG1d-red type="float">0</IG1d-red>
+					<IG1b-green type="float">0</IG1b-green>
+					<IG1k-green type="float">0</IG1k-green>
+					<IG1d-green type="float">0</IG1d-green>
+					<IG1b-blue type="float">0</IG1b-blue>
+					<IG1k-blue type="float">0</IG1k-blue>
+					<IG1d-blue type="float">0</IG1d-blue>
+					<IG2b-red type="float">0</IG2b-red>
+					<IG2k-red type="float">0</IG2k-red>
+					<IG2d-red type="float">0</IG2d-red>
+					<IG2b-green type="float">0</IG2b-green>
+					<IG2k-green type="float">0</IG2k-green>
+					<IG2d-green type="float">0</IG2d-green>
+					<IG2b-blue type="float">0</IG2b-blue>
+					<IG2k-blue type="float">0</IG2k-blue>
+					<IG2d-blue type="float">0</IG2d-blue>
+					<IG3b-red type="float">0</IG3b-red>
+					<IG3k-red type="float">0</IG3k-red>
+					<IG3d-red type="float">0</IG3d-red>
+					<IG3b-green type="float">0</IG3b-green>
+					<IG3k-green type="float">0</IG3k-green>
+					<IG3d-green type="float">0</IG3d-green>
+					<IG3b-blue type="float">0</IG3b-blue>
+					<IG3k-blue type="float">0</IG3k-blue>
+					<IG3d-blue type="float">0</IG3d-blue>
+					<IG4b-red type="float">0</IG4b-red>
+					<IG4k-red type="float">0</IG4k-red>
+					<IG4d-red type="float">0</IG4d-red>
+					<IG4b-green type="float">0</IG4b-green>
+					<IG4k-green type="float">0</IG4k-green>
+					<IG4d-green type="float">0</IG4d-green>
+					<IG4b-blue type="float">0</IG4b-blue>
+					<IG4k-blue type="float">0</IG4k-blue>
+					<IG4d-blue type="float">0</IG4d-blue>
+					<ILT1b-red type="float">0</ILT1b-red>
+					<ILT1k-red type="float">0</ILT1k-red>
+					<ILT1d-red type="float">0</ILT1d-red>
+					<ILT1b-green type="float">0</ILT1b-green>
+					<ILT1k-green type="float">0</ILT1k-green>
+					<ILT1d-green type="float">0</ILT1d-green>
+					<ILT1b-blue type="float">0</ILT1b-blue>
+					<ILT1k-blue type="float">0</ILT1k-blue>
+					<ILT1d-blue type="float">0</ILT1d-blue>
+					<ILT2b-red type="float">0</ILT2b-red>
+					<ILT2k-red type="float">0</ILT2k-red>
+					<ILT2d-red type="float">0</ILT2d-red>
+					<ILT2b-green type="float">0</ILT2b-green>
+					<ILT2k-green type="float">0</ILT2k-green>
+					<ILT2d-green type="float">0</ILT2d-green>
+					<ILT2b-blue type="float">0</ILT2b-blue>
+					<ILT2k-blue type="float">0</ILT2k-blue>
+					<ILT2d-blue type="float">0</ILT2d-blue>
+					<ILT6b-red type="float">0</ILT6b-red>
+					<ILT6k-red type="float">0</ILT6k-red>
+					<ILT6d-red type="float">0</ILT6d-red>
+					<ILT6b-green type="float">0</ILT6b-green>
+					<ILT6k-green type="float">0</ILT6k-green>
+					<ILT6d-green type="float">0</ILT6d-green>
+					<ILT6b-blue type="float">0</ILT6b-blue>
+					<ILT6k-blue type="float">0</ILT6k-blue>
+					<ILT6d-blue type="float">0</ILT6d-blue>
+					<ILT7b-red type="float">0</ILT7b-red>
+					<ILT7k-red type="float">0</ILT7k-red>
+					<ILT7d-red type="float">0</ILT7d-red>
+					<ILT7b-green type="float">0</ILT7b-green>
+					<ILT7k-green type="float">0</ILT7k-green>
+					<ILT7d-green type="float">0</ILT7d-green>
+					<ILT7b-blue type="float">0</ILT7b-blue>
+					<ILT7k-blue type="float">0</ILT7k-blue>
+					<ILT7d-blue type="float">0</ILT7d-blue>
+					<ILT8b-red type="float">0</ILT8b-red>
+					<ILT8k-red type="float">0</ILT8k-red>
+					<ILT8d-red type="float">0</ILT8d-red>
+					<ILT8b-green type="float">0</ILT8b-green>
+					<ILT8k-green type="float">0</ILT8k-green>
+					<ILT8d-green type="float">0</ILT8d-green>
+					<ILT8b-blue type="float">0</ILT8b-blue>
+					<ILT8k-blue type="float">0</ILT8k-blue>
+					<ILT8d-blue type="float">0</ILT8d-blue>
+					<ILT9b-red type="float">0</ILT9b-red>
+					<ILT9k-red type="float">0</ILT9k-red>
+					<ILT9d-red type="float">0</ILT9d-red>
+					<ILT9b-green type="float">0</ILT9b-green>
+					<ILT9k-green type="float">0</ILT9k-green>
+					<ILT9d-green type="float">0</ILT9d-green>
+					<ILT9b-blue type="float">0</ILT9b-blue>
+					<ILT9k-blue type="float">0</ILT9k-blue>
+					<ILT9d-blue type="float">0</ILT9d-blue>
+					<IRT1b-red type="float">0</IRT1b-red>
+					<IRT1k-red type="float">0</IRT1k-red>
+					<IRT1d-red type="float">0</IRT1d-red>
+					<IRT1b-green type="float">0</IRT1b-green>
+					<IRT1k-green type="float">0</IRT1k-green>
+					<IRT1d-green type="float">0</IRT1d-green>
+					<IRT1b-blue type="float">0</IRT1b-blue>
+					<IRT1k-blue type="float">0</IRT1k-blue>
+					<IRT1d-blue type="float">0</IRT1d-blue>
+					<IRT2b-red type="float">0</IRT2b-red>
+					<IRT2k-red type="float">0</IRT2k-red>
+					<IRT2d-red type="float">0</IRT2d-red>
+					<IRT2b-green type="float">0</IRT2b-green>
+					<IRT2k-green type="float">0</IRT2k-green>
+					<IRT2d-green type="float">0</IRT2d-green>
+					<IRT2b-blue type="float">0</IRT2b-blue>
+					<IRT2k-blue type="float">0</IRT2k-blue>
+					<IRT2d-blue type="float">0</IRT2d-blue>
+					<IRT3b-red type="float">0</IRT3b-red>
+					<IRT3k-red type="float">0</IRT3k-red>
+					<IRT3d-red type="float">0</IRT3d-red>
+					<IRT3b-green type="float">0</IRT3b-green>
+					<IRT3k-green type="float">0</IRT3k-green>
+					<IRT3d-green type="float">0</IRT3d-green>
+					<IRT3b-blue type="float">0</IRT3b-blue>
+					<IRT3k-blue type="float">0</IRT3k-blue>
+					<IRT3d-blue type="float">0</IRT3d-blue>
+					<IRT4b-red type="float">0</IRT4b-red>
+					<IRT4k-red type="float">0</IRT4k-red>
+					<IRT4d-red type="float">0</IRT4d-red>
+					<IRT4b-green type="float">0</IRT4b-green>
+					<IRT4k-green type="float">0</IRT4k-green>
+					<IRT4d-green type="float">0</IRT4d-green>
+					<IRT4b-blue type="float">0</IRT4b-blue>
+					<IRT4k-blue type="float">0</IRT4k-blue>
+					<IRT4d-blue type="float">0</IRT4d-blue>
+					<IRT5b-red type="float">0</IRT5b-red>
+					<IRT5k-red type="float">0</IRT5k-red>
+					<IRT5d-red type="float">0</IRT5d-red>
+					<IRT5b-green type="float">0</IRT5b-green>
+					<IRT5k-green type="float">0</IRT5k-green>
+					<IRT5d-green type="float">0</IRT5d-green>
+					<IRT5b-blue type="float">0</IRT5b-blue>
+					<IRT5k-blue type="float">0</IRT5k-blue>
+					<IRT5d-blue type="float">0</IRT5d-blue>
+					<IRT6b-red type="float">0</IRT6b-red>
+					<IRT6k-red type="float">0</IRT6k-red>
+					<IRT6d-red type="float">0</IRT6d-red>
+					<IRT6b-green type="float">0</IRT6b-green>
+					<IRT6k-green type="float">0</IRT6k-green>
+					<IRT6d-green type="float">0</IRT6d-green>
+					<IRT6b-blue type="float">0</IRT6b-blue>
+					<IRT6k-blue type="float">0</IRT6k-blue>
+					<IRT6d-blue type="float">0</IRT6d-blue>
+					<IRT7b-red type="float">0</IRT7b-red>
+					<IRT7k-red type="float">0</IRT7k-red>
+					<IRT7d-red type="float">0</IRT7d-red>
+					<IRT7b-green type="float">0</IRT7b-green>
+					<IRT7k-green type="float">0</IRT7k-green>
+					<IRT7d-green type="float">0</IRT7d-green>
+					<IRT7b-blue type="float">0</IRT7b-blue>
+					<IRT7k-blue type="float">0</IRT7k-blue>
+					<IRT7d-blue type="float">0</IRT7d-blue>
+					<IRT8b-red type="float">0</IRT8b-red>
+					<IRT8k-red type="float">0</IRT8k-red>
+					<IRT8d-red type="float">0</IRT8d-red>
+					<IRT8b-green type="float">0</IRT8b-green>
+					<IRT8k-green type="float">0</IRT8k-green>
+					<IRT8d-green type="float">0</IRT8d-green>
+					<IRT8b-blue type="float">0</IRT8b-blue>
+					<IRT8k-blue type="float">0</IRT8k-blue>
+					<IRT8d-blue type="float">0</IRT8d-blue>
+					<IRT9b-red type="float">0</IRT9b-red>
+					<IRT9k-red type="float">0</IRT9k-red>
+					<IRT9d-red type="float">0</IRT9d-red>
+					<IRT9b-green type="float">0</IRT9b-green>
+					<IRT9k-green type="float">0</IRT9k-green>
+					<IRT9d-green type="float">0</IRT9d-green>
+					<IRT9b-blue type="float">0</IRT9b-blue>
+					<IRT9k-blue type="float">0</IRT9k-blue>
+					<IRT9d-blue type="float">0</IRT9d-blue>
 				</emission>
 				<specular>
-					<interior type="double">0</interior>
-					<IG1-specular type="double">0</IG1-specular>
-					<IG2-specular type="double">0</IG2-specular>
-					<IG3-specular type="double">0</IG3-specular>
-					<IG4-specular type="double">0</IG4-specular>
-					<ILT1-specular type="double">0</ILT1-specular>
-					<ILT2-specular type="double">0</ILT2-specular>
-					<ILT6-specular type="double">0</ILT6-specular>
-					<ILT7-specular type="double">0</ILT7-specular>
-					<ILT8-specular type="double">0</ILT8-specular>
-					<ILT9-specular type="double">0</ILT9-specular>
-					<IRT1-specular type="double">0</IRT1-specular>
-					<IRT2-specular type="double">0</IRT2-specular>
-					<IRT3-specular type="double">0</IRT3-specular>
-					<IRT4-specular type="double">0</IRT4-specular>
-					<IRT5-specular type="double">0</IRT5-specular>
-					<IRT6-specular type="double">0</IRT6-specular>
-					<IRT7-specular type="double">0</IRT7-specular>
-					<IRT8-specular type="double">0</IRT8-specular>
-					<IRT9-specular type="double">0</IRT9-specular>
+					<interior type="float">0</interior>
+					<IG1-specular type="float">0</IG1-specular>
+					<IG2-specular type="float">0</IG2-specular>
+					<IG3-specular type="float">0</IG3-specular>
+					<IG4-specular type="float">0</IG4-specular>
+					<ILT1-specular type="float">0</ILT1-specular>
+					<ILT2-specular type="float">0</ILT2-specular>
+					<ILT6-specular type="float">0</ILT6-specular>
+					<ILT7-specular type="float">0</ILT7-specular>
+					<ILT8-specular type="float">0</ILT8-specular>
+					<ILT9-specular type="float">0</ILT9-specular>
+					<IRT1-specular type="float">0</IRT1-specular>
+					<IRT2-specular type="float">0</IRT2-specular>
+					<IRT3-specular type="float">0</IRT3-specular>
+					<IRT4-specular type="float">0</IRT4-specular>
+					<IRT5-specular type="float">0</IRT5-specular>
+					<IRT6-specular type="float">0</IRT6-specular>
+					<IRT7-specular type="float">0</IRT7-specular>
+					<IRT8-specular type="float">0</IRT8-specular>
+					<IRT9-specular type="float">0</IRT9-specular>
 				</specular>
 			</lighting>
 			<position>
 				<altitude-agl-ft type="double">0</altitude-agl-ft>
 				<crash-wow type="bool">false</crash-wow>
-				<hover-rise type="double">0</hover-rise>		<!-- yoke movement -->
+				<hover-rise type="float">0</hover-rise>		<!-- yoke movement -->
 				<landing-wow type="bool">false</landing-wow>
 				<shadow-alt-agl-ft type="double">0</shadow-alt-agl-ft>
-				<skid-wow type="double">0</skid-wow>
+				<skid-wow type="float">0</skid-wow>
 				<squeal-wow type="bool">false</squeal-wow>
 			</position>
 			<shadow type="bool">true</shadow>	<!-- faster than a 3d rendered shadow -->
 			<sound>
-				<door-direction type="double">0</door-direction>	<!-- crude way to play correct sounds for open and close -->
-				<door0-volume type="double">0</door0-volume>
-				<door1-volume type="double">0</door1-volume>
-				<door2-volume type="double">0</door2-volume>
-				<door3-volume type="double">0</door3-volume>
-				<door4-volume type="double">0</door4-volume>
-				<door5-volume type="double">0</door5-volume>
-				<engines-volume-level type="double">0</engines-volume-level>
+				<door-direction type="float">0</door-direction>	<!-- crude way to play correct sounds for open and close -->
+				<door0-volume type="float">0</door0-volume>
+				<door1-volume type="float">0</door1-volume>
+				<door2-volume type="float">0</door2-volume>
+				<door3-volume type="float">0</door3-volume>
+				<door4-volume type="float">0</door4-volume>
+				<door5-volume type="float">0</door5-volume>
+				<engines-volume-level type="float">0</engines-volume-level>
 				<hatch0-trigger type="bool">false</hatch0-trigger>
 				<hatch1-trigger type="bool">false</hatch1-trigger>
 				<hatch5-trigger type="bool">false</hatch5-trigger>
-				<pitch-level type="double">0</pitch-level>
+				<pitch-level type="float">0</pitch-level>
 			</sound>
 			<systems>
 				<nacelle-L-venting type="bool">false</nacelle-L-venting>
 				<nacelle-R-venting type="bool">false</nacelle-R-venting>
 				<power-switch type="bool">true</power-switch>		<!-- default: power up at startup -->
 				<reactor-request type="bool">true</reactor-request>
-				<reactor-level type="double">1</reactor-level>
+				<reactor-level type="int">1</reactor-level>
 				<wave1-request type="bool">true</wave1-request>
-				<wave1-level type="double">1</wave1-level>
+				<wave1-level type="int">1</wave1-level>
 				<wave2-request type="bool">false</wave2-request>
 			</systems>
 		</bluebird>
@@ -695,118 +695,118 @@
 
 		<material>
 			<instruments>
-				<factor type="double">0</factor>
+				<factor type="float">0</factor>
 			</instruments>
 		</material>
 
 		<npc n="0">
 			<limb n="0">
-				<y-deg type="double">0</y-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 			<limb n="1">
-				<y-deg type="double">0</y-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 			<limb n="2">
-				<y-deg type="double">0</y-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 			<limb n="3">
-				<x-deg type="double">0</x-deg>
-				<y-deg type="double">0</y-deg>
-				<z-deg type="double">0</z-deg>
+				<x-deg type="float">0</x-deg>
+				<y-deg type="float">0</y-deg>
+				<z-deg type="float">0</z-deg>
 			</limb>
 			<limb n="4">
-				<y-deg type="double">0</y-deg>
-				<z-deg type="double">0</z-deg>
+				<y-deg type="float">0</y-deg>
+				<z-deg type="float">0</z-deg>
 			</limb>
 			<limb n="5">
-				<x-deg type="double">0</x-deg>
-				<y-deg type="double">0</y-deg>
+				<x-deg type="float">0</x-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 			<limb n="6">
-				<x-deg type="double">0</x-deg>
-				<y-deg type="double">0</y-deg>
-				<z-deg type="double">0</z-deg>
+				<x-deg type="float">0</x-deg>
+				<y-deg type="float">0</y-deg>
+				<z-deg type="float">0</z-deg>
 			</limb>
 			<limb n="7">
-				<y-deg type="double">0</y-deg>
-				<z-deg type="double">0</z-deg>
+				<y-deg type="float">0</y-deg>
+				<z-deg type="float">0</z-deg>
 			</limb>
 			<limb n="8">
-				<x-deg type="double">0</x-deg>
-				<y-deg type="double">0</y-deg>
+				<x-deg type="float">0</x-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 			<limb n="9">
-				<y-deg type="double">0</y-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 			<limb n="10">
-				<y-deg type="double">0</y-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 			<limb n="11">
-				<y-deg type="double">0</y-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 			<limb n="12">
-				<y-deg type="double">0</y-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 			<limb n="13">
-				<y-deg type="double">0</y-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 			<limb n="14">
-				<y-deg type="double">0</y-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 		</npc>
 		<npc n="1">
 			<limb n="0">
-				<y-deg type="double">0</y-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 			<limb n="1">
-				<y-deg type="double">0</y-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 			<limb n="2">
-				<y-deg type="double">0</y-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 			<limb n="3">
-				<x-deg type="double">0</x-deg>
-				<y-deg type="double">0</y-deg>
-				<z-deg type="double">0</z-deg>
+				<x-deg type="float">0</x-deg>
+				<y-deg type="float">0</y-deg>
+				<z-deg type="float">0</z-deg>
 			</limb>
 			<limb n="4">
-				<y-deg type="double">0</y-deg>
-				<z-deg type="double">0</z-deg>
+				<y-deg type="float">0</y-deg>
+				<z-deg type="float">0</z-deg>
 			</limb>
 			<limb n="5">
-				<x-deg type="double">0</x-deg>
-				<y-deg type="double">0</y-deg>
+				<x-deg type="float">0</x-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 			<limb n="6">
-				<x-deg type="double">0</x-deg>
-				<y-deg type="double">0</y-deg>
-				<z-deg type="double">0</z-deg>
+				<x-deg type="float">0</x-deg>
+				<y-deg type="float">0</y-deg>
+				<z-deg type="float">0</z-deg>
 			</limb>
 			<limb n="7">
-				<y-deg type="double">0</y-deg>
-				<z-deg type="double">0</z-deg>
+				<y-deg type="float">0</y-deg>
+				<z-deg type="float">0</z-deg>
 			</limb>
 			<limb n="8">
-				<x-deg type="double">0</x-deg>
-				<y-deg type="double">0</y-deg>
+				<x-deg type="float">0</x-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 			<limb n="9">
-				<y-deg type="double">0</y-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 			<limb n="10">
-				<y-deg type="double">0</y-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 			<limb n="11">
-				<y-deg type="double">0</y-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 			<limb n="12">
-				<y-deg type="double">0</y-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 			<limb n="13">
-				<y-deg type="double">0</y-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 			<limb n="14">
-				<y-deg type="double">0</y-deg>
+				<y-deg type="float">0</y-deg>
 			</limb>
 		</npc>
 	</model>
@@ -916,7 +916,7 @@
 		</key>
 	</help>
 
-	<lon-lat-format type="double">0</lon-lat-format>
+	<lon-lat-format type="int">0</lon-lat-format>
 
 	<orientation>
 		<ground-pitch type="double">0.0</ground-pitch>
@@ -944,7 +944,7 @@
 			<x-offset-m>0.0</x-offset-m>
 			<y-offset-m>1.47</y-offset-m>
 			<z-offset-m>-7.35</z-offset-m>
-			<pitch-offset-deg>0.0</pitch-offset-deg>
+			<pitch-offset-deg>-2.0</pitch-offset-deg>
 			<limits>
 				<enabled type="bool">false</enabled>
 			</limits>
@@ -975,9 +975,9 @@
 
 	<walker>
 		<outside type="bool">false</outside>
-		<walking type="double">0</walking>
+		<walking type="int">0</walking>
 		<walking-momentum type="bool">false</walking-momentum>
-		<speed-mps type="double">0.9</speed-mps>
+		<speed-mps type="float">0.9</speed-mps>
 		<latitude-deg type="double">0.0</latitude-deg>
 		<longitude-deg type="double">0.0</longitude-deg>
 		<altitude-ft type="double">0.0</altitude-ft>
@@ -1001,9 +1001,9 @@
 		<parachute-opened-sec type="double">0.0</parachute-opened-sec>
 		<key-triggers>
 			<outside-toggle type="bool">false</outside-toggle>
-			<forward type="double">0</forward>
-			<slide type="double">0</slide>
-			<speed type="double">0</speed>
+			<forward type="int">0</forward>
+			<slide type="int">0</slide>
+			<speed type="float">0</speed>
 		</key-triggers>
 	</walker>
  </sim>
@@ -1023,7 +1023,7 @@
 
  <controls>
 	<engines>
-		<countergrav-factor type="double">6</countergrav-factor>
+		<countergrav-factor type="int">6</countergrav-factor>
 	</engines>
 	<lighting>
 		<alert type="bool">false</alert>
@@ -1046,13 +1046,13 @@
 
  <gear>
 	<gear>
-		<position-norm type="double">1</position-norm>
-		<position-side-pads type="double">1</position-side-pads>
-		<last-request type="double">1</last-request>
+		<position-norm type="float">1</position-norm>
+		<position-side-pads type="float">1</position-side-pads>
+		<last-request type="int">1</last-request>
 		<!-- hint for the route manager -->
 		<wow type="bool">false</wow>
 	</gear>
-	<gear-agl-m type="double">2.47</gear-agl-m>
+	<gear-agl-m type="float">2.47</gear-agl-m>
  </gear>
 
  <input>
@@ -1340,9 +1340,9 @@
 		</config>
 	</attitude-indicator>
 	<digital>
-		<altitude-mode type="double">0</altitude-mode>
-		<heading-mode type="double">0</heading-mode>
-		<velocity-mode type="double">1</velocity-mode>
+		<altitude-mode type="int">0</altitude-mode>
+		<heading-mode type="int">0</heading-mode>
+		<velocity-mode type="int">1</velocity-mode>
 	</digital>
 	<nav n="0">
 		<frequencies>
@@ -1364,13 +1364,13 @@
 		<t1L-3 type="string">POWERING UP</t1L-3>
 		<t1L-8 type="string">1458 KNOTS</t1L-8>
 		<t1L-9 type="string">STANDARD</t1L-9>
-		<t1L-10 type="double">0</t1L-10>
+		<t1L-10 type="int">0</t1L-10>
 		<t1L-20 type="string"> </t1L-20>
 		<t1L-21 type="string"> </t1L-21>
 		<t1L-22 type="string"> </t1L-22>
 		<t1L-23 type="string"> </t1L-23>
 		<t1L-24 type="string"> </t1L-24>
-		<t1R-15 type="string"> </t1R-15>
+		<ap1-callsign type="string"> </ap1-callsign>
 		<t1R-16 type="string">NOT AVAILABLE IN FlightGear 0.9.10 </t1R-16>
 		<t1R-17a type="double">0</t1R-17a>
 		<t1R-17b type="double">0</t1R-17b>
@@ -1421,6 +1421,7 @@
 		<t2L-16b type="string"> </t2L-16b>
 		<t2L-16c type="string"> </t2L-16c>
 		<enabled-2L type="bool">false</enabled-2L>
+		<refresh-2L-sec type="float">1.0</refresh-2L-sec>
 		<t2R-1 type="string"> </t2R-1>
 		<t2R-2 type="string"> </t2R-2>
 		<t2R-3 type="string"> </t2R-3>
@@ -1528,6 +1529,34 @@
 		<t5R-24 type="string"> </t5R-24>
 		<enabled-5R type="bool">false</enabled-5R>
 	</display-screens>
+	<ai-vor>
+		<callsign type="string"> </callsign>
+		<distance-m type="float">0.0</distance-m>
+		<elevation-deg type="float">0.0</elevation-deg>
+		<heading-deg type="float">0.0</heading-deg>
+		<mode type="int">0</mode>
+		<ap1-distance-m type="float">0.0</ap1-distance-m>
+		<ap1-elevation-deg type="float">0.0</ap1-elevation-deg>
+		<ap1-heading-offset type="float">0.0</ap1-heading-offset>
+		<ap1-to type="float">1</ap1-to>
+		<ai1-callsign type="string"> </ai1-callsign>
+		<ai1-distance-m type="float">-999999</ai1-distance-m>
+		<ai1-elevation-deg type="float">-99.0</ai1-elevation-deg>
+		<ai1-heading-offset type="float">-1.0</ai1-heading-offset>
+		<ai-size type="int">0</ai-size>
+		<ai1-to type="float">1</ai1-to>
+		<mp1-callsign type="string"> </mp1-callsign>
+		<mp1-distance-m type="float">-999999</mp1-distance-m>
+		<mp1-elevation-deg type="float">-99.0</mp1-elevation-deg>
+		<mp1-heading-offset type="float">-1.0</mp1-heading-offset>
+		<mp-size type="int">0</mp-size>
+		<mp1-to type="float">1</mp1-to>
+		<ap2-callsign type="string"> </ap2-callsign>
+		<ap2-distance-m type="float">0.0</ap2-distance-m>
+		<ap2-elevation-deg type="float">-99.0</ap2-elevation-deg>
+		<ap2-heading-offset type="float">0.0</ap2-heading-offset>
+		<ap2-to type="float">1</ap2-to>
+	</ai-vor>
  </instrumentation>
 
  <logging>

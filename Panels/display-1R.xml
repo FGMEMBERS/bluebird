@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 7.0  ==-->
+<!--== Bluebird Explorer Hovercraft  version 8.4  ==-->
 
 <PropertyList>
 	<name>screen messages text 1R</name>
@@ -1109,7 +1109,7 @@ NEAREST AIRPORT</text>
 					<chunks>
 						<chunk>
 							<type>text-value</type>
-							<property>instrumentation/display-screens/t1R-15</property>
+							<property>instrumentation/display-screens/ap1-callsign</property>
 						</chunk>
 					</chunks>
 					<transformations>

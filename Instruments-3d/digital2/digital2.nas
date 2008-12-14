@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 7.2 =====
+# ===== Bluebird Explorer Hovercraft  version 8.6 =====
 
 # instrumentation ===================================================
 var lat_whole = props.globals.getNode("instrumentation/digital/lat-whole", 1);
@@ -50,14 +50,14 @@ instrumentation_update = func {
 		}
 		#===== heading digital module ===============================
 		var hm = head_mode.getValue();
-		var xx = getprop("orientation/heading-deg");
-		if (xx < -0.5) { xx += 360; }
-		if (xx > 359.5) { xx -= 360; }
+		var xx = getprop("orientation/heading-deg") * 10.0;
+		if (xx < -0.5) { xx += 3600.0; }
+		if (xx > 3599.5) { xx -= 3600.0; }
 		heading_whole.setValue(int(xx + 0.5));
-		var xx = getprop("orientation/pitch-deg");
+		var xx = getprop("orientation/pitch-deg") * 10.0;
 		if (hm == 1) {
 			if (xx < -0.5) { 
-				xx += 360.5; 
+				xx += 3600.5; 
 			} else {
 				xx += 0.5;
 			}

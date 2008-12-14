@@ -1,5 +1,5 @@
 # ===== common base for walking functions   version 2.8       =====
-# ===== plus coordinates for Bluebird Explorer Hovercraft 8.2 =====
+# ===== plus coordinates for Bluebird Explorer Hovercraft 8.6 =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
@@ -265,7 +265,7 @@ var main_loop = func {
 		var t = elapsed_sec - measure_sec;
 		if (t >= 0.991) {
 			var posz1 = getprop("sim/walker/altitude-ft");
-			print(sprintf("========= at %6.2f : %3.0f %3.0f %3.0f : Z-axis %6.2f ft / %6.4f sec = %6.2f mps",elapsed_sec,measure_main_count,measure_walk_count,measure_extmov_count,(measure_alt-posz1),t,((measure_alt-posz1)*0.3028/t)));
+			print(sprintf("========= at %6.2f : %3i %3i %3i : Z-axis %6.2f ft / %6.4f sec = %6.2f mps",elapsed_sec,measure_main_count,measure_walk_count,measure_extmov_count,(measure_alt-posz1),t,((measure_alt-posz1)*0.3028/t)));
 			measure_alt = posz1;
 			measure_sec = elapsed_sec;
 			measure_main_count = 0;

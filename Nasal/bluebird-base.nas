@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 8.3 common base =====
+# ===== Bluebird Explorer Hovercraft  version 8.6 common base =====
 
 # Add second popupTip to avoid being overwritten by primary joystick messages ==
 var tipArg2 = props.Node.new({ "dialog-name" : "PopTip2" });
@@ -79,6 +79,7 @@ var joystick_elevator = props.globals.getNode("input/joysticks/js/axis[1]/bindin
 var vert_factor = 0.04;
 var up_dir = 0;
 var up_watch = 0;
+var joystick_collective = props.globals.getNode("controls/engines/countergrav-factor", 1);
 
 # ground detection and adjustment -----------------------------------
 var altitude_ft_Node = props.globals.getNode("position/altitude-ft", 1);
@@ -612,7 +613,7 @@ setlistener("controls/engines/countergrav-factor", func {
 });
 
 setlistener("sim/model/bluebird/systems/reactor-request", func {
-	reactor_request = getprop("sim/model/bluebird/systems/reactor-request");
+	reactor_request = int(getprop("sim/model/bluebird/systems/reactor-request"));
 });
 
 setlistener("sim/model/bluebird/systems/reactor-level", func {
@@ -1033,6 +1034,7 @@ setlistener("sim/model/bluebird/systems/nacelle-L-venting", func {
 			setprop ("ai/submodels/engine-L-flaring", "true");
 			setprop ("ai/submodels/engine-L-venting", "true");
 			setprop ("sim/model/bluebird/systems/nacelle-L-venting", "false");
+			nacelle_L_venting = 0;
 		}
 	} else {
 		setprop ("sim/model/bluebird/systems/nacelle-L-venting", "false");
@@ -1047,6 +1049,7 @@ setlistener("sim/model/bluebird/systems/nacelle-R-venting", func {
 			setprop ("ai/submodels/engine-R-flaring", "true");
 			setprop ("ai/submodels/engine-R-venting", "true");
 			setprop ("sim/model/bluebird/systems/nacelle-R-venting", "false");
+			nacelle_R_venting = 0;
 		}
 	} else {
 		setprop ("sim/model/bluebird/systems/nacelle-R-venting", "false");
@@ -1261,7 +1264,7 @@ var panel_lighting_update = func {
 				button_G1 = 3;
 			}
 			button_G3 = unlit_lighting_base;
-		} elsif (gear_position == 1 or gear_position == 0.41) {
+		} elsif (gear_position == 1 or (gear_position > 0.409 and gear_position < 0.411)) {
 			if (wheel_position < 0.5) {	# skid-plate down = 3blue
 				button_G3 = 4;
 			} else {			# wheels down = 3green
@@ -1961,7 +1964,7 @@ var settle_to_level = func {
 
 var check_damage = func (dmg_add) {
 	var dmg = getprop("sim/model/bluebird/damage/hits-counter") + dmg_add;
-	setprop("sim/model/bluebird/damage/hits-counter", dmg);
+	setprop("sim/model/bluebird/damage/hits-counter", int(dmg));
 	if (dmg > destruction_threshold) { 
 		# set condition-red damage
 		alert_switch_Node.setBoolValue(1);
@@ -1976,9 +1979,11 @@ var check_damage = func (dmg_add) {
 			zNoseNode.setValue(2.4);
 			setprop("sim/model/bluebird/systems/nacelle-L-venting", "true");
 			setprop("sim/model/bluebird/systems/nacelle-R-venting", "true");
+			setprop("autopilot/locks/altitude", "");
+			setprop("autopilot/locks/heading", "");
 			set_cockpit(cockpitView);
 			interior_lighting_update();
-			if (int(100 * rand()) > 80 or dmg > (destruction_threshold * 1.5)) {  # 80% chance a nacelle is destroyed
+			if (int(100 * rand()) > 70 or dmg > (destruction_threshold * 1.5)) {  # 30% chance a nacelle is destroyed
 				setprop("sim/model/bluebird/components/nacelle-L", 0);
 				setprop("sim/model/bluebird/components/engine-cover1", 0);
 				setprop("sim/model/bluebird/systems/nacelle-L-venting", "false");
@@ -1989,6 +1994,8 @@ var check_damage = func (dmg_add) {
 					setprop("sim/model/bluebird/systems/nacelle-R-venting", "false");
 					setprop("ai/submodels/engine-R-flaring", "true");
 				}
+			} elsif (dmg > (destruction_threshold * 0.7)) {
+				setprop("ai/submodels/engine-L-flaring", "true");
 			}
 		}
 	}
@@ -2572,7 +2579,7 @@ var update_main = func {
 		} elsif (a9 < 0) {
 			a9 = 0;
 		}
-		setprop("instrumentation/display-screens/t1L-10", a9);
+		setprop("instrumentation/display-screens/t1L-10", int(a9));
 		var a7 = getprop("sim/model/bluebird/lighting/wave-guide-halo-spin");
 		var a8 = a7 + (airspeed * 0.00017);
 		if (a8 < 0) {
@@ -2590,6 +2597,19 @@ var update_main = func {
 }
 
 # VTOL counter-grav functions ---------------------------------------
+
+controls.aileronTrim = func(at_d) {
+	if (!at_d) {
+		return;
+	} else {
+		var js1collective = abs(joystick_collective.getValue());
+		if (at_d < 0 and js1collective >= 1) {
+			joystick_collective.setValue(js1collective - 1);
+		} elsif (at_d <= 15) {
+			joystick_collective.setValue(js1collective + 1);
+		}
+	}
+}
 
 controls.elevatorTrim = func(et_d) {
 	if (!et_d) {
@@ -2864,9 +2884,9 @@ setlistener("sim/model/bluebird/crew/cockpit-position", func {
 	cockpitView = getprop("sim/model/bluebird/crew/cockpit-position");
 	var move_chair = [0,1,0,0,1];
 	if (!getprop("sim/model/bluebird/crew/pilot/visible") and move_chair[cockpitView]) {
-		setprop("sim/model/bluebird/crew/pilot/chair-back", 1.0);
+		setprop("sim/model/bluebird/crew/pilot/chair-back", 1);
 	} else {
-		setprop("sim/model/bluebird/crew/pilot/chair-back", 0.0);
+		setprop("sim/model/bluebird/crew/pilot/chair-back", 0);
 	}
 });
 
@@ -2959,6 +2979,9 @@ var cycle_cockpit = func(cc_i) {
 		hViewNode.setValue(0.0);
 		setprop("sim/current-view/goal-pitch-offset-deg", 0.0);
 		setprop("sim/current-view/goal-roll-offset-deg", 0.0);
+	}
+	if (cockpitView == 0) {
+		setprop("sim/current-view/goal-pitch-offset-deg", -2.0);
 	}
 }
 

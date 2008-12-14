@@ -2,7 +2,7 @@ AC3Db
 MATERIAL "WHITE_lit" rgb 1 1 1  amb 0.2 0.2 0.2  emis 0.9 0.9 0.9  spec 0 0 0  shi 32  trans 0
 MATERIAL "metal" rgb 1 1 1  amb 0.2 0.2 0.2  emis 0 0 0  spec 1 1 1  shi 32  trans 0
 OBJECT world
-kids 13
+kids 17
 OBJECT poly
 name "heading.frame"
 data 8
@@ -129,10 +129,10 @@ refs 4
 SURF 0x20
 mat 0
 refs 4
-24 0.989091 0.989046
-25 0.010968 0.989046
-22 0.010968 0.794556
-23 0.989091 0.794556
+24 0.13878 0.967932
+25 0.040967 0.967932
+22 0.040967 0.948483
+23 0.13878 0.948483
 SURF 0x20
 mat 1
 refs 4
@@ -230,6 +230,7 @@ data 8
 Mesh.020
 texture "digital-hi.rgb"
 texrep 1.0 1.0
+crease 30.0
 numvert 4
 0.005498 -0.014298 -0.05729
 0.005498 -0.014298 -0.033869
@@ -250,6 +251,7 @@ data 8
 Mesh.076
 texture "digital-hi.rgb"
 texrep 1.0 1.0
+crease 30.0
 numvert 4
 0.004082 0.004736 0.035026
 0.004082 -0.010437 0.035061
@@ -270,6 +272,7 @@ data 8
 Mesh.077
 texture "digital-hi.rgb"
 texrep 1.0 1.0
+crease 30.0
 numvert 4
 0.004082 0.004736 0.024232
 0.004082 -0.010437 0.024214
@@ -290,6 +293,7 @@ data 8
 Mesh.078
 texture "digital-hi.rgb"
 texrep 1.0 1.0
+crease 30.0
 numvert 4
 0.004082 0.004736 0.014012
 0.004082 -0.010437 0.013994
@@ -305,11 +309,33 @@ refs 4
 1 0.09375 0.003906
 kids 0
 OBJECT poly
+name "head.104"
+data 8
+Mesh.130
+texture "digital-hi.rgb"
+texrep 1.0 1.0
+crease 30.0
+numvert 4
+0.004082 0.000184 0.003861
+0.004082 -0.010437 0.003848
+0.004082 -0.010437 0.010001
+0.004082 0.000184 0.010012
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+0 0.09375 0.121094
+3 0.019531 0.121094
+2 0.019531 0.003906
+1 0.09375 0.003906
+kids 0
+OBJECT poly
 name "head.minus"
 data 8
 Mesh.083
 texture "digital-hi.rgb"
 texrep 1.0 1.0
+crease 30.0
 numvert 4
 0.004082 0.004736 -0.018861
 0.004082 -0.010437 -0.018879
@@ -330,6 +356,7 @@ data 8
 Mesh.080
 texture "digital-hi.rgb"
 texrep 1.0 1.0
+crease 30.0
 numvert 4
 0.004082 0.004736 -0.018012
 0.004082 -0.010437 -0.01803
@@ -350,6 +377,7 @@ data 8
 Mesh.081
 texture "digital-hi.rgb"
 texrep 1.0 1.0
+crease 30.0
 numvert 4
 0.004082 0.004736 -0.028883
 0.004082 -0.010437 -0.028901
@@ -370,6 +398,7 @@ data 8
 Mesh.082
 texture "digital-hi.rgb"
 texrep 1.0 1.0
+crease 30.0
 numvert 4
 0.004082 0.004736 -0.03029
 0.004082 -0.010437 -0.030309
@@ -385,11 +414,33 @@ refs 4
 2 0.09375 0.003906
 kids 0
 OBJECT poly
+name "head.108"
+data 8
+Mesh.131
+texture "digital-hi.rgb"
+texrep 1.0 1.0
+crease 30.0
+numvert 4
+0.004082 0.000184 -0.049933
+0.004082 -0.010437 -0.049946
+0.004082 -0.010437 -0.043793
+0.004082 0.000184 -0.043782
+numsurf 1
+SURF 0x0
+mat 0
+refs 4
+0 0.09375 0.121094
+3 0.019531 0.121094
+2 0.019531 0.003906
+1 0.09375 0.003906
+kids 0
+OBJECT poly
 name "head.dec"
 data 8
 Mesh.079
 texture "digital-hi.rgb"
 texrep 1.0 1.0
+crease 30.0
 numvert 18
 0.003767 -0.008238 0.011221
 0.003767 -0.008887 0.010952
@@ -513,6 +564,7 @@ data 8
 Mesh.050
 texture "digital-hi.rgb"
 texrep 1.0 1.0
+crease 30.0
 numvert 8
 0.004729 0.009685 0.012687
 0.004729 0.004361 0.012775
@@ -539,11 +591,54 @@ refs 4
 5 0.868667 0.199892
 kids 0
 OBJECT poly
+name "head.hold.red"
+data 8
+Mesh.135
+texture "digital-hi.rgb"
+texrep 1.0 1.0
+crease 30.0
+numvert 4
+0.006 -0.021897 0.002222
+0.006 -0.021897 0.021208
+0.006 -0.014793 0.002222
+0.006 -0.014793 0.021208
+numsurf 1
+SURF 0x20
+mat 0
+refs 4
+1 0.032673 0.77704
+0 0.219985 0.77704
+2 0.219985 0.847637
+3 0.032673 0.847637
+kids 0
+OBJECT poly
+name "head.hold.yellow"
+data 8
+Mesh.136
+texture "digital-hi.rgb"
+texrep 1.0 1.0
+crease 30.0
+numvert 4
+0.006 -0.021897 0.002222
+0.006 -0.021897 0.021208
+0.006 -0.014793 0.002222
+0.006 -0.014793 0.021208
+numsurf 1
+SURF 0x20
+mat 0
+refs 4
+1 0.227985 0.77704
+0 0.415298 0.77704
+2 0.415298 0.847637
+3 0.227985 0.847637
+kids 0
+OBJECT poly
 name "head.label"
 data 8
 Mesh.084
 texture "digital-hi.rgb"
 texrep 1.0 1.0
+crease 30.0
 numvert 4
 0.006 -0.014722 0.028529
 0.006 -0.021972 0.028497

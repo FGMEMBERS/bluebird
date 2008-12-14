@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Bluebird Explorer Hovercraft  version 7.4 for FlightGear OSG -->
+<!-- Bluebird Explorer Hovercraft  version 8.6 for FlightGear OSG -->
 
 <PropertyList>
 	<particlesystem>
@@ -13,14 +13,22 @@
 			<heading-deg>0.0</heading-deg>
 		</offsets>
 		<condition>
-			<less-than>
-				<property>position/altitude-agl-ft</property>
-				<value>35000</value>
-			</less-than>
+			<and>
+				<property>ai/submodels/nacelle-LR-venting</property>
+				<less-than>
+					<property>position/altitude-ft</property>
+					<value>35000</value>
+				</less-than>
+				<equals>
+					<property>sim/model/bluebird/damage/major-counter</property>
+					<value>0</value>
+				</equals>
+			</and>
 		</condition>
 		<texture>../../../Generic/Effects/smoke.png</texture>
 		<emissive>false</emissive>
 		<lighting>false</lighting>
+		<align>billboard</align>
 		<attach>world</attach>
 		<placer>
 			<type>point</type> 
@@ -28,28 +36,27 @@
 		<shooter>
 			<theta-min-deg>89</theta-min-deg>
 			<theta-max-deg>91</theta-max-deg>
-			<phi-min-deg>0.1</phi-min-deg>
-			<phi-max-deg>0.1</phi-max-deg>
+			<phi-min-deg>0.5</phi-min-deg>
+			<phi-max-deg>5.0</phi-max-deg>
 			<speed-mps>
-				<value>0</value>
-				<spread>0</spread>
+				<value>1</value>
+				<spread>1</spread>
 			</speed-mps>
 			<rotation-speed>
-				<x-min-deg-sec>1</x-min-deg-sec>
-				<y-min-deg-sec>1</y-min-deg-sec>
-				<z-min-deg-sec>1</z-min-deg-sec>
-				<x-max-deg-sec>5</x-max-deg-sec>
-				<y-max-deg-sec>5</y-max-deg-sec>
-				<z-max-deg-sec>5</z-max-deg-sec>
+				<x-min-deg-sec>5</x-min-deg-sec>
+				<y-min-deg-sec>5</y-min-deg-sec>
+				<z-min-deg-sec>5</z-min-deg-sec>
+				<x-max-deg-sec>20</x-max-deg-sec>
+				<y-max-deg-sec>20</y-max-deg-sec>
+				<z-max-deg-sec>20</z-max-deg-sec>
 			</rotation-speed>
 		</shooter>
 		<counter>
 			<particles-per-sec>
 				<value>15</value>
-				<spread>2</spread>
+				<spread>2.0</spread>
 			</particles-per-sec>
 		</counter>
-		<align>billboard</align>
 		<particle>
 			<start>
 				<color>
@@ -76,8 +83,8 @@
 			<life-sec>
 				<value>45</value>
 			</life-sec>
-			<mass-kg>0.25</mass-kg>
-			<radius-m>0.50</radius-m>
+			<mass-kg>0.65</mass-kg>
+			<radius-m>0.5</radius-m>
 		</particle>
 		<program>
 			<fluid>air</fluid>

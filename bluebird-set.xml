@@ -4,7 +4,7 @@
  <sim>
 	<description>Bluebird Explorer Hovercraft  for FlightGear version 1.0</description>
 	<status>early-production</status>
-	<aircraft-version>8.3</aircraft-version>
+	<aircraft-version>8.6</aircraft-version>
 	<author>S Andreason</author>
 	<model>
 		<path>Aircraft/bluebird/Models/bluebird-plib.xml</path>
@@ -232,6 +232,9 @@
 		<file>Aircraft/bluebird/Nasal/bluebird.nas</file>
 		<file>Aircraft/bluebird/Nasal/saveconfig.nas</file>
 	</bluebird>
+	<aiVORinstrument>
+		<file>Aircraft/bluebird/Instruments-3d/ai-vor/ai-vor.nas</file>
+	</aiVORinstrument>
 	<digitalPanel>
 		<file>Aircraft/bluebird/Instruments-3d/digital2/digital2.nas</file>
 		<file>Aircraft/bluebird/Instruments-3d/digital2/savedata.nas</file>

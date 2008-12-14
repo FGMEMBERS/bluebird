@@ -27,4 +27,4 @@ settimer(nav_light_loop, 0.5);
 
 var t = getprop("/sim/description");
 print (t);
-print ("  version 8.3  release date 2008.Dec.05  by Stewart Andreason");
+print ("  version 8.6  release date 2008.Dec.12  by Stewart Andreason");

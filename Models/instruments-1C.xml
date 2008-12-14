@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Bluebird Explorer Hovercraft  version 6.2 for FlightGear OSG only -->
+<!-- Bluebird Explorer Hovercraft  version 8.6 for FlightGear OSG only -->
 
 <PropertyList>
 
@@ -118,6 +118,19 @@
 	<offsets>
 		<x-m>-8.199</x-m>
 		<y-m>-0.22</y-m>
+		<z-m>1.143</z-m>
+		<pitch-deg>-21.8</pitch-deg>
+		<w>512</w>
+		<h>512</h>
+	</offsets>
+ </model>
+
+ <model>
+	<name>AI MP VOR</name>
+	<path>Aircraft/bluebird/Instruments-3d/ai-vor/ai-vor.xml</path>
+	<offsets>
+		<x-m>-8.199</x-m>
+		<y-m>-0.13</y-m>
 		<z-m>1.143</z-m>
 		<pitch-deg>-21.8</pitch-deg>
 		<w>512</w>
@@ -548,12 +561,16 @@
 		<button>0</button>
 		<repeatable>false</repeatable>
 		<binding>
-			<command>property-adjust</command>
-			<property>instrumentation/digital/altitude-hold</property>
-			<step>1</step>
-			<min>0</min>
-			<max>2</max>
-			<wrap>true</wrap>
+			<command>nasal</command>
+			<script>
+				var node = props.globals.getNode("autopilot/locks/altitude", 1);
+				if ( node.getValue() == "altitude-hold" ) {
+					node.setValue( "" );
+				} else {
+					setprop("autopilot/settings/target-altitude-ft", getprop("position/altitude-ft"));
+					node.setValue( "altitude-hold" );
+				}
+			</script>
 		</binding>
 	</action>
  </animation>
@@ -566,12 +583,16 @@
 		<button>0</button>
 		<repeatable>false</repeatable>
 		<binding>
-			<command>property-adjust</command>
-			<property>instrumentation/digital/altitude-hold</property>
-			<step>2</step>
-			<min>0</min>
-			<max>3</max>
-			<wrap>true</wrap>
+			<command>nasal</command>
+			<script>
+				var node = props.globals.getNode("autopilot/locks/altitude", 1);
+				if ( node.getValue() == "agl-hold" ) {
+					node.setValue( "" );
+				} else {
+					setprop("autopilot/settings/target-agl-ft", getprop("sim/model/bluebird/position/altitude-agl-ft"));
+					node.setValue( "agl-hold" );
+				}
+			</script>
 		</binding>
 	</action>
  </animation>
@@ -602,12 +623,16 @@
 		<button>0</button>
 		<repeatable>false</repeatable>
 		<binding>
-			<command>property-adjust</command>
-			<property>instrumentation/digital/heading-hold</property>
-			<step>1</step>
-			<min>0</min>
-			<max>2</max>
-			<wrap>true</wrap>
+			<command>nasal</command>
+			<script>
+				var node = props.globals.getNode("autopilot/locks/heading", 1);
+				if ( node.getValue() == "true-heading-hold" ) {
+					node.setValue( "" );
+				} else {
+					setprop("autopilot/settings/true-heading-deg", getprop("orientation/heading-deg"));
+					node.setValue( "true-heading-hold" );
+				}
+			</script>
 		</binding>
 	</action>
  </animation>
@@ -711,4 +736,54 @@
 		</binding>
 	</action>
  </animation>
+
+<!--	VOR 1 Radial adjust  -->
+	<animation>
+		<type>pick</type>
+		<object-name>click-L</object-name>
+		<action>
+			<name>decrease vor mode</name>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-adjust</command>
+				<property>instrumentation/ai-vor/mode</property>
+				<step>-1</step>
+				<min>0</min>
+				<max>4</max>
+				<wrap>true</wrap>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>click-R</object-name>
+		<action>
+			<name>increase vor mode</name>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-adjust</command>
+				<property>instrumentation/ai-vor/mode</property>
+				<step>1</step>
+				<min>0</min>
+				<max>4</max>
+				<wrap>true</wrap>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>Pick:APdisplay</object-name>
+		<action>
+			<name>Airport dialog</name>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>aiVORinstrument.ap_dialog()</script>
+			</binding>
+		</action>
+	</animation>
 </PropertyList>

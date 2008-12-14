@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 3.3 ==-->
+<!--== Bluebird Explorer Hovercraft  version 8.6 ==-->
 
 <PropertyList>
 
@@ -22,7 +22,8 @@
 	<object-name>agl.104</object-name>
 	<object-name>agl.105</object-name>
 	<object-name>agl.106</object-name>
-	<object-name>alt.dec</object-name>
+	<object-name>alt.comma</object-name>
+	<object-name>agl.comma</object-name>
 	<object-name>alt.water</object-name>
 	<object-name>alt.agl</object-name>
 	<object-name>alt.elev</object-name>
@@ -31,6 +32,165 @@
 	<object-name>alt.warn1</object-name>
 	<object-name>alt.warn2</object-name>
 	<object-name>alt.warn3</object-name>
+	<object-name>agl.hold.yellow</object-name>
+	<object-name>alt.hold.red</object-name>
+	<object-name>alt.hold.yellow</object-name>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>altitude-lit</object-name>
+	<condition>
+		<property>sim/model/bluebird/systems/power-switch</property>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>alt.101</object-name>
+	<condition>
+		<greater-than-equals>
+			<property>instrumentation/digital/altitude-whole</property>
+			<value>100000.0</value>
+		</greater-than-equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>alt.102</object-name>
+	<condition>
+		<greater-than-equals>
+			<property>instrumentation/digital/altitude-whole</property>
+			<value>10000.0</value>
+		</greater-than-equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>alt.103</object-name>
+	<object-name>alt.comma</object-name>
+	<condition>
+		<or>
+			<greater-than-equals>
+				<property>instrumentation/digital/altitude-whole</property>
+				<value>1000.0</value>
+			</greater-than-equals>
+			<less-than-equals>
+				<property>instrumentation/digital/altitude-whole</property>
+				<value>-1000.0</value>
+			</less-than-equals>
+		</or>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>alt.104</object-name>
+	<condition>
+		<or>
+			<greater-than-equals>
+				<property>instrumentation/digital/altitude-whole</property>
+				<value>100.0</value>
+			</greater-than-equals>
+			<less-than-equals>
+				<property>instrumentation/digital/altitude-whole</property>
+				<value>-100.0</value>
+			</less-than-equals>
+		</or>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>alt.105</object-name>
+	<condition>
+		<or>
+			<greater-than-equals>
+				<property>instrumentation/digital/altitude-whole</property>
+				<value>10.0</value>
+			</greater-than-equals>
+			<less-than-equals>
+				<property>instrumentation/digital/altitude-whole</property>
+				<value>-10.0</value>
+			</less-than-equals>
+		</or>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>agl.101</object-name>
+	<condition>
+		<greater-than-equals>
+			<property>instrumentation/digital/agl-whole</property>
+			<value>100000.0</value>
+		</greater-than-equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>agl.102</object-name>
+	<condition>
+		<greater-than-equals>
+			<property>instrumentation/digital/agl-whole</property>
+			<value>10000.0</value>
+		</greater-than-equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>agl.103</object-name>
+	<object-name>agl.comma</object-name>
+	<condition>
+		<or>
+			<greater-than-equals>
+				<property>instrumentation/digital/agl-whole</property>
+				<value>1000.0</value>
+			</greater-than-equals>
+			<less-than-equals>
+				<property>instrumentation/digital/agl-whole</property>
+				<value>-1000.0</value>
+			</less-than-equals>
+		</or>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>agl.104</object-name>
+	<condition>
+		<or>
+			<greater-than-equals>
+				<property>instrumentation/digital/agl-whole</property>
+				<value>100.0</value>
+			</greater-than-equals>
+			<less-than-equals>
+				<property>instrumentation/digital/agl-whole</property>
+				<value>-100.0</value>
+			</less-than-equals>
+		</or>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>agl.105</object-name>
+	<condition>
+		<or>
+			<greater-than-equals>
+				<property>instrumentation/digital/agl-whole</property>
+				<value>10.0</value>
+			</greater-than-equals>
+			<less-than-equals>
+				<property>instrumentation/digital/agl-whole</property>
+				<value>-10.0</value>
+			</less-than-equals>
+		</or>
+	</condition>
  </animation>
 
  <animation>
@@ -237,10 +397,7 @@
 	<type>select</type>
 	<object-name>alt.warn1</object-name>
 	<condition>
-		<and>
-			<property>sim/model/bluebird/systems/power-switch</property>
-			<property>sim/model/bluebird/lighting/ground-near</property>
-		</and>
+		<property>sim/model/bluebird/lighting/ground-near</property>
 	</condition>
  </animation>
 
@@ -248,13 +405,10 @@
 	<type>select</type>
 	<object-name>alt.warn2</object-name>
 	<condition>
-		<and>
-			<property>sim/model/bluebird/systems/power-switch</property>
-			<equals>
-				<property>sim/model/bluebird/lighting/ground-warning</property>
-				<value>1</value>
-			</equals>
-		</and>
+		<equals>
+			<property>sim/model/bluebird/lighting/ground-warning</property>
+			<value>1</value>
+		</equals>
 	</condition>
  </animation>
 
@@ -262,13 +416,10 @@
 	<type>select</type>
 	<object-name>alt.warn3</object-name>
 	<condition>
-		<and>
-			<property>sim/model/bluebird/systems/power-switch</property>
-			<equals>
-				<property>sim/model/bluebird/lighting/ground-warning</property>
-				<value>2</value>
-			</equals>
-		</and>
+		<equals>
+			<property>sim/model/bluebird/lighting/ground-warning</property>
+			<value>2</value>
+		</equals>
 	</condition>
  </animation>
 
@@ -280,6 +431,55 @@
 			<property>position/ground-elev-ft</property>
 			<value>0</value>
 		</less-than-equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>alt.hold.red</object-name>
+	<condition>
+		<and>
+			<not>
+				<equals>
+					<property>autopilot/locks/altitude</property>
+					<value type="string"></value>
+				</equals>
+			</not>
+			<not>
+				<equals>
+					<property>autopilot/locks/altitude</property>
+					<value type="string">agl-hold</value>
+				</equals>
+			</not>
+			<not>
+				<equals>
+					<property>autopilot/locks/altitude</property>
+					<value type="string">altitude-hold</value>
+				</equals>
+			</not>
+		</and>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>alt.hold.yellow</object-name>
+	<condition>
+		<equals>
+			<property>autopilot/locks/altitude</property>
+			<value type="string">altitude-hold</value>
+		</equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>agl.hold.yellow</object-name>
+	<condition>
+		<equals>
+			<property>autopilot/locks/altitude</property>
+			<value type="string">agl-hold</value>
+		</equals>
 	</condition>
  </animation>
 

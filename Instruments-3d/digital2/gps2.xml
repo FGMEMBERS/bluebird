@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 3.3 ==-->
+<!--== Bluebird Explorer Hovercraft  version 8.6 ==-->
 
 <PropertyList>
 
@@ -104,6 +104,57 @@
 			<property>position/longitude-deg</property>
 			<value>0</value>
 		</greater-than>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>lat.102</object-name>
+	<condition>
+		<or>
+			<greater-than-equals>
+				<property>position/latitude-deg</property>
+				<value>10.0</value>
+			</greater-than-equals>
+			<less-than-equals>
+				<property>position/latitude-deg</property>
+				<value>-10.0</value>
+			</less-than-equals>
+		</or>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>lon.101</object-name>
+	<condition>
+		<or>
+			<greater-than-equals>
+				<property>position/longitude-deg</property>
+				<value>100.0</value>
+			</greater-than-equals>
+			<less-than-equals>
+				<property>position/longitude-deg</property>
+				<value>-100.0</value>
+			</less-than-equals>
+		</or>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>lon.102</object-name>
+	<condition>
+		<or>
+			<greater-than-equals>
+				<property>position/longitude-deg</property>
+				<value>10.0</value>
+			</greater-than-equals>
+			<less-than-equals>
+				<property>position/longitude-deg</property>
+				<value>-10.0</value>
+			</less-than-equals>
+		</or>
 	</condition>
  </animation>
 

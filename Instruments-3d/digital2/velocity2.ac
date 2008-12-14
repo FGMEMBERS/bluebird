@@ -113,10 +113,10 @@ refs 4
 SURF 0x20
 mat 0
 refs 4
-20 0.989091 0.989046
-21 0.010968 0.989046
-18 0.010968 0.794556
-19 0.989091 0.794556
+20 0.13878 0.967932
+21 0.040967 0.967932
+18 0.040967 0.948483
+19 0.13878 0.948483
 SURF 0x20
 mat 1
 refs 4
@@ -286,7 +286,7 @@ refs 4
 1 0.09375 0.003906
 kids 0
 OBJECT poly
-name "velocity.dec"
+name "velocity.comma"
 data 8
 Mesh.022
 texture "digital-hi.rgb"

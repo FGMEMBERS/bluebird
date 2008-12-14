@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 8.3 for PLIB                  ==-->
+<!--== Bluebird version 8.6 for PLIB                  ==-->
 
 <PropertyList>
 	<nasal>
@@ -309,6 +309,16 @@
 		</offsets>
 	</model>
 
+	<model>
+		<name>AI MP VOR Text</name>
+		<path>Aircraft/bluebird/Models/ai-vor-text.xml</path>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</offsets>
+	</model>
+
 	<animation>
 		<type>rotate</type>
 		<object-name>ALTITUDE</object-name>
@@ -322,6 +332,8 @@
 		<object-name>CONTROLS</object-name>
 		<object-name>CLOCK</object-name>
 		<object-name>DISPLAY SCREENS</object-name>
+		<object-name>AI MP VOR</object-name>
+		<object-name>AI MP VOR Text</object-name>
 		<property>sim/model/bluebird/damage/major-counter</property>
 		<interpolation>
 			<entry>
@@ -377,6 +389,14 @@
 		<object-name>Pick:ButtonDoor4tr</object-name>
 		<object-name>Pick:ButtonDoor5t</object-name>
 		<object-name>Pick:ButtonDoor5a</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>clicks</object-name>
 		<condition>
 			<property>/sim/panel-hotspots</property>
 		</condition>

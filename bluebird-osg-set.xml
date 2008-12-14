@@ -2,7 +2,7 @@
 
 <PropertyList include="bluebird-base.xml">
  <sim>
-	<description>Bluebird Explorer Hovercraft  for FlightGear version 1.9 with OSG</description>
+	<description>Bluebird Explorer Hovercraft  for FlightGear version 1.99 with OSG</description>
 	<model>
 		<path>Aircraft/bluebird/Models/bluebird-osg.xml</path>
 		<bluebird>
@@ -49,6 +49,26 @@
 
 	<menubar>
 		<default>
+			<menu n="8">
+				<item n="100">
+					<label>Print memory debug for reporting trouble</label>
+					<binding>
+						<command>nasal</command>
+						<script>print ("Send this output to the email contact at seahorseCorral.org");
+							print ("bluebird:");
+							debug.dump(bluebird);
+							print ("aiVORinstrument");
+							debug.dump(aiVORinstrument);
+							print ("digitalPanel");
+							debug.dump(digitalPanel);
+							print ("displayScreens");
+							debug.dump(displayScreens);
+							print ("walk");
+							debug.dump(walk);
+						</script>
+					</binding>
+				</item>
+			</menu>
 			<menu n="10">
 				<label>Bluebird</label>
 				<enabled type="bool">true</enabled>
@@ -233,6 +253,9 @@
 		<file>Aircraft/bluebird/Nasal/bluebird.nas</file>
 		<file>Aircraft/bluebird/Nasal/saveconfig.nas</file>
 	</bluebird>
+	<aiVORinstrument>
+		<file>Aircraft/bluebird/Instruments-3d/ai-vor/ai-vor.nas</file>
+	</aiVORinstrument>
 	<digitalPanel>
 		<file>Aircraft/bluebird/Instruments-3d/digital2/digital2.nas</file>
 		<file>Aircraft/bluebird/Instruments-3d/digital2/savedata.nas</file>
