@@ -4,7 +4,7 @@
  <sim>
 	<aero>bluebird</aero>
 	<status>early-production</status>
-	<aircraft-version>8.6</aircraft-version>
+	<aircraft-version>8.7</aircraft-version>
 	<author>S Andreason</author>
 	<aircraft-status>
 		<fdm>beta</fdm>
@@ -1239,20 +1239,121 @@
 				</binding>
 			</mod-alt>
 		</key>
+		<key n="119"> 
+			<name>w</name>
+			<desc>Walk forward</desc>
+			<repeatable>false</repeatable>
+			<binding n="0">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/forward</property>
+				<value>1</value>
+			</binding>
+			<binding n="1">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<property>sim/walker/speed-mps</property>
+			</binding>
+			<mod-up>
+				<binding n="0">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/forward</property>
+					<value>0</value>
+				</binding>
+				<binding n="1">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/speed</property>
+					<property>sim/walker/speed-mps</property>
+				</binding>
+			</mod-up>
+		</key>
+		<key n="87"> 
+			<name>W</name>
+			<desc>Run forward</desc>
+			<repeatable>false</repeatable>
+			<binding n="0">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/forward</property>
+				<value>1</value>
+			</binding>
+			<binding n="1">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<property>sim/walker/speed-mps</property>
+			</binding>
+			<binding n="2">
+				<command>property-multiply</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<factor>5.0</factor>
+			</binding>
+			<mod-up>
+				<binding n="0">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/forward</property>
+					<value>0</value>
+				</binding>
+				<binding n="1">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/speed</property>
+					<property>sim/walker/speed-mps</property>
+				</binding>
+			</mod-up>
+		</key>
 		<key n="115"> 
 			<name>s</name>
 			<desc>Walk backward</desc>
 			<repeatable>false</repeatable>
-			<binding>
+			<binding n="0">
 				<command>property-assign</command>
 				<property>sim/walker/key-triggers/forward</property>
 				<value>-1</value>
 			</binding>
+			<binding n="1">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<property>sim/walker/speed-mps</property>
+			</binding>
 			<mod-up>
-				<binding>
+				<binding n="0">
 					<command>property-assign</command>
 					<property>sim/walker/key-triggers/forward</property>
 					<value>0</value>
+				</binding>
+				<binding n="1">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/speed</property>
+					<property>sim/walker/speed-mps</property>
+				</binding>
+			</mod-up>
+		</key>
+		<key n="83"> 
+			<name>S</name>
+			<desc>Walk/run backward</desc>
+			<repeatable>false</repeatable>
+			<binding n="0">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/forward</property>
+				<value>-1</value>
+			</binding>
+			<binding n="1">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<property>sim/walker/speed-mps</property>
+			</binding>
+			<binding n="2">
+				<command>property-multiply</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<factor>2.5</factor>
+			</binding>
+			<mod-up>
+				<binding n="0">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/forward</property>
+					<value>0</value>
+				</binding>
+				<binding n="1">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/speed</property>
+					<property>sim/walker/speed-mps</property>
 				</binding>
 			</mod-up>
 		</key>
@@ -1260,16 +1361,26 @@
 			<name>a</name>
 			<desc>Slide left</desc>
 			<repeatable>false</repeatable>
-			<binding>
+			<binding n="0">
 				<command>property-assign</command>
 				<property>sim/walker/key-triggers/slide</property>
 				<value>-1</value>
 			</binding>
+			<binding n="1">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<property>sim/walker/speed-mps</property>
+			</binding>
 			<mod-up>
-				<binding>
+				<binding n="0">
 					<command>property-assign</command>
 					<property>sim/walker/key-triggers/slide</property>
 					<value>0</value>
+				</binding>
+				<binding n="1">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/speed</property>
+					<property>sim/walker/speed-mps</property>
 				</binding>
 			</mod-up>
 		</key>
@@ -1277,16 +1388,31 @@
 			<name>A</name>
 			<desc>Slide left2, override default assignment</desc>
 			<repeatable>false</repeatable>
-			<binding>
+			<binding n="0">
 				<command>property-assign</command>
 				<property>sim/walker/key-triggers/slide</property>
 				<value>-1</value>
 			</binding>
+			<binding n="1">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<property>sim/walker/speed-mps</property>
+			</binding>
+			<binding n="2">
+				<command>property-multiply</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<factor>2.5</factor>
+			</binding>
 			<mod-up>
-				<binding>
+				<binding n="0">
 					<command>property-assign</command>
 					<property>sim/walker/key-triggers/slide</property>
 					<value>0</value>
+				</binding>
+				<binding n="1">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/speed</property>
+					<property>sim/walker/speed-mps</property>
 				</binding>
 			</mod-up>
 		</key>
@@ -1294,16 +1420,26 @@
 			<name>d</name>
 			<desc>Slide right</desc>
 			<repeatable>false</repeatable>
-			<binding>
+			<binding n="0">
 				<command>property-assign</command>
 				<property>sim/walker/key-triggers/slide</property>
 				<value>1</value>
 			</binding>
+			<binding n="1">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<property>sim/walker/speed-mps</property>
+			</binding>
 			<mod-up>
-				<binding>
+				<binding n="0">
 					<command>property-assign</command>
 					<property>sim/walker/key-triggers/slide</property>
 					<value>0</value>
+				</binding>
+				<binding n="1">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/speed</property>
+					<property>sim/walker/speed-mps</property>
 				</binding>
 			</mod-up>
 		</key>
@@ -1311,18 +1447,50 @@
 			<name>D</name>
 			<desc>Slide right2</desc>
 			<repeatable>false</repeatable>
-			<binding>
+			<binding n="0">
 				<command>property-assign</command>
 				<property>sim/walker/key-triggers/slide</property>
 				<value>1</value>
 			</binding>
+			<binding n="1">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<property>sim/walker/speed-mps</property>
+			</binding>
+			<binding n="2">
+				<command>property-multiply</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<factor>2.5</factor>
+			</binding>
 			<mod-up>
-				<binding>
+				<binding n="0">
 					<command>property-assign</command>
 					<property>sim/walker/key-triggers/slide</property>
 					<value>0</value>
 				</binding>
+				<binding n="1">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/speed</property>
+					<property>sim/walker/speed-mps</property>
+				</binding>
 			</mod-up>
+		</key>
+
+		<!-- rewrite autopilot lock because dg-heading doesn't work with this model -->
+		<key n="8">
+			<name>Ctrl-H</name>
+			<desc>Toggle autopilot heading lock</desc>
+			<binding>
+				<command>nasal</command>
+				<script>
+					var node = props.globals.getNode("/autopilot/locks/heading", 1);
+					if ( node.getValue() == "true-heading-hold" ) {
+						node.setValue( "" );
+					} else {
+						node.setValue( "true-heading-hold" );
+					}
+				</script>
+			</binding>
 		</key>
 	</keyboard>
  </input>

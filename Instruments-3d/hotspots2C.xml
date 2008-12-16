@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 8.4 for PLIB ==-->
+<!--== Bluebird Explorer Hovercraft  version 8.7 for PLIB ==-->
 
 <!DOCTYPE PropertyList SYSTEM "panel.dtd">
 <!-- This part should be the same for any 3D panel.  Customize the actions section -->
@@ -72,9 +72,9 @@
 					<name>set ap2 tracking</name>
 					<button>0</button>
 					<repeatable>false</repeatable>
-					<x>-174</x>
+					<x>-177</x>
 					<y>-228</y>
-					<w>74</w>
+					<w>129</w>
 					<h>198</h>
 					<binding>
 						<command>nasal</command>

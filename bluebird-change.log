@@ -1,5 +1,13 @@
 Version# Vertices PolygonFaces Comments
 
+2008.Dec.16
+8.7	Fix autopilot mapping on keyboard.
+	Fix elevator-trim upon autopilot deactivation.
+	Fix inconsistancy in walking sideways.
+	Simplify walk triggers, from the various Fg versions, to one method.
+	Sync with ai model. Update file path in ai model.
+	Fix vapor trails bug introduced in 8.6.
+
 2008.Dec.12
 8.6		updated center instrument panel
 	Add collective control to joystick axis-4 (hat left-right)
