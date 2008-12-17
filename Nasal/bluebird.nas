@@ -67,5 +67,5 @@ var doorProximityVolume = func (current_view, door,x,y) {
  var t = getprop("/sim/description");
  print (t);
  var v = getprop("/sim/aircraft-version");
- print ("  version ",v,"  release date 2008.Dec.12  by Stewart Andreason");
+ print ("  version ",v,"  release date 2008.Dec.16  by Stewart Andreason");
 });

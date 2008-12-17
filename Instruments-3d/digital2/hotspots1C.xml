@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 8.6 for PLIB ==-->
+<!--== Bluebird Explorer Hovercraft  version 8.7 for PLIB ==-->
 
 <!DOCTYPE PropertyList SYSTEM "panel.dtd">
 <!-- This part should be the same for any 3D panel.  Customize the actions section -->
@@ -141,6 +141,7 @@
 							var node = props.globals.getNode("autopilot/locks/altitude", 1);
 							if ( node.getValue() == "altitude-hold" ) {
 								node.setValue( "" );
+								settimer(func { setprop("controls/flight/elevator-trim", 0); }, 0.5);
 							} else {
 								node.setValue( "altitude-hold" );
 								setprop("autopilot/settings/target-altitude-ft", getprop("position/altitude-ft"));
@@ -162,6 +163,7 @@
 							var node = props.globals.getNode("autopilot/locks/altitude", 1);
 							if ( node.getValue() == "agl-hold" ) {
 								node.setValue( "" );
+								settimer(func { setprop("controls/flight/elevator-trim", 0); }, 0.5);
 							} else {
 								node.setValue( "agl-hold" );
 								setprop("autopilot/settings/target-agl-ft", getprop("sim/model/bluebird/position/altitude-agl-ft"));

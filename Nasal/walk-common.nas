@@ -1,5 +1,5 @@
-# ===== common base for walking functions   version 2.8       =====
-# ===== plus coordinates for Bluebird Explorer Hovercraft 8.6 =====
+# ===== common base for walking functions   version 2.9       =====
+# ===== plus coordinates for Bluebird Explorer Hovercraft 8.7 =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
@@ -11,16 +11,30 @@ var yViewNode = props.globals.getNode("sim/current-view/x-offset-m", 1);
 var zViewNode = props.globals.getNode("sim/current-view/y-offset-m", 1);
 var falling = 0;	# 0/1 = false/true
 var last_altitude = 0;	# remember last position to detect falling from ground
+var exit_time_sec = 0.0;
+var parachute_ft = 0.0;
+var parachute_deployed_sec = 0.0;
+var elapsed_chute_sec = 0.0;
+var lat_vector = 0.0;
+var lon_vector = 0.0;
+var z_vector_mps = 0.0;
+var time_to_top_sec = 0.0;
+var starting_lat = 0.0;
+var starting_lon = 0.0;
+var fps = 0;
+var walk_heading = 0;
+var walk_watch = 0;
+var walk_factor = 1.0;
 
 # debug section
 var measure_main_count = 0;
-var measure_walk_count = 0;   # momentum_walk loops
+var measure_walk_count = 0;	# momentum_walk loops
 var measure_extmov_count = 0;
 var measure_sec = 0;
 var measure_alt = 0;
-
 var last_elapsed_sec = 0;
 
+# ===== functions ======
 var normheading = func (a) {
 	while (a >= 360)
 		a -= 360;
@@ -28,59 +42,6 @@ var normheading = func (a) {
 		a += 360;
 	return a;
 }
-
-var exit_time_sec = 0.0;
-setlistener("sim/walker/time-of-exit-sec", func {
-	exit_time_sec = getprop("sim/walker/time-of-exit-sec");
-});
-
-var parachute_ft = 0.0;
-setlistener("sim/walker/parachute-opened-altitude-ft", func {
-	parachute_ft = getprop("sim/walker/parachute-opened-altitude-ft");
-});
-
-var parachute_deployed_sec = 0.0;
-
-var elapsed_chute_sec = 0.0;
-setlistener("sim/walker/parachute-opened-sec", func {
-	elapsed_chute_sec = getprop("sim/walker/parachute-opened-sec");
-});
-
-var lat_vector = 0.0;
-setlistener("sim/walker/starting-trajectory-lat", func {
-	lat_vector = getprop("sim/walker/starting-trajectory-lat");
-});
-
-var lon_vector = 0.0;
-setlistener("sim/walker/starting-trajectory-lon", func {
-	lon_vector = getprop("sim/walker/starting-trajectory-lon");
-});
-
-var z_vector_mps = 0.0;
-setlistener("sim/walker/starting-trajectory-z-mps", func {
-	z_vector_mps = getprop("sim/walker/starting-trajectory-z-mps");
-});
-
-var time_to_top_sec = 0.0;
-setlistener("sim/walker/time-to-zero-z-sec", func {
-	time_to_top_sec = getprop("sim/walker/time-to-zero-z-sec");
-});
-
-var starting_lat = 0.0;
-setlistener("sim/walker/starting-lat", func {
-	starting_lat = getprop("sim/walker/starting-lat");
-});
-
-var starting_lon = 0.0;
-setlistener("sim/walker/starting-lon", func {
-	starting_lon = getprop("sim/walker/starting-lon");
-});
-
-var fps = 0;
-setlistener("sim/frame-rate", func {
-	fps = getprop("sim/frame-rate");
-	fps = (fps < 10 ? 10 : fps);	# only realistic above 10fps. Slow down below that so that walker pauses instead of jumping.
-});
 
 var distFromCraft = func (lat,lon) {
 	var c_lat = getprop("position/latitude-deg");
@@ -124,7 +85,6 @@ var xy2LatLonZ = func (x,y) {
 	return [(c_lat + xy_lat) , (c_lon + xy_lon) , (zxZ_ft + zyZ_ft)];
 }
 
-var walk_heading = 0;
 var calc_heading = func {
 	var w_forward = getprop("sim/walker/key-triggers/forward");
 	var w_left = getprop("sim/walker/key-triggers/slide");
@@ -159,24 +119,6 @@ var calc_heading = func {
 	setprop ("sim/walker/walking", 1);
 }
 
-setlistener("sim/walker/key-triggers/forward", func {
-	calc_heading();
-});
-
-setlistener("sim/walker/key-triggers/slide", func {
-	calc_heading();
-});
-
-setlistener("sim/model/bluebird/crew/walker/visible", func {
-	if (getprop("sim/model/bluebird/crew/walker/visible")) {
-		walker_model.add();
-	} else {
-		walker_model.remove();
-	}
-});
-
-var walk_watch = 0;
-var walk_factor = 1.0;
 var momentum_walk = func {
 	measure_walk_count += 1;
 	if (walk_watch >= 3) {
@@ -282,14 +224,14 @@ var walker_model = {
 			if (getprop("logging/walker-position")) {
 				print("walker_model.add");
 			}
-			if (getprop("sim/model/bluebird/crew/walker/visible")) {
+#			if (getprop("sim/model/bluebird/crew/walker/visible")) {
 				aircraft.makeNode("models/model/path");
 				aircraft.makeNode("models/model/longitude-deg-prop");
 				aircraft.makeNode("models/model/latitude-deg-prop");
 				aircraft.makeNode("models/model/elevation-ft-prop");
 				aircraft.makeNode("models/model/heading-deg-prop");
 				var desc = getprop("sim/description");
-				if (desc == "Bluebird Hovercraft for 1.0") {
+				if (substr(desc, size(desc) - 3, 3) == "1.0") {
 					setprop ("models/model/path", "Aircraft/bluebird/Models/walker-1.xml");
 				} else {
 					setprop ("models/model/path", "Aircraft/bluebird/Models/walker.xml");
@@ -299,15 +241,13 @@ var walker_model = {
 				setprop ("models/model/elevation-ft-prop", "sim/walker/altitude-ft");
 				setprop ("models/model/heading-deg-prop", "sim/walker/model-heading-deg");
 				aircraft.makeNode("models/model/load");
-			}
+#			}
 		},
 	remove:	func {
 			if (getprop("logging/walker-position")) {
 				print("walker_model.remove");
 			}
-#			if (getprop("sim/model/bluebird/crew/walker/visible")) {
-				props.globals.getNode("models", 1).removeChild("model", 0);
-#			}
+			props.globals.getNode("models", 1).removeChild("model", 0);
 			walker_model.reset_fall();
 		},
 	reset_fall: func {
@@ -350,10 +290,70 @@ var reinit_walker = func {
 	setprop("sim/walker/parachute-opened-sec", 0);
 }
 
-setlistener("sim/signals/reinit", func {
-	reinit_walker();
-});
+var init_common = func {
+	setlistener("sim/walker/time-of-exit-sec", func {
+		exit_time_sec = getprop("sim/walker/time-of-exit-sec");
+	});
 
- setlistener("sim/signals/fdm-initialized", func {
-	reinit_walker();
-});
+	setlistener("sim/walker/parachute-opened-altitude-ft", func {
+		parachute_ft = getprop("sim/walker/parachute-opened-altitude-ft");
+	});
+
+	setlistener("sim/walker/parachute-opened-sec", func {
+		elapsed_chute_sec = getprop("sim/walker/parachute-opened-sec");
+	});
+
+	setlistener("sim/walker/starting-trajectory-lat", func {
+		lat_vector = getprop("sim/walker/starting-trajectory-lat");
+	});
+
+	setlistener("sim/walker/starting-trajectory-lon", func {
+		lon_vector = getprop("sim/walker/starting-trajectory-lon");
+	});
+
+	setlistener("sim/walker/starting-trajectory-z-mps", func {
+		z_vector_mps = getprop("sim/walker/starting-trajectory-z-mps");
+	});
+
+	setlistener("sim/walker/time-to-zero-z-sec", func {
+		time_to_top_sec = getprop("sim/walker/time-to-zero-z-sec");
+	});
+
+	setlistener("sim/walker/starting-lat", func {
+		starting_lat = getprop("sim/walker/starting-lat");
+	});
+
+	setlistener("sim/walker/starting-lon", func {
+		starting_lon = getprop("sim/walker/starting-lon");
+	});
+
+	setlistener("sim/frame-rate", func {
+		fps = getprop("sim/frame-rate");
+		fps = (fps < 10 ? 10 : fps);	# only realistic above 10fps. Slow down below that so that walker pauses instead of jumping.
+	});
+
+	setlistener("sim/walker/key-triggers/forward", func {
+		calc_heading();
+	});
+
+	setlistener("sim/walker/key-triggers/slide", func {
+		calc_heading();
+	});
+
+	setlistener("sim/model/bluebird/crew/walker/visible", func {
+		if (getprop("sim/model/bluebird/crew/walker/visible")) {
+			walker_model.add();
+		} else {
+			walker_model.remove();
+		}
+	});
+
+	setlistener("sim/signals/reinit", func {
+		reinit_walker();
+	});
+
+	setlistener("sim/signals/fdm-initialized", func {
+		reinit_walker();
+	});
+}
+settimer(init_common,0);

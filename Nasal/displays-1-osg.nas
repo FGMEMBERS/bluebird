@@ -1,6 +1,6 @@
 # ===== text screen functions for version 1.0 and OSG =====
 # ===== and backend for ai-vor
-# ===== for Bluebird Explorer Hovercraft version 8.6 =====
+# ===== for Bluebird Explorer Hovercraft version 8.7 =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
@@ -82,7 +82,7 @@ var apt_update = func (id) {
 #			}
 #			x_grid = apt.lon - c_lon;
 #		}
-#		if (avglat > 90 or avglat < -90) {
+#		if (avglat < 90 and avglat > -90) {
 			var x = x_grid * cos(avglat);
 #		} else {
 #			print ("Error detected in airport section, line 88  avglat= ",avglat);
@@ -144,7 +144,7 @@ var ac_update = func {
 				var y = alat - c_lat;
 				var x_grid = alon - c_lon;
 				# don't waste resources checking for longitude -180 in ai_aircraft
-#				if (avglat > 90 or avglat < -90) {
+#				if (avglat < 90 and avglat > -90) {
 					var x = x_grid * cos(avglat);
 #				} else {
 #					print ("Error detected in aircraft section, line 150  avglat= ",avglat);
@@ -206,7 +206,7 @@ var ac_update = func {
 						}
 						x_grid = alon - c_lon;
 					}
-					if (avglat > 90 or avglat < -90) {
+					if (avglat < 90 and avglat > -90) {
 						var x = x_grid * cos(avglat);
 					} else {
 						print ("Error detected in mp section, line 212  avglat= ",avglat);

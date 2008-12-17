@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 8.6 =====
+# ===== Bluebird Explorer Hovercraft  version 8.7 =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
@@ -253,23 +253,23 @@ var ap_dialog = func {
 var init = func {
 	setlistener("sim/model/bluebird/systems/power-switch", func {
 		power_switch = getprop("sim/model/bluebird/systems/power-switch");
-	});
+	},,0);
 
 	setlistener("instrumentation/ai-vor/ap1-to", func {
 		ap1_to = getprop("instrumentation/ai-vor/ap1-to");
-	});
+	},,0);
 
 	setlistener("instrumentation/ai-vor/ai1-to", func {
 		ai1_to = getprop("instrumentation/ai-vor/ai1-to");
-	});
+	},,0);
 
 	setlistener("instrumentation/ai-vor/mp1-to", func {
 		mp1_to = getprop("instrumentation/ai-vor/mp1-to");
-	});
+	},,0);
 
 	setlistener("instrumentation/ai-vor/ap2-to", func {
 		ap2_to = getprop("instrumentation/ai-vor/ap2-to");
-	});
+	},,0);
 
 	setlistener("instrumentation/ai-vor/mode", func {
 		if (vor_mode == 0) {
@@ -340,16 +340,16 @@ var init = func {
 				vor_elevation.setValue(ap2_vor_elev.getValue());
 			});
 		}
-	});
+	},,0);
 
 	ap1c_L = setlistener("instrumentation/display-screens/ap1-callsign", func {
 		vor_callsign.setValue(getprop("instrumentation/display-screens/ap1-callsign"));
-	});
+	},,0);
 	ap1d_L = setlistener("instrumentation/ai-vor/ap1-distance-m", func {
 		vor_dist.setValue(ap1_vor_dist.getValue() * ap1_to);
-	});
+	},,0);
 	ap1e_L = setlistener("instrumentation/ai-vor/ap1-elevation-deg", func {
 		vor_elevation.setValue(ap1_vor_elev.getValue());
-	});
+	},,0);
 }
 settimer(init,0);

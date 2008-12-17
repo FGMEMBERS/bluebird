@@ -1,4 +1,4 @@
-# == walking functions v2.8 for FlightGear versions 1.0 and OSG == version 8.2 ==
+# == walking functions v2.9 for FlightGear versions 1.0 and OSG == version 8.7 ==
 
 setlistener("sim/walker/walking", func {
 	var wdir = getprop("sim/walker/walking");
@@ -199,7 +199,7 @@ var ext_mov = func (moved) {
 					posz2 = getprop("sim/walker/altitude-ft");
 				}
 				if (getprop("logging/walker-position")) {
-					print(sprintf("walker_lat= %12.8f lon= %11.8f altitude= %9.2f heading= %6.2f groundDistanceFromAircraft= %3.2f geo.elev= %8.3f",posy2,posx2,posz2,head_v,distFromCraft(posy2,posx2),posz_geo));
+					print(sprintf("walker_lat= %12.8f lon= %11.8f altitude= %9.2f heading= %6.2f speed= %4.2f walk_factor= %4.2f groundDistanceFromAircraft= %3.2f geo.elev= %8.3f",posy2,posx2,posz2,head_v,speed,walk_factor,distFromCraft(posy2,posx2),posz_geo));
 				}
 			} else {
 				print(sprintf ("Stopped by wall, has height %6.2f ft above your position.",(posz1-posz_geo)));

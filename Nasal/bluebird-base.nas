@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 8.6 common base =====
+# ===== Bluebird Explorer Hovercraft  version 8.7 common base =====
 
 # Add second popupTip to avoid being overwritten by primary joystick messages ==
 var tipArg2 = props.Node.new({ "dialog-name" : "PopTip2" });
@@ -70,7 +70,7 @@ var speed_mps = [1, 20, 50, 100, 200, 500, 1000, 2000, 5000, 11176, 20000];
 # level 9 maximum speed 11176mps is 25000mph. aka escape velocity.
 # level 10 is not really useful without interplanetary capabilities,
 #  and is thus not allowed below the boundary to space.
-var limit = [1, 5, 6, 7, 2, 5, 6, 10];
+var limit = [1, 3, 6, 7, 1, 3, 6, 10];
 var current = props.globals.getNode("engines/engine/speed-max-powerlevel", 1);
 
 # VTOL counter-grav -------------------------------------------------
@@ -408,17 +408,17 @@ var reinit_bluebird = func {	# reset the above variables
 var screen_3R_on = 0;	# debug screen at 3 right
 setlistener("instrumentation/display-screens/enabled-3R", func {
 	screen_3R_on = getprop("instrumentation/display-screens/enabled-3R");
-}, 1);
+}, 1, 0);
 
 var screen_4R_on = 0;	# hover diagnostics screen at 4 right
 setlistener("instrumentation/display-screens/enabled-4R", func {
 	screen_4R_on = getprop("instrumentation/display-screens/enabled-4R");
-}, 1);
+}, 1, 0);
 
 var screen_5R_on = 0;	# countergrav diagnostics screen at 5 right
 setlistener("instrumentation/display-screens/enabled-5R", func {
 	screen_5R_on = getprop("instrumentation/display-screens/enabled-5R");
-}, 1);
+}, 1, 0);
 
 # door functions ----------------------------------------------------
 
@@ -610,33 +610,33 @@ setlistener("sim/model/bluebird/systems/power-switch", func {
 
 setlistener("controls/engines/countergrav-factor", func {
 	countergrav_factor = getprop("controls/engines/countergrav-factor");
-});
+},, 0);
 
 setlistener("sim/model/bluebird/systems/reactor-request", func {
 	reactor_request = int(getprop("sim/model/bluebird/systems/reactor-request"));
-});
+},, 0);
 
 setlistener("sim/model/bluebird/systems/reactor-level", func {
 	reactor_level = getprop("sim/model/bluebird/systems/reactor-level");
-});
+},, 0);
 
 setlistener("sim/model/bluebird/systems/wave1-request", func {
 	wave1_request = getprop("sim/model/bluebird/systems/wave1-request");
-});
+},, 0);
 
 setlistener("sim/model/bluebird/systems/wave1-level", func {
 	wave1_level = getprop("sim/model/bluebird/systems/wave1-level");
-});
+},, 0);
 
 setlistener("sim/model/bluebird/systems/wave2-request", func {
 	wave2_request = getprop("sim/model/bluebird/systems/wave2-request");
-});
+},, 0);
 
 # interior ----------------------------------------------------------
 
 setlistener("sim/model/bluebird/lighting/interior-switch", func {
 	int_switch = getprop("sim/model/bluebird/lighting/interior-switch");
-});
+},, 0);
 
 var isodd = func (odd_i) {
 	var odd_x = int(odd_i - ((int(odd_i * 0.1)) * 10));
@@ -649,7 +649,7 @@ var isodd = func (odd_i) {
 
 setlistener("environment/visibility-m", func {
 	visibility = getprop("environment/visibility-m");
-}, 1);
+}, 1, 0);
 
 var set_I1_ambient = func {
 	var calc_amb_R = livery_I1AR + (livery_I1R_add * alert_level * int_switch * power_switch);
@@ -839,84 +839,84 @@ setlistener("sim/model/livery/material/interior-flooring/ambient/red", func {
 	setprop("sim/model/bluebird/lighting/ambient/I1-A-red", livery_I1AR);
 	recalc_material_1();
 	set_I1_ambient();
-});
+},, 0);
 
 setlistener("sim/model/livery/material/interior-flooring/ambient/green", func {
 	livery_I1AG = getprop("sim/model/livery/material/interior-flooring/ambient/green");
 	setprop("sim/model/bluebird/lighting/ambient/I1-A-green", livery_I1AG);
 	recalc_material_1();
 	set_I1_ambient();
-});
+},, 0);
 
 setlistener("sim/model/livery/material/interior-flooring/ambient/blue", func {
 	livery_I1AB = getprop("sim/model/livery/material/interior-flooring/ambient/blue");
 	setprop("sim/model/bluebird/lighting/ambient/I1-A-blue", livery_I1AB);
 	recalc_material_1();
 	set_I1_ambient();
-});
+},, 0);
 
 setlistener("sim/model/livery/material/interior-lower/ambient/red", func {
 	livery_I4AR = getprop("sim/model/livery/material/interior-lower/ambient/red");
 	setprop("sim/model/bluebird/lighting/ambient/I4-A-red", livery_I4AR);
 	recalc_material_4();
 	set_I4_ambient();
-});
+},, 0);
 
 setlistener("sim/model/livery/material/interior-lower/ambient/green", func {
 	livery_I4AG = getprop("sim/model/livery/material/interior-lower/ambient/green");
 	setprop("sim/model/bluebird/lighting/ambient/I4-A-green", livery_I4AG);
 	recalc_material_4();
 	set_I4_ambient();
-});
+},, 0);
 
 setlistener("sim/model/livery/material/interior-lower/ambient/blue", func {
 	livery_I4AB = getprop("sim/model/livery/material/interior-lower/ambient/blue");
 	setprop("sim/model/bluebird/lighting/ambient/I4-A-blue", livery_I4AB);
 	recalc_material_4();
 	set_I4_ambient();
-});
+},, 0);
 
 setlistener("sim/model/livery/material/interior-door-panels/ambient/red", func {
 	livery_IAAR = getprop("sim/model/livery/material/interior-door-panels/ambient/red");
 	setprop("sim/model/bluebird/lighting/ambient/IA-A-red", livery_IAAR);
 	recalc_material_A();
 	set_IA_ambient();
-});
+},, 0);
 
 setlistener("sim/model/livery/material/interior-door-panels/ambient/green", func {
 	livery_IAAG = getprop("sim/model/livery/material/interior-door-panels/ambient/green");
 	setprop("sim/model/bluebird/lighting/ambient/IA-A-green", livery_IAAG);
 	recalc_material_A();
 	set_IA_ambient();
-});
+},, 0);
 
 setlistener("sim/model/livery/material/interior-door-panels/ambient/blue", func {
 	livery_IAAB = getprop("sim/model/livery/material/interior-door-panels/ambient/blue");
 	setprop("sim/model/bluebird/lighting/ambient/IA-A-blue", livery_IAAB);
 	recalc_material_A();
 	set_IA_ambient();
-});
+},, 0);
 
 setlistener("sim/model/livery/material/interior-upper/ambient/red", func {
 	livery_IUAR = getprop("sim/model/livery/material/interior-upper/ambient/red");
 	setprop("sim/model/bluebird/lighting/ambient/IU-A-red", livery_IUAR);
 	recalc_material_U();
 	set_IU_ambient();
-});
+},, 0);
 
 setlistener("sim/model/livery/material/interior-upper/ambient/green", func {
 	livery_IUAG = getprop("sim/model/livery/material/interior-upper/ambient/green");
 	setprop("sim/model/bluebird/lighting/ambient/IU-A-green", livery_IUAG);
 	recalc_material_U();
 	set_IU_ambient();
-});
+},, 0);
 
 setlistener("sim/model/livery/material/interior-upper/ambient/blue", func {
 	livery_IUAB = getprop("sim/model/livery/material/interior-upper/ambient/blue");
 	setprop("sim/model/bluebird/lighting/ambient/IU-A-blue", livery_IUAB);
 	recalc_material_U();
 	set_IU_ambient();
-});
+},, 0);
 
 setlistener("controls/lighting/alert", func {
 	alert_switch = alert_switch_Node.getValue();
@@ -933,7 +933,7 @@ setlistener("controls/lighting/alert", func {
 	recalc_material_A();
 	recalc_material_U();
 	interior_lighting_update();
-});
+},, 0);
 
 # watch for damage --------------------------------------------------
 
@@ -973,10 +973,11 @@ setlistener("sim/model/bluebird/components/nacelle-R", func {
 	}
 }, 1);
 
-# make venting submodels appear realistic as wind direction blows them
-var update_venting = func(uv_change) {
+var update_venting = func(uv_change, left_right) {	# 1=left,2=right
 	var old_direction = venting_direction;
+	var new_venting = 0;
 	if (nacelle_L_venting or nacelle_R_venting) {
+		# make venting submodels appear realistic as wind direction blows them
 		if (airspeed > 10) {
 			venting_direction = 1;
 		} elsif (airspeed < -10) {
@@ -986,75 +987,74 @@ var update_venting = func(uv_change) {
 		}
 		if ((old_direction != venting_direction) or (uv_change)) {
 			if (nacelle_L_venting) {
-				if (venting_direction == 1) {
-					setprop ("ai/submodels/nacelle-LR-venting", "true");
-					setprop ("ai/submodels/nacelle-LF-venting", "false");
-				} elsif (venting_direction == -1) {
-					setprop ("ai/submodels/nacelle-LR-venting", "false");
-					setprop ("ai/submodels/nacelle-LF-venting", "true");
-				} elsif (venting_direction == 0) {
-					setprop ("ai/submodels/nacelle-LR-venting", "true");
-					setprop ("ai/submodels/nacelle-LF-venting", "true");
+				if (nacelleL_attached) {
+					if (venting_direction == 1) {
+						setprop ("ai/submodels/nacelle-LR-venting", "true");
+						setprop ("ai/submodels/nacelle-LF-venting", "false");
+					} elsif (venting_direction == -1) {
+						setprop ("ai/submodels/nacelle-LR-venting", "false");
+						setprop ("ai/submodels/nacelle-LF-venting", "true");
+					} elsif (venting_direction == 0) {
+						setprop ("ai/submodels/nacelle-LR-venting", "true");
+						setprop ("ai/submodels/nacelle-LF-venting", "true");
+					}
+					new_venting = 1;
+				} else {
+					setprop ("ai/submodels/engine-L-flaring", "true");
+					setprop ("ai/submodels/engine-L-venting", "true");
 				}
-			} elsif (!nacelle_L_venting) {
+			} else {
 				setprop ("ai/submodels/nacelle-LR-venting", "false");
 				setprop ("ai/submodels/nacelle-LF-venting", "false");
 			}
 			if (nacelle_R_venting) {
-				if (venting_direction == 1) {
-					setprop ("ai/submodels/nacelle-RR-venting", "true");
-					setprop ("ai/submodels/nacelle-RF-venting", "false");
-				} elsif (venting_direction == -1) {
-					setprop ("ai/submodels/nacelle-RR-venting", "false");
-					setprop ("ai/submodels/nacelle-RF-venting", "true");
-				} elsif (venting_direction == 0) {
-					setprop ("ai/submodels/nacelle-RR-venting", "true");
-					setprop ("ai/submodels/nacelle-RF-venting", "true");
+				if (nacelleR_attached) {
+					if (venting_direction == 1) {
+						setprop ("ai/submodels/nacelle-RR-venting", "true");
+						setprop ("ai/submodels/nacelle-RF-venting", "false");
+					} elsif (venting_direction == -1) {
+						setprop ("ai/submodels/nacelle-RR-venting", "false");
+						setprop ("ai/submodels/nacelle-RF-venting", "true");
+					} elsif (venting_direction == 0) {
+						setprop ("ai/submodels/nacelle-RR-venting", "true");
+						setprop ("ai/submodels/nacelle-RF-venting", "true");
+					}
+					new_venting += 2;
+				} else {
+					setprop ("ai/submodels/engine-R-flaring", "true");
+					setprop ("ai/submodels/engine-R-venting", "true");
 				}
-			} elsif (!nacelle_R_venting) {
+			} else {
 				setprop ("ai/submodels/nacelle-RR-venting", "false");
 				setprop ("ai/submodels/nacelle-RF-venting", "false");
 			}
 		}
 	} else {
+		venting_direction = -3;
 		if (uv_change) {
-			venting_direction = -3;
 			setprop ("ai/submodels/nacelle-LR-venting", "false");
 			setprop ("ai/submodels/nacelle-LF-venting", "false");
 			setprop ("ai/submodels/nacelle-RR-venting", "false");
 			setprop ("ai/submodels/nacelle-RF-venting", "false");
 		}
 	}
+	if (left_right != new_venting) {
+		if ((left_right != 2) and ((new_venting == 0) or (new_venting == 2))) {
+			setprop ("sim/model/bluebird/systems/nacelle-L-venting", "false");
+		} elsif ((left_right != 1) and (new_venting <= 1)) {
+			setprop ("sim/model/bluebird/systems/nacelle-R-venting", "false");
+		}
+	}
 }
 
 setlistener("sim/model/bluebird/systems/nacelle-L-venting", func {
 	nacelle_L_venting = getprop("sim/model/bluebird/systems/nacelle-L-venting");
-	if (!nacelleL_attached) {
-		if (nacelle_L_venting) {
-			setprop ("ai/submodels/engine-L-flaring", "true");
-			setprop ("ai/submodels/engine-L-venting", "true");
-			setprop ("sim/model/bluebird/systems/nacelle-L-venting", "false");
-			nacelle_L_venting = 0;
-		}
-	} else {
-		setprop ("sim/model/bluebird/systems/nacelle-L-venting", "false");
-	}
-	update_venting(1);
+	update_venting(1,1);
 }, 1);
 
 setlistener("sim/model/bluebird/systems/nacelle-R-venting", func {
 	nacelle_R_venting = getprop("sim/model/bluebird/systems/nacelle-R-venting");
-	if (!nacelleR_attached) {
-		if (nacelle_R_venting) {
-			setprop ("ai/submodels/engine-R-flaring", "true");
-			setprop ("ai/submodels/engine-R-venting", "true");
-			setprop ("sim/model/bluebird/systems/nacelle-R-venting", "false");
-			nacelle_R_venting = 0;
-		}
-	} else {
-		setprop ("sim/model/bluebird/systems/nacelle-R-venting", "false");
-	}
-	update_venting(1);
+	update_venting(1,2);
 }, 1);
 
 # panel lighting ====================================================
@@ -1698,7 +1698,7 @@ var nav_light_loop = func {
 # gear and wheels --------------------------------------------------
 setlistener("position/gear-agl-m", func {
 	gear_height = getprop("position/gear-agl-m");
-});
+},, 0);
 
 setlistener("gear/gear[0]/position-norm", func {
 	gear_position = getprop("gear/gear[0]/position-norm");
@@ -1723,7 +1723,7 @@ setlistener("gear/gear[0]/position-norm", func {
 	}
 	contact_altitude = altitude_ft_Node.getValue() - vertical_offset_ft - gear_height - hover_add;
 	panel_lighting_update();
-});
+},, 0);
 
 setlistener("gear/gear[1]/position-norm", func {
 	wheel_position = getprop("gear/gear[1]/position-norm");
@@ -1749,7 +1749,7 @@ setlistener("gear/gear[1]/position-norm", func {
 	# contact = altitude origin - offset - gear - (keep nacelle and nose from touching)
 	contact_altitude = altitude_ft_Node.getValue() - vertical_offset_ft - gear_height - hover_add;
 	panel_lighting_update();
-});
+},, 0);
 
 var toggle_gear_mode = func(gm_request) {
 	if (power_switch) {
@@ -1789,7 +1789,7 @@ setlistener("controls/gear/height-switch", func {
 		active_gear_button = [ 1, 3];
 	}
 	panel_lighting_update();
-});
+},, 0);
 
 setlistener("controls/gear/wheels-switch", func {
 	wheels_switch = getprop("controls/gear/wheels-switch");
@@ -1809,7 +1809,7 @@ setlistener("controls/gear/wheels-switch", func {
 	} else {		# up
 		gear[1].close();
 	}
-});
+},, 0);
 
 controls.gearDown = func(direction) {
 	if (direction > 0) {		# down requested
@@ -2340,6 +2340,7 @@ var update_main = func {
 			}
 			if (asas < 2) {  # already stopped
 				maxspeed.setDoubleValue(0);
+				setprop("controls/engines/engine/throttle", 0.0);
 			}
 			max_drift = max_lose;
 		} else {  # power is on
@@ -2590,7 +2591,7 @@ var update_main = func {
 
 		# nacelle venting
 		if (venting_direction >= -1) {
-			update_venting(0);
+			update_venting(0,0);
 		}
 	}
 	settimer(update_main, 0);
@@ -2632,7 +2633,7 @@ setlistener("sim/model/bluebird/position/landing-wow", func {
 	if (getprop("sim/model/bluebird/position/landing-wow")) {
 		settimer(reset_landing, 0.4);
 	}
- });
+},, 0);
 
 var reset_squeal = func {
 	setprop("sim/model/bluebird/position/squeal-wow", "false");
@@ -2642,7 +2643,7 @@ setlistener("sim/model/bluebird/position/squeal-wow", func {
 	if (getprop("sim/model/bluebird/position/squeal-wow")) {
 		settimer(reset_squeal, 0.3);
 	}
- });
+},, 0);
 
 var reset_crash = func {
 	setprop("sim/model/bluebird/position/crash-wow", "false");
@@ -3315,14 +3316,18 @@ var set_landing_lights = func(sll_i) {
 }
 
 var toggle_venting_both = func {
-	if (!nacelle_L_venting) {
+	if (!nacelle_R_venting) {
 		if (nacelleL_attached) {
 			setprop("sim/model/bluebird/systems/nacelle-L-venting", "true");
 		}
 		if (nacelleR_attached) {
 			setprop("sim/model/bluebird/systems/nacelle-R-venting", "true");
 		}
-		popupTip2("Smoke venting ON");
+		if (nacelleL_attached or nacelleR_attached) {
+			popupTip2("Smoke venting ON");
+		} else {
+			popupTip2("Unable to comply. Too much damage.");
+		}
 	} else {
 		setprop("sim/model/bluebird/systems/nacelle-L-venting", "false");
 		setprop("sim/model/bluebird/systems/nacelle-R-venting", "false");

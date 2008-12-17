@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Bluebird Explorer Hovercraft  version 8.6 for FlightGear OSG -->
+<!-- Bluebird Explorer Hovercraft  version 8.7 for FlightGear OSG -->
 
 <PropertyList>
 	<particlesystem>
@@ -17,7 +17,7 @@
 				<property>ai/submodels/nacelle-LF-venting</property>
 				<less-than>
 					<property>position/altitude-ft</property>
-					<value>35000</value>
+					<value>50000</value>
 				</less-than>
 			</and>
 		</condition>
