@@ -1,6 +1,6 @@
 # ===== text screen functions for version 1.0 and OSG =====
 # ===== and backend for ai-vor
-# ===== for Bluebird Explorer Hovercraft version 8.7 =====
+# ===== for Bluebird Explorer Hovercraft version 8.8 =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
@@ -30,15 +30,25 @@ var normheading = func (a) {
 	return a;
 }
 
-var bearing_to = func (bearing) {
+var bearing_to_factor = func (bearing) {
 	var normalized = normheading(bearing);
-	return ((normalized > 90 and normalized < 270)? -1 : 1);
+	return ((normalized > 90 and normalized < 270) ? -1 : 1);
 }
 
 var refresh_2L = 1.0;
 var a_mode = 0;
 
 # ======== nearest airport for screen-1R ============================
+var ap1_bearing_Node = props.globals.getNode("instrumentation/tracking/ap1-bearing-deg", 1);
+var ap1_callsign_Node = props.globals.getNode("instrumentation/tracking/ap1-callsign", 1);
+var ap1_dist_Node = props.globals.getNode("instrumentation/tracking/ap1-distance-m", 1);
+var ap1_elev_Node = props.globals.getNode("instrumentation/tracking/ap1-elevation-deg", 1);
+var ap1_heading_offset_Node = props.globals.getNode("instrumentation/tracking/ap1-heading-offset-deg", 1);
+var ap1_heading_Node = props.globals.getNode("instrumentation/tracking/ap1-heading-deg", 1);
+var ap1_name_Node = props.globals.getNode("instrumentation/tracking/ap1-name", 1);
+var ap1_lat_Node = props.globals.getNode("instrumentation/tracking/ap1-lat", 1);
+var ap1_lon_Node = props.globals.getNode("instrumentation/tracking/ap1-lon", 1);
+var ap1_range_Node = props.globals.getNode("instrumentation/tracking/ap1-range", 1);
 var apt_loop_id = 0;
 var apt_loop = func (id) {
 	id == apt_loop_id or return;
@@ -52,14 +62,14 @@ var apt_loop = func (id) {
 			}
 		}
 		if (is_heliport) {
-			setprop("instrumentation/display-screens/ap1-callsign", apt.id ~ "  HELIPORT");
+			ap1_callsign_Node.setValue(apt.id ~ "  HELIPORT");
 		} else {
-			setprop("instrumentation/display-screens/ap1-callsign", apt.id);
+			ap1_callsign_Node.setValue(apt.id);
 		}
-		setprop("instrumentation/display-screens/t1R-16", apt.name);
-		setprop("instrumentation/display-screens/t1R-17a", apt.lat);
-		setprop("instrumentation/display-screens/t1R-17b", apt.lon);
-		setprop("instrumentation/ai-vor/ap1-elevation", apt.elevation);
+		ap1_name_Node.setValue(apt.name);
+		ap1_lat_Node.setValue(apt.lat);
+		ap1_lon_Node.setValue(apt.lon);
+		ap1_elev_Node.setValue(apt.elevation);
 	}
 	settimer(func { apt_loop(id) }, 5);
 }
@@ -92,27 +102,27 @@ var apt_update = func (id) {
 		var head = (xy_hyp == 0 ? 0 : asin(x / xy_hyp)) * 180 / math.pi;
 		head = (c_lat > apt.lat ? normheading(180 - head) : normheading(head));
 		var bearing = normbearing(head, c_head_deg);
-		setprop("instrumentation/display-screens/t1R-18a", head);
-		setprop("instrumentation/ai-vor/ap1-heading-offset", 360 - bearing - c_head_deg);
-		setprop("instrumentation/ai-vor/ap1-to", bearing_to(bearing));
+		ap1_heading_Node.setValue(head);
+		ap1_heading_offset_Node.setValue((360 - bearing - c_head_deg));
+		setprop("instrumentation/tracking/ap1-to-factor", bearing_to_factor(bearing));
 		var range = walk.distFromCraft(apt.lat, apt.lon);
-		setprop("instrumentation/ai-vor/ap1-distance-m", range);
+		ap1_dist_Node.setValue(range);
 		var c_alt = getprop("position/altitude-ft");
 		var e_m = apt.elevation - (c_alt * 0.3048);
 		var xy_hyp = math.sqrt((e_m * e_m) + (range * range));
 		var ze = (xy_hyp == 0 ? 0 : asin(e_m / xy_hyp)) * 180 / math.pi;
-		setprop("instrumentation/ai-vor/ap1-elevation-deg", ze);
+		ap1_elev_Node.setValue(ze);
 		range = range * m_2_conv[a_mode];
 		var txt18 = sprintf("%7.2f",range) ~ m_conv_units[a_mode];
-		setprop("instrumentation/display-screens/t1R-18b", txt18);
+		ap1_range_Node.setValue(txt18);
 	}
 	settimer(func { apt_update(id) }, 0.25);
 }
 
 # ======== nearest aircraft for screen-2L ============================
 var cleanup_2L = func {
-	var ai_s = getprop("instrumentation/ai-vor/ai-size");
-	var mp_s = getprop("instrumentation/ai-vor/mp-size");
+	var ai_s = getprop("instrumentation/tracking/ai-size");
+	var mp_s = getprop("instrumentation/tracking/mp-size");
 	var s = (ai_s > -1 ? ai_s : 0) + (mp_s > -1 ? mp_s : 0);
 	for (var i = s ; i <= 13 ; i += 1) {
 		setprop("instrumentation/display-screens/t2L-" ~ (i+3) ~ "a", " ");
@@ -168,24 +178,24 @@ var ac_update = func {
 		var vor_h = 0;
 		if (size(ac_list) >= ac_closest and ac_closest != -1) {
 			vor_h = 360 - ac_list[ac_closest].bearing - c_head_deg;
-			setprop("instrumentation/ai-vor/ai-size", ac_i);
-			setprop("instrumentation/ai-vor/ai1-callsign", ac_list[ac_closest].callsign);
-			setprop("instrumentation/ai-vor/ai1-distance-m", ac_list[ac_closest].dist_m);
-			setprop("instrumentation/ai-vor/ai1-to", bearing_to(ac_list[ac_closest].bearing));
+			setprop("instrumentation/tracking/ai-size", ac_i);
+			setprop("instrumentation/tracking/ai1-callsign", ac_list[ac_closest].callsign);
+			setprop("instrumentation/tracking/ai1-distance-m", ac_list[ac_closest].dist_m);
+			setprop("instrumentation/tracking/ai1-to-factor", bearing_to_factor(ac_list[ac_closest].bearing));
 			var e_m = (ac_list[ac_closest].alt_ft - c_alt) * 0.3048;
 			var xy_hyp = math.sqrt((e_m * e_m) + (ac_list[ac_closest].dist_m * ac_list[ac_closest].dist_m));
 			var ze = (xy_hyp == 0 ? 0 : asin(e_m / xy_hyp)) * 180 / math.pi;
-			setprop("instrumentation/ai-vor/ai1-elevation-deg", ze);
+			setprop("instrumentation/tracking/ai1-elevation-deg", ze);
 		} else {
 			if (getprop("instrumentation/ai-vor/mode") == 1) {
 				setprop("instrumentation/ai-vor/mode", 0);
 			}
-			setprop("instrumentation/ai-vor/ai-size", -1);
-			setprop("instrumentation/ai-vor/ai1-callsign", " ");
-			setprop("instrumentation/ai-vor/ai1-distance-m", -999999);
-			setprop("instrumentation/ai-vor/ai1-elevation-deg", -99);
+			setprop("instrumentation/tracking/ai-size", -1);
+			setprop("instrumentation/tracking/ai1-callsign", " ");
+			setprop("instrumentation/tracking/ai1-distance-m", -999999);
+			setprop("instrumentation/tracking/ai1-elevation-deg", -99);
 		}
-		setprop("instrumentation/ai-vor/ai1-heading-offset", vor_h);
+		setprop("instrumentation/tracking/ai1-heading-offset-deg", vor_h);
 		var ac_closest = -1;
 		var ac_closest_distance = 999999;
 		if (mp != nil) {
@@ -209,7 +219,7 @@ var ac_update = func {
 					if (avglat < 90 and avglat > -90) {
 						var x = x_grid * cos(avglat);
 					} else {
-						print ("Error detected in mp section, line 212  avglat= ",avglat);
+						print ("Error detected in mp section, line 222  avglat= ",avglat);
 						var x = x_grid * cos(c_lat);
 					}
 					var ah1 = sin(y * 0.5);
@@ -231,21 +241,21 @@ var ac_update = func {
 		vor_h = 0;
 		if (size(ac_list) >= ac_closest and ac_closest != -1) {
 			vor_h = 360 - ac_list[ac_closest].bearing - c_head_deg;
-			setprop("instrumentation/ai-vor/mp-size", ac_i);
-			setprop("instrumentation/ai-vor/mp1-callsign", ac_list[ac_closest].callsign);
-			setprop("instrumentation/ai-vor/mp1-distance-m", ac_list[ac_closest].dist_m);
-			setprop("instrumentation/ai-vor/mp1-to", bearing_to(ac_list[ac_closest].bearing));
+			setprop("instrumentation/tracking/mp-size", ac_i);
+			setprop("instrumentation/tracking/mp1-callsign", ac_list[ac_closest].callsign);
+			setprop("instrumentation/tracking/mp1-distance-m", ac_list[ac_closest].dist_m);
+			setprop("instrumentation/tracking/mp1-to-factor", bearing_to_factor(ac_list[ac_closest].bearing));
 			var e_m = (ac_list[ac_closest].alt_ft - c_alt) * 0.3048;
 			var xy_hyp = math.sqrt((e_m * e_m) + (ac_list[ac_closest].dist_m * ac_list[ac_closest].dist_m));
 			var ze = (xy_hyp == 0 ? 0 : asin(e_m / xy_hyp)) * 180 / math.pi;
-			setprop("instrumentation/ai-vor/mp1-elevation-deg", ze);
+			setprop("instrumentation/tracking/mp1-elevation-deg", ze);
 		} else {
-			setprop("instrumentation/ai-vor/mp-size", -1);
-			setprop("instrumentation/ai-vor/mp1-callsign", " ");
-			setprop("instrumentation/ai-vor/mp1-distance-m", -999999);
-			setprop("instrumentation/ai-vor/mp1-elevation-deg", -99);
+			setprop("instrumentation/tracking/mp-size", -1);
+			setprop("instrumentation/tracking/mp1-callsign", " ");
+			setprop("instrumentation/tracking/mp1-distance-m", -999999);
+			setprop("instrumentation/tracking/mp1-elevation-deg", -99);
 		}
-		setprop("instrumentation/ai-vor/mp1-heading-offset", vor_h);
+		setprop("instrumentation/tracking/mp1-heading-offset-deg", vor_h);
 		var sac = sort(ac_list, func(a,b) { return (a.dist_m > b.dist_m) });
 		var s = size(sac);
 		for (var i = 0 ; (i < s and i <= 13) ; i += 1) {
@@ -276,11 +286,11 @@ var ac_loop_id = 0;
 var ac_loop = func (id) {
 	id == ac_loop_id or return;
 	var ac = props.globals.getNode("ai/models").getChildren("aircraft");
-	if ((aiac == nil) or (screen_2L_on)) {
+	if ((aiac == nil) or (tracking_on)) {
 		aiac = ac;	# copy of node vector
 		ac_update();
 	}
-	if (screen_2L_on) {
+	if (tracking_on) {
 		settimer(func { ac_loop(ac_loop_id += 1) }, refresh_2L);
 	}
 }
@@ -338,18 +348,27 @@ var init = func {
 		refresh_2L = getprop("instrumentation/display-screens/refresh-2L-sec");
 	});
 
-	setlistener("instrumentation/ai-vor/ai-size", func {
+	setlistener("instrumentation/tracking/ai-size", func {
 		cleanup_2L();
 	},,0);
 
-	setlistener("instrumentation/ai-vor/mp-size", func {
+	setlistener("instrumentation/tracking/mp-size", func {
 		cleanup_2L();
 	},,0);
+
+	setlistener("instrumentation/tracking/enabled", func {
+		tracking_on = getprop("instrumentation/tracking/enabled");
+		if (tracking_on) {
+			setprop("instrumentation/display-screens/enabled-2L", 1);
+			settimer(func { ac_loop(ac_loop_id += 1) }, 0);
+		} else {
+			setprop("instrumentation/display-screens/enabled-2L", 0);
+		}
+	}, 1);
 
 	setlistener("instrumentation/display-screens/enabled-2L", func {
 		if (getprop("instrumentation/display-screens/enabled-2L")) {
 			setprop("instrumentation/display-screens/t2L-2", "Callsign                 Distance   Altitude   Bearing");
-			settimer(func { ac_loop(ac_loop_id += 1) }, 0);
 		}
 	}, 1);
 

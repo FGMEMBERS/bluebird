@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 8.6 for OSG                   ==-->
+<!--== Bluebird version 8.8 for OSG                   ==-->
 
 <PropertyList>
 	<model>
@@ -1056,7 +1056,6 @@
 		</placer>
 
 		<condition>
-			<property>sim/model/bluebird/particles/enabled</property>
 			<not>
 				<property>sim/paused</property>
 			</not>
@@ -1178,7 +1177,6 @@
 		</placer>
 
 		<condition>
-			<property>sim/model/bluebird/particles/enabled</property>
 			<not>
 				<property>sim/paused</property>
 			</not>
@@ -1300,7 +1298,6 @@
 		</placer>
 
 		<condition>
-			<property>sim/model/bluebird/particles/enabled</property>
 			<not>
 				<property>sim/paused</property>
 			</not>
@@ -1422,7 +1419,6 @@
 		</placer>
 
 		<condition>
-			<property>sim/model/bluebird/particles/enabled</property>
 			<not>
 				<property>sim/paused</property>
 			</not>
@@ -1528,7 +1524,6 @@
 		<path>Aircraft/bluebird/Models/Effects/fire.xml</path>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/particles/enabled</property>
 				<not>
 					<property>sim/paused</property>
 				</not>
@@ -1547,7 +1542,6 @@
 		<path>Aircraft/bluebird/Models/Effects/fire.xml</path>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/particles/enabled</property>
 				<not>
 					<property>sim/paused</property>
 				</not>
@@ -1566,7 +1560,6 @@
 		<path>Aircraft/bluebird/Models/Effects/fire.xml</path>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/particles/enabled</property>
 				<not>
 					<property>sim/paused</property>
 				</not>
@@ -1585,7 +1578,6 @@
 		<path>Aircraft/bluebird/Models/Effects/fire.xml</path>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/particles/enabled</property>
 				<not>
 					<property>sim/paused</property>
 				</not>
@@ -1604,7 +1596,6 @@
 		<path>Aircraft/bluebird/Models/Effects/fire.xml</path>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/particles/enabled</property>
 				<not>
 					<property>sim/paused</property>
 				</not>
@@ -1623,7 +1614,6 @@
 		<path>Aircraft/bluebird/Models/Effects/fire.xml</path>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/particles/enabled</property>
 				<not>
 					<property>sim/paused</property>
 				</not>
@@ -1643,7 +1633,6 @@
 		<path>Aircraft/bluebird/Models/Effects/smoke-slow.xml</path>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/particles/enabled</property>
 				<not>
 					<property>sim/paused</property>
 				</not>
@@ -1663,7 +1652,6 @@
 		<path>Aircraft/bluebird/Models/Effects/smoke-fast.xml</path>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/particles/enabled</property>
 				<not>
 					<property>sim/paused</property>
 				</not>
@@ -1683,7 +1671,6 @@
 		<path>Aircraft/bluebird/Models/Effects/smoke-slow.xml</path>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/particles/enabled</property>
 				<not>
 					<property>sim/paused</property>
 				</not>
@@ -1703,7 +1690,6 @@
 		<path>Aircraft/bluebird/Models/Effects/smoke-slow.xml</path>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/particles/enabled</property>
 				<not>
 					<property>sim/paused</property>
 				</not>
@@ -1723,7 +1709,6 @@
 		<path>Aircraft/bluebird/Models/Effects/smoke-fast.xml</path>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/particles/enabled</property>
 				<not>
 					<property>sim/paused</property>
 				</not>
@@ -1743,7 +1728,6 @@
 		<path>Aircraft/bluebird/Models/Effects/smoke-slow.xml</path>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/particles/enabled</property>
 				<not>
 					<property>sim/paused</property>
 				</not>
@@ -1763,7 +1747,6 @@
 		<path>Aircraft/bluebird/Models/Effects/smoke-fast.xml</path>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/particles/enabled</property>
 				<not>
 					<property>sim/paused</property>
 				</not>
@@ -1786,7 +1769,6 @@
 		<path>Aircraft/bluebird/Models/Effects/smoke-fast.xml</path>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/particles/enabled</property>
 				<not>
 					<property>sim/paused</property>
 				</not>
@@ -1809,7 +1791,6 @@
 		<path>Aircraft/bluebird/Models/Effects/smoke-short.xml</path>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/particles/enabled</property>
 				<not>
 					<property>sim/paused</property>
 				</not>
@@ -1832,7 +1813,6 @@
 		<path>Aircraft/bluebird/Models/Effects/smoke-short.xml</path>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/particles/enabled</property>
 				<not>
 					<property>sim/paused</property>
 				</not>
@@ -1931,57 +1911,6 @@
 		<object-name>pilot</object-name>
 		<condition>
 			<property>sim/model/bluebird/crew/pilot/visible</property>
-		</condition>
-	</animation>
-
-	<animation>
-		<type>select</type>
-		<object-name>head</object-name>
-		<condition>
-			<or>
-				<greater-than>
-					<property>sim/current-view/view-number</property>
-					<value>0</value>
-				</greater-than>
-				<greater-than>
-					<property>sim/model/bluebird/crew/cockpit-position</property>
-					<value>0</value>
-				</greater-than>
-			</or>
-		</condition>
-	</animation>
-
-	<animation>
-		<type>select</type>
-		<object-name>hair</object-name>
-		<condition>
-			<or>
-				<greater-than>
-					<property>sim/current-view/view-number</property>
-					<value>0</value>
-				</greater-than>
-				<greater-than>
-					<property>sim/model/bluebird/crew/cockpit-position</property>
-					<value>0</value>
-				</greater-than>
-			</or>
-		</condition>
-	</animation>
-
-	<animation>
-		<type>select</type>
-		<object-name>shades</object-name>
-		<condition>
-			<or>
-				<greater-than>
-					<property>sim/current-view/view-number</property>
-					<value>0</value>
-				</greater-than>
-				<greater-than>
-					<property>sim/model/bluebird/crew/cockpit-position</property>
-					<value>0</value>
-				</greater-than>
-			</or>
 		</condition>
 	</animation>
 

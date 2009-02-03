@@ -1,6 +1,6 @@
-# ===== walking functions v.2.7 for FlightGear version 0.9.10 ===== version 8.1 =====
+# ===== walking functions v.2.7 for FlightGear version 0.9.10 =====
 # ===== outside walker is not supported =====
-# == customized for Bluebird Explorer Hovercraft =====
+# == customized for Bluebird Explorer Hovercraft  version 8.1 =====
 
 var calc_heading = func {
 	var w_forward = getprop("sim/walker/key-triggers/forward");

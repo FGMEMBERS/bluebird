@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 8.3 for FlightGear v1.0 (PLIB and OSG) =====
+# ===== Bluebird Explorer Hovercraft  version 8.8 for FlightGear v1.0 (PLIB and OSG) =====
 
 # strobes -----------------------------------------------------------
 var strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
@@ -52,6 +52,16 @@ var doorProximityVolume = func (current_view, door,x,y) {
 	}
 }
 
+var ignite = func {
+	var desc = getprop("sim/description");
+	if (substr(desc, size(desc) - 3, 3) != "1.0") {
+		var lat_deg = getprop("position/latitude-deg");
+		var lon_deg = getprop("position/longitude-deg");
+		var alt_ft = ground_elevation_ft.getValue();
+		wildfire.ignite(geo.Coord.new().set_latlon(lat_deg,lon_deg,alt_ft), 1);
+	}
+}
+
 #==========================================================================
 #                 === initial calls at startup ===
  setlistener("sim/signals/fdm-initialized", func {
@@ -60,12 +70,12 @@ var doorProximityVolume = func (current_view, door,x,y) {
  settimer(interior_lighting_loop, 0.25);
  settimer(interior_lighting_update, 0.5);
  settimer(nav_light_loop, 0.5);
- if (getprop("sim/ai-traffic/enabled")) {
- 	setprop("instrumentation/display-screens/enabled-2L", "true");
+ if (getprop("sim/ai-traffic/enabled") or getprop("sim/multiplay/rxport")) {
+ 	setprop("instrumentation/tracking/enabled", "true");
  }
 
  var t = getprop("/sim/description");
  print (t);
  var v = getprop("/sim/aircraft-version");
- print ("  version ",v,"  release date 2008.Dec.16  by Stewart Andreason");
+ print ("  version ",v,"  release date 2009.Feb.03  by Stewart Andreason");
 });

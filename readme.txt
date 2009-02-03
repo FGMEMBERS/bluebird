@@ -7,26 +7,38 @@ If you are running FlightGear version 0.9.10
 --aircraft=bluebird-09
 
 If you are running FlightGear version 1.0 (with Plib)
---aircraft=bluebird
+--aircraft=bluebird-10
 
 If you are running FlightGear OSG version:
 --aircraft=bluebird-osg
 which only works with FG version 1.9 or cvs built with Openscenegraph, and osgview option.
 
-After the simulator starts up, you are powered up and ready to throttle up.
-Press [?] for help with keyboard shortcuts.
+After the simulator starts up, your power is on, the engines 
+  are on standby, and ready to throttle up.
+  To hover up, press [Home] to spin up the counter-grav hover fans.
+Press [?] for help with keyboard shortcuts specific to this model.
+For more basic help, press [F10] to toggle the menu bar, 
+  then select Help, and Basic Keys.
 
 If you want the multiplayer model for OSG, 
-unzip the bluebird-ai.zip file into your $FGBASE/data directory.
+unzip the (separate) bluebird-ai.zip file into your $FGBASE/data directory.
 It will extract into the AI/Aircraft directory.
 
 -------------------------------------------------
-2008 by Stewart Andreason for FlightGear
+
+When editing an animation for Waldo Walker,
+ please remember the following tips:
+ After entering a text box, press Enter
+ After changing anything, Remember to press Save before leaving 
+   the dialog, or the current position ( like pressing [+] or [-] )
+
+-------------------------------------------------
+2009 by Stewart Andreason for FlightGear
 
 Send Suggestions? Comments? Problems? or Encouragement to:
   sandreas41 <at> gmail <dot> com
 Stay current with latest version. This model came from: 
-  http://seahorsecorral.org/flightgear_aircraft.html
+  http://seahorseCorral.org/flightgear_aircraft.html
 
 Highlights in this model:
   Hover capable
@@ -68,11 +80,13 @@ Highlights in this model:
    jump out and parachute to ground, 
    or climb non-vertical walls.
   Multiplayer
+  Walker animations.
 
-  Support for next OSG version:
+  Support for next OSG version 1.9:
      start with aircraft=bluebird-osg
   Compatibility with previous Flightgear version 0.9.10:
      start with aircraft=bluebird-09
+     Does not support newest features like particles, tracking, or walker.
 
 Current development level is: Early-Production
  All significant bugs within my model are (believed to be) fixed.

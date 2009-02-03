@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 8.7 =====
+# ===== Bluebird Explorer Hovercraft  version 8.8 =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
@@ -9,29 +9,28 @@ var c_heading_deg = props.globals.getNode("orientation/heading-deg", 1);
 var vor_callsign = props.globals.getNode("instrumentation/ai-vor/callsign", 1);
 var vor_heading = props.globals.getNode("instrumentation/ai-vor/heading-deg", 1);
 var vor_elevation = props.globals.getNode("instrumentation/ai-vor/elevation-deg", 1);
-var ai_size = props.globals.getNode("instrumentation/ai-vor/ai-size", 1);
-var ai_vor_heading_offset = props.globals.getNode("instrumentation/ai-vor/ai1-heading-offset", 1);
-var ai_vor_dist = props.globals.getNode("instrumentation/ai-vor/ai1-distance-m", 1);
-var ai_vor_elev = props.globals.getNode("instrumentation/ai-vor/ai1-elevation-deg", 1);
-var mp_size = props.globals.getNode("instrumentation/ai-vor/mp-size", 1);
-var mp_vor_heading_offset = props.globals.getNode("instrumentation/ai-vor/mp1-heading-offset", 1);
-var mp_vor_dist = props.globals.getNode("instrumentation/ai-vor/mp1-distance-m", 1);
-var mp_vor_elev = props.globals.getNode("instrumentation/ai-vor/mp1-elevation-deg", 1);
-var ap1_vor_heading_offset = props.globals.getNode("instrumentation/ai-vor/ap1-heading-offset", 1);
-var ap1_vor_dist = props.globals.getNode("instrumentation/ai-vor/ap1-distance-m", 1);
-var ap1_vor_elev = props.globals.getNode("instrumentation/ai-vor/ap1-elevation-deg", 1);
-var ap2_callsign = props.globals.getNode("instrumentation/ai-vor/ap2-callsign", 1);
-var ap2_vor_heading_offset = props.globals.getNode("instrumentation/ai-vor/ap2-heading-offset", 1);
-var ap2_vor_dist = props.globals.getNode("instrumentation/ai-vor/ap2-distance-m", 1);
-var ap2_vor_elev = props.globals.getNode("instrumentation/ai-vor/ap2-elevation-deg", 1);
+var ai_size = props.globals.getNode("instrumentation/tracking/ai-size", 1);
+var ai_heading_offset = props.globals.getNode("instrumentation/tracking/ai1-heading-offset-deg", 1);
+var ai_dist = props.globals.getNode("instrumentation/tracking/ai1-distance-m", 1);
+var ai_elev = props.globals.getNode("instrumentation/tracking/ai1-elevation-deg", 1);
+var mp_size = props.globals.getNode("instrumentation/tracking/mp-size", 1);
+var mp_heading_offset = props.globals.getNode("instrumentation/tracking/mp1-heading-offset-deg", 1);
+var mp_dist = props.globals.getNode("instrumentation/tracking/mp1-distance-m", 1);
+var mp_elev = props.globals.getNode("instrumentation/tracking/mp1-elevation-deg", 1);
+var ap1_heading_offset = props.globals.getNode("instrumentation/tracking/ap1-heading-offset-deg", 1);
+var ap1_dist = props.globals.getNode("instrumentation/tracking/ap1-distance-m", 1);
+var ap1_elev = props.globals.getNode("instrumentation/tracking/ap1-elevation-deg", 1);
+var ap2_callsign = props.globals.getNode("instrumentation/tracking/ap2-callsign", 1);
+var ap2_heading_offset = props.globals.getNode("instrumentation/tracking/ap2-heading-offset-deg", 1);
+var ap2_dist = props.globals.getNode("instrumentation/tracking/ap2-distance-m", 1);
+var ap2_elev = props.globals.getNode("instrumentation/tracking/ap2-elevation-deg", 1);
 var vor_dist = props.globals.getNode("instrumentation/ai-vor/distance-m", 1);
-#var ap1_elevation_m = 0;
 
 var power_switch = 1;
-var ap1_to = 1;
-var ai1_to = 1;
-var mp1_to = 1;
-var ap2_to = 1;
+var ap1_to_factor = 1;
+var ai1_to_factor = 1;
+var mp1_to_factor = 1;
+var ap2_to_factor = 1;
 var ap2 = nil;
 
 var ap2_set = 0;
@@ -77,18 +76,18 @@ var ap2_update = func {
 		if (power_switch) {
 			new_ho = 360 - bearing - c_head_deg;
 		}
-		setprop("instrumentation/ai-vor/ap2-heading-offset", new_ho);
-		setprop("instrumentation/ai-vor/ap2-to", displayScreens.bearing_to(bearing));
+		setprop("instrumentation/tracking/ap2-heading-offset-deg", new_ho);
+		setprop("instrumentation/tracking/ap2-to-factor", displayScreens.bearing_to_factor(bearing));
 		var range = walk.distFromCraft(ap2.lat, ap2.lon);
-		setprop("instrumentation/ai-vor/ap2-distance-m", range);
+		setprop("instrumentation/tracking/ap2-distance-m", range);
 		var c_alt = getprop("position/altitude-ft");
 		var e_m = ap2.elevation - (c_alt * 0.3048);
 		var xy_hyp = math.sqrt((e_m * e_m) + (range * range));
 		var ze = (xy_hyp == 0 ? 0 : asin(e_m / xy_hyp)) * 180 / math.pi;
-		ap2_vor_elev.setValue(ze);
+		ap2_elev.setValue(ze);
 	} else {
-		setprop("instrumentation/ai-vor/ap2-heading-offset", 0);
-		setprop("instrumentation/ai-vor/ap2-distance-m", -999999);
+		setprop("instrumentation/tracking/ap2-heading-offset-deg", 0);
+		setprop("instrumentation/tracking/ap2-distance-m", -999999);
 	}
 }
 
@@ -97,25 +96,25 @@ var vor_mode = 0;
 ai_vor_update = func {
 	if (power_switch) {
 		if (vor_mode == 1) {
-			if (ai_size.getValue() > -1) {
-				vor_heading.setValue(ai_vor_heading_offset.getValue() + c_heading_deg.getValue());
+			if (ai_size.getValue() > 0) {
+				vor_heading.setValue(ai_heading_offset.getValue() + c_heading_deg.getValue());
 			} else {
 				setprop("instrumentation/ai-vor/mode", 2);
 			}
 		}
 		if (vor_mode == 2) {
-			if (mp_size.getValue() > -1) {
-				vor_heading.setValue(mp_vor_heading_offset.getValue() + c_heading_deg.getValue());
+			if (mp_size.getValue() > 0) {
+				vor_heading.setValue(mp_heading_offset.getValue() + c_heading_deg.getValue());
 			} else {
 				setprop("instrumentation/ai-vor/mode", 3);
 			}
 		}
 		if (vor_mode == 3) {
 			ap2_update();
-			vor_heading.setValue(ap2_vor_heading_offset.getValue() + c_heading_deg.getValue());
+			vor_heading.setValue(ap2_heading_offset.getValue() + c_heading_deg.getValue());
 		}
 		if (vor_mode == 0) {
-			vor_heading.setValue(ap1_vor_heading_offset.getValue() + c_heading_deg.getValue());
+			vor_heading.setValue(ap1_heading_offset.getValue() + c_heading_deg.getValue());
 		}
 	} else {
 		vor_heading.setValue(0.0);
@@ -154,12 +153,12 @@ node = node.getNode("list");
 var listbox_apply = func {
 	id = pop(split(" ", node.getValue()));
 	id = substr(id, 1, size(id) - 2);  # strip parentheses
-	setprop("instrumentation/ai-vor/ap2-callsign", id);
+	setprop("instrumentation/tracking/ap2-callsign", id);
 }
 
 var apply = func {
 	id = string.uc(pop(split(" ", node.getValue())));
-	setprop("instrumentation/ai-vor/ap2-callsign", id);
+	setprop("instrumentation/tracking/ap2-callsign", id);
 }
 
 var ap2_dialog = nil;
@@ -224,7 +223,6 @@ var ap_dialog = func {
 
 	var box = g.addChild("button");
 	box.set("legend", "Search");
-#	box.set("halign", "left");
 	box.set("label", "");
 	box.set("pref-height", 18);
 	box.set("border", 2);
@@ -255,20 +253,20 @@ var init = func {
 		power_switch = getprop("sim/model/bluebird/systems/power-switch");
 	},,0);
 
-	setlistener("instrumentation/ai-vor/ap1-to", func {
-		ap1_to = getprop("instrumentation/ai-vor/ap1-to");
+	setlistener("instrumentation/tracking/ap1-to-factor", func {
+		ap1_to_factor = getprop("instrumentation/tracking/ap1-to-factor");
 	},,0);
 
-	setlistener("instrumentation/ai-vor/ai1-to", func {
-		ai1_to = getprop("instrumentation/ai-vor/ai1-to");
+	setlistener("instrumentation/tracking/ai1-to-factor", func {
+		ai1_to_factor = getprop("instrumentation/tracking/ai1-to-factor");
 	},,0);
 
-	setlistener("instrumentation/ai-vor/mp1-to", func {
-		mp1_to = getprop("instrumentation/ai-vor/mp1-to");
+	setlistener("instrumentation/tracking/mp1-to-factor", func {
+		mp1_to_factor = getprop("instrumentation/tracking/mp1-to-factor");
 	},,0);
 
-	setlistener("instrumentation/ai-vor/ap2-to", func {
-		ap2_to = getprop("instrumentation/ai-vor/ap2-to");
+	setlistener("instrumentation/tracking/ap2-to-factor", func {
+		ap2_to_factor = getprop("instrumentation/tracking/ap2-to-factor");
 	},,0);
 
 	setlistener("instrumentation/ai-vor/mode", func {
@@ -291,34 +289,34 @@ var init = func {
 		}
 		vor_mode = getprop("instrumentation/ai-vor/mode");
 		if (vor_mode == 0) {
-			ap1c_L = setlistener("instrumentation/display-screens/ap1-callsign", func {
-				vor_callsign.setValue(getprop("instrumentation/display-screens/ap1-callsign"));
+			ap1c_L = setlistener("instrumentation/tracking/ap1-callsign", func {
+				vor_callsign.setValue(getprop("instrumentation/tracking/ap1-callsign"));
 			}, 1);
-			ap1d_L = setlistener("instrumentation/ai-vor/ap1-distance-m", func {
-				vor_dist.setValue(ap1_vor_dist.getValue() * ap1_to);
+			ap1d_L = setlistener("instrumentation/tracking/ap1-distance-m", func {
+				vor_dist.setValue(ap1_dist.getValue() * ap1_to_factor);
 			});
-			ap1e_L = setlistener("instrumentation/ai-vor/ap1-elevation-deg", func {
-				vor_elevation.setValue(ap1_vor_elev.getValue());
+			ap1e_L = setlistener("instrumentation/tracking/ap1-elevation-deg", func {
+				vor_elevation.setValue(ap1_elev.getValue());
 			});
 		} elsif (vor_mode == 1) {
-			ai1c_L = setlistener("instrumentation/ai-vor/ai1-callsign", func {
-				vor_callsign.setValue(getprop("instrumentation/ai-vor/ai1-callsign"));
+			ai1c_L = setlistener("instrumentation/tracking/ai1-callsign", func {
+				vor_callsign.setValue(getprop("instrumentation/tracking/ai1-callsign"));
 			}, 1);
-			ai1d_L = setlistener("instrumentation/ai-vor/ai1-distance-m", func {
-				vor_dist.setValue(ai_vor_dist.getValue() * ai1_to);
+			ai1d_L = setlistener("instrumentation/tracking/ai1-distance-m", func {
+				vor_dist.setValue(ai_dist.getValue() * ai1_to_factor);
 			});
-			ai1e_L = setlistener("instrumentation/ai-vor/ai1-elevation-deg", func {
-				vor_elevation.setValue(ai_vor_elev.getValue());
+			ai1e_L = setlistener("instrumentation/tracking/ai1-elevation-deg", func {
+				vor_elevation.setValue(ai_elev.getValue());
 			});
 		} elsif (vor_mode == 2) {
-			mp1c_L = setlistener("instrumentation/ai-vor/mp1-callsign", func {
-				vor_callsign.setValue(getprop("instrumentation/ai-vor/mp1-callsign"));
+			mp1c_L = setlistener("instrumentation/tracking/mp1-callsign", func {
+				vor_callsign.setValue(getprop("instrumentation/tracking/mp1-callsign"));
 			}, 1);
-			mp1d_L = setlistener("instrumentation/ai-vor/mp1-distance-m", func {
-				vor_dist.setValue(mp_vor_dist.getValue() * mp1_to);
+			mp1d_L = setlistener("instrumentation/tracking/mp1-distance-m", func {
+				vor_dist.setValue(mp_dist.getValue() * mp1_to_factor);
 			});
-			mp1e_L = setlistener("instrumentation/ai-vor/mp1-elevation-deg", func {
-				vor_elevation.setValue(mp_vor_elev.getValue());
+			mp1e_L = setlistener("instrumentation/tracking/mp1-elevation-deg", func {
+				vor_elevation.setValue(mp_elev.getValue());
 			});
 		} elsif (vor_mode == 3) {
 			var ap2_cs = nil;
@@ -327,29 +325,29 @@ var init = func {
 				ap2_cs = ap2_callsign.getValue();
 				ap2_set = ap2_cs;
 			}
-			ap2c_L = setlistener("instrumentation/ai-vor/ap2-callsign", func {
+			ap2c_L = setlistener("instrumentation/tracking/ap2-callsign", func {
 				var ap2_cs = ap2_callsign.getValue();
 				ap2 = airportinfo(ap2_cs);
 				ap2_update();
 				vor_callsign.setValue(ap2_cs);
 			}, 1);
-			ap2d_L = setlistener("instrumentation/ai-vor/ap2-distance-m", func {
-				vor_dist.setValue(ap2_vor_dist.getValue() * ap2_to);
+			ap2d_L = setlistener("instrumentation/tracking/ap2-distance-m", func {
+				vor_dist.setValue(ap2_dist.getValue() * ap2_to_factor);
 			});
-			ap2e_L = setlistener("instrumentation/ai-vor/ap2-elevation-deg", func {
-				vor_elevation.setValue(ap2_vor_elev.getValue());
+			ap2e_L = setlistener("instrumentation/tracking/ap2-elevation-deg", func {
+				vor_elevation.setValue(ap2_elev.getValue());
 			});
 		}
 	},,0);
 
-	ap1c_L = setlistener("instrumentation/display-screens/ap1-callsign", func {
-		vor_callsign.setValue(getprop("instrumentation/display-screens/ap1-callsign"));
+	ap1c_L = setlistener("instrumentation/tracking/ap1-callsign", func {
+		vor_callsign.setValue(getprop("instrumentation/tracking/ap1-callsign"));
 	},,0);
-	ap1d_L = setlistener("instrumentation/ai-vor/ap1-distance-m", func {
-		vor_dist.setValue(ap1_vor_dist.getValue() * ap1_to);
+	ap1d_L = setlistener("instrumentation/tracking/ap1-distance-m", func {
+		vor_dist.setValue(ap1_dist.getValue() * ap1_to_factor);
 	},,0);
-	ap1e_L = setlistener("instrumentation/ai-vor/ap1-elevation-deg", func {
-		vor_elevation.setValue(ap1_vor_elev.getValue());
+	ap1e_L = setlistener("instrumentation/tracking/ap1-elevation-deg", func {
+		vor_elevation.setValue(ap1_elev.getValue());
 	},,0);
 }
 settimer(init,0);

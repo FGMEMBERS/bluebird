@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== created for Bluebird Explorer Hovercraft  version 8.6 ==-->
+<!--== created for Bluebird Explorer Hovercraft  version 8.8 ==-->
 
 <PropertyList>
 	<path>ai-vor.ac</path>
@@ -51,7 +51,7 @@
 							<value>0.0</value>
 						</equals>
 						<equals>
-							<property>instrumentation/ai-vor/ap1-heading-offset</property>
+							<property>instrumentation/tracking/ap1-heading-offset-deg</property>
 							<value>0.0</value>
 						</equals>
 					</and>

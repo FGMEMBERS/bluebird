@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 6.2 ==-->
+<!--== Bluebird Explorer Hovercraft  version 8.8 ==-->
 
 <PropertyList>
 
@@ -118,7 +118,7 @@
 	<type>textranslate</type>
 	<object-name>engine.bar.003</object-name>
 	<property>sim/model/bluebird/sound/pitch-level</property>
-	<factor>0.025</factor>
+	<factor>0.2</factor>
 	<step>1</step>
 	<scroll>1</scroll>
 	<axis>

@@ -2,7 +2,7 @@
 
 <PropertyList include="bluebird-base.xml">
  <sim>
-	<description>Bluebird Explorer Hovercraft  for FlightGear version 1.99 with OSG</description>
+	<description>Bluebird Explorer Hovercraft  for v1.9 with OSG</description>
 	<model>
 		<path>Aircraft/bluebird/Models/bluebird-osg.xml</path>
 		<bluebird>
@@ -54,17 +54,14 @@
 					<label>Print memory debug for reporting trouble</label>
 					<binding>
 						<command>nasal</command>
-						<script>print ("Send this output to the email contact at seahorseCorral.org");
-							print ("bluebird:");
-							debug.dump(bluebird);
-							print ("aiVORinstrument");
-							debug.dump(aiVORinstrument);
-							print ("digitalPanel");
-							debug.dump(digitalPanel);
-							print ("displayScreens");
-							debug.dump(displayScreens);
-							print ("walk");
-							debug.dump(walk);
+						<script>var data_path = getprop("/sim/fg-home") ~ "/aircraft-data/bluebird-debug1.txt";
+							print ("creating 3 debug files at ",data_path);
+							print ("Send this to the email contact at seahorseCorral.org");
+							io.write_properties(data_path, "/sim/model");
+							var data_path = getprop("/sim/fg-home") ~ "/aircraft-data/bluebird-debug2.txt";
+							io.write_properties(data_path, "/sim/walker");
+							var data_path = getprop("/sim/fg-home") ~ "/aircraft-data/bluebird-debug3.txt";
+							io.write_properties(data_path, "/instrumentation");
 						</script>
 					</binding>
 				</item>
@@ -98,6 +95,20 @@
 					<binding>
 						<command>nasal</command>
 						<script>bluebird.toggle_venting_both()</script>
+					</binding>
+				</item>
+				<item>
+					<label>Walker animation dialog  [Tab]</label>
+					<binding>
+						<command>nasal</command>
+						<script>walker.sequence.showDialog()</script>
+					</binding>
+				</item>
+				<item>
+					<label>pilot animation dialog</label>
+					<binding>
+						<command>nasal</command>
+						<script>pilot.sequence.showDialog()</script>
 					</binding>
 				</item>
 			</menu>
@@ -205,10 +216,17 @@
 		<file>Aircraft/bluebird/Nasal/displays-common.nas</file>
 		<file>Aircraft/bluebird/Nasal/displays-1-osg.nas</file>
 	</displayScreens>
+	<pilot>
+		<file>Aircraft/bluebird/Nasal/pilot-animate.nas</file>
+	</pilot>
 	<walk>
 		<file>Aircraft/bluebird/Nasal/walk-common.nas</file>
 		<file>Aircraft/bluebird/Nasal/walk-1-osg.nas</file>
+		<file>Aircraft/bluebird/Nasal/walk-osg.nas</file>
 		<script>main_loop();</script>
 	</walk>
+	<walker>
+		<file>Aircraft/bluebird/Nasal/walker-animate.nas</file>
+	</walker>
  </nasal>
 </PropertyList>

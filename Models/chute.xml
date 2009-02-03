@@ -1,17 +1,8 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 8.0 ==-->
+<!--== walker animation v1.1 for FlightGear versions 1.0 and 1.9 OSG   ==-->
 
 <PropertyList>
 	<path>chute.ac</path>
-
-<!-- parachute -->
-	<animation>
-		<type>select</type>
-		<object-name>Backpack</object-name>
-		<condition>
-			<property>sim/walker/parachute-equipped</property>
-		</condition>
-	</animation>
 
 	<animation>
 		<type>select</type>
@@ -31,6 +22,23 @@
 	</animation>
 
 	<animation>
+		<type>rotate</type>
+		<object-name>Chute</object-name>
+		<offset-deg>0</offset-deg>
+		<property>sim/model/walker[1]/limb[0]/y-deg</property>
+		<center>
+			<x-m>-0.015</x-m>
+			<y-m>0.0</y-m>
+			<z-m>0.212</z-m>
+		</center>
+		<axis>
+			<x>0.0</x>
+			<y>-1.0</y>
+			<z>0.0</z>
+		</axis>
+	</animation>
+
+	<animation>
 		<type>scale</type>
 		<object-name>Chute</object-name>
 		<property>sim/walker/parachute-opened-sec</property>
@@ -46,22 +54,5 @@
 		<x-max>1.0</x-max>
 		<y-max>1.0</y-max>
 		<z-max>1.0</z-max>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>Backpack</object-name>
-		<offset-deg>0</offset-deg>
-		<property>sim/model/npc[1]/limb[1]/y-deg</property>
-		<center>
-			<x-m>-0.015</x-m>
-			<y-m>0.0</y-m>
-			<z-m>0.212</z-m>
-		</center>
-		<axis>
-			<x>0.0</x>
-			<y>1.0</y>
-			<z>0.0</z>
-		</axis>
 	</animation>
 </PropertyList>

@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 8.7 common base =====
+# ===== Bluebird Explorer Hovercraft  version 8.8 common base =====
 
 # Add second popupTip to avoid being overwritten by primary joystick messages ==
 var tipArg2 = props.Node.new({ "dialog-name" : "PopTip2" });
@@ -477,6 +477,15 @@ var door_update = func(door_number) {
 				}
 			}
 		}
+		if (door0_position < 0.62) {
+			if (getprop("sim/model/bluebird/crew/walker/y-offset-m") < -1.3) {
+				var walker_x_position = getprop("sim/model/bluebird/crew/walker/x-offset-m");
+				if (walker_x_position > -3.2 and walker_x_position < -2.0) {
+					# between front hatches
+					setprop("sim/model/bluebird/crew/walker/y-offset-m", -1.3);
+				}
+			}
+		}
 		setprop("sim/model/bluebird/sound/door0-volume", doorProximityVolume(c_view, 0, x_position, y_position));
 	} elsif (door_number == 1) {
 		var gear_position2 = (gear_position * gear_position * 0.204304) + (gear_position * 0.0627) + 0.733;
@@ -491,6 +500,15 @@ var door_update = func(door_number) {
 				if (x_position > -3.2 and x_position < -2.0) {
 					# between front hatches
 					yViewNode.setValue(1.3);
+				}
+			}
+		}
+		if (door1_position < 0.62) {
+			if (getprop("sim/model/bluebird/crew/walker/y-offset-m") > 1.3) {
+				var walker_x_position = getprop("sim/model/bluebird/crew/walker/x-offset-m");
+				if (walker_x_position > -3.2 and walker_x_position < -2.0) {
+					# between front hatches
+					setprop("sim/model/bluebird/crew/walker/y-offset-m", 1.3);
 				}
 			}
 		}
@@ -518,6 +536,11 @@ var door_update = func(door_number) {
 		if (c_view == 0 and door5_position < 0.62) {
 			if (x_position > 9.2) {
 				xViewNode.setValue(9.2);
+			}
+		}
+		if (door5_position < 0.62) {
+			if (getprop("sim/model/bluebird/crew/walker/x-offset-m") > 9.2) {
+				setprop("sim/model/bluebird/crew/walker/x-offset-m", 9.2);
 			}
 		}
 		setprop("sim/model/bluebird/sound/door5-volume", doorProximityVolume(c_view, 5, x_position, y_position));
@@ -1696,8 +1719,8 @@ var nav_light_loop = func {
 }
 
 # gear and wheels --------------------------------------------------
-setlistener("position/gear-agl-m", func {
-	gear_height = getprop("position/gear-agl-m");
+setlistener("gear/gear-agl-m", func {
+	gear_height = getprop("gear/gear-agl-m");
 },, 0);
 
 setlistener("gear/gear[0]/position-norm", func {
@@ -1711,7 +1734,7 @@ setlistener("gear/gear[0]/position-norm", func {
 	} else {
 		setprop("gear/gear[0]/position-side-pads", gear_position);
 	}
-	setprop ("position/gear-agl-m", (gear_position * 2.47) + wheel_height);
+	setprop ("gear/gear-agl-m", (gear_position * 2.47) + wheel_height);
 	if (door0_position > 0.7) {
 		door_update(0);
 	}
@@ -1745,7 +1768,7 @@ setlistener("gear/gear[1]/position-norm", func {
 	} else {
 		wheel_height = 0;
 	}
-	setprop ("position/gear-agl-m", (gear_position * 2.47) + wheel_height);
+	setprop ("gear/gear-agl-m", (gear_position * 2.47) + wheel_height);
 	# contact = altitude origin - offset - gear - (keep nacelle and nose from touching)
 	contact_altitude = altitude_ft_Node.getValue() - vertical_offset_ft - gear_height - hover_add;
 	panel_lighting_update();
@@ -1767,7 +1790,7 @@ var toggle_gear_mode = func(gm_request) {
 	} else {	# no power to comply
 		popupTip2("Unable to comply. No power.");
 	}
-	reloadDialog1();
+	bluebird.reloadDialog1();
 }
 
 setlistener("controls/gear/height-switch", func {
@@ -2177,10 +2200,11 @@ var update_main = func {
 				skid_w2 = 0;
 			}
 			# threshold for determining a damage Hit
-			if (skid_w2 > 10 and asas > 100) {   
-				# impact greater than 600 feet per second
+			if (skid_w2 > 8 and asas > 80) {   
+				# impact greater than 480 feet per second
+				ignite();
 				var dmg_factor = int(skid_w2 * 0.025 * (abs(pitch_d) * 0.011) + 1.0);  # vulnerability to impact
-				# increasing number from 0.025 increases damage per hit
+				# increasing number from 0.025 ^^^^^ increases damage per hit
 				if (dmg_factor < 1) {  # if impact, then at least one damage unit
 					dmg_factor = 1;
 				} else {
@@ -2796,6 +2820,7 @@ var toggle_power = func(tp_mode) {
 		}
 	}
 	interior_lighting_update();
+	bluebird.reloadDialog1();
 }
 
 var toggle_fusion = func {
@@ -2809,6 +2834,7 @@ var toggle_fusion = func {
 		}
 	}
 	settimer(panel_lighting_loop, 0.05);
+	bluebird.reloadDialog1();
 }
 
 var toggle_wave1 = func {
@@ -2822,6 +2848,7 @@ var toggle_wave1 = func {
 		}
 	}
 	settimer(panel_lighting_loop, 0.05);
+	bluebird.reloadDialog1();
 }
 
 var toggle_wave2 = func {
@@ -2839,6 +2866,7 @@ var toggle_wave2 = func {
 		}
 	}
 	settimer(panel_lighting_loop, 0.05);
+	bluebird.reloadDialog1();
 }
 
 var toggle_lighting = func(tl_button_num) {
@@ -2868,6 +2896,7 @@ var toggle_lighting = func(tl_button_num) {
 		interior_lighting_update();
 	}
 	settimer(panel_lighting_loop, 0.05);
+	bluebird.reloadDialog1();
 }
 
 var delayed_panel_update = func {
@@ -2896,18 +2925,40 @@ var set_cockpit = func(cockpitPosition) {
 	#  x = right/left
 	#  y = up/down
 	#  z = aft/fore
+	var new_walker_x = -0.8;	# hide
+	var new_walker_y = 1.2;
+	if (cockpitPosition > 4) { cockpitPosition = 0; }
+	if (cockpitPosition < 0) { cockpitPosition = 4; }
+	if (cockpitPosition == 0) {
+		new_walker_y = 0.0;
+		if (damage_count == 0) {
+			new_walker_x = -7.35;
+		} else {
+			new_walker_x = -7.6;
+		}
+	} elsif (cockpitPosition == 1) {
+		new_walker_x = -5.6;
+		new_walker_y = 0;
+	} elsif (cockpitPosition == 2) {
+		new_walker_x = -5.94;
+		new_walker_y = -0.73;
+	} elsif (cockpitPosition == 3) {
+		new_walker_x = -5.93;
+		new_walker_y = 0.77;
+	} else {
+		new_walker_x = -3.3;
+		new_walker_y = 0;
+	}
+	if (!getprop("sim/walker/outside")) {
+		setprop("sim/model/bluebird/crew/cockpit-position", cockpitPosition);
+		setprop("sim/model/bluebird/crew/walker/x-offset-m", new_walker_x);
+		setprop("sim/model/bluebird/crew/walker/y-offset-m", new_walker_y);
+	}
 	if (getprop("sim/current-view/view-number") == 0) {
-		var new_walker_x = -0.8;
-		var new_walker_y = 1.2;
-		if (cockpitPosition > 4) { cockpitPosition = 0; }
-		if (cockpitPosition < 0) { cockpitPosition = 4; }
 		if (cockpitPosition == 0) {
-			setprop("sim/current-view/x-offset-m", 0.0);
 			if (damage_count == 0) {
-				setprop("sim/current-view/z-offset-m", -7.35);
 				setprop("sim/current-view/y-offset-m", 1.47);
 			} else {
-				setprop("sim/current-view/z-offset-m", -7.6);
 				if (damage_count == 1) {
 					setprop("sim/current-view/y-offset-m", 1.70);
 				} else {
@@ -2915,10 +2966,6 @@ var set_cockpit = func(cockpitPosition) {
 				}
 			}
 		} elsif (cockpitPosition == 1) {
-			setprop("sim/current-view/x-offset-m", 0.0);
-			setprop("sim/current-view/z-offset-m", -5.6);
-			var new_walker_x = -5.6;
-			var new_walker_y = 0;
 			if (damage_count == 0) {
 				setprop("sim/current-view/y-offset-m", 2.1);
 			} elsif (damage_count == 1) {
@@ -2927,10 +2974,6 @@ var set_cockpit = func(cockpitPosition) {
 				setprop("sim/current-view/y-offset-m", 2.47);
 			}
 		} elsif (cockpitPosition == 2) {
-			setprop("sim/current-view/x-offset-m", -0.73);
-			setprop("sim/current-view/z-offset-m", -5.94);
-			var new_walker_x = -5.94;
-			var new_walker_y = -0.73;
 			if (damage_count == 0) {
 				setprop("sim/current-view/y-offset-m", 1.47);
 			} elsif (damage_count == 1) {
@@ -2939,10 +2982,6 @@ var set_cockpit = func(cockpitPosition) {
 				setprop("sim/current-view/y-offset-m", 1.79);
 			}
 		} elsif (cockpitPosition == 3) {
-			setprop("sim/current-view/x-offset-m", 0.77);
-			setprop("sim/current-view/z-offset-m", -5.93);
-			var new_walker_x = -5.93;
-			var new_walker_y = 0.77;
 			if (damage_count == 0) {
 				setprop("sim/current-view/y-offset-m", 1.47);
 			} elsif (damage_count == 1) {
@@ -2951,10 +2990,6 @@ var set_cockpit = func(cockpitPosition) {
 				setprop("sim/current-view/y-offset-m", 1.79);
 			}
 		} else {
-			setprop("sim/current-view/x-offset-m", 0.0);
-			setprop("sim/current-view/z-offset-m", -3.3);
-			var new_walker_x = -3.3;
-			var new_walker_y = 0;
 			if (damage_count == 0) {
 				setprop("sim/current-view/y-offset-m", 2.1);
 			} elsif (damage_count == 1) {
@@ -2963,9 +2998,8 @@ var set_cockpit = func(cockpitPosition) {
 				setprop("sim/current-view/y-offset-m", 2.43);
 			}
 		}
-		setprop("sim/model/bluebird/crew/cockpit-position", cockpitPosition);
-		setprop("sim/model/bluebird/crew/walker/x-offset-m", new_walker_x);
-		setprop("sim/model/bluebird/crew/walker/y-offset-m", new_walker_y);
+		setprop("sim/current-view/z-offset-m", new_walker_x);
+		setprop("sim/current-view/x-offset-m", new_walker_y);
 	}
 }
 
@@ -3291,6 +3325,7 @@ var set_nav_lights = func(snl_i) {
 		active_nav_button[2]=1;
 	}
 	nav_lighting_update();
+	bluebird.reloadDialog1();
 }
 
 var set_landing_lights = func(sll_i) {
@@ -3313,6 +3348,7 @@ var set_landing_lights = func(sll_i) {
 		active_landing_button[2]=1;
 	}
 	nav_lighting_update();
+	bluebird.reloadDialog1();
 }
 
 var toggle_venting_both = func {
@@ -3341,8 +3377,18 @@ var reloadDialog1 = func {
 	if (systems_dialog != nil) {
 		fgcommand("dialog-close", props.Node.new({ "dialog-name" : name }));
 		systems_dialog = nil;
-		showDialog1();
+		bluebird.showDialog1();
 		return;
+	}
+}
+
+var showDialog = func {
+	var c_view = getprop("sim/current-view/view-number");
+	var outside = getprop("sim/walker/outside");
+	if (outside and ((c_view == view.indexof("Walk View")) or (c_view == view.indexof("Walker Orbit View")))) {
+		walker.sequence.showDialog();
+	} else {
+		showDialog1();
 	}
 }
 
@@ -3384,16 +3430,19 @@ var showDialog1 = func {
 		group = systems_dialog.addChild("group");
 		group.set("layout", "hbox");
 		group.addChild("empty").set("pref-width", 4);
-		box = group.addChild("checkbox");
+		var box = group.addChild("checkbox");
+		group.addChild("text").set("label", arg[0]);
 		group.addChild("empty").set("stretch", 1);
 
 		box.set("halign", "left");
-		box.set("label", arg[0]);
-		box;
+		box.set("label", "");
+		box.set("live", 1);
+		return box;
 	}
 
 	# master power switch
-	w = checkbox("master power                       [~]");
+	var w = checkbox("master power                       [~]");
+	w.setColor(0.45, (0.45 + (getprop("sim/model/bluebird/systems/power-switch") * 0.55)), 0.45);
 	w.set("property", "sim/model/bluebird/systems/power-switch");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 	w.prop().getNode("binding[1]/command", 1).setValue("nasal");
@@ -3401,29 +3450,38 @@ var showDialog1 = func {
 
 	# fusion reactor and countergrav glow
 	w = checkbox("countergrav fusion reactor          [\]");
+	w.setColor(0.45, (0.45 + (getprop("sim/model/bluebird/systems/reactor-request") * 0.55)), 0.45);
 	w.set("property", "sim/model/bluebird/systems/reactor-request");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 	w.prop().getNode("binding[1]/command", 1).setValue("nasal");
 	w.prop().getNode("binding[1]/script", 1).setValue("bluebird.delayed_panel_update()");
+	w.prop().getNode("binding[2]/command", 1).setValue("nasal");
+	w.prop().getNode("binding[2]/script", 1).setValue("bluebird.reloadDialog1()");
 
 	# Wave-guide drive glow and halos
 	w = checkbox("Primary wave-guide engine    [space]");
+	w.setColor(0.45, (0.45 + (getprop("sim/model/bluebird/systems/wave1-request") * 0.55)), 0.45);
 	w.set("property", "sim/model/bluebird/systems/wave1-request");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 	w.prop().getNode("binding[1]/command", 1).setValue("nasal");
 	w.prop().getNode("binding[1]/script", 1).setValue("bluebird.delayed_panel_update()");
+	w.prop().getNode("binding[2]/command", 1).setValue("nasal");
+	w.prop().getNode("binding[2]/script", 1).setValue("bluebird.reloadDialog1()");
 
 	# for orbital velocities
 	w = checkbox("Enable upper atmosphere velocities");
+	w.setColor(0.45, (0.45 + (getprop("sim/model/bluebird/systems/wave2-request") * 0.55)), 0.45);
 	w.set("property", "sim/model/bluebird/systems/wave2-request");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 	w.prop().getNode("binding[1]/command", 1).setValue("nasal");
 	w.prop().getNode("binding[1]/script", 1).setValue("bluebird.delayed_panel_update()");
+	w.prop().getNode("binding[2]/command", 1).setValue("nasal");
+	w.prop().getNode("binding[2]/script", 1).setValue("bluebird.reloadDialog1()");
 
 	systems_dialog.addChild("hrule").addChild("dummy");
 
 	# lights
-	g = systems_dialog.addChild("group");
+	var g = systems_dialog.addChild("group");
 	g.set("layout", "hbox");
 	g.addChild("empty").set("pref-width", 4);
 	w = g.addChild("text");
@@ -3435,7 +3493,7 @@ var showDialog1 = func {
 	g.set("layout", "hbox");
 	g.addChild("empty").set("pref-width", 4);
 
-	box = g.addChild("button");
+	var box = g.addChild("button");
 	g.addChild("empty").set("stretch", 1);
 	box.set("halign", "left");
 	box.set("label", "");
@@ -3443,11 +3501,11 @@ var showDialog1 = func {
 	box.set("pref-height", 18);
 	box.set("legend", "Stay On");
 	box.set("border", active_nav_button[2]);
+	box.setColor(0.45, (0.975 - (active_nav_button[2] * 0.175)), 0.45);
 	box.prop().getNode("binding[0]/command", 1).setValue("nasal");
 	box.prop().getNode("binding[0]/script", 1).setValue("bluebird.set_nav_lights(2)");
 	box.prop().getNode("binding[1]/command", 1).setValue("nasal");
 	box.prop().getNode("binding[1]/script", 1).setValue("bluebird.reloadDialog1()");
-	box;
 
 	box = g.addChild("button");
 	g.addChild("empty").set("pref-width", 4);
@@ -3457,11 +3515,11 @@ var showDialog1 = func {
 	box.set("pref-height", 18);
 	box.set("legend", "Dusk to Dawn");
 	box.set("border", active_nav_button[1]);
+	box.setColor(0.45, (0.975 - (active_nav_button[1] * 0.175)), 0.45);
 	box.prop().getNode("binding[0]/command", 1).setValue("nasal");
 	box.prop().getNode("binding[0]/script", 1).setValue("bluebird.set_nav_lights(1)");
 	box.prop().getNode("binding[1]/command", 1).setValue("nasal");
 	box.prop().getNode("binding[1]/script", 1).setValue("bluebird.reloadDialog1()");
-	box;
 
 	box = g.addChild("button");
 	g.addChild("empty").set("pref-width", 4);
@@ -3471,19 +3529,25 @@ var showDialog1 = func {
 	box.set("pref-height", 18);
 	box.set("legend", "Off");
 	box.set("border", active_nav_button[0]);
+	box.setColor((0.975 - (active_nav_button[0] * 0.175)), 0.45, 0.45);
 	box.prop().getNode("binding[0]/command", 1).setValue("nasal");
 	box.prop().getNode("binding[0]/script", 1).setValue("bluebird.set_nav_lights(0)");
 	box.prop().getNode("binding[1]/command", 1).setValue("nasal");
 	box.prop().getNode("binding[1]/script", 1).setValue("bluebird.reloadDialog1()");
-	box;
 
 	w = checkbox("beacons");
+	w.setColor(0.45, (0.45 + (getprop("controls/lighting/beacon") * 0.55)), 0.45);
 	w.set("property", "controls/lighting/beacon");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+	w.prop().getNode("binding[1]/command", 1).setValue("nasal");
+	w.prop().getNode("binding[1]/script", 1).setValue("bluebird.reloadDialog1()");
 
 	w = checkbox("strobes");
+	w.setColor(0.45, (0.45 + (getprop("controls/lighting/strobe") * 0.55)), 0.45);
 	w.set("property", "controls/lighting/strobe");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+	w.prop().getNode("binding[1]/command", 1).setValue("nasal");
+	w.prop().getNode("binding[1]/script", 1).setValue("bluebird.reloadDialog1()");
 
 	g = systems_dialog.addChild("group");
 	g.set("layout", "hbox");
@@ -3505,11 +3569,11 @@ var showDialog1 = func {
 	box.set("pref-height", 18);
 	box.set("legend", "Stay On");
 	box.set("border", active_landing_button[2]);
+	box.setColor(0.45, (0.975 - (active_landing_button[2] * 0.175)), 0.45);
 	box.prop().getNode("binding[0]/command", 1).setValue("nasal");
 	box.prop().getNode("binding[0]/script", 1).setValue("bluebird.set_landing_lights(2)");
 	box.prop().getNode("binding[1]/command", 1).setValue("nasal");
 	box.prop().getNode("binding[1]/script", 1).setValue("bluebird.reloadDialog1()");
-	box;
 
 	box = g.addChild("button");
 	g.addChild("empty").set("pref-width", 4);
@@ -3519,11 +3583,11 @@ var showDialog1 = func {
 	box.set("pref-height", 18);
 	box.set("legend", "Dusk to Dawn");
 	box.set("border", active_landing_button[1]);
+	box.setColor(0.45, (0.975 - (active_landing_button[1] * 0.175)), 0.45);
 	box.prop().getNode("binding[0]/command", 1).setValue("nasal");
 	box.prop().getNode("binding[0]/script", 1).setValue("bluebird.set_landing_lights(1)");
 	box.prop().getNode("binding[1]/command", 1).setValue("nasal");
 	box.prop().getNode("binding[1]/script", 1).setValue("bluebird.reloadDialog1()");
-	box;
 
 	box = g.addChild("button");
 	g.addChild("empty").set("pref-width", 4);
@@ -3533,14 +3597,15 @@ var showDialog1 = func {
 	box.set("pref-height", 18);
 	box.set("legend", "Off");
 	box.set("border", active_landing_button[0]);
+	box.setColor((0.975 - (active_landing_button[0] * 0.175)), 0.45, 0.45);
 	box.prop().getNode("binding[0]/command", 1).setValue("nasal");
 	box.prop().getNode("binding[0]/script", 1).setValue("bluebird.set_landing_lights(0)");
 	box.prop().getNode("binding[1]/command", 1).setValue("nasal");
 	box.prop().getNode("binding[1]/script", 1).setValue("bluebird.reloadDialog1()");
-	box;
 
 	# interior
 	w = checkbox("interior lights");
+	w.setColor(0.45, (0.45 + (getprop("sim/model/bluebird/lighting/interior-switch") * 0.55)), 0.45);
 	w.set("property", "sim/model/bluebird/lighting/interior-switch");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 	w.prop().getNode("binding[1]/command", 1).setValue("nasal");
@@ -3550,6 +3615,7 @@ var showDialog1 = func {
 
 	# red-alert and damage
 	w = checkbox("Condition Red");
+	w.setColor((0.45 + (getprop("controls/lighting/alert") * 0.55)), 0.45, 0.45);
 	w.set("property", "controls/lighting/alert");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 
@@ -3576,9 +3642,9 @@ var showDialog1 = func {
 	box.set("pref-height", 18);
 	box.set("legend", "Extend fully");
 	box.set("border", active_gear_button[0]);
+	box.setColor(0.45, (0.975 - (active_gear_button[0] * 0.175)), 0.45);
 	box.prop().getNode("binding[0]/command", 1).setValue("nasal");
 	box.prop().getNode("binding[0]/script", 1).setValue("bluebird.toggle_gear_mode(0)");
-	box;
 
 	box = g.addChild("button");
 	g.addChild("empty").set("pref-width", 4);
@@ -3588,13 +3654,16 @@ var showDialog1 = func {
 	box.set("pref-height", 18);
 	box.set("legend", "Cargo loading");
 	box.set("border", active_gear_button[1]);
+	box.setColor(0.45, (0.975 - (active_gear_button[1] * 0.175)), 0.45);
 	box.prop().getNode("binding[0]/command", 1).setValue("nasal");
 	box.prop().getNode("binding[0]/script", 1).setValue("bluebird.toggle_gear_mode(1)");
-	box;
 
 	w = checkbox("Wheels down                   [ctrl-w]");
+	w.setColor(0.45, (0.45 + (getprop("controls/gear/wheels-switch") * 0.45)), 0.45);
 	w.set("property", "controls/gear/wheels-switch");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+	w.prop().getNode("binding[1]/command", 1).setValue("nasal");
+	w.prop().getNode("binding[1]/script", 1).setValue("bluebird.reloadDialog1()");
 
 	systems_dialog.addChild("hrule").addChild("dummy");
 
@@ -3633,6 +3702,24 @@ var showDialog1 = func {
 	w = checkbox("Right #5 - countergrav diagnostics");
 	w.set("property", "instrumentation/display-screens/enabled-5R");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+
+	g = systems_dialog.addChild("group");
+	g.set("layout", "hbox");
+	g.addChild("empty").set("pref-width", 4);
+	g.addChild("empty").set("stretch", 1);
+	box = g.addChild("button");
+	box.set("halign", "left");
+	box.set("label", "");
+	box.set("pref-width", 130);
+	box.set("pref-height", 19);
+	box.set("legend", "More...");
+	box.set("border", 3);
+	box.prop().getNode("binding[0]/command", 1).setValue("nasal");
+	box.prop().getNode("binding[0]/script", 1).setValue("bluebird.showDialog2()");
+	box.prop().getNode("binding[1]/command", 1).setValue("nasal");
+	box.prop().getNode("binding[1]/script", 1).setValue("bluebird.systems_dialog = nil");
+	box.prop().getNode("binding[2]/command", 1).setValue("dialog-close");
+	g.addChild("empty").set("pref-width", 4);
 
 	# finale
 	systems_dialog.addChild("empty").set("pref-height", "3");
@@ -3674,7 +3761,7 @@ var showDialog2 = func {
 
 	config_dialog.addChild("hrule").addChild("dummy");
 
-	w = titlebar.addChild("button");
+	var w = titlebar.addChild("button");
 	w.set("pref-width", 16);
 	w.set("pref-height", 16);
 	w.set("legend", "");
@@ -3694,9 +3781,8 @@ var showDialog2 = func {
 
 		box.set("halign", "left");
 		box.set("label", arg[0]);
-		box;
+		return box;
 	}
-
 
 	w = checkbox("Transparent windows");
 	w.set("property", "sim/model/cockpit-visible");
@@ -3705,10 +3791,11 @@ var showDialog2 = func {
 	w.prop().getNode("binding[1]/script", 1).setValue("bluebird.nav_lighting_update()");
 
 	w = checkbox("Simple 2D shadow");
+	w.set("live", 1);
 	w.set("property", "sim/model/bluebird/shadow");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 
-	g = config_dialog.addChild("group");
+	var g = config_dialog.addChild("group");
 	g.set("layout", "hbox");
 	g.addChild("empty").set("pref-width", 4);
 	w = g.addChild("text");
@@ -3717,32 +3804,59 @@ var showDialog2 = func {
 	w = g.addChild("checkbox");
 	w.set("halign", "left");
 	w.set("label", "");
+	w.set("live", 1);
 	w.set("property", "sim/model/bluebird/components/engine-cover1");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 	w = g.addChild("checkbox");
 	w.set("halign", "left");
 	w.set("label", "");
+	w.set("live", 1);
 	w.set("property", "sim/model/bluebird/components/engine-cover2");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 	w = g.addChild("checkbox");
 	w.set("halign", "left");
 	w.set("label", "");
+	w.set("live", 1);
 	w.set("property", "sim/model/bluebird/components/engine-cover3");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 	w = g.addChild("checkbox");
 	w.set("halign", "left");
 	w.set("label", "");
+	w.set("live", 1);
 	w.set("property", "sim/model/bluebird/components/engine-cover4");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 	g.addChild("empty").set("stretch", 1);
+
+	config_dialog.addChild("hrule").addChild("dummy");
 
 	w = checkbox("Pilot visible as separate person");
 	w.set("property", "sim/model/bluebird/crew/pilot/visible");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 
-	w = checkbox("Walker visible");
-	w.set("property", "sim/model/bluebird/crew/walker/visible");
-	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+	g = config_dialog.addChild("group");
+	g.set("layout", "hbox");
+	g.addChild("empty").set("pref-width", 4);
+	var box = g.addChild("checkbox");
+	box.set("halign", "left");
+	box.set("label", "");
+	box.set("live", 1);
+	box.set("property", "sim/model/bluebird/crew/walker/visible");
+	box.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+	g.addChild("text").set("label", "Walker visible");
+	g.addChild("empty").set("stretch", 1);
+	box = g.addChild("button");
+	g.addChild("empty").set("pref-width", 4);
+	box.set("halign", "left");
+	box.set("label", "");
+	box.set("pref-width", 130);
+	box.set("pref-height", 19);
+	box.set("legend", "Animations");
+	box.set("border", 3);
+	box.prop().getNode("binding[0]/command", 1).setValue("nasal");
+	box.prop().getNode("binding[0]/script", 1).setValue("walker.sequence.showDialog()");
+	box.prop().getNode("binding[1]/command", 1).setValue("nasal");
+	box.prop().getNode("binding[1]/script", 1).setValue("bluebird.config_dialog = nil");
+	box.prop().getNode("binding[2]/command", 1).setValue("dialog-close");
 
 	config_dialog.addChild("hrule").addChild("dummy");
 
@@ -3755,7 +3869,7 @@ var showDialog2 = func {
 	w.set("label", "Move around cockpit:");
 	g.addChild("empty").set("stretch", 1);
 
-	box = g.addChild("button");
+	var box = g.addChild("button");
 	g.addChild("empty").set("pref-width", 4);
 	box.set("halign", "left");
 	box.set("label", "");
@@ -3765,7 +3879,6 @@ var showDialog2 = func {
 	box.set("border", 3);
 	box.prop().getNode("binding[0]/command", 1).setValue("nasal");
 	box.prop().getNode("binding[0]/script", 1).setValue("bluebird.set_cockpit(0)");
-	box;
 
 	g = config_dialog.addChild("group");
 	g.set("layout", "hbox");
@@ -3785,7 +3898,6 @@ var showDialog2 = func {
 	box.set("border", 3);
 	box.prop().getNode("binding[0]/command", 1).setValue("nasal");
 	box.prop().getNode("binding[0]/script", 1).setValue("bluebird.set_cockpit(2)");
-	box;
 
 	box = g.addChild("button");
 	g.addChild("empty").set("pref-width", 4);
@@ -3797,7 +3909,6 @@ var showDialog2 = func {
 	box.set("border", 3);
 	box.prop().getNode("binding[0]/command", 1).setValue("nasal");
 	box.prop().getNode("binding[0]/script", 1).setValue("bluebird.set_cockpit(3)");
-	box;
 
 	g = config_dialog.addChild("group");
 	g.set("layout", "hbox");
@@ -3812,7 +3923,6 @@ var showDialog2 = func {
 	box.set("border", 3);
 	box.prop().getNode("binding[0]/command", 1).setValue("nasal");
 	box.prop().getNode("binding[0]/script", 1).setValue("bluebird.set_cockpit(1)");
-	box;
 
 	box = g.addChild("button");
 	g.addChild("empty").set("pref-width", 4);
@@ -3824,7 +3934,6 @@ var showDialog2 = func {
 	box.set("border", 3);
 	box.prop().getNode("binding[0]/command", 1).setValue("nasal");
 	box.prop().getNode("binding[0]/script", 1).setValue("bluebird.set_cockpit(4)");
-	box;
 
 	config_dialog.addChild("hrule").addChild("dummy");
 

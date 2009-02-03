@@ -18,6 +18,10 @@ var doorProximityVolume = func (current_view, door,x,y) {
 	return 1.0;
 }
 
+var ignite() = func {
+# not supported
+}
+
 #==========================================================================
 #                 === initial calls at startup ===
 update_main();  # starts continuous loop
@@ -27,4 +31,4 @@ settimer(nav_light_loop, 0.5);
 
 var t = getprop("/sim/description");
 print (t);
-print ("  version 8.7  release date 2008.Dec.16  by Stewart Andreason");
+print ("  version 8.8  release date 2009.Feb.03  by Stewart Andreason");

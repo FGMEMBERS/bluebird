@@ -1,5 +1,5 @@
-# ===== common base for walking functions   version 2.9       =====
-# ===== plus coordinates for Bluebird Explorer Hovercraft 8.7 =====
+# ===== common base for walking functions   version 3.1       =====
+# ===== plus coordinates for Bluebird Explorer Hovercraft 8.8 =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
@@ -73,7 +73,7 @@ var xy2LatLonZ = func (x,y) {
 #	print(sprintf ("c_head= %6.2f a= %6.2f xy_head= %6.2f",(c_head_rad*180/math.pi),(a*180/math.pi),(xy_head_rad*180/math.pi)));
 	var xy_lat_m = xy_hyp * math.cos(xy_head_rad);
 	var xy_lon_m = xy_hyp * math.sin(xy_head_rad);
-#	print(sprintf ("x= %9.8f y= %9.8f xy_lat_m= %9.8f xy_lon_m= %9.8f",xZ,yZ,xy_lat_m,xy_lon_m));
+#	print(sprintf ("x= %9.8f y= %9.8f xy_lat_m= %9.8f xy_lon_m= %9.8f",x_Zadjust,y_Zadjust,xy_lat_m,xy_lon_m));
 	var xy_lat = xy_lat_m * ERAD_deg;
 	var xy_lon = xy_lon_m * ERAD_deg / cos(c_lat);
 #	print(sprintf ("position/lat= %9.8f lon= %9.8f xy_lat= %9.8f xy_lon= %9.8f",c_lat,c_lon,xy_lat,xy_lon));
@@ -89,7 +89,9 @@ var calc_heading = func {
 	var w_forward = getprop("sim/walker/key-triggers/forward");
 	var w_left = getprop("sim/walker/key-triggers/slide");
 	var new_head = -999;
+	var new_walking = 0;
 	if (w_forward > 0) {
+		new_walking = 1;
 		if (w_left < 0) {
 			new_head = 45;
 		} elsif (w_left > 0) {
@@ -98,6 +100,7 @@ var calc_heading = func {
 			new_head = 0;
 		}
 	} elsif (w_forward < 0) {
+		new_walking = -1;
 		if (w_left < 0) {
 			new_head = 135;
 		} elsif (w_left > 0) {
@@ -107,8 +110,10 @@ var calc_heading = func {
 		}
 	} else {
 		if (w_left < 0) {
+			new_walking = 4;
 			new_head = 90;
 		} elsif (w_left > 0) {
+			new_walking = 6;
 			new_head = -90;
 		} else {
 			setprop ("sim/walker/walking", 0);
@@ -116,7 +121,7 @@ var calc_heading = func {
 		}
 	}
 	walk_heading = new_head;
-	setprop ("sim/walker/walking", 1);
+	setprop ("sim/walker/walking", new_walking);
 }
 
 var momentum_walk = func {
@@ -161,7 +166,7 @@ var main_loop = func {
 		# check for proximity to hatches for entry after 0.3 sec.
 		var elapsed_sec = getprop("sim/time/elapsed-sec");
 		var elapsed_fall_sec = elapsed_sec - exit_time_sec;
-		if (elapsed_fall_sec > 0.3) {
+		if (elapsed_fall_sec > 0.75) {
 			if (abs(getprop("sim/walker/altitude-ft") - getprop("position/altitude-ft")) < 6) {
 				# must be within 6 ft vertically to climb in
 				var posy = getprop("sim/walker/latitude-deg");
@@ -221,15 +226,16 @@ var main_loop = func {
 
 var walker_model = {
 	add:	func {
-			if (getprop("logging/walker-position")) {
-				print("walker_model.add");
-			}
-#			if (getprop("sim/model/bluebird/crew/walker/visible")) {
-				aircraft.makeNode("models/model/path");
-				aircraft.makeNode("models/model/longitude-deg-prop");
-				aircraft.makeNode("models/model/latitude-deg-prop");
-				aircraft.makeNode("models/model/elevation-ft-prop");
-				aircraft.makeNode("models/model/heading-deg-prop");
+			if (getprop("sim/model/bluebird/crew/walker/visible")) {
+				if (getprop("logging/walker-position")) {
+					print("walker_model.add");
+				}
+				props.globals.getNode("models/model/path", 1);
+				props.globals.getNode("models/model/longitude-deg-prop", 1);
+				props.globals.getNode("models/model/latitude-deg-prop", 1);
+				props.globals.getNode("models/model/elevation-ft-prop", 1);
+				props.globals.getNode("models/model/heading-deg-prop", 1);
+				
 				var desc = getprop("sim/description");
 				if (substr(desc, size(desc) - 3, 3) == "1.0") {
 					setprop ("models/model/path", "Aircraft/bluebird/Models/walker-1.xml");
@@ -240,8 +246,8 @@ var walker_model = {
 				setprop ("models/model/latitude-deg-prop", "sim/walker/latitude-deg");
 				setprop ("models/model/elevation-ft-prop", "sim/walker/altitude-ft");
 				setprop ("models/model/heading-deg-prop", "sim/walker/model-heading-deg");
-				aircraft.makeNode("models/model/load");
-#			}
+				props.globals.getNode("models/model/load", 1);
+			}
 		},
 	remove:	func {
 			if (getprop("logging/walker-position")) {
@@ -253,7 +259,7 @@ var walker_model = {
 	reset_fall: func {
 			falling = 0;
 			walk_factor = 1.0;
-			setprop("sim/walker/parachute-equipped", "false");
+			setprop("sim/walker/airborne", "false");
 			setprop("sim/walker/parachute-opened-altitude-ft", 0);
 			parachute_deployed_sec = 0;
 			setprop("sim/walker/parachute-opened-sec", 0);
@@ -272,7 +278,7 @@ var walker_model = {
 };
 
 var open_chute = func {
-	if (getprop("sim/walker/parachute-equipped") and exit_time_sec and !parachute_ft) {
+	if (getprop("sim/walker/airborne") and exit_time_sec and !parachute_ft) {
 		setprop("sim/walker/parachute-opened-altitude-ft", getprop("sim/walker/altitude-ft"));
 		parachute_deployed_sec = getprop("sim/time/elapsed-sec");
 		setprop("sim/walker/parachute-opened-sec", 0);
@@ -282,7 +288,9 @@ var open_chute = func {
 var reinit_walker = func {
 	setprop("sim/walker/outside", 0);
 	setprop("sim/view[100]/enabled","false");
-	setprop("sim/walker/parachute-equipped", "false");
+	setprop("sim/view[101]/enabled","false");
+	setprop("sim/walker/crashed", "false");
+	setprop("sim/walker/airborne", "false");
 	falling = 0;
 	walk_factor = 1.0;
 	setprop("sim/walker/parachute-opened-altitude-ft", 0);
@@ -342,7 +350,9 @@ var init_common = func {
 
 	setlistener("sim/model/bluebird/crew/walker/visible", func {
 		if (getprop("sim/model/bluebird/crew/walker/visible")) {
-			walker_model.add();
+			if (getprop("sim/walker/outside")) {
+				walker_model.add();
+			}
 		} else {
 			walker_model.remove();
 		}

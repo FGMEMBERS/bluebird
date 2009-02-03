@@ -1,4 +1,5 @@
-# == walking functions v2.9 for FlightGear versions 1.0 and OSG == version 8.7 ==
+# == walking functions v3.1 for FlightGear versions 1.0 and 1.9 OSG ==
+# ====   customized for Bluebird Explorer Hovercraft version 8.8 =====
 
 setlistener("sim/walker/walking", func {
 	var wdir = getprop("sim/walker/walking");
@@ -41,7 +42,11 @@ setlistener("sim/walker/key-triggers/outside-toggle", func {
 var ext_mov = func (moved) {
 	measure_extmov_count += 1;
 	var c_view = getprop("sim/current-view/view-number");
-	var head_v = getprop("sim/current-view/heading-offset-deg");
+	if (c_view == view.indexof("Walker Orbit View")) {
+		var head_v = 360 - getprop("sim/walker/model-heading-deg");
+	} else {
+		var head_v = getprop("sim/current-view/heading-offset-deg");
+	}
 	var c_head_deg = getprop("orientation/heading-deg");
 	var posy1 = getprop("sim/walker/latitude-deg");
 	var posx1 = getprop("sim/walker/longitude-deg");
@@ -150,13 +155,14 @@ var ext_mov = func (moved) {
 			}
 			posz2 = getprop("sim/walker/altitude-at-exit-ft") - dist_traveled_z;
 			if (posz2 < posz_geo) {	# below ground
-				if ((parachute_drag < 0.7) and (dist_traveled_z > 20) and 
-				    (getprop("sim/current-view/view-number") == view.indexof("Walk View"))) {
-					# did not land on feet
+				if ((parachute_drag < 0.7) and (dist_traveled_z > 20)) {
 					print(sprintf("OUCH! You fell %9.2f ft from an exit at %10.2f ft.  Parachute was Not deployed.",dist_traveled_z,getprop("sim/walker/altitude-at-exit-ft")));
-					setprop("sim/current-view/pitch-offset-deg", -80);
+					if (getprop("sim/current-view/view-number") == view.indexof("Walk View")) {
+						setprop("sim/current-view/pitch-offset-deg", -80);
+					}
 					setprop("sim/model/bluebird/position/landing-wow", "true");
-					# FIXME walker model needs to rotate also
+					setprop("sim/walker/crashed", "true");
+					setprop("sim/walker/airborne", "false");
 				}
 				posz2 = posz_geo;
 				walker_model.land(posx2,posy2,posz_geo);
@@ -222,14 +228,8 @@ setlistener("sim/current-view/heading-offset-deg", func {
 	} elsif (c_view == view.indexof("Walk View")) {
 		var head_v = getprop("sim/current-view/heading-offset-deg");
 		setprop("sim/walker/model-heading-deg" , 360 - head_v);
-	}
-});
-
-setlistener("sim/current-view/view-number", func {
-	if (getprop("sim/current-view/view-number") == view.indexof("Walk View")) {
-		yViewNode.setValue(0);
-		zViewNode.setValue(1.67);	# matches person height when inside due to aircraft offsets
-		xViewNode.setValue(0);
+#	} elsif (c_view == view.indexof("Walker Orbit View")) {
+#		var head_v = getprop("sim/current-view/heading-offset-deg");
 	}
 });
 
@@ -296,12 +296,12 @@ var get_out = func (loc) {
 	setprop("sim/walker/pitch-deg" , (getprop("orientation/pitch-deg")));
 	setprop("sim/walker/heading-deg" , (getprop("orientation/heading-deg")));
 	setprop("sim/view[100]/enabled", "true");
+	setprop("sim/view[101]/enabled", "true");
 	var posy = new_coord[0];
 	var posx = new_coord[1];
 	var posz_ft = new_coord[2];
 	setprop("sim/walker/outside", 1);
 	if (c_view == 0) {
-		setprop("sim/current-view/view-number", view.indexof("Walk View"));
 		setprop("sim/current-view/view-number", view.indexof("Walk View"));
 		setprop("sim/current-view/pitch-offset-deg", getprop("sim/walker/keep-pitch-offset-deg"));
 		setprop("sim/current-view/roll-offset-deg", 0);
@@ -319,7 +319,7 @@ var get_out = func (loc) {
 	setprop("sim/walker/altitude-ft" , alt1);
 	measure_alt = alt1;
 	if ((alt1 - getprop("position/ground-elev-ft")) > 20) {
-		setprop("sim/walker/parachute-equipped", "true");
+		setprop("sim/walker/airborne", "true");
 	}
 	setprop("sim/walker/starting-lat", new_coord[0]);
 	setprop("sim/walker/starting-lon", new_coord[1]);
@@ -329,15 +329,13 @@ var get_out = func (loc) {
 
 var get_in = func (loc) {
 	walker_model.remove();
-	setprop("sim/walker/parachute-equipped", "false");
 	var c_view = getprop("sim/current-view/view-number");
 	if (c_view > 0) {
+		# the following section is aircraft specific for locations of entry hatches and doors
 		var new_walker_x = -2.55;
 		var new_walker_y = 0;
 		var new_walker_z = 2.1;
 		var new_walker_h = 0;
-
-		# the following section is aircraft specific for locations of entry hatches and doors
 		if (loc == 0) {	# find open hatch
 			if (getprop("sim/model/bluebird/doors/door[0]/position-norm") > 0) {
 				new_walker_y = -1.9;
@@ -388,10 +386,13 @@ var get_in = func (loc) {
 			}
 		}
 	}
+	setprop("sim/walker/crashed", "false");
+	setprop("sim/walker/airborne", "false");
 	setprop("sim/walker/outside", 0);
 	setprop("sim/walker/parachute-opened-altitude-ft", 0);
 	parachute_deployed_sec = 0;
 	setprop("sim/walker/parachute-opened-sec", 0);
 	setprop("sim/view[100]/enabled", "false");
+	setprop("sim/view[101]/enabled", "false");
 }
 

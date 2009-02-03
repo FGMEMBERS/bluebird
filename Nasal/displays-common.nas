@@ -1,6 +1,7 @@
 # ===== common base for text screen functions        =====
-# ===== for Bluebird Explorer Hovercraft version 8.7 =====
+# ===== for Bluebird Explorer Hovercraft version 8.8 =====
 
+var tracking_on = 0;
 # ======== update details for screen-1L =============================
 var mps_2_conv = [1, 1.9438445, 2.2369363, 3.6, 1.9438445];
 var mps_conv_units = [" MPS"," KNOTS"," MPH"," KMPH"," KNOTS"];
@@ -156,8 +157,8 @@ var init_common = func {
 		screen_2L_on = getprop("instrumentation/display-screens/enabled-2L");
 		setprop("instrumentation/display-screens/t2L-1", "Nearby Aircraft");
 		if (!screen_2L_on) {
-			setprop("instrumentation/ai-vor/ai-size", -1);
-			setprop("instrumentation/ai-vor/ai1-distance-m", -999999);
+			setprop("instrumentation/tracking/ai-size", -1);
+			setprop("instrumentation/tracking/ai1-distance-m", -999999);
 			if (getprop("instrumentation/ai-vor/mode") == 1) {
 				setprop("instrumentation/ai-vor/mode", 0);
 			}

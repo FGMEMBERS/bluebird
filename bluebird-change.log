@@ -1,5 +1,21 @@
 Version# Vertices PolygonFaces Comments
 
+2009.Feb.03
+8.8		updated walker and parachute models
+	Change method of loading walker model.
+	Add posing dialog for animating walker.
+	Add animation sequence manager.
+	Add walker orbit camera.
+	Adjust nav and strobe lights for smoother distance visibility.
+	Find workaround for alpha ordering limitation in 1.0 and earlier.
+	  Restore texture to pilot and walker in version 1.0.
+	Rescale engine status bar 3.
+	Replace walker model with Waldo Walker.
+	Add rubbing sound for touching ground without proper vertical clearance first.
+	Reduce the crash smoke density.
+	Add help and basic tutorials for Walker animations.
+	Add Animations button to primary configuration dialog.
+
 2008.Dec.16
 8.7	Fix autopilot mapping on keyboard.
 	Fix elevator-trim upon autopilot deactivation.

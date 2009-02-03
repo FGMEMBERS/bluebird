@@ -1109,7 +1109,7 @@ NEAREST AIRPORT</text>
 					<chunks>
 						<chunk>
 							<type>text-value</type>
-							<property>instrumentation/display-screens/ap1-callsign</property>
+							<property>instrumentation/tracking/ap1-callsign</property>
 						</chunk>
 					</chunks>
 					<transformations>
@@ -1137,7 +1137,7 @@ NEAREST AIRPORT</text>
 					<chunks>
 						<chunk>
 							<type>text-value</type>
-							<property>instrumentation/display-screens/t1R-16</property>
+							<property>instrumentation/tracking/ap1-name</property>
 						</chunk>
 					</chunks>
 					<transformations>
@@ -1221,7 +1221,7 @@ NEAREST AIRPORT</text>
 					<chunks>
 						<chunk>
 							<type>number-value</type>
-							<property>instrumentation/display-screens/t1R-17a</property>
+							<property>instrumentation/tracking/ap1-lat</property>
 							<format>%-9.4f</format>
 						</chunk>
 					</chunks>
@@ -1250,7 +1250,7 @@ NEAREST AIRPORT</text>
 					<chunks>
 						<chunk>
 							<type>number-value</type>
-							<property>instrumentation/display-screens/t1R-17b</property>
+							<property>instrumentation/tracking/ap1-lon</property>
 							<format>%-9.4f</format>
 						</chunk>
 					</chunks>
@@ -1335,7 +1335,7 @@ NEAREST AIRPORT</text>
 					<chunks>
 						<chunk>
 							<type>number-value</type>
-							<property>instrumentation/display-screens/t1R-18a</property>
+							<property>instrumentation/tracking/ap1-heading-deg</property>
 							<format>%3.0f</format>
 						</chunk>
 					</chunks>
@@ -1364,7 +1364,7 @@ NEAREST AIRPORT</text>
 					<chunks>
 						<chunk>
 							<type>text-value</type>
-							<property>instrumentation/display-screens/t1R-18b</property>
+							<property>instrumentation/tracking/ap1-range</property>
 						</chunk>
 					</chunks>
 					<transformations>

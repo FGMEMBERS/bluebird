@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 7.4 ==-->
+<!--== Bluebird Explorer Hovercraft  version 8.8 ==-->
  
 <PropertyList>
  <fx>
@@ -1156,7 +1156,7 @@
 	</landing>
 
 	<contact-slow>
-		<name>slow moving ground contact</name>
+		<name>fast moving ground contact</name>
 		<mode>looped</mode>
 		<path>Sounds/squeal.wav</path>
 		<condition>
@@ -1168,6 +1168,58 @@
 			<max>0.1</max>
 		</volume>
 	</contact-slow>
+
+	<contact-rub-1>
+		<name>slowest moving ground contact once</name>
+		<mode>once</mode>
+		<path>Aircraft/bluebird/Sound/altitude-1.wav</path>
+		<condition>
+			<and>
+				<property>sim/model/bluebird/lighting/engine-glow</property>
+				<less-than>
+					<property>gear/gear[1]/position-norm</property>
+					<value>0.45</value>
+				</less-than>
+				<less-than>
+					<property>sim/model/bluebird/position/altitude-agl-ft</property>
+					<value>1</value>
+				</less-than>
+				<greater-than>
+					<property>velocities/abs-airspeed-kt</property>
+					<value>1</value>
+				</greater-than>
+				<less-than>
+					<property>velocities/abs-airspeed-kt</property>
+					<value>10</value>
+				</less-than>
+			</and>
+		</condition>
+	</contact-rub-1>
+
+	<contact-rubbing>
+		<name>slowest moving ground contact</name>
+		<mode>looped</mode>
+		<path>Aircraft/bluebird/Sound/altitude-0-loop.wav</path>
+		<condition>
+			<and>
+				<not>
+					<property>sim/model/bluebird/lighting/engine-glow</property>
+				</not>
+				<less-than>
+					<property>gear/gear[1]/position-norm</property>
+					<value>0.45</value>
+				</less-than>
+				<less-than>
+					<property>sim/model/bluebird/position/altitude-agl-ft</property>
+					<value>1</value>
+				</less-than>
+				<greater-than>
+					<property>velocities/abs-airspeed-kt</property>
+					<value>1</value>
+				</greater-than>
+			</and>
+		</condition>
+	</contact-rubbing>
 
 	<contact-continuous>
 		<name>continuous ground contact</name>
