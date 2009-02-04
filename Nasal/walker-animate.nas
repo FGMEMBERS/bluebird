@@ -1,13 +1,25 @@
-# == walker animation v1.1 for FlightGear version 1.0 and 1.9 with OSG     =====
-# ====  Bluebird Explorer Hovercraft  version 8.8  =====
+# == walker animation v1.11 for FlightGear version 1.0 and 1.9 with OSG     =====
+# ====  Bluebird Explorer Hovercraft  version 8.91  =====
 
-var walker1Node = props.globals.getNode("sim/model/walker[1]", 1);
-var animateNode = props.globals.getNode("sim/model/walker[1]/animate", 1);
-var listNode = props.globals.getNode("sim/model/walker[1]/animate/list", 1);
-var sequenceNode = listNode.getNode("sequence[" ~ animateNode.getNode("sequence-selected", 1).getValue() ~ "]", 1);
-var triggered_seqNode = nil;
-var seqNode_now = nil;
-var content_modified = props.globals.getNode("sim/gui/dialogs/position-modified", 1);
+var walker1_node = props.globals.getNode("sim/model/walker[1]", 1);
+var w1_animate_node = props.globals.getNode("sim/model/walker[1]/animate", 1);
+var w1_loop_enabled_node = props.globals.getNode("sim/model/walker[1]/loop-enabled", 1);
+var w1a_enabled_current_node = props.globals.getNode("sim/model/walker[1]/animate/enabled-current", 1);
+var w1a_dialog_position_node = props.globals.getNode("sim/model/walker[1]/animate/dialog-position", 1);
+var w1a_list_node = props.globals.getNode("sim/model/walker[1]/animate/list", 1);
+var w1a_sequence_selected_node = props.globals.getNode("sim/model/walker[1]/animate/sequence-selected", 1);
+var sequence_node = w1a_list_node.getNode("sequence[" ~ w1a_sequence_selected_node.getValue() ~ "]", 1);
+var triggered_seq_node = nil;
+var trigger_standing_node = props.globals.getNode("sim/model/walker[1]/animate/triggers/standing", 1);
+var trigger_walking_node = props.globals.getNode("sim/model/walker[1]/animate/triggers/walking", 1);
+var trigger_running_node = props.globals.getNode("sim/model/walker[1]/animate/triggers/running", 1);
+var trigger_backwards_node = props.globals.getNode("sim/model/walker[1]/animate/triggers/backwards", 1);
+var trigger_falling_node = props.globals.getNode("sim/model/walker[1]/animate/triggers/falling", 1);
+var trigger_landing_node = props.globals.getNode("sim/model/walker[1]/animate/triggers/landing", 1);
+var trigger_open_parachute_node = props.globals.getNode("sim/model/walker[1]/animate/triggers/open-parachute", 1);
+var trigger_crashing_node = props.globals.getNode("sim/model/walker[1]/animate/triggers/crashing", 1);
+var seq_node_now = nil;
+var content_modified_node = props.globals.getNode("sim/gui/dialogs/position-modified", 1);
 var walker_dialog1 = nil;
 var walker_dialog2 = nil;
 var walker_dialog3 = nil;
@@ -54,21 +66,21 @@ var interpolate_limb = func (a, b, p) {
 
 var clamp = func(v, min, max) { v < min ? min : v > max ? max : v }
 
-var gui_listNode = props.globals.getNode("/sim/gui/dialogs/anim-sequence", 1);
-if (gui_listNode.getNode("list", 1) == nil)
-	gui_listNode.getNode("list", 1).setValue("");
+var gui_list_node = props.globals.getNode("/sim/gui/dialogs/anim-sequence", 1);
+if (gui_list_node.getNode("list", 1) == nil)
+	gui_list_node.getNode("list", 1).setValue("");
 
-gui_listNode = gui_listNode.getNode("list", 1);
+gui_list_node = gui_list_node.getNode("list", 1);
 var listbox_apply = func {
-	var id = pop(split(" ",gui_listNode.getValue()));
+	var id = pop(split(" ",gui_list_node.getValue()));
 	id = substr(id, 1, size(id) - 2);  # strip parentheses
-	setprop("sim/model/walker[1]/animate/sequence-selected", int(id));
-	sequenceNode = listNode.getNode("sequence[" ~ int(animateNode.getNode("sequence-selected", 1).getValue()) ~ "]", 1);
+	w1a_sequence_selected_node.setValue(int(id));
+	sequence_node = w1a_list_node.getNode("sequence[" ~ int(w1a_sequence_selected_node.getValue()) ~ "]", 1);
 #	sequence_selected = 3;
 }
 
 var apply = func {
-	return gui_listNode.getValue();
+	return gui_list_node.getValue();
 }
 
 var sequence = {
@@ -88,29 +100,29 @@ var sequence = {
 		if (s == nil or s == "" or s == " ") {
 			return 0;
 		}
-		var new_sequence = props.globals.getNode("sim/model/walker[1]/animate/list/sequence[" ~ size(listNode.getChildren("sequence")) ~ "]", 1);
-		sequence_count = size(listNode.getChildren("sequence"));
-		setprop("sim/model/walker[1]/animate/sequence-selected", int(sequence_count - 1));
-		sequenceNode = new_sequence;
+		var new_sequence = props.globals.getNode("sim/model/walker[1]/animate/list/sequence[" ~ size(w1a_list_node.getChildren("sequence")) ~ "]", 1);
+		sequence_count = size(w1a_list_node.getChildren("sequence"));
+		w1a_sequence_selected_node.setValue(int(sequence_count - 1));
+		sequence_node = new_sequence;
 		new_sequence.getNode("name", 1).setValue(s);
-		new_sequence.getNode("loop-enabled", 1).setBoolValue("false");
+		new_sequence.getNode("loop-enabled", 1).setBoolValue(0);
 		new_sequence.getNode("loop-to", 1).setIntValue(0);
 		new_sequence.getNode("trigger-upon", 1).setValue("Disabled");
 	},
 	edit_animation:	func {
-		sequenceNode = listNode.getNode("sequence[" ~ int(animateNode.getNode("sequence-selected", 1).getValue()) ~ "]", 1);
-		position_count = size(sequenceNode.getChildren("position"));
+		sequence_node = w1a_list_node.getNode("sequence[" ~ int(w1a_sequence_selected_node.getValue()) ~ "]", 1);
+		position_count = size(sequence_node.getChildren("position"));
 		if (position_count == 0) {
 			animate.reset_position();
-			setprop("sim/model/walker[1]/animate/dialog-position", -1);
+			w1a_dialog_position_node.setValue(-1);
 		} else {
-			setprop("sim/model/walker[1]/animate/dialog-position", 0);
-			animate.copy_position(sequenceNode.getNode("position[0]", 1), walker1Node);
-			walker1Node.getNode("loop-enabled", 1).setBoolValue(sequenceNode.getNode("loop-enabled", 1).getValue());
-			walker1Node.getNode("loop-to", 1).setIntValue(sequenceNode.getNode("loop-to", 1).getValue());
-			walker1Node.getNode("trigger-upon", 1).setValue(sequenceNode.getNode("trigger-upon", 1).getValue());
+			w1a_dialog_position_node.setValue(0);
+			animate.copy_position(sequence_node.getNode("position[0]", 1), walker1_node);
+			w1_loop_enabled_node.setBoolValue(sequence_node.getNode("loop-enabled", 1).getValue());
+			walker1_node.getNode("loop-to", 1).setIntValue(sequence_node.getNode("loop-to", 1).getValue());
+			walker1_node.getNode("trigger-upon", 1).setValue(sequence_node.getNode("trigger-upon", 1).getValue());
 		}
-		setprop("sim/model/walker[1]/animate/enabled-current", 0);
+		w1a_enabled_current_node.setValue(0);
 		setprop("sim/model/walker[1]/animate/enabled-triggers", 0);
 		fgcommand("dialog-close", props.Node.new({ "dialog-name" : "walker-sequences" }));
 		walker_dialog1 = nil;
@@ -122,16 +134,16 @@ var sequence = {
 			var load_sel = nil;
 			var load = func(n) {
 				print ("Loading from ",n.getValue());
-				var new_sequence = props.globals.getNode("sim/model/walker[1]/animate/list/sequence[" ~ size(listNode.getChildren("sequence")) ~ "]", 1);
+				var new_sequence = props.globals.getNode("sim/model/walker[1]/animate/list/sequence[" ~ size(w1a_list_node.getChildren("sequence")) ~ "]", 1);
 				io.read_properties(n.getValue(), new_sequence);
 				var s = new_sequence.getNode("name", 1).getValue();
 				if (s != nil) {
-					sequenceNode = new_sequence;
-					sequence_count = size(listNode.getChildren("sequence"));
-					setprop("sim/model/walker[1]/animate/sequence-selected", int(sequence_count - 1));
+					sequence_node = new_sequence;
+					sequence_count = size(w1a_list_node.getChildren("sequence"));
+					w1a_sequence_selected_node.setValue(int(sequence_count - 1));
 					sequence.reloadDialog();
 				} else {
-					listNode.removeChild("sequence", (size(listNode.getChildren("sequence")) - 1));
+					w1a_list_node.removeChild("sequence", (size(w1a_list_node.getChildren("sequence")) - 1));
 				}
 			}
 			load_sel = gui.FileSelector.new(load, "Load Walker Sequence", "Load",
@@ -144,9 +156,9 @@ var sequence = {
 	save_animation:	func {
 		var desc = getprop("sim/description");
 		if (substr(desc, size(desc) - 3, 3) != "1.0") {
-			var data_path = getprop("/sim/fg-home") ~ "/aircraft-data/walker-" ~ sequenceNode.getNode("name", 1).getValue() ~ ".xml";
+			var data_path = getprop("/sim/fg-home") ~ "/aircraft-data/walker-" ~ sequence_node.getNode("name", 1).getValue() ~ ".xml";
 			print ("Saving to ",data_path);
-			io.write_properties(data_path, sequenceNode);
+			io.write_properties(data_path, sequence_node);
 		} else {
 			gui.popupTip("Unable to save property files in version 1.0");
 		}
@@ -234,13 +246,13 @@ var sequence = {
 		a.set("pref-height", 160);
 		a.set("slider", 18);
 		a.set("property", "/sim/gui/dialogs/anim-sequence/list");
-		sequence_count = size(listNode.getChildren("sequence"));
+		sequence_count = size(w1a_list_node.getChildren("sequence"));
 		var sList = [];
 		for (var i = 0 ; i < sequence_count ; i += 1) {
-			var name_in = listNode.getNode("sequence[" ~ i ~ "]", 1).getNode("name", 1).getValue();
+			var name_in = w1a_list_node.getNode("sequence[" ~ i ~ "]", 1).getNode("name", 1).getValue();
 			if (name_in != nil) {
 				append(sList, { index: i , name: name_in,
-					comb: listNode.getNode("sequence[" ~ i ~ "]", 1).getNode("name", 1).getValue() ~ " (" ~ i ~ ")" });
+					comb: w1a_list_node.getNode("sequence[" ~ i ~ "]", 1).getNode("name", 1).getValue() ~ " (" ~ i ~ ")" });
 			}
 		}
 		sList = sort(sList, func(a,b) {cmp(a.name, b.name)});
@@ -316,7 +328,7 @@ var sequence = {
 		g.addChild("empty").set("pref-width", 8);
 		var box = g.addChild("checkbox");
 		box.set("halign", "left");
-		box.set("live", "true");
+		box.set("live", 1);
 		box.set("label", "Enable animations upon Trigger");
 		box.set("property", "sim/model/walker[1]/animate/enabled-triggers");
 		box.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
@@ -403,107 +415,107 @@ var sequence = {
 
 var animate = {
 	add_position:	func {	# add to the end of list and fill with current values
-		var new_position = sequenceNode.getNode("position[" ~ size(sequenceNode.getChildren("position")) ~ "]", 1);
-		position_count = size(sequenceNode.getChildren("position"));
-		setprop("sim/model/walker[1]/animate/dialog-position", (position_count - 1));
+		var new_position = sequence_node.getNode("position[" ~ size(sequence_node.getChildren("position")) ~ "]", 1);
+		position_count = size(sequence_node.getChildren("position"));
+		w1a_dialog_position_node.setValue(position_count - 1);
 		if (position_count == 0) {
 			animate.reset_position();
 		} else {
-			animate.copy_position(walker1Node, new_position);
+			animate.copy_position(walker1_node, new_position);
 		}
-		content_modified.setValue(5);
+		content_modified_node.setValue(5);
 		return new_position;
 	},
 	ins_position:	func {
-		var dialog_position = getprop("sim/model/walker[1]/animate/dialog-position");
+		var dialog_position = w1a_dialog_position_node.getValue();
 		i = position_count;
 		while (i > dialog_position) {
-			animate.copy_position(sequenceNode.getNode("position[" ~ (i - 1) ~ "]", 1), 
-				sequenceNode.getNode("position[" ~ i ~ "]", 1));
+			animate.copy_position(sequence_node.getNode("position[" ~ (i - 1) ~ "]", 1), 
+				sequence_node.getNode("position[" ~ i ~ "]", 1));
 			i -= 1;
 		}
 		animate.save_position();
-		position_count = size(sequenceNode.getChildren("position"));
-		content_modified.setValue(5);
+		position_count = size(sequence_node.getChildren("position"));
+		content_modified_node.setValue(5);
 	},
 	del_position:	func {
-		position_count = size(sequenceNode.getChildren("position"));
-		var dialog_position = getprop("sim/model/walker[1]/animate/dialog-position");
+		position_count = size(sequence_node.getChildren("position"));
+		var dialog_position = w1a_dialog_position_node.getValue();
 		var i = dialog_position;
 		while (i < (position_count - 1)) {
-			animate.copy_position(sequenceNode.getNode("position[" ~ (i + 1) ~ "]", 1), 
-				sequenceNode.getNode("position[" ~ i ~ "]", 1));
+			animate.copy_position(sequence_node.getNode("position[" ~ (i + 1) ~ "]", 1), 
+				sequence_node.getNode("position[" ~ i ~ "]", 1));
 			i += 1;
 		}
-		sequenceNode.removeChild("position", (position_count - 1));
-		position_count = size(sequenceNode.getChildren("position"));
+		sequence_node.removeChild("position", (position_count - 1));
+		position_count = size(sequence_node.getChildren("position"));
 		if (position_count == 0) {
-			setprop("sim/model/walker[1]/animate/dialog-position", (position_count - 1));
+			w1a_dialog_position_node.setValue(position_count - 1);
 			animate.reset_position();
 		} else {
 			if (dialog_position >= position_count) {
-				setprop("sim/model/walker[1]/animate/dialog-position", (position_count - 1));
+				w1a_dialog_position_node.setValue(position_count - 1);
 			}
 			animate.load_position();
 		}
-		content_modified.setValue(0);
+		content_modified_node.setValue(0);
 	},
-	copy_position:	func (fromNode, toNode) {
-		toNode.getNode("name", 1).setValue(fromNode.getNode("name", 1).getValue());
-		toNode.getNode("rest-sec", 1).setValue(fromNode.getNode("rest-sec", 1).getValue());
-		var t = fromNode.getNode("transit-sec", 1);
+	copy_position:	func (from_node, to_node) {
+		to_node.getNode("name", 1).setValue(from_node.getNode("name", 1).getValue());
+		to_node.getNode("rest-sec", 1).setValue(from_node.getNode("rest-sec", 1).getValue());
+		var t = from_node.getNode("transit-sec", 1);
 		if (t.getValue() == 0) {
 			t.setValue(0.1);
 		}
-		toNode.getNode("transit-sec", 1).setValue(t.getValue());
-		toNode.getNode("limb[0]", 1).getNode("y-deg", 1).setValue(fromNode.getNode("limb[0]", 1).getNode("y-deg", 1).getValue());
-		toNode.getNode("limb[0]", 1).getNode("z-m", 1).setValue(fromNode.getNode("limb[0]", 1).getNode("z-m", 1).getValue());
-		toNode.getNode("limb[1]", 1).getNode("y-deg", 1).setValue(fromNode.getNode("limb[1]", 1).getNode("y-deg", 1).getValue());
-		toNode.getNode("limb[1]", 1).getNode("z-deg", 1).setValue(fromNode.getNode("limb[1]", 1).getNode("z-deg", 1).getValue());
-		toNode.getNode("limb[2]", 1).getNode("y-deg", 1).setValue(fromNode.getNode("limb[2]", 1).getNode("y-deg", 1).getValue());
-		toNode.getNode("limb[2]", 1).getNode("z-deg", 1).setValue(fromNode.getNode("limb[2]", 1).getNode("z-deg", 1).getValue());
-		toNode.getNode("limb[3]", 1).getNode("x-deg", 1).setValue(fromNode.getNode("limb[3]", 1).getNode("x-deg", 1).getValue());
-		toNode.getNode("limb[3]", 1).getNode("y-deg", 1).setValue(fromNode.getNode("limb[3]", 1).getNode("y-deg", 1).getValue());
-		toNode.getNode("limb[3]", 1).getNode("z-deg", 1).setValue(fromNode.getNode("limb[3]", 1).getNode("z-deg", 1).getValue());
-		toNode.getNode("limb[4]", 1).getNode("y-deg", 1).setValue(fromNode.getNode("limb[4]", 1).getNode("y-deg", 1).getValue());
-		toNode.getNode("limb[4]", 1).getNode("z-deg", 1).setValue(fromNode.getNode("limb[4]", 1).getNode("z-deg", 1).getValue());
-		toNode.getNode("limb[5]", 1).getNode("x-deg", 1).setValue(fromNode.getNode("limb[5]", 1).getNode("x-deg", 1).getValue());
-		toNode.getNode("limb[5]", 1).getNode("y-deg", 1).setValue(fromNode.getNode("limb[5]", 1).getNode("y-deg", 1).getValue());
-		toNode.getNode("limb[6]", 1).getNode("x-deg", 1).setValue(fromNode.getNode("limb[6]", 1).getNode("x-deg", 1).getValue());
-		toNode.getNode("limb[6]", 1).getNode("y-deg", 1).setValue(fromNode.getNode("limb[6]", 1).getNode("y-deg", 1).getValue());
-		toNode.getNode("limb[6]", 1).getNode("z-deg", 1).setValue(fromNode.getNode("limb[6]", 1).getNode("z-deg", 1).getValue());
-		toNode.getNode("limb[7]", 1).getNode("y-deg", 1).setValue(fromNode.getNode("limb[7]", 1).getNode("y-deg", 1).getValue());
-		toNode.getNode("limb[7]", 1).getNode("z-deg", 1).setValue(fromNode.getNode("limb[7]", 1).getNode("z-deg", 1).getValue());
-		toNode.getNode("limb[8]", 1).getNode("x-deg", 1).setValue(fromNode.getNode("limb[8]", 1).getNode("x-deg", 1).getValue());
-		toNode.getNode("limb[8]", 1).getNode("y-deg", 1).setValue(fromNode.getNode("limb[8]", 1).getNode("y-deg", 1).getValue());
-		toNode.getNode("limb[9]", 1).getNode("x-deg", 1).setValue(fromNode.getNode("limb[9]", 1).getNode("x-deg", 1).getValue());
-		toNode.getNode("limb[9]", 1).getNode("y-deg", 1).setValue(fromNode.getNode("limb[9]", 1).getNode("y-deg", 1).getValue());
-		toNode.getNode("limb[9]", 1).getNode("z-deg", 1).setValue(fromNode.getNode("limb[9]", 1).getNode("z-deg", 1).getValue());
-		toNode.getNode("limb[10]", 1).getNode("y-deg", 1).setValue(fromNode.getNode("limb[10]", 1).getNode("y-deg", 1).getValue());
-		toNode.getNode("limb[11]", 1).getNode("y-deg", 1).setValue(fromNode.getNode("limb[11]", 1).getNode("y-deg", 1).getValue());
-		toNode.getNode("limb[12]", 1).getNode("x-deg", 1).setValue(fromNode.getNode("limb[12]", 1).getNode("x-deg", 1).getValue());
-		toNode.getNode("limb[12]", 1).getNode("y-deg", 1).setValue(fromNode.getNode("limb[12]", 1).getNode("y-deg", 1).getValue());
-		toNode.getNode("limb[12]", 1).getNode("z-deg", 1).setValue(fromNode.getNode("limb[12]", 1).getNode("z-deg", 1).getValue());
-		toNode.getNode("limb[13]", 1).getNode("y-deg", 1).setValue(fromNode.getNode("limb[13]", 1).getNode("y-deg", 1).getValue());
-		toNode.getNode("limb[14]", 1).getNode("y-deg", 1).setValue(fromNode.getNode("limb[14]", 1).getNode("y-deg", 1).getValue());
+		to_node.getNode("transit-sec", 1).setValue(t.getValue());
+		to_node.getNode("limb[0]", 1).getNode("y-deg", 1).setValue(from_node.getNode("limb[0]", 1).getNode("y-deg", 1).getValue());
+		to_node.getNode("limb[0]", 1).getNode("z-m", 1).setValue(from_node.getNode("limb[0]", 1).getNode("z-m", 1).getValue());
+		to_node.getNode("limb[1]", 1).getNode("y-deg", 1).setValue(from_node.getNode("limb[1]", 1).getNode("y-deg", 1).getValue());
+		to_node.getNode("limb[1]", 1).getNode("z-deg", 1).setValue(from_node.getNode("limb[1]", 1).getNode("z-deg", 1).getValue());
+		to_node.getNode("limb[2]", 1).getNode("y-deg", 1).setValue(from_node.getNode("limb[2]", 1).getNode("y-deg", 1).getValue());
+		to_node.getNode("limb[2]", 1).getNode("z-deg", 1).setValue(from_node.getNode("limb[2]", 1).getNode("z-deg", 1).getValue());
+		to_node.getNode("limb[3]", 1).getNode("x-deg", 1).setValue(from_node.getNode("limb[3]", 1).getNode("x-deg", 1).getValue());
+		to_node.getNode("limb[3]", 1).getNode("y-deg", 1).setValue(from_node.getNode("limb[3]", 1).getNode("y-deg", 1).getValue());
+		to_node.getNode("limb[3]", 1).getNode("z-deg", 1).setValue(from_node.getNode("limb[3]", 1).getNode("z-deg", 1).getValue());
+		to_node.getNode("limb[4]", 1).getNode("y-deg", 1).setValue(from_node.getNode("limb[4]", 1).getNode("y-deg", 1).getValue());
+		to_node.getNode("limb[4]", 1).getNode("z-deg", 1).setValue(from_node.getNode("limb[4]", 1).getNode("z-deg", 1).getValue());
+		to_node.getNode("limb[5]", 1).getNode("x-deg", 1).setValue(from_node.getNode("limb[5]", 1).getNode("x-deg", 1).getValue());
+		to_node.getNode("limb[5]", 1).getNode("y-deg", 1).setValue(from_node.getNode("limb[5]", 1).getNode("y-deg", 1).getValue());
+		to_node.getNode("limb[6]", 1).getNode("x-deg", 1).setValue(from_node.getNode("limb[6]", 1).getNode("x-deg", 1).getValue());
+		to_node.getNode("limb[6]", 1).getNode("y-deg", 1).setValue(from_node.getNode("limb[6]", 1).getNode("y-deg", 1).getValue());
+		to_node.getNode("limb[6]", 1).getNode("z-deg", 1).setValue(from_node.getNode("limb[6]", 1).getNode("z-deg", 1).getValue());
+		to_node.getNode("limb[7]", 1).getNode("y-deg", 1).setValue(from_node.getNode("limb[7]", 1).getNode("y-deg", 1).getValue());
+		to_node.getNode("limb[7]", 1).getNode("z-deg", 1).setValue(from_node.getNode("limb[7]", 1).getNode("z-deg", 1).getValue());
+		to_node.getNode("limb[8]", 1).getNode("x-deg", 1).setValue(from_node.getNode("limb[8]", 1).getNode("x-deg", 1).getValue());
+		to_node.getNode("limb[8]", 1).getNode("y-deg", 1).setValue(from_node.getNode("limb[8]", 1).getNode("y-deg", 1).getValue());
+		to_node.getNode("limb[9]", 1).getNode("x-deg", 1).setValue(from_node.getNode("limb[9]", 1).getNode("x-deg", 1).getValue());
+		to_node.getNode("limb[9]", 1).getNode("y-deg", 1).setValue(from_node.getNode("limb[9]", 1).getNode("y-deg", 1).getValue());
+		to_node.getNode("limb[9]", 1).getNode("z-deg", 1).setValue(from_node.getNode("limb[9]", 1).getNode("z-deg", 1).getValue());
+		to_node.getNode("limb[10]", 1).getNode("y-deg", 1).setValue(from_node.getNode("limb[10]", 1).getNode("y-deg", 1).getValue());
+		to_node.getNode("limb[11]", 1).getNode("y-deg", 1).setValue(from_node.getNode("limb[11]", 1).getNode("y-deg", 1).getValue());
+		to_node.getNode("limb[12]", 1).getNode("x-deg", 1).setValue(from_node.getNode("limb[12]", 1).getNode("x-deg", 1).getValue());
+		to_node.getNode("limb[12]", 1).getNode("y-deg", 1).setValue(from_node.getNode("limb[12]", 1).getNode("y-deg", 1).getValue());
+		to_node.getNode("limb[12]", 1).getNode("z-deg", 1).setValue(from_node.getNode("limb[12]", 1).getNode("z-deg", 1).getValue());
+		to_node.getNode("limb[13]", 1).getNode("y-deg", 1).setValue(from_node.getNode("limb[13]", 1).getNode("y-deg", 1).getValue());
+		to_node.getNode("limb[14]", 1).getNode("y-deg", 1).setValue(from_node.getNode("limb[14]", 1).getNode("y-deg", 1).getValue());
 	},
 	incr_position:	func {
 		if (position_count > 0) {
-			var dialog_position = getprop("sim/model/walker[1]/animate/dialog-position") + 1;
+			var dialog_position = w1a_dialog_position_node.getValue() + 1;
 			if (dialog_position <= (position_count - 1)) {
-				setprop("sim/model/walker[1]/animate/dialog-position", dialog_position);
+				w1a_dialog_position_node.setValue(dialog_position);
 				animate.load_position();
 			}
-			content_modified.setValue(2);
+			content_modified_node.setValue(2);
 		}
 	},
 	decr_position:	func {
-		var dialog_position = getprop("sim/model/walker[1]/animate/dialog-position") - 1;
+		var dialog_position = w1a_dialog_position_node.getValue() - 1;
 		if (dialog_position >= 0) {
-			setprop("sim/model/walker[1]/animate/dialog-position", dialog_position);
+			w1a_dialog_position_node.setValue(dialog_position);
 			animate.load_position();
 		}
-		content_modified.setValue(3);
+		content_modified_node.setValue(3);
 	},
 	reset_position:	func {
 		setprop("sim/model/walker[1]/name", "");
@@ -537,81 +549,81 @@ var animate = {
 		setprop("sim/model/walker[1]/limb[12]/z-deg", 0.0);
 		setprop("sim/model/walker[1]/limb[13]/y-deg", 0.0);
 		setprop("sim/model/walker[1]/limb[14]/y-deg", 0.0);
-		setprop("sim/model/walker[1]/loop-enabled", "true");
+		w1_loop_enabled_node.setValue(1);
 		setprop("sim/model/walker[1]/loop-to", 0);
 		setprop("sim/model/walker[1]/rest-sec", 0.0);
 		setprop("sim/model/walker[1]/transit-sec", 1.0);
-		setprop("sim/model/walker[1]/trigger-upon", "Disabled");
-		content_modified.setValue(1);
+		setprop("sim/model/walker[1]/transit-upon", "Disabled");
+		content_modified_node.setValue(1);
 	},
 	save_position:	func {
-		var dialog_position = getprop("sim/model/walker[1]/animate/dialog-position");
+		var dialog_position = w1a_dialog_position_node.getValue();
 		if (position_count == 0) {
 			animate.add_position();
-			setprop("sim/model/walker[1]/animate/dialog-position", 0);
+			w1a_dialog_position_node.setValue(0);
 		} else {
-			animate.copy_position(walker1Node, sequenceNode.getNode("position[" ~ dialog_position ~ "]", 1));
+			animate.copy_position(walker1_node, sequence_node.getNode("position[" ~ dialog_position ~ "]", 1));
 		}
-		sequenceNode.getNode("loop-enabled", 1).setBoolValue(walker1Node.getNode("loop-enabled", 1).getValue());
-		sequenceNode.getNode("loop-to", 1).setIntValue(walker1Node.getNode("loop-to", 1).getValue());
-		var t = walker1Node.getNode("trigger-upon", 1).getValue();
-		if (t != sequenceNode.getNode("trigger-upon", 1).getValue()) {
-			sequenceNode.getNode("trigger-upon", 1).setValue(t);
+		sequence_node.getNode("loop-enabled", 1).setBoolValue(w1_loop_enabled_node.getValue());
+		sequence_node.getNode("loop-to", 1).setIntValue(walker1_node.getNode("loop-to", 1).getValue());
+		var t = walker1_node.getNode("trigger-upon", 1).getValue();
+		if (t != sequence_node.getNode("trigger-upon", 1).getValue()) {
+			sequence_node.getNode("trigger-upon", 1).setValue(t);
 			if (t == "Walking") {
-				setprop("sim/model/walker[1]/animate/triggers/walking", int(animateNode.getNode("sequence-selected", 1).getValue()));
-				print ("  saving animation: walking to position ", animateNode.getNode("sequence-selected", 1).getValue());
+				setprop("sim/model/walker[1]/animate/triggers/walking", int(w1a_sequence_selected_node.getValue()));
+				print ("  saving animation: walking to position ", w1a_sequence_selected_node.getValue());
 			} elsif (t == "Running") {
-				setprop("sim/model/walker[1]/animate/triggers/running", int(animateNode.getNode("sequence-selected", 1).getValue()));
-				print ("  saving animation: running to position ", animateNode.getNode("sequence-selected", 1).getValue());
+				setprop("sim/model/walker[1]/animate/triggers/running", int(w1a_sequence_selected_node.getValue()));
+				print ("  saving animation: running to position ", w1a_sequence_selected_node.getValue());
 			} elsif (t == "Backwards") {
-				setprop("sim/model/walker[1]/animate/triggers/backwards", int(animateNode.getNode("sequence-selected", 1).getValue()));
-				print ("  saving animation: backwards to position ", animateNode.getNode("sequence-selected", 1).getValue());
+				setprop("sim/model/walker[1]/animate/triggers/backwards", int(w1a_sequence_selected_node.getValue()));
+				print ("  saving animation: backwards to position ", w1a_sequence_selected_node.getValue());
 			} elsif (t == "Standing") {
-				setprop("sim/model/walker[1]/animate/triggers/standing", int(animateNode.getNode("sequence-selected", 1).getValue()));
-				print ("  saving animation: standing to position ", animateNode.getNode("sequence-selected", 1).getValue());
+				setprop("sim/model/walker[1]/animate/triggers/standing", int(w1a_sequence_selected_node.getValue()));
+				print ("  saving animation: standing to position ", w1a_sequence_selected_node.getValue());
 			} elsif (t == "Falling") {
-				setprop("sim/model/walker[1]/animate/triggers/falling", int(animateNode.getNode("sequence-selected", 1).getValue()));
-				print ("  saving animation: falling to position ", animateNode.getNode("sequence-selected", 1).getValue());
+				setprop("sim/model/walker[1]/animate/triggers/falling", int(w1a_sequence_selected_node.getValue()));
+				print ("  saving animation: falling to position ", w1a_sequence_selected_node.getValue());
 			} elsif (t == "Landing") {
-				setprop("sim/model/walker[1]/animate/triggers/landing", int(animateNode.getNode("sequence-selected", 1).getValue()));
-				print ("  saving animation: landing to position ", animateNode.getNode("sequence-selected", 1).getValue());
+				setprop("sim/model/walker[1]/animate/triggers/landing", int(w1a_sequence_selected_node.getValue()));
+				print ("  saving animation: landing to position ", w1a_sequence_selected_node.getValue());
 			} elsif (t == "Open-Parachute") {
-				setprop("sim/model/walker[1]/animate/triggers/open-parachute", int(animateNode.getNode("sequence-selected", 1).getValue()));
-				print ("  saving animation: open-parachute to position ", animateNode.getNode("sequence-selected", 1).getValue());
+				setprop("sim/model/walker[1]/animate/triggers/open-parachute", int(w1a_sequence_selected_node.getValue()));
+				print ("  saving animation: open-parachute to position ", w1a_sequence_selected_node.getValue());
 			} elsif (t == "Crashing") {
-				setprop("sim/model/walker[1]/animate/triggers/crashing", int(animateNode.getNode("sequence-selected", 1).getValue()));
-				print ("  saving animation: crashing to position ", animateNode.getNode("sequence-selected", 1).getValue());
+				setprop("sim/model/walker[1]/animate/triggers/crashing", int(w1a_sequence_selected_node.getValue()));
+				print ("  saving animation: crashing to position ", w1a_sequence_selected_node.getValue());
 			}
 			discover_triggers(0);
 		}
-		content_modified.setValue(6);
+		content_modified_node.setValue(6);
 	},
 	load_position:	func {
-		var dialog_position = int(getprop("sim/model/walker[1]/animate/dialog-position"));
+		var dialog_position = int(w1a_dialog_position_node.getValue());
 		if (dialog_position >= 0) {
-			animate.copy_position(sequenceNode.getNode("position[" ~ dialog_position ~ "]", 1), walker1Node);
-			var i1 = sequenceNode.getNode("loop-enabled", 1).getValue();
+			animate.copy_position(sequence_node.getNode("position[" ~ dialog_position ~ "]", 1), walker1_node);
+			var i1 = sequence_node.getNode("loop-enabled", 1).getValue();
 			if (i1 == nil) {
-				i1 = "false";
+				i1 = 0;
 			}
-			walker1Node.getNode("loop-enabled", 1).setBoolValue(i1);
-			var i2 = sequenceNode.getNode("loop-to", 1).getValue();
+			w1_loop_enabled_node.setBoolValue(i1);
+			var i2 = sequence_node.getNode("loop-to", 1).getValue();
 			if (i2 == nil) {
 				i2 = 0;
 			}
-			walker1Node.getNode("loop-to", 1).setIntValue(i2);
-			var i3 = sequenceNode.getNode("trigger-upon", 1).getValue();
+			walker1_node.getNode("loop-to", 1).setIntValue(i2);
+			var i3 = sequence_node.getNode("trigger-upon", 1).getValue();
 			if (i3 == nil) {
 				i3 = "Disabled";
 			}
-			walker1Node.getNode("trigger-upon", 1).setValue(i3);
-			content_modified.setValue(7);
+			walker1_node.getNode("trigger-upon", 1).setValue(i3);
+			content_modified_node.setValue(7);
 		}
 	},
 	check_loop: func {
-		var i = walker1Node.getNode("loop-to", 1).getValue();
+		var i = walker1_node.getNode("loop-to", 1).getValue();
 		if (i > position_count or i < 0 or i == "") {
-			walker1Node.getNode("loop-to", 1).setValue(0);
+			walker1_node.getNode("loop-to", 1).setValue(0);
 		}
 	},
 	showDialog: func {
@@ -632,7 +644,7 @@ var animate = {
 		titlebar = walker_dialog2.addChild("group");
 		titlebar.set("layout", "hbox");
 		titlebar.addChild("empty").set("stretch", 1);
-		titlebar.addChild("text").set("label", "Walker position config -- " ~ sequenceNode.getNode("name", 1).getValue());
+		titlebar.addChild("text").set("label", "Walker position config -- " ~ sequence_node.getNode("name", 1).getValue());
 		titlebar.addChild("empty").set("stretch", 1);
 
 		walker_dialog2.addChild("hrule").addChild("dummy");
@@ -662,8 +674,8 @@ var animate = {
 		content.set("label", "");
 		content.set("default-padding", 1);
 		content.set("pref-width", 40);
-		content.set("editable", "true");
-		content.set("live", "true");
+		content.set("editable", 1);
+		content.set("live", 1);
 		content.set("property", "sim/model/walker[1]/animate/dialog-position");
 		content.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 		content.prop().getNode("binding[0]/object-name", 1).setValue("position");
@@ -679,8 +691,8 @@ var animate = {
 		box1.set("label", "");
 		box1.set("pref-width", 20);
 		box1.set("pref-height", 14);
-		var pos_children_size = size(sequenceNode.getChildren("position"));
-		var dia_pos = getprop("sim/model/walker[1]/animate/dialog-position");
+		var pos_children_size = size(sequence_node.getChildren("position"));
+		var dia_pos = w1a_dialog_position_node.getValue();
 		box1.set("border", (pos_children_size > 1 ? (dia_pos > 0 ? 2 : 0) : 0));
 		box1.set("legend", "-");
 		box1.prop().getNode("binding[0]/command", 1).setValue("nasal");
@@ -706,8 +718,8 @@ var animate = {
 		content.set("label", "");
 		content.set("default-padding", 1);
 		content.set("pref-width", 200);
-		content.set("editable", "true");
-		content.set("live", "true");
+		content.set("editable", 1);
+		content.set("live", 1);
 		content.set("property", "sim/model/walker[1]/name");
 		content.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 		content.prop().getNode("binding[0]/object-name", 1).setValue("input");
@@ -715,6 +727,7 @@ var animate = {
 #		content.prop().getNode("binding[1]/property", 1).setValue("sim/gui/dialogs/position-modified");
 #		content.prop().getNode("binding[1]/value", 1).setValue(1);
 		g.addChild("empty").set("pref-width", 4);
+
 
 		var g = walker_dialog2.addChild("group");
 		g.set("layout", "hbox");
@@ -763,7 +776,7 @@ var animate = {
 		box7.set("label", "");
 		box7.set("pref-width", 50);
 		box7.set("pref-height", 18);
-		box7.set("border", (content_modified.getValue() == 1 ? 2 : 1));
+		box7.set("border", (content_modified_node.getValue() == 1 ? 2 : 1));
 		if (dia_pos < 0) {
 			box7.setColor(0.44, 0.31, 0.31);
 		}
@@ -776,7 +789,7 @@ var animate = {
 		box8.set("label", "");
 		box8.set("pref-width", 50);
 		box8.set("pref-height", 18);
-		box8.set("border", (content_modified.getValue() == 1 ? 2 : 1));
+		box8.set("border", (content_modified_node.getValue() == 1 ? 2 : 1));
 		box8.set("legend", "Save");
 		box8.prop().getNode("binding[0]/command", 1).setValue("nasal");
 		box8.prop().getNode("binding[0]/script", 1).setValue("walker.animate.save_position()");
@@ -1703,8 +1716,8 @@ var animate = {
 		content1.set("label", "sec.");
 		content1.set("default-padding", 1);
 		content1.set("pref-width", 40);
-		content1.set("editable", "true");
-		content1.set("live", "true");
+		content1.set("editable", 1);
+		content1.set("live", 1);
 		content1.set("property", "sim/model/walker[1]/rest-sec");
 		content1.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 		content1.prop().getNode("binding[0]/object-name", 1).setValue("rest");
@@ -1720,8 +1733,8 @@ var animate = {
 		content2.set("label", "");
 		content2.set("default-padding", 1);
 		content2.set("pref-width", 40);
-		content2.set("editable", "true");
-		content2.set("live", "true");
+		content2.set("editable", 1);
+		content2.set("live", 1);
 		content2.set("property", "sim/model/walker[1]/transit-sec");
 		content2.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 		content2.prop().getNode("binding[0]/object-name", 1).setValue("transit");
@@ -1740,7 +1753,7 @@ var animate = {
 		var box = g.addChild("checkbox");
 		box.set("halign", "left");
 		box.set("label", "Loop to position");
-		box.set("live", "true");
+		box.set("live", 1);
 		box.set("property", "sim/model/walker[1]/loop-enabled");
 		box.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 		box.prop().getNode("binding[1]/command", 1).setValue("property-assign");
@@ -1753,8 +1766,8 @@ var animate = {
 		content.set("label", "");
 		content.set("default-padding", 1);
 		content.set("pref-width", 40);
-		content.set("editable", "true");
-		content.set("live", "true");
+		content.set("editable", 1);
+		content.set("live", 1);
 		content.set("property", "sim/model/walker[1]/loop-to");
 		content.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 		content.prop().getNode("binding[0]/object-name", 1).setValue("loop-input");
@@ -1767,7 +1780,7 @@ var animate = {
 		var combo = g.addChild("combo");
 		combo.set("default-padding", 1);
 		combo.set("pref-width", 130);
-		combo.set("live", "true");
+		combo.set("live", 1);
 		combo.set("property", "sim/model/walker[1]/trigger-upon");
 		combo.prop().getNode("value[0]", 1).setValue("Disabled");
 		combo.prop().getNode("value[1]", 1).setValue("Standing");
@@ -1892,12 +1905,12 @@ var animate = {
 	},
 };
 
-var animate_update = func (seqNode) {
+var animate_update = func (seq_node) {
 	var current_time = getprop("sim/time/elapsed-sec");
 	var time_elapsed = current_time - animate_time_start;
 	var i = 0;
 	if (time_elapsed >= animate_time_length) {
-		if (getprop("sim/model/walker[1]/loop-enabled")) {
+		if (w1_loop_enabled_node.getValue()) {
 			animate_current_position -= position_count;
 			animate_current_position += loop_to;
 			animate_time_start += loop_length_sec;
@@ -1925,92 +1938,92 @@ var animate_update = func (seqNode) {
 		}
 		animate_current_position = clamp(animate_current_position, 0.0, position_count);
 	}
-	setprop("sim/model/walker[1]/animate/dialog-position", int(animate_current_position));
+	w1a_dialog_position_node.setValue(int(animate_current_position));
 	var s = "position[" ~ int(animate_current_position) ~ "]";
-	var fromNode = seqNode.getNode(s, 1);
-	walker1Node.getNode("name", 1).setValue(fromNode.getNode("name", 1).getValue());
-	walker1Node.getNode("rest-sec", 1).setValue(fromNode.getNode("rest-sec", 1).getValue());
-	walker1Node.getNode("transit-sec", 1).setValue(fromNode.getNode("transit-sec", 1).getValue());
+	var from_node = seq_node.getNode(s, 1);
+	walker1_node.getNode("name", 1).setValue(from_node.getNode("name", 1).getValue());
+	walker1_node.getNode("rest-sec", 1).setValue(from_node.getNode("rest-sec", 1).getValue());
+	walker1_node.getNode("transit-sec", 1).setValue(from_node.getNode("transit-sec", 1).getValue());
 	if (i == 99) {
 		var next_position = int(animate_current_position);
-		var toNode = seqNode.getNode("position[" ~ (position_count - 1) ~ "]", 1);
+		var to_node = seq_node.getNode("position[" ~ (position_count - 1) ~ "]", 1);
 	} else {
 		var next_position = int(animate_current_position) + 1;
 		if (next_position > (position_count - 1)) {
-			var toNode = seqNode.getNode("position[" ~ loop_to ~ "]", 1);
+			var to_node = seq_node.getNode("position[" ~ loop_to ~ "]", 1);
 		} else {
-			var toNode = seqNode.getNode("position[" ~ next_position ~ "]", 1);
+			var to_node = seq_node.getNode("position[" ~ next_position ~ "]", 1);
 		}
 	}
-	walker1Node.getNode("limb[0]", 1).getNode("y-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[0]", 1).getNode("y-deg", 1).getValue(), toNode.getNode("limb[0]", 1).getNode("y-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[0]", 1).getNode("z-m", 1).setValue(interpolate_limb(fromNode.getNode("limb[0]", 1).getNode("z-m", 1).getValue(), toNode.getNode("limb[0]", 1).getNode("z-m", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[1]", 1).getNode("y-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[1]", 1).getNode("y-deg", 1).getValue(), toNode.getNode("limb[1]", 1).getNode("y-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[1]", 1).getNode("z-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[1]", 1).getNode("z-deg", 1).getValue(), toNode.getNode("limb[1]", 1).getNode("z-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[2]", 1).getNode("y-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[2]", 1).getNode("y-deg", 1).getValue(), toNode.getNode("limb[2]", 1).getNode("y-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[2]", 1).getNode("z-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[2]", 1).getNode("z-deg", 1).getValue(), toNode.getNode("limb[2]", 1).getNode("z-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[3]", 1).getNode("x-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[3]", 1).getNode("x-deg", 1).getValue(), toNode.getNode("limb[3]", 1).getNode("x-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[3]", 1).getNode("y-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[3]", 1).getNode("y-deg", 1).getValue(), toNode.getNode("limb[3]", 1).getNode("y-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[3]", 1).getNode("z-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[3]", 1).getNode("z-deg", 1).getValue(), toNode.getNode("limb[3]", 1).getNode("z-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[4]", 1).getNode("y-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[4]", 1).getNode("y-deg", 1).getValue(), toNode.getNode("limb[4]", 1).getNode("y-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[4]", 1).getNode("z-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[4]", 1).getNode("z-deg", 1).getValue(), toNode.getNode("limb[4]", 1).getNode("z-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[5]", 1).getNode("x-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[5]", 1).getNode("x-deg", 1).getValue(), toNode.getNode("limb[5]", 1).getNode("x-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[5]", 1).getNode("y-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[5]", 1).getNode("y-deg", 1).getValue(), toNode.getNode("limb[5]", 1).getNode("y-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[6]", 1).getNode("x-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[6]", 1).getNode("x-deg", 1).getValue(), toNode.getNode("limb[6]", 1).getNode("x-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[6]", 1).getNode("y-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[6]", 1).getNode("y-deg", 1).getValue(), toNode.getNode("limb[6]", 1).getNode("y-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[6]", 1).getNode("z-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[6]", 1).getNode("z-deg", 1).getValue(), toNode.getNode("limb[6]", 1).getNode("z-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[7]", 1).getNode("y-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[7]", 1).getNode("y-deg", 1).getValue(), toNode.getNode("limb[7]", 1).getNode("y-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[7]", 1).getNode("z-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[7]", 1).getNode("z-deg", 1).getValue(), toNode.getNode("limb[7]", 1).getNode("z-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[8]", 1).getNode("x-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[8]", 1).getNode("x-deg", 1).getValue(), toNode.getNode("limb[8]", 1).getNode("x-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[8]", 1).getNode("y-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[8]", 1).getNode("y-deg", 1).getValue(), toNode.getNode("limb[8]", 1).getNode("y-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[9]", 1).getNode("x-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[9]", 1).getNode("x-deg", 1).getValue(), toNode.getNode("limb[9]", 1).getNode("x-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[9]", 1).getNode("y-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[9]", 1).getNode("y-deg", 1).getValue(), toNode.getNode("limb[9]", 1).getNode("y-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[9]", 1).getNode("z-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[9]", 1).getNode("z-deg", 1).getValue(), toNode.getNode("limb[9]", 1).getNode("z-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[10]", 1).getNode("y-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[10]", 1).getNode("y-deg", 1).getValue(), toNode.getNode("limb[10]", 1).getNode("y-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[11]", 1).getNode("y-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[11]", 1).getNode("y-deg", 1).getValue(), toNode.getNode("limb[11]", 1).getNode("y-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[12]", 1).getNode("x-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[12]", 1).getNode("x-deg", 1).getValue(), toNode.getNode("limb[12]", 1).getNode("x-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[12]", 1).getNode("y-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[12]", 1).getNode("y-deg", 1).getValue(), toNode.getNode("limb[12]", 1).getNode("y-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[12]", 1).getNode("z-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[12]", 1).getNode("z-deg", 1).getValue(), toNode.getNode("limb[12]", 1).getNode("z-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[13]", 1).getNode("y-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[13]", 1).getNode("y-deg", 1).getValue(), toNode.getNode("limb[13]", 1).getNode("y-deg", 1).getValue(), move_percent));
-	walker1Node.getNode("limb[14]", 1).getNode("y-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[14]", 1).getNode("y-deg", 1).getValue(), toNode.getNode("limb[14]", 1).getNode("y-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[0]", 1).getNode("y-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[0]", 1).getNode("y-deg", 1).getValue(), to_node.getNode("limb[0]", 1).getNode("y-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[0]", 1).getNode("z-m", 1).setValue(interpolate_limb(from_node.getNode("limb[0]", 1).getNode("z-m", 1).getValue(), to_node.getNode("limb[0]", 1).getNode("z-m", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[1]", 1).getNode("y-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[1]", 1).getNode("y-deg", 1).getValue(), to_node.getNode("limb[1]", 1).getNode("y-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[1]", 1).getNode("z-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[1]", 1).getNode("z-deg", 1).getValue(), to_node.getNode("limb[1]", 1).getNode("z-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[2]", 1).getNode("y-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[2]", 1).getNode("y-deg", 1).getValue(), to_node.getNode("limb[2]", 1).getNode("y-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[2]", 1).getNode("z-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[2]", 1).getNode("z-deg", 1).getValue(), to_node.getNode("limb[2]", 1).getNode("z-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[3]", 1).getNode("x-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[3]", 1).getNode("x-deg", 1).getValue(), to_node.getNode("limb[3]", 1).getNode("x-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[3]", 1).getNode("y-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[3]", 1).getNode("y-deg", 1).getValue(), to_node.getNode("limb[3]", 1).getNode("y-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[3]", 1).getNode("z-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[3]", 1).getNode("z-deg", 1).getValue(), to_node.getNode("limb[3]", 1).getNode("z-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[4]", 1).getNode("y-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[4]", 1).getNode("y-deg", 1).getValue(), to_node.getNode("limb[4]", 1).getNode("y-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[4]", 1).getNode("z-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[4]", 1).getNode("z-deg", 1).getValue(), to_node.getNode("limb[4]", 1).getNode("z-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[5]", 1).getNode("x-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[5]", 1).getNode("x-deg", 1).getValue(), to_node.getNode("limb[5]", 1).getNode("x-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[5]", 1).getNode("y-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[5]", 1).getNode("y-deg", 1).getValue(), to_node.getNode("limb[5]", 1).getNode("y-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[6]", 1).getNode("x-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[6]", 1).getNode("x-deg", 1).getValue(), to_node.getNode("limb[6]", 1).getNode("x-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[6]", 1).getNode("y-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[6]", 1).getNode("y-deg", 1).getValue(), to_node.getNode("limb[6]", 1).getNode("y-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[6]", 1).getNode("z-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[6]", 1).getNode("z-deg", 1).getValue(), to_node.getNode("limb[6]", 1).getNode("z-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[7]", 1).getNode("y-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[7]", 1).getNode("y-deg", 1).getValue(), to_node.getNode("limb[7]", 1).getNode("y-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[7]", 1).getNode("z-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[7]", 1).getNode("z-deg", 1).getValue(), to_node.getNode("limb[7]", 1).getNode("z-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[8]", 1).getNode("x-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[8]", 1).getNode("x-deg", 1).getValue(), to_node.getNode("limb[8]", 1).getNode("x-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[8]", 1).getNode("y-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[8]", 1).getNode("y-deg", 1).getValue(), to_node.getNode("limb[8]", 1).getNode("y-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[9]", 1).getNode("x-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[9]", 1).getNode("x-deg", 1).getValue(), to_node.getNode("limb[9]", 1).getNode("x-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[9]", 1).getNode("y-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[9]", 1).getNode("y-deg", 1).getValue(), to_node.getNode("limb[9]", 1).getNode("y-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[9]", 1).getNode("z-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[9]", 1).getNode("z-deg", 1).getValue(), to_node.getNode("limb[9]", 1).getNode("z-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[10]", 1).getNode("y-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[10]", 1).getNode("y-deg", 1).getValue(), to_node.getNode("limb[10]", 1).getNode("y-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[11]", 1).getNode("y-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[11]", 1).getNode("y-deg", 1).getValue(), to_node.getNode("limb[11]", 1).getNode("y-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[12]", 1).getNode("x-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[12]", 1).getNode("x-deg", 1).getValue(), to_node.getNode("limb[12]", 1).getNode("x-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[12]", 1).getNode("y-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[12]", 1).getNode("y-deg", 1).getValue(), to_node.getNode("limb[12]", 1).getNode("y-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[12]", 1).getNode("z-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[12]", 1).getNode("z-deg", 1).getValue(), to_node.getNode("limb[12]", 1).getNode("z-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[13]", 1).getNode("y-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[13]", 1).getNode("y-deg", 1).getValue(), to_node.getNode("limb[13]", 1).getNode("y-deg", 1).getValue(), move_percent));
+	walker1_node.getNode("limb[14]", 1).getNode("y-deg", 1).setValue(interpolate_limb(from_node.getNode("limb[14]", 1).getNode("y-deg", 1).getValue(), to_node.getNode("limb[14]", 1).getNode("y-deg", 1).getValue(), move_percent));
 	if (i == 99) {
 		if (anim_enabled) {
-			setprop("sim/model/walker[1]/animate/enabled-current", "false");
+			w1a_enabled_current_node.setValue(0);
 		}
-		seqNode_now = nil;
+		seq_node_now = nil;
 		settimer(func { animate.reloadDialog() }, 0.1);
 	}
 
 }
 
 var animate_loop_id = 0;
-var animate_loop = func (id, seqNode) {
+var animate_loop = func (id, seq_node) {
 	id == animate_loop_id or return;
 	if (anim_enabled or (anim_running >= 0)) {
-		if (seqNode == seqNode_now) {
-			animate_update(seqNode);
-			settimer(func { animate_loop(animate_loop_id += 1, seqNode) }, 0.01);
+		if (seq_node == seq_node_now) {
+			animate_update(seq_node);
+			settimer(func { animate_loop(animate_loop_id += 1, seq_node) }, 0.01);
 		}
 	}
 }
 
-var start_animation = func (seqNode, seqId) {
-	seqNode_now = seqNode;
+var start_animation = func (seq_node, seqId) {
+	seq_node_now = seq_node;
 	if (anim_running != seqId) {
-		position_count = size(seqNode.getChildren("position"));
-		setprop("sim/model/walker[1]/animate/dialog-position", 0);
-		loop_enabled = seqNode.getNode("loop-enabled", 1).getValue();
-		walker1Node.getNode("loop-enabled", 1).setValue(loop_enabled);
-		var s = seqNode.getNode("trigger-upon", 1).getValue();
-		walker1Node.getNode("trigger-upon", 1).setValue(s);
+		position_count = size(seq_node.getChildren("position"));
+		w1a_dialog_position_node.setValue(0);
+		loop_enabled = seq_node.getNode("loop-enabled", 1).getValue();
+		w1_loop_enabled_node.setValue(loop_enabled);
+		var s = seq_node.getNode("trigger-upon", 1).getValue();
+		walker1_node.getNode("trigger-upon", 1).setValue(s);
 		if (position_count >= 2) {
 			animate_current_position = 0.0;
 			time_chart = [];
 			var t = 0.0;
-			loop_to = (loop_enabled ? seqNode.getNode("loop-to", 1).getValue() : position_count - 1);
+			loop_to = (loop_enabled ? seq_node.getNode("loop-to", 1).getValue() : position_count - 1);
 			for (var i = 0 ; i < position_count ; i += 1) {
-				var iNode = seqNode.getNode("position[" ~ i ~ "]", 1);
-				var rest_sec = iNode.getNode("rest-sec", 1).getValue();
-				var transit_sec = iNode.getNode("transit-sec", 1).getValue();
+				var i_node = seq_node.getNode("position[" ~ i ~ "]", 1);
+				var rest_sec = i_node.getNode("rest-sec", 1).getValue();
+				var transit_sec = i_node.getNode("transit-sec", 1).getValue();
 				if (i == loop_to) {
 					loop_start_sec = t;
 				}
@@ -2028,9 +2041,9 @@ var start_animation = func (seqNode, seqId) {
 				anim_running = seqId;
 				animate_time_start = getprop("sim/time/elapsed-sec");
 				if (getprop("logging/walker-debug")) {
-					print ("Starting animation: ",seqId," ",seqNode.getNode("name", 1).getValue()," animate_time_length= ",animate_time_length," loop_length_sec= ",loop_length_sec, " animate_time_start= ",animate_time_start);
+					print ("Starting animation: ",seqId," ",seq_node.getNode("name", 1).getValue()," animate_time_length= ",animate_time_length," loop_length_sec= ",loop_length_sec, " animate_time_start= ",animate_time_start);
 				}
-				settimer(func { animate_loop(animate_loop_id += 1, seqNode) }, 0);
+				settimer(func { animate_loop(animate_loop_id += 1, seq_node) }, 0);
 			}
 		}
 	}
@@ -2038,7 +2051,7 @@ var start_animation = func (seqNode, seqId) {
 
 var stop_animation = func {
 	if (anim_enabled) {
-		settimer(func { setprop("sim/model/walker[1]/animate/enabled-current", "false") }, 0.1);
+		settimer(func { w1a_enabled_current_node.setValue(0) }, 0.1);
 	}
 	was_beyond_walking = 0;
 	anim_running = -1;
@@ -2055,17 +2068,17 @@ var check_walk_animations = func {	# keyboard handling for osg version
 				if (getprop("sim/current-view/view-number") != 0) {
 					if (w_direction < 0) {
 						if (triggers_list[3] >= 0) {
-							s = int(getprop("sim/model/walker[1]/animate/triggers/backwards"));
+							s = int(trigger_backwards_node.getValue());
 						}
 					} elsif (w_direction > 0 or w_slide != 0) {
 						#print ("listener: walking ",walking_momentum," ",w_direction," w_key_speed= ",w_key_speed,"  speed_mps= ",w_speed_mps);
 						if (w_key_speed < (w_speed_mps * 2)) {
 							if (triggers_list[1] >= 0) {
-								s = int(getprop("sim/model/walker[1]/animate/triggers/walking"));
+								s = int(trigger_walking_node.getValue());
 							}
 						} else {
 							if (triggers_list[2] >= 0) {
-								s = int(getprop("sim/model/walker[1]/animate/triggers/running"));
+								s = int(trigger_running_node.getValue());
 							}
 						}
 					}
@@ -2073,14 +2086,14 @@ var check_walk_animations = func {	# keyboard handling for osg version
 			} else {
 				if (triggers_list[0] >= 0) {
 					if (w_outside) {
-						s = int(getprop("sim/model/walker[1]/animate/triggers/standing"));
+						s = int(trigger_standing_node.getValue());
 					}
 				}
 			}
 			if ((s != nil) and (s >= 0)) {
-				triggered_seqNode = props.globals.getNode("sim/model/walker[1]/animate/list/sequence[" ~ s ~ "]", 1);
-				if (triggered_seqNode != nil and (s != anim_running)) {
-					start_animation(triggered_seqNode, s);
+				triggered_seq_node = props.globals.getNode("sim/model/walker[1]/animate/list/sequence[" ~ s ~ "]", 1);
+				if (triggered_seq_node != nil and (s != anim_running)) {
+					start_animation(triggered_seq_node, s);
 				}
 			} else {
 				stop_animation();
@@ -2099,18 +2112,18 @@ var check_walk_animations_1 = func {	# for keyboard handling in 1.0 plib
 				if (getprop("sim/current-view/view-number") != 0) {
 					if ((w_direction < 0) or (was_beyond_walking == -1)) {
 						if (triggers_list[3] >= 0) {
-							s = int(getprop("sim/model/walker[1]/animate/triggers/backwards"));
+							s = int(trigger_backwards_node.getValue());
 						}
 						was_beyond_walking = -1;
 					} else {
 						if ((was_beyond_walking == 1) or (w_key_speed >= (w_speed_mps * 2))) {
 							if (triggers_list[2] >= 0) {
-								s = int(getprop("sim/model/walker[1]/animate/triggers/running"));
+								s = int(trigger_running_node.getValue());
 							}
 							was_beyond_walking = 1;
 						} else {
 							if (triggers_list[1] >= 0) {
-								s = int(getprop("sim/model/walker[1]/animate/triggers/walking"));
+								s = int(trigger_walking_node.getValue());
 							}
 							was_beyond_walking = 0;
 						}
@@ -2120,14 +2133,14 @@ var check_walk_animations_1 = func {	# for keyboard handling in 1.0 plib
 				was_beyond_walking = 0;
 				if (triggers_list[0] >= 0) {
 					if (w_outside) {
-						s = int(getprop("sim/model/walker[1]/animate/triggers/standing"));
+						s = int(trigger_standing_node.getValue());
 					}
 				}
 			}
 			if ((s != nil) and (s >= 0)) {
-				triggered_seqNode = props.globals.getNode("sim/model/walker[1]/animate/list/sequence[" ~ s ~ "]", 1);
-				if (triggered_seqNode != nil and (s != anim_running)) {
-					start_animation(triggered_seqNode, s);
+				triggered_seq_node = props.globals.getNode("sim/model/walker[1]/animate/list/sequence[" ~ s ~ "]", 1);
+				if (triggered_seq_node != nil and (s != anim_running)) {
+					start_animation(triggered_seq_node, s);
 				}
 			} else {
 				stop_animation();
@@ -2137,7 +2150,7 @@ var check_walk_animations_1 = func {	# for keyboard handling in 1.0 plib
 }
 
 var discover_triggers = func (verbose) {
-	var a = size(listNode.getChildren("sequence"));
+	var a = size(w1a_list_node.getChildren("sequence"));
 	triggers_list = [0, 0, 0, 0, 0, 0, 0, 0];
 	var trig_c = 0;
 	for (var i = 0; i < a; i += 1) {
@@ -2262,40 +2275,40 @@ var discover_triggers = func (verbose) {
 
 		if (tr_L_id == nil) {
 			if (substr(desc, size(desc) - 3, 3) == "1.0") {
-				tr_L_id = setlistener("sim/walker/key-triggers/speed", func {
-					w_key_speed = getprop("sim/walker/key-triggers/speed");
+				tr_L_id = setlistener("sim/walker/key-triggers/speed", func(n) {
+					w_key_speed = n.getValue();
 					check_walk_animations_1();
 				},, 0);
 			} else {
-				tr_L_id = setlistener("sim/walker/key-triggers/speed", func {
-					w_key_speed = getprop("sim/walker/key-triggers/speed");
+				tr_L_id = setlistener("sim/walker/key-triggers/speed", func(n) {
+					w_key_speed = n.getValue();
 					check_walk_animations();
 				},, 0);
 			}
 		}
 
 		if (ta_L_id == nil) {
-			ta_L_id = setlistener("sim/walker/airborne", func {
-				in_air = getprop("sim/walker/airborne");
+			ta_L_id = setlistener("sim/walker/airborne", func(n) {
+				in_air = n.getValue();
 				if (w_outside and triggers_enabled) {
 					var s = nil;
 					if (in_air) {
 						if (triggers_list[4]) {
-							s = int(getprop("sim/model/walker[1]/animate/triggers/falling"));
+							s = int(trigger_falling_node.getValue());
 						}
 					} else {
 						var crash_landing = getprop("sim/walker/crashed");
 						if (!crash_landing and triggers_list[6] and getprop("sim/walker/parachute-opened-sec") > 2) {
-							s = int(getprop("sim/model/walker[1]/animate/triggers/landing"));
+							s = int(trigger_landing_node.getValue());
 						} elsif (crash_landing and triggers_list[7]) {
-							s = int(getprop("sim/model/walker[1]/animate/triggers/crashing"));
+							s = int(trigger_crashing_node.getValue());
 						} else {
 							stop_animation();
 						}
 					}
 					if ((s != nil) and (s >= 0)) {
-						triggered_seqNode = props.globals.getNode("sim/model/walker[1]/animate/list/sequence[" ~ s ~ "]", 1);
-						start_animation(triggered_seqNode, s);
+						triggered_seq_node = props.globals.getNode("sim/model/walker[1]/animate/list/sequence[" ~ s ~ "]", 1);
+						start_animation(triggered_seq_node, s);
 					} else {
 						stop_animation();
 					}
@@ -2304,19 +2317,19 @@ var discover_triggers = func (verbose) {
 		}
 
 		if (tj_L_id == nil) {
-			tj_L_id = setlistener("sim/walker/parachute-opened-altitude-ft", func {
-				parachute_deployed_ft = getprop("sim/walker/parachute-opened-altitude-ft");
+			tj_L_id = setlistener("sim/walker/parachute-opened-altitude-ft", func(n) {
+				parachute_deployed_ft = n.getValue();
 				if (w_outside and triggers_enabled) {
 					var s = nil;
 					if (parachute_deployed_ft > 0) {
 						if (in_air) {
 							if (triggers_list[5]) {
-								s = int(getprop("sim/model/walker[1]/animate/triggers/open-parachute"));
+								s = int(trigger_open_parachute_node.getValue());
 							}
 						}
 						if ((s != nil) and (s >= 0)) {
-							triggered_seqNode = props.globals.getNode("sim/model/walker[1]/animate/list/sequence[" ~ s ~ "]", 1);
-							start_animation(triggered_seqNode, s);
+							triggered_seq_node = props.globals.getNode("sim/model/walker[1]/animate/list/sequence[" ~ s ~ "]", 1);
+							start_animation(triggered_seq_node, s);
 						} else {
 							stop_animation();
 						}
@@ -2326,8 +2339,8 @@ var discover_triggers = func (verbose) {
 		}
 
 		if (to_L_id == nil) {
-			to_L_id = setlistener("sim/walker/outside", func {
-				if (getprop("sim/walker/outside") == 0) {
+			to_L_id = setlistener("sim/walker/outside", func(n) {
+				if (n.getValue() == 0) {
 					stop_animation();
 					animate.reset_position();
 				}
@@ -2340,11 +2353,11 @@ var discover_triggers = func (verbose) {
 }
 
 var init_walker = func {
-	sequenceNode = listNode.getNode("sequence[" ~ int(animateNode.getNode("sequence-selected", 1).getValue()) ~ "]", 1);
-	position_count = size(sequenceNode.getChildren("position"));
-	setprop("sim/model/walker[1]/animate/dialog-position", 0);
-	setlistener("sim/model/walker[1]/animate/enabled-triggers", func {
-		triggers_enabled = getprop("sim/model/walker[1]/animate/enabled-triggers");
+	sequence_node = w1a_list_node.getNode("sequence[" ~ int(w1a_sequence_selected_node.getValue()) ~ "]", 1);
+	position_count = size(sequence_node.getChildren("position"));
+	w1a_dialog_position_node.setValue(0);
+	setlistener("sim/model/walker[1]/animate/enabled-triggers", func(n) {
+		triggers_enabled = n.getValue();
 		stop_animation();
 		if (triggers_enabled) {
 			animate.reset_position();
@@ -2357,19 +2370,15 @@ var init_walker = func {
 		}
 	}, 0, 0);
 
-	setlistener("sim/walker/speed-mps", func {
-		w_speed_mps = getprop("sim/walker/speed-mps");
-	}, 1, 0);
+	setlistener("sim/walker/speed-mps", func(n) { w_speed_mps = n.getValue() }, 1, 0);
 
-	setlistener("sim/walker/outside", func {
-		w_outside = getprop("sim/walker/outside");
-	}, 1, 0);
+	setlistener("sim/walker/outside", func(n) { w_outside = n.getValue() }, 1, 0);
 
-	setlistener("sim/model/walker[1]/animate/enabled-current", func {
-		anim_enabled = getprop("sim/model/walker[1]/animate/enabled-current");
+	setlistener("sim/model/walker[1]/animate/enabled-current", func(n) {
+		anim_enabled = n.getValue();
 		if (anim_enabled) {
-			var seqId = int(animateNode.getNode("sequence-selected", 1).getValue());
-			start_animation(sequenceNode, seqId);
+			var seqId = int(w1a_sequence_selected_node.getValue());
+			start_animation(sequence_node, seqId);
 		} else {
 			if (anim_running >= 0) {
 				stop_animation();

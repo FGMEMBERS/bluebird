@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 8.8 common base =====
+# ===== Bluebird Explorer Hovercraft  version 8.9 common base =====
 
 # Add second popupTip to avoid being overwritten by primary joystick messages ==
 var tipArg2 = props.Node.new({ "dialog-name" : "PopTip2" });
@@ -406,19 +406,13 @@ var reinit_bluebird = func {	# reset the above variables
 
 # display screens ---------------------------------------------------
 var screen_3R_on = 0;	# debug screen at 3 right
-setlistener("instrumentation/display-screens/enabled-3R", func {
-	screen_3R_on = getprop("instrumentation/display-screens/enabled-3R");
-}, 1, 0);
+setlistener("instrumentation/display-screens/enabled-3R", func(n) { screen_3R_on = n.getValue() }, 1, 0);
 
 var screen_4R_on = 0;	# hover diagnostics screen at 4 right
-setlistener("instrumentation/display-screens/enabled-4R", func {
-	screen_4R_on = getprop("instrumentation/display-screens/enabled-4R");
-}, 1, 0);
+setlistener("instrumentation/display-screens/enabled-4R", func(n) { screen_4R_on = n.getValue() }, 1, 0);
 
 var screen_5R_on = 0;	# countergrav diagnostics screen at 5 right
-setlistener("instrumentation/display-screens/enabled-5R", func {
-	screen_5R_on = getprop("instrumentation/display-screens/enabled-5R");
-}, 1, 0);
+setlistener("instrumentation/display-screens/enabled-5R", func(n) { screen_5R_on = n.getValue() }, 1, 0);
 
 # door functions ----------------------------------------------------
 
@@ -586,13 +580,13 @@ var toggle_door = func {
 	setprop("sim/model/bluebird/sound/door-direction", td_dr);  # attempt to determine direction
 
 	if (active_door == 0) {
-		setprop("sim/model/bluebird/sound/hatch0-trigger", "true");
+		setprop("sim/model/bluebird/sound/hatch0-trigger", 1);
 		settimer(reset_trigger0, 1);
 	} elsif (active_door == 1) {
-		setprop("sim/model/bluebird/sound/hatch1-trigger", "true");
+		setprop("sim/model/bluebird/sound/hatch1-trigger", 1);
 		settimer(reset_trigger1, 1);
 	} elsif (active_door == 5) {
-		setprop("sim/model/bluebird/sound/hatch5-trigger", "true");
+		setprop("sim/model/bluebird/sound/hatch5-trigger", 1);
 		settimer(reset_trigger5, 1);
 	}
 	settimer(panel_lighting_loop, 0.05);
@@ -600,66 +594,52 @@ var toggle_door = func {
 
 # give hatch sound effect one second to play ------------------------
 var reset_trigger0 = func {
-	setprop("sim/model/bluebird/sound/hatch0-trigger", "false");
+	setprop("sim/model/bluebird/sound/hatch0-trigger", 0);
 }
 
 var reset_trigger1 = func {
-	setprop("sim/model/bluebird/sound/hatch1-trigger", "false");
+	setprop("sim/model/bluebird/sound/hatch1-trigger", 0);
 }
 
 var reset_trigger5 = func {
-	setprop("sim/model/bluebird/sound/hatch5-trigger", "false");
+	setprop("sim/model/bluebird/sound/hatch5-trigger", 0);
 }
 
 # systems -----------------------------------------------------------
 
-setlistener("sim/model/bluebird/systems/power-switch", func {
-	power_switch = getprop("sim/model/bluebird/systems/power-switch");
+setlistener("sim/model/bluebird/systems/power-switch", func(n) {
+	power_switch = n.getValue();
 	if (damage_count) {
 		var flaringL = getprop("ai/submodels/engine-L-flaring");
 		var flaringR = getprop("ai/submodels/engine-R-flaring");
 		if (!power_switch and flaringL) {
-			setprop ("ai/submodels/engine-L-flaring", "false");
+			setprop ("ai/submodels/engine-L-flaring", 0);
 		} elsif (power_switch and !nacelleL_attached) {
-			setprop ("ai/submodels/engine-L-flaring", "true");
+			setprop ("ai/submodels/engine-L-flaring", 1);
 		}
 		if (!power_switch and flaringR) {
-			setprop ("ai/submodels/engine-R-flaring", "false");
+			setprop ("ai/submodels/engine-R-flaring", 0);
 		} elsif (power_switch and !nacelleR_attached) {
-			setprop ("ai/submodels/engine-R-flaring", "true");
+			setprop ("ai/submodels/engine-R-flaring", 1);
 		}
 	}
 });
 
-setlistener("controls/engines/countergrav-factor", func {
-	countergrav_factor = getprop("controls/engines/countergrav-factor");
-},, 0);
+setlistener("controls/engines/countergrav-factor", func(n) { countergrav_factor = n.getValue() },, 0);
 
-setlistener("sim/model/bluebird/systems/reactor-request", func {
-	reactor_request = int(getprop("sim/model/bluebird/systems/reactor-request"));
-},, 0);
+setlistener("sim/model/bluebird/systems/reactor-request", func(n) { reactor_request = n.getValue() },, 0);
 
-setlistener("sim/model/bluebird/systems/reactor-level", func {
-	reactor_level = getprop("sim/model/bluebird/systems/reactor-level");
-},, 0);
+setlistener("sim/model/bluebird/systems/reactor-level", func(n) { reactor_level = n.getValue() },, 0);
 
-setlistener("sim/model/bluebird/systems/wave1-request", func {
-	wave1_request = getprop("sim/model/bluebird/systems/wave1-request");
-},, 0);
+setlistener("sim/model/bluebird/systems/wave1-request", func(n) { wave1_request = n.getValue() },, 0);
 
-setlistener("sim/model/bluebird/systems/wave1-level", func {
-	wave1_level = getprop("sim/model/bluebird/systems/wave1-level");
-},, 0);
+setlistener("sim/model/bluebird/systems/wave1-level", func(n) { wave1_level = n.getValue() },, 0);
 
-setlistener("sim/model/bluebird/systems/wave2-request", func {
-	wave2_request = getprop("sim/model/bluebird/systems/wave2-request");
-},, 0);
+setlistener("sim/model/bluebird/systems/wave2-request", func(n) { wave2_request = n.getValue() },, 0);
 
 # interior ----------------------------------------------------------
 
-setlistener("sim/model/bluebird/lighting/interior-switch", func {
-	int_switch = getprop("sim/model/bluebird/lighting/interior-switch");
-},, 0);
+setlistener("sim/model/bluebird/lighting/interior-switch", func(n) { int_switch = n.getValue() },, 0);
 
 var isodd = func (odd_i) {
 	var odd_x = int(odd_i - ((int(odd_i * 0.1)) * 10));
@@ -670,9 +650,7 @@ var isodd = func (odd_i) {
 
 # lighting and texture ----------------------------------------------
 
-setlistener("environment/visibility-m", func {
-	visibility = getprop("environment/visibility-m");
-}, 1, 0);
+setlistener("environment/visibility-m", func(n) { visibility = n.getValue() }, 1, 0);
 
 var set_I1_ambient = func {
 	var calc_amb_R = livery_I1AR + (livery_I1R_add * alert_level * int_switch * power_switch);
@@ -857,85 +835,85 @@ var recalc_material_U = func {
 	livery_IUB_add = red_amb_flr_B - livery_IUAB;
 }
 
-setlistener("sim/model/livery/material/interior-flooring/ambient/red", func {
-	livery_I1AR = getprop("sim/model/livery/material/interior-flooring/ambient/red");
+setlistener("sim/model/livery/material/interior-flooring/ambient/red", func(n) {
+	livery_I1AR = n.getValue();
 	setprop("sim/model/bluebird/lighting/ambient/I1-A-red", livery_I1AR);
 	recalc_material_1();
 	set_I1_ambient();
 },, 0);
 
-setlistener("sim/model/livery/material/interior-flooring/ambient/green", func {
-	livery_I1AG = getprop("sim/model/livery/material/interior-flooring/ambient/green");
+setlistener("sim/model/livery/material/interior-flooring/ambient/green", func(n) {
+	livery_I1AG = n.getValue();
 	setprop("sim/model/bluebird/lighting/ambient/I1-A-green", livery_I1AG);
 	recalc_material_1();
 	set_I1_ambient();
 },, 0);
 
-setlistener("sim/model/livery/material/interior-flooring/ambient/blue", func {
-	livery_I1AB = getprop("sim/model/livery/material/interior-flooring/ambient/blue");
+setlistener("sim/model/livery/material/interior-flooring/ambient/blue", func(n) {
+	livery_I1AB = n.getValue();
 	setprop("sim/model/bluebird/lighting/ambient/I1-A-blue", livery_I1AB);
 	recalc_material_1();
 	set_I1_ambient();
 },, 0);
 
-setlistener("sim/model/livery/material/interior-lower/ambient/red", func {
-	livery_I4AR = getprop("sim/model/livery/material/interior-lower/ambient/red");
+setlistener("sim/model/livery/material/interior-lower/ambient/red", func(n) {
+	livery_I4AR = n.getValue();
 	setprop("sim/model/bluebird/lighting/ambient/I4-A-red", livery_I4AR);
 	recalc_material_4();
 	set_I4_ambient();
 },, 0);
 
-setlistener("sim/model/livery/material/interior-lower/ambient/green", func {
-	livery_I4AG = getprop("sim/model/livery/material/interior-lower/ambient/green");
+setlistener("sim/model/livery/material/interior-lower/ambient/green", func(n) {
+	livery_I4AG = n.getValue();
 	setprop("sim/model/bluebird/lighting/ambient/I4-A-green", livery_I4AG);
 	recalc_material_4();
 	set_I4_ambient();
 },, 0);
 
-setlistener("sim/model/livery/material/interior-lower/ambient/blue", func {
-	livery_I4AB = getprop("sim/model/livery/material/interior-lower/ambient/blue");
+setlistener("sim/model/livery/material/interior-lower/ambient/blue", func(n) {
+	livery_I4AB = n.getValue();
 	setprop("sim/model/bluebird/lighting/ambient/I4-A-blue", livery_I4AB);
 	recalc_material_4();
 	set_I4_ambient();
 },, 0);
 
-setlistener("sim/model/livery/material/interior-door-panels/ambient/red", func {
-	livery_IAAR = getprop("sim/model/livery/material/interior-door-panels/ambient/red");
+setlistener("sim/model/livery/material/interior-door-panels/ambient/red", func(n) {
+	livery_IAAR = n.getValue();
 	setprop("sim/model/bluebird/lighting/ambient/IA-A-red", livery_IAAR);
 	recalc_material_A();
 	set_IA_ambient();
 },, 0);
 
-setlistener("sim/model/livery/material/interior-door-panels/ambient/green", func {
-	livery_IAAG = getprop("sim/model/livery/material/interior-door-panels/ambient/green");
+setlistener("sim/model/livery/material/interior-door-panels/ambient/green", func(n) {
+	livery_IAAG = n.getValue();
 	setprop("sim/model/bluebird/lighting/ambient/IA-A-green", livery_IAAG);
 	recalc_material_A();
 	set_IA_ambient();
 },, 0);
 
-setlistener("sim/model/livery/material/interior-door-panels/ambient/blue", func {
-	livery_IAAB = getprop("sim/model/livery/material/interior-door-panels/ambient/blue");
+setlistener("sim/model/livery/material/interior-door-panels/ambient/blue", func(n) {
+	livery_IAAB = n.getValue();
 	setprop("sim/model/bluebird/lighting/ambient/IA-A-blue", livery_IAAB);
 	recalc_material_A();
 	set_IA_ambient();
 },, 0);
 
-setlistener("sim/model/livery/material/interior-upper/ambient/red", func {
-	livery_IUAR = getprop("sim/model/livery/material/interior-upper/ambient/red");
+setlistener("sim/model/livery/material/interior-upper/ambient/red", func(n) {
+	livery_IUAR = n.getValue();
 	setprop("sim/model/bluebird/lighting/ambient/IU-A-red", livery_IUAR);
 	recalc_material_U();
 	set_IU_ambient();
 },, 0);
 
-setlistener("sim/model/livery/material/interior-upper/ambient/green", func {
-	livery_IUAG = getprop("sim/model/livery/material/interior-upper/ambient/green");
+setlistener("sim/model/livery/material/interior-upper/ambient/green", func(n) {
+	livery_IUAG = n.getValue();
 	setprop("sim/model/bluebird/lighting/ambient/IU-A-green", livery_IUAG);
 	recalc_material_U();
 	set_IU_ambient();
 },, 0);
 
-setlistener("sim/model/livery/material/interior-upper/ambient/blue", func {
-	livery_IUAB = getprop("sim/model/livery/material/interior-upper/ambient/blue");
+setlistener("sim/model/livery/material/interior-upper/ambient/blue", func(n) {
+	livery_IUAB = n.getValue();
 	setprop("sim/model/bluebird/lighting/ambient/IU-A-blue", livery_IUAB);
 	recalc_material_U();
 	set_IU_ambient();
@@ -960,39 +938,39 @@ setlistener("controls/lighting/alert", func {
 
 # watch for damage --------------------------------------------------
 
-setlistener("sim/model/bluebird/components/nacelle-L", func {
-	nacelleL_attached = getprop("sim/model/bluebird/components/nacelle-L");
+setlistener("sim/model/bluebird/components/nacelle-L", func(n) {
+	nacelleL_attached = n.getValue();
 	if (!nacelleL_attached) {
 		if (power_switch) {
-			setprop ("ai/submodels/engine-L-flaring", "true");
+			setprop ("ai/submodels/engine-L-flaring", 1);
 		}
 		if (nacelle_L_venting) {
-			setprop ("sim/model/bluebird/systems/nacelle-L-venting", "false");
+			setprop ("sim/model/bluebird/systems/nacelle-L-venting", 0);
 		}
 		if (damage_count) {
-			setprop ("ai/submodels/engine-L-venting", "true");
+			setprop ("ai/submodels/engine-L-venting", 1);
 		}
 	} else {
-		setprop ("ai/submodels/engine-L-flaring", "false");
-		setprop ("ai/submodels/engine-L-venting", "false");
+		setprop ("ai/submodels/engine-L-flaring", 0);
+		setprop ("ai/submodels/engine-L-venting", 0);
 	}
 }, 1);
 
-setlistener("sim/model/bluebird/components/nacelle-R", func {
-	nacelleR_attached = getprop("sim/model/bluebird/components/nacelle-R");
+setlistener("sim/model/bluebird/components/nacelle-R", func(n) {
+	nacelleR_attached = n.getValue();
 	if (!nacelleR_attached) {
 		if (power_switch) {
-			setprop ("ai/submodels/engine-R-flaring", "true");
+			setprop ("ai/submodels/engine-R-flaring", 1);
 		}
 		if (nacelle_R_venting) {
-			setprop ("sim/model/bluebird/systems/nacelle-R-venting", "false");
+			setprop ("sim/model/bluebird/systems/nacelle-R-venting", 0);
 		}
 		if (damage_count) {
-			setprop ("ai/submodels/engine-R-venting", "true");
+			setprop ("ai/submodels/engine-R-venting", 1);
 		}
 	} else {
-		setprop ("ai/submodels/engine-R-flaring", "false");
-		setprop ("ai/submodels/engine-R-venting", "false");
+		setprop ("ai/submodels/engine-R-flaring", 0);
+		setprop ("ai/submodels/engine-R-venting", 0);
 	}
 }, 1);
 
@@ -1012,71 +990,71 @@ var update_venting = func(uv_change, left_right) {	# 1=left,2=right
 			if (nacelle_L_venting) {
 				if (nacelleL_attached) {
 					if (venting_direction == 1) {
-						setprop ("ai/submodels/nacelle-LR-venting", "true");
-						setprop ("ai/submodels/nacelle-LF-venting", "false");
+						setprop ("ai/submodels/nacelle-LR-venting", 1);
+						setprop ("ai/submodels/nacelle-LF-venting", 0);
 					} elsif (venting_direction == -1) {
-						setprop ("ai/submodels/nacelle-LR-venting", "false");
-						setprop ("ai/submodels/nacelle-LF-venting", "true");
+						setprop ("ai/submodels/nacelle-LR-venting", 0);
+						setprop ("ai/submodels/nacelle-LF-venting", 1);
 					} elsif (venting_direction == 0) {
-						setprop ("ai/submodels/nacelle-LR-venting", "true");
-						setprop ("ai/submodels/nacelle-LF-venting", "true");
+						setprop ("ai/submodels/nacelle-LR-venting", 1);
+						setprop ("ai/submodels/nacelle-LF-venting", 1);
 					}
 					new_venting = 1;
 				} else {
-					setprop ("ai/submodels/engine-L-flaring", "true");
-					setprop ("ai/submodels/engine-L-venting", "true");
+					setprop ("ai/submodels/engine-L-flaring", 1);
+					setprop ("ai/submodels/engine-L-venting", 1);
 				}
 			} else {
-				setprop ("ai/submodels/nacelle-LR-venting", "false");
-				setprop ("ai/submodels/nacelle-LF-venting", "false");
+				setprop ("ai/submodels/nacelle-LR-venting", 0);
+				setprop ("ai/submodels/nacelle-LF-venting", 0);
 			}
 			if (nacelle_R_venting) {
 				if (nacelleR_attached) {
 					if (venting_direction == 1) {
-						setprop ("ai/submodels/nacelle-RR-venting", "true");
-						setprop ("ai/submodels/nacelle-RF-venting", "false");
+						setprop ("ai/submodels/nacelle-RR-venting", 1);
+						setprop ("ai/submodels/nacelle-RF-venting", 0);
 					} elsif (venting_direction == -1) {
-						setprop ("ai/submodels/nacelle-RR-venting", "false");
-						setprop ("ai/submodels/nacelle-RF-venting", "true");
+						setprop ("ai/submodels/nacelle-RR-venting", 0);
+						setprop ("ai/submodels/nacelle-RF-venting", 1);
 					} elsif (venting_direction == 0) {
-						setprop ("ai/submodels/nacelle-RR-venting", "true");
-						setprop ("ai/submodels/nacelle-RF-venting", "true");
+						setprop ("ai/submodels/nacelle-RR-venting", 1);
+						setprop ("ai/submodels/nacelle-RF-venting", 1);
 					}
 					new_venting += 2;
 				} else {
-					setprop ("ai/submodels/engine-R-flaring", "true");
-					setprop ("ai/submodels/engine-R-venting", "true");
+					setprop ("ai/submodels/engine-R-flaring", 1);
+					setprop ("ai/submodels/engine-R-venting", 1);
 				}
 			} else {
-				setprop ("ai/submodels/nacelle-RR-venting", "false");
-				setprop ("ai/submodels/nacelle-RF-venting", "false");
+				setprop ("ai/submodels/nacelle-RR-venting", 0);
+				setprop ("ai/submodels/nacelle-RF-venting", 0);
 			}
 		}
 	} else {
 		venting_direction = -3;
 		if (uv_change) {
-			setprop ("ai/submodels/nacelle-LR-venting", "false");
-			setprop ("ai/submodels/nacelle-LF-venting", "false");
-			setprop ("ai/submodels/nacelle-RR-venting", "false");
-			setprop ("ai/submodels/nacelle-RF-venting", "false");
+			setprop ("ai/submodels/nacelle-LR-venting", 0);
+			setprop ("ai/submodels/nacelle-LF-venting", 0);
+			setprop ("ai/submodels/nacelle-RR-venting", 0);
+			setprop ("ai/submodels/nacelle-RF-venting", 0);
 		}
 	}
 	if (left_right != new_venting) {
 		if ((left_right != 2) and ((new_venting == 0) or (new_venting == 2))) {
-			setprop ("sim/model/bluebird/systems/nacelle-L-venting", "false");
+			setprop ("sim/model/bluebird/systems/nacelle-L-venting", 0);
 		} elsif ((left_right != 1) and (new_venting <= 1)) {
-			setprop ("sim/model/bluebird/systems/nacelle-R-venting", "false");
+			setprop ("sim/model/bluebird/systems/nacelle-R-venting", 0);
 		}
 	}
 }
 
-setlistener("sim/model/bluebird/systems/nacelle-L-venting", func {
-	nacelle_L_venting = getprop("sim/model/bluebird/systems/nacelle-L-venting");
+setlistener("sim/model/bluebird/systems/nacelle-L-venting", func(n) {
+	nacelle_L_venting = n.getValue();
 	update_venting(1,1);
 }, 1);
 
-setlistener("sim/model/bluebird/systems/nacelle-R-venting", func {
-	nacelle_R_venting = getprop("sim/model/bluebird/systems/nacelle-R-venting");
+setlistener("sim/model/bluebird/systems/nacelle-R-venting", func(n) {
+	nacelle_R_venting = n.getValue();
 	update_venting(1,2);
 }, 1);
 
@@ -1719,12 +1697,10 @@ var nav_light_loop = func {
 }
 
 # gear and wheels --------------------------------------------------
-setlistener("gear/gear-agl-m", func {
-	gear_height = getprop("gear/gear-agl-m");
-},, 0);
+setlistener("gear/gear-agl-m", func(n) { gear_height = n.getValue() },, 0);
 
-setlistener("gear/gear[0]/position-norm", func {
-	gear_position = getprop("gear/gear[0]/position-norm");
+setlistener("gear/gear[0]/position-norm", func(n) {
+	gear_position = n.getValue();
 	if (wheel_position) {
 		var ppos = gear_position - wheel_position;
 		if (ppos < 0) {
@@ -1748,8 +1724,8 @@ setlistener("gear/gear[0]/position-norm", func {
 	panel_lighting_update();
 },, 0);
 
-setlistener("gear/gear[1]/position-norm", func {
-	wheel_position = getprop("gear/gear[1]/position-norm");
+setlistener("gear/gear[1]/position-norm", func(n) {
+	wheel_position = n.getValue();
 	if (wheel_position) {
 		var ppos = gear_position - wheel_position;
 		if (ppos < 0) {
@@ -1777,14 +1753,14 @@ setlistener("gear/gear[1]/position-norm", func {
 var toggle_gear_mode = func(gm_request) {
 	if (power_switch) {
 		if (gm_request == 1) {	# crouch low
-			setprop("controls/gear/height-switch", "true");
+			setprop("controls/gear/height-switch", 1);
 		} elsif (gm_request == 0) {	# extend fully
-			setprop("controls/gear/height-switch", "false");
+			setprop("controls/gear/height-switch", 0);
 		} else {	# toggle
 			if (gear_mode) {
-				setprop("controls/gear/height-switch", "false");
+				setprop("controls/gear/height-switch", 0);
 			} else {
-				setprop("controls/gear/height-switch", "true");
+				setprop("controls/gear/height-switch", 1);
 			}
 		}
 	} else {	# no power to comply
@@ -1793,8 +1769,8 @@ var toggle_gear_mode = func(gm_request) {
 	bluebird.reloadDialog1();
 }
 
-setlistener("controls/gear/height-switch", func {
-	gear_mode = getprop("controls/gear/height-switch");
+setlistener("controls/gear/height-switch", func(n) {
+	gear_mode = n.getValue();
 	if (getprop("gear/gear[0]/last-request")) {	# is down
 		if (gear_mode) {
 			gear[0].move(0.41);
@@ -1814,8 +1790,8 @@ setlistener("controls/gear/height-switch", func {
 	panel_lighting_update();
 },, 0);
 
-setlistener("controls/gear/wheels-switch", func {
-	wheels_switch = getprop("controls/gear/wheels-switch");
+setlistener("controls/gear/wheels-switch", func(n) {
+	wheels_switch = n.getValue();
 	if (wheels_switch) {	# request down
 		if (power_switch) {
 			if (airspeed > 2000) {
@@ -1827,7 +1803,7 @@ setlistener("controls/gear/wheels-switch", func {
 			gear[1].open();
 		} else {	# no power to comply
 			popupTip2("Unable to comply. No power.");
-			setprop("controls/gear/wheels-switch", "false");
+			setprop("controls/gear/wheels-switch", 0);
 		}
 	} else {		# up
 		gear[1].close();
@@ -1995,13 +1971,13 @@ var check_damage = func (dmg_add) {
 			damage_blocker = 1;
 			damage_count += 1;
 			settimer(reset_impact, 2);
-			setprop("sim/model/bluebird/position/crash-wow", "true");
+			setprop("sim/model/bluebird/position/crash-wow", 1);
 			settimer(reset_crash, 5);
 			setprop("sim/model/bluebird/damage/major-counter", damage_count);
 			strobe_switch.setValue(0);
 			zNoseNode.setValue(2.4);
-			setprop("sim/model/bluebird/systems/nacelle-L-venting", "true");
-			setprop("sim/model/bluebird/systems/nacelle-R-venting", "true");
+			setprop("sim/model/bluebird/systems/nacelle-L-venting", 1);
+			setprop("sim/model/bluebird/systems/nacelle-R-venting", 1);
 			setprop("autopilot/locks/altitude", "");
 			setprop("autopilot/locks/heading", "");
 			set_cockpit(cockpitView);
@@ -2009,16 +1985,16 @@ var check_damage = func (dmg_add) {
 			if (int(100 * rand()) > 70 or dmg > (destruction_threshold * 1.5)) {  # 30% chance a nacelle is destroyed
 				setprop("sim/model/bluebird/components/nacelle-L", 0);
 				setprop("sim/model/bluebird/components/engine-cover1", 0);
-				setprop("sim/model/bluebird/systems/nacelle-L-venting", "false");
-				setprop("ai/submodels/engine-L-flaring", "true");
+				setprop("sim/model/bluebird/systems/nacelle-L-venting", 0);
+				setprop("ai/submodels/engine-L-flaring", 1);
 				if (int(100 * rand()) > 90 or dmg > (destruction_threshold * 2)) {  # how likely both were
 					setprop("sim/model/bluebird/components/nacelle-R", 0);
 					setprop("sim/model/bluebird/components/engine-cover4", 0);
-					setprop("sim/model/bluebird/systems/nacelle-R-venting", "false");
-					setprop("ai/submodels/engine-R-flaring", "true");
+					setprop("sim/model/bluebird/systems/nacelle-R-venting", 0);
+					setprop("ai/submodels/engine-R-flaring", 1);
 				}
 			} elsif (dmg > (destruction_threshold * 0.7)) {
-				setprop("ai/submodels/engine-L-flaring", "true");
+				setprop("ai/submodels/engine-L-flaring", 1);
 			}
 		}
 	}
@@ -2241,9 +2217,9 @@ var update_main = func {
 		# update instrument warning lights if changed
 		if (new_ground_near != ground_near) {
 			if (new_ground_near) {
-				setprop("sim/model/bluebird/lighting/ground-near", "true");
+				setprop("sim/model/bluebird/lighting/ground-near", 1);
 			} else {
-				setprop("sim/model/bluebird/lighting/ground-near", "false");
+				setprop("sim/model/bluebird/lighting/ground-near", 0);
 			}
 			ground_near = new_ground_near;
 		}
@@ -2311,17 +2287,17 @@ var update_main = func {
 			(!nacelleR_attached and wave1_request > 0) or
 			(!power_switch)) { 
 			if (wave1_request) {   # deny Wave-guide drive request
-				setprop("sim/model/bluebird/systems/wave1-request", "false");
+				setprop("sim/model/bluebird/systems/wave1-request", 0);
 				wave1_request = 0;
 			}
 			if (wave2_request) {
-				setprop("sim/model/bluebird/systems/wave2-request", "false");
+				setprop("sim/model/bluebird/systems/wave2-request", 0);
 				wave2_request = 0;
 			}
 			if (damage_count > 2) {
-				setprop("sim/model/bluebird/systems/reactor-request", "false");
+				setprop("sim/model/bluebird/systems/reactor-request", 0);
 				reactor_request = 0;
-				setprop("sim/model/bluebird/systems/power-switch", "false");
+				setprop("sim/model/bluebird/systems/power-switch", 0);
 			}
 		}
 		if (cpl > 6) {
@@ -2650,31 +2626,31 @@ controls.elevatorTrim = func(et_d) {
 }
 
 var reset_landing = func {
-	setprop("sim/model/bluebird/position/landing-wow", "false");
+	setprop("sim/model/bluebird/position/landing-wow", 0);
 }
 
-setlistener("sim/model/bluebird/position/landing-wow", func {
-	if (getprop("sim/model/bluebird/position/landing-wow")) {
+setlistener("sim/model/bluebird/position/landing-wow", func(n) {
+	if (n.getValue()) {
 		settimer(reset_landing, 0.4);
 	}
 },, 0);
 
 var reset_squeal = func {
-	setprop("sim/model/bluebird/position/squeal-wow", "false");
+	setprop("sim/model/bluebird/position/squeal-wow", 0);
 }
 
-setlistener("sim/model/bluebird/position/squeal-wow", func {
-	if (getprop("sim/model/bluebird/position/squeal-wow")) {
+setlistener("sim/model/bluebird/position/squeal-wow", func(n) {
+	if (n.getValue()) {
 		settimer(reset_squeal, 0.3);
 	}
 },, 0);
 
 var reset_crash = func {
-	setprop("sim/model/bluebird/position/crash-wow", "false");
+	setprop("sim/model/bluebird/position/crash-wow", 0);
 }
 
-setlistener("sim/model/bluebird/hover/key-up", func {
-	var key_dir = getprop("sim/model/bluebird/hover/key-up");
+setlistener("sim/model/bluebird/hover/key-up", func(n) {
+	var key_dir = n.getValue();
 	if (key_dir) {	# repetitive input or lack of older mod-up keeps triggering
 		up_dir = key_dir;	# remember current direction
 		if (up_watch == 0) {
@@ -2736,7 +2712,7 @@ var up = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=sour
 					if (lose_altitude > 0.2 or hg_rise < -0.5) {
 						var already_landed = getprop("sim/model/bluebird/position/landing-wow");
 						if (!already_landed) {
-							setprop("sim/model/bluebird/position/landing-wow", "true");
+							setprop("sim/model/bluebird/position/landing-wow", 1);
 						}
 						check_damage(lose_altitude * 5);
 						var text_3L = sprintf("%3i  **             %4.1f",getprop("sim/model/bluebird/damage/hits-counter"), (lose_altitude * 5));
@@ -2749,7 +2725,7 @@ var up = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=sour
 						lose_altitude = lose_altitude * 0.5;
 					}
 				} elsif (lose_altitude > 0.26 and hg_rise < -1.1) {  # ground contact by skidding slowly
-					setprop("sim/model/bluebird/position/squeal-wow", "true");
+					setprop("sim/model/bluebird/position/squeal-wow", 1);
 						lose_altitude = lose_altitude * 0.5;
 					check_damage(lose_altitude);
 					var text_3L = sprintf("%3i  **             %4.1f",getprop("sim/model/bluebird/damage/hits-counter"), (lose_altitude * 5));
@@ -2770,7 +2746,7 @@ var up = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=sour
 	} elsif (hg_dir > 0) {  # up
 		if (reactor_drift < 0.5 and reactor_level) {  # on standby, power up requested for hover up
 			if (power_switch) {
-				setprop("sim/model/bluebird/systems/reactor-request", "true");
+				setprop("sim/model/bluebird/systems/reactor-request", 1);
 				countergrav_request += 1;   # keep from forgetting until reactor powers up over 0.5
 			}
 		}
@@ -2806,16 +2782,16 @@ var up = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=sour
 var toggle_power = func(tp_mode) {
 	if (tp_mode == 9) {  # clicked from dialog box
 		if (!power_switch) {
-			setprop("sim/model/bluebird/systems/reactor-request", "false");
-			setprop("sim/model/bluebird/systems/wave1-request", "false");
+			setprop("sim/model/bluebird/systems/reactor-request", 0);
+			setprop("sim/model/bluebird/systems/wave1-request", 0);
 		}
 	} else {   # clicked from 3d-panel
 		if (power_switch) {
-			setprop("sim/model/bluebird/systems/power-switch", "false");
-			setprop("sim/model/bluebird/systems/reactor-request", "false");
-			setprop("sim/model/bluebird/systems/wave1-request", "false");
+			setprop("sim/model/bluebird/systems/power-switch", 0);
+			setprop("sim/model/bluebird/systems/reactor-request", 0);
+			setprop("sim/model/bluebird/systems/wave1-request", 0);
 		} else {
-			setprop("sim/model/bluebird/systems/power-switch", "true");
+			setprop("sim/model/bluebird/systems/power-switch", 1);
 			setprop("sim/model/bluebird/lighting/power-glow", 1);
 		}
 	}
@@ -2825,10 +2801,10 @@ var toggle_power = func(tp_mode) {
 
 var toggle_fusion = func {
 	if (reactor_request) {
-		setprop("sim/model/bluebird/systems/reactor-request", "false");
+		setprop("sim/model/bluebird/systems/reactor-request", 0);
 	} else {
 		if (power_switch) {
-			setprop("sim/model/bluebird/systems/reactor-request", "true");
+			setprop("sim/model/bluebird/systems/reactor-request", 1);
 		} else {
 			popupTip2("Unable to comply. Main power is off.");
 		}
@@ -2839,10 +2815,10 @@ var toggle_fusion = func {
 
 var toggle_wave1 = func {
 	if (wave1_request) {
-		setprop("sim/model/bluebird/systems/wave1-request", "false");
+		setprop("sim/model/bluebird/systems/wave1-request", 0);
 	} else {
 		if (power_switch) {
-			setprop("sim/model/bluebird/systems/wave1-request", "true");
+			setprop("sim/model/bluebird/systems/wave1-request", 1);
 		} else {
 			popupTip2("Unable to comply. Main power is off.");
 		}
@@ -2853,11 +2829,11 @@ var toggle_wave1 = func {
 
 var toggle_wave2 = func {
 	if (wave2_request) {
-		setprop("sim/model/bluebird/systems/wave2-request", "false");
+		setprop("sim/model/bluebird/systems/wave2-request", 0);
 	} else {
 		if (power_switch) {
 			if (wave1_request) {
-				setprop("sim/model/bluebird/systems/wave2-request", "true");
+				setprop("sim/model/bluebird/systems/wave2-request", 1);
 			} else {
 				popupTip2("Unable to comply. Wave-guide drive is off.");
 			}
@@ -2901,17 +2877,17 @@ var toggle_lighting = func(tl_button_num) {
 
 var delayed_panel_update = func {
 	if (!power_switch) {
-		setprop("sim/model/bluebird/systems/reactor-request", "false");
-		setprop("sim/model/bluebird/systems/wave1-request", "false");
-		setprop("sim/model/bluebird/systems/wave2-request", "false");
+		setprop("sim/model/bluebird/systems/reactor-request", 0);
+		setprop("sim/model/bluebird/systems/wave1-request", 0);
+		setprop("sim/model/bluebird/systems/wave2-request", 0);
 		popupTip2("Unable to comply. Main power is off.");
 	} else {
 		settimer(panel_lighting_loop, 0.1);
 	}
 }
 
-setlistener("sim/model/bluebird/crew/cockpit-position", func {
-	cockpitView = getprop("sim/model/bluebird/crew/cockpit-position");
+setlistener("sim/model/bluebird/crew/cockpit-position", func(n) {
+	cockpitView = n.getValue();
 	var move_chair = [0,1,0,0,1];
 	if (!getprop("sim/model/bluebird/crew/pilot/visible") and move_chair[cockpitView]) {
 		setprop("sim/model/bluebird/crew/pilot/chair-back", 1);
@@ -3354,10 +3330,10 @@ var set_landing_lights = func(sll_i) {
 var toggle_venting_both = func {
 	if (!nacelle_R_venting) {
 		if (nacelleL_attached) {
-			setprop("sim/model/bluebird/systems/nacelle-L-venting", "true");
+			setprop("sim/model/bluebird/systems/nacelle-L-venting", 1);
 		}
 		if (nacelleR_attached) {
-			setprop("sim/model/bluebird/systems/nacelle-R-venting", "true");
+			setprop("sim/model/bluebird/systems/nacelle-R-venting", 1);
 		}
 		if (nacelleL_attached or nacelleR_attached) {
 			popupTip2("Smoke venting ON");
@@ -3365,8 +3341,8 @@ var toggle_venting_both = func {
 			popupTip2("Unable to comply. Too much damage.");
 		}
 	} else {
-		setprop("sim/model/bluebird/systems/nacelle-L-venting", "false");
-		setprop("sim/model/bluebird/systems/nacelle-R-venting", "false");
+		setprop("sim/model/bluebird/systems/nacelle-L-venting", 0);
+		setprop("sim/model/bluebird/systems/nacelle-R-venting", 0);
 		popupTip2("Smoke venting OFF");
 	}
 }

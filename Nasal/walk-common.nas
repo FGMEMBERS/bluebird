@@ -1,5 +1,5 @@
-# ===== common base for walking functions   version 3.1       =====
-# ===== plus coordinates for Bluebird Explorer Hovercraft 8.8 =====
+# ===== common base for walking functions   version 3.11       =====
+# ===== plus coordinates for Bluebird Explorer Hovercraft 8.91 =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
@@ -9,6 +9,7 @@ var ERAD_deg = 180 / (ERAD * math.pi);
 var xViewNode = props.globals.getNode("sim/current-view/z-offset-m", 1);
 var yViewNode = props.globals.getNode("sim/current-view/x-offset-m", 1);
 var zViewNode = props.globals.getNode("sim/current-view/y-offset-m", 1);
+var fps_node = props.globals.getNode("sim/frame-rate", 1);
 var falling = 0;	# 0/1 = false/true
 var last_altitude = 0;	# remember last position to detect falling from ground
 var exit_time_sec = 0.0;
@@ -21,7 +22,6 @@ var z_vector_mps = 0.0;
 var time_to_top_sec = 0.0;
 var starting_lat = 0.0;
 var starting_lon = 0.0;
-var fps = 0;
 var walk_heading = 0;
 var walk_watch = 0;
 var walk_factor = 1.0;
@@ -130,9 +130,9 @@ var momentum_walk = func {
 		if (walk_factor < 2.0) {	# speed up when holding down key
 			walk_factor += 0.025;
 		}
-		setprop ("sim/walker/walking-momentum", "true");
+		setprop ("sim/walker/walking-momentum", 1);
 	} elsif (walk_watch >= 2) {
-		setprop ("sim/walker/walking-momentum", "true");
+		setprop ("sim/walker/walking-momentum", 1);
 		walk_watch -= 1;
 	} else {
 		walk_factor = ((walk_factor - 1.0) * 0.5) + 1.0;
@@ -140,13 +140,13 @@ var momentum_walk = func {
 			walk_factor = 1.0;
 			walk_watch = 0;
 		} else {
-			setprop ("sim/walker/walking-momentum", "true");
+			setprop ("sim/walker/walking-momentum", 1);
 		}
 	}
 	if (walk_watch) {
 		settimer(momentum_walk,0.05);
 	} else {
-		setprop ("sim/walker/walking-momentum", "false");
+		setprop ("sim/walker/walking-momentum", 0);
 	}
 }
 
@@ -259,7 +259,7 @@ var walker_model = {
 	reset_fall: func {
 			falling = 0;
 			walk_factor = 1.0;
-			setprop("sim/walker/airborne", "false");
+			setprop("sim/walker/airborne", 0);
 			setprop("sim/walker/parachute-opened-altitude-ft", 0);
 			parachute_deployed_sec = 0;
 			setprop("sim/walker/parachute-opened-sec", 0);
@@ -287,10 +287,10 @@ var open_chute = func {
 
 var reinit_walker = func {
 	setprop("sim/walker/outside", 0);
-	setprop("sim/view[100]/enabled","false");
-	setprop("sim/view[101]/enabled","false");
-	setprop("sim/walker/crashed", "false");
-	setprop("sim/walker/airborne", "false");
+	setprop("sim/view[100]/enabled",0);
+	setprop("sim/view[101]/enabled",0);
+	setprop("sim/walker/crashed", 0);
+	setprop("sim/walker/airborne", 0);
 	falling = 0;
 	walk_factor = 1.0;
 	setprop("sim/walker/parachute-opened-altitude-ft", 0);
@@ -299,46 +299,23 @@ var reinit_walker = func {
 }
 
 var init_common = func {
-	setlistener("sim/walker/time-of-exit-sec", func {
-		exit_time_sec = getprop("sim/walker/time-of-exit-sec");
-	});
+	setlistener("sim/walker/time-of-exit-sec", func(n) exit_time_sec = n.getValue());
 
-	setlistener("sim/walker/parachute-opened-altitude-ft", func {
-		parachute_ft = getprop("sim/walker/parachute-opened-altitude-ft");
-	});
+	setlistener("sim/walker/parachute-opened-altitude-ft", func(n) parachute_ft = n.getValue());
 
-	setlistener("sim/walker/parachute-opened-sec", func {
-		elapsed_chute_sec = getprop("sim/walker/parachute-opened-sec");
-	});
+	setlistener("sim/walker/parachute-opened-sec", func(n) elapsed_chute_sec = n.getValue());
 
-	setlistener("sim/walker/starting-trajectory-lat", func {
-		lat_vector = getprop("sim/walker/starting-trajectory-lat");
-	});
+	setlistener("sim/walker/starting-trajectory-lat", func(n) lat_vector = n.getValue());
 
-	setlistener("sim/walker/starting-trajectory-lon", func {
-		lon_vector = getprop("sim/walker/starting-trajectory-lon");
-	});
+	setlistener("sim/walker/starting-trajectory-lon", func(n) lon_vector = n.getValue());
 
-	setlistener("sim/walker/starting-trajectory-z-mps", func {
-		z_vector_mps = getprop("sim/walker/starting-trajectory-z-mps");
-	});
+	setlistener("sim/walker/starting-trajectory-z-mps", func(n) z_vector_mps = n.getValue());
 
-	setlistener("sim/walker/time-to-zero-z-sec", func {
-		time_to_top_sec = getprop("sim/walker/time-to-zero-z-sec");
-	});
+	setlistener("sim/walker/time-to-zero-z-sec", func(n) time_to_top_sec = n.getValue());
 
-	setlistener("sim/walker/starting-lat", func {
-		starting_lat = getprop("sim/walker/starting-lat");
-	});
+	setlistener("sim/walker/starting-lat", func(n) starting_lat = n.getValue());
 
-	setlistener("sim/walker/starting-lon", func {
-		starting_lon = getprop("sim/walker/starting-lon");
-	});
-
-	setlistener("sim/frame-rate", func {
-		fps = getprop("sim/frame-rate");
-		fps = (fps < 10 ? 10 : fps);	# only realistic above 10fps. Slow down below that so that walker pauses instead of jumping.
-	});
+	setlistener("sim/walker/starting-lon", func(n) starting_lon = n.getValue());
 
 	setlistener("sim/walker/key-triggers/forward", func {
 		calc_heading();
@@ -348,8 +325,8 @@ var init_common = func {
 		calc_heading();
 	});
 
-	setlistener("sim/model/bluebird/crew/walker/visible", func {
-		if (getprop("sim/model/bluebird/crew/walker/visible")) {
+	setlistener("sim/model/bluebird/crew/walker/visible", func(n) {
+		if (n.getValue()) {
 			if (getprop("sim/walker/outside")) {
 				walker_model.add();
 			}

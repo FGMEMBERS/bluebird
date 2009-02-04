@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 8.6 for PLIB                  ==-->
+<!--== Bluebird version 8.9 for PLIB                  ==-->
 
 <PropertyList>
 	<nasal>
@@ -21,17 +21,7 @@
 		</load>
 	</nasal>
 
-	<model>
-		<name>bluebird</name>
-		<path>Aircraft/bluebird/Models/bluebird.xml</path>
-		<offsets>
-			<x-m>0.0</x-m>
-			<y-m>0.0</y-m>
-			<z-m>0.0</z-m>
-		</offsets>
-	</model>
-
-<!-- crew -->
+<!-- crew gets declared first to fix alpha ordering bug in 1.0 plib -->
 	<model>
 		<path>Aircraft/bluebird/Models/pilot.xml</path>
 		<name>pilot</name>
@@ -117,6 +107,17 @@
 			<z>0</z>
 		</axis>
 	</animation>
+
+<!-- aircraft model -->
+	<model>
+		<name>bluebird</name>
+		<path>Aircraft/bluebird/Models/bluebird.xml</path>
+		<offsets>
+			<x-m>0.0</x-m>
+			<y-m>0.0</y-m>
+			<z-m>0.0</z-m>
+		</offsets>
+	</model>
 
 <!-- hotspots -->
 	<panel>

@@ -1,5 +1,5 @@
 # ===== common base for text screen functions        =====
-# ===== for Bluebird Explorer Hovercraft version 8.8 =====
+# ===== for Bluebird Explorer Hovercraft version 8.9 =====
 
 var tracking_on = 0;
 # ======== update details for screen-1L =============================
@@ -137,15 +137,15 @@ var scroll_5R = func (newtext) {
 }
 
 var init_common = func {
-	setlistener("engines/engine/speed-max-mps", func {
-		var max = getprop("engines/engine/speed-max-mps");
+	setlistener("engines/engine/speed-max-mps", func(n) {
+		var max = n.getValue();
 		var v_mode = getprop("instrumentation/digital/velocity-mode");
 		var txt8 = sprintf("%5.0f",mps_2_conv[v_mode]*max) ~ mps_conv_units[v_mode];
 		setprop("instrumentation/display-screens/t1L-8", txt8);
 	},, 0);
 
-	setlistener("sim/model/bluebird/systems/wave2-request", func {
-		var w2 = getprop("sim/model/bluebird/systems/wave2-request");
+	setlistener("sim/model/bluebird/systems/wave2-request", func(n) {
+		var w2 = n.getValue();
 		if (w2) {
 			setprop("instrumentation/display-screens/t1L-9", "MAXIMUM");
 		} else {
@@ -153,8 +153,8 @@ var init_common = func {
 		}
 	},, 0);
 
-	setlistener("instrumentation/display-screens/enabled-2L", func {
-		screen_2L_on = getprop("instrumentation/display-screens/enabled-2L");
+	setlistener("instrumentation/display-screens/enabled-2L", func(n) {
+		screen_2L_on = n.getValue();
 		setprop("instrumentation/display-screens/t2L-1", "Nearby Aircraft");
 		if (!screen_2L_on) {
 			setprop("instrumentation/tracking/ai-size", -1);
@@ -165,39 +165,37 @@ var init_common = func {
 		}
 	}, 1, 0);
 
-	setlistener("instrumentation/display-screens/enabled-2R", func {
-		screen_2R_on = getprop("instrumentation/display-screens/enabled-2R");
+	setlistener("instrumentation/display-screens/enabled-2R", func(n) {
+		screen_2R_on = n.getValue();
 		setprop("instrumentation/display-screens/t2R-1", "Altitude AGL");
 	}, 1, 0);
 
-	setlistener("instrumentation/display-screens/enabled-3L", func {
-		screen_3L_on = getprop("instrumentation/display-screens/enabled-3L");
-	},, 0);
+	setlistener("instrumentation/display-screens/enabled-3L", func(n) { screen_3L_on = n.getValue() },, 0);
 
-	setlistener("sim/model/bluebird/damage/hits-counter", func {
+	setlistener("sim/model/bluebird/damage/hits-counter", func(n) {
 		if (screen_3L_damage_level < 1) {
-			if (getprop("sim/model/bluebird/damage/hits-counter") > 0) {
+			if (n.getValue() > 0) {
 				setprop("instrumentation/display-screens/enabled-3L", 1);
 				setprop("instrumentation/display-screens/t3L-1", "-------- MINOR DAMAGE --------");
 			}
 		}
 	},, 0);
 
-	setlistener("sim/model/bluebird/damage/major-counter", func {
-		screen_3L_damage_level = getprop("sim/model/bluebird/damage/major-counter");
+	setlistener("sim/model/bluebird/damage/major-counter", func(n) {
+		screen_3L_damage_level = n.getValue();
 		if (screen_3L_damage_level > 0) {
 			setprop("instrumentation/display-screens/enabled-3L", 1);
 			setprop("instrumentation/display-screens/t3L-1", "------ STRUCTURAL DAMAGE ------");
 		}
 	},, 0);
 
-	setlistener("instrumentation/display-screens/enabled-4R", func {
-		screen_4R_on = getprop("instrumentation/display-screens/enabled-4R");
+	setlistener("instrumentation/display-screens/enabled-4R", func(n) {
+		screen_4R_on = n.getValue();
 		setprop("instrumentation/display-screens/t4R-1", "pitch-deg   roll-deg  hover-add   hover-ft");
 	}, 1, 0);
 
-	setlistener("instrumentation/display-screens/enabled-5R", func {
-		screen_5R_on = getprop("instrumentation/display-screens/enabled-5R");
+	setlistener("instrumentation/display-screens/enabled-5R", func(n) {
+		screen_5R_on = n.getValue();
 		setprop("instrumentation/display-screens/t5R-1", "rise-thrust  reactor-level  down");
 	}, 1, 0);
 }

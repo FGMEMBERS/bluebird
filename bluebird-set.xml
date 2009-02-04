@@ -2,12 +2,14 @@
 
 <PropertyList include="bluebird-base.xml">
  <sim>
-	<description>Bluebird Explorer Hovercraft  for FlightGear version 1.0</description>
-	<status>early-production</status>
-	<aircraft-version>8.8</aircraft-version>
-	<author>S Andreason</author>
+	<description>Bluebird Explorer Hovercraft  for v1.9 with OSG</description>
 	<model>
-		<path>Aircraft/bluebird/Models/bluebird-plib.xml</path>
+		<path>Aircraft/bluebird/Models/bluebird-osg.xml</path>
+		<bluebird>
+			<particles>
+				<enabled type="bool">true</enabled>
+			</particles>
+		</bluebird>
 	</model>
 
 	<help>
@@ -85,13 +87,19 @@
 						<script>walker.sequence.showDialog()</script>
 					</binding>
 				</item>
+				<item>
+					<label>pilot animation dialog</label>
+					<binding>
+						<command>nasal</command>
+						<script>pilot.sequence.showDialog()</script>
+					</binding>
+				</item>
 			</menu>
 		</default>
 	</menubar>
-
 	<submodels>
 		<serviceable>true</serviceable>
-		<path>Aircraft/bluebird/Models/submodels-10.xml</path>
+		<path>Aircraft/bluebird/Models/submodels.xml</path>
 	</submodels>
  </sim>
 
@@ -191,10 +199,13 @@
 		<file>Aircraft/bluebird/Nasal/displays-common.nas</file>
 		<file>Aircraft/bluebird/Nasal/displays-1-osg.nas</file>
 	</displayScreens>
+	<pilot>
+		<file>Aircraft/bluebird/Nasal/pilot-animate.nas</file>
+	</pilot>
 	<walk>
 		<file>Aircraft/bluebird/Nasal/walk-common.nas</file>
 		<file>Aircraft/bluebird/Nasal/walk-1-osg.nas</file>
-		<file>Aircraft/bluebird/Nasal/walk-1.nas</file>
+		<file>Aircraft/bluebird/Nasal/walk-osg.nas</file>
 		<script>main_loop();</script>
 	</walk>
 	<walker>

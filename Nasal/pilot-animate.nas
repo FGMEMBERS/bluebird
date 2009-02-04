@@ -1,5 +1,5 @@
-# == pilot animation v1.1 for FlightGear version 1.9 with OSG ==
-# ===== for Bluebird Explorer Hovercraft version 8.8 =====
+# == pilot animation v1.11 for FlightGear version 1.9 with OSG ==
+# ===== for Bluebird Explorer Hovercraft version 8.9 =====
 
 var walker0Node = props.globals.getNode("sim/model/walker[0]", 1);
 var animateNode = props.globals.getNode("sim/model/walker[0]/animate", 1);
@@ -74,7 +74,7 @@ var sequence = {
 		setprop("sim/model/walker[0]/animate/sequence-selected", int(sequence_count - 1));
 		sequenceNode = new_sequence;
 		new_sequence.getNode("name", 1).setValue(s);
-		new_sequence.getNode("loop-enabled", 1).setBoolValue("false");
+		new_sequence.getNode("loop-enabled", 1).setBoolValue(0);
 		new_sequence.getNode("loop-to", 1).setIntValue(0);
 #		new_sequence.getNode("trigger-upon", 1).setValue("Disabled");
 	},
@@ -253,7 +253,7 @@ var sequence = {
 #		g.addChild("empty").set("pref-width", 8);
 #		var box = g.addChild("checkbox");
 #		box.set("halign", "left");
-#		box.set("live", "true");
+#		box.set("live", 1);
 #		box.set("label", "Enable animations upon Trigger");
 #		box.set("property", "sim/model/walker[0]/animate/enabled-triggers");
 #		box.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
@@ -409,7 +409,7 @@ var animate = {
 		setprop("sim/model/walker[0]/limb[12]/z-deg", 0.0);
 		setprop("sim/model/walker[0]/limb[13]/y-deg", 0.0);
 		setprop("sim/model/walker[0]/limb[14]/y-deg", 0.0);
-		setprop("sim/model/walker[0]/loop-enabled", "true");
+		setprop("sim/model/walker[0]/loop-enabled", 1);
 		setprop("sim/model/walker[0]/loop-to", 0);
 		setprop("sim/model/walker[0]/rest-sec", 0.0);
 		setprop("sim/model/walker[0]/transit-sec", 1.0);
@@ -439,7 +439,7 @@ var animate = {
 			animate.copy_position(sequenceNode.getNode("position[" ~ dialog_position ~ "]", 1), walker0Node);
 			var i1 = sequenceNode.getNode("loop-enabled", 1).getValue();
 			if (i1 == nil) {
-				i1 = "false";
+				i1 = 0;
 			}
 			walker0Node.getNode("loop-enabled", 1).setBoolValue(i1);
 			var i2 = sequenceNode.getNode("loop-to", 1).getValue();
@@ -509,8 +509,8 @@ var animate = {
 		content.set("label", "");
 		content.set("default-padding", 1);
 		content.set("pref-width", 40);
-		content.set("editable", "true");
-		content.set("live", "true");
+		content.set("editable", 1);
+		content.set("live", 1);
 		content.set("property", "sim/model/walker[0]/animate/dialog-position");
 		content.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 		content.prop().getNode("binding[0]/object-name", 1).setValue("position");
@@ -553,8 +553,8 @@ var animate = {
 		content.set("label", "");
 		content.set("default-padding", 1);
 		content.set("pref-width", 200);
-		content.set("editable", "true");
-		content.set("live", "true");
+		content.set("editable", 1);
+		content.set("live", 1);
 		content.set("property", "sim/model/walker[0]/name");
 		content.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 		content.prop().getNode("binding[0]/object-name", 1).setValue("input");
@@ -1320,8 +1320,8 @@ var animate = {
 		content1.set("label", "sec.");
 		content1.set("default-padding", 1);
 		content1.set("pref-width", 40);
-		content1.set("editable", "true");
-		content1.set("live", "true");
+		content1.set("editable", 1);
+		content1.set("live", 1);
 		content1.set("property", "sim/model/walker[0]/rest-sec");
 		content1.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 		content1.prop().getNode("binding[0]/object-name", 1).setValue("rest");
@@ -1334,8 +1334,8 @@ var animate = {
 		content2.set("label", "");
 		content2.set("default-padding", 1);
 		content2.set("pref-width", 40);
-		content2.set("editable", "true");
-		content2.set("live", "true");
+		content2.set("editable", 1);
+		content2.set("live", 1);
 		content2.set("property", "sim/model/walker[0]/transit-sec");
 		content2.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 		content2.prop().getNode("binding[0]/object-name", 1).setValue("transit");
@@ -1351,7 +1351,7 @@ var animate = {
 		var box = g.addChild("checkbox");
 		box.set("halign", "left");
 		box.set("label", "Loop to position");
-		box.set("live", "true");
+		box.set("live", 1);
 		box.set("property", "sim/model/walker[0]/loop-enabled");
 		box.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 		box.prop().getNode("binding[1]/command", 1).setValue("property-assign");
@@ -1364,8 +1364,8 @@ var animate = {
 		content.set("label", "");
 		content.set("default-padding", 1);
 		content.set("pref-width", 40);
-		content.set("editable", "true");
-		content.set("live", "false");
+		content.set("editable", 1);
+		content.set("live", 0);
 		content.set("property", "sim/model/walker[0]/loop-to");
 		content.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 		content.prop().getNode("binding[0]/object-name", 1).setValue("loop-input");
@@ -1490,7 +1490,7 @@ var animate_update = func (seqNode) {
 	walker0Node.getNode("limb[14]", 1).getNode("y-deg", 1).setValue(interpolate_limb(fromNode.getNode("limb[14]", 1).getNode("y-deg", 1).getValue(), toNode.getNode("limb[14]", 1).getNode("y-deg", 1).getValue(), move_percent));
 	if (i == 99) {
 		if (anim_enabled) {
-			setprop("sim/model/walker[0]/animate/enabled-current", "false");
+			setprop("sim/model/walker[0]/animate/enabled-current", 0);
 		}
 		seqNode_now = nil;
 		settimer(func { animate.reloadDialog() }, 0.1);
@@ -1550,7 +1550,7 @@ var start_animation = func (seqNode) {
 
 var stop_animation = func {
 	if (anim_enabled) {
-		settimer(func { setprop("sim/model/walker[0]/animate/enabled-current", "false") }, 0.1);
+		settimer(func { setprop("sim/model/walker[0]/animate/enabled-current", 0) }, 0.1);
 	}
 #	anim_running = 0;
 }
@@ -1566,7 +1566,7 @@ var init_pilot = func {
 	position_count = size(sequenceNode.getChildren("position"));
 	setprop("sim/model/walker[0]/animate/dialog-position", 0);
 #	setlistener("sim/model/walker[0]/animate/enabled-triggers", func {
-#		triggers_enabled = getprop("sim/model/walker[0]/animate/enabled-triggers");
+#		triggers_enabled = n.getValue();
 #		stop_animation();
 #		if (triggers_enabled) {
 #			animate.reset_position();
@@ -1579,8 +1579,8 @@ var init_pilot = func {
 		}
 	}, 0, 0);
 
-	setlistener("sim/model/walker[0]/animate/enabled-current", func {
-		anim_enabled = getprop("sim/model/walker[0]/animate/enabled-current");
+	setlistener("sim/model/walker[0]/animate/enabled-current", func(n) {
+		anim_enabled = n.getValue();
 		if (anim_enabled) {
 			start_animation(sequenceNode);
 #		} else {

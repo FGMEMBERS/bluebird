@@ -1,8 +1,8 @@
-# == walking functions v3.1 for FlightGear versions 1.0 and 1.9 OSG ==
-# ====   customized for Bluebird Explorer Hovercraft version 8.8 =====
+# == walking functions v3.11 for FlightGear versions 1.0 and 1.9 OSG ==
+# ====   customized for Bluebird Explorer Hovercraft version 8.91 =====
 
-setlistener("sim/walker/walking", func {
-	var wdir = getprop("sim/walker/walking");
+setlistener("sim/walker/walking", func(n) {
+	var wdir = n.getValue();
 	if (wdir) {	# repetitive input or bug in mod-up keeps triggering
 		walk_dir = wdir;	# remember current direction
 		if (walk_watch == 0) {
@@ -55,6 +55,8 @@ var ext_mov = func (moved) {
 	var posy2 = posy1;
 	var posz2 = posz1;
 	var check_movement = 1;
+	var fps = fps_node.getValue();
+	fps = (fps < 10 ? 10 : fps);	# only realistic above 10fps. Slow down below that so that walker pauses instead of jumping.
 	var speed = getprop("sim/walker/key-triggers/speed") * walk_factor / fps;
 	if (c_view >= 1 and c_view <=3) {
 		head_v = normheading(360 - c_head_deg + head_v);
@@ -160,9 +162,9 @@ var ext_mov = func (moved) {
 					if (getprop("sim/current-view/view-number") == view.indexof("Walk View")) {
 						setprop("sim/current-view/pitch-offset-deg", -80);
 					}
-					setprop("sim/model/bluebird/position/landing-wow", "true");
-					setprop("sim/walker/crashed", "true");
-					setprop("sim/walker/airborne", "false");
+					setprop("sim/model/bluebird/position/landing-wow", 1);
+					setprop("sim/walker/crashed", 1);
+					setprop("sim/walker/airborne", 0);
 				}
 				posz2 = posz_geo;
 				walker_model.land(posx2,posy2,posz_geo);
@@ -220,10 +222,10 @@ var ext_mov = func (moved) {
 	setprop("sim/walker/altitude-ft", posz2);
 }
 
-setlistener("sim/current-view/heading-offset-deg", func {
+setlistener("sim/current-view/heading-offset-deg", func(n) {
 	var c_view = getprop("sim/current-view/view-number");
 	if (c_view == 0) {
-		var head_v = getprop("sim/current-view/heading-offset-deg");
+		var head_v = n.getValue();
 		setprop("sim/model/bluebird/crew/walker/head-offset-deg" , head_v);
 	} elsif (c_view == view.indexof("Walk View")) {
 		var head_v = getprop("sim/current-view/heading-offset-deg");
@@ -295,8 +297,8 @@ var get_out = func (loc) {
 	setprop("sim/walker/roll-deg" , (getprop("orientation/roll-deg")));
 	setprop("sim/walker/pitch-deg" , (getprop("orientation/pitch-deg")));
 	setprop("sim/walker/heading-deg" , (getprop("orientation/heading-deg")));
-	setprop("sim/view[100]/enabled", "true");
-	setprop("sim/view[101]/enabled", "true");
+	setprop("sim/view[100]/enabled", 1);
+	setprop("sim/view[101]/enabled", 1);
 	var posy = new_coord[0];
 	var posx = new_coord[1];
 	var posz_ft = new_coord[2];
@@ -319,7 +321,7 @@ var get_out = func (loc) {
 	setprop("sim/walker/altitude-ft" , alt1);
 	measure_alt = alt1;
 	if ((alt1 - getprop("position/ground-elev-ft")) > 20) {
-		setprop("sim/walker/airborne", "true");
+		setprop("sim/walker/airborne", 1);
 	}
 	setprop("sim/walker/starting-lat", new_coord[0]);
 	setprop("sim/walker/starting-lon", new_coord[1]);
@@ -386,13 +388,13 @@ var get_in = func (loc) {
 			}
 		}
 	}
-	setprop("sim/walker/crashed", "false");
-	setprop("sim/walker/airborne", "false");
+	setprop("sim/walker/crashed", 0);
+	setprop("sim/walker/airborne", 0);
 	setprop("sim/walker/outside", 0);
 	setprop("sim/walker/parachute-opened-altitude-ft", 0);
 	parachute_deployed_sec = 0;
 	setprop("sim/walker/parachute-opened-sec", 0);
-	setprop("sim/view[100]/enabled", "false");
-	setprop("sim/view[101]/enabled", "false");
+	setprop("sim/view[100]/enabled", 0);
+	setprop("sim/view[101]/enabled", 0);
 }
 

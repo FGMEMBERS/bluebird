@@ -1,6 +1,6 @@
 # ===== text screen functions for version 1.0 and OSG =====
 # ===== and backend for ai-vor
-# ===== for Bluebird Explorer Hovercraft version 8.8 =====
+# ===== for Bluebird Explorer Hovercraft version 8.9 =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
@@ -340,13 +340,9 @@ var update_3R = func {
 settimer(update_3R,3);
 
 var init = func {
-	setlistener("instrumentation/digital/altitude-mode", func {
-		a_mode = getprop("instrumentation/digital/altitude-mode");
-	});
+	setlistener("instrumentation/digital/altitude-mode", func(n) a_mode = n.getValue());
 
-	setlistener("instrumentation/display-screens/refresh-2L-sec", func {
-		refresh_2L = getprop("instrumentation/display-screens/refresh-2L-sec");
-	});
+	setlistener("instrumentation/display-screens/refresh-2L-sec", func(n) refresh_2L = n.getValue());
 
 	setlistener("instrumentation/tracking/ai-size", func {
 		cleanup_2L();
@@ -356,8 +352,8 @@ var init = func {
 		cleanup_2L();
 	},,0);
 
-	setlistener("instrumentation/tracking/enabled", func {
-		tracking_on = getprop("instrumentation/tracking/enabled");
+	setlistener("instrumentation/tracking/enabled", func(n) {
+		tracking_on = n.getValue();
 		if (tracking_on) {
 			setprop("instrumentation/display-screens/enabled-2L", 1);
 			settimer(func { ac_loop(ac_loop_id += 1) }, 0);
@@ -366,8 +362,8 @@ var init = func {
 		}
 	}, 1);
 
-	setlistener("instrumentation/display-screens/enabled-2L", func {
-		if (getprop("instrumentation/display-screens/enabled-2L")) {
+	setlistener("instrumentation/display-screens/enabled-2L", func(n) {
+		if (n.getValue()) {
 			setprop("instrumentation/display-screens/t2L-2", "Callsign                 Distance   Altitude   Bearing");
 		}
 	}, 1);
@@ -377,8 +373,8 @@ var init = func {
 		aiac = nil;
 	});
 
-	setlistener("instrumentation/display-screens/enabled-3R", func {
-		screen_3R_on = getprop("instrumentation/display-screens/enabled-3R");
+	setlistener("instrumentation/display-screens/enabled-3R", func(n) {
+		screen_3R_on = n.getValue();
 		setprop("instrumentation/display-screens/t3R-1", "position/ground-elev  geo-ground    difference   contact-altitude");
 	}, 1);
 }

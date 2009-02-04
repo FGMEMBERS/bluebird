@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 8.8 for FlightGear v1.0 (PLIB and OSG) =====
+# ===== Bluebird Explorer Hovercraft  version 8.9 for FlightGear v1.0 (PLIB and OSG) =====
 
 # strobes -----------------------------------------------------------
 var strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
@@ -71,7 +71,7 @@ var ignite = func {
  settimer(interior_lighting_update, 0.5);
  settimer(nav_light_loop, 0.5);
  if (getprop("sim/ai-traffic/enabled") or getprop("sim/multiplay/rxport")) {
- 	setprop("instrumentation/tracking/enabled", "true");
+ 	setprop("instrumentation/tracking/enabled", 1);
  }
 
  var t = getprop("/sim/description");

@@ -3,15 +3,18 @@ After unzipping this file into your $FGBASE/data/Aircraft directory,
 Choose your aircraft:
  start Flightgear with the following parameter:
 
-If you are running FlightGear version 0.9.10
---aircraft=bluebird-09
+If you are running the newest version of FlightGear, 
+  version 1.9 or cvs built with OpenSceneGraph,
+--aircraft=bluebird
 
 If you are running FlightGear version 1.0 (with Plib)
 --aircraft=bluebird-10
 
-If you are running FlightGear OSG version:
---aircraft=bluebird-osg
-which only works with FG version 1.9 or cvs built with Openscenegraph, and osgview option.
+If you are running FlightGear version 0.9.10
+  upgrade or get an older version of this model.
+  None of the newest improvements will work with 0.9.10 anyways.
+
+-------------------------------------------------
 
 After the simulator starts up, your power is on, the engines 
   are on standby, and ready to throttle up.
