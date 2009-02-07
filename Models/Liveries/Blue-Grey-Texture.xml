@@ -7,7 +7,7 @@
 				<name type="string">Blue-Grey-Texture</name>
 				<material>
 					<fuselage-top>
-						<texture>livery-template.rgb</texture>
+						<texture>livery-template.png</texture>
 						<diffuse>
 							<red>0.075</red>
 							<green>0.075</green>
@@ -27,7 +27,7 @@
 					</fuselage-top>
 
 					<fuselage-upper>
-						<texture>livery-template.rgb</texture>
+						<texture>livery-template.png</texture>
 						<diffuse>
 							<red>0.1</red>
 							<green>0.1</green>
@@ -47,7 +47,7 @@
 					</fuselage-upper>
 
 					<hull-trim>
-						<texture>livery-template.rgb</texture>
+						<texture>livery-template.png</texture>
 						<diffuse>
 							<red>0.1</red>
 							<green>0.1</green>
@@ -67,7 +67,7 @@
 					</hull-trim>
 
 					<fuselage-lower>
-						<texture>livery-template.rgb</texture>
+						<texture>livery-template.png</texture>
 						<diffuse>
 							<red>0.1</red>
 							<green>0.1</green>
@@ -87,7 +87,7 @@
 					</fuselage-lower>
 
 					<hull-bottom>
-						<texture>brushed_alloy.rgb</texture>
+						<texture>brushed_alloy.png</texture>
 						<diffuse>
 							<red>0.1</red>
 							<green>0.1</green>
@@ -107,7 +107,7 @@
 					</hull-bottom>
 
 					<hull-wings>
-						<texture>livery-template.rgb</texture>
+						<texture>livery-template.png</texture>
 						<diffuse>
 							<red>0.5</red>
 							<green>0.5</green>
@@ -127,7 +127,7 @@
 					</hull-wings>
 
 					<hull-sensors>
-						<texture>livery-template.rgb</texture>
+						<texture>livery-template.png</texture>
 						<diffuse>
 							<red>0.1</red>
 							<green>0.1</green>
@@ -171,7 +171,7 @@
 					</interior-door-panels>
 
 					<interior-flooring>
-						<texture>browncanvas.rgb</texture>
+						<texture>browncanvas.png</texture>
 						<ambient>
 							<red>0.5</red>
 							<green>0.5</green>

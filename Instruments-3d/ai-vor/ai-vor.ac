@@ -50,7 +50,7 @@ OBJECT poly
 name "AI"
 data 8
 Mesh.007
-texture "vor02.rgb"
+texture "vor02.png"
 texrep 1.0 1.0
 crease 45.0
 numvert 4
@@ -71,7 +71,7 @@ OBJECT poly
 name "AP1"
 data 8
 Mesh.006
-texture "vor02.rgb"
+texture "vor02.png"
 texrep 1.0 1.0
 crease 45.0
 numvert 4
@@ -92,7 +92,7 @@ OBJECT poly
 name "AP2"
 data 8
 Mesh.008
-texture "vor02.rgb"
+texture "vor02.png"
 texrep 1.0 1.0
 crease 45.0
 numvert 4
@@ -256,7 +256,7 @@ OBJECT poly
 name "Face"
 data 8
 Mesh.001
-texture "vor02.rgb"
+texture "vor02.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 16
@@ -350,7 +350,7 @@ OBJECT poly
 name "Knob"
 data 4
 Mesh
-texture "vor02.rgb"
+texture "vor02.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 25
@@ -585,7 +585,7 @@ OBJECT poly
 name "MP"
 data 8
 Mesh.005
-texture "vor02.rgb"
+texture "vor02.png"
 texrep 1.0 1.0
 crease 45.0
 numvert 4
@@ -625,7 +625,7 @@ OBJECT poly
 name "Ring"
 data 8
 Mesh.002
-texture "vor01.rgb"
+texture "vor01.png"
 texrep 1.0 1.0
 crease 45.0
 numvert 6

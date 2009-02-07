@@ -4,7 +4,7 @@
  <sim>
 	<aero>bluebird</aero>
 	<status>early-production</status>
-	<aircraft-version>8.8</aircraft-version>
+	<aircraft-version>8.93</aircraft-version>
 	<author>S Andreason</author>
 	<aircraft-status>
 		<fdm>beta</fdm>
@@ -517,7 +517,7 @@
 			<name type="string">Blue-Grey-Plain</name>
 			<material>
 				<fuselage-top>
-					<texture>livery.rgb</texture>
+					<texture>livery.png</texture>
 					<diffuse>
 						<red>0.2</red>
 						<green>0.3</green>
@@ -537,7 +537,7 @@
 				</fuselage-top>
 
 				<fuselage-upper>
-					<texture>livery.rgb</texture>
+					<texture>livery.png</texture>
 					<diffuse>
 						<red>0.25</red>
 						<green>0.35</green>
@@ -557,7 +557,7 @@
 				</fuselage-upper>
 
 				<fuselage-lower>
-					<texture>livery.rgb</texture>
+					<texture>livery.png</texture>
 					<diffuse>
 						<red>0.4</red>
 						<green>0.4</green>
@@ -577,7 +577,7 @@
 				</fuselage-lower>
 
 				<hull-trim>
-					<texture>livery.rgb</texture>
+					<texture>livery.png</texture>
 					<diffuse>
 						<red>0.2</red>
 						<green>0.3</green>
@@ -597,7 +597,7 @@
 				</hull-trim>
 
 				<hull-bottom>
-					<texture>brushed_alloy.rgb</texture>
+					<texture>brushed_alloy.png</texture>
 					<diffuse>
 						<red>0.1</red>
 						<green>0.1</green>
@@ -617,7 +617,7 @@
 				</hull-bottom>
 
 				<hull-wings>
-					<texture>livery.rgb</texture>
+					<texture>livery.png</texture>
 					<diffuse>
 						<red>0.7</red>
 						<green>0.7</green>
@@ -637,7 +637,7 @@
 				</hull-wings>
 
 				<hull-sensors>
-					<texture>livery.rgb</texture>
+					<texture>livery.png</texture>
 					<diffuse>
 						<red>0.1</red>
 						<green>0.1</green>
@@ -681,7 +681,7 @@
 				</interior-door-panels>
 
 				<interior-flooring>
-					<texture>browncanvas.rgb</texture>
+					<texture>browncanvas.png</texture>
 					<ambient>
 						<red>0</red>
 						<green>0</green>
@@ -789,6 +789,8 @@
 					<sequence n="6" include="Models/Animations/walker-jumping_jacks.xml">
 					</sequence>
 					<sequence n="7" include="Models/Animations/walker-splat.xml">
+					</sequence>
+					<sequence n="8" include="Models/Animations/walker-stand_still.xml">
 					</sequence>
 				</list>
 				<triggers>

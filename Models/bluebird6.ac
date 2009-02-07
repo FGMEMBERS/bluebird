@@ -41,7 +41,7 @@ OBJECT poly
 name "Mesh:Shadow"
 data 6
 Shadow
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -2135,6 +2135,7 @@ mat 2
 refs 3
 33 0 0
 76 0 0
+
 34 0 0
 SURF 0x20
 mat 3
@@ -27866,7 +27867,7 @@ OBJECT poly
 name "Body:Hull-bottom"
 data 12
 BodyHull.003
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 59
@@ -28352,7 +28353,7 @@ OBJECT poly
 name "Body:Hull-lower"
 data 12
 BodyHull.004
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 94
@@ -28902,7 +28903,7 @@ OBJECT poly
 name "Body:Hull-top"
 data 12
 BodyHull.002
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 74
@@ -29252,7 +29253,7 @@ OBJECT poly
 name "Body:Hull-upper"
 data 12
 BodyHull.001
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 182
@@ -30226,7 +30227,7 @@ OBJECT poly
 name "Body:HullDetail-sen"
 data 16
 Body.Surface.001
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 32
@@ -30324,7 +30325,7 @@ OBJECT poly
 name "Body:Wings"
 data 9
 RearWings
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 544
@@ -33983,7 +33984,7 @@ OBJECT poly
 name "RearHatch:Bottom-lo"
 data 18
 RearHatchBHull.001
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 12
@@ -34047,7 +34048,7 @@ OBJECT poly
 name "RearHatch:Bottom-up"
 data 18
 RearHatchBHull.002
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 20
@@ -34154,7 +34155,7 @@ OBJECT poly
 name "RearHatch:Top"
 data 14
 RearHatchTHull
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 18
@@ -34262,7 +34263,7 @@ OBJECT poly
 name "Body:HullCover1"
 data 12
 Body.Cover1L
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 12
@@ -34326,7 +34327,7 @@ OBJECT poly
 name "Body:HullCover2"
 data 12
 Body.Cover2L
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 12
@@ -34390,7 +34391,7 @@ OBJECT poly
 name "Body:HullCover3"
 data 12
 Body.Cover1R
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 12
@@ -34454,7 +34455,7 @@ OBJECT poly
 name "Body:HullCover4"
 data 12
 Body.Cover2R
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 12
@@ -34518,7 +34519,7 @@ OBJECT poly
 name "Body:HullGear0-trim"
 data 8
 BodyHull
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 48
@@ -38718,7 +38719,7 @@ OBJECT poly
 name "Body:Interior.Em1"
 data 9
 RearFloor
-texture "browncanvas.rgb"
+texture "browncanvas.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 6
@@ -38748,7 +38749,7 @@ OBJECT poly
 name "Mesh:HatchB.Em1"
 data 15
 RearHatchB.blue
-texture "browncanvas.rgb"
+texture "browncanvas.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -38772,7 +38773,7 @@ OBJECT poly
 name "Body:IntLights.on"
 data 17
 Lighting-body.001
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 32
@@ -38882,7 +38883,7 @@ OBJECT poly
 name "LeftGear3-bottom"
 data 12
 Landing3.004
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -38957,7 +38958,7 @@ OBJECT poly
 name "LeftGear5L-bottom"
 data 12
 Landing2.011
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -39032,7 +39033,7 @@ OBJECT poly
 name "LeftGear5R-bottom"
 data 12
 Landing2.012
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -49602,7 +49603,7 @@ OBJECT poly
 name "LeftGear2-bottom"
 data 12
 Landing2.006
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 8
@@ -50663,7 +50664,7 @@ OBJECT poly
 name "LeftGear2-trim"
 data 12
 Landing2.005
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 56
@@ -51041,7 +51042,7 @@ OBJECT poly
 name "Body:LLight2"
 data 17
 Landing2_light_on
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -51430,7 +51431,7 @@ OBJECT poly
 name "LeftGear1-trim"
 data 12
 Landing1.004
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 48
@@ -51656,7 +51657,7 @@ OBJECT poly
 name "flash_halo_LGD1"
 data 14
 WhiteFlash.006
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -51682,7 +51683,7 @@ OBJECT poly
 name "flash_halo_LGL1"
 data 14
 WhiteFlash.008
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -51708,7 +51709,7 @@ OBJECT poly
 name "flash_halo_LGR1"
 data 14
 WhiteFlash.007
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -51743,7 +51744,7 @@ OBJECT poly
 name "RightGear3-bottom"
 data 12
 Landing3.005
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -51818,7 +51819,7 @@ OBJECT poly
 name "RightGear5L-bottom"
 data 12
 Landing2.013
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -51893,7 +51894,7 @@ OBJECT poly
 name "RightGear5R-bottom"
 data 12
 Landing2.014
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -62463,7 +62464,7 @@ OBJECT poly
 name "RightGear2-bottom"
 data 12
 Landing2.008
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 8
@@ -63524,7 +63525,7 @@ OBJECT poly
 name "RightGear2-trim"
 data 12
 Landing2.007
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 60
@@ -63927,7 +63928,7 @@ OBJECT poly
 name "Body:LLight3"
 data 17
 Landing3_light_on
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -64316,7 +64317,7 @@ OBJECT poly
 name "RightGear1-trim"
 data 12
 Landing1.005
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 48
@@ -64542,7 +64543,7 @@ OBJECT poly
 name "flash_halo_RGD1"
 data 14
 WhiteFlash.009
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -64568,7 +64569,7 @@ OBJECT poly
 name "flash_halo_RGL1"
 data 14
 WhiteFlash.011
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -64594,7 +64595,7 @@ OBJECT poly
 name "flash_halo_RGR1"
 data 14
 WhiteFlash.010
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -68340,7 +68341,7 @@ OBJECT poly
 name "NacelleL:Hull-lower"
 data 17
 NacelleL.hull.002
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 96
@@ -69053,7 +69054,7 @@ OBJECT poly
 name "NacelleL:Hull-trim"
 data 13
 NacelleL.hull
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 24
@@ -69215,7 +69216,7 @@ OBJECT poly
 name "Mesh:NavL2.on"
 data 9
 nav_r.003
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 65
@@ -69962,7 +69963,7 @@ OBJECT poly
 name "rail_halo_LB"
 data 14
 drive_Halo.003
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -69988,7 +69989,7 @@ OBJECT poly
 name "rail_halo_LC"
 data 14
 drive_Halo.001
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -70014,7 +70015,7 @@ OBJECT poly
 name "rail_halo_LT"
 data 14
 drive_Halo.002
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -73760,7 +73761,7 @@ OBJECT poly
 name "NacelleR:Hull-lower"
 data 17
 NacelleR.hull.001
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 96
@@ -74473,7 +74474,7 @@ OBJECT poly
 name "NacelleR:Hull-trim"
 data 17
 NacelleR.hull.002
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 24
@@ -74635,7 +74636,7 @@ OBJECT poly
 name "Mesh:NavR2.on"
 data 9
 nav_r.006
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 65
@@ -75382,7 +75383,7 @@ OBJECT poly
 name "rail_halo_RB"
 data 14
 drive_Halo.004
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -75408,7 +75409,7 @@ OBJECT poly
 name "rail_halo_RC"
 data 14
 drive_Halo.006
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -75434,7 +75435,7 @@ OBJECT poly
 name "rail_halo_RT"
 data 14
 drive_Halo.005
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -82361,7 +82362,7 @@ OBJECT poly
 name "Nose:Hull-bottom"
 data 12
 NoseHull.002
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 41
@@ -82665,7 +82666,7 @@ OBJECT poly
 name "Nose:Hull-lower"
 data 12
 NoseHull.004
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 93
@@ -83317,7 +83318,7 @@ OBJECT poly
 name "Nose:Hull-top"
 data 12
 NoseHull.001
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 10
@@ -83365,7 +83366,7 @@ OBJECT poly
 name "Nose:Hull-upper"
 data 12
 NoseHull.003
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 56
@@ -83711,7 +83712,7 @@ OBJECT poly
 name "Nose:Wings"
 data 10
 FrontWings
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 544
@@ -86859,7 +86860,7 @@ OBJECT poly
 name "Nose:Wings-trim"
 data 14
 FrontWings.002
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 42
@@ -87129,7 +87130,7 @@ OBJECT poly
 name "Nose:WingsSensor"
 data 14
 FrontWings.003
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 84
@@ -87478,7 +87479,7 @@ OBJECT poly
 name "Mesh:NavL1.on"
 data 9
 nav_f.002
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 65
@@ -88225,7 +88226,7 @@ OBJECT poly
 name "Mesh:NavR1.on"
 data 9
 nav_f.004
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 65
@@ -88972,7 +88973,7 @@ OBJECT poly
 name "Nose:HullGear0-trim"
 data 12
 NoseHull.005
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 24
@@ -127627,7 +127628,7 @@ OBJECT poly
 name "Mesh:ButtonLT1d_1"
 data 13
 Button_LT1_g6
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -127670,7 +127671,7 @@ OBJECT poly
 name "Mesh:ButtonLT2d_1"
 data 13
 Button_LT2_g6
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -127746,7 +127747,7 @@ OBJECT poly
 name "Mesh:ButtonLT6d_1"
 data 13
 Button_LT6_g6
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 16
@@ -127822,7 +127823,7 @@ OBJECT poly
 name "Mesh:ButtonLT7d_1"
 data 13
 Button_LT7_g6
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -127865,7 +127866,7 @@ OBJECT poly
 name "Mesh:ButtonLT8d_1"
 data 13
 Button_LT8_g6
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -127908,7 +127909,7 @@ OBJECT poly
 name "Mesh:ButtonLT9d_1"
 data 13
 Button_LT9_g6
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -127951,7 +127952,7 @@ OBJECT poly
 name "Mesh:ButtonRT1d_1"
 data 13
 Button_RT1_g6
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -127994,7 +127995,7 @@ OBJECT poly
 name "Mesh:ButtonRT2d_1"
 data 13
 Button_RT2_g6
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -128037,7 +128038,7 @@ OBJECT poly
 name "Mesh:ButtonRT3d_1"
 data 13
 Button_RT3_g6
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -128080,7 +128081,7 @@ OBJECT poly
 name "Mesh:ButtonRT4d_1"
 data 13
 Button_RT4_g6
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -128123,7 +128124,7 @@ OBJECT poly
 name "Mesh:ButtonRT5d_1"
 data 13
 Button_RT5_g6
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -128166,7 +128167,7 @@ OBJECT poly
 name "Mesh:ButtonRT6d_1"
 data 13
 Button_RT6_g6
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -128209,7 +128210,7 @@ OBJECT poly
 name "Mesh:ButtonRT7d_1"
 data 13
 Button_RT7_g6
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -128252,7 +128253,7 @@ OBJECT poly
 name "Mesh:ButtonRT8d_1"
 data 13
 Button_RT8_g6
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -128295,7 +128296,7 @@ OBJECT poly
 name "Mesh:ButtonRT9d_1"
 data 13
 Button_RT9_g6
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -128338,7 +128339,7 @@ OBJECT poly
 name "Mesh:GearDn.Em3d_1"
 data 10
 Button3_g6
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -128381,7 +128382,7 @@ OBJECT poly
 name "Mesh:GearMode.Em3d_1"
 data 10
 Button2_g6
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -128424,7 +128425,7 @@ OBJECT poly
 name "Mesh:GearUp.Em3d_1"
 data 10
 Button1_g6
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -128467,7 +128468,7 @@ OBJECT poly
 name "Mesh:GearWh.Em3d_1"
 data 14
 Button3_g6.001
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -128488,7 +128489,7 @@ OBJECT poly
 name "Nose:Interior.Em1"
 data 15
 NoseInterior.b1
-texture "browncanvas.rgb"
+texture "browncanvas.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 18
@@ -128565,7 +128566,7 @@ OBJECT poly
 name "Nose:Interior.Em1d"
 data 17
 NoseInterior.b1Dk
-texture "browncanvas.rgb"
+texture "browncanvas.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 8
@@ -128597,7 +128598,7 @@ OBJECT poly
 name "Tex:GearLabel"
 data 14
 Button2_g6.002
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -128618,7 +128619,7 @@ OBJECT poly
 name "Tex:PanelL"
 data 14
 LeftPanelLabel
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 12
@@ -128675,7 +128676,7 @@ OBJECT poly
 name "Tex:PanelR"
 data 15
 RightPanelLabel
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 6
@@ -128708,7 +128709,7 @@ OBJECT poly
 name "Nose:IntLights.on"
 data 17
 Lighting-nose.001
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 16
@@ -128768,7 +128769,7 @@ OBJECT poly
 name "Nose:DoorL.Step1-up"
 data 14
 DoorL.step.002
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 8
@@ -128857,7 +128858,7 @@ OBJECT poly
 name "Nose:DoorL.Step2-up"
 data 14
 DoorL.step.005
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 8
@@ -128946,7 +128947,7 @@ OBJECT poly
 name "Nose:DoorL.Step3-lo"
 data 14
 DoorL.step.006
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 8
@@ -129035,7 +129036,7 @@ OBJECT poly
 name "Nose:DoorL.Step4-lo"
 data 14
 DoorL.step.007
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 8
@@ -129205,7 +129206,7 @@ OBJECT poly
 name "Nose:DoorLeft-lower_1"
 data 14
 DoorL.hull.002
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 36
@@ -129954,7 +129955,7 @@ OBJECT poly
 name "Nose:DoorLeft-upper"
 data 14
 DoorL.hull.001
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 32
@@ -130391,7 +130392,7 @@ OBJECT poly
 name "Nose:DoorR.Step1-up"
 data 10
 DoorR.step
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 8
@@ -130480,7 +130481,7 @@ OBJECT poly
 name "Nose:DoorR.Step2-up"
 data 14
 DoorR.step.005
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 8
@@ -130569,7 +130570,7 @@ OBJECT poly
 name "Nose:DoorR.Step3-lo"
 data 14
 DoorR.step.006
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 8
@@ -130658,7 +130659,7 @@ OBJECT poly
 name "Nose:DoorR.Step4-lo"
 data 14
 DoorR.step.007
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 8
@@ -130828,7 +130829,7 @@ OBJECT poly
 name "Nose:DoorRight-lowe_1"
 data 14
 DoorR.hull.001
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 37
@@ -131592,7 +131593,7 @@ OBJECT poly
 name "Nose:DoorRight-uppe"
 data 14
 DoorR.hull.002
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 33
@@ -132045,7 +132046,7 @@ OBJECT poly
 name "NoseGear3-bottom"
 data 8
 Landing3
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -132120,7 +132121,7 @@ OBJECT poly
 name "NoseGear5L-bottom"
 data 12
 Landing2.009
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -132195,7 +132196,7 @@ OBJECT poly
 name "NoseGear5R-bottom"
 data 12
 Landing2.010
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -142765,7 +142766,7 @@ OBJECT poly
 name "NoseGear2-bottom"
 data 8
 Landing2
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 8
@@ -143826,7 +143827,7 @@ OBJECT poly
 name "NoseGear2-trim"
 data 12
 Landing2.004
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 56
@@ -144204,7 +144205,7 @@ OBJECT poly
 name "Nose:LLight1"
 data 17
 Landing1_light_on
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -144593,7 +144594,7 @@ OBJECT poly
 name "NoseGear1-trim"
 data 8
 Landing1
-texture "livery.rgb"
+texture "livery.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 48
@@ -144819,7 +144820,7 @@ OBJECT poly
 name "flash_halo_NGD1"
 data 14
 WhiteFlash.003
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -144845,7 +144846,7 @@ OBJECT poly
 name "flash_halo_NGL1"
 data 14
 WhiteFlash.005
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -144871,7 +144872,7 @@ OBJECT poly
 name "flash_halo_NGR1"
 data 14
 WhiteFlash.004
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -144951,7 +144952,7 @@ OBJECT poly
 name "flash_halo_L"
 data 14
 WhiteFlash.001
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -144977,7 +144978,7 @@ OBJECT poly
 name "flash_halo_R"
 data 14
 WhiteFlash.002
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -145006,7 +145007,7 @@ OBJECT poly
 name "beacon_halo_B"
 data 19
 Mesh.BeaconHalo.002
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -145032,7 +145033,7 @@ OBJECT poly
 name "beacon_halo_T"
 data 19
 Mesh.BeaconHalo.001
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -145058,7 +145059,7 @@ OBJECT poly
 name "nav_halo_L1"
 data 13
 Mesh.RedHalo1
-texture "starburst-red.rgb"
+texture "starburst-red.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -145084,7 +145085,7 @@ OBJECT poly
 name "nav_halo_L2"
 data 13
 Mesh.RedHalo2
-texture "starburst-red.rgb"
+texture "starburst-red.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -145110,7 +145111,7 @@ OBJECT poly
 name "nav_halo_R1"
 data 15
 Mesh.GreenHalo1
-texture "starburst-green.rgb"
+texture "starburst-green.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -145136,7 +145137,7 @@ OBJECT poly
 name "nav_halo_R2"
 data 15
 Mesh.GreenHalo2
-texture "starburst-green.rgb"
+texture "starburst-green.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -145162,7 +145163,7 @@ OBJECT poly
 name "strobe_halo_L"
 data 18
 Mesh.WhiteHalo.001
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -145188,7 +145189,7 @@ OBJECT poly
 name "strobe_halo_R"
 data 18
 Mesh.WhiteHalo.002
-texture "bluebird-1.rgb"
+texture "bluebird-1.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4

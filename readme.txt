@@ -5,14 +5,12 @@ Choose your aircraft:
 
 If you are running the newest version of FlightGear, 
   version 1.9 or cvs built with OpenSceneGraph,
---aircraft=bluebird
+    --aircraft=bluebird
 
 If you are running FlightGear version 1.0 (with Plib)
---aircraft=bluebird-10
-
-If you are running FlightGear version 0.9.10
-  upgrade or get an older version of this model.
-  None of the newest improvements will work with 0.9.10 anyways.
+  or if you are running FlightGear version 0.9.10
+  and for some reason are unable to upgrade, then look
+  for the legacy version 8.81 at http://seahorseCorral.org
 
 -------------------------------------------------
 

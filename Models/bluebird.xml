@@ -6028,7 +6028,7 @@
 			<factor>0.1</factor>
 		</diffuse>
 		<texture-prop>sim/model/livery/material/interior-flooring/texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -6058,7 +6058,7 @@
 			<factor>0.1</factor>
 		</diffuse>
 		<texture-prop>sim/model/livery/material/interior-flooring/texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -6088,7 +6088,7 @@
 			<factor>0.1</factor>
 		</diffuse>
 		<texture-prop>sim/model/livery/material/interior-flooring/texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -6118,7 +6118,7 @@
 			<factor>0.1</factor>
 		</diffuse>
 		<texture-prop>sim/model/livery/material/interior-flooring/texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10005,7 +10005,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10034,7 +10034,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10063,7 +10063,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10092,7 +10092,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10121,7 +10121,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10150,7 +10150,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10179,7 +10179,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10208,7 +10208,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10237,7 +10237,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10266,7 +10266,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10295,7 +10295,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10324,7 +10324,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10353,7 +10353,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10382,7 +10382,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10411,7 +10411,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10440,7 +10440,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>brushed_alloy.rgb</texture>
+		<texture>brushed_alloy.png</texture>
 	</animation>
 
 	<animation>
@@ -10469,7 +10469,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>brushed_alloy.rgb</texture>
+		<texture>brushed_alloy.png</texture>
 	</animation>
 
 	<animation>
@@ -10498,7 +10498,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>brushed_alloy.rgb</texture>
+		<texture>brushed_alloy.png</texture>
 	</animation>
 
 	<animation>
@@ -10527,7 +10527,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>brushed_alloy.rgb</texture>
+		<texture>brushed_alloy.png</texture>
 	</animation>
 
 	<animation>
@@ -10556,7 +10556,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>brushed_alloy.rgb</texture>
+		<texture>brushed_alloy.png</texture>
 	</animation>
 
 	<animation>
@@ -10585,7 +10585,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10614,7 +10614,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10643,7 +10643,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10672,7 +10672,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10701,7 +10701,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10730,7 +10730,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10759,7 +10759,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10788,7 +10788,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10817,7 +10817,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10846,7 +10846,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -10875,7 +10875,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>brushed_alloy.rgb</texture>
+		<texture>brushed_alloy.png</texture>
 	</animation>
 
 	<animation>
@@ -10904,7 +10904,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>brushed_alloy.rgb</texture>
+		<texture>brushed_alloy.png</texture>
 	</animation>
 
 	<animation>
@@ -10933,7 +10933,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>brushed_alloy.rgb</texture>
+		<texture>brushed_alloy.png</texture>
 	</animation>
 
 	<animation>
@@ -10962,7 +10962,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>brushed_alloy.rgb</texture>
+		<texture>brushed_alloy.png</texture>
 	</animation>
 
 	<animation>
@@ -10991,7 +10991,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>brushed_alloy.rgb</texture>
+		<texture>brushed_alloy.png</texture>
 	</animation>
 
 	<animation>
@@ -11020,7 +11020,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>brushed_alloy.rgb</texture>
+		<texture>brushed_alloy.png</texture>
 	</animation>
 
 	<animation>
@@ -11049,7 +11049,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>brushed_alloy.rgb</texture>
+		<texture>brushed_alloy.png</texture>
 	</animation>
 
 	<animation>
@@ -11078,7 +11078,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>brushed_alloy.rgb</texture>
+		<texture>brushed_alloy.png</texture>
 	</animation>
 
 	<animation>
@@ -11107,7 +11107,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>brushed_alloy.rgb</texture>
+		<texture>brushed_alloy.png</texture>
 	</animation>
 
 	<animation>
@@ -11136,7 +11136,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -11165,7 +11165,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -11194,7 +11194,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -11223,7 +11223,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -11252,7 +11252,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -11281,7 +11281,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -11310,7 +11310,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -11339,7 +11339,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -11368,7 +11368,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -11397,7 +11397,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -11426,7 +11426,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -11455,7 +11455,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -11484,7 +11484,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -11513,7 +11513,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -11542,7 +11542,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -11571,7 +11571,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 	<animation>
@@ -11600,7 +11600,7 @@
 		</emission>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
-		<texture>livery.rgb</texture>
+		<texture>livery.png</texture>
 	</animation>
 
 <!-- no windows in cargo body == leave stub in place for later use ==

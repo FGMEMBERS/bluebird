@@ -7,7 +7,7 @@ OBJECT poly
 name "velocity.frame"
 data 8
 Mesh.027
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 29
@@ -205,7 +205,7 @@ OBJECT poly
 name "velocity.button"
 data 8
 Mesh.001
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -226,7 +226,7 @@ OBJECT poly
 name "vel.minus"
 data 8
 Mesh.069
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -247,7 +247,7 @@ OBJECT poly
 name "vel.102"
 data 8
 Mesh.060
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -268,7 +268,7 @@ OBJECT poly
 name "vel.103"
 data 8
 Mesh.061
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -289,7 +289,7 @@ OBJECT poly
 name "velocity.comma"
 data 8
 Mesh.022
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 9
@@ -356,7 +356,7 @@ OBJECT poly
 name "vel.104"
 data 8
 Mesh.062
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -377,7 +377,7 @@ OBJECT poly
 name "vel.105"
 data 8
 Mesh.063
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -398,7 +398,7 @@ OBJECT poly
 name "vel.106"
 data 8
 Mesh.064
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -419,7 +419,7 @@ OBJECT poly
 name "vel.mach"
 data 8
 Mesh.124
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 13
@@ -497,7 +497,7 @@ OBJECT poly
 name "vel.mps"
 data 8
 Mesh.071
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -518,7 +518,7 @@ OBJECT poly
 name "vel.kts"
 data 8
 Mesh.073
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -539,7 +539,7 @@ OBJECT poly
 name "vel.mph"
 data 8
 Mesh.074
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -560,7 +560,7 @@ OBJECT poly
 name "vel.kmph"
 data 8
 Mesh.075
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -581,7 +581,7 @@ OBJECT poly
 name "throttle.101"
 data 8
 Mesh.065
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -602,7 +602,7 @@ OBJECT poly
 name "throttle.102"
 data 8
 Mesh.066
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -623,7 +623,7 @@ OBJECT poly
 name "throttle.103"
 data 8
 Mesh.067
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -644,7 +644,7 @@ OBJECT poly
 name "throttle.percent"
 data 8
 Mesh.070
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 12
@@ -708,7 +708,7 @@ OBJECT poly
 name "throttle.label"
 data 8
 Mesh.072
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -729,7 +729,7 @@ OBJECT poly
 name "velocity.label"
 data 8
 Mesh.058
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4

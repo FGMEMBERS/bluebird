@@ -7,7 +7,7 @@ OBJECT poly
 name "gps.frame"
 data 8
 Mesh.021
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 27
@@ -196,7 +196,7 @@ OBJECT poly
 name "gps.button"
 data 8
 Mesh.028
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -217,7 +217,7 @@ OBJECT poly
 name "lat.102"
 data 8
 Mesh.033
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -238,7 +238,7 @@ OBJECT poly
 name "lat.103"
 data 8
 Mesh.034
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -259,7 +259,7 @@ OBJECT poly
 name "lat.104"
 data 8
 Mesh.035
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -280,7 +280,7 @@ OBJECT poly
 name "lat.105"
 data 8
 Mesh.036
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -301,7 +301,7 @@ OBJECT poly
 name "lat.106"
 data 8
 Mesh.037
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -322,7 +322,7 @@ OBJECT poly
 name "lat.107"
 data 8
 Mesh.048
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -343,7 +343,7 @@ OBJECT poly
 name "gps.dec"
 data 8
 Mesh.051
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 26
@@ -489,7 +489,7 @@ OBJECT poly
 name "gps.dmm"
 data 8
 Mesh.054
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 34
@@ -657,7 +657,7 @@ OBJECT poly
 name "gps.dms"
 data 8
 Mesh.047
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 24
@@ -733,7 +733,7 @@ OBJECT poly
 name "gps.north"
 data 8
 Mesh.045
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -754,7 +754,7 @@ OBJECT poly
 name "gps.south"
 data 8
 Mesh.053
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -775,7 +775,7 @@ OBJECT poly
 name "gps.west"
 data 8
 Mesh.046
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -796,7 +796,7 @@ OBJECT poly
 name "gps.east"
 data 8
 Mesh.052
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -817,7 +817,7 @@ OBJECT poly
 name "lon.101"
 data 8
 Mesh.038
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -838,7 +838,7 @@ OBJECT poly
 name "lon.102"
 data 8
 Mesh.039
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -859,7 +859,7 @@ OBJECT poly
 name "lon.103"
 data 8
 Mesh.040
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -880,7 +880,7 @@ OBJECT poly
 name "lon.104"
 data 8
 Mesh.041
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -901,7 +901,7 @@ OBJECT poly
 name "lon.105"
 data 8
 Mesh.042
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -922,7 +922,7 @@ OBJECT poly
 name "lon.106"
 data 8
 Mesh.043
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -943,7 +943,7 @@ OBJECT poly
 name "lon.107"
 data 8
 Mesh.049
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -964,7 +964,7 @@ OBJECT poly
 name "gps.label"
 data 8
 Mesh.044
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4

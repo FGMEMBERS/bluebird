@@ -6,7 +6,7 @@ OBJECT poly
 name "Arrow.Bottom"
 data 9
 Plane.007
-texture "control-face.rgb"
+texture "control-face.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 3
@@ -25,7 +25,7 @@ OBJECT poly
 name "Arrow.Left"
 data 9
 Plane.005
-texture "control-face.rgb"
+texture "control-face.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 3
@@ -44,7 +44,7 @@ OBJECT poly
 name "Arrow.Right"
 data 9
 Plane.006
-texture "control-face.rgb"
+texture "control-face.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 3
@@ -63,7 +63,7 @@ OBJECT poly
 name "Arrow.Top"
 data 9
 Plane.001
-texture "control-face.rgb"
+texture "control-face.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 3
@@ -82,7 +82,7 @@ OBJECT poly
 name "Controls.Face"
 data 5
 Plane
-texture "control-face.rgb"
+texture "control-face.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 16

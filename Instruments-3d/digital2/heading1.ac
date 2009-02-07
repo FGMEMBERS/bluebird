@@ -7,7 +7,7 @@ OBJECT poly
 name "heading.frame"
 data 8
 Mesh.025
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 31
@@ -207,7 +207,7 @@ OBJECT poly
 name "head.hold.button"
 data 8
 Mesh.129
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -228,7 +228,7 @@ OBJECT poly
 name "heading.button"
 data 8
 Mesh.020
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -249,7 +249,7 @@ OBJECT poly
 name "head.101"
 data 8
 Mesh.076
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -270,7 +270,7 @@ OBJECT poly
 name "head.102"
 data 8
 Mesh.077
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -291,7 +291,7 @@ OBJECT poly
 name "head.103"
 data 8
 Mesh.078
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -312,7 +312,7 @@ OBJECT poly
 name "head.104"
 data 8
 Mesh.130
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -333,7 +333,7 @@ OBJECT poly
 name "head.minus"
 data 8
 Mesh.083
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -354,7 +354,7 @@ OBJECT poly
 name "head.105"
 data 8
 Mesh.080
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -375,7 +375,7 @@ OBJECT poly
 name "head.106"
 data 8
 Mesh.081
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -396,7 +396,7 @@ OBJECT poly
 name "head.107"
 data 8
 Mesh.082
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -417,7 +417,7 @@ OBJECT poly
 name "head.108"
 data 8
 Mesh.131
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -438,7 +438,7 @@ OBJECT poly
 name "head.dec"
 data 8
 Mesh.079
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 18
@@ -562,7 +562,7 @@ OBJECT poly
 name "head.deg"
 data 8
 Mesh.050
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 8
@@ -594,7 +594,7 @@ OBJECT poly
 name "head.hold.red"
 data 8
 Mesh.135
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -615,7 +615,7 @@ OBJECT poly
 name "head.hold.yellow"
 data 8
 Mesh.136
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4
@@ -636,7 +636,7 @@ OBJECT poly
 name "head.label"
 data 8
 Mesh.084
-texture "digital-hi.rgb"
+texture "digital-hi.png"
 texrep 1.0 1.0
 crease 30.0
 numvert 4

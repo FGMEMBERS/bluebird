@@ -1,5 +1,5 @@
-# == walker animation v1.11 for FlightGear version 1.0 and 1.9 with OSG     =====
-# ====  Bluebird Explorer Hovercraft  version 8.91  =====
+# == walker animation v1.2 for FlightGear version 1.9 with OSG ==
+# ====  for Bluebird Explorer Hovercraft  version 8.92      =====
 
 var walker1_node = props.globals.getNode("sim/model/walker[1]", 1);
 var w1_animate_node = props.globals.getNode("sim/model/walker[1]/animate", 1);
@@ -33,7 +33,6 @@ var triggers_list = [0, 0, 0, 0, 0, 0, 0, 0];
 var triggers_names = ["standing","walking","running","backwards","falling","open-parachute","landing","crashing"];
 var walking_momentum = 0;
 var w_outside = 0;
-var was_beyond_walking = 0;	# holding down keys in fg 1.0 create a flickering in key-triggers. need to remember last setting to smoothen
 var in_air = 0;
 var parachute_deployed_ft = 0;
 var animate_time_start = 0;
@@ -47,7 +46,6 @@ var time_chart = [];
 var w_speed_mps = 0;
 var w_key_speed = 0;
 var am_L_id = nil;
-var tw_L_id = nil;
 var tm_L_id = nil;
 var tr_L_id = nil;
 var ta_L_id = nil;
@@ -92,7 +90,7 @@ var sequence = {
 		}
 		var s = "";
 		for (var i = 0; i < size(name); i += 1) {
-			if (string.isascii(name[i]) and (!string.ispunct(name[i]) or chr(name[i]) == 95)) {
+			if ((string.isascii(name[i]) and !string.ispunct(name[i])) or int(name[i]) == 95 or int(name[i]) == 45) {
 				s ~= chr(name[i]);
 			}
 		}
@@ -129,39 +127,29 @@ var sequence = {
 		animate.showDialog();
 	},
 	load_animation:	func {
-		var desc = getprop("sim/description");
-		if (substr(desc, size(desc) - 3, 3) != "1.0") {
-			var load_sel = nil;
-			var load = func(n) {
-				print ("Loading from ",n.getValue());
-				var new_sequence = props.globals.getNode("sim/model/walker[1]/animate/list/sequence[" ~ size(w1a_list_node.getChildren("sequence")) ~ "]", 1);
-				io.read_properties(n.getValue(), new_sequence);
-				var s = new_sequence.getNode("name", 1).getValue();
-				if (s != nil) {
-					sequence_node = new_sequence;
-					sequence_count = size(w1a_list_node.getChildren("sequence"));
-					w1a_sequence_selected_node.setValue(int(sequence_count - 1));
-					sequence.reloadDialog();
-				} else {
-					w1a_list_node.removeChild("sequence", (size(w1a_list_node.getChildren("sequence")) - 1));
-				}
+		var load_sel = nil;
+		var load = func(n) {
+			print ("Loading from ",n.getValue());
+			var new_sequence = props.globals.getNode("sim/model/walker[1]/animate/list/sequence[" ~ size(w1a_list_node.getChildren("sequence")) ~ "]", 1);
+			io.read_properties(n.getValue(), new_sequence);
+			var s = new_sequence.getNode("name", 1).getValue();
+			if (s != nil) {
+				sequence_node = new_sequence;
+				sequence_count = size(w1a_list_node.getChildren("sequence"));
+				w1a_sequence_selected_node.setValue(int(sequence_count - 1));
+				sequence.reloadDialog();
+			} else {
+				w1a_list_node.removeChild("sequence", (size(w1a_list_node.getChildren("sequence")) - 1));
 			}
-			load_sel = gui.FileSelector.new(load, "Load Walker Sequence", "Load",
-				["walker-*.xml"], getprop("/sim/fg-home") ~ "/aircraft-data", "");
-			load_sel.open();
-		} else {
-			gui.popupTip("Unable to load property files in version 1.0");
 		}
+		load_sel = gui.FileSelector.new(load, "Load Walker Sequence", "Load",
+			["walker-*.xml"], getprop("/sim/fg-home") ~ "/aircraft-data", "");
+		load_sel.open();
 	},
 	save_animation:	func {
-		var desc = getprop("sim/description");
-		if (substr(desc, size(desc) - 3, 3) != "1.0") {
-			var data_path = getprop("/sim/fg-home") ~ "/aircraft-data/walker-" ~ sequence_node.getNode("name", 1).getValue() ~ ".xml";
-			print ("Saving to ",data_path);
-			io.write_properties(data_path, sequence_node);
-		} else {
-			gui.popupTip("Unable to save property files in version 1.0");
-		}
+		var data_path = getprop("/sim/fg-home") ~ "/aircraft-data/walker-" ~ sequence_node.getNode("name", 1).getValue() ~ ".xml";
+		print ("Saving to ",data_path);
+		io.write_properties(data_path, sequence_node);
 	},
 	showDialog: func {
 		var name1 = "walker-sequences";
@@ -225,7 +213,6 @@ var sequence = {
 		box2.set("label", "");
 		box2.set("pref-width", 50);
 		box2.set("pref-height", 18);
-#		box2.set("border", abs(3 - sequence_selected));
 		box2.set("border", 2);
 		box2.set("legend", "New");
 		box2.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
@@ -272,7 +259,6 @@ var sequence = {
 		box2.set("label", "");
 		box2.set("pref-width", 60);
 		box2.set("pref-height", 18);
-#		box2.set("border", sequence_selected);
 		box2.set("border", 2);
 		box2.set("default", 1);
 		box2.set("legend", "Edit/Run");
@@ -296,13 +282,7 @@ var sequence = {
 		box4.set("legend", "Load");
 		box4.set("pref-width", 50);
 		box4.set("pref-height", 18);
-		var desc = getprop("sim/description");
-		if (substr(desc, size(desc) - 3, 3) == "1.0") {
-			box4.setColor(0.44, 0.31, 0.31);
-			box4.set("border", 0);
-		} else {
-			box4.set("border", 2);
-		}
+		box4.set("border", 2);
 		box4.prop().getNode("binding[0]/command", 1).setValue("nasal");
 		box4.prop().getNode("binding[0]/script", 1).setValue("walker.sequence.load_animation()");
 		var box5 = g.addChild("button");
@@ -310,13 +290,7 @@ var sequence = {
 		box5.set("legend", "Save");
 		box5.set("pref-width", 50);
 		box5.set("pref-height", 18);
-#		box5.set("border", sequence_selected);
-		if (substr(desc, size(desc) - 3, 3) == "1.0") {
-			box5.setColor(0.44, 0.31, 0.31);
-			box5.set("border", 0);
-		} else {
-			box5.set("border", 2);
-		}
+		box5.set("border", 2);
 		box5.prop().getNode("binding[0]/command", 1).setValue("nasal");
 		box5.prop().getNode("binding[0]/script", 1).setValue("walker.sequence.save_animation()");
 		g.addChild("empty").set("pref-width", 8);
@@ -422,6 +396,7 @@ var animate = {
 			animate.reset_position();
 		} else {
 			animate.copy_position(walker1_node, new_position);
+			animate.save_header();
 		}
 		content_modified_node.setValue(5);
 		return new_position;
@@ -464,7 +439,7 @@ var animate = {
 		to_node.getNode("name", 1).setValue(from_node.getNode("name", 1).getValue());
 		to_node.getNode("rest-sec", 1).setValue(from_node.getNode("rest-sec", 1).getValue());
 		var t = from_node.getNode("transit-sec", 1);
-		if (t.getValue() == 0) {
+		if (t.getValue() <= 0) {
 			t.setValue(0.1);
 		}
 		to_node.getNode("transit-sec", 1).setValue(t.getValue());
@@ -553,8 +528,42 @@ var animate = {
 		setprop("sim/model/walker[1]/loop-to", 0);
 		setprop("sim/model/walker[1]/rest-sec", 0.0);
 		setprop("sim/model/walker[1]/transit-sec", 1.0);
-		setprop("sim/model/walker[1]/transit-upon", "Disabled");
+		setprop("sim/model/walker[1]/trigger-upon", "Disabled");
 		content_modified_node.setValue(1);
+	},
+	save_header:	func {
+		sequence_node.getNode("loop-enabled", 1).setBoolValue(w1_loop_enabled_node.getValue());
+		sequence_node.getNode("loop-to", 1).setIntValue(walker1_node.getNode("loop-to", 1).getValue());
+		var t = walker1_node.getNode("trigger-upon", 1).getValue();
+		if (t != sequence_node.getNode("trigger-upon", 1).getValue()) {
+			sequence_node.getNode("trigger-upon", 1).setValue(t);
+			if (t == "Walking") {
+				trigger_walking_node.setValue(int(w1a_sequence_selected_node.getValue()));
+				print ("  saving animation: walking to position ", w1a_sequence_selected_node.getValue());
+			} elsif (t == "Running") {
+				trigger_running_node.setValue(int(w1a_sequence_selected_node.getValue()));
+				print ("  saving animation: running to position ", w1a_sequence_selected_node.getValue());
+			} elsif (t == "Backwards") {
+				trigger_backwards_node.setValue(int(w1a_sequence_selected_node.getValue()));
+				print ("  saving animation: backwards to position ", w1a_sequence_selected_node.getValue());
+			} elsif (t == "Standing") {
+				trigger_standing_node.setValue(int(w1a_sequence_selected_node.getValue()));
+				print ("  saving animation: standing to position ", w1a_sequence_selected_node.getValue());
+			} elsif (t == "Falling") {
+				trigger_falling_node.setValue(int(w1a_sequence_selected_node.getValue()));
+				print ("  saving animation: falling to position ", w1a_sequence_selected_node.getValue());
+			} elsif (t == "Landing") {
+				trigger_landing_node.setValue(int(w1a_sequence_selected_node.getValue()));
+				print ("  saving animation: landing to position ", w1a_sequence_selected_node.getValue());
+			} elsif (t == "Open-Parachute") {
+				trigger_open_parachute_node.setValue(int(w1a_sequence_selected_node.getValue()));
+				print ("  saving animation: open-parachute to position ", w1a_sequence_selected_node.getValue());
+			} elsif (t == "Crashing") {
+				trigger_crashing_node.setValue(int(w1a_sequence_selected_node.getValue()));
+				print ("  saving animation: crashing to position ", w1a_sequence_selected_node.getValue());
+			}
+			discover_triggers(0);
+		}
 	},
 	save_position:	func {
 		var dialog_position = w1a_dialog_position_node.getValue();
@@ -564,38 +573,7 @@ var animate = {
 		} else {
 			animate.copy_position(walker1_node, sequence_node.getNode("position[" ~ dialog_position ~ "]", 1));
 		}
-		sequence_node.getNode("loop-enabled", 1).setBoolValue(w1_loop_enabled_node.getValue());
-		sequence_node.getNode("loop-to", 1).setIntValue(walker1_node.getNode("loop-to", 1).getValue());
-		var t = walker1_node.getNode("trigger-upon", 1).getValue();
-		if (t != sequence_node.getNode("trigger-upon", 1).getValue()) {
-			sequence_node.getNode("trigger-upon", 1).setValue(t);
-			if (t == "Walking") {
-				setprop("sim/model/walker[1]/animate/triggers/walking", int(w1a_sequence_selected_node.getValue()));
-				print ("  saving animation: walking to position ", w1a_sequence_selected_node.getValue());
-			} elsif (t == "Running") {
-				setprop("sim/model/walker[1]/animate/triggers/running", int(w1a_sequence_selected_node.getValue()));
-				print ("  saving animation: running to position ", w1a_sequence_selected_node.getValue());
-			} elsif (t == "Backwards") {
-				setprop("sim/model/walker[1]/animate/triggers/backwards", int(w1a_sequence_selected_node.getValue()));
-				print ("  saving animation: backwards to position ", w1a_sequence_selected_node.getValue());
-			} elsif (t == "Standing") {
-				setprop("sim/model/walker[1]/animate/triggers/standing", int(w1a_sequence_selected_node.getValue()));
-				print ("  saving animation: standing to position ", w1a_sequence_selected_node.getValue());
-			} elsif (t == "Falling") {
-				setprop("sim/model/walker[1]/animate/triggers/falling", int(w1a_sequence_selected_node.getValue()));
-				print ("  saving animation: falling to position ", w1a_sequence_selected_node.getValue());
-			} elsif (t == "Landing") {
-				setprop("sim/model/walker[1]/animate/triggers/landing", int(w1a_sequence_selected_node.getValue()));
-				print ("  saving animation: landing to position ", w1a_sequence_selected_node.getValue());
-			} elsif (t == "Open-Parachute") {
-				setprop("sim/model/walker[1]/animate/triggers/open-parachute", int(w1a_sequence_selected_node.getValue()));
-				print ("  saving animation: open-parachute to position ", w1a_sequence_selected_node.getValue());
-			} elsif (t == "Crashing") {
-				setprop("sim/model/walker[1]/animate/triggers/crashing", int(w1a_sequence_selected_node.getValue()));
-				print ("  saving animation: crashing to position ", w1a_sequence_selected_node.getValue());
-			}
-			discover_triggers(0);
-		}
+		animate.save_header();
 		content_modified_node.setValue(6);
 	},
 	load_position:	func {
@@ -622,7 +600,7 @@ var animate = {
 	},
 	check_loop: func {
 		var i = walker1_node.getNode("loop-to", 1).getValue();
-		if (i > position_count or i < 0 or i == "") {
+		if (i >= position_count or i < 0 or i == "") {
 			walker1_node.getNode("loop-to", 1).setValue(0);
 		}
 	},
@@ -1864,7 +1842,7 @@ var animate = {
 		walker_dialog4.addChild("hrule").addChild("dummy");
 
 		var text2 = props.globals.getNode("sim/about/text2", 1);
-		text2.setValue("Each animation sequence is made up of 1 or more positions.\n" ~
+		text2.setValue("Each animation sequence is made up of 2 or more positions.\n" ~
 			"A new sequence starts with no positions, as indicated by the " ~
 			"position indicator showing -1. (the first position is zero in most " ~
 			"computer languages.) Input a description (remember to press [Enter]), " ~
@@ -1990,7 +1968,7 @@ var animate_update = func (seq_node) {
 			w1a_enabled_current_node.setValue(0);
 		}
 		seq_node_now = nil;
-		settimer(func { animate.reloadDialog() }, 0.1);
+		settimer(func { animate.reloadDialog() }, 0);
 	}
 
 }
@@ -2053,7 +2031,6 @@ var stop_animation = func {
 	if (anim_enabled) {
 		settimer(func { w1a_enabled_current_node.setValue(0) }, 0.1);
 	}
-	was_beyond_walking = 0;
 	anim_running = -1;
 }
 
@@ -2087,6 +2064,9 @@ var check_walk_animations = func {	# keyboard handling for osg version
 				if (triggers_list[0] >= 0) {
 					if (w_outside) {
 						s = int(trigger_standing_node.getValue());
+					} else {
+						stop_animation();
+						animate.reset_position();
 					}
 				}
 			}
@@ -2102,53 +2082,6 @@ var check_walk_animations = func {	# keyboard handling for osg version
 	}
 }
 
-var check_walk_animations_1 = func {	# for keyboard handling in 1.0 plib
-	walking_momentum = getprop("sim/walker/walking-momentum");
-	if (triggers_enabled) {
-		var s = nil;
-		if (!getprop("sim/walker/airborne")) {
-			var w_direction = getprop("sim/walker/walking");
-			if (walking_momentum) {
-				if (getprop("sim/current-view/view-number") != 0) {
-					if ((w_direction < 0) or (was_beyond_walking == -1)) {
-						if (triggers_list[3] >= 0) {
-							s = int(trigger_backwards_node.getValue());
-						}
-						was_beyond_walking = -1;
-					} else {
-						if ((was_beyond_walking == 1) or (w_key_speed >= (w_speed_mps * 2))) {
-							if (triggers_list[2] >= 0) {
-								s = int(trigger_running_node.getValue());
-							}
-							was_beyond_walking = 1;
-						} else {
-							if (triggers_list[1] >= 0) {
-								s = int(trigger_walking_node.getValue());
-							}
-							was_beyond_walking = 0;
-						}
-					}
-				}
-			} else {
-				was_beyond_walking = 0;
-				if (triggers_list[0] >= 0) {
-					if (w_outside) {
-						s = int(trigger_standing_node.getValue());
-					}
-				}
-			}
-			if ((s != nil) and (s >= 0)) {
-				triggered_seq_node = props.globals.getNode("sim/model/walker[1]/animate/list/sequence[" ~ s ~ "]", 1);
-				if (triggered_seq_node != nil and (s != anim_running)) {
-					start_animation(triggered_seq_node, s);
-				}
-			} else {
-				stop_animation();
-			}
-		}
-	}
-}
-
 var discover_triggers = func (verbose) {
 	var a = size(w1a_list_node.getChildren("sequence"));
 	triggers_list = [0, 0, 0, 0, 0, 0, 0, 0];
@@ -2157,7 +2090,7 @@ var discover_triggers = func (verbose) {
 		var t = props.globals.getNode("sim/model/walker[1]/animate/list/sequence[" ~ i ~"]", 1).getNode("trigger-upon", 1).getValue();
 		if (t == "Walking") {
 			if (triggers_list[1] == 0) {
-				setprop("sim/model/walker[1]/animate/triggers/walking", int(i));
+				trigger_walking_node.setValue(int(i));
 				if (verbose) {
 					print ("    found trigger: loading animation for walking to position ",i);
 				}
@@ -2168,7 +2101,7 @@ var discover_triggers = func (verbose) {
 			}
 		} elsif (t == "Running") {
 			if (triggers_list[2] == 0) {
-				setprop("sim/model/walker[1]/animate/triggers/running", int(i));
+				trigger_running_node.setValue(int(i));
 				if (verbose) {
 					print ("    found trigger: loading animation for running to position ",i);
 				}
@@ -2179,7 +2112,7 @@ var discover_triggers = func (verbose) {
 			}
 		} elsif (t == "Backwards") {
 			if (triggers_list[3] == 0) {
-				setprop("sim/model/walker[1]/animate/triggers/backwards", int(i));
+				trigger_backwards_node.setValue(int(i));
 				if (verbose) {
 					print ("    found trigger: loading animation for backwards to position ",i);
 				}
@@ -2190,7 +2123,7 @@ var discover_triggers = func (verbose) {
 			}
 		} elsif (t == "Standing") {
 			if (triggers_list[0] == 0) {
-				setprop("sim/model/walker[1]/animate/triggers/standing", int(i));
+				trigger_standing_node.setValue(int(i));
 				if (verbose) {
 					print ("    found trigger: loading animation for standing to position ",i);
 				}
@@ -2201,7 +2134,7 @@ var discover_triggers = func (verbose) {
 			}
 		} elsif (t == "Falling") {
 			if (triggers_list[4] == 0) {
-				setprop("sim/model/walker[1]/animate/triggers/falling", int(i));
+				trigger_falling_node.setValue(int(i));
 				if (verbose) {
 					print ("    found trigger: loading animation for falling to position ",i);
 				}
@@ -2212,7 +2145,7 @@ var discover_triggers = func (verbose) {
 			}
 		} elsif (t == "Open-Parachute") {
 			if (triggers_list[5] == 0) {
-				setprop("sim/model/walker[1]/animate/triggers/open-parachute", int(i));
+				trigger_open_parachute_node.setValue(int(i));
 				if (verbose) {
 					print ("    found trigger: loading animation for open-parachute to position ",i);
 				}
@@ -2223,7 +2156,7 @@ var discover_triggers = func (verbose) {
 			}
 		} elsif (t == "Landing") {
 			if (triggers_list[6] == 0) {
-				setprop("sim/model/walker[1]/animate/triggers/landing", int(i));
+				trigger_landing_node.setValue(int(i));
 				if (verbose) {
 					print ("    found trigger: loading animation for landing to position ",i);
 				}
@@ -2234,7 +2167,7 @@ var discover_triggers = func (verbose) {
 			}
 		} elsif (t == "Crashing") {
 			if (triggers_list[7] == 0) {
-				setprop("sim/model/walker[1]/animate/triggers/crashing", int(i));
+				trigger_crashing_node.setValue(int(i));
 				if (verbose) {
 					print ("    found trigger: loading animation for crashing to position ",i);
 				}
@@ -2252,39 +2185,17 @@ var discover_triggers = func (verbose) {
 	}
 	# add listener for each animation.
 	if (trig_c > 0) {
-		var desc = getprop("sim/description");
-		if (tw_L_id == nil) {
-			if (substr(desc, size(desc) - 3, 3) == "1.0") {
-				tw_L_id = setlistener("sim/walker/walking", func {
-					check_walk_animations_1();
-				},, 0);
-			}
-		}
-
 		if (tm_L_id == nil) {
-			if (substr(desc, size(desc) - 3, 3) == "1.0") {
-				tm_L_id = setlistener("sim/walker/walking-momentum", func {
-					check_walk_animations_1();
-				},, 0);
-			} else {
-				tm_L_id = setlistener("sim/walker/walking-momentum", func {
-					check_walk_animations();
-				},, 0);
-			}
+			tm_L_id = setlistener("sim/walker/walking-momentum", func {
+				check_walk_animations();
+			},, 0);
 		}
 
 		if (tr_L_id == nil) {
-			if (substr(desc, size(desc) - 3, 3) == "1.0") {
-				tr_L_id = setlistener("sim/walker/key-triggers/speed", func(n) {
-					w_key_speed = n.getValue();
-					check_walk_animations_1();
-				},, 0);
-			} else {
-				tr_L_id = setlistener("sim/walker/key-triggers/speed", func(n) {
-					w_key_speed = n.getValue();
-					check_walk_animations();
-				},, 0);
-			}
+			tr_L_id = setlistener("sim/walker/key-triggers/speed", func(n) {
+				w_key_speed = n.getValue();
+				check_walk_animations();
+			},, 0);
 		}
 
 		if (ta_L_id == nil) {

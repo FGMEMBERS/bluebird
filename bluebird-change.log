@@ -1,5 +1,17 @@
 Version# Vertices PolygonFaces Comments
 
+2009.Feb.07
+8.93	Restore missing [k] key to input.
+	Restore looking forward upon cockpit rotation.
+	Other minor nasal cleanup.
+
+2009.Feb.05
+8.92	Update pilot dialog to newest animation code.
+	Fix several minor bugs in combinations of walking positions
+	  and animation defects.
+	Add new animation choice for standing still.
+	Convert all images to PNG and remove support for 0.9.10 and 1.0.
+
 2009.Feb.04
 8.91	Cleanup of nasal to seek performance improvements
 
