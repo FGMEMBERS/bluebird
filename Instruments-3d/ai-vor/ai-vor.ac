@@ -1,8 +1,8 @@
 AC3Db
-MATERIAL "ac3dmat6" rgb 0 1 0  amb 0.2 0.2 0.2  emis 0 0 0  spec 0 0 0  shi 10  trans 1
-MATERIAL "illum" rgb 0.9 0.9 0.9  amb 0 0 0  emis 0 0 0  spec 0.5 0.5 0.5  shi 64  trans 0
-MATERIAL "bare-metal" rgb 0.233333 0.233333 0.233333  amb 0 0 0  emis 0 0 0  spec 0.9 0.9 0.9  shi 32  trans 0
-MATERIAL "BLACK_00" rgb 0 0 0  amb 0.5 0.5 0.5  emis 0 0 0  spec 0 0 0  shi 32  trans 0
+MATERIAL "ac3dmat6" rgb 0 1 0  amb 0 1 0  emis 0 0 0  spec 0 0 0  shi 10  trans 1
+MATERIAL "illum" rgb 0.9 0.9 0.9  amb 0.9 0.9 0.9  emis 0 0 0  spec 0.5 0.5 0.5  shi 64  trans 0
+MATERIAL "bare-metal" rgb 0.233 0.233 0.233  amb 0.233 0.233 0.233  emis 0 0 0  spec 0.9 0.9 0.9  shi 32  trans 0
+MATERIAL "BLACK_00" rgb 0 0 0  amb 0 0 0  emis 0 0 0  spec 0 0 0  shi 32  trans 0
 OBJECT world
 kids 14
 OBJECT group

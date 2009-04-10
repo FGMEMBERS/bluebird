@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!--== Bluebird version 9.0 ==-->
 
 <PropertyList>
 	<sim>
@@ -9,19 +10,19 @@
 					<fuselage-top>
 						<texture>leather.png</texture>
 						<diffuse>
-							<red>0.92</red>
-							<green>0.75</green>
-							<blue>0.1</blue>
+							<red>0.8</red>
+							<green>0.64</green>
+							<blue>0.32</blue>
 						</diffuse>
 						<ambient>
-							<red>0.69</red>
-							<green>0.54</green>
-							<blue>0.54</blue>
+							<red>0.8</red>
+							<green>0.64</green>
+							<blue>0.32</blue>
 						</ambient>
 						<specular>
-							<red>1.0</red>
-							<green>1.0</green>
-							<blue>1.0</blue>
+							<red>0.8</red>
+							<green>0.64</green>
+							<blue>0.32</blue>
 						</specular>
 						<shininess>20</shininess>
 					</fuselage-top>
@@ -29,19 +30,19 @@
 					<fuselage-upper>
 						<texture>leather.png</texture>
 						<diffuse>
-							<red>0.92</red>
-							<green>0.75</green>
-							<blue>0.1</blue>
+							<red>0.8</red>
+							<green>0.64</green>
+							<blue>0.32</blue>
 						</diffuse>
 						<ambient>
-							<red>0.69</red>
-							<green>0.54</green>
-							<blue>0.54</blue>
+							<red>0.8</red>
+							<green>0.64</green>
+							<blue>0.32</blue>
 						</ambient>
 						<specular>
-							<red>1.0</red>
-							<green>1.0</green>
-							<blue>1.0</blue>
+							<red>0.8</red>
+							<green>0.64</green>
+							<blue>0.32</blue>
 						</specular>
 						<shininess>20</shininess>
 					</fuselage-upper>
@@ -49,14 +50,14 @@
 					<hull-trim>
 						<texture>leather.png</texture>
 						<diffuse>
-							<red>0.1</red>
-							<green>0.1</green>
-							<blue>0.1</blue>
+							<red>0.29</red>
+							<green>0.25</green>
+							<blue>0.45</blue>
 						</diffuse>
 						<ambient>
-							<red>0.49</red>
-							<green>0.41</green>
-							<blue>0.80</blue>
+							<red>0.29</red>
+							<green>0.25</green>
+							<blue>0.45</blue>
 						</ambient>
 						<specular>
 							<red>0.8</red>
@@ -69,14 +70,14 @@
 					<fuselage-lower>
 						<texture>leather.png</texture>
 						<diffuse>
-							<red>0.1</red>
-							<green>0.1</green>
-							<blue>0.1</blue>
+							<red>0.29</red>
+							<green>0.25</green>
+							<blue>0.45</blue>
 						</diffuse>
 						<ambient>
-							<red>0.49</red>
-							<green>0.41</green>
-							<blue>0.80</blue>
+							<red>0.29</red>
+							<green>0.25</green>
+							<blue>0.45</blue>
 						</ambient>
 						<specular>
 							<red>0.8</red>
@@ -89,18 +90,18 @@
 					<hull-bottom>
 						<texture>brushed_alloy.png</texture>
 						<diffuse>
-							<red>0.1</red>
-							<green>0.1</green>
+							<red>0.78</red>
+							<green>0.54</green>
 							<blue>0.1</blue>
 						</diffuse>
 						<ambient>
-							<red>0.1</red>
-							<green>0.1</green>
+							<red>0.78</red>
+							<green>0.54</green>
 							<blue>0.1</blue>
 						</ambient>
 						<specular>
-							<red>0.1</red>
-							<green>0.1</green>
+							<red>0.78</red>
+							<green>0.54</green>
 							<blue>0.1</blue>
 						</specular>
 						<shininess>30</shininess>
@@ -109,14 +110,14 @@
 					<hull-wings>
 						<texture>leather_cream.png</texture>
 						<diffuse>
-							<red>0.92</red>
-							<green>0.75</green>
-							<blue>0.1</blue>
+							<red>0.78</red>
+							<green>0.66</green>
+							<blue>0.3</blue>
 						</diffuse>
 						<ambient>
-							<red>0.69</red>
-							<green>0.54</green>
-							<blue>0.54</blue>
+							<red>0.78</red>
+							<green>0.66</green>
+							<blue>0.3</blue>
 						</ambient>
 						<specular>
 							<red>1.0</red>
@@ -131,11 +132,11 @@
 						<diffuse>
 							<red>0.1</red>
 							<green>0.1</green>
-							<blue>0.1</blue>
+							<blue>0.18</blue>
 						</diffuse>
 						<ambient>
-							<red>0.18</red>
-							<green>0.18</green>
+							<red>0.1</red>
+							<green>0.1</green>
 							<blue>0.18</blue>
 						</ambient>
 						<specular>

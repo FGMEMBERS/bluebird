@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!--== Bluebird version 9.0 ==-->
 
 <PropertyList>
 	<sim>
@@ -9,9 +10,9 @@
 					<fuselage-top>
 						<texture>livery.png</texture>
 						<diffuse>
-							<red>0.1</red>
-							<green>0.1</green>
-							<blue>0.1</blue>
+							<red>0.5</red>
+							<green>0.75</green>
+							<blue>0.5</blue>
 						</diffuse>
 						<ambient>
 							<red>0.5</red>
@@ -29,13 +30,13 @@
 					<fuselage-upper>
 						<texture>livery.png</texture>
 						<diffuse>
-							<red>0.1</red>
-							<green>0.1</green>
-							<blue>0.1</blue>
+							<red>0.7</red>
+							<green>1</green>
+							<blue>0.7</blue>
 						</diffuse>
 						<ambient>
 							<red>0.7</red>
-							<green>1.0</green>
+							<green>1</green>
 							<blue>0.7</blue>
 						</ambient>
 						<specular>
@@ -49,13 +50,13 @@
 					<hull-trim>
 						<texture>livery.png</texture>
 						<diffuse>
-							<red>0.1</red>
-							<green>0.1</green>
-							<blue>0.1</blue>
+							<red>0.7</red>
+							<green>1</green>
+							<blue>0.7</blue>
 						</diffuse>
 						<ambient>
 							<red>0.7</red>
-							<green>1.0</green>
+							<green>1</green>
 							<blue>0.7</blue>
 						</ambient>
 						<specular>
@@ -69,14 +70,14 @@
 					<fuselage-lower>
 						<texture>livery.png</texture>
 						<diffuse>
-							<red>0.1</red>
-							<green>0.1</green>
-							<blue>0.1</blue>
+							<red>0.7</red>
+							<green>0.7</green>
+							<blue>0.7</blue>
 						</diffuse>
 						<ambient>
-							<red>0.8</red>
-							<green>0.8</green>
-							<blue>0.8</blue>
+							<red>0.7</red>
+							<green>0.7</green>
+							<blue>0.7</blue>
 						</ambient>
 						<specular>
 							<red>0.8</red>
@@ -89,14 +90,14 @@
 					<hull-bottom>
 						<texture>brushed_alloy.png</texture>
 						<diffuse>
-							<red>0.1</red>
-							<green>0.1</green>
-							<blue>0.1</blue>
+							<red>0.6</red>
+							<green>0.6</green>
+							<blue>0.6</blue>
 						</diffuse>
 						<ambient>
-							<red>0.4</red>
-							<green>0.4</green>
-							<blue>0.4</blue>
+							<red>0.6</red>
+							<green>0.6</green>
+							<blue>0.6</blue>
 						</ambient>
 						<specular>
 							<red>0.1</red>
@@ -109,14 +110,14 @@
 					<hull-wings>
 						<texture>livery.png</texture>
 						<diffuse>
-							<red>0.1</red>
-							<green>0.1</green>
-							<blue>0.1</blue>
+							<red>0.7</red>
+							<green>0.7</green>
+							<blue>0.7</blue>
 						</diffuse>
 						<ambient>
-							<red>0.6</red>
-							<green>0.6</green>
-							<blue>0.6</blue>
+							<red>0.7</red>
+							<green>0.7</green>
+							<blue>0.7</blue>
 						</ambient>
 						<specular>
 							<red>0.6</red>
@@ -129,14 +130,14 @@
 					<hull-sensors>
 						<texture>livery.png</texture>
 						<diffuse>
-							<red>0.1</red>
-							<green>0.1</green>
-							<blue>0.1</blue>
+							<red>0</red>
+							<green>0.4</green>
+							<blue>0.4</blue>
 						</diffuse>
 						<ambient>
 							<red>0</red>
-							<green>0.18</green>
-							<blue>0.38</blue>
+							<green>0.4</green>
+							<blue>0.4</blue>
 						</ambient>
 						<specular>
 							<red>1</red>
