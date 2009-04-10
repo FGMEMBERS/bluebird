@@ -1,4 +1,9 @@
-# ===== Bluebird Explorer Hovercraft  version 8.93 for FlightGear 1.9 OSG =====
+# ===== Bluebird Explorer Hovercraft  version 9.0 for FlightGear 1.9 OSG =====
+
+# set new_ambient to 0  if running FlightGear version 1.9.1 or less
+# set new_ambient to 1  if running FlightGear newer than 2009.Mar.26
+#  which changes how ambient light is rendered
+var new_ambient = 1;
 
 # strobes -----------------------------------------------------------
 var strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
@@ -76,8 +81,6 @@ var door5_adjpos = props.globals.getNode("sim/model/bluebird/doors/door[5]/posit
 var gear = [];
 append(gear, aircraft.door.new("gear/gear[0]", 3));
 append(gear, aircraft.door.new("gear/gear[1]", 2.8));
-var gear_0_pos = props.globals.getNode("gear/gear[0]/position-norm", 1);
-var gear_1_pos = props.globals.getNode("gear/gear[1]/position-norm", 1);
 
 # movement and position ---------------------------------------------
 var airspeed_kt_Node = props.globals.getNode("velocities/airspeed-kt", 1);
@@ -93,11 +96,11 @@ var limit = [1, 3, 6, 7, 1, 3, 6, 10];
 var current = props.globals.getNode("engines/engine/speed-max-powerlevel", 1);
 
 # VTOL counter-grav -------------------------------------------------
-# ---  expect joystick hat to provide best VTOL control ----
 var joystick_elevator = props.globals.getNode("input/joysticks/js/axis[1]/binding/setting", 1);
-var vert_factor = 0.04;
-var up_dir = 0;
-var up_watch = 0;
+var countergrav = { input_type: 0, momentum_watch: 0, momentum: 0, up_factor: 0, request: 0, control_factor: 6 };
+	# input_type ; 1 = keyboard, 2 = joystick, 3 = mouse
+	# request = for during startup, includes timer to cancel request if no further requests are made. Returns to zero after complete.
+	# control_factor = multiplier or power level from lever next to throttle, for VTOL movement
 var joystick_collective = props.globals.getNode("controls/engines/countergrav-factor", 1);
 
 # ground detection and adjustment -----------------------------------
@@ -278,8 +281,6 @@ var wave1_request = 1;
 var wave1_level = 1;
 var wave2_request = 0;
 var wave2_level = 0;
-var countergrav_request = 0;	# request to startup, includes timer to cancel request if no further requests are made. Returns to zero after complete.
-var countergrav_factor = 6;	# multiplier or power level for VTOL movement
 var reactor_state = 0;		# destination level for reactor_level
 var reactor_drift = 0;		# follows reactor_state, equal to engines_glow_level
 var wave_state = 0;		# state = destination level
@@ -349,8 +350,8 @@ var reinit_bluebird = func {	# reset the above variables
 	wave1_level = 1;
 	wave2_request = 0;
 	wave2_level = 0;
-	countergrav_request = 0;
-	countergrav_factor = 6;
+	countergrav.request = 0;
+	countergrav.control_factor = 6;
 	reactor_state = 0;
 	reactor_drift = 0;
 	wave_state = 0;
@@ -677,7 +678,7 @@ setlistener("sim/model/bluebird/systems/power-switch", func(n) {
 	}
 });
 
-setlistener("controls/engines/countergrav-factor", func(n) { countergrav_factor = n.getValue() },, 0);
+setlistener("controls/engines/countergrav-factor", func(n) { countergrav.control_factor = n.getValue() },, 0);
 
 setlistener("sim/model/bluebird/systems/reactor-request", func(n) { reactor_request = n.getValue() },, 0);
 
@@ -1591,6 +1592,7 @@ var panel_lighting_loop = func {
 	}
 }
 
+
 #==========================================================================
 # loop function #2 called by interior_lighting_loop every 3 seconds
 #    or every 0.25 when time warp or every 0.05 during condition red lighting
@@ -1602,10 +1604,18 @@ var interior_lighting_update = func {
 	if (power_switch) {
 		if (int_switch) {
 			if (visibility < 5000 or sun_angle > 1.4) {
-				if (sun_angle < 1.8) {
-					intli = (sun_angle - 1.4) * 17.5;
-				} else {
+				if (sun_angle < 1.8) {	# dawn and dusk
+					if (new_ambient) {
+						intli = ((sun_angle - 1.4) * 7.5) + 4;	# after 2009.Mar.26
+					} else {
+						intli = (sun_angle - 1.4) * 17.5;	# up to FG version 1.9.1
+					}
+				} else {	# night
 					intli = 7;
+				}
+			} else {	# day
+				if (new_ambient) {
+					intli = 4;	# new ambient level changes minimum emission to 4
 				}
 			}
 		}
@@ -2281,7 +2291,7 @@ var update_main = func {
 				if (lose_altitude > 0.2) {
 					lose_altitude = 0.2;  # avoid bouncing by simulating gravity
 				}
-				if (!countergrav_request) {
+				if (!countergrav.request) {
 					if (!reactor_request) {
 						settle_to_level();
 					}
@@ -2373,7 +2383,11 @@ var update_main = func {
 			if (agl > 10) {   # not in ground contact, glide
 				max_lose = max_lose + (0.005 * abs(pitch_d));
 			} else {     # rapid deceleration
-				max_lose = asas * 0.2;
+				if (gear_position) {
+					max_lose = (asas > 15 ? (asas * 0.2) : 3);
+				} else {
+					max_lose = (asas < 80 ? (asas > 20 ? 16 : ((100 - asas) * asas * 0.01)) : (asas * 0.2));
+				}
 			}
 	# need to import acceleration physics calculations from walker
 			if (max_lose > 10) {  # don't decelerate too quickly
@@ -2385,7 +2399,7 @@ var update_main = func {
 					}
 				}
 			}
-			if (asas < 2) {  # already stopped
+			if (asas < 5) {  # already stopped
 				maxspeed.setDoubleValue(0);
 				setprop("controls/engines/engine/throttle", 0.0);
 			}
@@ -2444,18 +2458,17 @@ var update_main = func {
 		current.setValue(cpl);
 
 		# vtol control in cockpit yoke
-		var rh_t = hover_reset_timer;
-		if (rh_t > 0) {
-			if (rh_t < 0.7) {
+		if (hover_reset_timer > 0) {
+			hover_reset_timer -= 0.1;
+			if (hover_reset_timer < 0.9 or countergrav.momentum_watch < 3) {
 				var rh_x = (getprop("sim/model/bluebird/position/hover-rise") * 0.5);
 				if (abs(rh_x) < 0.1) {
 					setprop("sim/model/bluebird/position/hover-rise", 0);
-					rh_t = 0.1;
+					hover_reset_timer = 0;
 				} else {
 					setprop("sim/model/bluebird/position/hover-rise", rh_x);
 				}
 			}
-			hover_reset_timer = rh_t - 0.1;
 		}
 
 		# === sound section based on position/airspeed/altitude ===
@@ -2465,20 +2478,24 @@ var update_main = func {
 			if (reactor_drift < 1 and slv > 1) {  # shutdown reactor before timer shutdown of standby power
 				slv = 0.99;
 			}
-			if (asas < 1 and agl < 2 and !countergrav_request) {
+			if (asas < 1 and agl < 2 and !countergrav.request) {
 				if (sound_state and slv > 0.999) {  # shutdown request by landing has 2.5 sec delay
 					slv = 2.5;
 				}
 				sound_state = 0;
 			} else {
-				if (((reactor_state < reactor_drift) or (!reactor_state)) and asas < 5 and !countergrav_request) {  # countergrav shutdown
+				if (((reactor_state < reactor_drift) or (!reactor_state)) and asas < 5 and !countergrav.request) {  # countergrav shutdown
 					sound_state = 0;
-					countergrav_request = 0;
+					countergrav.request = 0;
+					if (countergrav.momentum_watch) {
+						countergrav.up_factor = 0;
+						countergrav.momentum_watch -= 1;
+					}
 					if (slv >= 1) {
 						slv = 0.99;
 					}
 				} else {
-					if (asas > 5 or agl >= 2 or countergrav_request) {
+					if (asas > 5 or agl >= 2 or countergrav.request) {
 						sound_state = 1;
 					} else {
 						sound_state = 0;
@@ -2489,7 +2506,7 @@ var update_main = func {
 			if (sound_state) {  # power shutdown with reactor on. single entry.
 				slv = 0.99;
 				sound_state = 0;
-				countergrav_request = 0;
+				countergrav.request = 0;
 			}
 		}
 		if (sound_state != slv) {  # ramp up reactor sound fast or down slow
@@ -2500,16 +2517,16 @@ var update_main = func {
 			}
 			if (sound_state and slv > 1.0) {  # bounds check
 				slv = 1.000;
-				countergrav_request = 0;
+				countergrav.request = 0;
 			}
-			if (slv > 0.5 and countergrav_request > 0) {
-				if (countergrav_request <= 1) {
-					countergrav_request -= 0.025;  # reached sufficient power to turn off trigger
+			if (slv > 0.5 and countergrav.request > 0) {
+				if (countergrav.request <= 1) {
+					countergrav.request -= 0.025;  # reached sufficient power to turn off trigger
 					setprop("instrumentation/display-screens/t1L-20", "POWERING DOWN  2391");
 					slv -= 0.02;  # hold this level for a couple seconds until either another
 					# keyboard/joystick request confirms startup, or time expires and shutdown
-					if (countergrav_request < 0.1) {
-						countergrav_request = 0;  # holding time expired
+					if (countergrav.request < 0.1) {
+						countergrav.request = 0;  # holding time expired
 					}
 				}
 			}
@@ -2663,12 +2680,9 @@ controls.elevatorTrim = func(et_d) {
 	if (!et_d) {
 		return;
 	} else {
+		countergrav.input_type = 2;
 		var js1pitch = abs(joystick_elevator.getValue());
-		if (et_d < 0) {
-			up(-1, js1pitch, 2);
-		} elsif (et_d > 0) {
-			up(1, js1pitch, 2);
-		}
+		up((et_d < 0 ? -1 : 1), js1pitch, 2);
 	}
 }
 
@@ -2679,6 +2693,10 @@ var reset_landing = func {
 setlistener("sim/model/bluebird/position/landing-wow", func(n) {
 	if (n.getValue()) {
 		settimer(reset_landing, 0.4);
+	}
+	if (countergrav.momentum) {
+		countergrav.up_factor = 0;
+		countergrav.momentum_watch -= 1;
 	}
 },, 0);
 
@@ -2696,45 +2714,108 @@ var reset_crash = func {
 	setprop("sim/model/bluebird/position/crash-wow", 0);
 }
 
+# mouse hover -------------------------------------------------------
+#var KbdShift = props.globals.getNode("/devices/status/keyboard/shift");
+#var KbdCtrl = props.globals.getNode("/devices/status/keyboard/ctrl");
+var mouse = { savex: nil, savey: nil };
+setlistener("/sim/startup/xsize", func(n) mouse.centerx = int(n.getValue() / 2), 1);
+setlistener("/sim/startup/ysize", func(n) mouse.centery = int(n.getValue() / 2), 1);
+setlistener("/sim/mouse/hide-cursor", func(n) mouse.hide = n.getValue(), 1);
+#setlistener("/devices/status/mice/mouse/x", func(n) mouse.x = n.getValue(), 1);
+setlistener("/devices/status/mice/mouse/y", func(n) mouse.y = n.getValue(), 1);
+setlistener("/devices/status/mice/mouse/mode", func(n) mouse.mode = n.getValue(), 1);
+setlistener("/devices/status/mice/mouse/button[0]", func(n) mouse.lmb = n.getValue(), 1);
+setlistener("/devices/status/mice/mouse/button[1]", func(n) {
+	mouse.mmb = n.getValue();
+	if (mouse.mode)
+		return;
+	if (mouse.mmb) {
+		controls.centerFlightControls();
+#		mouse.savex = mouse.x;
+		mouse.savey = mouse.y;
+		gui.setCursor(mouse.centerx, mouse.centery, "none");
+	} else {
+		gui.setCursor(mouse.savex, mouse.savey, "pointer");
+		countergrav.up_factor = 0;
+		if (countergrav.momentum_watch > 0) {
+			countergrav.momentum_watch -= 1;
+		}
+	}
+}, 1);
+setlistener("/devices/status/mice/mouse/button[2]", func(n) {
+	mouse.rmb = n.getValue();
+	if (countergrav.momentum_watch) {
+		countergrav.up_factor = 0;
+		countergrav.momentum_watch -= 1;
+	}
+}, 1);
+
+
+mouse.loop = func {
+	if (mouse.mode or !mouse.mmb) {
+		return settimer(mouse.loop, 0);
+	}
+#	var dx = mouse.x - mouse.centerx;
+	var dy = -mouse.y + mouse.centery;
+	if (dy) {
+		countergrav.input_type = 3;
+		countergrav.up_factor = dy * 0.001;
+		if (countergrav.momentum_watch < 1) {
+			countergrav.momentum_watch = 3;
+			coast_up(coast_loop_id += 1);
+		}
+		gui.setCursor(mouse.centerx, mouse.centery);
+	}
+	settimer(mouse.loop, 0);
+}
+mouse.loop();
+
+# keyboard hover ----------------------------------------------------
 setlistener("sim/model/bluebird/hover/key-up", func(n) {
 	var key_dir = n.getValue();
-	if (key_dir) {	# repetitive input or lack of older mod-up keeps triggering
-		up_dir = key_dir;	# remember current direction
-		if (up_watch == 0) {
-			up_watch = 3;	# start or reset timer for countdown
-			coast_up();	# starting from rest, start new loop
+	if (key_dir) {	# repetitive input or lack of older mod-up may keep triggering
+		countergrav.input_type = 1;
+		countergrav.up_factor = (key_dir < 0 ? -0.01 : 0.01);
+		if (countergrav.momentum_watch == 0) {
+			countergrav.momentum_watch = 3;	# start or reset timer for countdown
+			coast_up(coast_loop_id += 1);	# starting from rest, start new loop
 		} else {
-			up_watch = 3;	# reset watcher
+			countergrav.momentum_watch = 3;	# reset watcher
 		}
 	} else {
-		# last heard was zero
-		up_watch -= 1;
-		if (up_watch < 0) {
-			up_watch = 0;
+		countergrav.momentum_watch -= 1;
+		countergrav.up_factor = 0;
+		if (countergrav.momentum_watch < 0) {
+			countergrav.momentum_watch = 0;
 		}
 	}
 });
 
-var coast_up = func {
-	if (up_watch >= 3) {
-		if (vert_factor < 4.0) {
-			vert_factor += 0.03;
+var coast_loop_id = 0;
+var coast_up = func (id) {
+	id == coast_loop_id or return;
+	if (countergrav.momentum_watch >= 3) {
+		countergrav.momentum += countergrav.up_factor;
+		if (countergrav.input_type == 3) {
+			countergrav.up_factor = 0;
 		}
-		up(up_dir, 0.1, 1);
-	} elsif (up_watch >= 2) {
-		up(up_dir, 0.1, 1);
-		up_watch -= 1;
+		if (abs(countergrav.momentum) > 2.0) {
+			countergrav.momentum = (countergrav.momentum < 0 ? -2.0 : 2.0);
+		}
+	} elsif (countergrav.momentum_watch >= 2) {
+		countergrav.momentum_watch -= 1;
 	} else {
-		vert_factor = vert_factor * 0.2;
-		if (vert_factor < 0.04) {
-			vert_factor = 0.04;
-			up_watch = 0;
-		} else {
-			up(up_dir, 0.1, 1);
+		countergrav.momentum = countergrav.momentum * 0.75;
+		if (abs(countergrav.momentum) < 0.02) {
+			countergrav.momentum = 0;
+			countergrav.momentum_watch = 0;
 		}
 	}
-	if (up_watch) {
-		settimer(coast_up,0.01);
+	if (countergrav.momentum) {
+		up((countergrav.momentum < 0 ? -1 : 1), countergrav.momentum, countergrav.input_type);
+	}
+	if (countergrav.momentum_watch) {
+		settimer(func { coast_up(coast_loop_id += 1) }, 0);
 	}
 }
 
@@ -2742,19 +2823,18 @@ var up = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=sour
 	var entry_altitude = altitude_ft_Node.getValue();
 	var altitude = entry_altitude;
 	contact_altitude = altitude - vertical_offset_ft - gear_height - hover_add;
-	if (hg_mode == 1) {
-		# 1 = keyboard
-		# set anti-grav power level below here. default= *4
-		var hg_rise = hg_thrust * vert_factor * countergrav_factor * hg_dir;
+	if (hg_mode == 1 or hg_mode == 3) {
+		# 1 = keyboard , 3 = mouse
+		var hg_rise = countergrav.momentum * countergrav.control_factor;
 	} else {
 		# 0 = gravity , 2 = joystick
-		var hg_rise = hg_thrust * countergrav_factor * hg_dir;
+		var hg_rise = hg_thrust * countergrav.control_factor * hg_dir;
 	}
 	var contact_rise = contact_altitude + hg_rise;
 	if (hg_dir < 0) {    # down requested by drift, fall, or VTOL down buttons
 		if (contact_rise < h_contact_target_alt) {  # too low
 			contact_rise = h_contact_target_alt + 0.0001;
-			if ((contact_rise < contact_altitude) and !countergrav_request) {
+			if ((contact_rise < contact_altitude) and !countergrav.request) {
 				if (asas < 40) {  # ground contact by landing or falling fast
 					if (lose_altitude > 0.2 or hg_rise < -0.5) {
 						var already_landed = getprop("sim/model/bluebird/position/landing-wow");
@@ -2785,7 +2865,7 @@ var up = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=sour
 				lose_altitude = lose_altitude * 0.5;
 			}
 		}
-		if (!countergrav_request) {  # fall unless countergrav just requested
+		if (!countergrav.request) {  # fall unless countergrav just requested
 			altitude = contact_rise + vertical_offset_ft + gear_height + hover_add;
 			altitude_ft_Node.setDoubleValue(altitude);
 			contact_altitude = contact_rise;
@@ -2794,7 +2874,7 @@ var up = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=sour
 		if (reactor_drift < 0.5 and reactor_level) {  # on standby, power up requested for hover up
 			if (power_switch) {
 				setprop("sim/model/bluebird/systems/reactor-request", 1);
-				countergrav_request += 1;   # keep from forgetting until reactor powers up over 0.5
+				countergrav.request += 1;   # keep from forgetting until reactor powers up over 0.5
 			}
 		}
 		if (reactor_drift > 0.2 and reactor_level) {  # sufficient power to comply and lift
@@ -2808,14 +2888,20 @@ var up = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=sour
 		var text_5R = sprintf("% 10.3f   % 8.2f     % 6.2f",hg_rise,reactor_drift,lose_altitude);
 		displayScreens.scroll_5R(text_5R);
 	}
-	if (hg_mode) {  # keyboard or joystick request
-		# move control yoke up or down
+	if (hg_mode) {
+		# move control yoke up or down. maximum rotation = 4 deg.
+		var new_rise = 0;
 		if (hg_mode == 2) {	# joystick
-			setprop("sim/model/bluebird/position/hover-rise", (3.3 * hg_thrust * hg_dir));
-		} else {	# keyboard
-			setprop("sim/model/bluebird/position/hover-rise", (14 * hg_thrust * hg_dir));
+			new_rise = 3.3 * hg_thrust * hg_dir;
+			hover_reset_timer = 1.0;
+			setprop("sim/model/bluebird/position/hover-rise", new_rise);
+		} else {
+			if (countergrav.momentum_watch >= 3) {
+				new_rise = countergrav.momentum * 1.66 + (hg_dir < 0 ? -1 : 1);
+				hover_reset_timer = 1.0;
+				setprop("sim/model/bluebird/position/hover-rise", new_rise);
+			}
 		}
-		hover_reset_timer = 1.0;
 	}
 	if ((entry_altitude + hg_rise + 0.01) < altitude) {  # did not achieve full request. must've touched ground
 		if (lose_altitude > 0.2) {
@@ -3991,5 +4077,5 @@ var showDialog2 = func {
  var t = getprop("/sim/description");
  print (t);
  var v = getprop("/sim/aircraft-version");
- print ("  version ",v,"  release date 2009.Feb.07  by Stewart Andreason");
+ print ("  version ",v,"  release date 2009.Apr.10  by Stewart Andreason");
 });

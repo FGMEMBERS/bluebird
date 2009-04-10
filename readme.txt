@@ -1,10 +1,17 @@
 Read this First:
-After unzipping this file into your $FGBASE/data/Aircraft directory,
+After unzipping this ZIP file into your $FGBASE/data/Aircraft directory,
+
+If you are running the newest OSG version of FlightGear, 
+  1.9.0 or 1.9.1 built before 2009.Mar.26 (when new ambient color support was added),
+  ** Edit bluebird/Nasal/bluebird.nas line 6 as per directions at the top of that file.
+
+  No changes are needed for newest CVS version as of this release date.
+
 Choose your aircraft:
  start Flightgear with the following parameter:
 
 If you are running the newest version of FlightGear, 
-  version 1.9 or cvs built with OpenSceneGraph,
+  version 1.9 or 1.9.1 built before 2009.Mar.26,
     --aircraft=bluebird
 
 If you are running FlightGear version 1.0 (with Plib)
@@ -16,7 +23,9 @@ If you are running FlightGear version 1.0 (with Plib)
 
 After the simulator starts up, your power is on, the engines 
   are on standby, and ready to throttle up.
-  To hover up, press [Home] to spin up the counter-grav hover fans.
+  To hover up, press [Home] to spin up the counter-grav hover fans,
+  or drag the middle mouse button in pointer mode.
+
 Press [?] for help with keyboard shortcuts specific to this model.
 For more basic help, press [F10] to toggle the menu bar, 
   then select Help, and Basic Keys.
@@ -82,12 +91,6 @@ Highlights in this model:
    or climb non-vertical walls.
   Multiplayer
   Walker animations.
-
-  Support for next OSG version 1.9:
-     start with aircraft=bluebird-osg
-  Compatibility with previous Flightgear version 0.9.10:
-     start with aircraft=bluebird-09
-     Does not support newest features like particles, tracking, or walker.
 
 Current development level is: Early-Production
  All significant bugs within my model are (believed to be) fixed.

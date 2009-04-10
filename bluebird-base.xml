@@ -4,7 +4,7 @@
  <sim>
 	<aero>bluebird</aero>
 	<status>early-production</status>
-	<aircraft-version>8.93</aircraft-version>
+	<aircraft-version>9.0</aircraft-version>
 	<author>S Andreason</author>
 	<aircraft-status>
 		<fdm>beta</fdm>
@@ -987,6 +987,22 @@
 			<name>fire trigger</name>
 			<desc>Reverse direction - fly backwards</desc>
 		</key>
+		<key n="34">
+			<name>Middle Mouse Button</name>
+			<desc>Pointer mode extras:</desc>
+		</key>
+		<key n="35">
+			<name>Drag MMB up</name>
+			<desc>Counter-grav VTOL up</desc>
+		</key>
+		<key n="36">
+			<name>Drag MMB down</name>
+			<desc>Counter-grav VTOL down</desc>
+		</key>
+		<key n="37">
+			<name>click MMB</name>
+			<desc>Center aileron and elevator</desc>
+		</key>
 	</help>
 
 	<lon-lat-format type="int">0</lon-lat-format>
@@ -1168,6 +1184,15 @@
 
  <input>
 	<keyboard>
+		<key n="16">
+			<name>ctrl-p</name>
+			<desc>Toggle walker paused</desc>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>sim/walker/pause-walker</property>
+			</binding>
+		</key>
 		<key n="9">
 			<name>Ctrl-I</name>
 			<desc>Show dialog</desc>

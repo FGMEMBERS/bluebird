@@ -1,5 +1,14 @@
 Version# Vertices PolygonFaces Comments
 
+2009.Apr.10
+9.0	22686	17528	Changes to all .ac model files
+	Fix ambient values to match rgb colors.
+	Change ambient and emission levels to match new lighting levels in Development CVS.
+	Update all livery files.
+	Fix bug in right landing gear color.
+	Add hover control to middle mouse button.
+	Adjust deleration upon skidding of unpowered landing.
+
 2009.Feb.07
 8.93	Restore missing [k] key to input.
 	Restore looking forward upon cockpit rotation.

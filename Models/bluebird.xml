@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 8.8 common base ==-->
+<!--== Bluebird version 9.0 common base ==-->
 
 <PropertyList>
 
-<!--== mesh series 8 == 22690 vertices == 17528 faces ==-->
+<!--== mesh series 8 == 22686 vertices == 17528 faces ==-->
 	<path>bluebird6.ac</path>
 	<texture-path>Textures</texture-path>
 
