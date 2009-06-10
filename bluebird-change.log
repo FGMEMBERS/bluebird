@@ -1,5 +1,22 @@
 Version# Vertices PolygonFaces Comments
 
+2009.Jun.05
+10.0	23635	17794	replace bluebird model
+	Separate interior objects into new shadow lighting layout.
+	Add some texturing to interior.
+	New calculations for lighting on interior surfaces.
+
+2009.May.22
+9.1	Add timer to reduce particle drain after crash.
+	Restrict tracking text visibility to cockpit view.
+	Change particle spray pattern from dust.
+	Remove need to manually edit which version of FlightGear is being run for ambient and emission levels.
+	Restructure ambient and emission properties for interior lighting.
+	Fix reset of tracking display upon reset.
+	FIX: Walker can walk under bridges.
+	     Requires CVS build after 2009.Mar.18
+	FIX: Hover up to reset after hard landing.
+
 2009.Apr.10
 9.0	22686	17528	Changes to all .ac model files
 	Fix ambient values to match rgb colors.
@@ -7,7 +24,10 @@ Version# Vertices PolygonFaces Comments
 	Update all livery files.
 	Fix bug in right landing gear color.
 	Add hover control to middle mouse button.
-	Adjust deleration upon skidding of unpowered landing.
+	Adjust deceleration upon skidding of unpowered landing.
+
+2009.Feb.09
+8.93-AI	Update AI Multiplayer models to get in sync with primary package.
 
 2009.Feb.07
 8.93	Restore missing [k] key to input.

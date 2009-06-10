@@ -1,17 +1,11 @@
 Read this First:
 After unzipping this ZIP file into your $FGBASE/data/Aircraft directory,
 
-If you are running the newest OSG version of FlightGear, 
-  1.9.0 or 1.9.1 built before 2009.Mar.26 (when new ambient color support was added),
-  ** Edit bluebird/Nasal/bluebird.nas line 6 as per directions at the top of that file.
-
-  No changes are needed for newest CVS version as of this release date.
-
 Choose your aircraft:
  start Flightgear with the following parameter:
 
 If you are running the newest version of FlightGear, 
-  version 1.9 or 1.9.1 built before 2009.Mar.26,
+  version 1.9 or cvs built with OpenSceneGraph,
     --aircraft=bluebird
 
 If you are running FlightGear version 1.0 (with Plib)

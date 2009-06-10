@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<!--== walker animation v1.1 for pilot in FlightGear version 1.9 with OSG   ==-->
-<!--== Bluebird Explorer Hovercraft  version 8.8 ==-->
+<!--== walker animation v1.2 for pilot in FlightGear version 1.9 with OSG   ==-->
+<!--== Bluebird Explorer Hovercraft  version 9.1 ==-->
 
 <PropertyList>
 	<path>waldo.ac</path>
@@ -679,153 +679,288 @@
  <animation>
 	<type>material</type>
 	<object-name>hip_1</object-name>
+	<property-base>sim/model/bluebird/lighting</property-base>
 	<emission>
-		<red-prop>sim/model/bluebird/lighting/emission/I3-red</red-prop>
-		<green-prop>sim/model/bluebird/lighting/emission/I3g-3b</green-prop>
-		<blue-prop>sim/model/bluebird/lighting/emission/I3g-3b</blue-prop>
-		<factor>0.75</factor>
+		<red-prop>waldo/emission/red</red-prop>
+		<green-prop>waldo/emission/gb</green-prop>
+		<blue-prop>waldo/emission/gb</blue-prop>
+		<factor>0.6</factor>
 	</emission>
 	<specular>
-		<factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+		<factor-prop>interior-specular</factor-prop>
 		<red>1</red>
 		<green>1</green>
 		<blue>1</blue>
 	</specular>
+	<ambient>
+		<red-prop>waldo/emission/red</red-prop>
+		<green-prop>waldo/emission/gb</green-prop>
+		<blue-prop>waldo/emission/gb</blue-prop>
+		<factor>0.4</factor>
+		<offset>0.6</offset>
+	</ambient>
+	<diffuse>
+		<factor-prop>interior-specular</factor-prop>
+		<red>0.35</red>
+		<green>0.35</green>
+		<blue>0.35</blue>
+		<offset>0.05</offset>
+	</diffuse>
  </animation>
 
  <animation>
 	<type>material</type>
 	<object-name>chest_0</object-name>
+	<property-base>sim/model/bluebird/lighting</property-base>
 	<emission>
-		<red-prop>sim/model/bluebird/lighting/emission/I3-red</red-prop>
-		<green-prop>sim/model/bluebird/lighting/emission/I3g-3b</green-prop>
-		<blue-prop>sim/model/bluebird/lighting/emission/I3g-3b</blue-prop>
-		<factor>0.75</factor>
+		<red-prop>waldo/emission/red</red-prop>
+		<green-prop>waldo/emission/gb</green-prop>
+		<blue-prop>waldo/emission/gb</blue-prop>
+		<factor>0.6</factor>
 	</emission>
 	<specular>
-		<factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+		<factor-prop>interior-specular</factor-prop>
 		<red>1</red>
 		<green>1</green>
 		<blue>1</blue>
 	</specular>
+	<ambient>
+		<red-prop>waldo/emission/red</red-prop>
+		<green-prop>waldo/emission/gb</green-prop>
+		<blue-prop>waldo/emission/gb</blue-prop>
+		<factor>0.4</factor>
+		<offset>0.6</offset>
+	</ambient>
+	<diffuse>
+		<factor-prop>interior-specular</factor-prop>
+		<red>0.35</red>
+		<green>0.35</green>
+		<blue>0.35</blue>
+		<offset>0.05</offset>
+	</diffuse>
  </animation>
 
  <animation>
 	<type>material</type>
 	<object-name>collar</object-name>
+	<property-base>sim/model/bluebird/lighting</property-base>
 	<emission>
-		<red-prop>sim/model/bluebird/lighting/emission/I3-red</red-prop>
-		<green-prop>sim/model/bluebird/lighting/emission/I3g-3b</green-prop>
-		<blue-prop>sim/model/bluebird/lighting/emission/I3g-3b</blue-prop>
-		<factor>0.75</factor>
+		<red-prop>waldo/emission/red</red-prop>
+		<green-prop>waldo/emission/gb</green-prop>
+		<blue-prop>waldo/emission/gb</blue-prop>
+		<factor>0.6</factor>
 	</emission>
 	<specular>
-		<factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+		<factor-prop>interior-specular</factor-prop>
 		<red>1</red>
 		<green>1</green>
 		<blue>1</blue>
 	</specular>
+	<ambient>
+		<red-prop>waldo/emission/red</red-prop>
+		<green-prop>waldo/emission/gb</green-prop>
+		<blue-prop>waldo/emission/gb</blue-prop>
+		<factor>0.4</factor>
+		<offset>0.6</offset>
+	</ambient>
+	<diffuse>
+		<factor-prop>interior-specular</factor-prop>
+		<red>0.35</red>
+		<green>0.35</green>
+		<blue>0.35</blue>
+		<offset>0.05</offset>
+	</diffuse>
  </animation>
 
  <animation>
 	<type>material</type>
 	<object-name>hair</object-name>
+	<property-base>sim/model/bluebird/lighting</property-base>
 	<emission>
-		<red-prop>sim/model/bluebird/lighting/emission/I3-red</red-prop>
-		<green-prop>sim/model/bluebird/lighting/emission/I3g-3b</green-prop>
-		<blue-prop>sim/model/bluebird/lighting/emission/I3g-3b</blue-prop>
-		<factor>0.75</factor>
+		<red-prop>waldo/emission/red</red-prop>
+		<green-prop>waldo/emission/gb</green-prop>
+		<blue-prop>waldo/emission/gb</blue-prop>
+		<factor>0.6</factor>
 	</emission>
 	<specular>
-		<factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+		<factor-prop>interior-specular</factor-prop>
 		<red>1</red>
 		<green>1</green>
 		<blue>1</blue>
 	</specular>
+	<ambient>
+		<red-prop>waldo/emission/red</red-prop>
+		<green-prop>waldo/emission/gb</green-prop>
+		<blue-prop>waldo/emission/gb</blue-prop>
+		<factor>0.4</factor>
+		<offset>0.6</offset>
+	</ambient>
+	<diffuse>
+		<factor-prop>interior-specular</factor-prop>
+		<red>0.35</red>
+		<green>0.35</green>
+		<blue>0.35</blue>
+		<offset>0.05</offset>
+	</diffuse>
  </animation>
 
  <animation>
 	<type>material</type>
 	<object-name>head_0</object-name>
+	<property-base>sim/model/bluebird/lighting</property-base>
 	<emission>
-		<red-prop>sim/model/bluebird/lighting/emission/I3-red</red-prop>
-		<green-prop>sim/model/bluebird/lighting/emission/I3g-3b</green-prop>
-		<blue-prop>sim/model/bluebird/lighting/emission/I3g-3b</blue-prop>
-		<factor>0.75</factor>
+		<red-prop>waldo/emission/red</red-prop>
+		<green-prop>waldo/emission/gb</green-prop>
+		<blue-prop>waldo/emission/gb</blue-prop>
+		<factor>0.6</factor>
 	</emission>
 	<specular>
-		<factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+		<factor-prop>interior-specular</factor-prop>
 		<red>1</red>
 		<green>1</green>
 		<blue>1</blue>
 	</specular>
+	<ambient>
+		<red-prop>waldo/emission/red</red-prop>
+		<green-prop>waldo/emission/gb</green-prop>
+		<blue-prop>waldo/emission/gb</blue-prop>
+		<factor>0.4</factor>
+		<offset>0.6</offset>
+	</ambient>
+	<diffuse>
+		<factor-prop>interior-specular</factor-prop>
+		<red>0.35</red>
+		<green>0.35</green>
+		<blue>0.35</blue>
+		<offset>0.05</offset>
+	</diffuse>
  </animation>
 
  <animation>
 	<type>material</type>
 	<object-name>arm1.L</object-name>
+	<property-base>sim/model/bluebird/lighting</property-base>
 	<emission>
-		<red-prop>sim/model/bluebird/lighting/emission/I3-red</red-prop>
-		<green-prop>sim/model/bluebird/lighting/emission/I3g-3b</green-prop>
-		<blue-prop>sim/model/bluebird/lighting/emission/I3g-3b</blue-prop>
-		<factor>0.75</factor>
+		<red-prop>waldo/emission/red</red-prop>
+		<green-prop>waldo/emission/gb</green-prop>
+		<blue-prop>waldo/emission/gb</blue-prop>
+		<factor>0.6</factor>
 	</emission>
 	<specular>
-		<factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+		<factor-prop>interior-specular</factor-prop>
 		<red>1</red>
 		<green>1</green>
 		<blue>1</blue>
 	</specular>
+	<ambient>
+		<red-prop>waldo/emission/red</red-prop>
+		<green-prop>waldo/emission/gb</green-prop>
+		<blue-prop>waldo/emission/gb</blue-prop>
+		<factor>0.4</factor>
+		<offset>0.6</offset>
+	</ambient>
+	<diffuse>
+		<factor-prop>interior-specular</factor-prop>
+		<red>0.35</red>
+		<green>0.35</green>
+		<blue>0.35</blue>
+		<offset>0.05</offset>
+	</diffuse>
  </animation>
 
  <animation>
 	<type>material</type>
 	<object-name>arm1.R</object-name>
+	<property-base>sim/model/bluebird/lighting</property-base>
 	<emission>
-		<red-prop>sim/model/bluebird/lighting/emission/I3-red</red-prop>
-		<green-prop>sim/model/bluebird/lighting/emission/I3g-3b</green-prop>
-		<blue-prop>sim/model/bluebird/lighting/emission/I3g-3b</blue-prop>
-		<factor>0.75</factor>
+		<red-prop>waldo/emission/red</red-prop>
+		<green-prop>waldo/emission/gb</green-prop>
+		<blue-prop>waldo/emission/gb</blue-prop>
+		<factor>0.6</factor>
 	</emission>
 	<specular>
-		<factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+		<factor-prop>interior-specular</factor-prop>
 		<red>1</red>
 		<green>1</green>
 		<blue>1</blue>
 	</specular>
+	<ambient>
+		<red-prop>waldo/emission/red</red-prop>
+		<green-prop>waldo/emission/gb</green-prop>
+		<blue-prop>waldo/emission/gb</blue-prop>
+		<factor>0.4</factor>
+		<offset>0.6</offset>
+	</ambient>
+	<diffuse>
+		<factor-prop>interior-specular</factor-prop>
+		<red>0.35</red>
+		<green>0.35</green>
+		<blue>0.35</blue>
+		<offset>0.05</offset>
+	</diffuse>
  </animation>
 
  <animation>
 	<type>material</type>
 	<object-name>leg1.L</object-name>
+	<property-base>sim/model/bluebird/lighting</property-base>
 	<emission>
-		<red-prop>sim/model/bluebird/lighting/emission/I3-red</red-prop>
-		<green-prop>sim/model/bluebird/lighting/emission/I3g-3b</green-prop>
-		<blue-prop>sim/model/bluebird/lighting/emission/I3g-3b</blue-prop>
-		<factor>0.75</factor>
+		<red-prop>waldo/emission/red</red-prop>
+		<green-prop>waldo/emission/gb</green-prop>
+		<blue-prop>waldo/emission/gb</blue-prop>
+		<factor>0.6</factor>
 	</emission>
 	<specular>
-		<factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+		<factor-prop>interior-specular</factor-prop>
 		<red>1</red>
 		<green>1</green>
 		<blue>1</blue>
 	</specular>
+	<ambient>
+		<red-prop>waldo/emission/red</red-prop>
+		<green-prop>waldo/emission/gb</green-prop>
+		<blue-prop>waldo/emission/gb</blue-prop>
+		<factor>0.4</factor>
+		<offset>0.6</offset>
+	</ambient>
+	<diffuse>
+		<factor-prop>interior-specular</factor-prop>
+		<red>0.35</red>
+		<green>0.35</green>
+		<blue>0.35</blue>
+		<offset>0.05</offset>
+	</diffuse>
  </animation>
 
  <animation>
 	<type>material</type>
 	<object-name>leg1.R</object-name>
+	<property-base>sim/model/bluebird/lighting</property-base>
 	<emission>
-		<red-prop>sim/model/bluebird/lighting/emission/I3-red</red-prop>
-		<green-prop>sim/model/bluebird/lighting/emission/I3g-3b</green-prop>
-		<blue-prop>sim/model/bluebird/lighting/emission/I3g-3b</blue-prop>
-		<factor>0.75</factor>
+		<red-prop>waldo/emission/red</red-prop>
+		<green-prop>waldo/emission/gb</green-prop>
+		<blue-prop>waldo/emission/gb</blue-prop>
+		<factor>0.6</factor>
 	</emission>
 	<specular>
-		<factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+		<factor-prop>interior-specular</factor-prop>
 		<red>1</red>
 		<green>1</green>
 		<blue>1</blue>
 	</specular>
+	<ambient>
+		<red-prop>waldo/emission/red</red-prop>
+		<green-prop>waldo/emission/gb</green-prop>
+		<blue-prop>waldo/emission/gb</blue-prop>
+		<factor>0.4</factor>
+		<offset>0.6</offset>
+	</ambient>
+	<diffuse>
+		<factor-prop>interior-specular</factor-prop>
+		<red>0.35</red>
+		<green>0.35</green>
+		<blue>0.35</blue>
+		<offset>0.05</offset>
+	</diffuse>
  </animation>
 </PropertyList>

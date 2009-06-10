@@ -3,7 +3,7 @@
 <PropertyList include="bluebird-base.xml">
  <sim>
 	<description>Bluebird Explorer Hovercraft  for v1.9 with OSG</description>
-	<aircraft-version>9.0</aircraft-version>
+	<aircraft-version>10.0</aircraft-version>
 	<model>
 		<path>Aircraft/bluebird/Models/bluebird-osg.xml</path>
 	</model>
@@ -127,10 +127,10 @@
 			<binding>
 				<command>nasal</command>
 				<script>
-						material.showDialog("sim/model/livery/material/interior-flooring/", nil, 10);
-						material.showDialog("sim/model/livery/material/interior-upper/", nil, 250);
-						material.showDialog("sim/model/livery/material/interior-lower/", nil, 480);
-						material.showDialog("sim/model/livery/material/interior-door-panels/", nil, 700);
+					material.showDialog("sim/model/livery/material/interior-flooring/", nil, 10);
+					material.showDialog("sim/model/livery/material/interior-upper/", nil, 250);
+					material.showDialog("sim/model/livery/material/interior-lower/", nil, 480);
+					material.showDialog("sim/model/livery/material/interior-door-panels/", nil, 700);
 				</script>
 			</binding>
 		</key>
@@ -140,14 +140,7 @@
 			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
-				<script>
-						material.showDialog("sim/model/livery/material/fuselage-top/", nil, 10);
-						material.showDialog("sim/model/livery/material/hull-trim/", nil, 210);
-						material.showDialog("sim/model/livery/material/fuselage-upper/", nil, 410);
-						material.showDialog("sim/model/livery/material/fuselage-lower/", nil, 610);
-						material.showDialog("sim/model/livery/material/hull-wings/", nil, 810);
-						material.showDialog("sim/model/livery/material/hull-bottom/", nil, 310, 0);
-				</script>
+				<script>bluebird.showLiveryDialog1()</script>
 			</binding>
 		</key>
 		<key n="111">

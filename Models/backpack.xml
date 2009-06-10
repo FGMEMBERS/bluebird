@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== walker animation v1.1 for FlightGear versions 1.0 and 1.9 OSG   ==-->
+<!--== walker animation v1.2 for FlightGear versions 1.0 and 1.9 OSG   ==-->
 
 <PropertyList>
 	<path>backpack.ac</path>
@@ -8,7 +8,10 @@
 		<type>select</type>
 		<object-name>Backpack</object-name>
 		<condition>
-			<property>sim/walker/airborne</property>
+			<and>
+				<property>sim/walker/airborne</property>
+				<property>sim/walker/parachute-equipped</property>
+			</and>
 		</condition>
 	</animation>
 

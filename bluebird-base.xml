@@ -4,7 +4,7 @@
  <sim>
 	<aero>bluebird</aero>
 	<status>early-production</status>
-	<aircraft-version>9.0</aircraft-version>
+	<aircraft-version>10.0</aircraft-version>
 	<author>S Andreason</author>
 	<aircraft-status>
 		<fdm>beta</fdm>
@@ -29,7 +29,7 @@
 	<flight-model>ufo</flight-model>
 
 	<startup>
-		<splash-texture>Aircraft/bluebird/bluebird-splash.rgb</splash-texture>
+		<splash-texture>Aircraft/bluebird/bluebird-splash.png</splash-texture>
 	</startup>
 
 	<chase-distance-m type="double">-40.0</chase-distance-m>  
@@ -68,26 +68,32 @@
 			<doors>
 				<door>
 					<position-norm type="float">0.0</position-norm>
+					<position-adj type="float">0.0</position-adj>
 					<name type="string">Left Side Door</name>
 				</door>
 				<door>
 					<position-norm type="float">0.0</position-norm>
+					<position-adj type="float">0.0</position-adj>
 					<name type="string">Right Side Door</name>
 				</door>
 				<door>
 					<position-norm type="float">0.0</position-norm>
+					<position-adj type="float">0.0</position-adj>
 					<name type="string">Inside cockpit door</name>
 				</door>
 				<door>
 					<position-norm type="float">0.0</position-norm>
+					<position-adj type="float">0.0</position-adj>
 					<name type="string">Door to the Head</name>
 				</door>
 				<door>
 					<position-norm type="float">0.0</position-norm>
+					<position-adj type="float">0.0</position-adj>
 					<name type="string">Inside cargo door</name>
 				</door>
 				<door>
 					<position-norm type="float">0.0</position-norm>
+					<position-adj type="float">0.0</position-adj>
 					<name type="string">Rear cargo hatch</name>
 				</door>
 			</doors>
@@ -106,374 +112,971 @@
 				<wave-guide-glow type="float">0</wave-guide-glow>
 				<wave-guide-halo-spin type="float">0</wave-guide-halo-spin>
 				<window-factor type="float">0</window-factor>
-				<ambient>
-					<I1-A-red type="float">0</I1-A-red>
-					<I1-A-green type="float">0</I1-A-green>
-					<I1-A-blue type="float">1.0</I1-A-blue>
-					<I2-A-red type="float">0</I2-A-red>
-					<I2-A-gb type="float">0</I2-A-gb>
-					<I3-A-red type="float">0</I3-A-red>
-					<I3-A-gb type="float">0</I3-A-gb>
-					<I4-A-red type="float">0</I4-A-red>
-					<I4-A-green type="float">0</I4-A-green>
-					<I4-A-blue type="float">0</I4-A-blue>
-					<I5-A-red type="float">0</I5-A-red>
-					<I5-A-green type="float">0</I5-A-green>
-					<I5-A-blue type="float">0</I5-A-blue>
-					<I7-A-red type="float">0</I7-A-red>
-					<I7-A-green type="float">0</I7-A-green>
-					<I7-A-blue type="float">0</I7-A-blue>
-					<I8-A-red type="float">0</I8-A-red>
-					<I8-A-green type="float">0</I8-A-green>
-					<I8-A-blue type="float">0</I8-A-blue>
-					<IA-A-red type="float">0</IA-A-red>
-					<IA-A-green type="float">0</IA-A-green>
-					<IA-A-blue type="float">0</IA-A-blue>
-					<IU-A-red type="float">0</IU-A-red>
-					<IU-A-green type="float">0</IU-A-green>
-					<IU-A-blue type="float">0</IU-A-blue>
-					<IG1e-A-red type="float">0</IG1e-A-red>
-					<IG1f-A-red type="float">0</IG1f-A-red>
-					<IG1e-A-green type="float">0</IG1e-A-green>
-					<IG1f-A-green type="float">0</IG1f-A-green>
-					<IG1e-A-blue type="float">0</IG1e-A-blue>
-					<IG1f-A-blue type="float">0</IG1f-A-blue>
-					<IG2e-A-red type="float">0</IG2e-A-red>
-					<IG2f-A-red type="float">0</IG2f-A-red>
-					<IG2e-A-green type="float">0</IG2e-A-green>
-					<IG2f-A-green type="float">0</IG2f-A-green>
-					<IG2e-A-blue type="float">0</IG2e-A-blue>
-					<IG2f-A-blue type="float">0</IG2f-A-blue>
-					<IG3e-A-red type="float">0</IG3e-A-red>
-					<IG3f-A-red type="float">0</IG3f-A-red>
-					<IG3e-A-green type="float">0</IG3e-A-green>
-					<IG3f-A-green type="float">0</IG3f-A-green>
-					<IG3e-A-blue type="float">0</IG3e-A-blue>
-					<IG3f-A-blue type="float">0</IG3f-A-blue>
-					<IG4e-A-red type="float">0</IG4e-A-red>
-					<IG4f-A-red type="float">0</IG4f-A-red>
-					<IG4e-A-green type="float">0</IG4e-A-green>
-					<IG4f-A-green type="float">0</IG4f-A-green>
-					<IG4e-A-blue type="float">0</IG4e-A-blue>
-					<IG4f-A-blue type="float">0</IG4f-A-blue>
-					<ILT1e-A-red type="float">0</ILT1e-A-red>
-					<ILT1f-A-red type="float">0</ILT1f-A-red>
-					<ILT1e-A-green type="float">0</ILT1e-A-green>
-					<ILT1f-A-green type="float">0</ILT1f-A-green>
-					<ILT1e-A-blue type="float">0</ILT1e-A-blue>
-					<ILT1f-A-blue type="float">0</ILT1f-A-blue>
-					<ILT2e-A-red type="float">0</ILT2e-A-red>
-					<ILT2f-A-red type="float">0</ILT2f-A-red>
-					<ILT2e-A-green type="float">0</ILT2e-A-green>
-					<ILT2f-A-green type="float">0</ILT2f-A-green>
-					<ILT2e-A-blue type="float">0</ILT2e-A-blue>
-					<ILT2f-A-blue type="float">0</ILT2f-A-blue>
-					<ILT6e-A-red type="float">0</ILT6e-A-red>
-					<ILT6f-A-red type="float">0</ILT6f-A-red>
-					<ILT6e-A-green type="float">0</ILT6e-A-green>
-					<ILT6f-A-green type="float">0</ILT6f-A-green>
-					<ILT6e-A-blue type="float">0</ILT6e-A-blue>
-					<ILT6f-A-blue type="float">0</ILT6f-A-blue>
-					<ILT7e-A-red type="float">0</ILT7e-A-red>
-					<ILT7f-A-red type="float">0</ILT7f-A-red>
-					<ILT7e-A-green type="float">0</ILT7e-A-green>
-					<ILT7f-A-green type="float">0</ILT7f-A-green>
-					<ILT7e-A-blue type="float">0</ILT7e-A-blue>
-					<ILT7f-A-blue type="float">0</ILT7f-A-blue>
-					<ILT8e-A-red type="float">0</ILT8e-A-red>
-					<ILT8f-A-red type="float">0</ILT8f-A-red>
-					<ILT8e-A-green type="float">0</ILT8e-A-green>
-					<ILT8f-A-green type="float">0</ILT8f-A-green>
-					<ILT8e-A-blue type="float">0</ILT8e-A-blue>
-					<ILT8f-A-blue type="float">0</ILT8f-A-blue>
-					<ILT9e-A-red type="float">0</ILT9e-A-red>
-					<ILT9f-A-red type="float">0</ILT9f-A-red>
-					<ILT9e-A-green type="float">0</ILT9e-A-green>
-					<ILT9f-A-green type="float">0</ILT9f-A-green>
-					<ILT9e-A-blue type="float">0</ILT9e-A-blue>
-					<ILT9f-A-blue type="float">0</ILT9f-A-blue>
-					<IRT1e-A-red type="float">0</IRT1e-A-red>
-					<IRT1f-A-red type="float">0</IRT1f-A-red>
-					<IRT1e-A-green type="float">0</IRT1e-A-green>
-					<IRT1f-A-green type="float">0</IRT1f-A-green>
-					<IRT1e-A-blue type="float">0</IRT1e-A-blue>
-					<IRT1f-A-blue type="float">0</IRT1f-A-blue>
-					<IRT2e-A-red type="float">0</IRT2e-A-red>
-					<IRT2f-A-red type="float">0</IRT2f-A-red>
-					<IRT2e-A-green type="float">0</IRT2e-A-green>
-					<IRT2f-A-green type="float">0</IRT2f-A-green>
-					<IRT2e-A-blue type="float">0</IRT2e-A-blue>
-					<IRT2f-A-blue type="float">0</IRT2f-A-blue>
-					<IRT3e-A-red type="float">0</IRT3e-A-red>
-					<IRT3f-A-red type="float">0</IRT3f-A-red>
-					<IRT3e-A-green type="float">0</IRT3e-A-green>
-					<IRT3f-A-green type="float">0</IRT3f-A-green>
-					<IRT3e-A-blue type="float">0</IRT3e-A-blue>
-					<IRT3f-A-blue type="float">0</IRT3f-A-blue>
-					<IRT4e-A-red type="float">0</IRT4e-A-red>
-					<IRT4f-A-red type="float">0</IRT4f-A-red>
-					<IRT4e-A-green type="float">0</IRT4e-A-green>
-					<IRT4f-A-green type="float">0</IRT4f-A-green>
-					<IRT4e-A-blue type="float">0</IRT4e-A-blue>
-					<IRT4f-A-blue type="float">0</IRT4f-A-blue>
-					<IRT5e-A-red type="float">0</IRT5e-A-red>
-					<IRT5f-A-red type="float">0</IRT5f-A-red>
-					<IRT5e-A-green type="float">0</IRT5e-A-green>
-					<IRT5f-A-green type="float">0</IRT5f-A-green>
-					<IRT5e-A-blue type="float">0</IRT5e-A-blue>
-					<IRT5f-A-blue type="float">0</IRT5f-A-blue>
-					<IRT6e-A-red type="float">0</IRT6e-A-red>
-					<IRT6f-A-red type="float">0</IRT6f-A-red>
-					<IRT6e-A-green type="float">0</IRT6e-A-green>
-					<IRT6f-A-green type="float">0</IRT6f-A-green>
-					<IRT6e-A-blue type="float">0</IRT6e-A-blue>
-					<IRT6f-A-blue type="float">0</IRT6f-A-blue>
-					<IRT7e-A-red type="float">0</IRT7e-A-red>
-					<IRT7f-A-red type="float">0</IRT7f-A-red>
-					<IRT7e-A-green type="float">0</IRT7e-A-green>
-					<IRT7f-A-green type="float">0</IRT7f-A-green>
-					<IRT7e-A-blue type="float">0</IRT7e-A-blue>
-					<IRT7f-A-blue type="float">0</IRT7f-A-blue>
-					<IRT8e-A-red type="float">0</IRT8e-A-red>
-					<IRT8f-A-red type="float">0</IRT8f-A-red>
-					<IRT8e-A-green type="float">0</IRT8e-A-green>
-					<IRT8f-A-green type="float">0</IRT8f-A-green>
-					<IRT8e-A-blue type="float">0</IRT8e-A-blue>
-					<IRT8f-A-blue type="float">0</IRT8f-A-blue>
-					<IRT9e-A-red type="float">0</IRT9e-A-red>
-					<IRT9f-A-red type="float">0</IRT9f-A-red>
-					<IRT9e-A-green type="float">0</IRT9e-A-green>
-					<IRT9f-A-green type="float">0</IRT9f-A-green>
-					<IRT9e-A-blue type="float">0</IRT9e-A-blue>
-					<IRT9f-A-blue type="float">0</IRT9f-A-blue>
-				</ambient>
-				<emission>
-					<I0-red type="float">1</I0-red>
-					<I0g-0b type="float">1</I0g-0b>
-					<I1-red type="float">0</I1-red>
-					<I1-green type="float">0</I1-green>
-					<I1-blue type="float">0</I1-blue>
-					<I2-red type="float">0</I2-red>
-					<I2g-2b type="float">0</I2g-2b>
-					<I3-red type="float">0</I3-red>
-					<I3g-3b type="float">0</I3g-3b>
-					<I4-red type="float">0</I4-red>
-					<I4-green type="float">0</I4-green>
-					<I4-blue type="float">0</I4-blue>
-					<I5-red type="float">0.077</I5-red>
-					<I5-green type="float">0.090</I5-green>
-					<I5-blue type="float">0.087</I5-blue>
-					<I6-red type="float">0</I6-red>
-					<I6g-6b type="float">0</I6g-6b>
-					<I7-red type="float">0</I7-red>
-					<I7-green type="float">0</I7-green>
-					<I7-blue type="float">0</I7-blue>
-					<I8-red type="float">0</I8-red>
-					<I8-green type="float">0</I8-green>
-					<I8-blue type="float">0</I8-blue>
-					<I9r-9g type="float">1.0</I9r-9g>
-					<IA-red type="float">0</IA-red>
-					<IA-green type="float">0</IA-green>
-					<IA-blue type="float">0</IA-blue>
-					<IBr-Bg type="float">0.90</IBr-Bg>
-					<IB-blue type="float">1.0</IB-blue>
-					<IU-red type="float">0</IU-red>
-					<IU-green type="float">0</IU-green>
-					<IU-blue type="float">0</IU-blue>
-					<IG1b-red type="float">0</IG1b-red>
-					<IG1k-red type="float">0</IG1k-red>
-					<IG1d-red type="float">0</IG1d-red>
-					<IG1b-green type="float">0</IG1b-green>
-					<IG1k-green type="float">0</IG1k-green>
-					<IG1d-green type="float">0</IG1d-green>
-					<IG1b-blue type="float">0</IG1b-blue>
-					<IG1k-blue type="float">0</IG1k-blue>
-					<IG1d-blue type="float">0</IG1d-blue>
-					<IG2b-red type="float">0</IG2b-red>
-					<IG2k-red type="float">0</IG2k-red>
-					<IG2d-red type="float">0</IG2d-red>
-					<IG2b-green type="float">0</IG2b-green>
-					<IG2k-green type="float">0</IG2k-green>
-					<IG2d-green type="float">0</IG2d-green>
-					<IG2b-blue type="float">0</IG2b-blue>
-					<IG2k-blue type="float">0</IG2k-blue>
-					<IG2d-blue type="float">0</IG2d-blue>
-					<IG3b-red type="float">0</IG3b-red>
-					<IG3k-red type="float">0</IG3k-red>
-					<IG3d-red type="float">0</IG3d-red>
-					<IG3b-green type="float">0</IG3b-green>
-					<IG3k-green type="float">0</IG3k-green>
-					<IG3d-green type="float">0</IG3d-green>
-					<IG3b-blue type="float">0</IG3b-blue>
-					<IG3k-blue type="float">0</IG3k-blue>
-					<IG3d-blue type="float">0</IG3d-blue>
-					<IG4b-red type="float">0</IG4b-red>
-					<IG4k-red type="float">0</IG4k-red>
-					<IG4d-red type="float">0</IG4d-red>
-					<IG4b-green type="float">0</IG4b-green>
-					<IG4k-green type="float">0</IG4k-green>
-					<IG4d-green type="float">0</IG4d-green>
-					<IG4b-blue type="float">0</IG4b-blue>
-					<IG4k-blue type="float">0</IG4k-blue>
-					<IG4d-blue type="float">0</IG4d-blue>
-					<ILT1b-red type="float">0</ILT1b-red>
-					<ILT1k-red type="float">0</ILT1k-red>
-					<ILT1d-red type="float">0</ILT1d-red>
-					<ILT1b-green type="float">0</ILT1b-green>
-					<ILT1k-green type="float">0</ILT1k-green>
-					<ILT1d-green type="float">0</ILT1d-green>
-					<ILT1b-blue type="float">0</ILT1b-blue>
-					<ILT1k-blue type="float">0</ILT1k-blue>
-					<ILT1d-blue type="float">0</ILT1d-blue>
-					<ILT2b-red type="float">0</ILT2b-red>
-					<ILT2k-red type="float">0</ILT2k-red>
-					<ILT2d-red type="float">0</ILT2d-red>
-					<ILT2b-green type="float">0</ILT2b-green>
-					<ILT2k-green type="float">0</ILT2k-green>
-					<ILT2d-green type="float">0</ILT2d-green>
-					<ILT2b-blue type="float">0</ILT2b-blue>
-					<ILT2k-blue type="float">0</ILT2k-blue>
-					<ILT2d-blue type="float">0</ILT2d-blue>
-					<ILT6b-red type="float">0</ILT6b-red>
-					<ILT6k-red type="float">0</ILT6k-red>
-					<ILT6d-red type="float">0</ILT6d-red>
-					<ILT6b-green type="float">0</ILT6b-green>
-					<ILT6k-green type="float">0</ILT6k-green>
-					<ILT6d-green type="float">0</ILT6d-green>
-					<ILT6b-blue type="float">0</ILT6b-blue>
-					<ILT6k-blue type="float">0</ILT6k-blue>
-					<ILT6d-blue type="float">0</ILT6d-blue>
-					<ILT7b-red type="float">0</ILT7b-red>
-					<ILT7k-red type="float">0</ILT7k-red>
-					<ILT7d-red type="float">0</ILT7d-red>
-					<ILT7b-green type="float">0</ILT7b-green>
-					<ILT7k-green type="float">0</ILT7k-green>
-					<ILT7d-green type="float">0</ILT7d-green>
-					<ILT7b-blue type="float">0</ILT7b-blue>
-					<ILT7k-blue type="float">0</ILT7k-blue>
-					<ILT7d-blue type="float">0</ILT7d-blue>
-					<ILT8b-red type="float">0</ILT8b-red>
-					<ILT8k-red type="float">0</ILT8k-red>
-					<ILT8d-red type="float">0</ILT8d-red>
-					<ILT8b-green type="float">0</ILT8b-green>
-					<ILT8k-green type="float">0</ILT8k-green>
-					<ILT8d-green type="float">0</ILT8d-green>
-					<ILT8b-blue type="float">0</ILT8b-blue>
-					<ILT8k-blue type="float">0</ILT8k-blue>
-					<ILT8d-blue type="float">0</ILT8d-blue>
-					<ILT9b-red type="float">0</ILT9b-red>
-					<ILT9k-red type="float">0</ILT9k-red>
-					<ILT9d-red type="float">0</ILT9d-red>
-					<ILT9b-green type="float">0</ILT9b-green>
-					<ILT9k-green type="float">0</ILT9k-green>
-					<ILT9d-green type="float">0</ILT9d-green>
-					<ILT9b-blue type="float">0</ILT9b-blue>
-					<ILT9k-blue type="float">0</ILT9k-blue>
-					<ILT9d-blue type="float">0</ILT9d-blue>
-					<IRT1b-red type="float">0</IRT1b-red>
-					<IRT1k-red type="float">0</IRT1k-red>
-					<IRT1d-red type="float">0</IRT1d-red>
-					<IRT1b-green type="float">0</IRT1b-green>
-					<IRT1k-green type="float">0</IRT1k-green>
-					<IRT1d-green type="float">0</IRT1d-green>
-					<IRT1b-blue type="float">0</IRT1b-blue>
-					<IRT1k-blue type="float">0</IRT1k-blue>
-					<IRT1d-blue type="float">0</IRT1d-blue>
-					<IRT2b-red type="float">0</IRT2b-red>
-					<IRT2k-red type="float">0</IRT2k-red>
-					<IRT2d-red type="float">0</IRT2d-red>
-					<IRT2b-green type="float">0</IRT2b-green>
-					<IRT2k-green type="float">0</IRT2k-green>
-					<IRT2d-green type="float">0</IRT2d-green>
-					<IRT2b-blue type="float">0</IRT2b-blue>
-					<IRT2k-blue type="float">0</IRT2k-blue>
-					<IRT2d-blue type="float">0</IRT2d-blue>
-					<IRT3b-red type="float">0</IRT3b-red>
-					<IRT3k-red type="float">0</IRT3k-red>
-					<IRT3d-red type="float">0</IRT3d-red>
-					<IRT3b-green type="float">0</IRT3b-green>
-					<IRT3k-green type="float">0</IRT3k-green>
-					<IRT3d-green type="float">0</IRT3d-green>
-					<IRT3b-blue type="float">0</IRT3b-blue>
-					<IRT3k-blue type="float">0</IRT3k-blue>
-					<IRT3d-blue type="float">0</IRT3d-blue>
-					<IRT4b-red type="float">0</IRT4b-red>
-					<IRT4k-red type="float">0</IRT4k-red>
-					<IRT4d-red type="float">0</IRT4d-red>
-					<IRT4b-green type="float">0</IRT4b-green>
-					<IRT4k-green type="float">0</IRT4k-green>
-					<IRT4d-green type="float">0</IRT4d-green>
-					<IRT4b-blue type="float">0</IRT4b-blue>
-					<IRT4k-blue type="float">0</IRT4k-blue>
-					<IRT4d-blue type="float">0</IRT4d-blue>
-					<IRT5b-red type="float">0</IRT5b-red>
-					<IRT5k-red type="float">0</IRT5k-red>
-					<IRT5d-red type="float">0</IRT5d-red>
-					<IRT5b-green type="float">0</IRT5b-green>
-					<IRT5k-green type="float">0</IRT5k-green>
-					<IRT5d-green type="float">0</IRT5d-green>
-					<IRT5b-blue type="float">0</IRT5b-blue>
-					<IRT5k-blue type="float">0</IRT5k-blue>
-					<IRT5d-blue type="float">0</IRT5d-blue>
-					<IRT6b-red type="float">0</IRT6b-red>
-					<IRT6k-red type="float">0</IRT6k-red>
-					<IRT6d-red type="float">0</IRT6d-red>
-					<IRT6b-green type="float">0</IRT6b-green>
-					<IRT6k-green type="float">0</IRT6k-green>
-					<IRT6d-green type="float">0</IRT6d-green>
-					<IRT6b-blue type="float">0</IRT6b-blue>
-					<IRT6k-blue type="float">0</IRT6k-blue>
-					<IRT6d-blue type="float">0</IRT6d-blue>
-					<IRT7b-red type="float">0</IRT7b-red>
-					<IRT7k-red type="float">0</IRT7k-red>
-					<IRT7d-red type="float">0</IRT7d-red>
-					<IRT7b-green type="float">0</IRT7b-green>
-					<IRT7k-green type="float">0</IRT7k-green>
-					<IRT7d-green type="float">0</IRT7d-green>
-					<IRT7b-blue type="float">0</IRT7b-blue>
-					<IRT7k-blue type="float">0</IRT7k-blue>
-					<IRT7d-blue type="float">0</IRT7d-blue>
-					<IRT8b-red type="float">0</IRT8b-red>
-					<IRT8k-red type="float">0</IRT8k-red>
-					<IRT8d-red type="float">0</IRT8d-red>
-					<IRT8b-green type="float">0</IRT8b-green>
-					<IRT8k-green type="float">0</IRT8k-green>
-					<IRT8d-green type="float">0</IRT8d-green>
-					<IRT8b-blue type="float">0</IRT8b-blue>
-					<IRT8k-blue type="float">0</IRT8k-blue>
-					<IRT8d-blue type="float">0</IRT8d-blue>
-					<IRT9b-red type="float">0</IRT9b-red>
-					<IRT9k-red type="float">0</IRT9k-red>
-					<IRT9d-red type="float">0</IRT9d-red>
-					<IRT9b-green type="float">0</IRT9b-green>
-					<IRT9k-green type="float">0</IRT9k-green>
-					<IRT9d-green type="float">0</IRT9d-green>
-					<IRT9b-blue type="float">0</IRT9b-blue>
-					<IRT9k-blue type="float">0</IRT9k-blue>
-					<IRT9d-blue type="float">0</IRT9d-blue>
-				</emission>
-				<specular>
-					<interior type="float">0</interior>
-					<IG1-specular type="float">0</IG1-specular>
-					<IG2-specular type="float">0</IG2-specular>
-					<IG3-specular type="float">0</IG3-specular>
-					<IG4-specular type="float">0</IG4-specular>
-					<ILT1-specular type="float">0</ILT1-specular>
-					<ILT2-specular type="float">0</ILT2-specular>
-					<ILT6-specular type="float">0</ILT6-specular>
-					<ILT7-specular type="float">0</ILT7-specular>
-					<ILT8-specular type="float">0</ILT8-specular>
-					<ILT9-specular type="float">0</ILT9-specular>
-					<IRT1-specular type="float">0</IRT1-specular>
-					<IRT2-specular type="float">0</IRT2-specular>
-					<IRT3-specular type="float">0</IRT3-specular>
-					<IRT4-specular type="float">0</IRT4-specular>
-					<IRT5-specular type="float">0</IRT5-specular>
-					<IRT6-specular type="float">0</IRT6-specular>
-					<IRT7-specular type="float">0</IRT7-specular>
-					<IRT8-specular type="float">0</IRT8-specular>
-					<IRT9-specular type="float">0</IRT9-specular>
-				</specular>
+				<interior-ambient-factor type="float">0.1</interior-ambient-factor>
+				<interior-specular type="float">0</interior-specular>
+				<overhead>
+					<emission>
+						<red type="float">1</red>
+						<gb type="float">1</gb>
+						<factor type="float">0.7</factor>
+					</emission>
+				</overhead>
+				<waldo>
+					<emission>
+						<red type="float">1</red>
+						<gb type="float">1</gb>
+					</emission>
+				</waldo>
+				<interior1-flooring>
+					<amb-dif>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">1</blue>
+					</amb-dif>
+					<emission>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</emission>
+				</interior1-flooring>
+				<interior2-door-panels>
+					<amb-dif>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</amb-dif>
+					<emission>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</emission>
+				</interior2-door-panels>
+				<interior3-upper-walls>
+					<amb-dif>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</amb-dif>
+					<emission>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</emission>
+				</interior3-upper-walls>
+				<interior4-lower-walls>
+					<amb-dif>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</amb-dif>
+					<emission>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</emission>
+				</interior4-lower-walls>
+				<interior5-console>
+					<amb-dif>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</amb-dif>
+					<emission>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</emission>
+				</interior5-console>
+				<interior6-chairs>
+					<amb-dif>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</amb-dif>
+					<emission>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</emission>
+				</interior6-chairs>
+				<interior8-light-frame>
+					<amb-dif>
+						<red type="float">0</red>
+						<gb type="float">0</gb>
+					</amb-dif>
+					<emission>
+						<red type="float">0</red>
+						<gb type="float">0</gb>
+					</emission>
+				</interior8-light-frame>
+				<interior9-buttons>
+					<amb-dif>
+						<red type="float">0</red>
+						<gb type="float">0</gb>
+					</amb-dif>
+					<emission>
+						<red type="float">0</red>
+						<gb type="float">0</gb>
+					</emission>
+				</interior9-buttons>
+				<interiorA-door-seals>
+					<amb-dif>
+						<red type="float">0</red>
+						<gb type="float">0</gb>
+					</amb-dif>
+					<emission>
+						<red type="float">0</red>
+						<gb type="float">0</gb>
+					</emission>
+				</interiorA-door-seals>
+				<interiorB-door-lights>
+					<amb-dif>
+						<rgb type="float">0</rgb>
+					</amb-dif>
+					<emission>
+						<rgb type="float">0</rgb>
+					</emission>
+				</interiorB-door-lights>
+				<interiorC-safety-lights>
+					<amb-dif>
+						<rg type="float">0</rg>
+					</amb-dif>
+					<emission>
+						<rg type="float">0</rg>
+					</emission>
+				</interiorC-safety-lights>
+				<door0>
+					<interior1-flooring>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">1</blue>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</emission>
+					</interior1-flooring>
+					<interior4-lower-walls>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</emission>
+					</interior4-lower-walls>
+					<interior8-light-frame>
+						<amb-dif>
+							<red type="float">0</red>
+							<gb type="float">0</gb>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<gb type="float">0</gb>
+						</emission>
+					</interior8-light-frame>
+					<hatchA-steps>
+						<amb-dif>
+							<red type="float">0.02</red>
+							<gb type="float">0.02</gb>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<gb type="float">0</gb>
+						</emission>
+					</hatchA-steps>
+				</door0>
+				<door1>
+					<interior1-flooring>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">1</blue>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</emission>
+					</interior1-flooring>
+					<interior4-lower-walls>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</emission>
+					</interior4-lower-walls>
+					<interior8-light-frame>
+						<amb-dif>
+							<red type="float">0</red>
+							<gb type="float">0</gb>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<gb type="float">0</gb>
+						</emission>
+					</interior8-light-frame>
+					<hatchA-steps>
+						<amb-dif>
+							<red type="float">0.02</red>
+							<gb type="float">0.02</gb>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<gb type="float">0</gb>
+						</emission>
+					</hatchA-steps>
+				</door1>
+				<doors0-1>
+					<interior1-flooring>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">1</blue>
+						</amb-dif>
+					</interior1-flooring>
+				</doors0-1>
+				<door5>
+					<hatch1-flooring-center>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">1</blue>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</emission>
+					</hatch1-flooring-center>
+					<hatch3-upper-walls>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</emission>
+					</hatch3-upper-walls>
+					<hatch4-lower-walls>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</emission>
+					</hatch4-lower-walls>
+					<hatch7-flooring-side>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</emission>
+					</hatch7-flooring-side>
+					<interior1-flooring>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">1</blue>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</emission>
+					</interior1-flooring>
+					<interior3-upper-walls>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">1</blue>
+						</amb-dif>
+					</interior3-upper-walls>
+					<interior4-lower-walls>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">1</blue>
+						</amb-dif>
+					</interior4-lower-walls>
+					<interior8-light-frame>
+						<amb-dif>
+							<red type="float">0</red>
+							<gb type="float">0</gb>
+						</amb-dif>
+					</interior8-light-frame>
+					<interior-specular type="float">0</interior-specular>
+				</door5>
+				<buttons>
+					<left1-power>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</left1-power>
+					<left2-reactor>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</left2-reactor>
+					<left3-6-countergrav>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</left3-6-countergrav>
+					<left7-countergrav>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</left7-countergrav>
+					<left8-wave-guide>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</left8-wave-guide>
+					<left9-overdrive>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</left9-overdrive>
+					<gear1-up>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</gear1-up>
+					<gear2-mode>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</gear2-mode>
+					<gear3-down>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</gear3-down>
+					<gear4-wheels>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</gear4-wheels>
+					<right1-hatch-left>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</right1-hatch-left>
+					<right2-hatch-right>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</right2-hatch-right>
+					<right3-hatch-rear>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</right3-hatch-rear>
+					<right4-landing-down>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</right4-landing-down>
+					<right5-landing-forward>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</right5-landing-forward>
+					<right6-nav>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</right6-nav>
+					<right7-beacon>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</right7-beacon>
+					<right8-strobe>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</right8-strobe>
+					<right9-overhead>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</right9-overhead>
+				</buttons>
 			</lighting>
 			<position>
 				<altitude-agl-ft type="double">0</altitude-agl-ft>
@@ -1003,6 +1606,22 @@
 			<name>click MMB</name>
 			<desc>Center aileron and elevator</desc>
 		</key>
+		<key n="34">
+			<name>Middle Mouse Button</name>
+			<desc>Pointer mode extras:</desc>
+		</key>
+		<key n="35">
+			<name>Drag MMB up</name>
+			<desc>Counter-grav VTOL up</desc>
+		</key>
+		<key n="36">
+			<name>Drag MMB down</name>
+			<desc>Counter-grav VTOL down</desc>
+		</key>
+		<key n="37">
+			<name>click MMB</name>
+			<desc>Center aileron and elevator</desc>
+		</key>
 	</help>
 
 	<lon-lat-format type="int">0</lon-lat-format>
@@ -1125,6 +1744,7 @@
 		<airborne type="bool">false</airborne>
 		<parachute-opened-altitude-ft type="double">0.0</parachute-opened-altitude-ft>
 		<parachute-opened-sec type="double">0.0</parachute-opened-sec>
+		<parachute-equipped type="bool">false</parachute-equipped>
 		<crashed type="bool">false</crashed>
 		<key-triggers>
 			<outside-toggle type="bool">false</outside-toggle>
