@@ -1,5 +1,5 @@
-# == walking functions v3.12 for FlightGear version 1.9 OSG ==
-# == plus coordinates for Bluebird Explorer Hovercraft 8.92 ==
+# == walking functions v4.0 for FlightGear version 1.9 OSG ==
+# == plus coordinates for Bluebird Explorer Hovercraft 9.1  ==
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
@@ -201,6 +201,7 @@ var main_loop = func {
 						get_in(5);
 					}
 				}
+
 			}
 		}
 	} elsif (!moved and getprop("sim/walker/walking-momentum")) {
@@ -273,7 +274,7 @@ var walker_model = {
 };
 
 var open_chute = func {
-	if (getprop("sim/walker/airborne") and exit_time_sec and !parachute_ft) {
+	if (getprop("sim/walker/airborne") and exit_time_sec and !parachute_ft and getprop("sim/walker/parachute-equipped")) {
 		setprop("sim/walker/parachute-opened-altitude-ft", getprop("sim/walker/altitude-ft"));
 		parachute_deployed_sec = getprop("sim/time/elapsed-sec");
 		setprop("sim/walker/parachute-opened-sec", 0);
@@ -390,12 +391,12 @@ var ext_mov = func (moved) {
 			posx2 = starting_lon + (lon_vector * parabola);
 		}
 	}
-	var posz_geo = geo.elevation(posy2, posx2);
+	var posz_geo = geo.elevation(posy2, posx2, ((posz1 * 0.3048) + 2));
 	if (posz_geo == nil) {
-		var posz_geo = 0;
+		posz_geo = 0;
 		print(sprintf("Error. Attempting to move to latitude %13.8f longitude %13.8f",posy2,posx2));
 	}
-	var posz_geo = posz_geo / 0.3048;	# convert to ft
+	posz_geo = posz_geo / 0.3048;	# convert to ft
 #	if (getprop("logging/walker-debug")) {
 #		print(sprintf("walker_lat= , %9.8f , lon= , %9.8f , groundDistanceFromAircraft= , %6.3f , geo.elev= , %8.3f , altitude= , %8.3f",posy2,posx2,distFromCraft(posy2,posx2),posz_geo,posz2));
 #	}
@@ -478,9 +479,29 @@ var ext_mov = func (moved) {
 			setprop("sim/walker/longitude-deg", posx3);
 			setprop("sim/walker/starting-trajectory-z-mps", 0.0);
 			falling = 1;
+			if ((posz1 - posz_geo) > 50) {
+				setprop("sim/walker/airborne", 1);
+				setprop("sim/walker/parachute-equipped", 0);
+			}
 		}
 		if (!falling) {
 			if (posz_geo < (posz1 + 10)) {	# walking, ground within 10 ft below walker
+				var posz3_geo = geo.elevation(posy2, posx2, ((posz1 * 0.3048) + 5));
+				if (posz3_geo == nil) {
+					posz3_geo = 0;
+				}
+				posz3_geo = posz3_geo / 0.3048;	# convert to ft
+				var posz_geodiff = abs(posz_geo - posz1);
+				if ((posz3_geo - posz_geo) > 1.5 and posz_geodiff < 7 and posz_geodiff > 1.5) { # under object and nearly hitting head
+					print(sprintf ("Stopped by overhead obstruction, has height %6.2f ft above your position.", posz_geodiff));
+					posx2 -= (5 * (posx2 - posx1));
+					posy2 -= (5 * (posy2 - posy1));	# fall backward and reload ground level
+					posz_geo = geo.elevation(posy2, posx2, ((posz1 * 0.3048) + 1));
+					if (posz_geo == nil) {
+						posz_geo = 0;
+					}
+					posz_geo = posz_geo / 0.3048;	# convert to ft
+				}
 				if ((posz1+0.4) > posz_geo or (posz1-0.4) < posz_geo) {	# smoothen stride
 					interpolate ("sim/walker/altitude-ft", posz_geo, 0.25, 0.3);
 					posz2 = getprop("sim/walker/altitude-ft");
@@ -558,7 +579,7 @@ var get_out = func (loc) {
 		print(sprintf("get_out: traj-lat= %12.8f traj-lon= %12.8f  c_z_vector_mps= %12.8f",xy_lat,xy_lon,c_z_vector_mps));
 	}
 	# the following section is aircraft specific for locations of exit hatches and doors
-	if (loc == 0) {
+	if (loc == 0) {		# exit but not by hatch
 		var new_coord = xy2LatLonZ(-12.0,-8.0);	# neutral coordinates outside front port wingtip
 	} elsif (loc == 1) {
 		var new_coord = xy2LatLonZ(getprop("sim/model/bluebird/crew/walker/x-offset-m"),-4.9);
@@ -601,6 +622,7 @@ var get_out = func (loc) {
 	measure_alt = alt1;
 	if ((alt1 - getprop("position/ground-elev-ft")) > 20) {
 		setprop("sim/walker/airborne", 1);
+		setprop("sim/walker/parachute-equipped", 1);
 	}
 	setprop("sim/walker/starting-lat", new_coord[0]);
 	setprop("sim/walker/starting-lon", new_coord[1]);
@@ -611,61 +633,74 @@ var get_out = func (loc) {
 var get_in = func (loc) {
 	walker_model.remove();
 	var c_view = getprop("sim/current-view/view-number");
+	var new_pos = 4;
+	var c_pos = getprop("sim/model/bluebird/crew/cockpit-position");
 	if (c_view > 0) {
 		# the following section is aircraft specific for locations of entry hatches and doors
-		var new_walker_x = -2.55;
-		var new_walker_y = 0;
-		var new_walker_z = 2.1;
-		var new_walker_h = 0;
 		if (loc == 0) {	# find open hatch
-			if (getprop("sim/model/bluebird/doors/door[0]/position-norm") > 0) {
-				new_walker_y = -1.9;
-				new_walker_h = 270;
-				setprop("sim/model/bluebird/crew/cockpit-position", 4);
+			if (getprop("sim/model/bluebird/doors/door[0]/position-norm") > 0.2) {
 				loc = 1;
-			} elsif (getprop("sim/model/bluebird/doors/door[1]/position-norm") > 0) {
-				new_walker_y = 1.9;
-				new_walker_h = 90;
 				setprop("sim/model/bluebird/crew/cockpit-position", 4);
+				c_pos = 5;
+			} elsif (getprop("sim/model/bluebird/doors/door[1]/position-norm") > 0.2) {
 				loc = 2;
-			} elsif (getprop("sim/model/bluebird/doors/door[5]/position-norm") > 0) {
-				new_walker_x = 9.1;
-				new_walker_y = 0;
 				setprop("sim/model/bluebird/crew/cockpit-position", 4);
+				c_pos = 5;
+			} elsif (getprop("sim/model/bluebird/doors/door[5]/position-norm") > 0.2) {
 				loc = 5;
+				setprop("sim/model/bluebird/crew/cockpit-position", 4);
+				c_pos = 5;
 			}
-		} elsif (loc == 1) {
-			new_walker_y = -3.4;
-			new_walker_h = 270;
-			setprop("sim/model/bluebird/crew/cockpit-position", 4);
-		} elsif (loc == 2) {
-			new_walker_y = 3.4;
-			new_walker_h = 90;
-			setprop("sim/model/bluebird/crew/cockpit-position", 4);
-		} elsif (loc == 5) {
-			new_walker_x = 10.0;
-			new_walker_y = 0;
-			setprop("sim/model/bluebird/crew/cockpit-position", 4);
 		}
 		if (loc >= 1) {
-			setprop("sim/model/bluebird/crew/walker/x-offset-m", new_walker_x);
-			setprop("sim/model/bluebird/crew/walker/y-offset-m", new_walker_y);
-		} else {
-			if (getprop("sim/model/bluebird/crew/walker/y-offset-m") > 1.3) {
-				setprop("sim/model/bluebird/crew/walker/y-offset-m", 1.3);
-			} elsif (getprop("sim/model/bluebird/crew/walker/y-offset-m") < -1.3) {
-				setprop("sim/model/bluebird/crew/walker/y-offset-m", -1.3);
+			if (c_pos == 5) {
+				var new_walker_x = (loc == 1 ? -2.55 : (loc == 2 ? -2.55 : 10.0));
+				var new_walker_y = (loc == 1 ? -2.8 : (loc == 2 ? 2.8 : 0));
+			} else {
+				if (loc == 1) {
+					var new_walker_x = -2.55;
+					var new_walker_y = -1.9;
+				} elsif (loc == 2) {
+					var new_walker_x = -2.55;
+					var new_walker_y = 1.9;
+				} else {
+					var new_walker_x = getprop("sim/model/bluebird/crew/walker/x-offset-m");
+					var new_walker_y = getprop("sim/model/bluebird/crew/walker/y-offset-m");
+					if (new_walker_x < 9) {
+						new_walker_x = 10.4;
+					}
+					if (new_walker_y < -1.6) {
+						new_walker_y = -1.6;
+					} elsif (new_walker_y > 1.6) {
+						new_walker_y = 1.6;
+					}
+				}
 			}
+			var c_head_deg = getprop("orientation/heading-deg");
+			c_pos = 5;
+
+			var new_walker_h = normheading(getprop("sim/current-view/heading-offset-deg") + c_head_deg);
+		} else {
+			var new_walker_x = bluebird.cockpit_locations[c_pos].x;
+			var new_walker_y = bluebird.cockpit_locations[c_pos].y;
+			var new_walker_h = bluebird.cockpit_locations[c_pos].h;
 		}
+		var new_walker_z = bluebird.cockpit_locations[c_pos].z[0];
+		var new_walker_p = bluebird.cockpit_locations[c_pos].p;
+		var new_walker_fov = bluebird.cockpit_locations[c_pos].fov;
 		if (c_view == view.indexof("Walk View")) {
 			setprop("sim/current-view/view-number", 0);
-			if (loc >= 1) {
-				yViewNode.setValue(new_walker_y);
-				zViewNode.setValue(new_walker_z);
-				xViewNode.setValue(new_walker_x);
-				setprop("sim/current-view/heading-offset-deg", new_walker_h);
-			}
+			setprop("sim/current-view/z-offset-m", new_walker_x);
+			setprop("sim/current-view/x-offset-m", new_walker_y);
+			setprop("sim/current-view/y-offset-m", new_walker_z);
+			setprop("sim/current-view/goal-heading-offset-deg", new_walker_h);
+			setprop("sim/current-view/heading-offset-deg", new_walker_h);
+			setprop("sim/current-view/goal-pitch-offset-deg", new_walker_p);
+			setprop("sim/current-view/pitch-offset-deg", new_walker_p);
+			setprop("sim/current-view/field-of-view", new_walker_fov);
 		}
+		setprop("sim/model/bluebird/crew/walker/x-offset-m", new_walker_x);
+		setprop("sim/model/bluebird/crew/walker/y-offset-m", new_walker_y);
 	}
 	setprop("sim/walker/crashed", 0);
 	setprop("sim/walker/airborne", 0);

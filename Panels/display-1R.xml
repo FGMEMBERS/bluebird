@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 8.4  ==-->
+<!--== Bluebird Explorer Hovercraft  version 9.1  ==-->
 
 <PropertyList>
 	<name>screen messages text 1R</name>
@@ -10,7 +10,31 @@
 		<instrument>
 			<name>2d Panel 1R</name>
 			<condition>
-				<property>sim/model/bluebird/systems/power-switch</property>
+				<and>
+					<property>sim/model/bluebird/systems/power-switch</property>
+					<equals>
+						<property>sim/current-view/view-number</property>
+						<value>0</value>
+					</equals>
+					<less-than>
+						<property>sim/current-view/z-offset-m</property>
+						<value>-1.7</value>
+					</less-than>
+					<greater-than>
+						<property>sim/current-view/x-offset-m</property>
+						<value>-1.35</value>
+					</greater-than>
+					<less-than>
+						<property>sim/current-view/x-offset-m</property>
+						<value>1.06</value>
+					</less-than>
+					<not>
+						<equals>
+							<property>sim/model/bluebird/crew/cockpit-position</property>
+							<value>2</value>
+						</equals>
+					</not>
+				</and>
 			</condition>
 			<w-base>512</w-base>
 			<h-base>512</h-base>

@@ -1,9 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 9.0 for FlightGear 1.9 OSG =====
-
-# set new_ambient to 0  if running FlightGear version 1.9.1 or less
-# set new_ambient to 1  if running FlightGear newer than 2009.Mar.26
-#  which changes how ambient light is rendered
-var new_ambient = 1;
+# ===== Bluebird Explorer Hovercraft  version 10.0 for FlightGear 1.9 OSG =====
 
 # strobes -----------------------------------------------------------
 var strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
@@ -44,6 +39,8 @@ var popupTip2 = func {
 	settimer(func { if(currTimer2 == thisTimer2) { fgcommand("dialog-close", tipArg2); } }, 1.5, 1);
 }
 
+var clamp = func(v, min, max) { v < min ? min : v > max ? max : v }
+
 # === global nodes, and constants ===================================
 
 # view nodes and offsets --------------------------------------------
@@ -53,7 +50,7 @@ var yViewNode = props.globals.getNode("sim/current-view/x-offset-m", 1);
 var hViewNode = props.globals.getNode("sim/current-view/heading-offset-deg", 1);
 var vertical_offset_ft = 0.5830;
 	# keep shadow off ground at expense of keeping wheels and gear
-	# at ground level. Also adjust bluebird.xml line# 9564 with negative
+	# at ground level. Also adjust Shadow in bluebird.xml line# 13997 with negative
 	# of change. Default offset in model = 0.483 feet for gear on ground
 	# or 0.583 feet to match with shadow at offset of -0.1 meters.
 
@@ -118,87 +115,96 @@ var destruction_threshold = 50;
 
 # === define nasal non-local variables at startup ===================
 # interior lighting and emissions -----------------------------------
-	# surface# color/location SEE LINE# 1509 for location of calculations
+	# surface# color/location 
 	#  0       Overhead lights
-	#  1       Blue        Rug/Floor
-	#  2       Grey80      Light fixture housing
-	#  3       Grey60      Buttons
-	#  4       Grey45      Lower walls and covers
+	#  1       Blue        Rug/Floor		Livery
+	#  2       Light blue  Door panels		Livery
+	#  3       Tan         Upper walls		Livery
+	#  4       Grey45      Lower walls and covers	Livery
 	#  5       Grey36      Panel surfaces
-	#  6       Grey14      Door seals
-	#  7       Tan         Chairs
-	#  8       Brown       Rear hatch non-skid flooring
-	#  9       YELLOW      Hatch Safety marker Lights
-	#  A       Light blue  Door panels
+	#  6       Tan         Chairs
+	#  7       Brown       Rear hatch non-skid flooring
+	#  8       Grey80      Light fixture housing
+	#  9       Grey60      Buttons
+	#  A       Grey14      Door seals
 	#  B       WHITE       Door markers/lights
-	#  U       Tan         Upper walls
-var livery_I1R = 0.0;  # material 1 flooring (red, green, blue) calculated
-var livery_I1G = 0.0;
-var livery_I1B = 0.1;
-var livery_I1AR = 0.0;  # ambient for UV textured flooring, livery setting
-var livery_I1AG = 0.0;
-var livery_I1AB = 1.0;
+	#  C       YELLOW      Hatch Safety marker Lights
+var livery_I1AR = 0;	# Ambient from livery, only updates upon livery change
+var livery_I1AG = 0;
+var livery_I1AB = 1;
 var livery_I1R_add = 0.5;  # factor to calculate ambient from livery
 var livery_I1G_add = 0.0;  #  accounting for alert_level
 var livery_I1B_add = -0.25;
+var livery_I1R = 0;	# calculated emissions. material 1 flooring (red, green, blue)
+var livery_I1G = 0;
+var livery_I1B = 0;
+var livery_I2AR = 0.50;
+var livery_I2AG = 0.70;
+var livery_I2AB = 0.90;
+var livery_I2R_add = 0.0;
+var livery_I2G_add = 0.0;
+var livery_I2B_add = 0.0;
 var livery_I2R = 0.0;
 var livery_I2G = 0.0;
+var livery_I2B = 0.0;
+var livery_I3AR = 0.70;
+var livery_I3AG = 0.69;
+var livery_I3AB = 0.55;
+var livery_I3R_add = 0.0;
+var livery_I3G_add = 0.0;
+var livery_I3B_add = 0.0;
 var livery_I3R = 0.0;
 var livery_I3G = 0.0;
-var livery_I4R = 0.0;
-var livery_I4G = 0.0;
-var livery_I4B = 0.0;
-var livery_I4AR = 0.60;
-var livery_I4AG = 0.60;
-var livery_I4AB = 0.60;
-var livery_I4R_add = 0.0;
-var livery_I4G_add = 0.0;
-var livery_I4B_add = 0.0;
-var livery_I5R = 0.0;
-var livery_I5G = 0.0;
-var livery_I5B = 0.0;
-var livery_I5AR = 0.0;
-var livery_I5AG = 0.0;
-var livery_I5AB = 0.0;
-var livery_I5R_add = 0.0;
-var livery_I5G_add = 0.0;
-var livery_I5B_add = 0.0;
-var livery_I7R = 0.0;
-var livery_I7G = 0.0;
-var livery_I7B = 0.0;
-var livery_I7AR = 0.0;
-var livery_I7AG = 0.0;
-var livery_I7AB = 0.0;
-var livery_I7R_add = 0.0;
-var livery_I7G_add = 0.0;
-var livery_I7B_add = 0.0;
-var livery_I8R = 0.0;
-var livery_I8G = 0.0;
-var livery_I8B = 0.0;
-var livery_I8AR = 0.0;
-var livery_I8AG = 0.0;
-var livery_I8AB = 0.0;
-var livery_I8R_add = 0.0;
-var livery_I8G_add = 0.0;
-var livery_I8B_add = 0.0;
-var livery_IAR = 0.0;
-var livery_IAG = 0.0;
-var livery_IAB = 0.0;
-var livery_IAAR = 0.50;
-var livery_IAAG = 0.70;
-var livery_IAAB = 0.90;
-var livery_IAR_add = 0.0;
-var livery_IAG_add = 0.0;
-var livery_IAB_add = 0.0;
-var livery_IUR = 0.0;
-var livery_IUG = 0.0;
-var livery_IUB = 0.0;
-var livery_IUAR = 0.70;
-var livery_IUAG = 0.69;
-var livery_IUAB = 0.55;
-var livery_IUR_add = 0.0;
-var livery_IUG_add = 0.0;
-var livery_IUB_add = 0.0;
+var livery_I3B = 0.0;
+var livery_I4AR = 0.6;
+var livery_I4AG = 0.6;
+var livery_I4AB = 0.6;
+var livery_I4R_add = 0;
+var livery_I4G_add = 0;
+var livery_I4B_add = 0;
+var livery_I4R = 0;
+var livery_I4G = 0;
+var livery_I4B = 0;
+var livery_I5AR = 0.36;
+var livery_I5AG = 0.37;
+var livery_I5AB = 0.32;
+var livery_I5R_add = 0.18;
+var livery_I5G_add = -0.0925;
+var livery_I5B_add = -0.08;
+var livery_I5R = 0;
+var livery_I5G = 0;
+var livery_I5B = 0;
+var livery_I6AR = 0.7;
+var livery_I6AG = 0.69;
+var livery_I6AB = 0.59;
+var livery_I6R_add = 0.3;
+var livery_I6G_add = -0.1725;
+var livery_I6B_add = -0.1475;
+var livery_I6R = 0;
+var livery_I6G = 0;
+var livery_I6B = 0;
+var livery_I7AR = 0.25;
+var livery_I7AG = 0.25;
+var livery_I7AB = 0.17;
+var livery_I7R_add = 0.125;
+var livery_I7G_add = -0.06;
+var livery_I7B_add = -0.0425;
+var livery_I7R = 0;
+var livery_I7G = 0;
+var livery_I7B = 0;
+var livery_I8AR = 0.8;
+var livery_I8AGB = 0.8;
+var livery_I8R_add = 0.2;
+var livery_I8GB_add = -0.2;
+var livery_I8R = 0;
+var livery_I8GB = 0;
+var livery_I9AR = 0.6;
+var livery_I9AGB = 0.6;
+var livery_I9R_add = 0.2;
+var livery_I9GB_add = -0.2;
+var livery_I9R = 0;
+var livery_I9GB = 0;
+var livery_IAARGB = 0.02;
 
 var button_G1 = 0;	# remember current button colors to limit spending time in setprop.
 var button_G2 = 0;	# binary operators: 1 = red, 2 = green, 4 = blue, 8 = dim
@@ -300,6 +306,7 @@ var skid_last_value = 0;
 var nacelle_L_venting = 0;
 var nacelle_R_venting = 0;
 var venting_direction = -2;     # start disabled. -1=backward, 1=forward, 0=both
+var shutdown_venting = 0;
 # --- ground detection ---
 var init_agl = 5;     # some airports reported elevation change after movement begins
 var ground_near = 1;  # instrument panel indicator lights
@@ -318,11 +325,19 @@ var sound_level = 0;
 var sound_state = 0;
 var alert_level = 0;
 # -------
+var cockpit_locations = [ { x: -7.35, y: 0, z: [1.47, 1.70, 1.88], h: 0, p: 0, fov: 55 },
+		{ x: -5.6, y: 0, z: [2.1, 2.33, 2.47], h: 0, p: 0, fov: 55 },
+		{ x: -5.94, y: -0.73, z: [1.47, 1.68, 1.79], h: 0, p: 0, fov: 55 },
+		{ x: -5.93, y: 0.77, z: [1.47, 1.68, 1.79], h: 0, p: 0, fov: 55 },
+		{ x: -3.3, y: 0, z: [2.1, 2.32, 2.43], h: 0, p: 0, fov: 55 },
+		{ x: -2.55, y: -1.9, z: [2.1, 2.3, 2.4], h: 0, p: 0, fov: 55 } ];
+		# Waldo eye height is 1.625m
 var cockpitView = 0;
 var active_nav_button = [3, 3, 1];
 var active_landing_button = [3, 1, 3];
 var config_dialog = nil;
 var systems_dialog = nil;
+var livery_dialog = nil;
 
 var reinit_bluebird = func {	# reset the above variables
 	damage_blocker = 0;
@@ -367,6 +382,7 @@ var reinit_bluebird = func {	# reset the above variables
 	nacelle_L_venting = 0;
 	nacelle_R_venting = 0;
 	venting_direction = -2;
+	shutdown_venting = 0;
 	init_agl = 5;
 	cpl = 5;
 	current_to = 5;
@@ -417,6 +433,9 @@ var reinit_bluebird = func {	# reset the above variables
 	if (systems_dialog != nil) {
 		fgcommand("dialog-close", props.Node.new({ "dialog-name" : name }));
 		systems_dialog = nil;
+	}
+	if (getprop("sim/ai-traffic/enabled") or getprop("sim/multiplay/rxport")) {
+		setprop("instrumentation/tracking/enabled", 1);
 	}
 }
 
@@ -501,6 +520,7 @@ var door_update = func(door_number) {
 			}
 		}
 		setprop("sim/model/bluebird/sound/door0-volume", doorProximityVolume(c_view, 0, x_position, y_position));
+		hatch_lighting_update();
 	} elsif (door_number == 1) {
 		var gear_position2 = (gear_position * gear_position * 0.204304) + (gear_position * 0.0627) + 0.733;
 		door1_position = door1_pos.getValue();
@@ -527,6 +547,7 @@ var door_update = func(door_number) {
 			}
 		}
 		setprop("sim/model/bluebird/sound/door1-volume", doorProximityVolume(c_view, 1, x_position, y_position));
+		hatch_lighting_update();
 	} elsif (door_number == 2) {
 		setprop("sim/model/bluebird/sound/door2-volume", doorProximityVolume(c_view, 2, x_position, y_position));
 	} elsif (door_number == 3) {
@@ -534,10 +555,7 @@ var door_update = func(door_number) {
 	} elsif (door_number == 4) {
 		setprop("sim/model/bluebird/sound/door4-volume", doorProximityVolume(c_view, 4, x_position, y_position));
 	} elsif (door_number == 5) {
-		var gear_position2 = (gear_position * gear_position * 0.1207) + (gear_position * 0.2299) + 0.79;
-		if (gear_position2 > 1.0) {
-			gear_position2 = 1.0;
-		}
+		var gear_position2 = clamp(((gear_position * gear_position * 0.1207) + (gear_position * 0.2299) + 0.79), 0, 1);
 		door5_position = door5_pos.getValue();
 		if (door5_position > 0.66 and airspeed > 40) {
 			door5_position = 0.66;
@@ -548,16 +566,17 @@ var door_update = func(door_number) {
 			door5_adjpos.setValue(door5_position);
 		}
 		if (c_view == 0 and door5_position < 0.62) {
-			if (x_position > 9.2) {
-				xViewNode.setValue(9.2);
+			if (x_position > 8.9) {
+				xViewNode.setValue(8.9);
 			}
 		}
 		if (door5_position < 0.62) {
-			if (getprop("sim/model/bluebird/crew/walker/x-offset-m") > 9.2) {
-				setprop("sim/model/bluebird/crew/walker/x-offset-m", 9.2);
+			if (getprop("sim/model/bluebird/crew/walker/x-offset-m") > 8.9) {
+				setprop("sim/model/bluebird/crew/walker/x-offset-m", 8.9);
 			}
 		}
 		setprop("sim/model/bluebird/sound/door5-volume", doorProximityVolume(c_view, 5, x_position, y_position));
+		hatch_lighting_update();
 	}
 }
 
@@ -694,293 +713,314 @@ setlistener("sim/model/bluebird/systems/wave2-request", func(n) { wave2_request 
 
 setlistener("sim/model/bluebird/lighting/interior-switch", func(n) { int_switch = n.getValue() },, 0);
 
-var isodd = func(n) { int(n / 2) * 2 != n };
+var isodd = func(n) { int(n / 2) * 2 != int(n) };
 
 # lighting and texture ----------------------------------------------
 
 setlistener("environment/visibility-m", func(n) { visibility = n.getValue() }, 1, 0);
 
+var emis_calc = 0.7;	# maximum emission at night.
+setlistener("sim/model/bluebird/lighting/overhead/emission/factor", func(n) { emis_calc = n.getValue() }, 1, 0);
+var amb_calc = 0.1;
+setlistener("sim/model/bluebird/lighting/interior-ambient-factor", func(n) { amb_calc = n.getValue() }, 1, 0);
+
 var set_I1_ambient = func {
-	var calc_amb_R = livery_I1AR + (livery_I1R_add * alert_level * int_switch * power_switch);
-	var calc_amb_G = livery_I1AG + (livery_I1G_add * alert_level * int_switch * power_switch);
-	var calc_amb_B = livery_I1AB + (livery_I1B_add * alert_level * int_switch * power_switch);
-	setprop("sim/model/bluebird/lighting/ambient/I1-A-red", calc_amb_R);
-	setprop("sim/model/bluebird/lighting/ambient/I1-A-green", calc_amb_G);
-	setprop("sim/model/bluebird/lighting/ambient/I1-A-blue", calc_amb_B);
-	livery_I1R = calc_amb_R * 0.1;  # emission calculations base
-	livery_I1G = calc_amb_G * 0.1;
-	livery_I1B = calc_amb_B * 0.1;
+	# emission calculation base
+	livery_I1R = livery_I1AR + (livery_I1R_add * alert_level * int_switch * power_switch);
+	livery_I1G = livery_I1AG + (livery_I1G_add * alert_level * int_switch * power_switch);
+	livery_I1B = livery_I1AB + (livery_I1B_add * alert_level * int_switch * power_switch);
+	setprop("sim/model/bluebird/lighting/interior1-flooring/amb-dif/red", livery_I1R * amb_calc);
+	setprop("sim/model/bluebird/lighting/interior1-flooring/amb-dif/green", livery_I1G * amb_calc);
+	setprop("sim/model/bluebird/lighting/interior1-flooring/amb-dif/blue", livery_I1B * amb_calc);
 }
 
-var recalc_material_1 = func {
+var recalc_material_I1 = func {
 	# calculate emission and ambient base levels upon loading new livery
-	var red_amb_flr_R = livery_I1AR * 1.5;     # tint calculations
-	var red_amb_flr_G = livery_I1AG * 0.75;
-	var red_amb_flr_B = livery_I1AB * 0.75;
-	if (red_amb_flr_R > 1.0) {
-		red_amb_flr_R = 1.0;
-	} elsif (red_amb_flr_R < 0.5) {
-		red_amb_flr_R = 0.5;
-	}
-	if (red_amb_flr_G < 0.0) {
-		red_amb_flr_G = 0.0;
-	}
-	if (red_amb_flr_B < 0.0) {
-		red_amb_flr_B = 0.0;
-	}
+	var red_amb_flr_R = clamp(livery_I1AR * 1.5, 0.5, 1.0);     # tint calculations
+	var red_amb_flr_G = clamp(livery_I1AG * 0.75, 0, 1);
+	var red_amb_flr_B = clamp(livery_I1AB * 0.75, 0, 1);
 	livery_I1R_add = red_amb_flr_R - livery_I1AR;  # amount to add when calculating alert_level
 	livery_I1G_add = red_amb_flr_G - livery_I1AG;
 	livery_I1B_add = red_amb_flr_B - livery_I1AB;
 }
 
 var set_I2_ambient = func {
-	var calc_amb_R = 0.80 + (0.2 * alert_level * int_switch * power_switch);
-	var calc_amb_G = 0.80 + (-0.2 * alert_level * int_switch * power_switch);
-	setprop("sim/model/bluebird/lighting/ambient/I2-A-red", calc_amb_R);
-	setprop("sim/model/bluebird/lighting/ambient/I2-A-gb", calc_amb_G);
-	livery_I2R = calc_amb_R * 0.07;
-	livery_I2G = calc_amb_G * 0.07;
+	livery_I2R = livery_I2AR + (livery_I2R_add * alert_level * int_switch * power_switch);
+	livery_I2G = livery_I2AG + (livery_I2G_add * alert_level * int_switch * power_switch);
+	livery_I2B = livery_I2AB + (livery_I2B_add * alert_level * int_switch * power_switch);
+	setprop("sim/model/bluebird/lighting/interior2-door-panels/amb-dif/red", livery_I2R * amb_calc);
+	setprop("sim/model/bluebird/lighting/interior2-door-panels/amb-dif/green", livery_I2G * amb_calc);
+	setprop("sim/model/bluebird/lighting/interior2-door-panels/amb-dif/blue", livery_I2B * amb_calc);
+}
+
+var recalc_material_I2 = func {
+	var red_amb_flr_R = clamp(livery_I2AR * 1.5, 0.5, 1.0);
+	var red_amb_flr_G = clamp(livery_I2AG * 0.75, 0, 1);
+	var red_amb_flr_B = clamp(livery_I2AB * 0.75, 0, 1);
+	livery_I2R_add = red_amb_flr_R - livery_I2AR;
+	livery_I2G_add = red_amb_flr_G - livery_I2AG;
+	livery_I2B_add = red_amb_flr_B - livery_I2AB;
 }
 
 var set_I3_ambient = func {
-	var calc_amb_R = 0.60 + (0.2 * alert_level * int_switch * power_switch);
-	var calc_amb_G = 0.60 + (-0.2 * alert_level * int_switch * power_switch);
-	setprop("sim/model/bluebird/lighting/ambient/I3-A-red", calc_amb_R);
-	setprop("sim/model/bluebird/lighting/ambient/I3-A-gb", calc_amb_G);
-	livery_I3R = calc_amb_R * 0.07;
-	livery_I3G = calc_amb_G * 0.07;
+	livery_I3R = livery_I3AR + (livery_I3R_add * alert_level * int_switch * power_switch);
+	livery_I3G = livery_I3AG + (livery_I3G_add * alert_level * int_switch * power_switch);
+	livery_I3B = livery_I3AB + (livery_I3B_add * alert_level * int_switch * power_switch);
+	setprop("sim/model/bluebird/lighting/interior3-upper-walls/amb-dif/red", livery_I3R * amb_calc);
+	setprop("sim/model/bluebird/lighting/interior3-upper-walls/amb-dif/green", livery_I3G * amb_calc);
+	setprop("sim/model/bluebird/lighting/interior3-upper-walls/amb-dif/blue", livery_I3B * amb_calc);
+}
+
+var recalc_material_I3 = func {
+	var red_amb_flr_R = clamp(livery_I3AR * 1.5, 0.5, 1.0);
+	var red_amb_flr_G = clamp(livery_I3AG * 0.75, 0, 1);
+	var red_amb_flr_B = clamp(livery_I3AB * 0.75, 0, 1);
+	livery_I3R_add = red_amb_flr_R - livery_I3AR;
+	livery_I3G_add = red_amb_flr_G - livery_I3AG;
+	livery_I3B_add = red_amb_flr_B - livery_I3AB;
 }
 
 var set_I4_ambient = func {
-	var calc_amb_R = livery_I4AR + (livery_I4R_add * alert_level * int_switch * power_switch);
-	var calc_amb_G = livery_I4AG + (livery_I4G_add * alert_level * int_switch * power_switch);
-	var calc_amb_B = livery_I4AB + (livery_I4B_add * alert_level * int_switch * power_switch);
-	setprop("sim/model/bluebird/lighting/ambient/I4-A-red", calc_amb_R);
-	setprop("sim/model/bluebird/lighting/ambient/I4-A-green", calc_amb_G);
-	setprop("sim/model/bluebird/lighting/ambient/I4-A-blue", calc_amb_B);
-	livery_I4R = calc_amb_R * 0.1;
-	livery_I4G = calc_amb_G * 0.1;
-	livery_I4B = calc_amb_B * 0.1;
+	livery_I4R = livery_I4AR + (livery_I4R_add * alert_level * int_switch * power_switch);
+	livery_I4G = livery_I4AG + (livery_I4G_add * alert_level * int_switch * power_switch);
+	livery_I4B = livery_I4AB + (livery_I4B_add * alert_level * int_switch * power_switch);
+	setprop("sim/model/bluebird/lighting/interior4-lower-walls/amb-dif/red", livery_I4R * amb_calc);
+	setprop("sim/model/bluebird/lighting/interior4-lower-walls/amb-dif/green", livery_I4G * amb_calc);
+	setprop("sim/model/bluebird/lighting/interior4-lower-walls/amb-dif/blue", livery_I4B * amb_calc);
 }
 
-var recalc_material_4 = func {
-	var red_amb_flr_R = livery_I4AR * 1.5;
-	var red_amb_flr_G = livery_I4AG * 0.75;
-	var red_amb_flr_B = livery_I4AB * 0.75;
-	if (red_amb_flr_R > 1.0) {
-		red_amb_flr_R = 1.0;
-	} elsif (red_amb_flr_R < 0.5) {
-		red_amb_flr_R = 0.5;
-	}
-	if (red_amb_flr_G < 0.0) {
-		red_amb_flr_G = 0.0;
-	}
-	if (red_amb_flr_B < 0.0) {
-		red_amb_flr_B = 0.0;
-	}
+var recalc_material_I4 = func {
+	var red_amb_flr_R = clamp(livery_I4AR * 1.5, 0.5, 1.0);
+	var red_amb_flr_G = clamp(livery_I4AG * 0.75, 0, 1);
+	var red_amb_flr_B = clamp(livery_I4AB * 0.75, 0, 1);
 	livery_I4R_add = red_amb_flr_R - livery_I4AR;
 	livery_I4G_add = red_amb_flr_G - livery_I4AG;
 	livery_I4B_add = red_amb_flr_B - livery_I4AB;
 }
 
 var set_I5_ambient = func {
-	var calc_amb_R = 0.36 + (0.18 * alert_level * int_switch * power_switch);
-	var calc_amb_G = 0.37 + (-0.0925 * alert_level * int_switch * power_switch);
-	var calc_amb_B = 0.32 + (-0.08 * alert_level * int_switch * power_switch);
-	setprop("sim/model/bluebird/lighting/ambient/I5-A-red", calc_amb_R);
-	setprop("sim/model/bluebird/lighting/ambient/I5-A-green", calc_amb_G);
-	setprop("sim/model/bluebird/lighting/ambient/I5-A-blue", calc_amb_B);
-	livery_I5R = calc_amb_R * 0.07;
-	livery_I5G = calc_amb_G * 0.07;
-	livery_I5B = calc_amb_B * 0.07;
+	livery_I5R = livery_I5AR + (livery_I5R_add * alert_level * int_switch * power_switch);
+	livery_I5G = livery_I5AG + (livery_I5G_add * alert_level * int_switch * power_switch);
+	livery_I5B = livery_I5AB + (livery_I5B_add * alert_level * int_switch * power_switch);
+	setprop("sim/model/bluebird/lighting/interior5-console/amb-dif/red", livery_I5R * amb_calc);
+	setprop("sim/model/bluebird/lighting/interior5-console/amb-dif/green", livery_I5G * amb_calc);
+	setprop("sim/model/bluebird/lighting/interior5-console/amb-dif/blue", livery_I5B * amb_calc);
+}
+
+var set_I6_ambient = func {
+	livery_I6R = livery_I6AR + (livery_I6R_add * alert_level * int_switch * power_switch);
+	livery_I6G = livery_I6AG + (livery_I6G_add * alert_level * int_switch * power_switch);
+	livery_I6B = livery_I6AB + (livery_I6B_add * alert_level * int_switch * power_switch);
+	setprop("sim/model/bluebird/lighting/interior6-chairs/amb-dif/red", livery_I6R * amb_calc);
+	setprop("sim/model/bluebird/lighting/interior6-chairs/amb-dif/green", livery_I6G * amb_calc);
+	setprop("sim/model/bluebird/lighting/interior6-chairs/amb-dif/blue", livery_I6B * amb_calc);
 }
 
 var set_I7_ambient = func {
-	var calc_amb_R = 0.70 + (0.30 * alert_level * int_switch * power_switch);
-	var calc_amb_G = 0.69 + (-0.1725 * alert_level * int_switch * power_switch);
-	var calc_amb_B = 0.59 + (-0.1475 * alert_level * int_switch * power_switch);
-	setprop("sim/model/bluebird/lighting/ambient/I7-A-red", calc_amb_R);
-	setprop("sim/model/bluebird/lighting/ambient/I7-A-green", calc_amb_G);
-	setprop("sim/model/bluebird/lighting/ambient/I7-A-blue", calc_amb_B);
-	livery_I7R = calc_amb_R * 0.07;
-	livery_I7G = calc_amb_G * 0.07;
-	livery_I7B = calc_amb_B * 0.07;
+	livery_I7R = livery_I7AR + (livery_I7R_add * alert_level * int_switch * power_switch);
+	livery_I7G = livery_I7AG + (livery_I7G_add * alert_level * int_switch * power_switch);
+	livery_I7B = livery_I7AB + (livery_I7B_add * alert_level * int_switch * power_switch);
+	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/amb-dif/red", livery_I7R * amb_calc);
+	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/amb-dif/green", livery_I7G * amb_calc);
+	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/amb-dif/blue", livery_I7B * amb_calc);
 }
 
 var set_I8_ambient = func {
-	var calc_amb_R = 0.25 + (0.125 * alert_level * int_switch * power_switch);
-	var calc_amb_G = 0.24 + (-0.06 * alert_level * int_switch * power_switch);
-	var calc_amb_B = 0.17 + (-0.0425 * alert_level * int_switch * power_switch);
-	setprop("sim/model/bluebird/lighting/ambient/I8-A-red", calc_amb_R);
-	setprop("sim/model/bluebird/lighting/ambient/I8-A-green", calc_amb_G);
-	setprop("sim/model/bluebird/lighting/ambient/I8-A-blue", calc_amb_B);
-	livery_I8R = calc_amb_R * 0.07;
-	livery_I8G = calc_amb_G * 0.07;
-	livery_I8B = calc_amb_B * 0.07;
+	livery_I8R = livery_I8AR + (livery_I8R_add * alert_level * int_switch * power_switch);
+	livery_I8GB = livery_I8AGB + (livery_I8GB_add * alert_level * int_switch * power_switch);
+	setprop("sim/model/bluebird/lighting/interior8-light-frame/amb-dif/red", livery_I8R * amb_calc);
+	setprop("sim/model/bluebird/lighting/interior8-light-frame/amb-dif/gb", livery_I8GB * amb_calc);
 }
 
-var set_IA_ambient = func {
-	var calc_amb_R = livery_IAAR + (livery_IAR_add * alert_level * int_switch * power_switch);
-	var calc_amb_G = livery_IAAG + (livery_IAG_add * alert_level * int_switch * power_switch);
-	var calc_amb_B = livery_IAAB + (livery_IAB_add * alert_level * int_switch * power_switch);
-	setprop("sim/model/bluebird/lighting/ambient/IA-A-red", calc_amb_R);
-	setprop("sim/model/bluebird/lighting/ambient/IA-A-green", calc_amb_G);
-	setprop("sim/model/bluebird/lighting/ambient/IA-A-blue", calc_amb_B);
-	livery_IAR = calc_amb_R * 0.07;
-	livery_IAG = calc_amb_G * 0.07;
-	livery_IAB = calc_amb_B * 0.07;
+var set_I9_ambient = func {
+	livery_I9R = livery_I9AR + (livery_I9R_add * alert_level * int_switch * power_switch);
+	livery_I9GB = livery_I9AGB + (livery_I9GB_add * alert_level * int_switch * power_switch);
+	setprop("sim/model/bluebird/lighting/interior9-buttons/amb-dif/red", livery_I9R * amb_calc);
+	setprop("sim/model/bluebird/lighting/interior9-buttons/amb-dif/gb", livery_I9GB * amb_calc);
 }
 
-var recalc_material_A = func {
-	var red_amb_flr_R = livery_IAAR * 1.5;
-	var red_amb_flr_G = livery_IAAG * 0.75;
-	var red_amb_flr_B = livery_IAAB * 0.75;
-	if (red_amb_flr_R > 1.0) {
-		red_amb_flr_R = 1.0;
-	} elsif (red_amb_flr_R < 0.5) {
-		red_amb_flr_R = 0.5;
-	}
-	if (red_amb_flr_G < 0.0) {
-		red_amb_flr_G = 0.0;
-	}
-	if (red_amb_flr_B < 0.0) {
-		red_amb_flr_B = 0.0;
-	}
-	livery_IAR_add = red_amb_flr_R - livery_IAAR;
-	livery_IAG_add = red_amb_flr_G - livery_IAAG;
-	livery_IAB_add = red_amb_flr_B - livery_IAAB;
+var hatch_interpolate = func (i_from, i_to, i_slider) {
+	return ((i_to - i_from) * i_slider) + i_from;
 }
 
-var set_IU_ambient = func {
-	var calc_amb_R = livery_IUAR + (livery_IUR_add * alert_level * int_switch * power_switch);
-	var calc_amb_G = livery_IUAG + (livery_IUG_add * alert_level * int_switch * power_switch);
-	var calc_amb_B = livery_IUAB + (livery_IUB_add * alert_level * int_switch * power_switch);
-	setprop("sim/model/bluebird/lighting/ambient/IU-A-red", calc_amb_R);
-	setprop("sim/model/bluebird/lighting/ambient/IU-A-green", calc_amb_G);
-	setprop("sim/model/bluebird/lighting/ambient/IU-A-blue", calc_amb_B);
-	livery_IUR = calc_amb_R * 0.07;
-	livery_IUG = calc_amb_G * 0.07;
-	livery_IUB = calc_amb_B * 0.07;
-}
+var hatch_lighting_update = func {
+	var door0_opening = clamp(((door0_position - 0.15) * 1.887), 0, 1);
+	setprop("sim/model/bluebird/lighting/door0/interior1-flooring/emission/red", hatch_interpolate((livery_I1R * interior_lighting_base_R), livery_I1AR, (door0_opening * 0.5)));
+	setprop("sim/model/bluebird/lighting/door0/interior1-flooring/emission/green", hatch_interpolate((livery_I1G * interior_lighting_base_GB), livery_I1AG, (door0_opening * 0.5)));
+	setprop("sim/model/bluebird/lighting/door0/interior1-flooring/emission/blue", hatch_interpolate((livery_I1B * interior_lighting_base_GB), livery_I1AB, (door0_opening * 0.5)));
+	setprop("sim/model/bluebird/lighting/door0/interior4-lower-walls/emission/red", hatch_interpolate(0, (livery_I4R * interior_lighting_base_R), door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/interior4-lower-walls/emission/green", hatch_interpolate(0, (livery_I4G * interior_lighting_base_GB), door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/interior4-lower-walls/emission/blue", hatch_interpolate(0, (livery_I4B * interior_lighting_base_GB), door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/interior8-light-frame/emission/red", hatch_interpolate(0, (livery_I8R * interior_lighting_base_R), door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/interior8-light-frame/emission/gb", hatch_interpolate(0, (livery_I8GB * interior_lighting_base_GB), door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/hatchA-steps/emission/red", hatch_interpolate(0, (livery_IAARGB * interior_lighting_base_R), door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/hatchA-steps/emission/gb", hatch_interpolate(0, (livery_IAARGB * interior_lighting_base_GB), door0_opening));
 
-var recalc_material_U = func {
-	var red_amb_flr_R = livery_IUAR * 1.5;
-	var red_amb_flr_G = livery_IUAG * 0.75;
-	var red_amb_flr_B = livery_IUAB * 0.75;
-	if (red_amb_flr_R > 1.0) {
-		red_amb_flr_R = 1.0;
-	} elsif (red_amb_flr_R < 0.5) {
-		red_amb_flr_R = 0.5;
-	}
-	if (red_amb_flr_G < 0.0) {
-		red_amb_flr_G = 0.0;
-	}
-	if (red_amb_flr_B < 0.0) {
-		red_amb_flr_B = 0.0;
-	}
-	livery_IUR_add = red_amb_flr_R - livery_IUAR;
-	livery_IUG_add = red_amb_flr_G - livery_IUAG;
-	livery_IUB_add = red_amb_flr_B - livery_IUAB;
+	setprop("sim/model/bluebird/lighting/door0/interior1-flooring/amb-dif/red", hatch_interpolate((livery_I1R * interior_lighting_base_R), livery_I1AR, door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/interior1-flooring/amb-dif/green", hatch_interpolate((livery_I1G * interior_lighting_base_GB), livery_I1AG, door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/interior1-flooring/amb-dif/blue", hatch_interpolate((livery_I1B * interior_lighting_base_GB), livery_I1AB, door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/interior4-lower-walls/amb-dif/red", hatch_interpolate((livery_I4R * interior_lighting_base_R), livery_I4AR, door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/interior4-lower-walls/amb-dif/green", hatch_interpolate((livery_I4G * interior_lighting_base_GB), livery_I4AG, door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/interior4-lower-walls/amb-dif/blue", hatch_interpolate((livery_I4B * interior_lighting_base_GB), livery_I4AB, door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/interior8-light-frame/amb-dif/red", hatch_interpolate((livery_I8R * interior_lighting_base_R), livery_I8AR, door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/interior8-light-frame/amb-dif/gb", hatch_interpolate((livery_I8GB * interior_lighting_base_GB), livery_I8AGB, door0_opening));
+
+	var door1_opening = clamp(((door1_position - 0.15) * 1.887), 0, 1);
+	setprop("sim/model/bluebird/lighting/door1/interior1-flooring/emission/red", hatch_interpolate((livery_I1R * interior_lighting_base_R), livery_I1AR, (door1_opening * 0.5)));
+	setprop("sim/model/bluebird/lighting/door1/interior1-flooring/emission/green", hatch_interpolate((livery_I1G * interior_lighting_base_GB), livery_I1AG, (door1_opening * 0.5)));
+	setprop("sim/model/bluebird/lighting/door1/interior1-flooring/emission/blue", hatch_interpolate((livery_I1B * interior_lighting_base_GB), livery_I1AB, (door1_opening * 0.5)));
+	setprop("sim/model/bluebird/lighting/door1/interior4-lower-walls/emission/red", hatch_interpolate(0, (livery_I4R * interior_lighting_base_R), door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/interior4-lower-walls/emission/green", hatch_interpolate(0, (livery_I4G * interior_lighting_base_GB), door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/interior4-lower-walls/emission/blue", hatch_interpolate(0, (livery_I4B * interior_lighting_base_GB), door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/interior8-light-frame/emission/red", hatch_interpolate(0, (livery_I8R * interior_lighting_base_R), door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/interior8-light-frame/emission/gb", hatch_interpolate(0, (livery_I8GB * interior_lighting_base_GB), door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/hatchA-steps/emission/red", hatch_interpolate(0, (livery_IAARGB * interior_lighting_base_R), door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/hatchA-steps/emission/gb", hatch_interpolate(0, (livery_IAARGB * interior_lighting_base_GB), door1_opening));
+
+	setprop("sim/model/bluebird/lighting/door1/interior1-flooring/amb-dif/red", hatch_interpolate((livery_I1R * interior_lighting_base_R), livery_I1AR, door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/interior1-flooring/amb-dif/green", hatch_interpolate((livery_I1G * interior_lighting_base_GB), livery_I1AG, door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/interior1-flooring/amb-dif/blue", hatch_interpolate((livery_I1B * interior_lighting_base_GB), livery_I1AB, door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/interior4-lower-walls/amb-dif/red", hatch_interpolate((livery_I4R * interior_lighting_base_R), livery_I4AR, door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/interior4-lower-walls/amb-dif/green", hatch_interpolate((livery_I4G * interior_lighting_base_GB), livery_I4AG, door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/interior4-lower-walls/amb-dif/blue", hatch_interpolate((livery_I4B * interior_lighting_base_GB), livery_I4AB, door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/interior8-light-frame/amb-dif/red", hatch_interpolate((livery_I8R * interior_lighting_base_R), livery_I8AR, door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/interior8-light-frame/amb-dif/gb", hatch_interpolate((livery_I8GB * interior_lighting_base_GB), livery_I8AGB, door1_opening));
+	var doors0_1_opening = (door0_opening + door1_opening) * 0.5;
+	setprop("sim/model/bluebird/lighting/doors0-1/interior1-flooring/amb-dif/red", hatch_interpolate((livery_I1R * interior_lighting_base_R * amb_calc), livery_I1AR, doors0_1_opening));
+	setprop("sim/model/bluebird/lighting/doors0-1/interior1-flooring/amb-dif/green", hatch_interpolate((livery_I1G * interior_lighting_base_GB * amb_calc), livery_I1AG, doors0_1_opening));
+	setprop("sim/model/bluebird/lighting/doors0-1/interior1-flooring/amb-dif/blue", hatch_interpolate((livery_I1B * interior_lighting_base_GB * amb_calc), livery_I1AB, doors0_1_opening));
+
+	var door5_opening = clamp((door5_position * 1.724), 0, 1);
+	setprop("sim/model/bluebird/lighting/door5/interior-specular", door5_opening);
+	var door5_E_factor = 1 - (door5_opening * 0.5);
+	var f5R = interior_lighting_base_R * door5_E_factor;
+	var f5GB = interior_lighting_base_GB * door5_E_factor;
+	setprop("sim/model/bluebird/lighting/door5/hatch1-flooring-center/emission/red", livery_I1R * f5R);
+	setprop("sim/model/bluebird/lighting/door5/hatch1-flooring-center/emission/green", livery_I1G * f5GB);
+	setprop("sim/model/bluebird/lighting/door5/hatch1-flooring-center/emission/blue", livery_I1B * f5GB);
+	setprop("sim/model/bluebird/lighting/door5/hatch3-upper-walls/emission/red", livery_I3R * f5R);
+	setprop("sim/model/bluebird/lighting/door5/hatch3-upper-walls/emission/green", livery_I3G * f5GB);
+	setprop("sim/model/bluebird/lighting/door5/hatch3-upper-walls/emission/blue", livery_I3B * f5GB);
+	setprop("sim/model/bluebird/lighting/door5/hatch4-lower-walls/emission/red", livery_I4R * f5R);
+	setprop("sim/model/bluebird/lighting/door5/hatch4-lower-walls/emission/green", livery_I4G * f5GB);
+	setprop("sim/model/bluebird/lighting/door5/hatch4-lower-walls/emission/blue", livery_I4B * f5GB);
+	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/emission/red", livery_I7R * f5R);
+	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/emission/green", livery_I7G * f5GB);
+	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/emission/blue", livery_I7B * f5GB);
+	setprop("sim/model/bluebird/lighting/door5/interior1-flooring/emission/red", hatch_interpolate((livery_I1R * interior_lighting_base_R), livery_I1AR, (door5_opening * 0.5)));
+	setprop("sim/model/bluebird/lighting/door5/interior1-flooring/emission/green", hatch_interpolate((livery_I1G * interior_lighting_base_GB), livery_I1AG, (door5_opening * 0.5)));
+	setprop("sim/model/bluebird/lighting/door5/interior1-flooring/emission/blue", hatch_interpolate((livery_I1B * interior_lighting_base_GB), livery_I1AB, (door5_opening * 0.5)));
+
+	setprop("sim/model/bluebird/lighting/door5/hatch1-flooring-center/amb-dif/red", livery_I1AR * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch1-flooring-center/amb-dif/green", livery_I1AG * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch1-flooring-center/amb-dif/blue", livery_I1AB * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch3-upper-walls/amb-dif/red", livery_I3AR * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch3-upper-walls/amb-dif/green", livery_I3AG * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch3-upper-walls/amb-dif/blue", livery_I3AB * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch4-lower-walls/amb-dif/red", livery_I4AR * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch4-lower-walls/amb-dif/green", livery_I4AG * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch4-lower-walls/amb-dif/blue", livery_I4AB * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/amb-dif/red", livery_I7AR * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/amb-dif/green", livery_I7AG * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/amb-dif/blue", livery_I7AB * door5_opening);
+
+	var f5 = door5_opening * (1 - int_switch);
+	setprop("sim/model/bluebird/lighting/door5/interior1-flooring/amb-dif/red", livery_I1AR * f5);
+	setprop("sim/model/bluebird/lighting/door5/interior1-flooring/amb-dif/green", livery_I1AG * f5);
+	setprop("sim/model/bluebird/lighting/door5/interior1-flooring/amb-dif/blue", livery_I1AB * f5);
+	setprop("sim/model/bluebird/lighting/door5/interior3-upper-walls/amb-dif/red", livery_I3AR * f5 * 0.5);
+	setprop("sim/model/bluebird/lighting/door5/interior3-upper-walls/amb-dif/green", livery_I3AG * f5 * 0.5);
+	setprop("sim/model/bluebird/lighting/door5/interior3-upper-walls/amb-dif/blue", livery_I3AB * f5 * 0.5);
+	setprop("sim/model/bluebird/lighting/door5/interior4-lower-walls/amb-dif/red", livery_I4AR * f5 * 0.5);
+	setprop("sim/model/bluebird/lighting/door5/interior4-lower-walls/amb-dif/green", livery_I4AG * f5 * 0.5);
+	setprop("sim/model/bluebird/lighting/door5/interior4-lower-walls/amb-dif/blue", livery_I4AB * f5 * 0.5);
+	setprop("sim/model/bluebird/lighting/door5/interior8-light-frame/amb-dif/red", livery_I8AR * f5 * 0.5);
+	setprop("sim/model/bluebird/lighting/door5/interior8-light-frame/amb-dif/gb", livery_I8AGB * f5 * 0.5);
 }
 
 setlistener("sim/model/livery/material/interior-flooring/ambient/red", func(n) {
 	livery_I1AR = n.getValue();
-	setprop("sim/model/bluebird/lighting/ambient/I1-A-red", livery_I1AR);
-	recalc_material_1();
+	recalc_material_I1();
 	set_I1_ambient();
 },, 0);
 
 setlistener("sim/model/livery/material/interior-flooring/ambient/green", func(n) {
 	livery_I1AG = n.getValue();
-	setprop("sim/model/bluebird/lighting/ambient/I1-A-green", livery_I1AG);
-	recalc_material_1();
+	recalc_material_I1();
 	set_I1_ambient();
 },, 0);
 
 setlistener("sim/model/livery/material/interior-flooring/ambient/blue", func(n) {
 	livery_I1AB = n.getValue();
-	setprop("sim/model/bluebird/lighting/ambient/I1-A-blue", livery_I1AB);
-	recalc_material_1();
+	recalc_material_I1();
 	set_I1_ambient();
+},, 0);
+
+setlistener("sim/model/livery/material/interior-door-panels/ambient/red", func(n) {
+	livery_I2AR = n.getValue();
+	recalc_material_I2();
+	set_I2_ambient();
+},, 0);
+
+setlistener("sim/model/livery/material/interior-door-panels/ambient/green", func(n) {
+	livery_I2AG = n.getValue();
+	recalc_material_I2();
+	set_I2_ambient();
+},, 0);
+
+setlistener("sim/model/livery/material/interior-door-panels/ambient/blue", func(n) {
+	livery_I2AB = n.getValue();
+	recalc_material_I2();
+	set_I2_ambient();
+},, 0);
+
+setlistener("sim/model/livery/material/interior-upper/ambient/red", func(n) {
+	livery_I3AR = n.getValue();
+	recalc_material_I3();
+	set_I3_ambient();
+},, 0);
+
+setlistener("sim/model/livery/material/interior-upper/ambient/green", func(n) {
+	livery_I3AG = n.getValue();
+	recalc_material_I3();
+	set_I3_ambient();
+},, 0);
+
+setlistener("sim/model/livery/material/interior-upper/ambient/blue", func(n) {
+	livery_I3AB = n.getValue();
+	recalc_material_I3();
+	set_I3_ambient();
 },, 0);
 
 setlistener("sim/model/livery/material/interior-lower/ambient/red", func(n) {
 	livery_I4AR = n.getValue();
-	setprop("sim/model/bluebird/lighting/ambient/I4-A-red", livery_I4AR);
-	recalc_material_4();
+	recalc_material_I4();
 	set_I4_ambient();
 },, 0);
 
 setlistener("sim/model/livery/material/interior-lower/ambient/green", func(n) {
 	livery_I4AG = n.getValue();
-	setprop("sim/model/bluebird/lighting/ambient/I4-A-green", livery_I4AG);
-	recalc_material_4();
+	recalc_material_I4();
 	set_I4_ambient();
 },, 0);
 
 setlistener("sim/model/livery/material/interior-lower/ambient/blue", func(n) {
 	livery_I4AB = n.getValue();
-	setprop("sim/model/bluebird/lighting/ambient/I4-A-blue", livery_I4AB);
-	recalc_material_4();
+	recalc_material_I4();
 	set_I4_ambient();
-},, 0);
-
-setlistener("sim/model/livery/material/interior-door-panels/ambient/red", func(n) {
-	livery_IAAR = n.getValue();
-	setprop("sim/model/bluebird/lighting/ambient/IA-A-red", livery_IAAR);
-	recalc_material_A();
-	set_IA_ambient();
-},, 0);
-
-setlistener("sim/model/livery/material/interior-door-panels/ambient/green", func(n) {
-	livery_IAAG = n.getValue();
-	setprop("sim/model/bluebird/lighting/ambient/IA-A-green", livery_IAAG);
-	recalc_material_A();
-	set_IA_ambient();
-},, 0);
-
-setlistener("sim/model/livery/material/interior-door-panels/ambient/blue", func(n) {
-	livery_IAAB = n.getValue();
-	setprop("sim/model/bluebird/lighting/ambient/IA-A-blue", livery_IAAB);
-	recalc_material_A();
-	set_IA_ambient();
-},, 0);
-
-setlistener("sim/model/livery/material/interior-upper/ambient/red", func(n) {
-	livery_IUAR = n.getValue();
-	setprop("sim/model/bluebird/lighting/ambient/IU-A-red", livery_IUAR);
-	recalc_material_U();
-	set_IU_ambient();
-},, 0);
-
-setlistener("sim/model/livery/material/interior-upper/ambient/green", func(n) {
-	livery_IUAG = n.getValue();
-	setprop("sim/model/bluebird/lighting/ambient/IU-A-green", livery_IUAG);
-	recalc_material_U();
-	set_IU_ambient();
-},, 0);
-
-setlistener("sim/model/livery/material/interior-upper/ambient/blue", func(n) {
-	livery_IUAB = n.getValue();
-	setprop("sim/model/bluebird/lighting/ambient/IU-A-blue", livery_IUAB);
-	recalc_material_U();
-	set_IU_ambient();
 },, 0);
 
 setlistener("controls/lighting/alert", func {
 	alert_switch = alert_switch_Node.getValue();
 	alert_level = alert_switch;  # reset brightness to full upon change
 	if (!alert_switch) {
-		setprop("sim/model/bluebird/lighting/emission/I0-red", 1);
-		setprop("sim/model/bluebird/lighting/emission/I0g-0b", 1);
-		setprop("sim/model/bluebird/lighting/ambient/I1-A-red", livery_I1AR);
-		setprop("sim/model/bluebird/lighting/ambient/I1-A-green", livery_I1AG);
-		setprop("sim/model/bluebird/lighting/ambient/I1-A-blue", livery_I1AB);
+		setprop("sim/model/bluebird/lighting/overhead/emission/red", int_switch);
+		setprop("sim/model/bluebird/lighting/overhead/emission/gb", int_switch);
 	}
-	recalc_material_1();
-	recalc_material_4();
-	recalc_material_A();
-	recalc_material_U();
+	recalc_material_I1();
+	recalc_material_I2();
+	recalc_material_I3();
+	recalc_material_I4();
 	interior_lighting_update();
 },, 0);
 
@@ -1110,81 +1150,81 @@ setlistener("sim/model/bluebird/systems/nacelle-R-venting", func(n) {
 var set_button_color = func(sbc_prop, sbc_color) {
 	if (sbc_color < 0.9 or sbc_color >= 16) {
 		# button off, color for interior lighting and alert level
-		setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "e-A-red", panel_ambient_R * 0.75);	# edge
-		setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "f-A-red", panel_ambient_R);		# face
-		setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "b-red", panel_lighting_R * 0.75);	# bright lit
-		setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "k-red", panel_lighting_R * 0.33);	# very dark unlit
-		setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "d-red", panel_lighting_R * 0.5);	# dark (face)
-		setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "e-A-green", panel_ambient_GB * 0.75);
-		setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "f-A-green", panel_ambient_GB);
-		setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "b-green", panel_lighting_GB * 0.75);
-		setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "k-green", panel_lighting_GB * 0.33);
-		setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "d-green", panel_lighting_GB * 0.5);
-		setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "e-A-blue", panel_ambient_GB * 0.75);
-		setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "f-A-blue", panel_ambient_GB);
-		setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "b-blue", panel_lighting_GB * 0.75);
-		setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "k-blue", panel_lighting_GB * 0.33);
-		setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "d-blue", panel_lighting_GB * 0.5);
-		setprop("sim/model/bluebird/lighting/specular/I" ~ sbc_prop ~ "-specular", panel_specular);
+		setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/amb-dif/red", panel_ambient_R * 0.75);	# edge
+		setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/amb-dif/red", panel_ambient_R);		# face
+		setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-b/emission/red", panel_lighting_R * 0.75);	# bright lit
+		setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/emission/red", panel_lighting_R * 0.33);	# very dark unlit
+		setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/emission/red", panel_lighting_R * 0.5);	# dark (face)
+		setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/amb-dif/green", panel_ambient_GB * 0.75);
+		setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/amb-dif/green", panel_ambient_GB);
+		setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-b/emission/green", panel_lighting_GB * 0.75);
+		setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/emission/green", panel_lighting_GB * 0.33);
+		setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/emission/green", panel_lighting_GB * 0.5);
+		setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/amb-dif/blue", panel_ambient_GB * 0.75);
+		setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/amb-dif/blue", panel_ambient_GB);
+		setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-b/emission/blue", panel_lighting_GB * 0.75);
+		setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/emission/blue", panel_lighting_GB * 0.33);
+		setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/emission/blue", panel_lighting_GB * 0.5);
+		setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/specular", panel_specular);
 	} else {
 		# button on, determine color
-		setprop("sim/model/bluebird/lighting/specular/I" ~ sbc_prop ~ "-specular", (1 - power_switch));
+		setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/specular", (1 - power_switch));
 		if (sbc_color == 1 or sbc_color == 3) {		# red (or yellow) on
-			setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "e-A-red", 0.75);
-			setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "f-A-red", 1);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "b-red", button_lit * 0.5);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "k-red", button_lit * 0.5);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "d-red", button_lit);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/amb-dif/red", 0.75);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/amb-dif/red", 1);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-b/emission/red", button_lit * 0.5);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/emission/red", button_lit * 0.5);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/emission/red", button_lit);
 		} elsif (sbc_color == 9 or sbc_color == 15) {		# half intensity red or grey on
-			setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "e-A-red", 0.45);
-			setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "f-A-red", 0.6);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "b-red", button_lit * 0.3);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "k-red", button_lit * 0.3);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "d-red", button_lit * 0.6);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/amb-dif/red", 0.45);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/amb-dif/red", 0.6);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-b/emission/red", button_lit * 0.3);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/emission/red", button_lit * 0.3);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/emission/red", button_lit * 0.6);
 		} else {		# red off
-			setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "e-A-red", 0);
-			setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "f-A-red", 0);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "b-red", 0);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "k-red", 0);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "d-red", 0);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/amb-dif/red", 0);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/amb-dif/red", 0);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-b/emission/red", 0);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/emission/red", 0);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/emission/red", 0);
 		}
 		if (sbc_color == 2 or sbc_color == 3) {		# green (or yellow) on
-			setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "e-A-green", 0.75);
-			setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "f-A-green", 1);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "b-green", button_lit * 0.5);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "k-green", button_lit * 0.5);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "d-green", button_lit);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/amb-dif/green", 0.75);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/amb-dif/green", 1);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-b/emission/green", button_lit * 0.5);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/emission/green", button_lit * 0.5);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/emission/green", button_lit);
 		} elsif (sbc_color == 10 or sbc_color == 15) {	# half intensity green or grey on
-			setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "e-A-green", 0.45);
-			setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "f-A-green", 0.6);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "b-green", button_lit * 0.3);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "k-green", button_lit * 0.3);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "d-green", button_lit * 0.6);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/amb-dif/green", 0.45);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/amb-dif/green", 0.6);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-b/emission/green", button_lit * 0.3);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/emission/green", button_lit * 0.3);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/emission/green", button_lit * 0.6);
 		} else {		# green off
-			setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "e-A-green", 0);
-			setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "f-A-green", 0);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "b-green", 0);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "k-green", 0);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "d-green", 0);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/amb-dif/green", 0);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/amb-dif/green", 0);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-b/emission/green", 0);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/emission/green", 0);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/emission/green", 0);
 		}
 		if (sbc_color == 4) {		# blue on
-			setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "e-A-blue", 0.75);
-			setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "f-A-blue", 1);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "b-blue", button_lit * 0.5);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "k-blue", button_lit * 0.5);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "d-blue", button_lit);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/amb-dif/blue", 0.75);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/amb-dif/blue", 1);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-b/emission/blue", button_lit * 0.5);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/emission/blue", button_lit * 0.5);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/emission/blue", button_lit);
 		} elsif (sbc_color == 15) {		# grey on
-			setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "e-A-blue", 0.45);
-			setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "f-A-blue", 0.6);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "b-blue", button_lit * 0.3);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "k-blue", button_lit * 0.3);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "d-blue", button_lit * 0.6);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/amb-dif/blue", 0.45);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/amb-dif/blue", 0.6);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-b/emission/blue", button_lit * 0.3);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/emission/blue", button_lit * 0.3);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/emission/blue", button_lit * 0.6);
 		} else {		# blue off
-			setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "e-A-blue", 0);
-			setprop("sim/model/bluebird/lighting/ambient/I" ~ sbc_prop ~ "f-A-blue", 0);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "b-blue", 0);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "k-blue", 0);
-			setprop("sim/model/bluebird/lighting/emission/I" ~ sbc_prop ~ "d-blue", 0);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/amb-dif/blue", 0);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/amb-dif/blue", 0);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-b/emission/blue", 0);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/edge-k/emission/blue", 0);
+			setprop("sim/model/bluebird/lighting/buttons/" ~ sbc_prop ~ "/face/emission/blue", 0);
 		}
 	}
 }
@@ -1205,7 +1245,7 @@ var buttonL67_update = func(b67_change_all) {
 		button_LT6 = unlit_lighting_base;
 	}
 	if (old_button_1 != button_LT6 or b67_change_all) {
-		set_button_color("LT6", button_LT6);
+		set_button_color("left3-6-countergrav", button_LT6);
 	}
 
 	old_button_1 = button_LT7;
@@ -1235,7 +1275,7 @@ var buttonL67_update = func(b67_change_all) {
 		button_LT7 = unlit_lighting_base;
 	}
 	if (old_button_1 != button_LT7 or b67_change_all) {
-		set_button_color("LT7", button_LT7);
+		set_button_color("left7-countergrav", button_LT7);
 	}
 }
 
@@ -1246,27 +1286,23 @@ var buttonL67_update = func(b67_change_all) {
 var panel_lighting_update = func {
 	var plu_return = 0;
 	var old_lit = button_lit;
+	# instrument panel sun angle
+	var ipsa = (power_switch > 0 ? ((sun_angle - 1.1) * 3.3) : 2.5);
+		# sun_angle = 2.46 midnight 1.0 noon at mid-latitude
+		# ipsa = 1.0 dusk-midnight-dawn  0.33 at high noon
 	if (power_switch) {
+		ipsa = clamp(ipsa, 0, 1);	# daytime , nighttime
 		panel_specular = 0.5 - (0.5 * int_switch);  # interior specular
-		var ipsa = (sun_angle - 1.1) * 3.3;    # instrument panel sun angle
-			# sun_angle = 2.46 midnight 1.0 noon at mid-latitude
-			# ipsa = 1.0 dusk-midnight-dawn  0.33 at high noon
 		panel_lighting_R = 0.0600 * interior_lighting_base_R;  # Grey60 button Lighting
 		panel_lighting_GB = 0.0600 * interior_lighting_base_GB;  # alert tint
 			# lighting_base oscillates from 7 at midnight to 0 at noon
 		unlit_lighting_base = interior_lighting_base_R + interior_lighting_base_GB + 16.0 + alert_level;
-		if (ipsa < 0) {
-			ipsa = 0;       # daytime
-		} elsif (ipsa > 1) {
-			ipsa = 1.0000;  # nighttime
-		}		# dim button lights for nighttime
 		button_lit = ((1 - (ipsa * 0.2)) * (int_switch + 1) * 0.5) + (((1 - ipsa) * (1 - int_switch)) * 0.5);
 			#  emissions 	night	noon
 			# LightsOff	0.4	0.8
-			# LightsOn	0.8	0.93
+			# LightsOn	0.8	0.93	 dim button lights for nighttime
 	} else {
 		panel_specular = 1;	# full reflection
-		var ipsa = 2.5;		# disable lighting for panel emissions
 		panel_lighting_R = 0;
 		panel_lighting_GB = 0;
 		unlit_lighting_base = 0.60;
@@ -1299,7 +1335,7 @@ var panel_lighting_update = func {
 	}
 
 	if (old_button_1 != button_RT9 or plu_change_all) {
-		set_button_color("RT9", button_RT9);
+		set_button_color("right9-overhead", button_RT9);
 		plu_change_all = 1;
 	}
 
@@ -1347,10 +1383,10 @@ var panel_lighting_update = func {
 		button_G3 = unlit_lighting_base;
 	}
 	if (old_button_1 != button_G1 or plu_change_all) {
-		set_button_color("G1", button_G1);
+		set_button_color("gear1-up", button_G1);
 	}
 	if (old_button_2 != button_G3 or plu_change_all) {
-		set_button_color("G3", button_G3);
+		set_button_color("gear3-down", button_G3);
 	}
 
 	old_button_1 = button_G2;
@@ -1364,7 +1400,7 @@ var panel_lighting_update = func {
 		button_G2 = unlit_lighting_base;
 	}
 	if (old_button_1 != button_G2 or plu_change_all) {
-		set_button_color("G2", button_G2);
+		set_button_color("gear2-mode", button_G2);
 	}
 
 	old_button_1 = button_G4;
@@ -1391,7 +1427,7 @@ var panel_lighting_update = func {
 		button_G4 = unlit_lighting_base;
 	}
 	if (old_button_1 != button_G4 or plu_change_all) {
-		set_button_color("G4", button_G4);
+		set_button_color("gear4-wheels", button_G4);
 	}
 
 	old_button_1 = button_RT1;
@@ -1415,7 +1451,7 @@ var panel_lighting_update = func {
 		button_RT1 = unlit_lighting_base;
 	}
 	if (old_button_1 != button_RT1 or plu_change_all) {
-		set_button_color("RT1", button_RT1);
+		set_button_color("right1-hatch-left", button_RT1);
 	}
 
 	old_button_1 = button_RT2;
@@ -1439,7 +1475,7 @@ var panel_lighting_update = func {
 		button_RT2 = unlit_lighting_base;
 	}
 	if (old_button_1 != button_RT2 or plu_change_all) {
-		set_button_color("RT2", button_RT2);
+		set_button_color("right2-hatch-right", button_RT2);
 	}
 
 	old_button_1 = button_RT3;
@@ -1463,7 +1499,7 @@ var panel_lighting_update = func {
 		button_RT3 = unlit_lighting_base;
 	}
 	if (old_button_1 != button_RT3 or plu_change_all) {
-		set_button_color("RT3", button_RT3);
+		set_button_color("right3-hatch-rear", button_RT3);
 	}
 
 	old_button_1 = button_RT4;
@@ -1482,7 +1518,7 @@ var panel_lighting_update = func {
 		button_RT4 = unlit_lighting_base;
 	}
 	if (old_button_1 != button_RT4 or plu_change_all) {
-		set_button_color("RT4", button_RT4);
+		set_button_color("right4-landing-down", button_RT4);
 	}
 
 	old_button_1 = button_RT5;
@@ -1496,7 +1532,7 @@ var panel_lighting_update = func {
 		button_RT5 = unlit_lighting_base;
 	}
 	if (old_button_1 != button_RT5 or plu_change_all) {
-		set_button_color("RT5", button_RT5);
+		set_button_color("right5-landing-forward", button_RT5);
 	}
 
 	old_button_1 = button_RT6;
@@ -1507,7 +1543,7 @@ var panel_lighting_update = func {
 		button_RT6 = unlit_lighting_base;
 	}
 	if (old_button_1 != button_RT6 or plu_change_all) {
-		set_button_color("RT6", button_RT6);
+		set_button_color("right6-nav", button_RT6);
 	}
 
 	old_button_1 = button_RT7;
@@ -1517,7 +1553,7 @@ var panel_lighting_update = func {
 		button_RT7 = unlit_lighting_base;
 	}
 	if (old_button_1 != button_RT7 or plu_change_all) {
-		set_button_color("RT7", button_RT7);
+		set_button_color("right7-beacon", button_RT7);
 	}
 
 	old_button_1 = button_RT8;
@@ -1527,7 +1563,7 @@ var panel_lighting_update = func {
 		button_RT8 = unlit_lighting_base;
 	}
 	if (old_button_1 != button_RT8 or plu_change_all) {
-		set_button_color("RT8", button_RT8);
+		set_button_color("right8-strobe", button_RT8);
 	}
 
 	old_button_1 = button_LT1;
@@ -1537,7 +1573,7 @@ var panel_lighting_update = func {
 		button_LT1 = unlit_lighting_base;
 	}
 	if (old_button_1 != button_LT1 or plu_change_all) {
-		set_button_color("LT1", button_LT1);
+		set_button_color("left1-power", button_LT1);
 	}
 
 	old_button_1 = button_LT2;
@@ -1547,7 +1583,7 @@ var panel_lighting_update = func {
 		button_LT2 = unlit_lighting_base;
 	}
 	if (old_button_1 != button_LT2 or plu_change_all) {
-		set_button_color("LT2", button_LT2);
+		set_button_color("left2-reactor", button_LT2);
 	}
 
 	buttonL67_update(plu_change_all);
@@ -1567,7 +1603,7 @@ var panel_lighting_update = func {
 		}
 	}
 	if (old_button_1 != button_LT8 or plu_change_all) {
-		set_button_color("LT8", button_LT8);
+		set_button_color("left8-wave-guide", button_LT8);
 	}
 
 	old_button_1 = button_LT9;
@@ -1581,7 +1617,7 @@ var panel_lighting_update = func {
 		button_LT9 = unlit_lighting_base;
 	}
 	if (old_button_1 != button_LT9 or plu_change_all) {
-		set_button_color("LT9", button_LT9);
+		set_button_color("left9-overdrive", button_LT9);
 	}
 	return plu_return;
 }
@@ -1599,25 +1635,12 @@ var panel_lighting_loop = func {
 
 var interior_lighting_update = func {
 	var intli = 0;    # calculate brightness of interior lighting as sun goes down
-	var intlir = 0;    # condition lighting tint for green and blue emissions
+	var intlir = 0;    # condition lighting tint for red emissions
+	var intlig = 0;    # condition lighting tint for green and blue emissions
 	sun_angle = getprop("sim/time/sun-angle-rad");  # Tied property, cannot listen
 	if (power_switch) {
 		if (int_switch) {
-			if (visibility < 5000 or sun_angle > 1.4) {
-				if (sun_angle < 1.8) {	# dawn and dusk
-					if (new_ambient) {
-						intli = ((sun_angle - 1.4) * 7.5) + 4;	# after 2009.Mar.26
-					} else {
-						intli = (sun_angle - 1.4) * 17.5;	# up to FG version 1.9.1
-					}
-				} else {	# night
-					intli = 7;
-				}
-			} else {	# day
-				if (new_ambient) {
-					intli = 4;	# new ambient level changes minimum emission to 4
-				}
-			}
+			intli = emis_calc;
 		}
 		if (alert_switch or damage_count > 0) {
 			var red_state = getprop("sim/model/bluebird/lighting/alert1/state");  # bring lighting up or down
@@ -1632,66 +1655,74 @@ var interior_lighting_update = func {
 					alert_level = 0.25;
 				}
 			}
-			setprop("sim/model/bluebird/lighting/emission/I0-red", alert_level);  # set red brightness
-			setprop("sim/model/bluebird/lighting/emission/I0g-0b", 0);
-			intli = intli * alert_level;  # adjust lighting accordingly
-			intlir = intli * alert_level * 0.25;
+			setprop("sim/model/bluebird/lighting/overhead/emission/red", alert_level * int_switch);  # set red brightness
+			setprop("sim/model/bluebird/lighting/overhead/emission/gb", 0);
+			intlir = intli * alert_level;  # adjust lighting accordingly
+			intlig = intli * alert_level * 0.25;
+			setprop("sim/model/bluebird/lighting/waldo/emission/red", (alert_level * 0.8 * int_switch));
+			setprop("sim/model/bluebird/lighting/waldo/emission/gb", (alert_level * 0.4 * int_switch));
 		} else {
+			setprop("sim/model/bluebird/lighting/overhead/emission/red", int_switch);
+			setprop("sim/model/bluebird/lighting/overhead/emission/gb", int_switch);
+			setprop("sim/model/bluebird/lighting/waldo/emission/red", int_switch * 0.8);
+			setprop("sim/model/bluebird/lighting/waldo/emission/gb", int_switch * 0.8);
 			intlir = intli;
+			intlig = intli;
 		}
 		# fade marker lighting when damaged
-		setprop("sim/model/bluebird/lighting/emission/I9r-9g", 1.0 - (damage_count * 0.25));
-		setprop("sim/model/bluebird/lighting/emission/IBr-Bg", 1.0 - (damage_count * 0.25));
-		setprop("sim/model/bluebird/lighting/emission/IB-blue", 1.0 - (damage_count * 0.25));
+		setprop("sim/model/bluebird/lighting/interiorC-safety-lights/emission/rg", 1.0 - (damage_count * 0.25));
+		setprop("sim/model/bluebird/lighting/interiorB-door-lights/emission/rgb", 1.0 - (damage_count * 0.25));
 	} else {
-		setprop("sim/model/bluebird/lighting/emission/I9r-9g", 0);
-		setprop("sim/model/bluebird/lighting/emission/IBr-Bg", 0);
-		setprop("sim/model/bluebird/lighting/emission/IB-blue", 0);
+		setprop("sim/model/bluebird/lighting/interiorC-safety-lights/emission/rg", 0);
+		setprop("sim/model/bluebird/lighting/interiorB-door-lights/emission/rgb", 0);
+		setprop("sim/model/bluebird/lighting/overhead/emission/red", 0);
+		setprop("sim/model/bluebird/lighting/overhead/emission/gb", 0);
+		setprop("sim/model/bluebird/lighting/waldo/emission/red", 0);
+		setprop("sim/model/bluebird/lighting/waldo/emission/gb", 0);
 	}
-		# 1=rug/floor 2=GREY80 3=GREY60 4=lower 5=Grey36 6=Grey14
-		# 7=Tan 8=Brown 9=YELLOW A=Lt.Blue B=WHITE_door_markers
 	set_I1_ambient();  # calculate and set ambient levels
 	set_I2_ambient();
 	set_I3_ambient();
 	set_I4_ambient();
 	set_I5_ambient();
+	set_I6_ambient();
 	set_I7_ambient();
 	set_I8_ambient();
-	set_IA_ambient();
-	set_IU_ambient();
+	set_I9_ambient();
 	# next calculate emissions for night lighting
-	interior_lighting_base_R = intli;
-	setprop("sim/model/bluebird/lighting/emission/I1-red", livery_I1R * intli);
-	setprop("sim/model/bluebird/lighting/emission/I2-red", livery_I2R * intli);
-	setprop("sim/model/bluebird/lighting/emission/I3-red", livery_I3R * intli);
-	setprop("sim/model/bluebird/lighting/emission/I4-red", livery_I4R * intli);
-	setprop("sim/model/bluebird/lighting/emission/I5-red", livery_I5R * intli);
-	setprop("sim/model/bluebird/lighting/emission/I6-red", 0.0147 * intli);
-	setprop("sim/model/bluebird/lighting/emission/I7-red", livery_I7R * intli);
-	setprop("sim/model/bluebird/lighting/emission/I8-red", livery_I8R * intli);
-	setprop("sim/model/bluebird/lighting/emission/IA-red", livery_IAR * intli);
-	setprop("sim/model/bluebird/lighting/emission/IU-red", livery_IUR * intli);
-	interior_lighting_base_GB = intlir;
-	setprop("sim/model/bluebird/lighting/emission/I1-green", livery_I1G * intlir);
-	setprop("sim/model/bluebird/lighting/emission/I1-blue", livery_I1B * intlir);
-	setprop("sim/model/bluebird/lighting/emission/I2g-2b", livery_I2G * intlir);
-	setprop("sim/model/bluebird/lighting/emission/I3g-3b", livery_I3G* intlir);
-	setprop("sim/model/bluebird/lighting/emission/I4-green", livery_I4G * intlir);
-	setprop("sim/model/bluebird/lighting/emission/I4-blue", livery_I4B * intlir);
-	setprop("sim/model/bluebird/lighting/emission/I5-green", livery_I5G * intlir);
-	setprop("sim/model/bluebird/lighting/emission/I5-blue", livery_I5B * intlir);
-	setprop("sim/model/bluebird/lighting/emission/I6g-6b", 0.0147 * intlir);
-	setprop("sim/model/bluebird/lighting/emission/I7-green", livery_I7G * intlir);
-	setprop("sim/model/bluebird/lighting/emission/I7-blue", livery_I7B * intlir);
-	setprop("sim/model/bluebird/lighting/emission/I8-green", livery_I8G * intlir);
-	setprop("sim/model/bluebird/lighting/emission/I8-blue", livery_I8B * intlir);
-	setprop("sim/model/bluebird/lighting/emission/IA-green", livery_IAG * intlir);
-	setprop("sim/model/bluebird/lighting/emission/IA-blue", livery_IAB * intlir);
-	setprop("sim/model/bluebird/lighting/emission/IU-green", livery_IUG * intlir);
-	setprop("sim/model/bluebird/lighting/emission/IU-blue", livery_IUB * intlir);
+	interior_lighting_base_R = intlir;
+	setprop("sim/model/bluebird/lighting/interior1-flooring/emission/red", livery_I1R * intlir);
+	setprop("sim/model/bluebird/lighting/interior2-door-panels/emission/red", livery_I2R * intlir);
+	setprop("sim/model/bluebird/lighting/interior3-upper-walls/emission/red", livery_I3R * intlir);
+	setprop("sim/model/bluebird/lighting/interior4-lower-walls/emission/red", livery_I4R * intlir);
+	setprop("sim/model/bluebird/lighting/interior5-console/emission/red", livery_I5R * intlir);
+	setprop("sim/model/bluebird/lighting/interior6-chairs/emission/red", livery_I6R * intlir);
+	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/emission/red", livery_I7R * intlir);
+	setprop("sim/model/bluebird/lighting/interior8-light-frame/emission/red", livery_I8R * intlir);
+	setprop("sim/model/bluebird/lighting/interior9-buttons/emission/red", livery_I9R * intlir);
+	setprop("sim/model/bluebird/lighting/interiorA-door-seals/emission/red", livery_IAARGB * intlir);
+	interior_lighting_base_GB = intlig;
+	setprop("sim/model/bluebird/lighting/interior1-flooring/emission/green", livery_I1G * intlig);
+	setprop("sim/model/bluebird/lighting/interior1-flooring/emission/blue", livery_I1B * intlig);
+	setprop("sim/model/bluebird/lighting/interior2-door-panels/emission/green", livery_I2G * intlig);
+	setprop("sim/model/bluebird/lighting/interior2-door-panels/emission/blue", livery_I2B * intlig);
+	setprop("sim/model/bluebird/lighting/interior3-upper-walls/emission/green", livery_I3G * intlig);
+	setprop("sim/model/bluebird/lighting/interior3-upper-walls/emission/blue", livery_I3B * intlig);
+	setprop("sim/model/bluebird/lighting/interior4-lower-walls/emission/green", livery_I4G * intlig);
+	setprop("sim/model/bluebird/lighting/interior4-lower-walls/emission/blue", livery_I4B * intlig);
+	setprop("sim/model/bluebird/lighting/interior5-console/emission/green", livery_I5G * intlig);
+	setprop("sim/model/bluebird/lighting/interior5-console/emission/blue", livery_I5B * intlig);
+	setprop("sim/model/bluebird/lighting/interior6-chairs/emission/green", livery_I6G * intlig);
+	setprop("sim/model/bluebird/lighting/interior6-chairs/emission/blue", livery_I6B * intlig);
+	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/emission/green", livery_I7G * intlig);
+	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/emission/blue", livery_I7B * intlig);
+	setprop("sim/model/bluebird/lighting/interior8-light-frame/emission/gb", livery_I8GB * intlig);
+	setprop("sim/model/bluebird/lighting/interior9-buttons/emission/gb", livery_I9GB* intlig);
+	setprop("sim/model/bluebird/lighting/interiorA-door-seals/emission/gb", livery_IAARGB * intlig);
 
-	setprop("sim/model/bluebird/lighting/specular/interior", (0.5 - (0.5 * int_switch)));
+	setprop("sim/model/bluebird/lighting/interior-specular", (0.5 - (0.5 * int_switch)));
 
+	hatch_lighting_update();
 	panel_lighting_update();
 }
 
@@ -2250,10 +2281,7 @@ var update_main = func {
 				var text_3L = sprintf("%3i  **  %4.1f  **  %4.1f  ** %2.0f",getprop("sim/model/bluebird/damage/hits-counter"),skid_w2,angle_of_damage_max,dmg_factor);
 				displayScreens.scroll_3L(text_3L);
 			}
-			var skid_w_vol = skid_w2 * 0.1;  # factor for volume usage
-			if (skid_w_vol > 1.0) {
-				skid_w_vol = 1.0;
-			}
+			var skid_w_vol = clamp((skid_w2 * 0.1), 0, 1);  # factor for volume usage
 			if (!damage_count and (skid_altitude_change < 5)) {
 				if (abs(pitch_d) < 3.75) {
 					skid_w_vol = skid_w_vol * (abs(pitch_d + 0.25)) * 0.25;
@@ -2355,6 +2383,14 @@ var update_main = func {
 				setprop("sim/model/bluebird/systems/reactor-request", 0);
 				reactor_request = 0;
 				setprop("sim/model/bluebird/systems/power-switch", 0);
+				if (shutdown_venting == 0) {    # turn off extra particles after 1 minute
+					shutdown_venting = 1;
+					settimer(func {
+						setprop("sim/model/bluebird/systems/nacelle-L-venting", 0);
+						setprop("sim/model/bluebird/systems/nacelle-R-venting", 0);
+						update_venting(1,0);
+						}, 60, 1);
+				}
 			}
 		}
 		if (cpl > 6) {
@@ -2693,10 +2729,11 @@ var reset_landing = func {
 setlistener("sim/model/bluebird/position/landing-wow", func(n) {
 	if (n.getValue()) {
 		settimer(reset_landing, 0.4);
-	}
-	if (countergrav.momentum) {
-		countergrav.up_factor = 0;
-		countergrav.momentum_watch -= 1;
+		if (countergrav.momentum) {
+			countergrav.up_factor = 0;
+			countergrav.momentum_watch -= 1;
+			countergrav.momentum = 0;
+		}
 	}
 },, 0);
 
@@ -2776,7 +2813,7 @@ setlistener("sim/model/bluebird/hover/key-up", func(n) {
 	if (key_dir) {	# repetitive input or lack of older mod-up may keep triggering
 		countergrav.input_type = 1;
 		countergrav.up_factor = (key_dir < 0 ? -0.01 : 0.01);
-		if (countergrav.momentum_watch == 0) {
+		if (countergrav.momentum_watch <= 0) {
 			countergrav.momentum_watch = 3;	# start or reset timer for countdown
 			coast_up(coast_loop_id += 1);	# starting from rest, start new loop
 		} else {
@@ -2816,6 +2853,8 @@ var coast_up = func (id) {
 	}
 	if (countergrav.momentum_watch) {
 		settimer(func { coast_up(coast_loop_id += 1) }, 0);
+	} else {
+		countergrav.momentum = 0;
 	}
 }
 
@@ -2875,6 +2914,7 @@ var up = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=sour
 			if (power_switch) {
 				setprop("sim/model/bluebird/systems/reactor-request", 1);
 				countergrav.request += 1;   # keep from forgetting until reactor powers up over 0.5
+				countergrav.momentum = 0;
 			}
 		}
 		if (reactor_drift > 0.2 and reactor_level) {  # sufficient power to comply and lift
@@ -3030,87 +3070,34 @@ setlistener("sim/model/bluebird/crew/cockpit-position", func(n) {
 });
 
 var set_cockpit = func(cockpitPosition) {
-	# axis are different for current-view
-	#  x = right/left
-	#  y = up/down
-	#  z = aft/fore
-	var new_walker_x = -0.8;	# hide
-	var new_walker_y = 1.2;
-	if (cockpitPosition > 4) { cockpitPosition = 0; }
-	if (cockpitPosition < 0) { cockpitPosition = 4; }
-	if (cockpitPosition == 0) {
-		new_walker_y = 0.0;
-		if (damage_count == 0) {
-			new_walker_x = -7.35;
-		} else {
-			new_walker_x = -7.6;
-		}
-	} elsif (cockpitPosition == 1) {
-		new_walker_x = -5.6;
-		new_walker_y = 0;
-	} elsif (cockpitPosition == 2) {
-		new_walker_x = -5.94;
-		new_walker_y = -0.73;
-	} elsif (cockpitPosition == 3) {
-		new_walker_x = -5.93;
-		new_walker_y = 0.77;
-	} else {
-		new_walker_x = -3.3;
-		new_walker_y = 0;
+	if (cockpitPosition > 4) {
+		cockpitPosition = 0;
 	}
+	if (cockpitPosition < 0) { cockpitPosition = 4; }
 	setprop("sim/model/bluebird/crew/cockpit-position", cockpitPosition);
 	if (!getprop("sim/walker/outside")) {
-		setprop("sim/model/bluebird/crew/walker/x-offset-m", new_walker_x);
-		setprop("sim/model/bluebird/crew/walker/y-offset-m", new_walker_y);
+		setprop("sim/model/bluebird/crew/walker/x-offset-m", cockpit_locations[cockpitPosition].x);
+		setprop("sim/model/bluebird/crew/walker/y-offset-m", cockpit_locations[cockpitPosition].y);
 	}
 	if (getprop("sim/current-view/view-number") == 0) {
-		setprop("sim/current-view/goal-heading-offset-deg", 0.0);
-		setprop("sim/current-view/goal-pitch-offset-deg", 0.0);
-		if (cockpitPosition == 0) {
-			if (damage_count == 0) {
-				setprop("sim/current-view/y-offset-m", 1.47);
-			} else {
-				if (damage_count == 1) {
-					setprop("sim/current-view/y-offset-m", 1.70);
-				} else {
-					setprop("sim/current-view/y-offset-m", 1.83);
-				}
-			}
-		} elsif (cockpitPosition == 1) {
-			if (damage_count == 0) {
-				setprop("sim/current-view/y-offset-m", 2.1);
-			} elsif (damage_count == 1) {
-				setprop("sim/current-view/y-offset-m", 2.33);
-			} else {
-				setprop("sim/current-view/y-offset-m", 2.47);
-			}
-		} elsif (cockpitPosition == 2) {
-			if (damage_count == 0) {
-				setprop("sim/current-view/y-offset-m", 1.47);
-			} elsif (damage_count == 1) {
-				setprop("sim/current-view/y-offset-m", 1.68);
-			} else {
-				setprop("sim/current-view/y-offset-m", 1.79);
-			}
-		} elsif (cockpitPosition == 3) {
-			if (damage_count == 0) {
-				setprop("sim/current-view/y-offset-m", 1.47);
-			} elsif (damage_count == 1) {
-				setprop("sim/current-view/y-offset-m", 1.68);
-			} else {
-				setprop("sim/current-view/y-offset-m", 1.79);
-			}
+		var damage_adjust_x = (damage_count == 0 ? cockpit_locations[cockpitPosition].x : cockpit_locations[cockpitPosition].x - 0.1);
+		if (cockpitPosition == 1 or cockpitPosition == 4) {
+			var damage_adjust_z = 0;
 		} else {
-			if (damage_count == 0) {
-				setprop("sim/current-view/y-offset-m", 2.1);
-			} elsif (damage_count == 1) {
-				setprop("sim/current-view/y-offset-m", 2.32);
-			} else {
-				setprop("sim/current-view/y-offset-m", 2.43);
-			}
+			var damage_adjust_z = (damage_count <= 2 ? damage_count : 2);
 		}
-		setprop("sim/current-view/z-offset-m", new_walker_x);
-		setprop("sim/current-view/x-offset-m", new_walker_y);
+		# axis are different for current-view
+		#  x = right/left
+		#  y = up/down
+		#  z = aft/fore
+		setprop("sim/current-view/z-offset-m", damage_adjust_x);
+		setprop("sim/current-view/x-offset-m", cockpit_locations[cockpitPosition].y);
+		setprop("sim/current-view/y-offset-m", cockpit_locations[cockpitPosition].z[damage_adjust_z]);
+		setprop("sim/current-view/goal-heading-offset-deg", cockpit_locations[cockpitPosition].h);
+		setprop("sim/current-view/heading-offset-deg", cockpit_locations[cockpitPosition].h);
+		setprop("sim/current-view/goal-pitch-offset-deg", cockpit_locations[cockpitPosition].p);
+		setprop("sim/current-view/pitch-offset-deg", cockpit_locations[cockpitPosition].p);
+		setprop("sim/current-view/field-of-view", cockpit_locations[cockpitPosition].fov);
 	}
 }
 
@@ -3153,7 +3140,7 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 		var new_y_position = getprop("sim/model/bluebird/crew/walker/y-offset-m") - (math.sin(wa_heading_rad) * wa_distance);
 		var door0_barrier = (door0_position < 0.62 ? -1.3 : -4.42);
 		var door1_barrier = (door1_position < 0.62 ? 1.3 : 4.42);
-		var door5_barrier = (door5_position < 0.62 ? 9.2 : 10.57);	# 10.8 when hatch up in flight
+		var door5_barrier = (door5_position < 0.62 ? 8.9 : 10.57);	# 10.8 when hatch up in flight
 		if (cpos == 1 or cpos == 4) {
 			if (new_x_position < -5.85) {
 				new_x_position = -5.85;
@@ -3172,32 +3159,32 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 				} elsif (new_y_position > 0.4) {
 					new_y_position = 0.4;
 				}
-			} elsif (new_x_position > -8.0 and new_x_position < -5.65) {
-				var y_angle = (new_x_position + 8.0) / 2.35 * 0.73;
-				if (new_y_position < (-0.4 - y_angle)) {
-					new_y_position = -0.4 - y_angle;
-				} elsif (new_y_position > (0.4 + y_angle)) {
-					new_y_position = 0.4 + y_angle;
+			} elsif (new_x_position > -8.0 and new_x_position < -5.76) {
+				var y_angle = (new_x_position + 8.0) / 2.24 * 0.92;
+				if (new_y_position < (-0.24 - y_angle)) {
+					new_y_position = -0.24 - y_angle;
+				} elsif (new_y_position > (0.24 + y_angle)) {
+					new_y_position = 0.24 + y_angle;
 				}
-			} elsif (new_x_position >= -5.65 and new_x_position <= -4.57) {
-				var y_angle = (new_x_position + 5.65) / 1.08 * 0.13;
-				if (new_y_position < (-1.13 - y_angle)) {
-					new_y_position = -1.13 - y_angle;
-				} elsif (new_y_position > (1.13 + y_angle)) {
-					new_y_position = 1.13 + y_angle;
+			} elsif (new_x_position >= -5.76 and new_x_position <= -4.9) {
+				var y_angle = (new_x_position + 5.76) / 0.86 * 0.088;
+				if (new_y_position < (-1.16 - y_angle)) {
+					new_y_position = -1.16 - y_angle;
+				} elsif (new_y_position > (1.16 + y_angle)) {
+					new_y_position = 1.16 + y_angle;
 				}
-			} elsif (new_x_position > -4.57 and new_x_position < -4.2) {
+			} elsif (new_x_position > -4.9 and new_x_position < -4.2) {
 				if (new_y_position < -1.0) {
-					new_x_position = -4.57;
-					if (new_y_position < -1.26) {
-						new_y_position = -1.26;
+					new_x_position = -4.9;
+					if (new_y_position < -1.248) {
+						new_y_position = -1.248;
 					}
 				} elsif (new_y_position < -0.83) {
 					new_y_position = -0.83;
 				} elsif (new_y_position > 1.0) {
-					new_x_position = -4.57;
-					if (new_y_position > 1.26) {
-						new_y_position = 1.26;
+					new_x_position = -4.9;
+					if (new_y_position > 1.248) {
+						new_y_position = 1.248;
 					}
 				} elsif (new_y_position > 0.83) {
 					new_y_position = 0.83;
@@ -3355,16 +3342,16 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 						new_x_position = -0.25;
 					}
 				}
-			} elsif (new_x_position > -0.09 and new_x_position < 0.06) {
+			} elsif (new_x_position > -0.09 and new_x_position < 0.11) {
 				if (new_y_position < -0.6) {
-					new_x_position = 0.06;
+					new_x_position = 0.11;
 					if (new_y_position < -1.62) {
 						new_y_position = -1.62;
 					}
 				} elsif (new_y_position < -0.38) {
 					new_y_position = -0.38;
 				} elsif (new_y_position > 0.6) {
-					new_x_position = 0.06;
+					new_x_position = 0.11;
 					if (new_y_position > 1.62) {
 						new_y_position = 1.62;
 					}
@@ -3373,10 +3360,10 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 				}
 				if (new_y_position > -0.40 and new_y_position < 0.40) {
 					if (getprop("sim/model/bluebird/doors/door[4]/position-norm") < 0.7) {
-						new_x_position = 0.07;
+						new_x_position = 0.12;
 					}
 				}
-			} elsif (new_x_position >= 0.06 and new_x_position <= door5_barrier) {
+			} elsif (new_x_position >= 0.11 and new_x_position <= door5_barrier) {
 				if (new_y_position < -1.62) {
 					new_y_position = -1.62;
 				} elsif (new_y_position > 1.62) {
@@ -3396,13 +3383,6 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 		}
 		if (w_out) {
 			walk.get_out(w_out);
-			if (w_out ==1) {
-				setprop("sim/model/bluebird/crew/walker/y-offset-m", -2.9);
-			} elsif (w_out ==2) {
-				setprop("sim/model/bluebird/crew/walker/y-offset-m", 2.9);
-			} elsif (w_out ==5) {
-				setprop("sim/model/bluebird/crew/walker/x-offset-m", 9.15);
-			}
 		} else {
 			if (getprop("sim/current-view/view-number") == 0) {
 				xViewNode.setValue(new_x_position);
@@ -4062,6 +4042,83 @@ var showDialog2 = func {
 	gui.showDialog(name);
 }
 
+var gui_livery_node = props.globals.getNode("/sim/gui/dialogs/livery", 1);
+var livery_hull_list = [ "fuselage-top", "hull-trim", "fuselage-upper", "fuselage-lower", "hull-wings", "hull-bottom"];
+if (gui_livery_node.getNode("list") == nil) {
+	gui_livery_node.getNode("list", 1).setValue("");
+}
+for (var i = 0; i < size(livery_hull_list); i += 1) {
+	gui_livery_node.getNode("list["~i~"]", 1).setValue(livery_hull_list[i]);
+}
+gui_livery_node = gui_livery_node.getNode("list", 1);
+
+var listbox_apply = func {
+	material.showDialog("sim/model/livery/material/" ~ gui_livery_node.getValue() ~ "/", nil, getprop("/sim/startup/xsize") - 200, 20);
+}
+
+var showLiveryDialog1 = func {
+	name = "bluebird-livery-select";
+	if (livery_dialog != nil) {
+		fgcommand("dialog-close", props.Node.new({ "dialog-name" : name }));
+		livery_dialog = nil;
+		return;
+	}
+
+	livery_dialog = gui.Widget.new();
+	livery_dialog.set("layout", "vbox");
+	livery_dialog.set("name", name);
+	livery_dialog.set("x", 40);
+	livery_dialog.set("y", -40);
+
+ # "window" titlebar
+	titlebar = livery_dialog.addChild("group");
+	titlebar.set("layout", "hbox");
+	titlebar.addChild("empty").set("stretch", 1);
+	titlebar.addChild("text").set("label", "Bluebird Explorer Hovercraft");
+	titlebar.addChild("empty").set("stretch", 1);
+
+	livery_dialog.addChild("hrule").addChild("dummy");
+
+	w = titlebar.addChild("button");
+	w.set("pref-width", 16);
+	w.set("pref-height", 16);
+	w.set("legend", "");
+	w.set("default", 1);
+	w.set("keynum", 27);
+	w.set("border", 1);
+	w.prop().getNode("binding[0]/command", 1).setValue("nasal");
+	w.prop().getNode("binding[0]/script", 1).setValue("bluebird.livery_dialog = nil");
+	w.prop().getNode("binding[1]/command", 1).setValue("dialog-close");
+
+	g = livery_dialog.addChild("group");
+	g.set("layout", "hbox");
+	g.addChild("empty").set("pref-width", 4);
+	w = g.addChild("text");
+	w.set("halign", "left");
+	w.set("label", "Edit External Livery Hull materials:");
+	g.addChild("empty").set("stretch", 1);
+
+	var a = livery_dialog.addChild("list");
+	a.set("name", "livery-hull-list");
+	a.set("pref-width", 300);
+	a.set("pref-height", 160);
+	a.set("slider", 18);
+	a.set("property", "/sim/gui/dialogs/livery/list");
+	for (var i = 0 ; i < size(livery_hull_list) ; i += 1) {
+		a.set("value[" ~ i ~ "]", livery_hull_list[i]);
+	}
+	a.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+	a.prop().getNode("binding[0]/object-name", 1).setValue("livery-hull-list");
+	a.prop().getNode("binding[1]/command", 1).setValue("nasal");
+	a.prop().getNode("binding[1]/script", 1).setValue("bluebird.listbox_apply()");
+	g.addChild("empty").set("pref-width", 4);
+
+	livery_dialog.addChild("empty").set("pref-height", "3");
+	fgcommand("dialog-new", livery_dialog.prop());
+	gui.showDialog(name);
+}
+
+
 #==========================================================================
 #                 === initial calls at startup ===
  setlistener("sim/signals/fdm-initialized", func {
@@ -4077,5 +4134,5 @@ var showDialog2 = func {
  var t = getprop("/sim/description");
  print (t);
  var v = getprop("/sim/aircraft-version");
- print ("  version ",v,"  release date 2009.Apr.10  by Stewart Andreason");
+ print ("  version ",v,"  release date 2009.Jun.05  by Stewart Andreason");
 });

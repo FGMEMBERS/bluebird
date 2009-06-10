@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 7.0  ==-->
+<!--== Bluebird Explorer Hovercraft  version 9.1  ==-->
 
 <PropertyList>
 	<name>screen messages text 4L</name>
@@ -13,6 +13,22 @@
 				<and>
 					<property>sim/model/bluebird/systems/power-switch</property>
 					<property>instrumentation/display-screens/enabled-4L</property>
+					<equals>
+						<property>sim/current-view/view-number</property>
+						<value>0</value>
+					</equals>
+					<less-than>
+						<property>sim/current-view/z-offset-m</property>
+						<value>-1.7</value>
+					</less-than>
+					<greater-than>
+						<property>sim/current-view/x-offset-m</property>
+						<value>-0.9</value>
+					</greater-than>
+					<less-than>
+						<property>sim/current-view/x-offset-m</property>
+						<value>1.35</value>
+					</less-than>
 				</and>
 			</condition>
 			<w-base>512</w-base>
