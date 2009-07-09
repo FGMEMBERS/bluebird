@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 10.0 for FlightGear 1.9 OSG =====
+# ===== Bluebird Explorer Hovercraft  version 10.2 for FlightGear 1.9 OSG =====
 
 # strobes -----------------------------------------------------------
 var strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
@@ -32,11 +32,11 @@ var popupTip2 = func {
 	fgcommand("dialog-new", props.Node.new(tmpl2));
 	fgcommand("dialog-show", tipArg2);
 
-	currTimer2 = currTimer2 + 1.5;
+	currTimer2 = currTimer2 + delay2;
 	var thisTimer2 = currTimer2;
 
 		# Final argument is a flag to use "real" time, not simulated time
-	settimer(func { if(currTimer2 == thisTimer2) { fgcommand("dialog-close", tipArg2); } }, 1.5, 1);
+	settimer(func { if(currTimer2 == thisTimer2) { fgcommand("dialog-close", tipArg2); } }, delay2, 1);
 }
 
 var clamp = func(v, min, max) { v < min ? min : v > max ? max : v }
@@ -928,6 +928,9 @@ var hatch_lighting_update = func {
 	setprop("sim/model/bluebird/lighting/door5/interior1-flooring/amb-dif/red", livery_I1AR * f5);
 	setprop("sim/model/bluebird/lighting/door5/interior1-flooring/amb-dif/green", livery_I1AG * f5);
 	setprop("sim/model/bluebird/lighting/door5/interior1-flooring/amb-dif/blue", livery_I1AB * f5);
+	setprop("sim/model/bluebird/lighting/door5/interior2-door-panels/amb-dif/red", livery_I2AR * f5 * 0.5);
+	setprop("sim/model/bluebird/lighting/door5/interior2-door-panels/amb-dif/green", livery_I2AG * f5 * 0.5);
+	setprop("sim/model/bluebird/lighting/door5/interior2-door-panels/amb-dif/blue", livery_I2AB * f5 * 0.5);
 	setprop("sim/model/bluebird/lighting/door5/interior3-upper-walls/amb-dif/red", livery_I3AR * f5 * 0.5);
 	setprop("sim/model/bluebird/lighting/door5/interior3-upper-walls/amb-dif/green", livery_I3AG * f5 * 0.5);
 	setprop("sim/model/bluebird/lighting/door5/interior3-upper-walls/amb-dif/blue", livery_I3AB * f5 * 0.5);
@@ -2558,7 +2561,6 @@ var update_main = func {
 			if (slv > 0.5 and countergrav.request > 0) {
 				if (countergrav.request <= 1) {
 					countergrav.request -= 0.025;  # reached sufficient power to turn off trigger
-					setprop("instrumentation/display-screens/t1L-20", "POWERING DOWN  2391");
 					slv -= 0.02;  # hold this level for a couple seconds until either another
 					# keyboard/joystick request confirms startup, or time expires and shutdown
 					if (countergrav.request < 0.1) {
@@ -4133,6 +4135,5 @@ var showLiveryDialog1 = func {
 
  var t = getprop("/sim/description");
  print (t);
- var v = getprop("/sim/aircraft-version");
- print ("  version ",v,"  release date 2009.Jun.05  by Stewart Andreason");
+ print ("  version 10.2  release date 2009.Jul.09  by Stewart Andreason");
 });

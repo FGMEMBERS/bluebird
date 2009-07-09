@@ -1,5 +1,20 @@
 Version# Vertices PolygonFaces Comments
 
+2009.Jul.09
+10.2	Add new sphere model to increase visibility range for nav lights.
+	Add Waldo Walker to tracking display.
+	Fix initialization of tracking display to remember units preference.
+	Add trigger detail to walker animation dialog.
+	Fix shape of Waldo's head.
+	Fix timeout delay for popup info box.
+	Fix property path to /sim/time for multiplayer compatibility.
+
+2009.Jun.29
+10.1		no change to models
+	Fix bug when walker steps out underground.
+	Fix lighting mapping for inside rear doors.
+	Consolidate some aircraft specific sections for walker.
+
 2009.Jun.05
 10.0	23635	17794	replace bluebird model
 	Separate interior objects into new shadow lighting layout.

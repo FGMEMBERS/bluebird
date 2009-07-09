@@ -1,6 +1,6 @@
 # ===== text screen functions for version 1.9 OSG     =====
 # ===== and backend for ai-vor
-# ===== for Bluebird Explorer Hovercraft version 8.92 =====
+# ===== for Bluebird Explorer Hovercraft version 10.2 =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
@@ -243,6 +243,41 @@ var ac_update = func {
 				}
 			}
 		}
+# add walker to list
+		if (getprop("sim/walker/outside")) {
+			var alat = getprop("sim/walker/latitude-deg");
+			var alon = getprop("sim/walker/longitude-deg");
+			var avglat = (c_lat + alat) / 2;
+			var y = alat - c_lat;
+			var x_grid = alon - c_lon;
+			if (abs(x_grid) > 180) {
+				if (alon < -90) {
+					c_lon -= 360.0;
+				} else {
+					c_lon += 360.0;
+				}
+				x_grid = alon - c_lon;
+			}
+			if (avglat < 90 and avglat > -90) {
+				var x = x_grid * cos(avglat);
+			} else {
+				print ("Error detected in walker section, line 264  avglat= ",avglat);
+				var x = x_grid * cos(c_lat);
+			}
+			var ah1 = sin(y * 0.5);
+			var ah2 = sin(x * 0.5);
+			var adist_m = 2.0 * ERAD * asin(math.sqrt(ah1 * ah1 + cos(alat) * cos(c_lat) * ah2 * ah2));
+			var xy_hyp = math.sqrt((x * x) + (y * y));
+			var head = (xy_hyp == 0 ? 0 : asin(x / xy_hyp)) * 180 / math.pi;
+			head = (c_lat > alat ? normheading(180 - head) : normheading(head));
+			var bearing = normbearing(head, c_head_deg);
+			append(ac_list, { callsign:"Walker", index:0, dist_m:adist_m, alt_ft:getprop("sim/walker/altitude-ft"), bearing:bearing});
+			if (adist_m < ac_closest_distance) {
+				ac_closest_distance = adist_m;
+				ac_closest = ac_i;
+			}
+			ac_i += 1;
+		}
 		vor_h = 0;
 		if (size(ac_list) >= ac_closest and ac_closest != -1) {
 			vor_h = 360 - ac_list[ac_closest].bearing - c_head_deg;
@@ -475,7 +510,7 @@ var scroll_5R = func (newtext) {
 }
 
 var init = func {
-	setlistener("instrumentation/digital/altitude-mode", func(n) a_mode = n.getValue());
+	setlistener("instrumentation/digital/altitude-mode", func(n) a_mode = n.getValue(), 1);
 
 	setlistener("instrumentation/display-screens/refresh-2L-sec", func(n) refresh_2L = n.getValue());
 

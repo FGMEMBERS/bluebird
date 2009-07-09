@@ -1,4 +1,4 @@
-<!--== Bluebird version 10.0 common base ==-->
+<!--== Bluebird version 10.2 common base ==-->
 
 <PropertyList>
 
@@ -2420,28 +2420,27 @@
 	<animation>
 		<type>material</type>
 		<object-name>Door4L.b</object-name>
-		<property-base>sim/model/bluebird/lighting/interiorB-door-lights</property-base>
+		<property-base>sim/model/bluebird/lighting</property-base>
 		<emission>
-			<red-prop>emission/rgb</red-prop>
-			<green-prop>emission/rgb</green-prop>
-			<blue-prop>emission/rgb</blue-prop>
+			<red-prop>interiorB-door-lights/emission/rgb</red-prop>
+			<green-prop>interiorB-door-lights/emission/rgb</green-prop>
+			<blue-prop>interiorB-door-lights/emission/rgb</blue-prop>
 		</emission>
 		<specular>
-			<factor-prop>../interior-specular</factor-prop>
-			<red>1</red>
-			<green>1</green>
-			<blue>1</blue>
+			<red>0</red>
+			<green>0</green>
+			<blue>0</blue>
 		</specular>
 		<ambient>
-			<red-prop>amb-dif/rgb</red-prop>
-			<green-prop>amb-dif/rgb</green-prop>
-			<blue-prop>amb-dif/rgb</blue-prop>
+			<red-prop>door5/interior8-light-frame/amb-dif/red</red-prop>
+			<green-prop>door5/interior8-light-frame/amb-dif/gb</green-prop>
+			<blue-prop>door5/interior8-light-frame/amb-dif/gb</blue-prop>
 			<factor>0.1</factor>
 		</ambient>
 		<diffuse>
-			<red-prop>amb-dif/rgb</red-prop>
-			<green-prop>amb-dif/rgb</green-prop>
-			<blue-prop>amb-dif/rgb</blue-prop>
+			<red-prop>door5/interior8-light-frame/amb-dif/red</red-prop>
+			<green-prop>door5/interior8-light-frame/amb-dif/gb</green-prop>
+			<blue-prop>door5/interior8-light-frame/amb-dif/gb</blue-prop>
 			<factor>0.1</factor>
 		</diffuse>
 	</animation>
@@ -2449,29 +2448,28 @@
 	<animation>
 		<type>material</type>
 		<object-name>Door4L.2.7</object-name>
-		<property-base>sim/model/bluebird/lighting/interior2-door-panels</property-base>
+		<property-base>sim/model/bluebird/lighting</property-base>
 		<emission>
-			<red-prop>emission/red</red-prop>
-			<green-prop>emission/green</green-prop>
-			<blue-prop>emission/blue</blue-prop>
+			<red-prop>interior2-door-panels/emission/red</red-prop>
+			<green-prop>interior2-door-panels/emission/green</green-prop>
+			<blue-prop>interior2-door-panels/emission/blue</blue-prop>
 			<factor>0.75</factor>
 		</emission>
 		<specular>
-			<factor-prop>../interior-specular</factor-prop>
-			<red>1</red>
-			<green>1</green>
-			<blue>1</blue>
+			<red>0</red>
+			<green>0</green>
+			<blue>0</blue>
 		</specular>
 		<ambient>
-			<red-prop>amb-dif/red</red-prop>
-			<green-prop>amb-dif/green</green-prop>
-			<blue-prop>amb-dif/blue</blue-prop>
+			<red-prop>door5/interior2-door-panels/amb-dif/red</red-prop>
+			<green-prop>door5/interior2-door-panels/amb-dif/green</green-prop>
+			<blue-prop>door5/interior2-door-panels/amb-dif/blue</blue-prop>
 			<factor>0.95</factor>
 		</ambient>
 		<diffuse>
-			<red-prop>amb-dif/red</red-prop>
-			<green-prop>amb-dif/green</green-prop>
-			<blue-prop>amb-dif/blue</blue-prop>
+			<red-prop>door5/interior2-door-panels/amb-dif/red</red-prop>
+			<green-prop>door5/interior2-door-panels/amb-dif/green</green-prop>
+			<blue-prop>door5/interior2-door-panels/amb-dif/blue</blue-prop>
 			<factor>0.95</factor>
 		</diffuse>
 	</animation>
@@ -2479,29 +2477,28 @@
 	<animation>
 		<type>material</type>
 		<object-name>Door4L.8.7</object-name>
-		<property-base>sim/model/bluebird/lighting/interior8-light-frame</property-base>
+		<property-base>sim/model/bluebird/lighting</property-base>
 		<emission>
-			<red-prop>emission/red</red-prop>
-			<green-prop>emission/gb</green-prop>
-			<blue-prop>emission/gb</blue-prop>
+			<red-prop>interior8-light-frame/emission/red</red-prop>
+			<green-prop>interior8-light-frame/emission/gb</green-prop>
+			<blue-prop>interior8-light-frame/emission/gb</blue-prop>
 			<factor>0.75</factor>
 		</emission>
 		<specular>
-			<factor-prop>../interior-specular</factor-prop>
-			<red>1</red>
-			<green>1</green>
-			<blue>1</blue>
+			<red>0</red>
+			<green>0</green>
+			<blue>0</blue>
 		</specular>
 		<ambient>
-			<red-prop>amb-dif/red</red-prop>
-			<green-prop>amb-dif/gb</green-prop>
-			<blue-prop>amb-dif/gb</blue-prop>
+			<red-prop>door5/interior8-light-frame/amb-dif/red</red-prop>
+			<green-prop>door5/interior8-light-frame/amb-dif/gb</green-prop>
+			<blue-prop>door5/interior8-light-frame/amb-dif/gb</blue-prop>
 			<factor>0.95</factor>
 		</ambient>
 		<diffuse>
-			<red-prop>amb-dif/red</red-prop>
-			<green-prop>amb-dif/gb</green-prop>
-			<blue-prop>amb-dif/gb</blue-prop>
+			<red-prop>door5/interior8-light-frame/amb-dif/red</red-prop>
+			<green-prop>door5/interior8-light-frame/amb-dif/gb</green-prop>
+			<blue-prop>door5/interior8-light-frame/amb-dif/gb</blue-prop>
 			<factor>0.95</factor>
 		</diffuse>
 	</animation>
@@ -2544,28 +2541,27 @@
 	<animation>
 		<type>material</type>
 		<object-name>Door4R.b</object-name>
-		<property-base>sim/model/bluebird/lighting/interiorB-door-lights</property-base>
+		<property-base>sim/model/bluebird/lighting</property-base>
 		<emission>
-			<red-prop>emission/rgb</red-prop>
-			<green-prop>emission/rgb</green-prop>
-			<blue-prop>emission/rgb</blue-prop>
+			<red-prop>interiorB-door-lights/emission/rgb</red-prop>
+			<green-prop>interiorB-door-lights/emission/rgb</green-prop>
+			<blue-prop>interiorB-door-lights/emission/rgb</blue-prop>
 		</emission>
 		<specular>
-			<factor-prop>../interior-specular</factor-prop>
-			<red>1</red>
-			<green>1</green>
-			<blue>1</blue>
+			<red>0</red>
+			<green>0</green>
+			<blue>0</blue>
 		</specular>
 		<ambient>
-			<red-prop>amb-dif/rgb</red-prop>
-			<green-prop>amb-dif/rgb</green-prop>
-			<blue-prop>amb-dif/rgb</blue-prop>
+			<red-prop>door5/interior8-light-frame/amb-dif/red</red-prop>
+			<green-prop>door5/interior8-light-frame/amb-dif/gb</green-prop>
+			<blue-prop>door5/interior8-light-frame/amb-dif/gb</blue-prop>
 			<factor>0.1</factor>
 		</ambient>
 		<diffuse>
-			<red-prop>amb-dif/rgb</red-prop>
-			<green-prop>amb-dif/rgb</green-prop>
-			<blue-prop>amb-dif/rgb</blue-prop>
+			<red-prop>door5/interior8-light-frame/amb-dif/red</red-prop>
+			<green-prop>door5/interior8-light-frame/amb-dif/gb</green-prop>
+			<blue-prop>door5/interior8-light-frame/amb-dif/gb</blue-prop>
 			<factor>0.1</factor>
 		</diffuse>
 	</animation>
@@ -2573,29 +2569,28 @@
 	<animation>
 		<type>material</type>
 		<object-name>Door4R.2.7</object-name>
-		<property-base>sim/model/bluebird/lighting/interior2-door-panels</property-base>
+		<property-base>sim/model/bluebird/lighting</property-base>
 		<emission>
-			<red-prop>emission/red</red-prop>
-			<green-prop>emission/green</green-prop>
-			<blue-prop>emission/blue</blue-prop>
+			<red-prop>interior2-door-panels/emission/red</red-prop>
+			<green-prop>interior2-door-panels/emission/green</green-prop>
+			<blue-prop>interior2-door-panels/emission/blue</blue-prop>
 			<factor>0.75</factor>
 		</emission>
 		<specular>
-			<factor-prop>../interior-specular</factor-prop>
-			<red>1</red>
-			<green>1</green>
-			<blue>1</blue>
+			<red>0</red>
+			<green>0</green>
+			<blue>0</blue>
 		</specular>
 		<ambient>
-			<red-prop>amb-dif/red</red-prop>
-			<green-prop>amb-dif/green</green-prop>
-			<blue-prop>amb-dif/blue</blue-prop>
+			<red-prop>door5/interior2-door-panels/amb-dif/red</red-prop>
+			<green-prop>door5/interior2-door-panels/amb-dif/green</green-prop>
+			<blue-prop>door5/interior2-door-panels/amb-dif/blue</blue-prop>
 			<factor>0.95</factor>
 		</ambient>
 		<diffuse>
-			<red-prop>amb-dif/red</red-prop>
-			<green-prop>amb-dif/green</green-prop>
-			<blue-prop>amb-dif/blue</blue-prop>
+			<red-prop>door5/interior2-door-panels/amb-dif/red</red-prop>
+			<green-prop>door5/interior2-door-panels/amb-dif/green</green-prop>
+			<blue-prop>door5/interior2-door-panels/amb-dif/blue</blue-prop>
 			<factor>0.95</factor>
 		</diffuse>
 	</animation>
@@ -2603,29 +2598,28 @@
 	<animation>
 		<type>material</type>
 		<object-name>Door4R.8.7</object-name>
-		<property-base>sim/model/bluebird/lighting/interior8-light-frame</property-base>
+		<property-base>sim/model/bluebird/lighting</property-base>
 		<emission>
-			<red-prop>emission/red</red-prop>
-			<green-prop>emission/gb</green-prop>
-			<blue-prop>emission/gb</blue-prop>
+			<red-prop>interior8-light-frame/emission/red</red-prop>
+			<green-prop>interior8-light-frame/emission/gb</green-prop>
+			<blue-prop>interior8-light-frame/emission/gb</blue-prop>
 			<factor>0.75</factor>
 		</emission>
 		<specular>
-			<factor-prop>../interior-specular</factor-prop>
-			<red>1</red>
-			<green>1</green>
-			<blue>1</blue>
+			<red>0</red>
+			<green>0</green>
+			<blue>0</blue>
 		</specular>
 		<ambient>
-			<red-prop>amb-dif/red</red-prop>
-			<green-prop>amb-dif/gb</green-prop>
-			<blue-prop>amb-dif/gb</blue-prop>
+			<red-prop>door5/interior8-light-frame/amb-dif/red</red-prop>
+			<green-prop>door5/interior8-light-frame/amb-dif/gb</green-prop>
+			<blue-prop>door5/interior8-light-frame/amb-dif/gb</blue-prop>
 			<factor>0.95</factor>
 		</ambient>
 		<diffuse>
-			<red-prop>amb-dif/red</red-prop>
-			<green-prop>amb-dif/gb</green-prop>
-			<blue-prop>amb-dif/gb</blue-prop>
+			<red-prop>door5/interior8-light-frame/amb-dif/red</red-prop>
+			<green-prop>door5/interior8-light-frame/amb-dif/gb</green-prop>
+			<blue-prop>door5/interior8-light-frame/amb-dif/gb</blue-prop>
 			<factor>0.95</factor>
 		</diffuse>
 	</animation>
@@ -4259,7 +4253,7 @@
 					<value>1</value>
 				</less-than>
 				<less-than>
-					<property>sim/time/sun-angle-rad</property>
+					<property>/sim/time/sun-angle-rad</property>
 					<value>1.5</value>
 				</less-than>
 			</and>
@@ -4278,7 +4272,7 @@
 					<value>1</value>
 				</less-than>
 				<greater-than>
-					<property>sim/time/sun-angle-rad</property>
+					<property>/sim/time/sun-angle-rad</property>
 					<value>1.5</value>
 				</greater-than>
 			</and>
@@ -4306,7 +4300,7 @@
 	<animation>
 		<type>scale</type>
 		<object-name>nav_halo_L1</object-name>
-		<property>sim/time/sun-angle-rad</property>
+		<property>/sim/time/sun-angle-rad</property>
 		<x-factor>6</x-factor>
 		<y-factor>6</y-factor>
 		<z-factor>6</z-factor>
@@ -4378,7 +4372,7 @@
 					<value>1</value>
 				</less-than>
 				<less-than>
-					<property>sim/time/sun-angle-rad</property>
+					<property>/sim/time/sun-angle-rad</property>
 					<value>1.5</value>
 				</less-than>
 			</and>
@@ -4399,7 +4393,7 @@
 					<value>1</value>
 				</less-than>
 				<greater-than>
-					<property>sim/time/sun-angle-rad</property>
+					<property>/sim/time/sun-angle-rad</property>
 					<value>1.5</value>
 				</greater-than>
 			</and>
@@ -4427,7 +4421,7 @@
 	<animation>
 		<type>scale</type>
 		<object-name>nav_halo_L2</object-name>
-		<property>sim/time/sun-angle-rad</property>
+		<property>/sim/time/sun-angle-rad</property>
 		<x-factor>6</x-factor>
 		<y-factor>6</y-factor>
 		<z-factor>6</z-factor>
@@ -4494,7 +4488,7 @@
 					<value>1</value>
 				</less-than>
 				<less-than>
-					<property>sim/time/sun-angle-rad</property>
+					<property>/sim/time/sun-angle-rad</property>
 					<value>1.5</value>
 				</less-than>
 			</and>
@@ -4513,7 +4507,7 @@
 					<value>1</value>
 				</less-than>
 				<greater-than>
-					<property>sim/time/sun-angle-rad</property>
+					<property>/sim/time/sun-angle-rad</property>
 					<value>1.5</value>
 				</greater-than>
 			</and>
@@ -4541,7 +4535,7 @@
 	<animation>
 		<type>scale</type>
 		<object-name>nav_halo_R1</object-name>
-		<property>sim/time/sun-angle-rad</property>
+		<property>/sim/time/sun-angle-rad</property>
 		<x-factor>6</x-factor>
 		<y-factor>6</y-factor>
 		<z-factor>6</z-factor>
@@ -4613,7 +4607,7 @@
 					<value>1</value>
 				</less-than>
 				<less-than>
-					<property>sim/time/sun-angle-rad</property>
+					<property>/sim/time/sun-angle-rad</property>
 					<value>1.5</value>
 				</less-than>
 			</and>
@@ -4634,7 +4628,7 @@
 					<value>1</value>
 				</less-than>
 				<greater-than>
-					<property>sim/time/sun-angle-rad</property>
+					<property>/sim/time/sun-angle-rad</property>
 					<value>1.5</value>
 				</greater-than>
 			</and>
@@ -4662,7 +4656,7 @@
 	<animation>
 		<type>scale</type>
 		<object-name>nav_halo_R2</object-name>
-		<property>sim/time/sun-angle-rad</property>
+		<property>/sim/time/sun-angle-rad</property>
 		<x-factor>6</x-factor>
 		<y-factor>6</y-factor>
 		<z-factor>6</z-factor>
@@ -4759,7 +4753,7 @@
 	<animation>
 		<type>scale</type>
 		<object-name>strobe_halo_L</object-name>
-		<property>sim/time/sun-angle-rad</property>
+		<property>/sim/time/sun-angle-rad</property>
 		<x-factor>12</x-factor>
 		<y-factor>12</y-factor>
 		<z-factor>12</z-factor>
@@ -4855,7 +4849,7 @@
 	<animation>
 		<type>scale</type>
 		<object-name>strobe_halo_R</object-name>
-		<property>sim/time/sun-angle-rad</property>
+		<property>/sim/time/sun-angle-rad</property>
 		<x-factor>12</x-factor>
 		<y-factor>12</y-factor>
 		<z-factor>12</z-factor>
@@ -4886,6 +4880,187 @@
 			<entry><ind>4000</ind><dep>13</dep></entry>
 			<entry><ind>8000</ind><dep>16.25</dep></entry>
 		</interpolation>
+	</animation>
+
+<!--============= increase range of nav lights ===================-->
+	<model>
+		<name>nav_sphere_L1</name>
+		<path>Aircraft/bluebird/Models/sphere-red.xml</path>
+		<offsets>
+			<x-m>-9.990</x-m>
+			<y-m>-4.532</y-m>
+			<z-m>0.373</z-m>
+			<heading-deg>180</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>nav_sphere_L2</name>
+		<path>Aircraft/bluebird/Models/sphere-red.xml</path>
+		<offsets>
+			<x-m>9.770</x-m>
+			<y-m>-6.823</y-m>
+			<z-m>0.600</z-m>
+			<heading-deg>180</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>nav_sphere_R1</name>
+		<path>Aircraft/bluebird/Models/sphere-green.xml</path>
+		<offsets>
+			<x-m>-9.990</x-m>
+			<y-m>4.532</y-m>
+			<z-m>0.373</z-m>
+			<heading-deg>0</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>nav_sphere_R2</name>
+		<path>Aircraft/bluebird/Models/sphere-green.xml</path>
+		<offsets>
+			<x-m>9.770</x-m>
+			<y-m>6.823</y-m>
+			<z-m>0.600</z-m>
+			<heading-deg>0</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>strobe_sphere_L</name>
+		<path>Aircraft/bluebird/Models/sphere-white.xml</path>
+		<offsets>
+			<x-m>0.495</x-m>
+			<y-m>-6.823</y-m>
+			<z-m>0.600</z-m>
+			<heading-deg>180</heading-deg>
+		</offsets>
+	</model>
+
+	<model>
+		<name>strobe_sphere_R</name>
+		<path>Aircraft/bluebird/Models/sphere-white.xml</path>
+		<offsets>
+			<x-m>0.495</x-m>
+			<y-m>6.823</y-m>
+			<z-m>0.600</z-m>
+			<heading-deg>0</heading-deg>
+		</offsets>
+	</model>
+
+	<animation>
+		<type>select</type>
+		<object-name>nav_sphere_L1</object-name>
+		<condition>
+			<and>
+				<property>sim/model/bluebird/lighting/nav-lights-state</property>
+				<property>sim/model/bluebird/systems/power-switch</property>
+				<less-than>
+					<property>sim/model/bluebird/damage/major-counter</property>
+					<value>1</value>
+				</less-than>
+				<greater-than>
+					<property>/sim/time/sun-angle-rad</property>
+					<value>1.2</value>
+				</greater-than>
+			</and>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>nav_sphere_L2</object-name>
+		<condition>
+			<and>
+				<property>sim/model/bluebird/components/nacelle-L</property>
+				<property>sim/model/bluebird/components/body</property>
+				<property>sim/model/bluebird/lighting/nav-lights-state</property>
+				<property>sim/model/bluebird/systems/power-switch</property>
+				<less-than>
+					<property>sim/model/bluebird/damage/major-counter</property>
+					<value>1</value>
+				</less-than>
+				<greater-than>
+					<property>/sim/time/sun-angle-rad</property>
+					<value>1.2</value>
+				</greater-than>
+			</and>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>nav_sphere_R1</object-name>
+		<condition>
+			<and>
+				<property>sim/model/bluebird/lighting/nav-lights-state</property>
+				<property>sim/model/bluebird/systems/power-switch</property>
+				<less-than>
+					<property>sim/model/bluebird/damage/major-counter</property>
+					<value>1</value>
+				</less-than>
+				<greater-than>
+					<property>/sim/time/sun-angle-rad</property>
+					<value>1.2</value>
+				</greater-than>
+			</and>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>nav_sphere_R2</object-name>
+		<condition>
+			<and>
+				<property>sim/model/bluebird/components/nacelle-R</property>
+				<property>sim/model/bluebird/components/body</property>
+				<property>sim/model/bluebird/lighting/nav-lights-state</property>
+				<property>sim/model/bluebird/systems/power-switch</property>
+				<less-than>
+					<property>sim/model/bluebird/damage/major-counter</property>
+					<value>1</value>
+				</less-than>
+				<greater-than>
+					<property>/sim/time/sun-angle-rad</property>
+					<value>1.2</value>
+				</greater-than>
+			</and>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>strobe_sphere_L</object-name>
+		<condition>
+			<and>
+				<property>sim/model/bluebird/lighting/strobe1/state</property>
+				<property>sim/model/bluebird/components/nacelle-L</property>
+				<property>sim/model/bluebird/components/body</property>
+				<property>sim/model/bluebird/systems/power-switch</property>
+				<less-than>
+					<property>sim/model/bluebird/damage/major-counter</property>
+					<value>1</value>
+				</less-than>
+			</and>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>strobe_sphere_R</object-name>
+		<condition>
+			<and>
+				<property>sim/model/bluebird/lighting/strobe1/state</property>
+				<property>sim/model/bluebird/components/nacelle-R</property>
+				<property>sim/model/bluebird/components/body</property>
+				<property>sim/model/bluebird/systems/power-switch</property>
+				<less-than>
+					<property>sim/model/bluebird/damage/major-counter</property>
+					<value>1</value>
+				</less-than>
+			</and>
+		</condition>
 	</animation>
 
 
@@ -4941,7 +5116,7 @@
 	<animation>
 		<type>scale</type>
 		<object-name>beacon_halo_T</object-name>
-		<property>sim/time/sun-angle-rad</property>
+		<property>/sim/time/sun-angle-rad</property>
 		<x-factor>5</x-factor>
 		<y-factor>5</y-factor>
 		<z-factor>5</z-factor>
@@ -5037,7 +5212,7 @@
 	<animation>
 		<type>scale</type>
 		<object-name>beacon_halo_B</object-name>
-		<property>sim/time/sun-angle-rad</property>
+		<property>/sim/time/sun-angle-rad</property>
 		<x-factor>5</x-factor>
 		<y-factor>5</y-factor>
 		<z-factor>5</z-factor>
@@ -5086,7 +5261,7 @@
 					</less-than>
 					<or>
 						<greater-than>
-							<property>sim/time/sun-angle-rad</property>
+							<property>/sim/time/sun-angle-rad</property>
 							<value>1.57</value>
 						</greater-than>
 						<equals>
@@ -5112,7 +5287,7 @@
 				</less-than>
 				<or>
 					<greater-than>
-						<property>sim/time/sun-angle-rad</property>
+						<property>/sim/time/sun-angle-rad</property>
 						<value>1.57</value>
 					</greater-than>
 					<equals>
@@ -5137,7 +5312,7 @@
 				</less-than>
 				<or>
 					<greater-than>
-						<property>sim/time/sun-angle-rad</property>
+						<property>/sim/time/sun-angle-rad</property>
 						<value>1.57</value>
 					</greater-than>
 					<equals>
@@ -5185,7 +5360,7 @@
 				</less-than>
 				<or>
 					<greater-than>
-						<property>sim/time/sun-angle-rad</property>
+						<property>/sim/time/sun-angle-rad</property>
 						<value>1.57</value>
 					</greater-than>
 					<equals>
@@ -5238,7 +5413,7 @@
 				</less-than>
 				<or>
 					<greater-than>
-						<property>sim/time/sun-angle-rad</property>
+						<property>/sim/time/sun-angle-rad</property>
 						<value>1.57</value>
 					</greater-than>
 					<equals>
@@ -5267,7 +5442,7 @@
 				</less-than>
 				<or>
 					<greater-than>
-						<property>sim/time/sun-angle-rad</property>
+						<property>/sim/time/sun-angle-rad</property>
 						<value>1.57</value>
 					</greater-than>
 					<equals>
@@ -5320,7 +5495,7 @@
 				</less-than>
 				<or>
 					<greater-than>
-						<property>sim/time/sun-angle-rad</property>
+						<property>/sim/time/sun-angle-rad</property>
 						<value>1.57</value>
 					</greater-than>
 					<equals>
@@ -5373,7 +5548,7 @@
 				</less-than>
 				<or>
 					<greater-than>
-						<property>sim/time/sun-angle-rad</property>
+						<property>/sim/time/sun-angle-rad</property>
 						<value>1.57</value>
 					</greater-than>
 					<equals>
@@ -5426,7 +5601,7 @@
 				</less-than>
 				<or>
 					<greater-than>
-						<property>sim/time/sun-angle-rad</property>
+						<property>/sim/time/sun-angle-rad</property>
 						<value>1.57</value>
 					</greater-than>
 					<equals>
@@ -5455,7 +5630,7 @@
 				</less-than>
 				<or>
 					<greater-than>
-						<property>sim/time/sun-angle-rad</property>
+						<property>/sim/time/sun-angle-rad</property>
 						<value>1.57</value>
 					</greater-than>
 					<equals>
@@ -5508,7 +5683,7 @@
 				</less-than>
 				<or>
 					<greater-than>
-						<property>sim/time/sun-angle-rad</property>
+						<property>/sim/time/sun-angle-rad</property>
 						<value>1.57</value>
 					</greater-than>
 					<equals>
@@ -5561,7 +5736,7 @@
 				</less-than>
 				<or>
 					<greater-than>
-						<property>sim/time/sun-angle-rad</property>
+						<property>/sim/time/sun-angle-rad</property>
 						<value>1.57</value>
 					</greater-than>
 					<equals>
@@ -5614,7 +5789,7 @@
 				</less-than>
 				<or>
 					<greater-than>
-						<property>sim/time/sun-angle-rad</property>
+						<property>/sim/time/sun-angle-rad</property>
 						<value>1.57</value>
 					</greater-than>
 					<equals>
@@ -5643,7 +5818,7 @@
 				</less-than>
 				<or>
 					<greater-than>
-						<property>sim/time/sun-angle-rad</property>
+						<property>/sim/time/sun-angle-rad</property>
 						<value>1.57</value>
 					</greater-than>
 					<equals>
@@ -5696,7 +5871,7 @@
 				</less-than>
 				<or>
 					<greater-than>
-						<property>sim/time/sun-angle-rad</property>
+						<property>/sim/time/sun-angle-rad</property>
 						<value>1.57</value>
 					</greater-than>
 					<equals>
@@ -5749,7 +5924,7 @@
 				</less-than>
 				<or>
 					<greater-than>
-						<property>sim/time/sun-angle-rad</property>
+						<property>/sim/time/sun-angle-rad</property>
 						<value>1.57</value>
 					</greater-than>
 					<equals>
@@ -6412,13 +6587,13 @@
 			<red-prop>door5/interior1-flooring/amb-dif/red</red-prop>
 			<green-prop>door5/interior1-flooring/amb-dif/green</green-prop>
 			<blue-prop>door5/interior1-flooring/amb-dif/blue</blue-prop>
-			<factor>0.7</factor>
+			<factor>0.4</factor>
 		</ambient>
 		<diffuse>
 			<red-prop>door5/interior1-flooring/amb-dif/red</red-prop>
 			<green-prop>door5/interior1-flooring/amb-dif/green</green-prop>
 			<blue-prop>door5/interior1-flooring/amb-dif/blue</blue-prop>
-			<factor>0.7</factor>
+			<factor>0.4</factor>
 		</diffuse>
 		<texture-prop>/sim/model/livery/material/interior-flooring/texture</texture-prop>
 		<texture>livery.png</texture>
@@ -6444,11 +6619,13 @@
 			<red-prop>interior1-flooring/amb-dif/red</red-prop>
 			<green-prop>interior1-flooring/amb-dif/green</green-prop>
 			<blue-prop>interior1-flooring/amb-dif/blue</blue-prop>
+			<factor>0.9</factor>
 		</ambient>
 		<diffuse>
 			<red-prop>interior1-flooring/amb-dif/red</red-prop>
 			<green-prop>interior1-flooring/amb-dif/green</green-prop>
 			<blue-prop>interior1-flooring/amb-dif/blue</blue-prop>
+			<factor>0.9</factor>
 		</diffuse>
 		<texture-prop>/sim/model/livery/material/interior-flooring/texture</texture-prop>
 		<texture>livery.png</texture>
@@ -6465,7 +6642,7 @@
 			<factor>0.8</factor>
 		</emission>
 		<specular>
-			<factor-prop>../../interior-specular</factor-prop>
+			<factor-prop>../interior-specular</factor-prop>
 			<red>1</red>
 			<green>1</green>
 			<blue>1</blue>
@@ -7085,7 +7262,7 @@
 			<factor>0.4</factor>
 		</emission>
 		<specular>
-			<factor-prop>../../interior-specular</factor-prop>
+			<factor-prop>../interior-specular</factor-prop>
 			<red>1</red>
 			<green>1</green>
 			<blue>1</blue>
@@ -7766,7 +7943,7 @@
 			<factor>0.2</factor>
 		</emission>
 		<specular>
-			<factor-prop>../../interior-specular</factor-prop>
+			<factor-prop>../interior-specular</factor-prop>
 			<red>1</red>
 			<green>1</green>
 			<blue>1</blue>
@@ -7796,7 +7973,7 @@
 			<factor>0.8</factor>
 		</emission>
 		<specular>
-			<factor-prop>../../interior-specular</factor-prop>
+			<factor-prop>../interior-specular</factor-prop>
 			<red>1</red>
 			<green>1</green>
 			<blue>1</blue>
@@ -7826,7 +8003,7 @@
 			<factor>0.15</factor>
 		</emission>
 		<specular>
-			<factor-prop>../../interior-specular</factor-prop>
+			<factor-prop>../interior-specular</factor-prop>
 			<red>1</red>
 			<green>1</green>
 			<blue>1</blue>
@@ -7856,7 +8033,7 @@
 			<factor>0.3</factor>
 		</emission>
 		<specular>
-			<factor-prop>../../interior-specular</factor-prop>
+			<factor-prop>../interior-specular</factor-prop>
 			<red>1</red>
 			<green>1</green>
 			<blue>1</blue>
@@ -8574,7 +8751,7 @@
 			<factor>0.8</factor>
 		</emission>
 		<specular>
-			<factor-prop>../../interior-specular</factor-prop>
+			<factor-prop>../interior-specular</factor-prop>
 			<red>1</red>
 			<green>1</green>
 			<blue>1</blue>
@@ -12174,7 +12351,7 @@
 			<blue>0</blue>
 		</emission>
 		<specular>
-			<factor-prop>../interior-specular</factor-prop>
+			<factor-prop>../door5/interior-specular</factor-prop>
 			<red>1</red>
 			<green>1</green>
 			<blue>1</blue>
@@ -12201,7 +12378,7 @@
 			<blue>0</blue>
 		</emission>
 		<specular>
-			<factor-prop>../interior-specular</factor-prop>
+			<factor-prop>../door5/interior-specular</factor-prop>
 			<red>1</red>
 			<green>1</green>
 			<blue>1</blue>

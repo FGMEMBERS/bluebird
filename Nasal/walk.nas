@@ -1,5 +1,28 @@
-# == walking functions v4.0 for FlightGear version 1.9 OSG ==
+# == walking functions v4.2 for FlightGear version 1.9 OSG ==
 # == plus coordinates for Bluebird Explorer Hovercraft 9.1  ==
+
+# aircraft specific section:
+var hatch_specs = {
+	z_opening_ft: 6.0,
+	z_floor_ft: 0,	#  z-axis offset for walker exit from aircraft origin
+			#  generally floor z-axis converted to ft.
+	rear_hatch_loc: 5,
+	out_locations: func (loc) {
+			if (loc == 0) {		# exit but not by hatch
+				var new_coord = xy2LatLonZ(-12.0,-8.0);	# neutral coordinates outside front port wingtip
+			} elsif (loc == 1) {
+				var new_coord = xy2LatLonZ(getprop("sim/model/bluebird/crew/walker/x-offset-m"),-4.9);
+			} elsif (loc == 2) {
+				var new_coord = xy2LatLonZ(getprop("sim/model/bluebird/crew/walker/x-offset-m"),4.9);
+			} elsif (loc == 5) {
+				var new_coord = xy2LatLonZ(11.0,getprop("sim/model/bluebird/crew/walker/y-offset-m"));
+			} else {
+				var new_coord = xy2LatLonZ(xViewNode.getValue(),yViewNode.getValue());
+			}
+			return new_coord;
+	}
+};
+# end aircraft specific
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
@@ -163,12 +186,12 @@ var main_loop = func {
 		if (falling or getprop("sim/walker/walking-momentum")) {
 			ext_mov(moved);
 		}
-		# check for proximity to hatches for entry after 0.3 sec.
+		# check for proximity to hatches for entry after 0.75 sec.
 		var elapsed_sec = getprop("sim/time/elapsed-sec");
 		var elapsed_fall_sec = elapsed_sec - exit_time_sec;
 		if (elapsed_fall_sec > 0.75) {
-			if (abs(getprop("sim/walker/altitude-ft") - getprop("position/altitude-ft")) < 6) {
-				# must be within 6 ft vertically to climb in
+			if (abs(getprop("sim/walker/altitude-ft") - getprop("position/altitude-ft") + hatch_specs.z_opening_ft) < 7) {
+				# must be within (opening) ft vertically to climb in
 				var posy = getprop("sim/walker/latitude-deg");
 				var posx = getprop("sim/walker/longitude-deg");
 
@@ -201,6 +224,7 @@ var main_loop = func {
 						get_in(5);
 					}
 				}
+				# end aircraft specific
 
 			}
 		}
@@ -208,7 +232,7 @@ var main_loop = func {
 		bluebird.walk_about_cabin(0.1, walk_heading);
 	}
 
-	if (getprop("logging/walker-debug")) {
+	if (getprop("logging/walker-debug") and getprop("sim/walker/outside")) {
 		var elapsed_sec = getprop("sim/time/elapsed-sec");
 		var t = elapsed_sec - measure_sec;
 		if (t >= 0.991) {
@@ -342,7 +366,7 @@ var ext_mov = func (moved) {
 		head_v = normheading(360 - c_head_deg + head_v);
 	} elsif (c_view == 5) {
 		head_v = normheading(c_head_deg + head_v + 90);
-	}	# TIP: walker is best controlled 3rd perspective, from view #6 (Fly-by view) 
+	}
 	var head_w = normheading(head_v + walk_heading);
 	if (!moved) {
 		setprop("sim/walker/model-heading-deg" , 360 - head_v);
@@ -393,8 +417,11 @@ var ext_mov = func (moved) {
 	}
 	var posz_geo = geo.elevation(posy2, posx2, ((posz1 * 0.3048) + 2));
 	if (posz_geo == nil) {
-		posz_geo = 0;
-		print(sprintf("Error. Attempting to move to latitude %13.8f longitude %13.8f",posy2,posx2));
+		posz_geo = geo.elevation(posy2, posx2);	# underground? try without current walker altitude
+		if (posz_geo == nil) {
+			posz_geo = 0;
+			print(sprintf("Error. Attempting to move to latitude %13.8f longitude %13.8f",posy2,posx2));
+		}
 	}
 	posz_geo = posz_geo / 0.3048;	# convert to ft
 #	if (getprop("logging/walker-debug")) {
@@ -528,7 +555,7 @@ setlistener("sim/current-view/heading-offset-deg", func(n) {
 		var head_v = n.getValue();
 		setprop("sim/model/bluebird/crew/walker/head-offset-deg" , head_v);
 	} elsif (c_view == view.indexof("Walk View")) {
-		var head_v = getprop("sim/current-view/heading-offset-deg");
+		var head_v = n.getValue();
 		setprop("sim/walker/model-heading-deg" , 360 - head_v);
 #	} elsif (c_view == view.indexof("Walker Orbit View")) {
 #		var head_v = getprop("sim/current-view/heading-offset-deg");
@@ -547,8 +574,12 @@ var get_out = func (loc) {
 	}
 	var c_airspeed_mps = getprop("velocities/airspeed-kt") * 0.51444444;
 	var walk_dir = getprop("sim/walker/walking");
-	if (walk_dir and loc == 5) {
-		c_airspeed_mps -= 1;
+	if (walk_dir and loc == hatch_specs.rear_hatch_loc) {
+		if (c_airspeed_mps > 0) {
+			c_airspeed_mps -= 1;	# add momentum toward rear
+		} else {
+			c_airspeed_mps += 1;
+		}
 	}
 	var c_head_deg = getprop("orientation/heading-deg");
 	var c_pitch = getprop("orientation/pitch-deg");
@@ -578,19 +609,7 @@ var get_out = func (loc) {
 	if (getprop("logging/walker-debug")) {
 		print(sprintf("get_out: traj-lat= %12.8f traj-lon= %12.8f  c_z_vector_mps= %12.8f",xy_lat,xy_lon,c_z_vector_mps));
 	}
-	# the following section is aircraft specific for locations of exit hatches and doors
-	if (loc == 0) {		# exit but not by hatch
-		var new_coord = xy2LatLonZ(-12.0,-8.0);	# neutral coordinates outside front port wingtip
-	} elsif (loc == 1) {
-		var new_coord = xy2LatLonZ(getprop("sim/model/bluebird/crew/walker/x-offset-m"),-4.9);
-	} elsif (loc == 2) {
-		var new_coord = xy2LatLonZ(getprop("sim/model/bluebird/crew/walker/x-offset-m"),4.9);
-	} elsif (loc == 5) {
-		var new_coord = xy2LatLonZ(11.0,getprop("sim/model/bluebird/crew/walker/y-offset-m"));
-	} else {
-		var new_coord = xy2LatLonZ(xViewNode.getValue(),yViewNode.getValue());
-	}
-	# end aircraft specific
+	var new_coord = hatch_specs.out_locations(loc);
 	var head = normheading(abs(getprop("orientation/heading-deg") -360.00) + head_add);
 	setprop("sim/walker/latitude-deg" , (getprop("position/latitude-deg")));
 	setprop("sim/walker/longitude-deg" , (getprop("position/longitude-deg")));
@@ -616,7 +635,7 @@ var get_out = func (loc) {
 	setprop("sim/walker/longitude-deg", new_coord[1]);
 	falling = 1;
 	setprop("sim/walker/time-of-exit-sec", getprop("sim/time/elapsed-sec"));
-	var alt1 = getprop("position/altitude-ft") + posz_ft;
+	var alt1 = getprop("position/altitude-ft") + posz_ft + hatch_specs.z_floor_ft;
 	setprop("sim/walker/altitude-at-exit-ft", alt1);
 	setprop("sim/walker/altitude-ft" , alt1);
 	measure_alt = alt1;
@@ -633,10 +652,10 @@ var get_out = func (loc) {
 var get_in = func (loc) {
 	walker_model.remove();
 	var c_view = getprop("sim/current-view/view-number");
+	# the following section is aircraft specific for locations of entry hatches and doors
 	var new_pos = 4;
 	var c_pos = getprop("sim/model/bluebird/crew/cockpit-position");
 	if (c_view > 0) {
-		# the following section is aircraft specific for locations of entry hatches and doors
 		if (loc == 0) {	# find open hatch
 			if (getprop("sim/model/bluebird/doors/door[0]/position-norm") > 0.2) {
 				loc = 1;
@@ -678,7 +697,6 @@ var get_in = func (loc) {
 			}
 			var c_head_deg = getprop("orientation/heading-deg");
 			c_pos = 5;
-
 			var new_walker_h = normheading(getprop("sim/current-view/heading-offset-deg") + c_head_deg);
 		} else {
 			var new_walker_x = bluebird.cockpit_locations[c_pos].x;
@@ -688,6 +706,7 @@ var get_in = func (loc) {
 		var new_walker_z = bluebird.cockpit_locations[c_pos].z[0];
 		var new_walker_p = bluebird.cockpit_locations[c_pos].p;
 		var new_walker_fov = bluebird.cockpit_locations[c_pos].fov;
+		# end aircraft specific
 		if (c_view == view.indexof("Walk View")) {
 			setprop("sim/current-view/view-number", 0);
 			setprop("sim/current-view/z-offset-m", new_walker_x);

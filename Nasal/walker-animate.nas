@@ -1,5 +1,4 @@
-# == walker animation v1.2 for FlightGear version 1.9 with OSG ==
-# ====  for Bluebird Explorer Hovercraft  version 8.92      =====
+# == walker animation v1.3 for FlightGear version 1.9 with OSG ==
 
 var walker1_node = props.globals.getNode("sim/model/walker[1]", 1);
 var w1_animate_node = props.globals.getNode("sim/model/walker[1]/animate", 1);
@@ -31,6 +30,7 @@ var anim_running = -1;
 var triggers_enabled = 1;
 var triggers_list = [0, 0, 0, 0, 0, 0, 0, 0];
 var triggers_names = ["standing","walking","running","backwards","falling","open-parachute","landing","crashing"];
+var triggers_abbrev = ["S","W","R","B","F","P","L","C"];
 var walking_momentum = 0;
 var w_outside = 0;
 var in_air = 0;
@@ -54,6 +54,9 @@ var tl_L_id = nil;
 var tc_L_id = nil;
 var to_L_id = nil;
 
+# remember preference for animations turned on or off
+aircraft.data.add("sim/model/walker[1]/animate/enabled-triggers");
+
 var interpolate_limb = func (a, b, p) {
 	if (a == nil or b == nil or p == nil){
 		print ("Undefined input error at walker-animate.interpolate_limb a= ",a," b= ",b," p= ",p);
@@ -71,7 +74,7 @@ if (gui_list_node.getNode("list", 1) == nil)
 gui_list_node = gui_list_node.getNode("list", 1);
 var listbox_apply = func {
 	var id = pop(split(" ",gui_list_node.getValue()));
-	id = substr(id, 1, size(id) - 2);  # strip parentheses
+	id = substr(id, 1, find(")", id) - 1);  # strip parentheses
 	w1a_sequence_selected_node.setValue(int(id));
 	sequence_node = w1a_list_node.getNode("sequence[" ~ int(w1a_sequence_selected_node.getValue()) ~ "]", 1);
 #	sequence_selected = 3;
@@ -237,9 +240,17 @@ var sequence = {
 		var sList = [];
 		for (var i = 0 ; i < sequence_count ; i += 1) {
 			var name_in = w1a_list_node.getNode("sequence[" ~ i ~ "]", 1).getNode("name", 1).getValue();
+			var trigger_in = w1a_list_node.getNode("sequence[" ~ i ~ "]", 1).getNode("trigger-upon", 1).getValue();
+			var trigger_ab = "";
+			for (var j = 0 ; j < size(triggers_names) ; j += 1) {
+				if (string.lc(trigger_in) == string.lc(triggers_names[j])) {
+#					print ("found trigger ",j," ",trigger_in," at ",i);
+					trigger_ab = triggers_abbrev[j];
+				}
+			}
 			if (name_in != nil) {
 				append(sList, { index: i , name: name_in,
-					comb: w1a_list_node.getNode("sequence[" ~ i ~ "]", 1).getNode("name", 1).getValue() ~ " (" ~ i ~ ")" });
+					comb: w1a_list_node.getNode("sequence[" ~ i ~ "]", 1).getNode("name", 1).getValue() ~ " (" ~ i ~ ")" ~ trigger_ab });
 			}
 		}
 		sList = sort(sList, func(a,b) {cmp(a.name, b.name)});
@@ -364,6 +375,7 @@ var sequence = {
 			"Then press [Enter] or click on [Edit/Run] (This button is the default, " ~
 			"as depicted by the dashed lines around it's edge.)\n\n " ~
 			"The number in parenthesis is the ID number for each sequence.\n\n" ~
+			"The letter following the parenthesis indicated a trigger is set for this sequence.\n\n" ~
 			"If some sequences do not show in the list box, and the scroll bar " ~
 			"is not visible, just click in the text box.\n\n" ~
 			"Your creations can be saved, shared with friends, and loaded from here. " ~
@@ -2097,7 +2109,9 @@ var discover_triggers = func (verbose) {
 				triggers_list[1] = 1;
 				trig_c += 1;
 			} else {
-				print ("  ignoring duplicate trigger ",i," for walking");
+				print ("  ignoring duplicate trigger (",i,") for walking");
+				bluebird.popupTip2("Trigger walking set to position ("~trigger_walking_node.getValue()~")",5);
+				gui.popupTip("Ignoring duplicate trigger ("~i~") for walking",6);
 			}
 		} elsif (t == "Running") {
 			if (triggers_list[2] == 0) {
@@ -2108,7 +2122,9 @@ var discover_triggers = func (verbose) {
 				triggers_list[2] = 1;
 				trig_c += 2;
 			} else {
-				print ("  ignoring duplicate trigger ",i," for running");
+				print ("  ignoring duplicate trigger (",i,") for running");
+				bluebird.popupTip2("Trigger running set to position ("~trigger_running_node.getValue()~")",5);
+				gui.popupTip("Ignoring duplicate trigger ("~i~") for running",6);
 			}
 		} elsif (t == "Backwards") {
 			if (triggers_list[3] == 0) {
@@ -2119,7 +2135,9 @@ var discover_triggers = func (verbose) {
 				triggers_list[3] = 1;
 				trig_c += 4;
 			} else {
-				print ("  ignoring duplicate trigger ",i," for backwards");
+				print ("  ignoring duplicate trigger (",i,") for backwards");
+				bluebird.popupTip2("Trigger backwards set to position ("~trigger_backwards_node.getValue()~")",5);
+				gui.popupTip("Ignoring duplicate trigger ("~i~") for backwards",6);
 			}
 		} elsif (t == "Standing") {
 			if (triggers_list[0] == 0) {
@@ -2130,7 +2148,9 @@ var discover_triggers = func (verbose) {
 				triggers_list[0] = 1;
 				trig_c += 8;
 			} else {
-				print ("  ignoring duplicate trigger ",i," for standing");
+				print ("  ignoring duplicate trigger (",i,") for standing");
+				bluebird.popupTip2("Trigger standing set to position ("~trigger_standing_node.getValue()~")",5);
+				gui.popupTip("Ignoring duplicate trigger ("~i~") for standing",6);
 			}
 		} elsif (t == "Falling") {
 			if (triggers_list[4] == 0) {
@@ -2141,7 +2161,9 @@ var discover_triggers = func (verbose) {
 				triggers_list[4] = 1;
 				trig_c += 16;
 			} else {
-				print ("  ignoring duplicate trigger ",i," for falling");
+				print ("  ignoring duplicate trigger (",i,") for falling");
+				bluebird.popupTip2("Trigger falling set to position ("~trigger_falling_node.getValue()~")",5);
+				gui.popupTip("Ignoring duplicate trigger ("~i~") for falling",6);
 			}
 		} elsif (t == "Open-Parachute") {
 			if (triggers_list[5] == 0) {
@@ -2152,7 +2174,9 @@ var discover_triggers = func (verbose) {
 				triggers_list[5] = 1;
 				trig_c += 32;
 			} else {
-				print ("  ignoring duplicate trigger ",i," for open-parachute");
+				print ("  ignoring duplicate trigger (",i,") for open-parachute");
+				bluebird.popupTip2("Trigger open-parachute set to position ("~trigger_open_parachute_node.getValue()~")",5);
+				gui.popupTip("Ignoring duplicate trigger ("~i~") for open-parachute",6);
 			}
 		} elsif (t == "Landing") {
 			if (triggers_list[6] == 0) {
@@ -2163,7 +2187,9 @@ var discover_triggers = func (verbose) {
 				triggers_list[6] = 1;
 				trig_c += 64;
 			} else {
-				print ("  ignoring duplicate trigger ",i," for landing");
+				print ("  ignoring duplicate trigger ((",i,")) for landing");
+				bluebird.popupTip2("Trigger landing set to position ("~trigger_landing_node.getValue()~")",5);
+				gui.popupTip("Ignoring duplicate trigger ("~i~") for landing",6);
 			}
 		} elsif (t == "Crashing") {
 			if (triggers_list[7] == 0) {
@@ -2174,7 +2200,9 @@ var discover_triggers = func (verbose) {
 				triggers_list[7] = 1;
 				trig_c += 128;
 			} else {
-				print ("  ignoring duplicate trigger ",i," for crashing");
+				print ("  ignoring duplicate trigger (",i,") for crashing");
+				bluebird.popupTip2("Trigger crashing set to position ("~trigger_crashing_node.getValue()~")",5);
+				gui.popupTip("Ignoring duplicate trigger ("~i~") for crashing",6);
 			}
 		}
 	}
@@ -2296,6 +2324,11 @@ var init_walker = func {
 			}
 		}
 	}, 1, 0);
+
+	# remember trigger settings for the two versions of standing
+	aircraft.data.add("sim/model/walker[1]/animate/list/sequence[0]/trigger-upon");
+	aircraft.data.add("sim/model/walker[1]/animate/list/sequence[8]/trigger-upon");
+
 	discover_triggers(1);
 }
 settimer(init_walker,0);

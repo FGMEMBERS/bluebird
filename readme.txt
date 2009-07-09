@@ -104,6 +104,13 @@ Current development level is: Early-Production
              Can not land or drive on hills. Flight attitude is hard linked to 
                joystick controls.
 
+-------------------------------------------------
+Credits:
+  Some sound files are by Michelle Pay (aerotro)
+    altitude-1.wav
+    altitude-0-loop.wav
+  Waldo Walker is by Detlef Faber
+-------------------------------------------------
 
  ___________ This model is released under the terms of the GPLv2 ___________
  #    This program is free software; you can redistribute it and/or modify  #
