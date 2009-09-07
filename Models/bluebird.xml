@@ -1,4 +1,4 @@
-<!--== Bluebird version 10.2 common base ==-->
+<!--== Bluebird version 10.3 common base ==-->
 
 <PropertyList>
 
@@ -3170,6 +3170,7 @@
 			</entry>
 		</interpolation>
 		<axis>
+			<x1-m>4.642</x1-m>
 			<y1-m>-2.134</y1-m>
 			<z1-m>-0.14729</z1-m>
 			<x2-m>4.642</x2-m>

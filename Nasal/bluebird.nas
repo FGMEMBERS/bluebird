@@ -4135,5 +4135,5 @@ var showLiveryDialog1 = func {
 
  var t = getprop("/sim/description");
  print (t);
- print ("  version 10.2  release date 2009.Jul.09  by Stewart Andreason");
+ print ("  version 10.3  release date 2009.Sep.02  by Stewart Andreason");
 });

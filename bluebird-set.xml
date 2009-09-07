@@ -3,7 +3,7 @@
 <PropertyList include="bluebird-base.xml">
  <sim>
 	<description>Bluebird Explorer Hovercraft  for v1.9 with OSG</description>
-	<aircraft-version>10.2</aircraft-version>
+	<aircraft-version>10.3</aircraft-version>
 	<model>
 		<path>Aircraft/bluebird/Models/bluebird-osg.xml</path>
 	</model>
