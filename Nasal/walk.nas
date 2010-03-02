@@ -1,5 +1,5 @@
-# == walking functions v4.2 for FlightGear version 1.9 OSG ==
-# == plus coordinates for Bluebird Explorer Hovercraft 9.1  ==
+# == walking functions v4.3 for FlightGear version 1.9-2.0 OSG ==
+# == plus coordinates for Bluebird Explorer Hovercraft 10.4    ==
 
 # aircraft specific section:
 var hatch_specs = {
@@ -29,6 +29,7 @@ var cos = func(a) { math.cos(a * math.pi / 180.0) }
 var asin = func(y) { math.atan2(y, math.sqrt(1-y*y)) }	# radians
 var ERAD = 6378138.12; 		# Earth radius (m)
 var ERAD_deg = 180 / (ERAD * math.pi);
+var DEG2RAD = math.pi / 180;
 var xViewNode = props.globals.getNode("sim/current-view/z-offset-m", 1);
 var yViewNode = props.globals.getNode("sim/current-view/x-offset-m", 1);
 var zViewNode = props.globals.getNode("sim/current-view/y-offset-m", 1);
@@ -75,37 +76,38 @@ var distFromCraft = func (lat,lon) {
 }
 
 var xy2LatLonZ = func (x,y) {
-	# given the x,y offsets of the cockpit view when walking
+	# given the x,y offsets of the cockpit view when walking (in meters)
 	# or the hatch location upon exit
-	# translate into lat,lon,z-offset for transfer to outside walker
-	var c_head_rad = getprop("orientation/heading-deg") * 0.01745329252; # (math.pi / 180)
+	# translate into lat,lon,z-offset-m for transfer to outside walker
+	var c_head_rad = getprop("orientation/heading-deg") * DEG2RAD;
 	var c_lat = getprop("position/latitude-deg");
 	var c_lon = getprop("position/longitude-deg");
-	var c_pitch = getprop("orientation/pitch-deg");
+	var c_gnd_pitch = getprop("orientation/ground-pitch");
+	var c_pitch = c_gnd_pitch + getprop("orientation/pitch-deg");
 	var c_roll = getprop("orientation/roll-deg");
-	var xZ_factor = math.cos(c_pitch * 0.01745329252);
+	var xZ_factor = math.cos(c_pitch * DEG2RAD);
 	var x_Zadjust = x * xZ_factor;	# adjusted for pitch
-	var y_Zadjust = y * math.cos(c_roll * 0.01745329252);	# adjusted for roll
-#	print(sprintf("x= %6.2f xZ= %6.2f  y= %6.2f yZ= %6.2f",x,x_Zadjust,y,y_Zadjust));
+	var y_Zadjust = y * math.cos(c_roll * DEG2RAD);	# adjusted for roll
+#	print(sprintf("W.xy2 x= %10.6f xZ= %10.6f  y= %10.6f yZ= %10.6f",x,x_Zadjust,y,y_Zadjust));
 	var xy_hyp = math.sqrt((x_Zadjust * x_Zadjust) + (y_Zadjust * y_Zadjust));
 	var a = (xy_hyp == 0 ? 0 : asin(y_Zadjust / xy_hyp));
 	if (x > 0) {
 		a = math.pi - a;
 	}
 	var xy_head_rad = c_head_rad + a;
-#	print(sprintf ("c_head= %6.2f a= %6.2f xy_head= %6.2f",(c_head_rad*180/math.pi),(a*180/math.pi),(xy_head_rad*180/math.pi)));
+#	print(sprintf ("W.xy2  c_head= %6.2f a= %6.2f xy_head= %6.2f",(c_head_rad*180/math.pi),(a*180/math.pi),(xy_head_rad*180/math.pi)));
 	var xy_lat_m = xy_hyp * math.cos(xy_head_rad);
 	var xy_lon_m = xy_hyp * math.sin(xy_head_rad);
-#	print(sprintf ("x= %9.8f y= %9.8f xy_lat_m= %9.8f xy_lon_m= %9.8f",x_Zadjust,y_Zadjust,xy_lat_m,xy_lon_m));
+#	print(sprintf ("W.xy2  x= %9.8f y= %9.8f xy_lat_m= %9.8f xy_lon_m= %9.8f",x_Zadjust,y_Zadjust,xy_lat_m,xy_lon_m));
 	var xy_lat = xy_lat_m * ERAD_deg;
 	var xy_lon = xy_lon_m * ERAD_deg / cos(c_lat);
-#	print(sprintf ("position/lat= %9.8f lon= %9.8f xy_lat= %9.8f xy_lon= %9.8f",c_lat,c_lon,xy_lat,xy_lon));
-	var zxZ_ft = -(x * math.sin(c_pitch * 0.01745329252) / 0.3048);
-	var zyZ_ft = -(y * math.sin(c_roll * 0.01745329252) / 0.3048 * xZ_factor);	# goes to zero as pitch to 90
+#	print(sprintf ("W.xy2  position/lat= %9.8f lon= %9.8f xy_lat= %9.8f xy_lon= %9.8f",c_lat,c_lon,xy_lat,xy_lon));
+	var zxZ_m = -(x * math.sin(c_pitch * DEG2RAD));
+	var zyZ_m = -(y * math.sin(c_roll * DEG2RAD) * xZ_factor);	# goes to zero as pitch to 90
 
-# MARK: not Perfect yet: z of hatch and height of walker (1.67m) is not adjusted for at angle.
-#	print (sprintf ("zxZ= %6.2f zyZ= %6.2f z= %6.2f",zxZ_ft,zyZ_ft,(zxZ_ft+zyZ_ft)));
-	return [(c_lat + xy_lat) , (c_lon + xy_lon) , (zxZ_ft + zyZ_ft)];
+# MARK-pre-10.4: not Perfect yet: z of hatch and height of walker (1.67m) is not adjusted for at angle.
+#	print (sprintf ("W.xy2  zxZ= %10.6f zyZ= %10.6f z= %10.6f",zxZ_m,zyZ_m,(zxZ_m + zyZ_m)));
+	return [(c_lat + xy_lat) , (c_lon + xy_lon) , (zxZ_m + zyZ_m)];
 }
 
 var calc_heading = func {
@@ -620,7 +622,7 @@ var get_out = func (loc) {
 	setprop("sim/view[101]/enabled", 1);
 	var posy = new_coord[0];
 	var posx = new_coord[1];
-	var posz_ft = new_coord[2];
+	var posz_ft = new_coord[2] * globals.M2FT;
 	setprop("sim/walker/outside", 1);
 	if (c_view == 0) {
 		setprop("sim/current-view/view-number", view.indexof("Walk View"));

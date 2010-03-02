@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--== modified property nodes for ufo flight model              ==-->
-<!--== integrated for Bluebird Explorer Hovercraft  version 3.3 ==-->
+<!--== integrated for Bluebird Explorer Hovercraft  version 10.4 ==-->
 
 <PropertyList>
 
@@ -17,11 +17,22 @@
 	<object-name>Ring</object-name>
 	<object-name>Front</object-name>
 	<emission>
-	<red>1.0</red>
-	<green>0.2</green>
-	<blue>0.0</blue>
-	<factor-prop>sim/model/material/instruments/factor</factor-prop>
+		<red>1.0</red>
+		<green>0.5</green>
+		<blue>0.25</blue>
+		<factor-prop>sim/model/material/instruments/factor</factor-prop>
 	</emission>
+	<ambient>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</ambient>
+	<specular>
+		<factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+		<red>0.9</red>
+		<green>0.9</green>
+		<blue>0.9</blue>
+	</specular>
  </animation>
 
  <animation>

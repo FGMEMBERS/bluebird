@@ -1,4 +1,4 @@
-# == walker animation v1.3 for FlightGear version 1.9 with OSG ==
+# == walker animation v1.4 for FlightGear version 1.9 with OSG ==
 
 var walker1_node = props.globals.getNode("sim/model/walker[1]", 1);
 var w1_animate_node = props.globals.getNode("sim/model/walker[1]/animate", 1);
@@ -31,6 +31,12 @@ var triggers_enabled = 1;
 var triggers_list = [0, 0, 0, 0, 0, 0, 0, 0];
 var triggers_names = ["standing","walking","running","backwards","falling","open-parachute","landing","crashing"];
 var triggers_abbrev = ["S","W","R","B","F","P","L","C"];
+var log_priority = getprop("sim/logging/priority");
+var log_level = 0;
+if (log_priority == "info" or log_priority == "debug") {
+	log_level += 1;
+	print ("incr log_level");
+}
 var walking_momentum = 0;
 var w_outside = 0;
 var in_air = 0;
@@ -2103,7 +2109,7 @@ var discover_triggers = func (verbose) {
 		if (t == "Walking") {
 			if (triggers_list[1] == 0) {
 				trigger_walking_node.setValue(int(i));
-				if (verbose) {
+				if (verbose and log_level > 0) {
 					print ("    found trigger: loading animation for walking to position ",i);
 				}
 				triggers_list[1] = 1;
@@ -2116,7 +2122,7 @@ var discover_triggers = func (verbose) {
 		} elsif (t == "Running") {
 			if (triggers_list[2] == 0) {
 				trigger_running_node.setValue(int(i));
-				if (verbose) {
+				if (verbose and log_level > 0) {
 					print ("    found trigger: loading animation for running to position ",i);
 				}
 				triggers_list[2] = 1;
@@ -2129,7 +2135,7 @@ var discover_triggers = func (verbose) {
 		} elsif (t == "Backwards") {
 			if (triggers_list[3] == 0) {
 				trigger_backwards_node.setValue(int(i));
-				if (verbose) {
+				if (verbose and log_level > 0) {
 					print ("    found trigger: loading animation for backwards to position ",i);
 				}
 				triggers_list[3] = 1;
@@ -2142,7 +2148,7 @@ var discover_triggers = func (verbose) {
 		} elsif (t == "Standing") {
 			if (triggers_list[0] == 0) {
 				trigger_standing_node.setValue(int(i));
-				if (verbose) {
+				if (verbose and log_level > 0) {
 					print ("    found trigger: loading animation for standing to position ",i);
 				}
 				triggers_list[0] = 1;
@@ -2155,7 +2161,7 @@ var discover_triggers = func (verbose) {
 		} elsif (t == "Falling") {
 			if (triggers_list[4] == 0) {
 				trigger_falling_node.setValue(int(i));
-				if (verbose) {
+				if (verbose and log_level > 0) {
 					print ("    found trigger: loading animation for falling to position ",i);
 				}
 				triggers_list[4] = 1;
@@ -2168,7 +2174,7 @@ var discover_triggers = func (verbose) {
 		} elsif (t == "Open-Parachute") {
 			if (triggers_list[5] == 0) {
 				trigger_open_parachute_node.setValue(int(i));
-				if (verbose) {
+				if (verbose and log_level > 0) {
 					print ("    found trigger: loading animation for open-parachute to position ",i);
 				}
 				triggers_list[5] = 1;
@@ -2181,7 +2187,7 @@ var discover_triggers = func (verbose) {
 		} elsif (t == "Landing") {
 			if (triggers_list[6] == 0) {
 				trigger_landing_node.setValue(int(i));
-				if (verbose) {
+				if (verbose and log_level > 0) {
 					print ("    found trigger: loading animation for landing to position ",i);
 				}
 				triggers_list[6] = 1;
@@ -2194,7 +2200,7 @@ var discover_triggers = func (verbose) {
 		} elsif (t == "Crashing") {
 			if (triggers_list[7] == 0) {
 				trigger_crashing_node.setValue(int(i));
-				if (verbose) {
+				if (verbose and log_level > 0) {
 					print ("    found trigger: loading animation for crashing to position ",i);
 				}
 				triggers_list[7] = 1;

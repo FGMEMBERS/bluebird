@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--== modified property nodes for ufo flight model             ==-->
-<!--== integrated for Bluebird Explorer Hovercraft  version 3.3 ==-->
+<!--== integrated for Bluebird Explorer Hovercraft  version 10.4 ==-->
 
 <PropertyList>
 
@@ -16,11 +16,22 @@
 	<object-name>inhg</object-name>
 	<object-name>InhgKnob</object-name>
 	<emission>
-		<red>0.8</red>
-		<green>0.4</green>
-		<blue>0.2</blue>
+		<red>1</red>
+		<green>0.5</green>
+		<blue>0.25</blue>
 		<factor-prop>sim/model/material/instruments/factor</factor-prop>
 	</emission>
+	<ambient>
+		<red>0.9</red>
+		<green>0.9</green>
+		<blue>0.9</blue>
+	</ambient>
+	<specular>
+		<factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+		<red>0.9</red>
+		<green>0.9</green>
+		<blue>0.9</blue>
+	</specular>
  </animation>
  
  <animation>

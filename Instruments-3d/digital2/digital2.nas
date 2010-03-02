@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 8.6 =====
+# ===== Bluebird Explorer Hovercraft  version 10.4 =====
 
 # instrumentation ===================================================
 var lat_whole = props.globals.getNode("instrumentation/digital/lat-whole", 1);
@@ -7,6 +7,7 @@ var lon_whole = props.globals.getNode("instrumentation/digital/lon-whole", 1);
 var lon_fraction = props.globals.getNode("instrumentation/digital/lon-fraction", 1);
 var heading_whole = props.globals.getNode("instrumentation/digital/heading-whole", 1);
 var pitch_whole = props.globals.getNode("instrumentation/digital/pitch-whole", 1);
+var pitch_neg = props.globals.getNode("instrumentation/digital/pitch-neg", 1);
 var vel_whole = props.globals.getNode("instrumentation/digital/velocity-whole", 1);
 var alt_whole = props.globals.getNode("instrumentation/digital/altitude-whole", 1);
 var agl_whole = props.globals.getNode("instrumentation/digital/agl-whole", 1);
@@ -54,7 +55,7 @@ instrumentation_update = func {
 		if (xx < -0.5) { xx += 3600.0; }
 		if (xx > 3599.5) { xx -= 3600.0; }
 		heading_whole.setValue(int(xx + 0.5));
-		var xx = getprop("orientation/pitch-deg") * 10.0;
+		var xx = (getprop("orientation/pitch-deg") + getprop("orientation/ground-pitch")) * 10.0;
 		if (hm == 1) {
 			if (xx < -0.5) { 
 				xx += 3600.5; 
@@ -64,6 +65,11 @@ instrumentation_update = func {
 			pitch_whole.setValue(int(xx));
 		} else {
 			pitch_whole.setValue(int(abs(xx) + 0.5));
+		}
+		if (xx < 0) {
+			pitch_neg.setValue(-1);
+		} else {
+			pitch_neg.setValue(1);
 		}
 		#===== velocity digital module ==============================
 		var vm = vel_mode.getValue();

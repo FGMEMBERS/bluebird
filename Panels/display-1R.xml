@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 9.1  ==-->
+<!--== Bluebird Explorer Hovercraft  version 10.4  ==-->
 
 <PropertyList>
 	<name>screen messages text 1R</name>
@@ -1399,6 +1399,317 @@ NEAREST AIRPORT</text>
 						<transformation>
 							<type>y-shift</type>
 							<offset>-42</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>airport line 19a white</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>literal</type>
+							<text>HOMING AIRPORT</text>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-250</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-74</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>airport line 19b cyan</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>0.1</red>
+						<green>1</green>
+						<blue>1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>text-value</type>
+							<property>instrumentation/tracking/ap2-callsign</property>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-4</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-74</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>airport line 20 cyan</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>0.1</red>
+						<green>1</green>
+						<blue>1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>text-value</type>
+							<property>instrumentation/tracking/ap2-name</property>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-230</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-90</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>airport line 21a white</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>literal</type>
+							<text>LATITUDE</text>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-230</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-106</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>airport line 21b white</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>literal</type>
+							<text>LONGITUDE</text>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-4</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-106</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>airport line 21a cyan</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>0.1</red>
+						<green>1</green>
+						<blue>1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>number-value</type>
+							<property>instrumentation/tracking/ap2-lat</property>
+							<format>%-9.4f</format>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-100</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-106</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>airport line 21b cyan</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>0.1</red>
+						<green>1</green>
+						<blue>1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>number-value</type>
+							<property>instrumentation/tracking/ap2-lon</property>
+							<format>%-9.4f</format>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>136</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-106</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>airport line 22a white</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>literal</type>
+							<text>HEADING</text>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-230</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-124</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>airport line 22b white</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>literal</type>
+							<text>RANGE</text>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-4</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-124</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>airport line 22a cyan</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>18</point-size>
+					<color>
+						<red>0.1</red>
+						<green>1</green>
+						<blue>1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>number-value</type>
+							<property>instrumentation/tracking/ap2-heading-deg</property>
+							<format>%3.0f</format>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-105</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-124</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>airport line 22b cyan</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>18</point-size>
+					<color>
+						<red>0.1</red>
+						<green>1</green>
+						<blue>1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>text-value</type>
+							<property>instrumentation/tracking/ap2-range</property>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>96</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-124</offset>
 						</transformation>
 					</transformations>
 				</layer>

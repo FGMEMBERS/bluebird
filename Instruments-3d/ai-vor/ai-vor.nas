@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 8.9 =====
+# ===== Bluebird Explorer Hovercraft  version 10.4 =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
@@ -205,6 +205,7 @@ var ap_dialog = func {
 	a.prop().getNode("binding[0]/object-name", 1).setValue("airport-list");
 	a.prop().getNode("binding[1]/command", 1).setValue("nasal");
 	a.prop().getNode("binding[1]/script", 1).setValue("aiVORinstrument.listbox_apply()");
+	a.prop().getNode("binding[2]/command", 1).setValue("dialog-close");
 
 	var g = ap2_dialog.addChild("group");
 	g.set("layout", "hbox");

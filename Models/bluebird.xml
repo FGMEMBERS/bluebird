@@ -1,4 +1,4 @@
-<!--== Bluebird version 10.3 common base ==-->
+<!--== Bluebird version 10.4 common base ==-->
 
 <PropertyList>
 
@@ -10,11 +10,6 @@
 		<type>rotate</type>
 		<object-name>BluebirdFlyer_v10</object-name>
 		<property>orientation/ground-pitch</property>
-		<center>
-			<x-m>-0.841</x-m>
-			<y-m>0</y-m>
-			<z-m>-0.5</z-m>
-		</center>
 		<axis>
 			<x>0</x>
 			<y>1</y>
@@ -26,11 +21,6 @@
 		<type>rotate</type>
 		<object-name>BluebirdFlyer_v10</object-name>
 		<property>orientation/ground-roll</property>
-		<center>
-			<x-m>-0.841</x-m>
-			<y-m>0</y-m>
-			<z-m>-0.5</z-m>
-		</center>
 		<axis>
 			<x>-1</x>
 			<y>0</y>
@@ -90,12 +80,6 @@
 				<dep>3</dep>
 			</entry>
 		</interpolation>
-		<center>
-			<x-m>-0.083</x-m>
-			<y-m>0</y-m>
-			<z-m>2.40</z-m>
-			<!-- 2.40 at x-0.083 or 0.932 at x-1.731 -->
-		</center>
 		<axis>
 			<x>0</x>
 			<y>1</y>
@@ -4224,6 +4208,28 @@
 <!-- landing lights -->
 <!-- red nav light (left) wing -->
 	<animation>
+		<type>rotate</type>
+		<object-name>nav_halo_L1</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>nav_halo_L1</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
 		<type>select</type>
 		<object-name>NavL1.off</object-name>
 		<condition>
@@ -4336,6 +4342,28 @@
 	</animation>
 
 <!-- red nav light (left) nacelle -->
+	<animation>
+		<type>rotate</type>
+		<object-name>nav_halo_L2</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>nav_halo_L2</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
 	<animation>
 		<type>select</type>
 		<object-name>NavL2.off</object-name>
@@ -4459,6 +4487,28 @@
 
 <!-- green nav light (right) wing -->
 	<animation>
+		<type>rotate</type>
+		<object-name>nav_halo_R1</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>nav_halo_R1</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
 		<type>select</type>
 		<object-name>NavR1.off</object-name>
 		<condition>
@@ -4571,6 +4621,28 @@
 	</animation>
 
 <!-- green nav light (right) nacelle -->
+	<animation>
+		<type>rotate</type>
+		<object-name>nav_halo_R2</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>nav_halo_R2</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
 	<animation>
 		<type>select</type>
 		<object-name>NavR2.off</object-name>
@@ -4694,6 +4766,28 @@
 
 <!-- strobe left -->
 	<animation>
+		<type>rotate</type>
+		<object-name>strobe_halo_L</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>strobe_halo_L</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
 		<type>select</type>
 		<object-name>NavLc.off</object-name>
 		<condition>
@@ -4789,6 +4883,28 @@
 
 
 <!-- strobe right -->
+	<animation>
+		<type>rotate</type>
+		<object-name>strobe_halo_R</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>strobe_halo_R</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
 	<animation>
 		<type>select</type>
 		<object-name>NavRc.off</object-name>
@@ -5067,6 +5183,28 @@
 
 <!-- beacon top -->
 	<animation>
+		<type>rotate</type>
+		<object-name>beacon_halo_T</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>beacon_halo_T</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
 		<type>select</type>
 		<object-name>Body.BeaconT</object-name>
 		<condition>
@@ -5152,6 +5290,28 @@
 
 
 <!-- beacon bottom nose -->
+	<animation>
+		<type>rotate</type>
+		<object-name>beacon_halo_B</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>beacon_halo_B</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
 	<animation>
 		<type>select</type>
 		<object-name>Nose.BeaconB</object-name>
@@ -14215,11 +14375,6 @@
 		<object-name>PEDALS</object-name>
 		<object-name>YOKE</object-name>
 		<property>orientation/ground-pitch</property>
-		<center>
-			<x-m>-0.841</x-m>
-			<y-m>0</y-m>
-			<z-m>-0.5</z-m>
-		</center>
 		<axis>
 			<x>0</x>
 			<y>1</y>
@@ -14232,11 +14387,6 @@
 		<object-name>PEDALS</object-name>
 		<object-name>YOKE</object-name>
 		<property>orientation/ground-roll</property>
-		<center>
-			<x-m>-0.841</x-m>
-			<y-m>0</y-m>
-			<z-m>-0.5</z-m>
-		</center>
 		<axis>
 			<x>-1</x>
 			<y>0</y>
@@ -14265,11 +14415,6 @@
 		<type>rotate</type>
 		<object-name>DISPLAY SCREENS</object-name>
 		<property>orientation/ground-pitch</property>
-		<center>
-			<x-m>-0.841</x-m>
-			<y-m>0</y-m>
-			<z-m>-0.5</z-m>
-		</center>
 		<axis>
 			<x>0</x>
 			<y>1</y>
@@ -14281,11 +14426,6 @@
 		<type>rotate</type>
 		<object-name>DISPLAY SCREENS</object-name>
 		<property>orientation/ground-roll</property>
-		<center>
-			<x-m>-0.841</x-m>
-			<y-m>0</y-m>
-			<z-m>-0.5</z-m>
-		</center>
 		<axis>
 			<x>-1</x>
 			<y>0</y>
@@ -14313,11 +14453,6 @@
 				<dep>3</dep>
 			</entry>
 		</interpolation>
-		<center>
-			<x-m>-0.083</x-m>
-			<y-m>0</y-m>
-			<z-m>2.40</z-m>
-		</center>
 		<axis>
 			<x>0</x>
 			<y>1</y>

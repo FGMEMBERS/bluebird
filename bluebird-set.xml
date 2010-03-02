@@ -2,8 +2,9 @@
 
 <PropertyList include="bluebird-base.xml">
  <sim>
-	<description>Bluebird Explorer Hovercraft  for v1.9 with OSG</description>
-	<aircraft-version>10.3</aircraft-version>
+	<description>Bluebird Explorer Hovercraft</description>
+	<aircraft-version>10.4</aircraft-version>
+	<author>S Andreason</author>
 	<model>
 		<path>Aircraft/bluebird/Models/bluebird-osg.xml</path>
 	</model>
@@ -198,5 +199,4 @@
 		<file>Aircraft/bluebird/Nasal/walker-animate.nas</file>
 	</walker>
  </nasal>
-
 </PropertyList>

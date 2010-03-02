@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== created for Bluebird Explorer Hovercraft  version 8.8 ==-->
+<!--== created for Bluebird Explorer Hovercraft  version 10.4 ==-->
 
 <PropertyList>
 	<path>ai-vor.ac</path>
@@ -13,11 +13,17 @@
 		<object-name>ElevationNeedle</object-name>
 		<object-name>Knob</object-name>
 		<emission>
-			<red>0.8</red>
-			<green>0.4</green>
-			<blue>0.2</blue>
+			<red>1</red>
+			<green>0.5</green>
+			<blue>0.25</blue>
 			<factor-prop>sim/model/material/instruments/factor</factor-prop>
 		</emission>
+		<specular>
+			<factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+			<red>0.9</red>
+			<green>0.9</green>
+			<blue>0.9</blue>
+		</specular>
 	</animation>
 
 	<animation>

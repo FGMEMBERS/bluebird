@@ -1,6 +1,6 @@
-# ===== text screen functions for version 1.9 OSG     =====
+# ===== text screen functions for FG version 1.9-2.0 (OSG) =====
 # ===== and backend for ai-vor
-# ===== for Bluebird Explorer Hovercraft version 10.2 =====
+# ===== for Bluebird Explorer Hovercraft version 10.4 =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
@@ -43,7 +43,7 @@ var refresh_2L = 1.0;
 var a_mode = 0;
 
 var tracking_on = 0;
-# ======== nearest airport for screen-1R ============================
+# ======== nearest airport updated every 5 sec. =====================
 var ap1_bearing_Node = props.globals.getNode("instrumentation/tracking/ap1-bearing-deg", 1);
 var ap1_callsign_Node = props.globals.getNode("instrumentation/tracking/ap1-callsign", 1);
 var ap1_dist_Node = props.globals.getNode("instrumentation/tracking/ap1-distance-m", 1);
@@ -79,6 +79,7 @@ var apt_loop = func (id) {
 	settimer(func { apt_loop(id) }, 5);
 }
 
+# ======== update tracking for nearest airport every 0.25 sec =======
 var apt_update_id = 0;
 var apt_update = func (id) {
 	id == apt_update_id or return;
@@ -335,6 +336,72 @@ var ac_loop = func (id) {
 	}
 }
 
+# ======== fixed airport tracking and homing ========================
+var ap2_bearing_Node = props.globals.getNode("instrumentation/tracking/ap2-bearing-deg", 1);
+var ap2_callsign_Node = props.globals.getNode("instrumentation/tracking/ap2-callsign", 1);
+var ap2_dist_Node = props.globals.getNode("instrumentation/tracking/ap2-distance-m", 1);
+var ap2_elev_Node = props.globals.getNode("instrumentation/tracking/ap2-elevation-deg", 1);
+var ap2_heading_offset_Node = props.globals.getNode("instrumentation/tracking/ap2-heading-offset-deg", 1);
+var ap2_heading_Node = props.globals.getNode("instrumentation/tracking/ap2-heading-deg", 1);
+var ap2_name_Node = props.globals.getNode("instrumentation/tracking/ap2-name", 1);
+var ap2_lat_Node = props.globals.getNode("instrumentation/tracking/ap2-lat", 1);
+var ap2_lon_Node = props.globals.getNode("instrumentation/tracking/ap2-lon", 1);
+var ap2_range_Node = props.globals.getNode("instrumentation/tracking/ap2-range", 1);
+var ap2 = nil;
+var ap2c_L = nil;
+
+var ap2_update = func {
+	if (ap2 != nil) {
+		var c_lat = getprop("position/latitude-deg");
+		var c_lon = getprop("position/longitude-deg");
+		var c_head_deg = getprop("orientation/heading-deg");
+		var avglat = (c_lat + ap2.lat) / 2;
+		var y = ap2.lat - c_lat;
+		var x_grid = ap2.lon - c_lon;
+		if (abs(x_grid) > 180) {	# international date line
+			if (ap2.lon < -90) {
+				c_lon -= 360.0;
+			} else {
+				c_lon += 360.0;
+			}
+			x_grid = ap2.lon - c_lon;
+		}
+		var x = x_grid * cos(avglat);
+		var xy_hyp = math.sqrt((x * x) + (y * y));
+		var head = (xy_hyp == 0 ? 0 : asin(x / xy_hyp)) * 180 / math.pi;
+		head = (c_lat > ap2.lat ? normheading(180 - head) : normheading(head));
+		var bearing = normbearing(head, c_head_deg);
+		ap2_bearing_Node.setValue(bearing);
+		ap2_heading_Node.setValue(head);
+		ap2_heading_offset_Node.setValue((360 - bearing - c_head_deg));
+		setprop("instrumentation/tracking/ap2-to-factor", bearing_to_factor(bearing));
+		var range = walk.distFromCraft(ap2.lat, ap2.lon);
+		ap2_dist_Node.setValue(range);
+		var c_alt = getprop("position/altitude-ft");
+		var e_m = ap2.elevation - (c_alt * 0.3048);
+		var xy_hyp = math.sqrt((e_m * e_m) + (range * range));
+		var ze = (xy_hyp == 0 ? 0 : asin(e_m / xy_hyp)) * 180 / math.pi;
+		ap2_elev_Node.setValue(ze);
+		range = range * m_2_conv[a_mode];
+		var txt18 = sprintf("%7.2f",range) ~ m_conv_units[a_mode];
+		ap2_range_Node.setValue(txt18);
+	} else {
+		ap2_bearing_Node.setValue(0);
+		ap2_dist_Node.setValue(-999999);
+	}
+}
+
+var ap2_loop_id = 0;
+var ap2_loop = func (id) {
+	id == ap2_loop_id or return;
+#	if (c_view == 0) {
+		ap2_update();
+#	}
+	settimer(func { ap2_loop(id) }, 0.95);
+}
+
+settimer(func { ap2_loop(ap2_loop_id += 1) }, 3);
+
 # ======== combined aircraft and airport section ===================
 var apt = nil;
 var aiac = nil;
@@ -529,6 +596,17 @@ var init = func {
 			settimer(func { ac_loop(ac_loop_id += 1) }, 0);
 		} else {
 			setprop("instrumentation/display-screens/enabled-2L", 0);
+		}
+	}, 1);
+
+	ap2c_L = setlistener("instrumentation/tracking/ap2-callsign", func(n) {
+		ap2 = airportinfo(n.getValue());
+		if (ap2 != nil) {
+			ap2_name_Node.setValue(ap2.name);
+			ap2_lat_Node.setValue(ap2.lat);
+			ap2_lon_Node.setValue(ap2.lon);
+			ap2_elev_Node.setValue(ap2.elevation);
+			ap2_update();
 		}
 	}, 1);
 

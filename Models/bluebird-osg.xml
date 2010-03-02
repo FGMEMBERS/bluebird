@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 10.0 for OSG                   ==-->
+<!--== Bluebird version 10.4 for OSG                   ==-->
 
 <PropertyList>
 	<model>
@@ -928,7 +928,40 @@
 	</animation>
 
 <!-- particle system effects -->
+	<animation>
+		<type>rotate</type>
+		<object-name>trails-LF</object-name>
+		<object-name>trails-RF</object-name>
+		<object-name>trails-LR</object-name>
+		<object-name>trails-LR-few</object-name>
+		<object-name>trails-RR</object-name>
+		<object-name>trails-RR-few</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>trails-LF</object-name>
+		<object-name>trails-RF</object-name>
+		<object-name>trails-LR</object-name>
+		<object-name>trails-LR-few</object-name>
+		<object-name>trails-RR</object-name>
+		<object-name>trails-RR-few</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
 	<model>
+		<name>trails-LF</name>
 		<path>Aircraft/bluebird/Models/Effects/trails-LF.xml</path>
 		<offsets>
 			<x-m>-0.93</x-m>
@@ -941,6 +974,7 @@
 	</model>
 
 	<model>
+		<name>trails-RF</name>
 		<path>Aircraft/bluebird/Models/Effects/trails-RF.xml</path>
 		<offsets>
 			<x-m>-0.93</x-m>
@@ -953,6 +987,7 @@
 	</model>
 
 	<model>
+		<name>trails-LR</name>
 		<path>Aircraft/bluebird/Models/Effects/trails-LR.xml</path>
 		<offsets>
 			<x-m>11.4</x-m>
@@ -965,6 +1000,7 @@
 	</model>
 
 	<model>
+		<name>trails-LR-few</name>
 		<path>Aircraft/bluebird/Models/Effects/trails-LR-few.xml</path>
 		<offsets>
 			<x-m>11.4</x-m>
@@ -977,6 +1013,7 @@
 	</model>
 
 	<model>
+		<name>trails-RR</name>
 		<path>Aircraft/bluebird/Models/Effects/trails-RR.xml</path>
 		<offsets>
 			<x-m>11.4</x-m>
@@ -989,6 +1026,7 @@
 	</model>
 
 	<model>
+		<name>trails-RR-few</name>
 		<path>Aircraft/bluebird/Models/Effects/trails-RR-few.xml</path>
 		<offsets>
 			<x-m>11.4</x-m>
@@ -1524,7 +1562,360 @@
 	</particlesystem>
 
 <!-- flares, fire, and sparks -->
+	<animation>
+		<type>rotate</type>
+		<object-name>fire1</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>fire1</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>fire2</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>fire2</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>fire3</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>fire3</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>fire4</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>fire4</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>fire5</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>fire5</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>fire6</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>fire6</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>smoke1</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>smoke1</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>smoke2</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>smoke2</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>smoke3</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>smoke3</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>smoke4</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>smoke4</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>smoke5</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>smoke5</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>smoke6</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>smoke6</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>smoke7</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>smoke7</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>smoke8</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>smoke8</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>smoke9</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>smoke9</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>smoke10</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>smoke10</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
 	<model>
+		<name>fire1</name>
 		<path>Aircraft/bluebird/Models/Effects/fire.xml</path>
 		<condition>
 			<and>
@@ -1543,6 +1934,7 @@
 	</model>
 
 	<model>
+		<name>fire2</name>
 		<path>Aircraft/bluebird/Models/Effects/fire.xml</path>
 		<condition>
 			<and>
@@ -1561,6 +1953,7 @@
 	</model>
 
 	<model>
+		<name>fire3</name>
 		<path>Aircraft/bluebird/Models/Effects/fire.xml</path>
 		<condition>
 			<and>
@@ -1579,6 +1972,7 @@
 	</model>
 
 	<model>
+		<name>fire4</name>
 		<path>Aircraft/bluebird/Models/Effects/fire.xml</path>
 		<condition>
 			<and>
@@ -1597,6 +1991,7 @@
 	</model>
 
 	<model>
+		<name>fire5</name>
 		<path>Aircraft/bluebird/Models/Effects/fire.xml</path>
 		<condition>
 			<and>
@@ -1615,6 +2010,7 @@
 	</model>
 
 	<model>
+		<name>fire6</name>
 		<path>Aircraft/bluebird/Models/Effects/fire.xml</path>
 		<condition>
 			<and>
@@ -1634,6 +2030,7 @@
 
 <!-- smoke from nacelle junction -->
 	<model>
+		<name>smoke1</name>
 		<path>Aircraft/bluebird/Models/Effects/smoke-slow.xml</path>
 		<condition>
 			<and>
@@ -1653,6 +2050,7 @@
 	</model>
 
 	<model>
+		<name>smoke2</name>
 		<path>Aircraft/bluebird/Models/Effects/smoke-fast.xml</path>
 		<condition>
 			<and>
@@ -1672,6 +2070,7 @@
 	</model>
 
 	<model>
+		<name>smoke3</name>
 		<path>Aircraft/bluebird/Models/Effects/smoke-slow.xml</path>
 		<condition>
 			<and>
@@ -1691,6 +2090,7 @@
 	</model>
 
 	<model>
+		<name>smoke4</name>
 		<path>Aircraft/bluebird/Models/Effects/smoke-slow.xml</path>
 		<condition>
 			<and>
@@ -1710,6 +2110,7 @@
 	</model>
 
 	<model>
+		<name>smoke5</name>
 		<path>Aircraft/bluebird/Models/Effects/smoke-fast.xml</path>
 		<condition>
 			<and>
@@ -1729,6 +2130,7 @@
 	</model>
 
 	<model>
+		<name>smoke6</name>
 		<path>Aircraft/bluebird/Models/Effects/smoke-slow.xml</path>
 		<condition>
 			<and>
@@ -1748,6 +2150,7 @@
 	</model>
 <!-- junction between nose and body -->
 	<model>
+		<name>smoke7</name>
 		<path>Aircraft/bluebird/Models/Effects/smoke-fast.xml</path>
 		<condition>
 			<and>
@@ -1770,6 +2173,7 @@
 	</model>
 
 	<model>
+		<name>smoke8</name>
 		<path>Aircraft/bluebird/Models/Effects/smoke-fast.xml</path>
 		<condition>
 			<and>
@@ -1792,6 +2196,7 @@
 	</model>
 
 	<model>
+		<name>smoke9</name>
 		<path>Aircraft/bluebird/Models/Effects/smoke-short.xml</path>
 		<condition>
 			<and>
@@ -1814,6 +2219,7 @@
 	</model>
 
 	<model>
+		<name>smoke10</name>
 		<path>Aircraft/bluebird/Models/Effects/smoke-short.xml</path>
 		<condition>
 			<and>
@@ -1886,11 +2292,6 @@
 				<dep>3</dep>
 			</entry>
 		</interpolation>
-		<center>
-			<x-m>-0.083</x-m>
-			<y-m>0</y-m>
-			<z-m>2.40</z-m>
-		</center>
 		<axis>
 			<x>0</x>
 			<y>1</y>
@@ -1898,10 +2299,54 @@
 		</axis>
 	</animation>
 
+	<animation>
+		<type>rotate</type>
+		<object-name>ALTITUDE</object-name>
+		<object-name>HEADING</object-name>
+		<object-name>VELOCITY</object-name>
+		<object-name>ENGINE POWER GRAPH</object-name>
+		<object-name>MAGCI</object-name>
+		<object-name>GPS</object-name>
+		<object-name>ALT</object-name>
+		<object-name>AI</object-name>
+		<object-name>CONTROLS</object-name>
+		<object-name>CLOCK</object-name>
+		<object-name>AI MP VOR</object-name>
+		<object-name>AI MP VOR Text</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>ALTITUDE</object-name>
+		<object-name>HEADING</object-name>
+		<object-name>VELOCITY</object-name>
+		<object-name>ENGINE POWER GRAPH</object-name>
+		<object-name>MAGCI</object-name>
+		<object-name>GPS</object-name>
+		<object-name>ALT</object-name>
+		<object-name>AI</object-name>
+		<object-name>CONTROLS</object-name>
+		<object-name>CLOCK</object-name>
+		<object-name>AI MP VOR</object-name>
+		<object-name>AI MP VOR Text</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
 <!-- crew -->
 	<model>
-		<path>Aircraft/bluebird/Models/pilot.xml</path>
 		<name>pilot</name>
+		<path>Aircraft/bluebird/Models/pilot.xml</path>
 		<nopreview/>
 		<offsets> 
 			<x-m>-7.4</x-m>
@@ -1919,8 +2364,8 @@
 	</animation>
 
 	<model>
-		<path>Aircraft/bluebird/Models/walker-in.xml</path>
 		<name>walker-inside</name>
+		<path>Aircraft/bluebird/Models/walker-in.xml</path>
 		<offsets> 
 			<x-m>0.0</x-m>
 			<y-m>0.0</y-m>
@@ -1955,6 +2400,28 @@
 		</condition>
 	</animation>
 
+	<animation>
+		<type>rotate</type>
+		<object-name>walker-inside</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>walker-inside</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
 <!-- damage rotation in bluebird -->
 	<animation>
 		<type>rotate</type>
@@ -1974,15 +2441,33 @@
 				<dep>3</dep>
 			</entry>
 		</interpolation>
-		<center>
-			<x-m>-0.083</x-m>
-			<y-m>0</y-m>
-			<z-m>2.40</z-m>
-		</center>
 		<axis>
 			<x>0</x>
 			<y>1</y>
 			<z>0</z>
 		</axis>
 	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>pilot</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>pilot</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
 </PropertyList>

@@ -5,7 +5,7 @@ Choose your aircraft:
  start Flightgear with the following parameter:
 
 If you are running the newest version of FlightGear, 
-  version 1.9 or cvs built with OpenSceneGraph,
+  version 2.0, 1.9 or cvs built with OpenSceneGraph,
     --aircraft=bluebird
 
 If you are running FlightGear version 1.0 (with Plib)

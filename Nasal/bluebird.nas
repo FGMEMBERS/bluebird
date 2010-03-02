@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 10.2 for FlightGear 1.9 OSG =====
+# ===== Bluebird Explorer Hovercraft  version 10.4 for FlightGear 1.9 OSG =====
 
 # strobes -----------------------------------------------------------
 var strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
@@ -40,6 +40,7 @@ var popupTip2 = func {
 }
 
 var clamp = func(v, min, max) { v < min ? min : v > max ? max : v }
+var RAD2DEG = 180 / math.pi;
 
 # === global nodes, and constants ===================================
 
@@ -47,7 +48,10 @@ var clamp = func(v, min, max) { v < min ? min : v > max ? max : v }
 var zNoseNode = props.globals.getNode("sim/view/config/y-offset-m", 1);
 var xViewNode = props.globals.getNode("sim/current-view/z-offset-m", 1);
 var yViewNode = props.globals.getNode("sim/current-view/x-offset-m", 1);
+var zViewNode = props.globals.getNode("sim/current-view/y-offset-m", 1);
 var hViewNode = props.globals.getNode("sim/current-view/heading-offset-deg", 1);
+#var pViewNode = props.globals.getNode("sim/current-view/pitch-offset-deg", 1);
+#var rViewNode = props.globals.getNode("sim/current-view/roll-offset-deg", 1);
 var vertical_offset_ft = 0.5830;
 	# keep shadow off ground at expense of keeping wheels and gear
 	# at ground level. Also adjust Shadow in bluebird.xml line# 13997 with negative
@@ -261,6 +265,9 @@ var wheels_switch = 0;           # 0 = not extended, land on skid plates (or) 1 
 var wheel_height = 0;
 var contact_altitude = 0;      # the altitude at which the model touches ground (modifiers are gear and pitch/roll with hover_add)
 var gear_request = 1;          # direction = down
+var gear_x_pitch_deg = 0;      # pitch and roll for ground slope under gear contact points
+var gear_y_roll_deg = 0;
+var groundslope_enabled = 0;
 # --------- doors --------
 door0_adjpos.setValue(0);
 door1_adjpos.setValue(0);
@@ -295,6 +302,7 @@ var wave_drift = 0;
 airspeed_kt_Node.setValue(0);
 abs_airspeed_Node.setValue(0);
 var pitch_d = 0;
+var roll_d = 0;
 var airspeed = 0;
 var asas = 0;
 var hover_add = 0;              # increase in altitude to keep nacelles and nose from touching ground
@@ -325,12 +333,12 @@ var sound_level = 0;
 var sound_state = 0;
 var alert_level = 0;
 # -------
-var cockpit_locations = [ { x: -7.35, y: 0, z: [1.47, 1.70, 1.88], h: 0, p: 0, fov: 55 },
+var cockpit_locations = [ { x: -7.35, y: 0, z: [1.47, 1.70, 1.88], h: 0, p: -2, fov: 55 },
 		{ x: -5.6, y: 0, z: [2.1, 2.33, 2.47], h: 0, p: 0, fov: 55 },
 		{ x: -5.94, y: -0.73, z: [1.47, 1.68, 1.79], h: 0, p: 0, fov: 55 },
 		{ x: -5.93, y: 0.77, z: [1.47, 1.68, 1.79], h: 0, p: 0, fov: 55 },
 		{ x: -3.3, y: 0, z: [2.1, 2.32, 2.43], h: 0, p: 0, fov: 55 },
-		{ x: -2.55, y: -1.9, z: [2.1, 2.3, 2.4], h: 0, p: 0, fov: 55 } ];
+		{ x: -2.55, y: -1.9, z: [2.1, 2.3, 2.4], h: 0, p: 0, fov: 55 } ];	# left doorway
 		# Waldo eye height is 1.625m
 var cockpitView = 0;
 var active_nav_button = [3, 3, 1];
@@ -348,12 +356,15 @@ var reinit_bluebird = func {	# reset the above variables
 	gear_mode = 0;
 	active_gear_button = [1, 3];
 	gear_request = 1;
+	gear_x_pitch_deg = 0;
+	gear_y_roll_deg = 0;
 	gear_height = 2.47;
 	wheels_switch = 0;
 	wheel_looping = 0;
 	wheel_position = 0;
 	wheel_height = 0;
 	contact_altitude = 0;
+	groundslope_enabled = 0;
 	door0_position = 0;
 	door1_position = 0;
 	door5_position = 0;
@@ -372,6 +383,7 @@ var reinit_bluebird = func {	# reset the above variables
 	wave_state = 0;
 	wave_drift = 0;
 	pitch_d = 0;
+	roll_d = 0;
 	airspeed = 0;
 	asas = 0;
 	hover_reset_timer = 0;
@@ -2041,12 +2053,50 @@ var reset_impact = func {
 	damage_blocker = 0;
 }
 
+setlistener("sim/model/bluebird/systems/groundslope-enable", func(n) {
+	groundslope_enabled = n.getValue();
+	if (!groundslope_enabled) {
+		setprop("orientation/ground-pitch", 0);
+		setprop("orientation/groundsloped-pitch-deg", 0);
+		setprop("orientation/ground-roll", 0);
+		setprop("orientation/groundsloped-roll-deg", 0);
+	}
+}, 1);
+
 var settle_to_level = func {
+	# determine slope of ground if on hill, necessary for ufo fdm
+	if (groundslope_enabled) {
+		var gear1_lat_lon = walk.xy2LatLonZ(-7.087,0);
+		var gear2_lat_lon = walk.xy2LatLonZ(4.918,-1.74);
+		var gear3_lat_lon = walk.xy2LatLonZ(4.918,1.74);
+		var gear1_gnd_elev_m = geo.elevation(gear1_lat_lon[0],gear1_lat_lon[1]);
+		var gear2_gnd_elev_m = geo.elevation(gear2_lat_lon[0],gear2_lat_lon[1]);
+		var gear3_gnd_elev_m = geo.elevation(gear3_lat_lon[0],gear3_lat_lon[1]);
+		var gear23_diff = gear2_gnd_elev_m - gear3_gnd_elev_m;
+		var gear23_oh = gear23_diff / (1.74 * 2);
+		var gear23_avg = (gear2_gnd_elev_m + gear3_gnd_elev_m) / 2;
+		var gear123_diff = gear1_gnd_elev_m - gear23_avg;
+		var gear123_oh = gear123_diff / (7.087+4.918);
+		if (abs(gear123_oh) > 1) {	# nose > rear gear  hyp distance
+			gear123_oh = 1;
+		}
+		if (gear23_oh > 1) {
+			gear23_oh = 1;
+		} elsif (gear23_oh < -1) {
+			gear23_oh = -1;
+		}
+		gear_y_roll_deg = walk.asin(gear23_oh) * RAD2DEG;
+		gear_x_pitch_deg = walk.asin(gear123_oh) * RAD2DEG;
+		setprop("orientation/ground-pitch",gear_x_pitch_deg);
+		setprop("orientation/groundsloped-pitch-deg",(gear_x_pitch_deg + pitch_d));
+		setprop("orientation/ground-roll",gear_y_roll_deg);
+		setprop("orientation/groundsloped-roll-deg",(gear_y_roll_deg + roll_d));
+	}
 	var hg_roll = roll_deg.getValue() * 0.75;
-	roll_deg.setValue(hg_roll);  # unless on hill... doesn't work right with ufo model
+	roll_deg.setValue(hg_roll);
 	var hg_roll = roll_control.getValue() * 0.75;
 	roll_control.setValue(hg_roll);
-	var hg_pitch = pitch_deg.getValue() * 0.75;
+	var hg_pitch = pitch_d * 0.75;
 	pitch_deg.setValue(hg_pitch);
 	var hg_pitch = pitch_control.getValue() * 0.75;
 	pitch_control.setValue(hg_pitch);
@@ -2091,6 +2141,21 @@ var check_damage = func (dmg_add) {
 	}
 }
 
+var xyz2sloped = func (x,y,z) {
+	# given the x,y offsets of the cockpit view (in meters)
+	# translate into view offset considering ground slope
+	var c_head_rad = getprop("orientation/heading-deg") * walk.DEG2RAD;
+	var c_pitch = getprop("orientation/groundsloped-pitch-deg");
+	var c_roll = getprop("orientation/groundsloped-roll-deg");
+	var xZ_factor = math.cos(c_pitch * walk.DEG2RAD);
+	var x_Zadjust = x * xZ_factor;	# adjusted for pitch
+	var yZ_factor = math.cos(c_roll * walk.DEG2RAD);
+	var y_Zadjust = y * yZ_factor;	# adjusted for roll
+	var zxZ_m = -(x * math.sin(c_pitch * walk.DEG2RAD));
+	var zyZ_m = -(y * math.sin(c_roll * walk.DEG2RAD));
+	return [x_Zadjust,y_Zadjust,(zxZ_m+zyZ_m)];	# meters
+}
+
 #==========================================================================
 # -------- MAIN LOOP called by itself every cycle --------
 
@@ -2105,6 +2170,7 @@ var update_main = func {
 	}
 	if (altitude > -9990) {   # wait until program has started
 		pitch_d = pitch_deg.getValue();   # update variables used by everybody
+		roll_d = roll_deg.getValue();
 		airspeed = airspeed_kt_Node.getValue();
 		asas = abs(airspeed);
 		abs_airspeed_Node.setDoubleValue(asas);
@@ -2140,33 +2206,34 @@ var update_main = func {
 			var rolld = abs(roll_deg.getValue()) / 3.5;
 			var skid_w2 = 0;
 			var skid_altitude_change = 0;
-			if (pitch_d > 0) {    # calculations optimized for gear Down
-				if (pitch_d < 7.6) {  # try to keep rear of nacelles from touching ground
-					hover_add = pitch_d / 2.8;
-				} elsif (pitch_d < 25) {
-					hover_add = ((pitch_d - 7.6) / 1.65) + 2.714;
-				} elsif (pitch_d < 52) {
-					hover_add = ((pitch_d - 25) / 1.8) + 13.259;  # ((25-7.6)/1.65)+2.714
-				} elsif (pitch_d < 75) {
-					hover_add = ((pitch_d - 52) / 3.25) + 28.259;
+			var g_pitch_d = pitch_d + gear_x_pitch_deg;
+			if (g_pitch_d > 0) {    # calculations optimized for gear Down
+				if (g_pitch_d < 7.6) {  # try to keep rear of nacelles from touching ground
+					hover_add = g_pitch_d / 2.8;
+				} elsif (g_pitch_d < 25) {
+					hover_add = ((g_pitch_d - 7.6) / 1.65) + 2.714;
+				} elsif (g_pitch_d < 52) {
+					hover_add = ((g_pitch_d - 25) / 1.8) + 13.259;  # ((25-7.6)/1.65)+2.714
+				} elsif (g_pitch_d < 75) {
+					hover_add = ((g_pitch_d - 52) / 3.25) + 28.259;
 				} else {
-					hover_add = ((pitch_d - 75) / 7.0) + 35.336;
+					hover_add = ((g_pitch_d - 75) / 7.0) + 35.336;
 				}
 			} else {
-				if (pitch_d > -7.6) {  # try to keep nose from touching ground
-					hover_add = abs(pitch_d / 2.2);
-				} elsif (pitch_d > -14) {
-					hover_add = abs((pitch_d + 7.6) / 2.05 ) + 3.455;
-				} elsif (pitch_d > -32) {
-					hover_add = abs((pitch_d + 14) / 1.6) + 6.576;
-				} elsif (pitch_d > -43) {
-					hover_add = abs((pitch_d + 32) / 1.8) + 17.826;
-				} elsif (pitch_d > -60) {
-					hover_add = abs((pitch_d + 43) / 2.2) + 23.937;
-				} elsif (pitch_d > -73) {
-					hover_add = abs((pitch_d + 60) / 3.0) + 31.664;
+				if (g_pitch_d > -7.6) {  # try to keep nose from touching ground
+					hover_add = abs(g_pitch_d / 2.2);
+				} elsif (g_pitch_d > -14) {
+					hover_add = abs((g_pitch_d + 7.6) / 2.05 ) + 3.455;
+				} elsif (g_pitch_d > -32) {
+					hover_add = abs((g_pitch_d + 14) / 1.6) + 6.576;
+				} elsif (g_pitch_d > -43) {
+					hover_add = abs((g_pitch_d + 32) / 1.8) + 17.826;
+				} elsif (g_pitch_d > -60) {
+					hover_add = abs((g_pitch_d + 43) / 2.2) + 23.937;
+				} elsif (g_pitch_d > -73) {
+					hover_add = abs((g_pitch_d + 60) / 3.0) + 31.664;
 				} else {
-					hover_add = abs((pitch_d + 73) / 6.5) + 35.997;
+					hover_add = abs((g_pitch_d + 73) / 6.5) + 35.997;
 				}
 			}
 			# 1st threshold rolld @ 27 degrees = 7.71
@@ -2190,7 +2257,7 @@ var update_main = func {
 			hover_target_altitude = gnd_elev + hover_ft + hover_add + vertical_offset_ft;  # includes gear_height
 			h_contact_target_alt = hover_target_altitude - gear_height - hover_add - vertical_offset_ft;
 			if (screen_4R_on) {
-				var text_4R = sprintf("% 7.3f    % 7.3f    % 8.3f % 11.3f",pitch_d,rolld,hover_add,hover_ft);
+				var text_4R = sprintf("% 7.3f    % 7.3f    % 8.3f % 11.3f",g_pitch_d,rolld,hover_add,hover_ft);
 				displayScreens.scroll_4R(text_4R);
 			}
 			if (altitude < hover_target_altitude) {
@@ -2232,7 +2299,7 @@ var update_main = func {
 				}
 				altitude_ft_Node.setDoubleValue(altitude);  # force above ground elev to hover elevation at contact
 				contact_altitude = altitude - vertical_offset_ft - gear_height - hover_add;
-				if (pitch_d > 0 or pitch_d < -0.5) {
+				if (g_pitch_d > 0 or g_pitch_d < -0.5) {
 					# If aircraft hits ground, then nose/tail gets thrown up
 					if (asas > 500) {  # new pitch adjusted for airspeed
 						var airspeed_pch = 0.2;  # rough ride
@@ -2240,21 +2307,26 @@ var update_main = func {
 						var airspeed_pch = asas / 500 * 0.2;
 					}
 					if (airspeed > 0.1) {
-						if (pitch_d > 0) {
+						if (g_pitch_d > 0) {
 							# going uphill
-							pitch_d = pitch_d * (1.0 + airspeed_pch);
+#FIXME account for groundsloped
+							g_pitch_d = g_pitch_d * (1.0 + airspeed_pch);
+							pitch_d = g_pitch_d - gear_x_pitch_deg;
 							pitch_deg.setDoubleValue(pitch_d);
 						} else {
 							# nose down
-							pitch_d = pitch_d * (1.0 - airspeed_pch);
+							g_pitch_d = g_pitch_d * (1.0 - airspeed_pch);
+							pitch_d = g_pitch_d - gear_x_pitch_deg;
 							pitch_deg.setDoubleValue(pitch_d);
 						}
 					} elsif (airspeed < -0.1) {    # reverse direction
-						if (pitch_d < 0) {  # uphill
-							pitch_d = pitch_d * (1.0 + airspeed_pch);
+						if (g_pitch_d < 0) {  # uphill
+							g_pitch_d = g_pitch_d * (1.0 + airspeed_pch);
+							pitch_d = g_pitch_d - gear_x_pitch_deg;
 							pitch_deg.setDoubleValue(pitch_d);
 						} else {
-							pitch_d = pitch_d * (1.0 - airspeed_pch);
+							g_pitch_d = g_pitch_d * (1.0 - airspeed_pch);
+							pitch_d = g_pitch_d - gear_x_pitch_deg;
 							pitch_deg.setDoubleValue(pitch_d);
 						}
 					}
@@ -2270,12 +2342,12 @@ var update_main = func {
 			if (skid_w2 > 8 and asas > 80) {   
 				# impact greater than 480 feet per second
 				wildfire.ignite(geo.aircraft_position());
-				var dmg_factor = int(skid_w2 * 0.025 * (abs(pitch_d) * 0.011) + 1.0);  # vulnerability to impact
+				var dmg_factor = int(skid_w2 * 0.025 * (abs(g_pitch_d) * 0.011) + 1.0);  # vulnerability to impact
 				# increasing number from 0.025 ^^^^^ increases damage per hit
 				if (dmg_factor < 1) {  # if impact, then at least one damage unit
 					dmg_factor = 1;
 				} else {
-					var angle_of_damage_max = ((abs(pitch_d) * 0.67) + 30);
+					var angle_of_damage_max = ((abs(g_pitch_d) * 0.67) + 30);
 					if (dmg_factor > angle_of_damage_max) {  # maximum damage per major impact
 						dmg_factor = angle_of_damage_max;
 					}
@@ -2286,8 +2358,8 @@ var update_main = func {
 			}
 			var skid_w_vol = clamp((skid_w2 * 0.1), 0, 1);  # factor for volume usage
 			if (!damage_count and (skid_altitude_change < 5)) {
-				if (abs(pitch_d) < 3.75) {
-					skid_w_vol = skid_w_vol * (abs(pitch_d + 0.25)) * 0.25;
+				if (abs(g_pitch_d) < 3.75) {
+					skid_w_vol = skid_w_vol * (abs(g_pitch_d + 0.25)) * 0.25;
 				}
 			}
 			setprop("sim/model/bluebird/position/skid-wow", skid_w_vol);
@@ -2325,6 +2397,11 @@ var update_main = func {
 				if (!countergrav.request) {
 					if (!reactor_request) {
 						settle_to_level();
+					} else {
+						setprop("orientation/ground-pitch",0);
+						setprop("orientation/groundsloped-pitch-deg",pitch_d);
+						setprop("orientation/ground-roll",0);
+						setprop("orientation/groundsloped-roll-deg",roll_d);
 					}
 				} else {
 					lose_altitude = 0;
@@ -2342,6 +2419,11 @@ var update_main = func {
 					if ((contact_altitude - h_contact_target_alt) < 3) {   # really close to ground but not below it
 						if (!reactor_request) {
 							settle_to_level();
+					} else {
+						setprop("orientation/ground-pitch",0);
+						setprop("orientation/groundsloped-pitch-deg",pitch_d);
+						setprop("orientation/ground-roll",0);
+						setprop("orientation/groundsloped-roll-deg",roll_d);
 						}
 					}
 				} else { # fast enough to fly without counter-grav
@@ -2691,6 +2773,26 @@ var update_main = func {
 		a7 = abs(a8 - int(a8));
 		setprop("sim/model/bluebird/lighting/wave-guide-halo-spin", a7);
 
+		if (cockpitView == 1 or cockpitView == 4) {
+			var damage_adjust_z = 0;
+		} else {
+			var damage_adjust_z = (damage_count <= 2 ? damage_count : 2);
+		}
+
+		if (groundslope_enabled) {
+			var view0_coord = xyz2sloped(cockpit_locations[cockpitView].x,cockpit_locations[cockpitView].y,cockpit_locations[cockpitView].z[damage_adjust_z]);
+			setprop("/sim/view[0]/config/z-offset-m", (cockpit_locations[cockpitView].x + view0_coord[0]));
+			setprop("/sim/view[0]/config/x-offset-m", (cockpit_locations[cockpitView].y + view0_coord[1]));
+			setprop("/sim/view[0]/config/y-offset-m", (cockpit_locations[cockpitView].z[damage_adjust_z] + view0_coord[2]));
+			setprop("/sim/view[0]/config/pitch-offset-deg", (getprop("/orientation/pitch-deg") + gear_x_pitch_deg));
+			setprop("/sim/view[0]/config/roll-offset-deg", (getprop("/orientation/roll-deg") + gear_y_roll_deg));
+			if (getprop("sim/current-view/view-number") == 0) {
+				xViewNode.setValue(view0_coord[0]);
+				yViewNode.setValue(view0_coord[1]);
+				zViewNode.setValue(cockpit_locations[cockpitView].z[damage_adjust_z] + view0_coord[2]);
+			}
+		}
+
 		# nacelle venting
 		if (venting_direction >= -1) {
 			update_venting(0,0);
@@ -2888,6 +2990,11 @@ var up = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=sour
 						lose_altitude = 0;
 						if (!reactor_request) {
 							settle_to_level();
+						} else {
+							setprop("orientation/ground-pitch",0);
+							setprop("orientation/groundsloped-pitch-deg",pitch_d);
+							setprop("orientation/ground-roll",0);
+							setprop("orientation/groundsloped-roll-deg",roll_d);
 						}
 					} else {
 						lose_altitude = lose_altitude * 0.5;
@@ -2900,6 +3007,11 @@ var up = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=sour
 					displayScreens.scroll_3L(text_3L);
 					if (!reactor_request) {
 						settle_to_level();
+					} else {
+						setprop("orientation/ground-pitch",0);
+						setprop("orientation/groundsloped-pitch-deg",pitch_d);
+						setprop("orientation/ground-roll",0);
+						setprop("orientation/groundsloped-roll-deg",roll_d);
 					}
 				}
 			} else {
@@ -3072,10 +3184,11 @@ setlistener("sim/model/bluebird/crew/cockpit-position", func(n) {
 });
 
 var set_cockpit = func(cockpitPosition) {
-	if (cockpitPosition > 4) {
+	var num_positions = size(cockpit_locations) - 1;
+	if (cockpitPosition > num_positions) {
 		cockpitPosition = 0;
 	}
-	if (cockpitPosition < 0) { cockpitPosition = 4; }
+	if (cockpitPosition < 0) { cockpitPosition = num_positions; }
 	setprop("sim/model/bluebird/crew/cockpit-position", cockpitPosition);
 	if (!getprop("sim/walker/outside")) {
 		setprop("sim/model/bluebird/crew/walker/x-offset-m", cockpit_locations[cockpitPosition].x);
@@ -3105,6 +3218,7 @@ var set_cockpit = func(cockpitPosition) {
 
 var cycle_cockpit = func(cc_i) {
 	if (cc_i == 10) {	# jump to helm and restore forward view
+		setprop("sim/current-view/view-number", 0);
 		cockpitView = 0;
 	} else {
 		cockpitView += cc_i;
@@ -3112,11 +3226,7 @@ var cycle_cockpit = func(cc_i) {
 	set_cockpit(cockpitView);
 	if (cc_i == 10) {
 		hViewNode.setValue(0.0);
-		setprop("sim/current-view/goal-pitch-offset-deg", 0.0);
 		setprop("sim/current-view/goal-roll-offset-deg", 0.0);
-	}
-	if (cockpitView == 0 and getprop("sim/current-view/view-number") == 0) {
-		setprop("sim/current-view/goal-pitch-offset-deg", -2.0);
 	}
 }
 
@@ -4038,6 +4148,20 @@ var showDialog2 = func {
 	w.set("property", "logging/walker-debug");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 
+	config_dialog.addChild("hrule").addChild("dummy");
+
+	w = checkbox("Experimental ground slope based orientation");
+	w.set("property", "sim/model/bluebird/systems/groundslope-enable");
+	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+
+	g = config_dialog.addChild("group");
+	g.set("layout", "hbox");
+	g.addChild("empty").set("pref-width", 40);
+	w = g.addChild("text");
+	w.set("halign", "left");
+	w.set("label", "(Effective when counter-grav hover is off)");
+	g.addChild("empty").set("stretch", 1);
+
 	# finale
 	config_dialog.addChild("empty").set("pref-height", "3");
 	fgcommand("dialog-new", config_dialog.prop());
@@ -4135,5 +4259,5 @@ var showLiveryDialog1 = func {
 
  var t = getprop("/sim/description");
  print (t);
- print ("  version 10.3  release date 2009.Sep.02  by Stewart Andreason");
+ print ("  version 10.4  release date 2010.Mar.01  by Stewart Andreason");
 });

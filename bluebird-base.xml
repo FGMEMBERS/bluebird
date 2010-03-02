@@ -4,7 +4,7 @@
  <sim>
 	<aero>bluebird</aero>
 	<status>early-production</status>
-	<aircraft-version>10.3</aircraft-version>
+	<aircraft-version>10.4</aircraft-version>
 	<author>S Andreason</author>
 	<aircraft-status>
 		<fdm>beta</fdm>
@@ -1110,6 +1110,7 @@
 				<pitch-level type="float">0</pitch-level>
 			</sound>
 			<systems>
+				<groundslope-enable type="bool">false</groundslope-enable>
 				<nacelle-L-venting type="bool">false</nacelle-L-venting>
 				<nacelle-R-venting type="bool">false</nacelle-R-venting>
 				<power-switch type="bool">true</power-switch>		<!-- default: power up at startup -->
@@ -1617,11 +1618,6 @@
 
 	<lon-lat-format type="int">0</lon-lat-format>
 
-	<orientation>
-		<ground-pitch type="double">0</ground-pitch>
-		<ground-roll type="double">0</ground-roll>
-	</orientation>
-
 	<panel>
 		<visibility>false</visibility>
 	</panel>
@@ -1639,11 +1635,11 @@
 	<view n="0">
 		<internal>true</internal>
 		<config>
-			<!-- x/y/z == right/up/aft -->
 			<x-offset-m>0.0</x-offset-m>
 			<y-offset-m>1.47</y-offset-m>
 			<z-offset-m>-7.35</z-offset-m>
 			<pitch-offset-deg>-2.0</pitch-offset-deg>
+			<roll-offset-deg>0</roll-offset-deg>
 			<limits>
 				<enabled type="bool">false</enabled>
 			</limits>
@@ -1671,6 +1667,7 @@
 			</limits>
 		</config>
 	</view>
+
 	<view n="101">
 		<name>Walker Orbit View</name>
 		<type>lookat</type>
@@ -2257,6 +2254,7 @@
 	<digital>
 		<altitude-mode type="int">0</altitude-mode>
 		<heading-mode type="int">0</heading-mode>
+		<pitch-neg type="int">0</pitch-neg>
 		<velocity-mode type="int">1</velocity-mode>
 	</digital>
 	<nav n="0">
@@ -2458,6 +2456,7 @@
 		<ap1-callsign type="string"> </ap1-callsign>
 		<ap1-distance-m type="float">0.0</ap1-distance-m>
 		<ap1-elevation-deg type="float">0.0</ap1-elevation-deg>
+		<ap1-heading-deg type="float">-99.0</ap1-heading-deg>
 		<ap1-heading-offset-deg type="float">-99.0</ap1-heading-offset-deg>
 		<ap1-name type="string">NOT AVAILABLE IN FlightGear 0.9.10 </ap1-name>
 		<ap1-lat type="double">0</ap1-lat>
@@ -2468,7 +2467,12 @@
 		<ap2-callsign type="string"> </ap2-callsign>
 		<ap2-distance-m type="float">0.0</ap2-distance-m>
 		<ap2-elevation-deg type="float">-99.0</ap2-elevation-deg>
+		<ap2-heading-deg type="float">-99.0</ap2-heading-deg>
 		<ap2-heading-offset-deg type="float">-99.0</ap2-heading-offset-deg>
+		<ap2-name type="string">NOT AVAILABLE </ap2-name>
+		<ap2-lat type="double">0</ap2-lat>
+		<ap2-lon type="double">0</ap2-lon>
+		<ap2-range type="string"> </ap2-range>
 		<ap2-to-factor type="float">1</ap2-to-factor>
 		<mp-size type="int">0</mp-size>
 		<mp1-bearing-deg type="float">-1.0</mp1-bearing-deg>
@@ -2484,4 +2488,11 @@
 	<walker-position type="bool">false</walker-position>
 	<walker-debug type="bool">false</walker-debug>
  </logging>
+
+ <orientation>
+	<ground-pitch type="double">0</ground-pitch>
+	<ground-roll type="double">0</ground-roll>
+	<groundsloped-pitch-deg type="double">0</groundsloped-pitch-deg>
+	<groundsloped-roll-deg type="double">0</groundsloped-roll-deg>
+ </orientation>
 </PropertyList>

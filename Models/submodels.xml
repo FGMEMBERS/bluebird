@@ -1,9 +1,41 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 7.4 ==-->
+<!--== Bluebird Explorer Hovercraft  version 10.4 ==-->
 
 <PropertyList>
+	<animation>
+		<type>rotate</type>
+		<object-name>flare1-L</object-name>
+		<object-name>flare2-L</object-name>
+		<object-name>flare3-L</object-name>
+		<object-name>flare4-R</object-name>
+		<object-name>flare5-R</object-name>
+		<object-name>flare6-R</object-name>
+		<property>orientation/ground-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>flare1-L</object-name>
+		<object-name>flare2-L</object-name>
+		<object-name>flare3-L</object-name>
+		<object-name>flare4-R</object-name>
+		<object-name>flare5-R</object-name>
+		<object-name>flare6-R</object-name>
+		<property>orientation/ground-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
 	<submodel>
-		<name>left engine flare1 venting</name>
+		<name>flare1-L</name>
 		<model>Models/Geometry/flare.xml</model>
 		<trigger>ai/submodels/engine-L-flaring</trigger>
 		<speed>-6</speed>
@@ -22,7 +54,7 @@
 	</submodel>
 
 	<submodel>
-		<name>left engine flare2 venting</name>
+		<name>flare2-L</name>
 		<model>Models/Geometry/flare.xml</model>
 		<trigger>ai/submodels/engine-L-flaring</trigger>
 		<speed>1</speed>
@@ -41,7 +73,7 @@
 	</submodel>
 
 	<submodel>
-		<name>left engine flare3 venting</name>
+		<name>flare3-L</name>
 		<model>Models/Geometry/flare.xml</model>
 		<trigger>ai/submodels/engine-L-flaring</trigger>
 		<speed>-2</speed>
@@ -59,7 +91,7 @@
 	</submodel>
 
 	<submodel>
-		<name>right engine flare1 venting</name>
+		<name>flare4-R</name>
 		<model>Models/Geometry/flare.xml</model>
 		<trigger>ai/submodels/engine-R-flaring</trigger>
 		<speed>1</speed>
@@ -78,7 +110,7 @@
 	</submodel>
 
 	<submodel>
-		<name>right engine flare2 venting</name>
+		<name>flare5-R</name>
 		<model>Models/Geometry/flare.xml</model>
 		<trigger>ai/submodels/engine-R-flaring</trigger>
 		<speed>1</speed>
@@ -97,7 +129,7 @@
 	</submodel>
 
 	<submodel>
-		<name>right engine flare3 venting</name>
+		<name>flare6-R</name>
 		<model>Models/Geometry/flare.xml</model>
 		<trigger>ai/submodels/engine-R-flaring</trigger>
 		<speed>-2</speed>
