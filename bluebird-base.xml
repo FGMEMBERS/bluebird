@@ -1550,7 +1550,7 @@
 			<name>f / F</name>
 			<desc>Select Next/Previous Door</desc>
 		</key>
-		<key n="9">
+		<key n="61">
 			<name>Ctrl-f</name>
 			<desc>Open/Close Selected Door</desc>
 		</key>
@@ -1801,8 +1801,8 @@
 				<property>sim/walker/pause-walker</property>
 			</binding>
 		</key>
-		<key n="9">
-			<name>Ctrl-I</name>
+		<key n="61">
+			<name>=</name>
 			<desc>Show dialog</desc>
 			<repeatable>false</repeatable>
 			<binding>
