@@ -1,0 +1,211 @@
+<?xml version="1.0"?>
+<!--== Bluebird Explorer Hovercraft  version 7.1 ==-->
+
+<!DOCTYPE PropertyList SYSTEM "panel.dtd">
+<!-- This part should be the same for any 3D panel.  Customize the actions section -->
+<PropertyList> 
+	<name>Bluebird Panel HotspotsRight1</name>
+	<background>Aircraft/Generic/Panels/Textures/transparent-bg.rgb</background>
+	<w>1024</w>
+	<h>768</h>
+	<y-offset>0</y-offset>
+	<instruments>
+		<instrument>
+			<name>Right panel</name>
+			<x>512</x>
+			<y>384</y>
+			<w>1024</w>
+			<h>768</h>
+			<w-base>1024</w-base>
+			<h-base>1024</h-base>
+			<layers> 
+				<layer> 
+					<name>background</name>
+					<texture> 
+						<path>Aircraft/Generic/Panels/Textures/transparent-bg.rgb</path>
+						<x1>0.0</x1>
+						<y1>0.0</y1>
+						<x2>1.0</x2>
+						<y2>1.0</y2>
+					</texture>
+				</layer>
+			</layers>
+			<!-- define hotspot actions below -->
+			<actions> 
+				<!-- ************** hsi hotspots ************** -->
+				<action>
+					<name>gear-up-select</name>
+					<button>0</button>
+					<x>-467</x>
+					<y>-3</y>
+					<w>94</w>
+					<h>177</h>
+					<binding>
+						<command>nasal</command>
+						<script>controls.gearDown(-1)</script>
+					</binding>
+				</action>
+
+				<action>
+					<name>gear-mode-select</name>
+					<button>0</button>
+					<x>-467</x>
+					<y>-169</y>
+					<w>94</w>
+					<h>160</h>
+					<binding>
+						<command>nasal</command>
+						<script>bluebird.toggle_gear_mode(-1)</script>
+					</binding>
+				</action>
+
+				<action>
+					<name>gear-down-select</name>
+					<button>0</button>
+					<x>-467</x>
+					<y>-346</y>
+					<w>94</w>
+					<h>172</h>
+					<binding>
+						<command>nasal</command>
+						<script>controls.gearDown(1)</script>
+					</binding>
+				</action>
+
+				<action>
+					<name>gear-wheel-select</name>
+					<button>0</button>
+					<x>-467</x>
+					<y>-512</y>
+					<w>94</w>
+					<h>162</h>
+					<binding>
+						<command>property-adjust</command>
+						<property>controls/gear/wheels-switch</property>
+						<step>1</step>
+						<min>0</min>
+						<max>2</max>
+						<wrap>true</wrap>
+					</binding>
+				</action>
+
+				<action>
+					<name>door0-select</name>
+					<button>0</button>
+					<x>-298</x>
+					<y>252</y>
+					<w>89</w>
+					<h>183</h>
+					<binding>
+						<command>nasal</command>
+						<script>bluebird.select_door(0)</script>
+					</binding>
+					<binding>
+						<command>nasal</command>
+						<script>bluebird.toggle_door()</script>
+					</binding>
+				</action>
+
+				<action>
+					<name>door1-select</name>
+					<button>0</button>
+					<x>-208</x>
+					<y>252</y>
+					<w>89</w>
+					<h>183</h>
+					<binding>
+						<command>nasal</command>
+						<script>bluebird.select_door(1)</script>
+					</binding>
+					<binding>
+						<command>nasal</command>
+						<script>bluebird.toggle_door()</script>
+					</binding>
+				</action>
+
+				<action>
+					<name>door5-select</name>
+					<button>0</button>
+					<x>-118</x>
+					<y>252</y>
+					<w>89</w>
+					<h>183</h>
+					<binding>
+						<command>nasal</command>
+						<script>bluebird.select_door(5)</script>
+					</binding>
+					<binding>
+						<command>nasal</command>
+						<script>bluebird.toggle_door()</script>
+					</binding>
+				</action>
+
+				<action>
+					<name>button5-select</name>
+					<button>0</button>
+					<x>62</x>
+					<y>252</y>
+					<w>89</w>
+					<h>183</h>
+					<binding>
+						<command>nasal</command>
+						<script>bluebird.toggle_lighting(5)</script>
+					</binding>
+				</action>
+
+				<action>
+					<name>button6-select</name>
+					<button>0</button>
+					<x>153</x>
+					<y>252</y>
+					<w>89</w>
+					<h>183</h>
+					<binding>
+						<command>nasal</command>
+						<script>bluebird.toggle_lighting(6)</script>
+					</binding>
+				</action>
+
+				<action>
+					<name>button7-select</name>
+					<button>0</button>
+					<x>243</x>
+					<y>252</y>
+					<w>89</w>
+					<h>183</h>
+					<binding>
+						<command>nasal</command>
+						<script>bluebird.toggle_lighting(7)</script>
+					</binding>
+				</action>
+
+				<action>
+					<name>button8-select</name>
+					<button>0</button>
+					<x>333</x>
+					<y>252</y>
+					<w>89</w>
+					<h>183</h>
+					<binding>
+						<command>nasal</command>
+						<script>bluebird.toggle_lighting(8)</script>
+					</binding>
+				</action>
+
+				<action>
+					<name>button9-select</name>
+					<button>0</button>
+					<x>423</x>
+					<y>252</y>
+					<w>89</w>
+					<h>183</h>
+					<binding>
+						<command>nasal</command>
+						<script>bluebird.toggle_lighting(9)</script>
+					</binding>
+				</action>
+
+			</actions>
+		</instrument>
+	</instruments>
+</PropertyList>

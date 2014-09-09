@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<!--== Bluebird Explorer Hovercraft  version 7.1 ==-->
+
+<!DOCTYPE PropertyList SYSTEM "panel.dtd">
+<!-- This part should be the same for any 3D panel.  Customize the actions section -->
+<PropertyList> 
+	<name>Bluebird Panel HotspotsLeft1</name>
+	<background>Aircraft/Generic/Panels/Textures/transparent-bg.rgb</background>
+	<w>1024</w>
+	<h>768</h>
+	<y-offset>0</y-offset>
+	<instruments>
+		<instrument>
+			<name>Left panel</name>
+			<x>512</x>
+			<y>384</y>
+			<w>1024</w>
+			<h>768</h>
+			<w-base>1024</w-base>
+			<h-base>1024</h-base>
+			<layers> 
+				<layer> 
+					<name>background</name>
+					<texture> 
+						<path>Aircraft/Generic/Panels/Textures/transparent-bg.rgb</path>
+						<x1>0.0</x1>
+						<y1>0.0</y1>
+						<x2>1.0</x2>
+						<y2>1.0</y2>
+					</texture>
+				</layer>
+			</layers>
+			<!-- define hotspot actions below -->
+			<actions> 
+				<!-- ************** hsi hotspots ************** -->
+				<action>
+					<name>power1-select</name>
+					<button>0</button>
+					<x>-512</x>
+					<y>224</y>
+					<w>80</w>
+					<h>206</h>
+					<binding>
+						<command>nasal</command>
+						<script>bluebird.toggle_power(0)</script>
+					</binding>
+				</action>
+
+				<action>
+					<name>engine2-select2</name>
+					<button>0</button>
+					<x>-345</x>
+					<y>224</y>
+					<w>80</w>
+					<h>206</h>
+					<binding>
+						<command>nasal</command>
+						<script>bluebird.toggle_fusion()</script>
+					</binding>
+				</action>
+
+				<action>
+					<name>engine2-select7</name>
+					<button>0</button>
+					<x>69</x>
+					<y>226</y>
+					<w>80</w>
+					<h>204</h>
+					<binding>
+						<command>nasal</command>
+						<script>bluebird.toggle_fusion()</script>
+					</binding>
+				</action>
+
+				<action>
+					<name>engine8-select</name>
+					<button>0</button>
+					<x>153</x>
+					<y>226</y>
+					<w>80</w>
+					<h>204</h>
+					<binding>
+						<command>nasal</command>
+						<script>bluebird.toggle_wave1()</script>
+					</binding>
+				</action>
+
+				<action>
+					<name>engine9-select</name>
+					<button>0</button>
+					<x>236</x>
+					<y>226</y>
+					<w>80</w>
+					<h>204</h>
+					<binding>
+						<command>nasal</command>
+						<script>bluebird.toggle_wave2()</script>
+					</binding>
+				</action>
+			</actions>
+		</instrument>
+	</instruments>
+</PropertyList>

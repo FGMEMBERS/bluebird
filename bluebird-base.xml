@@ -1,0 +1,2498 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+ <sim>
+	<aero>bluebird</aero>
+	<status>early-production</status>
+	<aircraft-version>10.4</aircraft-version>
+	<author>S Andreason</author>
+	<aircraft-status>
+		<fdm>beta</fdm>
+		<exterior>early-production</exterior>
+		<cockpit>early-production</cockpit>
+		<instrumentation>early-production</instrumentation>
+		<procedures>alpha</procedures>
+		<system-modeling>beta</system-modeling>
+		<failure-modeling>beta</failure-modeling>
+		<checklist-support>alpha</checklist-support>
+		<tutorial-support>alpha</tutorial-support>
+		<documentation>alpha</documentation>
+		<usability>early-production</usability>  
+		<eye-candy>production</eye-candy>
+	</aircraft-status>
+	<type-of-aircraft>
+		<is-futuristic type="bool">true</is-futuristic>
+		<is-hovercraft type="bool">true</is-hovercraft>
+		<is-ufo type="bool">true</is-ufo>
+	</type-of-aircraft>
+
+	<flight-model>ufo</flight-model>
+
+	<startup>
+		<splash-texture>Aircraft/bluebird/bluebird-splash.png</splash-texture>
+	</startup>
+
+	<chase-distance-m type="double">-40.0</chase-distance-m>  
+
+	<model>
+		<cockpit-visible type="bool">true</cockpit-visible>
+		<bluebird>
+			<components>
+				<body type="bool">true</body>	<!-- perhaps make it possible for cockpit to become all that's left after a bad crash -->
+				<nose type="bool">true</nose>	<!-- rotates incrementally upon crashes -->
+				<nacelle-L type="bool">true</nacelle-L>
+				<nacelle-R type="bool">true</nacelle-R>
+				<engine-cover1 type="bool">true</engine-cover1>
+				<engine-cover2 type="bool">true</engine-cover2>
+				<engine-cover3 type="bool">true</engine-cover3>
+				<engine-cover4 type="bool">true</engine-cover4>
+			</components>
+			<crew>
+				<cockpit-position type="int">0</cockpit-position>
+				<pilot>
+					<chair-back type="int">0</chair-back>
+					<visible type="bool">true</visible>
+				</pilot>
+				<walker>
+					<visible type="bool">true</visible>
+					<x-offset-m type="double">-0.8</x-offset-m>
+					<y-offset-m type="double">1.2</y-offset-m>
+					<z-offset-m type="double">0.0</z-offset-m>
+					<head-offset-deg type="double">0.0</head-offset-deg>
+				</walker>
+			</crew>
+			<damage>
+				<hits-counter type="int">0</hits-counter>
+				<major-counter type="int">0</major-counter>
+			</damage>
+			<doors>
+				<door>
+					<position-norm type="float">0.0</position-norm>
+					<position-adj type="float">0.0</position-adj>
+					<name type="string">Left Side Door</name>
+				</door>
+				<door>
+					<position-norm type="float">0.0</position-norm>
+					<position-adj type="float">0.0</position-adj>
+					<name type="string">Right Side Door</name>
+				</door>
+				<door>
+					<position-norm type="float">0.0</position-norm>
+					<position-adj type="float">0.0</position-adj>
+					<name type="string">Inside cockpit door</name>
+				</door>
+				<door>
+					<position-norm type="float">0.0</position-norm>
+					<position-adj type="float">0.0</position-adj>
+					<name type="string">Door to the Head</name>
+				</door>
+				<door>
+					<position-norm type="float">0.0</position-norm>
+					<position-adj type="float">0.0</position-adj>
+					<name type="string">Inside cargo door</name>
+				</door>
+				<door>
+					<position-norm type="float">0.0</position-norm>
+					<position-adj type="float">0.0</position-adj>
+					<name type="string">Rear cargo hatch</name>
+				</door>
+			</doors>
+			<hover>
+				<key-up type="float">0</key-up>
+			</hover>
+			<lighting>
+				<engine-glow type="float">0.0</engine-glow>
+				<ground-near type="bool">true</ground-near>
+				<ground-warning type="int">1</ground-warning>
+				<interior-switch type="bool">true</interior-switch>
+				<landing-lights type="int">1</landing-lights>	<!-- default= on at dusk -->
+				<nav-lights-state type="bool">true</nav-lights-state>
+				<nav-light-switch type="int">2</nav-light-switch>	<!-- default= stay on -->
+				<power-glow type="float">1</power-glow>		<!-- default: power up at startup -->
+				<wave-guide-glow type="float">0</wave-guide-glow>
+				<wave-guide-halo-spin type="float">0</wave-guide-halo-spin>
+				<window-factor type="float">0</window-factor>
+				<interior-ambient-factor type="float">0.1</interior-ambient-factor>
+				<interior-specular type="float">0</interior-specular>
+				<overhead>
+					<emission>
+						<red type="float">1</red>
+						<gb type="float">1</gb>
+						<factor type="float">0.7</factor>
+					</emission>
+				</overhead>
+				<waldo>
+					<emission>
+						<red type="float">1</red>
+						<gb type="float">1</gb>
+					</emission>
+				</waldo>
+				<interior1-flooring>
+					<amb-dif>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">1</blue>
+					</amb-dif>
+					<emission>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</emission>
+				</interior1-flooring>
+				<interior2-door-panels>
+					<amb-dif>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</amb-dif>
+					<emission>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</emission>
+				</interior2-door-panels>
+				<interior3-upper-walls>
+					<amb-dif>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</amb-dif>
+					<emission>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</emission>
+				</interior3-upper-walls>
+				<interior4-lower-walls>
+					<amb-dif>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</amb-dif>
+					<emission>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</emission>
+				</interior4-lower-walls>
+				<interior5-console>
+					<amb-dif>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</amb-dif>
+					<emission>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</emission>
+				</interior5-console>
+				<interior6-chairs>
+					<amb-dif>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</amb-dif>
+					<emission>
+						<red type="float">0</red>
+						<green type="float">0</green>
+						<blue type="float">0</blue>
+					</emission>
+				</interior6-chairs>
+				<interior8-light-frame>
+					<amb-dif>
+						<red type="float">0</red>
+						<gb type="float">0</gb>
+					</amb-dif>
+					<emission>
+						<red type="float">0</red>
+						<gb type="float">0</gb>
+					</emission>
+				</interior8-light-frame>
+				<interior9-buttons>
+					<amb-dif>
+						<red type="float">0</red>
+						<gb type="float">0</gb>
+					</amb-dif>
+					<emission>
+						<red type="float">0</red>
+						<gb type="float">0</gb>
+					</emission>
+				</interior9-buttons>
+				<interiorA-door-seals>
+					<amb-dif>
+						<red type="float">0</red>
+						<gb type="float">0</gb>
+					</amb-dif>
+					<emission>
+						<red type="float">0</red>
+						<gb type="float">0</gb>
+					</emission>
+				</interiorA-door-seals>
+				<interiorB-door-lights>
+					<amb-dif>
+						<rgb type="float">0</rgb>
+					</amb-dif>
+					<emission>
+						<rgb type="float">0</rgb>
+					</emission>
+				</interiorB-door-lights>
+				<interiorC-safety-lights>
+					<amb-dif>
+						<rg type="float">0</rg>
+					</amb-dif>
+					<emission>
+						<rg type="float">0</rg>
+					</emission>
+				</interiorC-safety-lights>
+				<door0>
+					<interior1-flooring>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">1</blue>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</emission>
+					</interior1-flooring>
+					<interior4-lower-walls>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</emission>
+					</interior4-lower-walls>
+					<interior8-light-frame>
+						<amb-dif>
+							<red type="float">0</red>
+							<gb type="float">0</gb>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<gb type="float">0</gb>
+						</emission>
+					</interior8-light-frame>
+					<hatchA-steps>
+						<amb-dif>
+							<red type="float">0.02</red>
+							<gb type="float">0.02</gb>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<gb type="float">0</gb>
+						</emission>
+					</hatchA-steps>
+				</door0>
+				<door1>
+					<interior1-flooring>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">1</blue>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</emission>
+					</interior1-flooring>
+					<interior4-lower-walls>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</emission>
+					</interior4-lower-walls>
+					<interior8-light-frame>
+						<amb-dif>
+							<red type="float">0</red>
+							<gb type="float">0</gb>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<gb type="float">0</gb>
+						</emission>
+					</interior8-light-frame>
+					<hatchA-steps>
+						<amb-dif>
+							<red type="float">0.02</red>
+							<gb type="float">0.02</gb>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<gb type="float">0</gb>
+						</emission>
+					</hatchA-steps>
+				</door1>
+				<doors0-1>
+					<interior1-flooring>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">1</blue>
+						</amb-dif>
+					</interior1-flooring>
+				</doors0-1>
+				<door5>
+					<hatch1-flooring-center>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">1</blue>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</emission>
+					</hatch1-flooring-center>
+					<hatch3-upper-walls>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</emission>
+					</hatch3-upper-walls>
+					<hatch4-lower-walls>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</emission>
+					</hatch4-lower-walls>
+					<hatch7-flooring-side>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</emission>
+					</hatch7-flooring-side>
+					<interior1-flooring>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">1</blue>
+						</amb-dif>
+						<emission>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">0</blue>
+						</emission>
+					</interior1-flooring>
+					<interior2-door-panels>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">1</blue>
+						</amb-dif>
+					</interior2-door-panels>
+					<interior3-upper-walls>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">1</blue>
+						</amb-dif>
+					</interior3-upper-walls>
+					<interior4-lower-walls>
+						<amb-dif>
+							<red type="float">0</red>
+							<green type="float">0</green>
+							<blue type="float">1</blue>
+						</amb-dif>
+					</interior4-lower-walls>
+					<interior8-light-frame>
+						<amb-dif>
+							<red type="float">0</red>
+							<gb type="float">0</gb>
+						</amb-dif>
+					</interior8-light-frame>
+					<interior-specular type="float">0</interior-specular>
+				</door5>
+				<buttons>
+					<left1-power>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</left1-power>
+					<left2-reactor>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</left2-reactor>
+					<left3-6-countergrav>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</left3-6-countergrav>
+					<left7-countergrav>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</left7-countergrav>
+					<left8-wave-guide>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</left8-wave-guide>
+					<left9-overdrive>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</left9-overdrive>
+					<gear1-up>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</gear1-up>
+					<gear2-mode>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</gear2-mode>
+					<gear3-down>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</gear3-down>
+					<gear4-wheels>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</gear4-wheels>
+					<right1-hatch-left>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</right1-hatch-left>
+					<right2-hatch-right>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</right2-hatch-right>
+					<right3-hatch-rear>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</right3-hatch-rear>
+					<right4-landing-down>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</right4-landing-down>
+					<right5-landing-forward>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</right5-landing-forward>
+					<right6-nav>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</right6-nav>
+					<right7-beacon>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</right7-beacon>
+					<right8-strobe>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</right8-strobe>
+					<right9-overhead>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</right9-overhead>
+				</buttons>
+			</lighting>
+			<position>
+				<altitude-agl-ft type="double">0</altitude-agl-ft>
+				<crash-wow type="bool">false</crash-wow>
+				<hover-rise type="float">0</hover-rise>		<!-- yoke movement -->
+				<landing-wow type="bool">false</landing-wow>
+				<shadow-alt-agl-ft type="double">0</shadow-alt-agl-ft>
+				<skid-wow type="float">0</skid-wow>
+				<squeal-wow type="bool">false</squeal-wow>
+			</position>
+			<shadow type="bool">true</shadow>	<!-- faster than a 3d rendered shadow -->
+			<sound>
+				<door-direction type="float">0</door-direction>	<!-- crude way to play correct sounds for open and close -->
+				<door0-volume type="float">0</door0-volume>
+				<door1-volume type="float">0</door1-volume>
+				<door2-volume type="float">0</door2-volume>
+				<door3-volume type="float">0</door3-volume>
+				<door4-volume type="float">0</door4-volume>
+				<door5-volume type="float">0</door5-volume>
+				<engines-volume-level type="float">0</engines-volume-level>
+				<hatch0-trigger type="bool">false</hatch0-trigger>
+				<hatch1-trigger type="bool">false</hatch1-trigger>
+				<hatch5-trigger type="bool">false</hatch5-trigger>
+				<pitch-level type="float">0</pitch-level>
+			</sound>
+			<systems>
+				<groundslope-enable type="bool">false</groundslope-enable>
+				<nacelle-L-venting type="bool">false</nacelle-L-venting>
+				<nacelle-R-venting type="bool">false</nacelle-R-venting>
+				<power-switch type="bool">true</power-switch>		<!-- default: power up at startup -->
+				<reactor-request type="bool">true</reactor-request>
+				<reactor-level type="int">1</reactor-level>
+				<wave1-request type="bool">true</wave1-request>
+				<wave1-level type="int">1</wave1-level>
+				<wave2-request type="bool">false</wave2-request>
+			</systems>
+		</bluebird>
+
+		<variant type="int">0</variant>
+		<livery>
+			<file type="string">Blue-Grey-Plain</file>
+			<name type="string">Blue-Grey-Plain</name>
+			<material>
+				<fuselage-top>
+					<texture>livery.png</texture>
+					<diffuse>
+						<red>0.2</red>
+						<green>0.3</green>
+						<blue>0.5</blue>
+					</diffuse>
+					<ambient>
+						<red>0.4</red>
+						<green>0.6</green>
+						<blue>0.9</blue>
+					</ambient>
+					<specular>
+						<red>0.4</red>
+						<green>0.6</green>
+						<blue>0.9</blue>
+					</specular>
+					<shininess>20</shininess>
+				</fuselage-top>
+
+				<fuselage-upper>
+					<texture>livery.png</texture>
+					<diffuse>
+						<red>0.25</red>
+						<green>0.35</green>
+						<blue>0.5</blue>
+					</diffuse>
+					<ambient>
+						<red>0.5</red>
+						<green>0.7</green>
+						<blue>0.9</blue>
+					</ambient>
+					<specular>
+						<red>0.5</red>
+						<green>0.7</green>
+						<blue>0.9</blue>
+					</specular>
+					<shininess>20</shininess>
+				</fuselage-upper>
+
+				<fuselage-lower>
+					<texture>livery.png</texture>
+					<diffuse>
+						<red>0.4</red>
+						<green>0.4</green>
+						<blue>0.4</blue>
+					</diffuse>
+					<ambient>
+						<red>0.8</red>
+						<green>0.8</green>
+						<blue>0.8</blue>
+					</ambient>
+					<specular>
+						<red>0.8</red>
+						<green>0.8</green>
+						<blue>0.8</blue>
+					</specular>
+					<shininess>20</shininess>
+				</fuselage-lower>
+
+				<hull-trim>
+					<texture>livery.png</texture>
+					<diffuse>
+						<red>0.2</red>
+						<green>0.3</green>
+						<blue>0.5</blue>
+					</diffuse>
+					<ambient>
+						<red>0.4</red>
+						<green>0.6</green>
+						<blue>0.9</blue>
+					</ambient>
+					<specular>
+						<red>0.4</red>
+						<green>0.6</green>
+						<blue>0.9</blue>
+					</specular>
+					<shininess>20</shininess>
+				</hull-trim>
+
+				<hull-bottom>
+					<texture>brushed_alloy.png</texture>
+					<diffuse>
+						<red>0.1</red>
+						<green>0.1</green>
+						<blue>0.1</blue>
+					</diffuse>
+					<ambient>
+						<red>0.7</red>
+						<green>0.7</green>
+						<blue>0.7</blue>
+					</ambient>
+					<specular>
+						<red>0.4</red>
+						<green>0.4</green>
+						<blue>0.4</blue>
+					</specular>
+					<shininess>30</shininess>
+				</hull-bottom>
+
+				<hull-wings>
+					<texture>livery.png</texture>
+					<diffuse>
+						<red>0.7</red>
+						<green>0.7</green>
+						<blue>0.7</blue>
+					</diffuse>
+					<ambient>
+						<red>0.7</red>
+						<green>0.7</green>
+						<blue>0.7</blue>
+					</ambient>
+					<specular>
+						<red>0.5</red>
+						<green>0.5</green>
+						<blue>0.5</blue>
+					</specular>
+					<shininess>20</shininess>
+				</hull-wings>
+
+				<hull-sensors>
+					<texture>livery.png</texture>
+					<diffuse>
+						<red>0.1</red>
+						<green>0.1</green>
+						<blue>0.1</blue>
+					</diffuse>
+					<ambient>
+						<red>0</red>
+						<green>0.18</green>
+						<blue>0.38</blue>
+					</ambient>
+					<specular>
+						<red>1</red>
+						<green>1</green>
+						<blue>1</blue>
+					</specular>
+					<shininess>10</shininess>
+				</hull-sensors>
+
+				<interior-upper>
+					<ambient>
+						<red>0.70</red>
+						<green>0.69</green>
+						<blue>0.55</blue>
+					</ambient>
+				</interior-upper>
+
+				<interior-lower>
+					<ambient>
+						<red>0.6</red>
+						<green>0.6</green>
+						<blue>0.6</blue>
+					</ambient>
+				</interior-lower>
+
+				<interior-door-panels>
+					<ambient>
+						<red>0.5</red>
+						<green>0.7</green>
+						<blue>0.9</blue>
+					</ambient>
+				</interior-door-panels>
+
+				<interior-flooring>
+					<texture>browncanvas.png</texture>
+					<ambient>
+						<red>0</red>
+						<green>0</green>
+						<blue>1.0</blue>
+					</ambient>
+					<shininess>0</shininess>
+				</interior-flooring>
+
+			</material>
+		</livery>
+
+		<material>
+			<instruments>
+				<factor type="float">0</factor>
+			</instruments>
+		</material>
+
+		<walker n="0">
+			<animate>
+				<dialog-position type="int">0</dialog-position>
+				<enabled type="bool">false</enabled>
+				<sequence-selected type="int">0</sequence-selected>
+			</animate>
+			<name type="string"></name>
+			<loop-enabled type="bool">false</loop-enabled>
+			<loop-to type="int">0</loop-to>
+			<rest-sec type="double">0</rest-sec>
+			<transit-sec type="double">1.0</transit-sec>
+			<trigger-upon type="string"></trigger-upon>
+			<limb n="0">
+				<y-deg type="double">0</y-deg>
+			</limb>
+			<limb n="1">
+				<y-deg type="double">0</y-deg>
+				<z-deg type="double">0</z-deg>
+			</limb>
+			<limb n="2">
+				<y-deg type="double">0</y-deg>
+				<z-deg type="double">0</z-deg>
+			</limb>
+			<limb n="3">
+				<x-deg type="double">0</x-deg>
+				<y-deg type="double">0</y-deg>
+				<z-deg type="double">0</z-deg>
+			</limb>
+			<limb n="4">
+				<y-deg type="double">0</y-deg>
+				<z-deg type="double">0</z-deg>
+			</limb>
+			<limb n="5">
+				<x-deg type="double">0</x-deg>
+				<y-deg type="double">0</y-deg>
+			</limb>
+			<limb n="6">
+				<x-deg type="double">0</x-deg>
+				<y-deg type="double">0</y-deg>
+				<z-deg type="double">0</z-deg>
+			</limb>
+			<limb n="7">
+				<y-deg type="double">0</y-deg>
+				<z-deg type="double">0</z-deg>
+			</limb>
+			<limb n="8">
+				<x-deg type="double">0</x-deg>
+				<y-deg type="double">0</y-deg>
+			</limb>
+			<limb n="9">
+				<y-deg type="double">0</y-deg>
+			</limb>
+			<limb n="10">
+				<y-deg type="double">0</y-deg>
+			</limb>
+			<limb n="11">
+				<y-deg type="double">0</y-deg>
+			</limb>
+			<limb n="12">
+				<y-deg type="double">0</y-deg>
+			</limb>
+			<limb n="13">
+				<y-deg type="double">0</y-deg>
+			</limb>
+			<limb n="14">
+				<y-deg type="double">0</y-deg>
+			</limb>
+		</walker>
+		<walker n="1">
+			<animate>
+				<dialog-position type="int">0</dialog-position>
+				<enabled-current type="bool">false</enabled-current>
+				<enabled-triggers type="bool">true</enabled-triggers>
+				<sequence-selected type="int">0</sequence-selected>
+				<list>
+					<sequence n="0" include="Models/Animations/walker-stand_bored.xml">
+					</sequence>
+					<sequence n="1" include="Models/Animations/walker-walking.xml">
+					</sequence>
+					<sequence n="2" include="Models/Animations/walker-running.xml">
+					</sequence>
+					<sequence n="3" include="Models/Animations/walker-walk_backwards.xml">
+					</sequence>
+					<sequence n="4" include="Models/Animations/walker-falling.xml">
+					</sequence>
+					<sequence n="5" include="Models/Animations/walker-open_parachute.xml">
+					</sequence>
+					<sequence n="6" include="Models/Animations/walker-jumping_jacks.xml">
+					</sequence>
+					<sequence n="7" include="Models/Animations/walker-splat.xml">
+					</sequence>
+					<sequence n="8" include="Models/Animations/walker-stand_still.xml">
+					</sequence>
+				</list>
+				<triggers>
+					<standing type="int">-1</standing>
+					<walking type="int">-1</walking>
+					<running type="int">-1</running>
+					<backwards type="int">-1</backwards>
+					<falling type="int">-1</falling>
+					<open-parachute type="int">-1</open-parachute>
+					<landing type="int">-1</landing>
+					<crashing type="int">-1</crashing>
+				</triggers>
+			</animate>
+			<name type="string"></name>
+			<loop-enabled type="bool">false</loop-enabled>
+			<loop-to type="int">0</loop-to>
+			<rest-sec type="double">0</rest-sec>
+			<transit-sec type="double">1.0</transit-sec>
+			<trigger-upon type="string"></trigger-upon>
+			<limb n="0">
+				<y-deg type="double">0</y-deg>
+				<z-m type="double">0</z-m>
+			</limb>
+			<limb n="1">
+				<y-deg type="double">0</y-deg>
+				<z-deg type="double">0</z-deg>
+			</limb>
+			<limb n="2">
+				<y-deg type="double">0</y-deg>
+				<z-deg type="double">0</z-deg>
+			</limb>
+			<limb n="3">
+				<x-deg type="double">-80</x-deg>
+				<y-deg type="double">0</y-deg>
+				<z-deg type="double">0</z-deg>
+			</limb>
+			<limb n="4">
+				<y-deg type="double">0</y-deg>
+				<z-deg type="double">0</z-deg>
+			</limb>
+			<limb n="5">
+				<x-deg type="double">0</x-deg>
+				<y-deg type="double">0</y-deg>
+			</limb>
+			<limb n="6">
+				<x-deg type="double">-80</x-deg>
+				<y-deg type="double">0</y-deg>
+				<z-deg type="double">0</z-deg>
+			</limb>
+			<limb n="7">
+				<y-deg type="double">0</y-deg>
+				<z-deg type="double">0</z-deg>
+			</limb>
+			<limb n="8">
+				<x-deg type="double">0</x-deg>
+				<y-deg type="double">0</y-deg>
+			</limb>
+			<limb n="9">
+				<x-deg type="double">0</x-deg>
+				<y-deg type="double">0</y-deg>
+				<z-deg type="double">0</z-deg>
+			</limb>
+			<limb n="10">
+				<y-deg type="double">0</y-deg>
+			</limb>
+			<limb n="11">
+				<y-deg type="double">0</y-deg>
+			</limb>
+			<limb n="12">
+				<x-deg type="double">0</x-deg>
+				<y-deg type="double">0</y-deg>
+				<z-deg type="double">0</z-deg>
+			</limb>
+			<limb n="13">
+				<y-deg type="double">0</y-deg>
+			</limb>
+			<limb n="14">
+				<y-deg type="double">0</y-deg>
+			</limb>
+		</walker>
+	</model>
+
+	<multiplay>
+		<generic>
+			<int n="0" alias="/sim/model/bluebird/components/nacelle-L"/>
+			<int n="1" alias="/sim/model/bluebird/components/nacelle-R"/>
+			<int n="2" alias="/sim/model/bluebird/systems/power-switch"/>
+			<int n="3" alias="/ai/submodels/nacelle-LR-venting"/>
+			<int n="4" alias="/ai/submodels/nacelle-RR-venting"/>
+			<int n="5" alias="/ai/submodels/engine-L-venting"/>
+			<int n="6" alias="/ai/submodels/engine-R-venting"/>
+			<int n="7" alias="/sim/model/bluebird/damage/major-counter"/>
+			<int n="8" alias="/sim/walker/outside"/>
+			<float n="0" alias="/sim/model/bluebird/doors/door[0]/position-adj"/>
+			<float n="1" alias="/sim/model/bluebird/doors/door[1]/position-adj"/>
+			<float n="2" alias="/sim/model/bluebird/doors/door[5]/position-adj"/>
+			<float n="3" alias="/sim/model/bluebird/lighting/landing-lights"/>
+			<float n="4" alias="/sim/walker/longitude-deg"/>
+			<float n="5" alias="/sim/walker/latitude-deg"/>
+			<float n="6" alias="/sim/walker/altitude-ft"/>
+			<float n="7" alias="/sim/walker/model-heading-deg"/>
+		</generic>
+	</multiplay>
+
+	<gui>
+		<dialogs>
+			<position-modified type="int">0</position-modified>
+		</dialogs>
+	</gui>
+
+	<help>
+		<title>Bluebird Explorer</title>
+		<key n="0">
+			<name>tab</name>
+			<desc>open/close systems dialog</desc>
+		</key>
+		<key n="1">
+			<name>tilde~</name>
+			<desc>Shutdown/Startup Master Power</desc>
+		</key>
+		<key n="2">
+			<name>backslash</name>
+			<desc>Engage/Disengage Counter-grav</desc>
+		</key>
+		<key n="3">
+			<name>space</name>
+			<desc>Engage/Disengage Primary Engines</desc>
+		</key>
+		<key n="4">
+			<name>[ ]</name>
+			<desc>Increase/Decrease Maximum Speed</desc>
+		</key>
+		<key n="5">
+			<name>Home</name>
+			<desc>Counter-grav VTOL up</desc>
+		</key>
+		<key n="6">
+			<name>End</name>
+			<desc>Counter-grav VTOL down</desc>
+		</key>
+		<key n="7">
+			<name>b</name>
+			<desc>Reverse direction - fly backwards</desc>
+		</key>
+		<key n="8">
+			<name>f / F</name>
+			<desc>Select Next/Previous Door</desc>
+		</key>
+		<key n="61">
+			<name>Ctrl-f</name>
+			<desc>Open/Close Selected Door</desc>
+		</key>
+		<key n="10">
+			<name>g / G</name>
+			<desc>main Gear Up/Down</desc>
+		</key>
+		<key n="11">
+			<name>Ctrl-g</name>
+			<desc>Toggle Gear Deployment Mode</desc>
+		</key>
+		<key n="12">
+			<name>Ctrl-w</name>
+			<desc>Toggle Wheel Deployment Mode</desc>
+		</key>
+		<key n="13">
+			<name>c / C</name>
+			<desc>Next/Previous cabin position</desc>
+		</key>
+		<key n="14">
+			<name>Alt-c</name>
+			<desc>Jump to cockpit helm</desc>
+		</key>
+		<key n="15">
+			<name>w / s</name>
+			<desc>Walk Forward/Backward</desc>
+		</key>
+		<key n="16">
+			<name>a / d</name>
+			<desc>Walk: Slide sideways left/right</desc>
+		</key>
+		<key n="30">
+			<name>Joystick</name>
+			<desc>buttons:</desc>
+		</key>
+		<key n="31">
+			<name>flaps button</name>
+			<desc>Inc/Dec Max Speed power level</desc>
+		</key>
+		<key n="32">
+			<name>elevator trim</name>
+			<desc>Counter-grav VTOL up/down</desc>
+		</key>
+		<key n="33">
+			<name>fire trigger</name>
+			<desc>Reverse direction - fly backwards</desc>
+		</key>
+		<key n="34">
+			<name>Middle Mouse Button</name>
+			<desc>Pointer mode extras:</desc>
+		</key>
+		<key n="35">
+			<name>Drag MMB up</name>
+			<desc>Counter-grav VTOL up</desc>
+		</key>
+		<key n="36">
+			<name>Drag MMB down</name>
+			<desc>Counter-grav VTOL down</desc>
+		</key>
+		<key n="37">
+			<name>click MMB</name>
+			<desc>Center aileron and elevator</desc>
+		</key>
+	</help>
+
+	<lon-lat-format type="int">0</lon-lat-format>
+
+	<panel>
+		<visibility>false</visibility>
+	</panel>
+
+	<rendering>
+		<redout>
+			<enabled type="bool">false</enabled>
+		</redout>
+	</rendering>
+
+	<sound>
+		<path>Aircraft/bluebird/Sound/bluebird-sound.xml</path>
+	</sound>
+
+	<view n="0">
+		<internal>true</internal>
+		<config>
+			<x-offset-m>0.0</x-offset-m>
+			<y-offset-m>1.47</y-offset-m>
+			<z-offset-m>-7.35</z-offset-m>
+			<pitch-offset-deg>-2.0</pitch-offset-deg>
+			<roll-offset-deg>0</roll-offset-deg>
+			<limits>
+				<enabled type="bool">false</enabled>
+			</limits>
+		</config>
+	</view>
+
+	<view n="100">
+		<name>Walk View</name>
+		<type>lookfrom</type>
+		<enabled type="bool">false</enabled>
+		<config>
+			<default-field-of-view-deg type="double">55.0</default-field-of-view-deg>
+			<eye-alt-ft-path>sim/walker/altitude-ft</eye-alt-ft-path>
+			<eye-heading-deg-path>sim/walker/heading-deg</eye-heading-deg-path>
+			<eye-lat-deg-path>sim/walker/latitude-deg</eye-lat-deg-path>
+			<eye-lon-deg-path>sim/walker/longitude-deg</eye-lon-deg-path>
+			<eye-pitch-deg-path>sim/walker/pitch-deg</eye-pitch-deg-path>
+			<eye-roll-deg-path>sim/walker/roll-deg</eye-roll-deg-path>
+			<ground-level-nearplane-m type="double">0.5</ground-level-nearplane-m>
+			<x-offset-m type="double">0.0</x-offset-m>
+			<y-offset-m type="double">2.1</y-offset-m>
+			<z-offset-m type="double">9.4</z-offset-m>
+			<limits>
+				<enabled type="bool">false</enabled>
+			</limits>
+		</config>
+	</view>
+
+	<view n="101">
+		<name>Walker Orbit View</name>
+		<type>lookat</type>
+		<enabled type="bool">false</enabled>
+		<config>
+			<from-model type="bool">false</from-model>
+			<from-model-idx type="int">0</from-model-idx>
+			<at-model type="bool">false</at-model>
+			<at-model-idx type="int">100</at-model-idx>
+			<eye-alt-ft-path>sim/walker/altitude-ft</eye-alt-ft-path>
+			<eye-heading-deg-path>sim/walker/heading-deg</eye-heading-deg-path>
+			<eye-lat-deg-path>sim/walker/latitude-deg</eye-lat-deg-path>
+			<eye-lon-deg-path>sim/walker/longitude-deg</eye-lon-deg-path>
+			<eye-pitch-deg-path>sim/walker/pitch-deg</eye-pitch-deg-path>
+			<eye-roll-deg-path>sim/walker/roll-deg</eye-roll-deg-path>
+			<target-alt-ft-path>sim/walker/altitude-ft</target-alt-ft-path>
+			<target-heading-deg-path>sim/walker/heading-deg</target-heading-deg-path>
+			<target-lat-deg-path>sim/walker/latitude-deg</target-lat-deg-path>
+			<target-lon-deg-path>sim/walker/longitude-deg</target-lon-deg-path>
+			<target-pitch-deg-path>sim/walker/pitch-deg</target-pitch-deg-path>
+			<target-roll-deg-path>sim/walker/roll-deg</target-roll-deg-path>
+			<target-x-offset-m type="double">0</target-x-offset-m>
+			<target-y-offset-m type="double">1.5</target-y-offset-m>
+			<target-z-offset-m type="double">0</target-z-offset-m>
+			<ground-level-nearplane-m type="double">0.2f</ground-level-nearplane-m>
+			<default-field-of-view-deg type="double">55.0</default-field-of-view-deg>
+			<x-offset-m type="double">0</x-offset-m>
+			<y-offset-m type="double">1</y-offset-m>
+			<z-offset-m type="double">5</z-offset-m>
+			<heading-offset-deg>0</heading-offset-deg>
+			<pitch-offset-deg>0</pitch-offset-deg>
+			<roll-offset-deg>0</roll-offset-deg>
+			<limits>
+				<enabled type="bool">false</enabled>
+			</limits>
+		</config>
+	</view>
+
+	<walker>
+		<outside type="bool">false</outside>
+		<walking type="int">0</walking>
+		<walking-momentum type="bool">false</walking-momentum>
+		<speed-mps type="float">0.9</speed-mps>
+		<latitude-deg type="double">0.0</latitude-deg>
+		<longitude-deg type="double">0.0</longitude-deg>
+		<altitude-ft type="double">0.0</altitude-ft>
+		<heading-deg type="double">0.0</heading-deg>
+		<pitch-deg type="double">0.0</pitch-deg>
+		<roll-deg type="double">0.0</roll-deg>
+		<keep-inside-offset-x type="double">0.0</keep-inside-offset-x>
+		<keep-inside-offset-y type="double">2.1</keep-inside-offset-y>
+		<keep-inside-offset-z type="double">9.4</keep-inside-offset-z>
+		<keep-pitch-offset-deg type="double">0.0</keep-pitch-offset-deg>
+		<time-of-exit-sec type="double">0.0</time-of-exit-sec>
+		<altitude-at-exit-ft type="double">0.0</altitude-at-exit-ft>
+		<starting-lat type="double">0.0</starting-lat>
+		<starting-lon type="double">0.0</starting-lon>
+		<starting-trajectory-lat type="double">0.0</starting-trajectory-lat>
+		<starting-trajectory-lon type="double">0.0</starting-trajectory-lon>
+		<starting-trajectory-z-mps type="double">0.0</starting-trajectory-z-mps>
+		<time-to-zero-z-sec type="double">0.0</time-to-zero-z-sec>
+		<airborne type="bool">false</airborne>
+		<parachute-opened-altitude-ft type="double">0.0</parachute-opened-altitude-ft>
+		<parachute-opened-sec type="double">0.0</parachute-opened-sec>
+		<parachute-equipped type="bool">false</parachute-equipped>
+		<crashed type="bool">false</crashed>
+		<key-triggers>
+			<outside-toggle type="bool">false</outside-toggle>
+			<forward type="int">0</forward>
+			<slide type="int">0</slide>
+			<speed type="float">0</speed>
+		</key-triggers>
+	</walker>
+ </sim>
+
+ <ai>
+	<submodels>
+		<engine-L-flaring type="bool">false</engine-L-flaring>
+		<engine-R-flaring type="bool">false</engine-R-flaring>
+		<engine-L-venting type="bool">false</engine-L-venting>
+		<engine-R-venting type="bool">false</engine-R-venting>
+		<nacelle-LF-venting type="bool">false</nacelle-LF-venting>
+		<nacelle-LR-venting type="bool">false</nacelle-LR-venting>
+		<nacelle-RF-venting type="bool">false</nacelle-RF-venting>
+		<nacelle-RR-venting type="bool">false</nacelle-RR-venting>
+	</submodels>
+ </ai>
+
+ <controls>
+	<engines>
+		<countergrav-factor type="int">6</countergrav-factor>
+	</engines>
+	<lighting>
+		<alert type="bool">false</alert>
+		<beacon type="bool">true</beacon>
+		<nav-lights type="bool">true</nav-lights>
+		<strobe type="bool">true</strobe>
+	</lighting>
+	<gear>
+		<height-switch type="bool">false</height-switch>
+		<wheels-switch type="bool">false</wheels-switch>
+	</gear>
+ </controls>
+
+ <engines>
+	<engine>
+		<speed-max-mps type="double">0</speed-max-mps>
+		<speed-max-powerlevel type="double">0</speed-max-powerlevel>
+	</engine>
+ </engines>
+
+ <gear>
+	<gear>
+		<position-norm type="float">1</position-norm>
+		<position-side-pads type="float">1</position-side-pads>
+		<last-request type="int">1</last-request>
+		<!-- hint for the route manager -->
+		<wow type="bool">false</wow>
+	</gear>
+	<gear-agl-m type="float">2.47</gear-agl-m>
+ </gear>
+
+ <input>
+	<keyboard>
+		<key n="16">
+			<name>ctrl-p</name>
+			<desc>Toggle walker paused</desc>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>sim/walker/pause-walker</property>
+			</binding>
+		</key>
+		<key n="61">
+			<name>=</name>
+			<desc>Show dialog</desc>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>bluebird.showDialog()</script>
+			</binding>
+		</key>
+		<key n="126">
+			<name>Tilde~</name>
+			<desc>Startup/Shutdown Master Power</desc>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>bluebird.toggle_power(1)</script>
+			</binding>
+		</key>
+		<key n="32">
+			<name>space</name>
+			<desc>Engage/Disengage Primary engines</desc>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>bluebird.toggle_wave1()</script>
+			</binding>
+		</key>
+		<key n="92">
+			<name>\</name>
+			<desc>Engage/Disengage CounterGrav and Fusion reactor</desc>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>bluebird.toggle_fusion()</script>
+			</binding>
+		</key>
+		<key n="311">
+			<name>KP7</name>
+			<desc>Hover Up</desc>
+			<repeatable>false</repeatable>
+			<binding> 
+				<command>property-assign</command>
+				<property>sim/model/bluebird/hover/key-up</property>
+				<value>1</value>
+			</binding>
+			<mod-up>
+				<binding>
+					<command>property-assign</command>
+					<property>sim/model/bluebird/hover/key-up</property>
+					<value>0</value>
+				</binding>
+			</mod-up>
+		</key>
+		<key n="305">
+			<name>KP1</name>
+			<desc>Hover Down</desc>
+			<repeatable>false</repeatable>
+			<binding> 
+				<command>property-assign</command>
+				<property>sim/model/bluebird/hover/key-up</property>
+				<value>-1</value>
+			</binding>
+			<mod-up>
+				<binding>
+					<command>property-assign</command>
+					<property>sim/model/bluebird/hover/key-up</property>
+					<value>0</value>
+				</binding>
+			</mod-up>
+		</key>
+		<key n="362">
+			<name>Home</name>
+			<desc>Hover Up</desc>
+			<repeatable>false</repeatable>
+			<binding> 
+				<command>property-assign</command>
+				<property>sim/model/bluebird/hover/key-up</property>
+				<value>1</value>
+			</binding>
+			<mod-up>
+				<binding>
+					<command>property-assign</command>
+					<property>sim/model/bluebird/hover/key-up</property>
+					<value>0</value>
+				</binding>
+			</mod-up>
+		</key>
+		<key n="363">
+			<name>End</name>
+			<desc>Hover Down</desc>
+			<repeatable>false</repeatable>
+			<binding> 
+				<command>property-assign</command>
+				<property>sim/model/bluebird/hover/key-up</property>
+				<value>-1</value>
+			</binding>
+			<mod-up>
+				<binding>
+					<command>property-assign</command>
+					<property>sim/model/bluebird/hover/key-up</property>
+					<value>0</value>
+				</binding>
+			</mod-up>
+		</key>
+		<key n="6">
+			<name>Ctrl-F</name>
+			<desc>Open/Close selected door</desc>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>bluebird.toggle_door()</script>
+			</binding>
+		</key>
+		<key n="102">
+			<name>f</name>
+			<desc>Select next door</desc>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>bluebird.next_door()</script>
+			</binding>
+		</key>
+		<key n="70">
+			<name>F</name>
+			<desc>Select previous door</desc>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>bluebird.previous_door()</script>
+			</binding>
+		</key>
+		<key n="7">
+			<name>Ctrl-G</name>
+			<desc>Toggle gear deployment mode</desc>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>bluebird.toggle_gear_mode(-1)</script>
+			</binding>
+		</key>
+		<key n="23">
+			<name>Ctrl-W</name>
+			<desc>Toggle wheel deployment mode</desc>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-adjust</command>
+				<property>controls/gear/wheels-switch</property>
+				<step>1</step>
+				<min>0</min>
+				<max>2</max>
+				<wrap>true</wrap>
+			</binding>
+		</key>
+		<key n="99">
+			<name>c</name>
+			<desc>Cycle Cockpit location - Stand up, walk around, sit down</desc>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>bluebird.cycle_cockpit(1)</script>
+			</binding>
+		</key>
+		<key n="67">
+			<name>C</name>
+			<desc>Cycle Cockpit location - previous</desc>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>bluebird.cycle_cockpit(-1)</script>
+			</binding>
+		</key>
+		<key n="99">
+			<name>Alt-c</name>
+			<desc>Jump to cockpit helm</desc>
+			<repeatable>false</repeatable>
+			<mod-alt>
+				<binding>
+					<command>nasal</command>
+					<script>bluebird.cycle_cockpit(10)</script>
+				</binding>
+			</mod-alt>
+		</key>
+		<key n="119"> 
+			<name>w</name>
+			<desc>Walk forward</desc>
+			<repeatable>false</repeatable>
+			<binding n="0">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/forward</property>
+				<value>1</value>
+			</binding>
+			<binding n="1">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<property>sim/walker/speed-mps</property>
+			</binding>
+			<mod-up>
+				<binding n="0">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/forward</property>
+					<value>0</value>
+				</binding>
+				<binding n="1">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/speed</property>
+					<property>sim/walker/speed-mps</property>
+				</binding>
+			</mod-up>
+		</key>
+		<key n="87"> 
+			<name>W</name>
+			<desc>Run forward</desc>
+			<repeatable>false</repeatable>
+			<binding n="0">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/forward</property>
+				<value>1</value>
+			</binding>
+			<binding n="1">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<property>sim/walker/speed-mps</property>
+			</binding>
+			<binding n="2">
+				<command>property-multiply</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<factor>5.0</factor>
+			</binding>
+			<mod-up>
+				<binding n="0">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/forward</property>
+					<value>0</value>
+				</binding>
+				<binding n="1">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/speed</property>
+					<property>sim/walker/speed-mps</property>
+				</binding>
+			</mod-up>
+		</key>
+		<key n="115"> 
+			<name>s</name>
+			<desc>Walk backward</desc>
+			<repeatable>false</repeatable>
+			<binding n="0">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/forward</property>
+				<value>-1</value>
+			</binding>
+			<binding n="1">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<property>sim/walker/speed-mps</property>
+			</binding>
+			<mod-up>
+				<binding n="0">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/forward</property>
+					<value>0</value>
+				</binding>
+				<binding n="1">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/speed</property>
+					<property>sim/walker/speed-mps</property>
+				</binding>
+			</mod-up>
+		</key>
+		<key n="83"> 
+			<name>S</name>
+			<desc>Walk/run backward</desc>
+			<repeatable>false</repeatable>
+			<binding n="0">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/forward</property>
+				<value>-1</value>
+			</binding>
+			<binding n="1">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<property>sim/walker/speed-mps</property>
+			</binding>
+			<binding n="2">
+				<command>property-multiply</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<factor>2.5</factor>
+			</binding>
+			<mod-up>
+				<binding n="0">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/forward</property>
+					<value>0</value>
+				</binding>
+				<binding n="1">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/speed</property>
+					<property>sim/walker/speed-mps</property>
+				</binding>
+			</mod-up>
+		</key>
+		<key n="97"> 
+			<name>a</name>
+			<desc>Slide left</desc>
+			<repeatable>false</repeatable>
+			<binding n="0">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/slide</property>
+				<value>-1</value>
+			</binding>
+			<binding n="1">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<property>sim/walker/speed-mps</property>
+			</binding>
+			<mod-up>
+				<binding n="0">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/slide</property>
+					<value>0</value>
+				</binding>
+				<binding n="1">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/speed</property>
+					<property>sim/walker/speed-mps</property>
+				</binding>
+			</mod-up>
+		</key>
+		<key n="65"> 
+			<name>A</name>
+			<desc>Slide left2, override default assignment</desc>
+			<repeatable>false</repeatable>
+			<binding n="0">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/slide</property>
+				<value>-1</value>
+			</binding>
+			<binding n="1">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<property>sim/walker/speed-mps</property>
+			</binding>
+			<binding n="2">
+				<command>property-multiply</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<factor>2.5</factor>
+			</binding>
+			<mod-up>
+				<binding n="0">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/slide</property>
+					<value>0</value>
+				</binding>
+				<binding n="1">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/speed</property>
+					<property>sim/walker/speed-mps</property>
+				</binding>
+			</mod-up>
+		</key>
+		<key n="100"> 
+			<name>d</name>
+			<desc>Slide right</desc>
+			<repeatable>false</repeatable>
+			<binding n="0">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/slide</property>
+				<value>1</value>
+			</binding>
+			<binding n="1">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<property>sim/walker/speed-mps</property>
+			</binding>
+			<mod-up>
+				<binding n="0">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/slide</property>
+					<value>0</value>
+				</binding>
+				<binding n="1">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/speed</property>
+					<property>sim/walker/speed-mps</property>
+				</binding>
+			</mod-up>
+		</key>
+		<key n="68"> 
+			<name>D</name>
+			<desc>Slide right2</desc>
+			<repeatable>false</repeatable>
+			<binding n="0">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/slide</property>
+				<value>1</value>
+			</binding>
+			<binding n="1">
+				<command>property-assign</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<property>sim/walker/speed-mps</property>
+			</binding>
+			<binding n="2">
+				<command>property-multiply</command>
+				<property>sim/walker/key-triggers/speed</property>
+				<factor>2.5</factor>
+			</binding>
+			<mod-up>
+				<binding n="0">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/slide</property>
+					<value>0</value>
+				</binding>
+				<binding n="1">
+					<command>property-assign</command>
+					<property>sim/walker/key-triggers/speed</property>
+					<property>sim/walker/speed-mps</property>
+				</binding>
+			</mod-up>
+		</key>
+
+		<!-- rewrite autopilot lock because dg-heading doesn't work with this model -->
+		<key n="8">
+			<name>Ctrl-H</name>
+			<desc>Toggle autopilot heading lock</desc>
+			<binding>
+				<command>nasal</command>
+				<script>
+					var node = props.globals.getNode("/autopilot/locks/heading", 1);
+					if ( node.getValue() == "true-heading-hold" ) {
+						node.setValue( "" );
+					} else {
+						node.setValue( "true-heading-hold" );
+					}
+				</script>
+			</binding>
+		</key>
+	</keyboard>
+ </input>
+
+ <instrumentation>
+	<adf>
+		<frequencies>
+			<selected-khz type="int">0</selected-khz>
+			<standby-khz type="int">0</standby-khz>
+		</frequencies>
+	</adf>
+	<attitude-indicator>
+		<config>
+			<tumble-flag type="bool">true</tumble-flag>
+		</config>
+	</attitude-indicator>
+	<digital>
+		<altitude-mode type="int">0</altitude-mode>
+		<heading-mode type="int">0</heading-mode>
+		<pitch-neg type="int">0</pitch-neg>
+		<velocity-mode type="int">1</velocity-mode>
+	</digital>
+	<nav n="0">
+		<frequencies>
+			<selected-mhz type="double">0</selected-mhz>
+			<selected-mhz-fmt type="string">0.00</selected-mhz-fmt>
+			<standby-mhz type="double">0</standby-mhz>
+			<standby-mhz-fmt type="string">0.00</standby-mhz-fmt>
+		</frequencies>
+	</nav>
+	<nav n="1">
+		<frequencies>
+			<selected-mhz type="double">0</selected-mhz>
+			<selected-mhz-fmt type="string">0.00</selected-mhz-fmt>
+			<standby-mhz type="double">0</standby-mhz>
+			<standby-mhz-fmt type="string">0.00</standby-mhz-fmt>
+		</frequencies>
+	</nav>
+	<display-screens>
+		<t1L-3 type="string">POWERING UP</t1L-3>
+		<t1L-8 type="string">1458 KNOTS</t1L-8>
+		<t1L-9 type="string">STANDARD</t1L-9>
+		<t1L-10 type="int">0</t1L-10>
+		<t1L-20 type="string"> </t1L-20>
+		<t1L-21 type="string"> </t1L-21>
+		<t1L-22 type="string"> </t1L-22>
+		<t1L-23 type="string"> </t1L-23>
+		<t1L-24 type="string"> </t1L-24>
+		<t2L-1 type="string">Nearby aircraft</t2L-1>
+		<t2L-2 type="string"> </t2L-2>
+		<t2L-3a type="string"> </t2L-3a>
+		<t2L-3b type="string"> </t2L-3b>
+		<t2L-3c type="string"> </t2L-3c>
+		<t2L-4a type="string"> </t2L-4a>
+		<t2L-4b type="string"> </t2L-4b>
+		<t2L-4c type="string"> </t2L-4c>
+		<t2L-5a type="string"> </t2L-5a>
+		<t2L-5b type="string"> </t2L-5b>
+		<t2L-5c type="string"> </t2L-5c>
+		<t2L-6a type="string"> </t2L-6a>
+		<t2L-6b type="string"> </t2L-6b>
+		<t2L-6c type="string"> </t2L-6c>
+		<t2L-7a type="string"> </t2L-7a>
+		<t2L-7b type="string"> </t2L-7b>
+		<t2L-7c type="string"> </t2L-7c>
+		<t2L-8a type="string"> </t2L-8a>
+		<t2L-8b type="string"> </t2L-8b>
+		<t2L-8c type="string"> </t2L-8c>
+		<t2L-9a type="string"> </t2L-9a>
+		<t2L-9b type="string"> </t2L-9b>
+		<t2L-9c type="string"> </t2L-9c>
+		<t2L-10a type="string"> </t2L-10a>
+		<t2L-10b type="string"> </t2L-10b>
+		<t2L-10c type="string"> </t2L-10c>
+		<t2L-11a type="string"> </t2L-11a>
+		<t2L-11b type="string"> </t2L-11b>
+		<t2L-11c type="string"> </t2L-11c>
+		<t2L-12a type="string"> </t2L-12a>
+		<t2L-12b type="string"> </t2L-12b>
+		<t2L-12c type="string"> </t2L-12c>
+		<t2L-13a type="string"> </t2L-13a>
+		<t2L-13b type="string"> </t2L-13b>
+		<t2L-13c type="string"> </t2L-13c>
+		<t2L-14a type="string"> </t2L-14a>
+		<t2L-14b type="string"> </t2L-14b>
+		<t2L-14c type="string"> </t2L-14c>
+		<t2L-15a type="string"> </t2L-15a>
+		<t2L-15b type="string"> </t2L-15b>
+		<t2L-15c type="string"> </t2L-15c>
+		<t2L-16a type="string"> </t2L-16a>
+		<t2L-16b type="string"> </t2L-16b>
+		<t2L-16c type="string"> </t2L-16c>
+		<enabled-2L type="bool">false</enabled-2L>
+		<refresh-2L-sec type="float">1.0</refresh-2L-sec>
+		<t2R-1 type="string"> </t2R-1>
+		<t2R-2 type="string"> </t2R-2>
+		<t2R-3 type="string"> </t2R-3>
+		<t2R-4 type="string"> </t2R-4>
+		<t2R-5 type="string"> </t2R-5>
+		<t2R-6 type="string"> </t2R-6>
+		<t2R-7 type="string"> </t2R-7>
+		<t2R-8 type="string"> </t2R-8>
+		<t2R-9 type="string"> </t2R-9>
+		<t2R-10 type="string"> </t2R-10>
+		<t2R-11 type="string"> </t2R-11>
+		<t2R-12 type="string"> </t2R-12>
+		<t2R-13 type="string"> </t2R-13>
+		<t2R-14 type="string"> </t2R-14>
+		<t2R-15 type="string"> </t2R-15>
+		<t2R-16 type="string"> </t2R-16>
+		<t2R-17 type="string"> </t2R-17>
+		<t2R-18 type="string"> </t2R-18>
+		<t2R-19 type="string"> </t2R-19>
+		<t2R-20 type="string"> </t2R-20>
+		<enabled-2R type="bool">false</enabled-2R>
+		<t3L-1 type="string"> </t3L-1>
+		<t3L-2 type="string"> </t3L-2>
+		<t3L-3 type="string"> </t3L-3>
+		<t3L-4 type="string"> </t3L-4>
+		<t3L-5 type="string"> </t3L-5>
+		<t3L-6 type="string"> </t3L-6>
+		<t3L-7 type="string"> </t3L-7>
+		<t3L-8 type="string"> </t3L-8>
+		<t3L-9 type="string"> </t3L-9>
+		<t3L-10 type="string"> </t3L-10>
+		<t3L-11 type="string"> </t3L-11>
+		<t3L-12 type="string"> </t3L-12>
+		<t3L-13 type="string"> </t3L-13>
+		<t3L-14 type="string"> </t3L-14>
+		<t3L-15 type="string"> </t3L-15>
+		<t3L-16 type="string"> </t3L-16>
+		<enabled-3L type="bool">false</enabled-3L>
+		<t3R-1 type="string"> </t3R-1>
+		<t3R-2 type="string"> </t3R-2>
+		<t3R-3 type="string"> </t3R-3>
+		<t3R-4 type="string"> </t3R-4>
+		<t3R-5 type="string"> </t3R-5>
+		<t3R-6 type="string"> </t3R-6>
+		<t3R-7 type="string"> </t3R-7>
+		<t3R-8 type="string"> </t3R-8>
+		<t3R-9 type="string"> </t3R-9>
+		<t3R-10 type="string"> </t3R-10>
+		<t3R-11 type="string"> </t3R-11>
+		<t3R-12 type="string"> </t3R-12>
+		<t3R-13 type="string"> </t3R-13>
+		<t3R-14 type="string"> </t3R-14>
+		<t3R-15 type="string"> </t3R-15>
+		<t3R-16 type="string"> </t3R-16>
+		<enabled-3R type="bool">false</enabled-3R>
+		<enabled-4L type="bool">true</enabled-4L>
+		<t4R-1 type="string"> </t4R-1>
+		<t4R-2 type="string"> </t4R-2>
+		<t4R-3 type="string"> </t4R-3>
+		<t4R-4 type="string"> </t4R-4>
+		<t4R-5 type="string"> </t4R-5>
+		<t4R-6 type="string"> </t4R-6>
+		<t4R-7 type="string"> </t4R-7>
+		<t4R-8 type="string"> </t4R-8>
+		<t4R-9 type="string"> </t4R-9>
+		<t4R-10 type="string"> </t4R-10>
+		<t4R-11 type="string"> </t4R-11>
+		<t4R-12 type="string"> </t4R-12>
+		<t4R-13 type="string"> </t4R-13>
+		<t4R-14 type="string"> </t4R-14>
+		<t4R-15 type="string"> </t4R-15>
+		<t4R-16 type="string"> </t4R-16>
+		<t4R-17 type="string"> </t4R-17>
+		<t4R-18 type="string"> </t4R-18>
+		<t4R-19 type="string"> </t4R-19>
+		<t4R-20 type="string"> </t4R-20>
+		<t4R-21 type="string"> </t4R-21>
+		<t4R-22 type="string"> </t4R-22>
+		<t4R-23 type="string"> </t4R-23>
+		<t4R-24 type="string"> </t4R-24>
+		<enabled-4R type="bool">false</enabled-4R>
+		<t5R-1 type="string"> </t5R-1>
+		<t5R-2 type="string"> </t5R-2>
+		<t5R-3 type="string"> </t5R-3>
+		<t5R-4 type="string"> </t5R-4>
+		<t5R-5 type="string"> </t5R-5>
+		<t5R-6 type="string"> </t5R-6>
+		<t5R-7 type="string"> </t5R-7>
+		<t5R-8 type="string"> </t5R-8>
+		<t5R-9 type="string"> </t5R-9>
+		<t5R-10 type="string"> </t5R-10>
+		<t5R-11 type="string"> </t5R-11>
+		<t5R-12 type="string"> </t5R-12>
+		<t5R-13 type="string"> </t5R-13>
+		<t5R-14 type="string"> </t5R-14>
+		<t5R-15 type="string"> </t5R-15>
+		<t5R-16 type="string"> </t5R-16>
+		<t5R-17 type="string"> </t5R-17>
+		<t5R-18 type="string"> </t5R-18>
+		<t5R-19 type="string"> </t5R-19>
+		<t5R-20 type="string"> </t5R-20>
+		<t5R-21 type="string"> </t5R-21>
+		<t5R-22 type="string"> </t5R-22>
+		<t5R-23 type="string"> </t5R-23>
+		<t5R-24 type="string"> </t5R-24>
+		<enabled-5R type="bool">false</enabled-5R>
+	</display-screens>
+	<ai-vor>
+		<callsign type="string"> </callsign>
+		<distance-m type="float">0.0</distance-m>
+		<elevation-deg type="float">0.0</elevation-deg>
+		<heading-deg type="float">0.0</heading-deg>
+		<mode type="int">0</mode>
+	</ai-vor>
+	<tracking>
+		<enabled type="bool">false</enabled>
+		<ai-size type="int">0</ai-size>
+		<ai1-bearing-deg type="float">-1.0</ai1-bearing-deg>
+		<ai1-callsign type="string"> </ai1-callsign>
+		<ai1-distance-m type="float">-999999</ai1-distance-m>
+		<ai1-elevation-deg type="float">-99.0</ai1-elevation-deg>
+		<ai1-heading-offset-deg type="float">-99.0</ai1-heading-offset-deg>
+		<ai1-to-factor type="float">1</ai1-to-factor>
+		<ap1-bearing-deg type="float">0.0</ap1-bearing-deg>
+		<ap1-callsign type="string"> </ap1-callsign>
+		<ap1-distance-m type="float">0.0</ap1-distance-m>
+		<ap1-elevation-deg type="float">0.0</ap1-elevation-deg>
+		<ap1-heading-deg type="float">-99.0</ap1-heading-deg>
+		<ap1-heading-offset-deg type="float">-99.0</ap1-heading-offset-deg>
+		<ap1-name type="string">NOT AVAILABLE IN FlightGear 0.9.10 </ap1-name>
+		<ap1-lat type="double">0</ap1-lat>
+		<ap1-lon type="double">0</ap1-lon>
+		<ap1-range type="string"> </ap1-range>
+		<ap1-to-factor type="float">1</ap1-to-factor>
+		<ap2-bearing-deg type="float">0.0</ap2-bearing-deg>
+		<ap2-callsign type="string"> </ap2-callsign>
+		<ap2-distance-m type="float">0.0</ap2-distance-m>
+		<ap2-elevation-deg type="float">-99.0</ap2-elevation-deg>
+		<ap2-heading-deg type="float">-99.0</ap2-heading-deg>
+		<ap2-heading-offset-deg type="float">-99.0</ap2-heading-offset-deg>
+		<ap2-name type="string">NOT AVAILABLE </ap2-name>
+		<ap2-lat type="double">0</ap2-lat>
+		<ap2-lon type="double">0</ap2-lon>
+		<ap2-range type="string"> </ap2-range>
+		<ap2-to-factor type="float">1</ap2-to-factor>
+		<mp-size type="int">0</mp-size>
+		<mp1-bearing-deg type="float">-1.0</mp1-bearing-deg>
+		<mp1-callsign type="string"> </mp1-callsign>
+		<mp1-distance-m type="float">-999999</mp1-distance-m>
+		<mp1-elevation-deg type="float">-99.0</mp1-elevation-deg>
+		<mp1-heading-offset-deg type="float">-99.0</mp1-heading-offset-deg>
+		<mp1-to-factor type="float">1</mp1-to-factor>
+	</tracking>
+ </instrumentation>
+
+ <logging>
+	<walker-position type="bool">false</walker-position>
+	<walker-debug type="bool">false</walker-debug>
+ </logging>
+
+ <orientation>
+	<ground-pitch type="double">0</ground-pitch>
+	<ground-roll type="double">0</ground-roll>
+	<groundsloped-pitch-deg type="double">0</groundsloped-pitch-deg>
+	<groundsloped-roll-deg type="double">0</groundsloped-roll-deg>
+ </orientation>
+</PropertyList>

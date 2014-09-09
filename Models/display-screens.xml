@@ -1,0 +1,287 @@
+<?xml version="1.0"?>
+<!-- Bluebird Explorer Hovercraft  version 8.4  -->
+
+<PropertyList>
+
+<!-- screen 1 Left -->
+ <panel> 
+	<path>Aircraft/bluebird/Panels/display-1L.xml</path>
+	<bottom-left>
+		<x-m>-7.876</x-m>
+		<y-m>-0.608</y-m>
+		<z-m>1.012</z-m>
+	</bottom-left>
+	<bottom-right>
+		<x-m>-8.065</x-m>
+		<y-m>-0.375</y-m>
+		<z-m>1.012</z-m>
+	</bottom-right>
+	<top-left>
+		<x-m>-7.933</x-m>
+		<y-m>-0.654</y-m>
+		<z-m>1.199</z-m>
+	</top-left>
+ </panel>
+
+<!-- screen 2 Left -->
+ <panel> 
+	<path>Aircraft/bluebird/Panels/display-2L.xml</path>
+	<bottom-left>
+		<x-m>-7.173</x-m>
+		<y-m>-1.029</y-m>
+		<z-m>1.014</z-m>
+	</bottom-left>
+	<bottom-right>
+		<x-m>-7.518</x-m>
+		<y-m>-0.887</y-m>
+		<z-m>1.014</z-m>
+	</bottom-right>
+	<top-left>
+		<x-m>-7.198</x-m>
+		<y-m>-1.088</y-m>
+		<z-m>1.150</z-m>
+	</top-left>
+ </panel>
+
+<!-- screen 3 Left -->
+ <panel> 
+	<path>Aircraft/bluebird/Panels/display-3L.xml</path>
+	<bottom-left>
+		<x-m>-6.736</x-m>
+		<y-m>-1.209</y-m>
+		<z-m>1.014</z-m>
+	</bottom-left>
+	<bottom-right>
+		<x-m>-7.081</x-m>
+		<y-m>-1.067</y-m>
+		<z-m>1.014</z-m>
+	</bottom-right>
+	<top-left>
+		<x-m>-6.760</x-m>
+		<y-m>-1.268</y-m>
+		<z-m>1.150</z-m>
+	</top-left>
+ </panel>
+
+<!-- screen 4 Left
+ <panel> 
+	<path>Aircraft/bluebird/Panels/display-4L.xml</path>
+	<bottom-left>
+		<x-m>-6.267</x-m>
+		<y-m>-1.380</y-m>
+		<z-m>1.045</z-m>
+	</bottom-left>
+	<bottom-right>
+		<x-m>-6.526</x-m>
+		<y-m>-1.273</y-m>
+		<z-m>1.045</z-m>
+	</bottom-right>
+	<top-left>
+		<x-m>-6.301</x-m>
+		<y-m>-1.461</y-m>
+		<z-m>1.229</z-m>
+	</top-left>
+ </panel>
+
+ screen 5 Left 
+ <panel> 
+	<path>Aircraft/bluebird/Panels/display-5L.xml</path>
+	<bottom-left>
+		<x-m>-5.945</x-m>
+		<y-m>-1.512</y-m>
+		<z-m>1.045</z-m>
+	</bottom-left>
+	<bottom-right>
+		<x-m>-6.204</x-m>
+		<y-m>-1.406</y-m>
+		<z-m>1.045</z-m>
+	</bottom-right>
+	<top-left>
+		<x-m>-5.979</x-m>
+		<y-m>-1.593</y-m>
+		<z-m>1.229</z-m>
+	</top-left>
+ </panel>
+
+ screen 6 Left 
+ <panel> 
+	<path>Aircraft/bluebird/Panels/display-6L.xml</path>
+	<bottom-left>
+		<x-m>-5.313</x-m>
+		<y-m>-1.633</y-m>
+		<z-m>1.062</z-m>
+	</bottom-left>
+	<bottom-right>
+		<x-m>-5.603</x-m>
+		<y-m>-1.603</y-m>
+		<z-m>1.062</z-m>
+	</bottom-right>
+	<top-left>
+		<x-m>-5.326</x-m>
+		<y-m>-1.755</y-m>
+		<z-m>1.259</z-m>
+	</top-left>
+ </panel>
+
+ screen 7 Left 
+ <panel> 
+	<path>Aircraft/bluebird/Panels/display-7L.xml</path>
+	<bottom-left>
+		<x-m>-4.965</x-m>
+		<y-m>-1.668</y-m>
+		<z-m>1.062</z-m>
+	</bottom-left>
+	<bottom-right>
+		<x-m>-5.254</x-m>
+		<y-m>-1.639</y-m>
+		<z-m>1.062</z-m>
+	</bottom-right>
+	<top-left>
+		<x-m>-4.977</x-m>
+		<y-m>-1.791</y-m>
+		<z-m>1.259</z-m>
+	</top-left>
+ </panel>
+-->
+<!-- screen 1 Right ============================================== -->
+ <panel> 
+	<path>Aircraft/bluebird/Panels/display-1R.xml</path>
+	<bottom-left>
+		<x-m>-8.065</x-m>
+		<y-m>0.375</y-m>
+		<z-m>1.012</z-m>
+	</bottom-left>
+	<bottom-right>
+		<x-m>-7.876</x-m>
+		<y-m>0.608</y-m>
+		<z-m>1.012</z-m>
+	</bottom-right>
+	<top-left>
+		<x-m>-8.122</x-m>
+		<y-m>0.421</y-m>
+		<z-m>1.199</z-m>
+	</top-left>
+ </panel>
+
+<!-- screen 2 Right -->
+ <panel> 
+	<path>Aircraft/bluebird/Panels/display-2R.xml</path>
+	<bottom-left>
+		<x-m>-7.518</x-m>
+		<y-m>0.887</y-m>
+		<z-m>1.014</z-m>
+	</bottom-left>
+	<bottom-right>
+		<x-m>-7.173</x-m>
+		<y-m>1.029</y-m>
+		<z-m>1.014</z-m>
+	</bottom-right>
+	<top-left>
+		<x-m>-7.542</x-m>
+		<y-m>0.946</y-m>
+		<z-m>1.150</z-m>
+	</top-left>
+ </panel>
+
+<!-- screen 3 Right -->
+ <panel> 
+	<path>Aircraft/bluebird/Panels/display-3R.xml</path>
+	<bottom-left>
+		<x-m>-7.081</x-m>
+		<y-m>1.067</y-m>
+		<z-m>1.014</z-m>
+	</bottom-left>
+	<bottom-right>
+		<x-m>-6.736</x-m>
+		<y-m>1.209</y-m>
+		<z-m>1.014</z-m>
+	</bottom-right>
+	<top-left>
+		<x-m>-7.105</x-m>
+		<y-m>1.126</y-m>
+		<z-m>1.150</z-m>
+	</top-left>
+ </panel>
+
+<!-- screen 4 Right -->
+ <panel> 
+	<path>Aircraft/bluebird/Panels/display-4R.xml</path>
+	<bottom-left>
+		<x-m>-6.526</x-m>
+		<y-m>1.273</y-m>
+		<z-m>1.045</z-m>
+	</bottom-left>
+	<bottom-right>
+		<x-m>-6.267</x-m>
+		<y-m>1.380</y-m>
+		<z-m>1.045</z-m>
+	</bottom-right>
+	<top-left>
+		<x-m>-6.560</x-m>
+		<y-m>1.355</y-m>
+		<z-m>1.229</z-m>
+	</top-left>
+ </panel>
+
+<!-- screen 5 Right -->
+ <panel> 
+	<path>Aircraft/bluebird/Panels/display-5R.xml</path>
+	<bottom-left>
+		<x-m>-6.204</x-m>
+		<y-m>1.406</y-m>
+		<z-m>1.045</z-m>
+	</bottom-left>
+	<bottom-right>
+		<x-m>-5.945</x-m>
+		<y-m>1.512</y-m>
+		<z-m>1.045</z-m>
+	</bottom-right>
+	<top-left>
+		<x-m>-6.238</x-m>
+		<y-m>1.487</y-m>
+		<z-m>1.229</z-m>
+	</top-left>
+ </panel>
+
+<!-- screen 6 Right -->
+ <panel> 
+	<path>Aircraft/bluebird/Panels/display-6R.xml</path>
+	<bottom-left>
+		<x-m>-5.603</x-m>
+		<y-m>1.603</y-m>
+		<z-m>1.062</z-m>
+	</bottom-left>
+	<bottom-right>
+		<x-m>-5.313</x-m>
+		<y-m>1.633</y-m>
+		<z-m>1.062</z-m>
+	</bottom-right>
+	<top-left>
+		<x-m>-5.615</x-m>
+		<y-m>1.726</y-m>
+		<z-m>1.259</z-m>
+	</top-left>
+ </panel>
+
+<!-- screen 7 Right 
+ <panel> 
+	<path>Aircraft/bluebird/Panels/display-7R.xml</path>
+	<bottom-left>
+		<x-m>-5.254</x-m>
+		<y-m>1.639</y-m>
+		<z-m>1.062</z-m>
+	</bottom-left>
+	<bottom-right>
+		<x-m>-4.965</x-m>
+		<y-m>1.668</y-m>
+		<z-m>1.062</z-m>
+	</bottom-right>
+	<top-left>
+		<x-m>-5.267</x-m>
+		<y-m>1.761</y-m>
+		<z-m>1.259</z-m>
+	</top-left>
+ </panel>
+-->
+
+</PropertyList>

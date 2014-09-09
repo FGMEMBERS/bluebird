@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!--== Bluebird Explorer Hovercraft  version 10.3 ==-->
+<PropertyList>
+	<path>sphere-half.ac</path>
+	<animation>
+		<type>range</type>
+		<object-name>Sphere</object-name>
+		<min-m>0</min-m>
+		<max-m>30000</max-m>
+	</animation>
+
+	<animation>
+		<type>dist-scale</type>
+		<object-name>Sphere</object-name>
+		<interpolation>
+			<entry><ind>0</ind><dep>0.0001</dep></entry>
+			<entry><ind>50</ind><dep>0.0001</dep></entry>
+			<entry><ind>400</ind><dep>0.07</dep></entry>
+			<entry><ind>8000</ind><dep>1.1</dep></entry>
+			<entry><ind>16000</ind><dep>2</dep></entry>
+			<entry><ind>30000</ind><dep>5</dep></entry>
+		</interpolation>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Sphere</object-name>
+		<ambient>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+		</ambient>
+		<diffuse>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+		</diffuse>
+		<emission>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+		</emission>
+		<specular>
+			<red>0</red>
+			<green>0</green>
+			<blue>0</blue>
+		</specular>
+		<transparency>
+			<min>1</min>
+		</transparency>
+	</animation>
+
+	<animation>
+		<type>scale</type>
+		<object-name>Sphere</object-name>
+		<property>/sim/current-view/field-of-view</property>
+		<x-factor>0.018</x-factor>
+		<y-factor>0.018</y-factor>
+		<z-factor>0.018</z-factor>
+	</animation>
+</PropertyList>
