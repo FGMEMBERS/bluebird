@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<!--== Bluebird Explorer Hovercraft  version 8.7 for PLIB ==-->
+
+<!DOCTYPE PropertyList SYSTEM "panel.dtd">
+<!-- This part should be the same for any 3D panel.  Customize the actions section -->
+<PropertyList> 
+	<name>Bluebird Panel Hotspots1</name>
+	<background>Aircraft/Generic/Panels/Textures/transparent-bg.rgb</background>
+	<w>1024</w>
+	<h>768</h>
+	<y-offset>0</y-offset>
+	<instruments>
+		<instrument>
+			<name>Center top panel</name>
+			<x>512</x>
+			<y>384</y>
+			<w>1024</w>
+			<h>768</h>
+			<w-base>1024</w-base>
+			<h-base>1024</h-base>
+			<layers> 
+				<layer> 
+					<name>background</name>
+					<texture> 
+						<path>Aircraft/Generic/Panels/Textures/transparent-bg.rgb</path>
+						<x1>0.0</x1>
+						<y1>0.0</y1>
+						<x2>1.0</x2>
+						<y2>1.0</y2>
+					</texture>
+				</layer>
+
+			</layers>
+			<!-- define hotspot actions below -->
+			<actions> 
+				<!-- ************** hsi hotspots ************** -->
+				<action>
+					<name>altitude-mode-select</name>
+					<button>0</button>
+					<x>-188</x>
+					<y>10</y>
+					<w>52</w>
+					<h>488</h>
+					<binding>
+						<command>property-adjust</command>
+						<property>instrumentation/digital/altitude-mode</property>
+						<step>1</step>
+						<min>0</min>
+						<max>2</max>
+						<wrap>true</wrap>
+					</binding>
+				</action>
+
+				<action>
+					<name>heading-mode-select</name>
+					<button>0</button>
+					<x>58</x>
+					<y>10</y>
+					<w>50</w>
+					<h>488</h>
+					<binding>
+						<command>property-adjust</command>
+						<property>instrumentation/digital/heading-mode</property>
+						<step>1</step>
+						<min>0</min>
+						<max>2</max>
+						<wrap>true</wrap>
+					</binding>
+				</action>
+
+				<action>
+					<name>velocity-mode-select</name>
+					<button>0</button>
+					<x>294</x>
+					<y>10</y>
+					<w>50</w>
+					<h>488</h>
+					<binding>
+						<command>property-adjust</command>
+						<property>instrumentation/digital/velocity-mode</property>
+						<step>1</step>
+						<min>0</min>
+						<max>5</max>
+						<wrap>true</wrap>
+					</binding>
+				</action>
+
+				<action>
+					<name>gps-mode-select</name>
+					<button>0</button>
+					<x>-188</x>
+					<y>-488</y>
+					<w>52</w>
+					<h>464</h>
+					<binding>
+						<command>property-adjust</command>
+						<property>sim/lon-lat-format</property>
+						<step>1</step>
+						<min>0</min>
+						<max>3</max>
+						<wrap>true</wrap>
+					</binding>
+				</action>
+
+				<action>
+					<name>engine-power-increase</name>
+					<button>0</button>
+					<x>448</x>
+					<y>-488</y>
+					<w>52</w>
+					<h>472</h>
+					<binding>
+						<command>nasal</command>
+						<script>controls.flapsDown(-1)</script>
+					</binding>
+				</action>
+
+				<action>
+					<name>engine-power-decrease</name>
+					<button>0</button>
+					<x>352</x>
+					<y>-488</y>
+					<w>56</w>
+					<h>472</h>
+					<binding>
+						<command>nasal</command>
+						<script>controls.flapsDown(1)</script>
+					</binding>
+				</action>
+
+				<action>
+					<name>altitude-hold</name>
+					<button>0</button>
+					<x>-404</x>
+					<y>10</y>
+					<w>48</w>
+					<h>128</h>
+					<binding>
+						<command>nasal</command>
+						<script>
+							var node = props.globals.getNode("autopilot/locks/altitude", 1);
+							if ( node.getValue() == "altitude-hold" ) {
+								node.setValue( "" );
+								settimer(func { setprop("controls/flight/elevator-trim", 0); }, 0.5);
+							} else {
+								node.setValue( "altitude-hold" );
+								setprop("autopilot/settings/target-altitude-ft", getprop("position/altitude-ft"));
+							}
+						</script>
+					</binding>
+				</action>
+
+				<action>
+					<name>agl-hold</name>
+					<button>0</button>
+					<x>-311</x>
+					<y>10</y>
+					<w>49</w>
+					<h>128</h>
+					<binding>
+						<command>nasal</command>
+						<script>
+							var node = props.globals.getNode("autopilot/locks/altitude", 1);
+							if ( node.getValue() == "agl-hold" ) {
+								node.setValue( "" );
+								settimer(func { setprop("controls/flight/elevator-trim", 0); }, 0.5);
+							} else {
+								node.setValue( "agl-hold" );
+								setprop("autopilot/settings/target-agl-ft", getprop("sim/model/bluebird/position/altitude-agl-ft"));
+							}
+						</script>
+					</binding>
+				</action>
+
+				<action>
+					<name>heading-hold</name>
+					<button>0</button>
+					<x>-45</x>
+					<y>10</y>
+					<w>45</w>
+					<h>128</h>
+					<binding>
+						<command>nasal</command>
+						<script>
+							var node = props.globals.getNode("autopilot/locks/heading", 1);
+							if ( node.getValue() == "true-heading-hold" ) {
+								node.setValue( "" );
+							} else {
+								node.setValue( "true-heading-hold" );
+								setprop("autopilot/settings/true-heading-deg", getprop("orientation/heading-deg"));
+							}
+						</script>
+					</binding>
+				</action>
+
+			</actions>
+		</instrument>
+	</instruments>
+</PropertyList>
