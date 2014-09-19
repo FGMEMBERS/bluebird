@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Bluebird Explorer Hovercraft  version 9.1 for FlightGear OSG only -->
+<!-- Bluebird Explorer Hovercraft  version 10.8 for FlightGear OSG only -->
 
 <PropertyList>
 
@@ -138,6 +138,19 @@
 	</offsets>
  </model>
 
+ <model>
+	<name>GEES</name>
+	<path>Aircraft/bluebird/Instruments-3d/gees/gees.xml</path>
+	<offsets>
+		<x-m>-8.199</x-m>
+		<y-m>0.13</y-m>
+		<z-m>1.143</z-m>
+		<pitch-deg>-21.8</pitch-deg>
+		<w>512</w>
+		<h>512</h>
+	</offsets>
+ </model>
+
 <!-- Attitude Indicator needs this workaround for the ufo flight model -->
  <model>
 	<name>AI</name>
@@ -188,6 +201,7 @@
 		<object-name>AI</object-name>
 		<object-name>CONTROLS</object-name>
 		<object-name>CLOCK</object-name>
+		<object-name>GEES</object-name>
 		<min-m>0</min-m>
 		<max-m>25</max-m>
 	</animation>
@@ -479,7 +493,18 @@
 
  <animation>
 	<type>material</type>
-	<object-name>engine-lit</object-name>
+	<object-name>engine-lit-power</object-name>
+	<emission>
+		<factor-prop>sim/model/material/instruments/factor</factor-prop>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</emission>
+ </animation>
+
+ <animation>
+	<type>material</type>
+	<object-name>engine-lit-battery</object-name>
 	<emission>
 		<factor-prop>sim/model/material/instruments/factor</factor-prop>
 		<red>1</red>
@@ -789,6 +814,7 @@
 			</binding>
 		</action>
 	</animation>
+
 	<animation>
 		<type>pick</type>
 		<object-name>Pick:APdisplay</object-name>
@@ -799,6 +825,56 @@
 			<binding>
 				<command>nasal</command>
 				<script>aiVORinstrument.ap_dialog()</script>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>Pick:Gdisplay</object-name>
+		<action>
+			<name>Gees digital display</name>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>gees.tapDisplay()</script>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>Pick:Gclick-L</object-name>
+		<action>
+			<name>decrease vor mode</name>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-adjust</command>
+				<property>instrumentation/gees/mode</property>
+				<step>-1</step>
+				<min>0</min>
+				<max>4</max>
+				<wrap>true</wrap>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>Pick:Gclick-R</object-name>
+		<action>
+			<name>increase vor mode</name>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-adjust</command>
+				<property>instrumentation/gees/mode</property>
+				<step>1</step>
+				<min>0</min>
+				<max>4</max>
+				<wrap>true</wrap>
 			</binding>
 		</action>
 	</animation>

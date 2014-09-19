@@ -1,17 +1,15 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 8.8 ==-->
+<!--== Bluebird Explorer Hovercraft  version 10.8 ==-->
 
 <PropertyList>
 
  <path>engine2.ac</path>
 
  <animation>
-	<name>engine-lit</name>
-	<object-name>damage.bar</object-name>
-	<object-name>damage.pod.L</object-name>
-	<object-name>damage.pod.R</object-name>
-	<object-name>engine.chart</object-name>
+	<name>engine-lit-power</name>
 	<object-name>engineering.label</object-name>
+	<object-name>damage.bar</object-name>
+	<object-name>engine.chart</object-name>
 	<object-name>engine.bar.001</object-name>
 	<object-name>engine.bar.002</object-name>
 	<object-name>engine.bar.003</object-name>
@@ -29,12 +27,26 @@
 	<object-name>powergraph.012</object-name>
  </animation>
 
+ <animation>
+	<name>engine-lit-battery</name>
+	<object-name>damage.pod.L</object-name>
+	<object-name>damage.pod.R</object-name>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>engine-lit-power</object-name>
+	<condition>
+		<property>sim/model/bluebird/systems/power-switch</property>
+	</condition>
+ </animation>
+
 <!-- damage bar moves 25 count per color -->
  <animation>
 	<type>textranslate</type>
 	<object-name>damage.bar</object-name>
 	<property>sim/model/bluebird/damage/hits-counter</property>
-	<factor>0.005</factor>
+	<factor>0.0025</factor>
 	<step>1</step>
 	<scroll>1</scroll>
 	<axis>

@@ -4,10 +4,10 @@
  <sim>
 	<aero>bluebird</aero>
 	<status>early-production</status>
-	<aircraft-version>10.4</aircraft-version>
+	<aircraft-version>10.93</aircraft-version>
 	<author>S Andreason</author>
 	<aircraft-status>
-		<fdm>beta</fdm>
+		<fdm>early-production</fdm>
 		<exterior>early-production</exterior>
 		<cockpit>early-production</cockpit>
 		<instrumentation>early-production</instrumentation>
@@ -17,9 +17,15 @@
 		<checklist-support>alpha</checklist-support>
 		<tutorial-support>alpha</tutorial-support>
 		<documentation>alpha</documentation>
-		<usability>early-production</usability>  
+		<usability>production</usability>  
 		<eye-candy>production</eye-candy>
 	</aircraft-status>
+	<rating>
+		<FDM type="int">4</FDM>
+		<systems type="int">4</systems>
+		<model type="int">5</model>
+		<cockpit type="int">5</cockpit>
+	</rating>
 	<type-of-aircraft>
 		<is-futuristic type="bool">true</is-futuristic>
 		<is-hovercraft type="bool">true</is-hovercraft>
@@ -77,8 +83,8 @@
 					<name type="string">Right Side Door</name>
 				</door>
 				<door>
-					<position-norm type="float">0.0</position-norm>
-					<position-adj type="float">0.0</position-adj>
+					<position-norm type="float">1.0</position-norm>
+					<position-adj type="float">1.0</position-adj>
 					<name type="string">Inside cockpit door</name>
 				</door>
 				<door>
@@ -1110,7 +1116,6 @@
 				<pitch-level type="float">0</pitch-level>
 			</sound>
 			<systems>
-				<groundslope-enable type="bool">false</groundslope-enable>
 				<nacelle-L-venting type="bool">false</nacelle-L-venting>
 				<nacelle-R-venting type="bool">false</nacelle-R-venting>
 				<power-switch type="bool">true</power-switch>		<!-- default: power up at startup -->
@@ -1515,7 +1520,7 @@
 	<help>
 		<title>Bluebird Explorer</title>
 		<key n="0">
-			<name>tab</name>
+			<name>equal=</name>
 			<desc>open/close systems dialog</desc>
 		</key>
 		<key n="1">
@@ -1550,7 +1555,7 @@
 			<name>f / F</name>
 			<desc>Select Next/Previous Door</desc>
 		</key>
-		<key n="61">
+		<key n="9">
 			<name>Ctrl-f</name>
 			<desc>Open/Close Selected Door</desc>
 		</key>
@@ -1630,6 +1635,9 @@
 
 	<sound>
 		<path>Aircraft/bluebird/Sound/bluebird-sound.xml</path>
+		<chatter>
+			<enabled type="bool">false</enabled>
+		</chatter>
 	</sound>
 
 	<view n="0">
@@ -1717,10 +1725,6 @@
 		<heading-deg type="double">0.0</heading-deg>
 		<pitch-deg type="double">0.0</pitch-deg>
 		<roll-deg type="double">0.0</roll-deg>
-		<keep-inside-offset-x type="double">0.0</keep-inside-offset-x>
-		<keep-inside-offset-y type="double">2.1</keep-inside-offset-y>
-		<keep-inside-offset-z type="double">9.4</keep-inside-offset-z>
-		<keep-pitch-offset-deg type="double">0.0</keep-pitch-offset-deg>
 		<time-of-exit-sec type="double">0.0</time-of-exit-sec>
 		<altitude-at-exit-ft type="double">0.0</altitude-at-exit-ft>
 		<starting-lat type="double">0.0</starting-lat>
@@ -1741,6 +1745,10 @@
 			<speed type="float">0</speed>
 		</key-triggers>
 	</walker>
+
+	<atc>
+		<enabled type="bool">false</enabled>
+	</atc>
  </sim>
 
  <ai>
@@ -1768,7 +1776,7 @@
 	</lighting>
 	<gear>
 		<height-switch type="bool">false</height-switch>
-		<wheels-switch type="bool">false</wheels-switch>
+		<wheels-switch type="bool">true</wheels-switch>
 	</gear>
  </controls>
 
@@ -1780,14 +1788,17 @@
  </engines>
 
  <gear>
-	<gear>
+	<gear n="0">
 		<position-norm type="float">1</position-norm>
 		<position-side-pads type="float">1</position-side-pads>
 		<last-request type="int">1</last-request>
 		<!-- hint for the route manager -->
 		<wow type="bool">false</wow>
 	</gear>
-	<gear-agl-m type="float">2.47</gear-agl-m>
+	<gear n="1">
+		<position-norm type="float">1</position-norm>
+	</gear>
+	<gear-agl-ft type="float">3.640164</gear-agl-ft>
  </gear>
 
  <input>
@@ -1802,7 +1813,7 @@
 			</binding>
 		</key>
 		<key n="61">
-			<name>=</name>
+			<name>Equal=</name>
 			<desc>Show dialog</desc>
 			<repeatable>false</repeatable>
 			<binding>
@@ -2443,6 +2454,14 @@
 		<heading-deg type="float">0.0</heading-deg>
 		<mode type="int">0</mode>
 	</ai-vor>
+	<gees>
+		<gees-deg type="float">36.0</gees-deg>
+		<gees-float type="float">1.0</gees-float>
+		<gees-string type="string"> </gees-string>
+		<mode type="int">1</mode>
+		<peak-refresh-sec type="float">1.0</peak-refresh-sec>
+		<vsi-float type="float">1.0</vsi-float>
+	</gees>
 	<tracking>
 		<enabled type="bool">false</enabled>
 		<ai-size type="int">0</ai-size>
@@ -2492,6 +2511,8 @@
  <orientation>
 	<ground-pitch type="double">0</ground-pitch>
 	<ground-roll type="double">0</ground-roll>
+	<groundslope-factored-pitch type="double">0</groundslope-factored-pitch>
+	<groundslope-factored-roll type="double">0</groundslope-factored-roll>
 	<groundsloped-pitch-deg type="double">0</groundsloped-pitch-deg>
 	<groundsloped-roll-deg type="double">0</groundsloped-roll-deg>
  </orientation>

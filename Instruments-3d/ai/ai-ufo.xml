@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--== modified property nodes for ufo flight model              ==-->
-<!--== integrated for Bluebird Explorer Hovercraft  version 10.4 ==-->
+<!--== integrated for Bluebird Explorer Hovercraft  version 10.5 ==-->
 
 <PropertyList>
 
@@ -39,14 +39,14 @@
 	<name>PitchTranslation</name>
 	<type>translate</type>
 	<object-name>Pitch</object-name>
-	<property>orientation/pitch-deg</property>
+	<property>orientation/groundsloped-pitch-deg</property>
 	<factor>-0.00035</factor>
 	<min-m>-0.01575</min-m>
 	<max-m>0.01575</max-m>
 	<axis>
-	<x>0.0</x>
-	<y>0.0</y>
-	<z>1.0</z>
+		<x>0.0</x>
+		<y>0.0</y>
+		<z>1.0</z>
 	</axis>
  </animation>
 
@@ -54,12 +54,12 @@
 	<type>rotate</type>
 	<object-name>Face</object-name>
 	<object-name>PitchTranslation</object-name>
-	<property>orientation/roll-deg</property>
+	<property>orientation/groundsloped-roll-deg</property>
 	<factor>-1</factor>
 	<axis>
-	<x>-1</x>
-	<y>0</y>
-	<z>0</z>
+		<x>-1</x>
+		<y>0</y>
+		<z>0</z>
 	</axis>
  </animation>
 
@@ -70,12 +70,12 @@
  <animation>
 	<type>rotate</type>
 	<object-name>Ring</object-name>
-	<property>orientation/roll-deg</property>
+	<property>orientation/groundsloped-roll-deg</property>
 	<factor>-1</factor>
 	<axis>
-	<x>-1</x>
-	<y>0</y>
-	<z>0</z>
+		<x>-1</x>
+		<y>0</y>
+		<z>0</z>
 	</axis>
  </animation>
 

@@ -3,7 +3,7 @@
 <PropertyList include="bluebird-base.xml">
  <sim>
 	<description>Bluebird Explorer Hovercraft</description>
-	<aircraft-version>10.4</aircraft-version>
+	<aircraft-version>10.93</aircraft-version>
 	<author>S Andreason</author>
 	<model>
 		<path>Aircraft/bluebird/Models/bluebird-osg.xml</path>
@@ -50,7 +50,7 @@
 				<label>Bluebird</label>
 				<enabled type="bool">true</enabled>
 				<item>
-					<label>Systems                 [Tab]</label>
+					<label>Systems                   [=]</label>
 					<binding>
 						<command>nasal</command>
 						<script>bluebird.showDialog1()</script>
@@ -78,7 +78,7 @@
 					</binding>
 				</item>
 				<item>
-					<label>Walker animation dialog  [Tab]</label>
+					<label>Walker animation dialog  [=]</label>
 					<binding>
 						<command>nasal</command>
 						<script>walker.sequence.showDialog()</script>
@@ -188,6 +188,9 @@
 	<displayScreens>
 		<file>Aircraft/bluebird/Nasal/displays.nas</file>
 	</displayScreens>
+	<gees>
+		<file>Aircraft/bluebird/Instruments-3d/gees/gees.nas</file>
+	</gees>
 	<pilot>
 		<file>Aircraft/bluebird/Nasal/pilot-animate.nas</file>
 	</pilot>
