@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 10.9  ==-->
+<!--== Bluebird Explorer Hovercraft  version 10.8  ==-->
 
 <PropertyList>
-	<name>AI VOR Callsign text1</name>
+	<name>GEES numeric readout</name>
 	<background>Aircraft/Generic/Panels/Textures/transparent-bg.rgb</background>
 	<w>768</w>
 	<h>128</h>
 	<instruments>
 		<instrument>
-			<name>Callsign Panel Airport</name>
+			<name>Gees Panel</name>
 			<condition>
 				<and>
 					<property>sim/model/bluebird/systems/power-switch</property>
@@ -20,16 +20,6 @@
 						<property>sim/current-view/z-offset-m</property>
 						<value>-5</value>
 					</less-than>
-					<or>
-						<equals>
-							<property>instrumentation/ai-vor/mode</property>
-							<value>0</value>
-						</equals>
-						<equals>
-							<property>instrumentation/ai-vor/mode</property>
-							<value>3</value>
-						</equals>
-					</or>
 				</and>
 			</condition>
 			<w-base>768</w-base>
@@ -52,13 +42,13 @@
 					<chunks>
 						<chunk>
 							<type>text-value</type>
-							<property>instrumentation/ai-vor/callsign</property>
+							<property>instrumentation/gees/gees-string</property>
 						</chunk>
 					</chunks>
 					<transformations>
 						<transformation>
 							<type>x-shift</type>
-							<offset>-300</offset>
+							<offset>-320</offset>
 						</transformation>
 						<transformation>
 							<type>y-shift</type>

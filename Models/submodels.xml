@@ -1,39 +1,7 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 10.4 ==-->
+<!--== Bluebird Explorer Hovercraft  version 10.7 ==-->
 
 <PropertyList>
-	<animation>
-		<type>rotate</type>
-		<object-name>flare1-L</object-name>
-		<object-name>flare2-L</object-name>
-		<object-name>flare3-L</object-name>
-		<object-name>flare4-R</object-name>
-		<object-name>flare5-R</object-name>
-		<object-name>flare6-R</object-name>
-		<property>orientation/ground-pitch</property>
-		<axis>
-			<x>0</x>
-			<y>1</y>
-			<z>0</z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>flare1-L</object-name>
-		<object-name>flare2-L</object-name>
-		<object-name>flare3-L</object-name>
-		<object-name>flare4-R</object-name>
-		<object-name>flare5-R</object-name>
-		<object-name>flare6-R</object-name>
-		<property>orientation/ground-roll</property>
-		<axis>
-			<x>-1</x>
-			<y>0</y>
-			<z>0</z>
-		</axis>
-	</animation>
-
 	<submodel>
 		<name>flare1-L</name>
 		<model>Models/Geometry/flare.xml</model>

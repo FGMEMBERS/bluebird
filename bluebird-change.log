@@ -1,4 +1,54 @@
 Version# Vertices PolygonFaces Comments
+2014.Feb.02
+10.92		no change to models
+	Change key for Configuration dialog from Tab to Equal, for compliance with FG 3.0
+
+2012.Mar.06
+10.91		no change to models
+	Remove ATC chattter at startup (introduced in FG 2.4)
+
+2011.Oct.19
+10.9		update instrument model
+	Refine gees instrument, add tags, change timing for Peak and Max hold.
+	Continuing refinement of groundslope handling.
+	Adjust hover envelope
+
+2011.Jan.25
+10.8		add instrument model
+	Continuing refinement of groundslope handling:
+	Fix ground-slope bug on steep hills.
+	Fix ground-slope bug for sharp turns over water.
+	Fix ground-slope bug for skidding on downslope runway.
+	Re-organize ground-slope logic, clean up code.
+	Replace crash detection logic with new formulas.
+	Add Gees (and Vertical Speed Indicator x10 mps) to instrument panel.
+	Add trajectory tracking.
+	Fix display visibility bug looking from across cockpit.
+
+2010.Dec.16
+10.7		no change to models
+	Fix ground-slope bug on steep cliffs.
+	Fix ground-slope effect on smoke/vapor trails
+	Fix flooring lighting emissions next to open hatches
+	Fix engineering instrument lighting after crash.
+	Continue to improve groundslope handling in different flight modes.
+	Consolidate cabin lighting for easier transfer between aircraft.
+
+2010.Nov.06
+10.6		no change to models
+	Fix a couple bugs I missed, walking out and in by hatch.
+	Remove a couple cosmetic remnants from testing.
+
+2010.Nov.06
+10.5		no change to models
+	FIX inside walker and viewpoints when ground-slope enabled.
+	FIX 3D triangle calculation model for ground-slope.
+	Add smoothing when aircraft leaves sloped ground.
+	Add flight control logic to account for new landing ability.
+	Add vertical movement to inside walker, for steps and ramp.
+	Re-organize cockpit locations, and where walker appears upon getting in.
+	Fix hole in wall for inside walker.
+
 2010.Mar.01
 10.4		no change to models
 	Update splash screen for shader effects and FG 2.0 release.
