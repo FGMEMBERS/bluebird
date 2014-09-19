@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 10.4 =====
+# ===== Bluebird Explorer Hovercraft  version 10.8 =====
 
 # instrumentation ===================================================
 var lat_whole = props.globals.getNode("instrumentation/digital/lat-whole", 1);
@@ -55,7 +55,7 @@ instrumentation_update = func {
 		if (xx < -0.5) { xx += 3600.0; }
 		if (xx > 3599.5) { xx -= 3600.0; }
 		heading_whole.setValue(int(xx + 0.5));
-		var xx = (getprop("orientation/pitch-deg") + getprop("orientation/ground-pitch")) * 10.0;
+		var xx = getprop("orientation/groundsloped-pitch-deg") * 10.0;
 		if (hm == 1) {
 			if (xx < -0.5) { 
 				xx += 3600.5; 
@@ -75,6 +75,7 @@ instrumentation_update = func {
 		var vm = vel_mode.getValue();
 		var xx = int(abs(getprop("velocities/airspeed-kt")));		# Kts
 		var knots_2_conv = [0.514444444, 1.0, 1.150779448, 1.852, 1.524];
+			# MPS , Kts , MPH , KmPH , MACH
 		var ii = xx * knots_2_conv[vm];
 		# calculating mach at fixed pressure and temperature for 755mph
 		# actual speed of sound at: 60F = 760mph , -80F at 65,000ft = 650mph , at 100,000ft = 480mph

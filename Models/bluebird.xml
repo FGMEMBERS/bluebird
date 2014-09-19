@@ -1,4 +1,4 @@
-<!--== Bluebird version 10.4 common base ==-->
+<!--== Bluebird version 10.5 common base ==-->
 
 <PropertyList>
 
@@ -9,7 +9,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>BluebirdFlyer_v10</object-name>
-		<property>orientation/ground-pitch</property>
+		<property>orientation/groundslope-factored-pitch</property>
 		<axis>
 			<x>0</x>
 			<y>1</y>
@@ -20,7 +20,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>BluebirdFlyer_v10</object-name>
-		<property>orientation/ground-roll</property>
+		<property>orientation/groundslope-factored-roll</property>
 		<axis>
 			<x>-1</x>
 			<y>0</y>
@@ -4210,7 +4210,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>nav_halo_L1</object-name>
-		<property>orientation/ground-pitch</property>
+		<property>orientation/groundslope-factored-pitch</property>
 		<axis>
 			<x>0</x>
 			<y>1</y>
@@ -4221,7 +4221,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>nav_halo_L1</object-name>
-		<property>orientation/ground-roll</property>
+		<property>orientation/groundslope-factored-roll</property>
 		<axis>
 			<x>-1</x>
 			<y>0</y>
@@ -4345,7 +4345,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>nav_halo_L2</object-name>
-		<property>orientation/ground-pitch</property>
+		<property>orientation/groundslope-factored-pitch</property>
 		<axis>
 			<x>0</x>
 			<y>1</y>
@@ -4356,7 +4356,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>nav_halo_L2</object-name>
-		<property>orientation/ground-roll</property>
+		<property>orientation/groundslope-factored-roll</property>
 		<axis>
 			<x>-1</x>
 			<y>0</y>
@@ -4489,7 +4489,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>nav_halo_R1</object-name>
-		<property>orientation/ground-pitch</property>
+		<property>orientation/groundslope-factored-pitch</property>
 		<axis>
 			<x>0</x>
 			<y>1</y>
@@ -4500,7 +4500,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>nav_halo_R1</object-name>
-		<property>orientation/ground-roll</property>
+		<property>orientation/groundslope-factored-roll</property>
 		<axis>
 			<x>-1</x>
 			<y>0</y>
@@ -4624,7 +4624,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>nav_halo_R2</object-name>
-		<property>orientation/ground-pitch</property>
+		<property>orientation/groundslope-factored-pitch</property>
 		<axis>
 			<x>0</x>
 			<y>1</y>
@@ -4635,7 +4635,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>nav_halo_R2</object-name>
-		<property>orientation/ground-roll</property>
+		<property>orientation/groundslope-factored-roll</property>
 		<axis>
 			<x>-1</x>
 			<y>0</y>
@@ -4768,7 +4768,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>strobe_halo_L</object-name>
-		<property>orientation/ground-pitch</property>
+		<property>orientation/groundslope-factored-pitch</property>
 		<axis>
 			<x>0</x>
 			<y>1</y>
@@ -4779,7 +4779,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>strobe_halo_L</object-name>
-		<property>orientation/ground-roll</property>
+		<property>orientation/groundslope-factored-roll</property>
 		<axis>
 			<x>-1</x>
 			<y>0</y>
@@ -4886,7 +4886,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>strobe_halo_R</object-name>
-		<property>orientation/ground-pitch</property>
+		<property>orientation/groundslope-factored-pitch</property>
 		<axis>
 			<x>0</x>
 			<y>1</y>
@@ -4897,7 +4897,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>strobe_halo_R</object-name>
-		<property>orientation/ground-roll</property>
+		<property>orientation/groundslope-factored-roll</property>
 		<axis>
 			<x>-1</x>
 			<y>0</y>
@@ -5185,7 +5185,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>beacon_halo_T</object-name>
-		<property>orientation/ground-pitch</property>
+		<property>orientation/groundslope-factored-pitch</property>
 		<axis>
 			<x>0</x>
 			<y>1</y>
@@ -5196,7 +5196,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>beacon_halo_T</object-name>
-		<property>orientation/ground-roll</property>
+		<property>orientation/groundslope-factored-roll</property>
 		<axis>
 			<x>-1</x>
 			<y>0</y>
@@ -5293,7 +5293,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>beacon_halo_B</object-name>
-		<property>orientation/ground-pitch</property>
+		<property>orientation/groundslope-factored-pitch</property>
 		<axis>
 			<x>0</x>
 			<y>1</y>
@@ -5304,7 +5304,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>beacon_halo_B</object-name>
-		<property>orientation/ground-roll</property>
+		<property>orientation/groundslope-factored-roll</property>
 		<axis>
 			<x>-1</x>
 			<y>0</y>
@@ -14374,7 +14374,7 @@
 		<type>rotate</type>
 		<object-name>PEDALS</object-name>
 		<object-name>YOKE</object-name>
-		<property>orientation/ground-pitch</property>
+		<property>orientation/groundslope-factored-pitch</property>
 		<axis>
 			<x>0</x>
 			<y>1</y>
@@ -14386,7 +14386,7 @@
 		<type>rotate</type>
 		<object-name>PEDALS</object-name>
 		<object-name>YOKE</object-name>
-		<property>orientation/ground-roll</property>
+		<property>orientation/groundslope-factored-roll</property>
 		<axis>
 			<x>-1</x>
 			<y>0</y>
@@ -14414,7 +14414,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>DISPLAY SCREENS</object-name>
-		<property>orientation/ground-pitch</property>
+		<property>orientation/groundslope-factored-pitch</property>
 		<axis>
 			<x>0</x>
 			<y>1</y>
@@ -14425,7 +14425,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>DISPLAY SCREENS</object-name>
-		<property>orientation/ground-roll</property>
+		<property>orientation/groundslope-factored-roll</property>
 		<axis>
 			<x>-1</x>
 			<y>0</y>

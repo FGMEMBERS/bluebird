@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<!--== created for Bluebird Explorer Hovercraft  version 10.9 ==-->
+
+<PropertyList>
+	<path>gees.ac</path>
+
+	<animation>
+		<type>material</type>
+		<object-name>Label:Gees</object-name>
+		<object-name>Label:VSI</object-name>
+		<object-name>GeesFace</object-name>
+		<object-name>GeesKnob</object-name>
+		<emission>
+			<red>1</red>
+			<green>0.5</green>
+			<blue>0.25</blue>
+			<factor-prop>sim/model/material/instruments/factor</factor-prop>
+		</emission>
+		<specular>
+			<factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+			<red>0.9</red>
+			<green>0.9</green>
+			<blue>0.9</blue>
+		</specular>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>Label:Gees</object-name>
+		<condition>
+			<and>
+				<property>sim/model/bluebird/systems/power-switch</property>
+				<not>
+					<equals>
+						<property>instrumentation/gees/mode</property>
+						<value>0</value>
+					</equals>
+				</not>
+			</and>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>Label:VSI</object-name>
+		<condition>
+			<and>
+				<property>sim/model/bluebird/systems/power-switch</property>
+				<equals>
+					<property>instrumentation/gees/mode</property>
+					<value>0</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>GeesNeedle</object-name>
+		<emission>
+			<red>1</red>
+			<green>0.5</green>
+			<blue>0.25</blue>
+			<factor-prop>sim/model/material/instruments/factor</factor-prop>
+		</emission>
+		<specular>
+			<factor-prop>sim/model/bluebird/lighting/interior-specular</factor-prop>
+			<red>0.9</red>
+			<green>0.9</green>
+			<blue>0.9</blue>
+		</specular>
+	</animation>
+
+	<animation>
+		<name>GeesNeedleTransform</name>
+		<type>rotate</type>
+		<object-name>GeesNeedle</object-name>
+		<property>instrumentation/gees/gees-deg</property>
+		<center>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</center>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<name>Alpha Order Group</name>
+		<object-name>GeesFace</object-name>
+		<object-name>GeesNeedleTransform</object-name>
+	</animation>
+</PropertyList>

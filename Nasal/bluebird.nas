@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 10.4 for FlightGear 1.9 OSG =====
+# ===== Bluebird Explorer Hovercraft  version 10.92 for FlightGear 1.9 OSG =====
 
 # strobes -----------------------------------------------------------
 var strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
@@ -44,14 +44,6 @@ var RAD2DEG = 180 / math.pi;
 
 # === global nodes, and constants ===================================
 
-# view nodes and offsets --------------------------------------------
-var zNoseNode = props.globals.getNode("sim/view/config/y-offset-m", 1);
-var xViewNode = props.globals.getNode("sim/current-view/z-offset-m", 1);
-var yViewNode = props.globals.getNode("sim/current-view/x-offset-m", 1);
-var zViewNode = props.globals.getNode("sim/current-view/y-offset-m", 1);
-var hViewNode = props.globals.getNode("sim/current-view/heading-offset-deg", 1);
-#var pViewNode = props.globals.getNode("sim/current-view/pitch-offset-deg", 1);
-#var rViewNode = props.globals.getNode("sim/current-view/roll-offset-deg", 1);
 var vertical_offset_ft = 0.5830;
 	# keep shadow off ground at expense of keeping wheels and gear
 	# at ground level. Also adjust Shadow in bluebird.xml line# 13997 with negative
@@ -93,34 +85,34 @@ var speed_mps = [1, 20, 50, 100, 200, 500, 1000, 2000, 5000, 11176, 20000];
 # level 9 maximum speed 11176mps is 25000mph. aka escape velocity.
 # level 10 is not really useful without interplanetary capabilities,
 #  and is thus not allowed below the boundary to space.
-var limit = [1, 3, 6, 7, 1, 3, 6, 10];
+var limit = [1, 3, 6, 7, 1, 3, 6, 10];	# different max levels per engine configuration
 var current = props.globals.getNode("engines/engine/speed-max-powerlevel", 1);
 
 # VTOL counter-grav -------------------------------------------------
 var joystick_elevator = props.globals.getNode("input/joysticks/js/axis[1]/binding/setting", 1);
-var countergrav = { input_type: 0, momentum_watch: 0, momentum: 0, up_factor: 0, request: 0, control_factor: 6 };
+var countergrav = { input_type: 0, momentum_watch: 0, momentum: 0, up_factor: 0, request: 0, control_factor: 6, call: 0 };
 	# input_type ; 1 = keyboard, 2 = joystick, 3 = mouse
 	# request = for during startup, includes timer to cancel request if no further requests are made. Returns to zero after complete.
 	# control_factor = multiplier or power level from lever next to throttle, for VTOL movement
+	# call is a trigger for main_loop to call up
 var joystick_collective = props.globals.getNode("controls/engines/countergrav-factor", 1);
 
 # ground detection and adjustment -----------------------------------
 var altitude_ft_Node = props.globals.getNode("position/altitude-ft", 1);
 var ground_elevation_ft = props.globals.getNode("position/ground-elev-ft", 1);
-var pitch_deg = props.globals.getNode("orientation/pitch-deg", 1);
+var pitch_deg_Node = props.globals.getNode("orientation/pitch-deg", 1);
 var roll_deg = props.globals.getNode("orientation/roll-deg", 1);
 var roll_control = props.globals.getNode("controls/flight/aileron", 1);
 var pitch_control = props.globals.getNode("controls/flight/elevator", 1);
 
 # define damage variables -------------------------------------------
-	# significant damage occurs above 50 impacts, each exceeding 600 fps per clock cycle
-	# changing this number also requires changing <value> and <ind> in both xml files.
-var destruction_threshold = 50;
+	# significant damage occurs above 100 impact units, each exceeding 600 fps per clock cycle
+var destruction_threshold = 100;
 
 # === define nasal non-local variables at startup ===================
 # interior lighting and emissions -----------------------------------
 	# surface# color/location 
-	#  0       Overhead lights
+	#    0     Overhead lights
 	#  1       Blue        Rug/Floor		Livery
 	#  2       Light blue  Door panels		Livery
 	#  3       Tan         Upper walls		Livery
@@ -130,86 +122,24 @@ var destruction_threshold = 50;
 	#  7       Brown       Rear hatch non-skid flooring
 	#  8       Grey80      Light fixture housing
 	#  9       Grey60      Buttons
-	#  A       Grey14      Door seals
+	#  0/A     Grey14      Door seals
 	#  B       WHITE       Door markers/lights
 	#  C       YELLOW      Hatch Safety marker Lights
-var livery_I1AR = 0;	# Ambient from livery, only updates upon livery change
-var livery_I1AG = 0;
-var livery_I1AB = 1;
-var livery_I1R_add = 0.5;  # factor to calculate ambient from livery
-var livery_I1G_add = 0.0;  #  accounting for alert_level
-var livery_I1B_add = -0.25;
-var livery_I1R = 0;	# calculated emissions. material 1 flooring (red, green, blue)
-var livery_I1G = 0;
-var livery_I1B = 0;
-var livery_I2AR = 0.50;
-var livery_I2AG = 0.70;
-var livery_I2AB = 0.90;
-var livery_I2R_add = 0.0;
-var livery_I2G_add = 0.0;
-var livery_I2B_add = 0.0;
-var livery_I2R = 0.0;
-var livery_I2G = 0.0;
-var livery_I2B = 0.0;
-var livery_I3AR = 0.70;
-var livery_I3AG = 0.69;
-var livery_I3AB = 0.55;
-var livery_I3R_add = 0.0;
-var livery_I3G_add = 0.0;
-var livery_I3B_add = 0.0;
-var livery_I3R = 0.0;
-var livery_I3G = 0.0;
-var livery_I3B = 0.0;
-var livery_I4AR = 0.6;
-var livery_I4AG = 0.6;
-var livery_I4AB = 0.6;
-var livery_I4R_add = 0;
-var livery_I4G_add = 0;
-var livery_I4B_add = 0;
-var livery_I4R = 0;
-var livery_I4G = 0;
-var livery_I4B = 0;
-var livery_I5AR = 0.36;
-var livery_I5AG = 0.37;
-var livery_I5AB = 0.32;
-var livery_I5R_add = 0.18;
-var livery_I5G_add = -0.0925;
-var livery_I5B_add = -0.08;
-var livery_I5R = 0;
-var livery_I5G = 0;
-var livery_I5B = 0;
-var livery_I6AR = 0.7;
-var livery_I6AG = 0.69;
-var livery_I6AB = 0.59;
-var livery_I6R_add = 0.3;
-var livery_I6G_add = -0.1725;
-var livery_I6B_add = -0.1475;
-var livery_I6R = 0;
-var livery_I6G = 0;
-var livery_I6B = 0;
-var livery_I7AR = 0.25;
-var livery_I7AG = 0.25;
-var livery_I7AB = 0.17;
-var livery_I7R_add = 0.125;
-var livery_I7G_add = -0.06;
-var livery_I7B_add = -0.0425;
-var livery_I7R = 0;
-var livery_I7G = 0;
-var livery_I7B = 0;
-var livery_I8AR = 0.8;
-var livery_I8AGB = 0.8;
-var livery_I8R_add = 0.2;
-var livery_I8GB_add = -0.2;
-var livery_I8R = 0;
-var livery_I8GB = 0;
-var livery_I9AR = 0.6;
-var livery_I9AGB = 0.6;
-var livery_I9R_add = 0.2;
-var livery_I9GB_add = -0.2;
-var livery_I9R = 0;
-var livery_I9GB = 0;
-var livery_IAARGB = 0.02;
-
+var livery_cabin_surface = [	# A=ambient from livery, only updates upon livery change
+				# _add= factor to calculate ambient from livery accounting for alert_level
+				# E=calculated emissions
+	{ AR: 0.02, AG: 0.02, AB: 0.02, R_add: 0.00 , G_add: 0.00 , B_add: 0.00 , ER: 0, EG: 0, EB: 0, pname: "interiorA-door-seals", type:"", in_livery:0},
+	{ AR: 0   , AG: 0   , AB: 1   , R_add: 0.50 , G_add: 0.00 , B_add:-0.25 , ER: 0, EG: 0, EB: 0, pname: "interior1-flooring", type:"", in_livery:1},
+	{ AR: 0.50, AG: 0.70, AB: 0.90, R_add: 0.00 , G_add: 0.00 , B_add: 0.00 , ER: 0, EG: 0, EB: 0, pname: "interior2-door-panels", type:"", in_livery:1},
+	{ AR: 0.70, AG: 0.69, AB: 0.55, R_add: 0.00 , G_add: 0.00 , B_add: 0.00 , ER: 0, EG: 0, EB: 0, pname: "interior3-upper-walls", type:"", in_livery:1},
+	{ AR: 0.60, AG: 0.60, AB: 0.60, R_add: 0.00 , G_add: 0.00 , B_add: 0.00 , ER: 0, EG: 0, EB: 0, pname: "interior4-lower-walls", type:"", in_livery:1},
+	{ AR: 0.36, AG: 0.37, AB: 0.32, R_add: 0.18 , G_add:-0.0925, B_add:-0.08 , ER: 0, EG: 0, EB: 0, pname: "interior5-console", type:"", in_livery:0},
+	{ AR: 0.70, AG: 0.69, AB: 0.59, R_add: 0.30 , G_add:-0.1725, B_add:-0.1475, ER: 0, EG: 0, EB: 0, pname: "interior6-chairs", type:"", in_livery:0},
+	{ AR: 0.25, AG: 0.25, AB: 0.17, R_add: 0.125, G_add:-0.06  , B_add:-0.0425, ER: 0, EG: 0, EB: 0, pname: "door5/hatch7-flooring-side", type:"", in_livery:0},
+	{ AR: 0.80, AG: 0.80, AB: 0.80, R_add: 0.20 , G_add:-0.20  , B_add:-0.20  , ER: 0, EG: 0, EB: 0, pname: "interior8-light-frame", type:"GB", in_livery:0},
+	{ AR: 0.60, AG: 0.60, AB: 0.60, R_add: 0.20 , G_add:-0.20  , B_add:-0.20  , ER: 0, EG: 0, EB: 0, pname: "interior9-buttons", type:"GB", in_livery:0}
+	];
+var livery_cabin_count = size(livery_cabin_surface);
 var button_G1 = 0;	# remember current button colors to limit spending time in setprop.
 var button_G2 = 0;	# binary operators: 1 = red, 2 = green, 4 = blue, 8 = dim
 var button_G3 = 0;
@@ -240,7 +170,7 @@ var panel_ambient_GB = 0;
 var panel_specular = 0;
 var alert_switch = 0;
 var int_switch = 1;
-# specular: 1 = full reflection, 0 = no reflection from sun
+# specular reminder: 1 = full reflection, 0 = no reflection from sun
 
 # ------ components ------
 var nacelleL_attached = 1;
@@ -257,17 +187,28 @@ var gear_looping = 0;          # keep track of gear loop, so there is only one i
 var gear_position = 1;
 var gear_mode = 0;             # 0 = full pressure, stiff gear (or) 1 = lower, settle closer to ground
 var active_gear_button = [1, 3];
-var gear_height = 2.47;           # Height of gear
+var gear_height_ft = 3.640164;     # Height of gear
 		# zero when gear down at base of model offset.
 var wheel_looping = 0;         # keep track of wheel loop
-var wheel_position = 0;
-var wheels_switch = 0;           # 0 = not extended, land on skid plates (or) 1 = extend wheels down
-var wheel_height = 0;
-var contact_altitude = 0;      # the altitude at which the model touches ground (modifiers are gear and pitch/roll with hover_add)
+var wheel_position = 1;
+var wheels_switch = 1;           # 0 = not extended, land on skid plates (or) 1 = extend wheels down
+var wheel_height_ft = 1.170164;         # 1.170164 when fully extended
+var contact_altitude_ft = 0;   # the altitude at which the model touches ground (modifiers are gear and pitch/roll with hover_add)
 var gear_request = 1;          # direction = down
-var gear_x_pitch_deg = 0;      # pitch and roll for ground slope under gear contact points
-var gear_y_roll_deg = 0;
-var groundslope_enabled = 0;
+# ------ groundslope ------	determine slope of ground if on hill, necessary for ufo fdm
+var groundslope = [	# 0=last 1=current
+	{ factor: 1, ground_pitch: 0, ground_roll: 0, rotate_pitch: 0, rotate_roll: 0 },
+	{ factor: 1, ground_pitch: 0, ground_roll: 0, rotate_pitch: 0, rotate_roll: 0 } ];
+	# factor: percentage of action to rotate, 1=on ground and actively altering orientation
+	# ground: orientation/ground-pitch and roll, slope of ground directly below contact point locations, in degrees
+	# rotate: orientation/gs-factored-aircraft-pitch and roll, aircraft Rotations for models, in degrees
+	# resulting orientation for instruments are rotate_ + orientation/pitch and roll
+var gs_trigger = [		# groundslope triggers: altitude, countergrav, airspeed
+	{ alt: 0, cg: 0, as: 0},
+	{ alt: 0, cg: 0, as: 0}];
+var groundslope_rotated = 1;
+var gear1_damage_offset_m = 0;
+var slope_limit = 0.75;	# Maximum groundslope: sin(angle)
 # --------- doors --------
 door0_adjpos.setValue(0);
 door1_adjpos.setValue(0);
@@ -309,7 +250,13 @@ var hover_add = 0;              # increase in altitude to keep nacelles and nose
 var hover_reset_timer = 0;      # timer so vtol movement in yoke is not jerky
 var hover_target_altitude = 0;  # ground_elevation + hover_ft (not for comparing to contact point)
 var h_contact_target_alt = 0;   # adjusted for contact altitude
-var skid_last_value = 0;
+# -------- trajectory ---------
+var trajectory = [		# for calculating gees and crash forces. 0=last 1=current 2=projected
+	{ time_elapsed_sec: 0, pitch_deg: 0, lat: 0, lon: 0, altitude_m: 0 },
+	{ time_elapsed_sec: 0, pitch_deg: 0, lat: 0, lon: 0, altitude_m: 0 }];
+var skid = [
+	{ nose_in_deg: 0, altitude_change_ft: 0, depth_ft: 0, impact_factor: 0 },
+	{ nose_in_deg: 0, altitude_change_ft: 0, depth_ft: 0, impact_factor: 0 }];
 # ------ submodel control -----
 var nacelle_L_venting = 0;
 var nacelle_R_venting = 0;
@@ -332,15 +279,16 @@ var max_to = 5;
 var sound_level = 0;
 var sound_state = 0;
 var alert_level = 0;
-# -------
-var cockpit_locations = [ { x: -7.35, y: 0, z: [1.47, 1.70, 1.88], h: 0, p: -2, fov: 55 },
-		{ x: -5.6, y: 0, z: [2.1, 2.33, 2.47], h: 0, p: 0, fov: 55 },
-		{ x: -5.94, y: -0.73, z: [1.47, 1.68, 1.79], h: 0, p: 0, fov: 55 },
-		{ x: -5.93, y: 0.77, z: [1.47, 1.68, 1.79], h: 0, p: 0, fov: 55 },
-		{ x: -3.3, y: 0, z: [2.1, 2.32, 2.43], h: 0, p: 0, fov: 55 },
-		{ x: -2.55, y: -1.9, z: [2.1, 2.3, 2.4], h: 0, p: 0, fov: 55 } ];	# left doorway
-		# Waldo eye height is 1.625m
+# ------- walker ---------
+var cockpit_locations = [
+	{ x: -7.35, y:  0   , z_floor_m: 0.495, h: 0 , p: -2, fov: 55, can_walk: 0, z_eye_offset_m: 0.975 },
+	{ x: -5.6 , y:  0   , z_floor_m: 0.495, h: 0 , p:  0, fov: 55, can_walk: 1, z_eye_offset_m: 1.625 },
+	{ x: -5.94, y: -0.73, z_floor_m: 0.495, h: 0 , p:  0, fov: 55, can_walk: 0, z_eye_offset_m: 0.975 },
+	{ x: -5.93, y:  0.77, z_floor_m: 0.495, h: 0 , p:  0, fov: 55, can_walk: 0, z_eye_offset_m: 0.975 },
+	{ x:  8.4 , y:  1.60, z_floor_m: 0.495, h:135, p:  0, fov: 55, can_walk: 1, z_eye_offset_m: 1.625 } ];	# left doorway
+	# Waldo eye height is 1.625m
 var cockpitView = 0;
+# ----- gui dialogs -----
 var active_nav_button = [3, 3, 1];
 var active_landing_button = [3, 1, 3];
 var config_dialog = nil;
@@ -356,15 +304,22 @@ var reinit_bluebird = func {	# reset the above variables
 	gear_mode = 0;
 	active_gear_button = [1, 3];
 	gear_request = 1;
-	gear_x_pitch_deg = 0;
-	gear_y_roll_deg = 0;
-	gear_height = 2.47;
-	wheels_switch = 0;
+	groundslope[1].ground_pitch = 0;
+	groundslope[1].ground_roll = 0;
+	groundslope[1].rotate_pitch = 0;
+	groundslope[1].rotate_roll = 0;
+	groundslope_rotated = 1;
+	gear_height_ft = 3.640164;
+	wheels_switch = 1;
 	wheel_looping = 0;
-	wheel_position = 0;
-	wheel_height = 0;
-	contact_altitude = 0;
-	groundslope_enabled = 0;
+	wheel_position = 1;
+	wheel_height_ft = 1.170164;
+	contact_altitude_ft = 0;
+	groundslope[1].factor = 1;
+	gs_trigger[1].alt = 0;
+	gs_trigger[1].cg = 0;
+	gs_trigger[1].as = 0;
+	gear1_damage_offset_m = 0;
 	door0_position = 0;
 	door1_position = 0;
 	door5_position = 0;
@@ -390,7 +345,7 @@ var reinit_bluebird = func {	# reset the above variables
 	hover_add = 0;
 	hover_target_altitude = 0;
 	h_contact_target_alt = 0;
-	skid_last_value = 0;
+	skid[0].depth_ft = 0;
 	nacelle_L_venting = 0;
 	nacelle_R_venting = 0;
 	venting_direction = -2;
@@ -451,9 +406,9 @@ var reinit_bluebird = func {	# reset the above variables
 	}
 }
 
- setlistener("sim/signals/reinit", func {
+setlistener("sim/signals/reinit", func {
 	reinit_bluebird();
- });
+});
 
 # display screens ---------------------------------------------------
 var screen_3R_on = 0;	# debug screen at 3 right
@@ -498,36 +453,41 @@ var select_door = func(sd_number) {
 	gui.popupTip("Selecting " ~ doors[active_door].node.getNode("name").getValue());
 }
 
-var door_coord_x_m = [-2.55, -2.55, -1.733, -0.608, -0.083, 9.223];
-var door_coord_y_m = [-1.75, 1.75, 0, -0.66, 0, 0];
+var door_coord_x_m = [-2.55, -2.55, -1.733, -0.608, -0.083, 9.223];	# center for proximity
+var door_coord_y_m = [-1.75,  1.75,  0,     -0.660,  0,     0    ];
 
 var door_update = func(door_number) {
 	var c_view = getprop("sim/current-view/view-number");
-	var y_position = yViewNode.getValue();
-	var x_position = xViewNode.getValue();
+	var y_position = getprop("sim/current-view/x-offset-m");
+	var x_position = getprop("sim/current-view/z-offset-m");
 	if (door_number == 0) {
 		var gear_position2 = (gear_position * gear_position * 0.204304) + (gear_position * 0.0627) + 0.733;
-		door0_position = door0_pos.getValue();
+		door0_position = getprop("sim/model/bluebird/doors/door[0]/position-norm");
 		if (door0_position > gear_position2) {
-			door0_adjpos.setValue(gear_position2);
+			setprop("sim/model/bluebird/doors/door[0]/position-adj", gear_position2);
 		} else {
-			door0_adjpos.setValue(door0_position);
+			setprop("sim/model/bluebird/doors/door[0]/position-adj", door0_position);
 		}
 		# check for closing door while standing on ramp
-		if (c_view == 0 and door0_position < 0.62) {
-			if (y_position < -1.3) {
-				if (x_position > -3.2 and x_position < -2.0) {
-					# between front hatches
-					yViewNode.setValue(-1.3);
-				}
-			}
-		}
-		if (door0_position < 0.62) {
-			if (getprop("sim/model/bluebird/crew/walker/y-offset-m") < -1.3) {
+		if (getprop("sim/model/bluebird/crew/walker/y-offset-m") < -1.3) {
+			if (door0_position < 0.62) {
 				var walker_x_position = getprop("sim/model/bluebird/crew/walker/x-offset-m");
 				if (walker_x_position > -3.2 and walker_x_position < -2.0) {
 					# between front hatches
 					setprop("sim/model/bluebird/crew/walker/y-offset-m", -1.3);
+					cockpit_locations[cockpitView].y = -1.3;
+					setprop("sim/model/bluebird/crew/walker/z-offset-m", 0.495);
+					cockpit_locations[cockpitView].z_floor_m = 0.495;
+					if (c_view == 0) {
+						setprop("sim/current-view/x-offset-m", -1.3);
+					}
+				}
+			} else {
+				var new_zf = hatch_z_offset_m(1, getprop("sim/model/bluebird/crew/walker/y-offset-m")) + 0.495;
+				setprop("sim/model/bluebird/crew/walker/z-offset-m", new_zf);
+				cockpit_locations[cockpitView].z_floor_m = new_zf;
+				if (c_view == 0) {
+					setprop("sim/current-view/y-offset-m", new_zf + cockpit_locations[cockpitView].z_eye_offset_m);
 				}
 			}
 		}
@@ -535,26 +495,31 @@ var door_update = func(door_number) {
 		hatch_lighting_update();
 	} elsif (door_number == 1) {
 		var gear_position2 = (gear_position * gear_position * 0.204304) + (gear_position * 0.0627) + 0.733;
-		door1_position = door1_pos.getValue();
+		door1_position = getprop("sim/model/bluebird/doors/door[1]/position-norm");
 		if (door1_position > gear_position2) {
-			door1_adjpos.setValue(gear_position2);
+			setprop("sim/model/bluebird/doors/door[1]/position-adj", gear_position2);
 		} else {
-			door1_adjpos.setValue(door1_position);
+			setprop("sim/model/bluebird/doors/door[1]/position-adj", door1_position);
 		}
-		if (c_view == 0 and door1_position < 0.62) {
-			if (y_position > 1.3) {
-				if (x_position > -3.2 and x_position < -2.0) {
-					# between front hatches
-					yViewNode.setValue(1.3);
-				}
-			}
-		}
-		if (door1_position < 0.62) {
-			if (getprop("sim/model/bluebird/crew/walker/y-offset-m") > 1.3) {
+		if (getprop("sim/model/bluebird/crew/walker/y-offset-m") > 1.3) {
+			if (door1_position < 0.62) {
 				var walker_x_position = getprop("sim/model/bluebird/crew/walker/x-offset-m");
 				if (walker_x_position > -3.2 and walker_x_position < -2.0) {
 					# between front hatches
 					setprop("sim/model/bluebird/crew/walker/y-offset-m", 1.3);
+					cockpit_locations[cockpitView].y = 1.3;
+					setprop("sim/model/bluebird/crew/walker/z-offset-m", 0.495);
+					cockpit_locations[cockpitView].z_floor_m = 0.495;
+					if (c_view == 0) {
+						setprop("sim/current-view/x-offset-m", 1.3);
+					}
+				}
+			} else {
+				var new_zf = hatch_z_offset_m(2, getprop("sim/model/bluebird/crew/walker/y-offset-m")) + 0.495;
+				setprop("sim/model/bluebird/crew/walker/z-offset-m", new_zf);
+				cockpit_locations[cockpitView].z_floor_m = new_zf;
+				if (c_view == 0) {
+					setprop("sim/current-view/y-offset-m", new_zf + cockpit_locations[cockpitView].z_eye_offset_m);
 				}
 			}
 		}
@@ -568,23 +533,31 @@ var door_update = func(door_number) {
 		setprop("sim/model/bluebird/sound/door4-volume", doorProximityVolume(c_view, 4, x_position, y_position));
 	} elsif (door_number == 5) {
 		var gear_position2 = clamp(((gear_position * gear_position * 0.1207) + (gear_position * 0.2299) + 0.79), 0, 1);
-		door5_position = door5_pos.getValue();
+		door5_position = getprop("sim/model/bluebird/doors/door[5]/position-norm");
 		if (door5_position > 0.66 and airspeed > 40) {
 			door5_position = 0.66;
 		}
 		if (door5_position > gear_position2) {
-			door5_adjpos.setValue(gear_position2);
+			setprop("sim/model/bluebird/doors/door[5]/position-adj", gear_position2);
 		} else {
-			door5_adjpos.setValue(door5_position);
+			setprop("sim/model/bluebird/doors/door[5]/position-adj", door5_position);
 		}
-		if (c_view == 0 and door5_position < 0.62) {
-			if (x_position > 8.9) {
-				xViewNode.setValue(8.9);
-			}
-		}
-		if (door5_position < 0.62) {
-			if (getprop("sim/model/bluebird/crew/walker/x-offset-m") > 8.9) {
+		if (getprop("sim/model/bluebird/crew/walker/x-offset-m") > 8.9) {
+			if (door5_position < 0.62) {
 				setprop("sim/model/bluebird/crew/walker/x-offset-m", 8.9);
+				cockpit_locations[cockpitView].x = 8.9;
+				setprop("sim/model/bluebird/crew/walker/z-offset-m", 0.495);
+				cockpit_locations[cockpitView].z_floor_m = 0.495;
+				if (c_view == 0) {
+					setprop("sim/current-view/z-offset-m", 8.9);
+				}
+			} else {
+				var new_zf = hatch_z_offset_m(4, getprop("sim/model/bluebird/crew/walker/x-offset-m")) + 0.495;
+				setprop("sim/model/bluebird/crew/walker/z-offset-m", new_zf);
+				cockpit_locations[cockpitView].z_floor_m = new_zf;
+				if (c_view == 0) {
+					setprop("sim/current-view/y-offset-m", new_zf + cockpit_locations[cockpitView].z_eye_offset_m);
+				}
 			}
 		}
 		setprop("sim/model/bluebird/sound/door5-volume", doorProximityVolume(c_view, 5, x_position, y_position));
@@ -629,7 +602,6 @@ var toggle_door = func {
 	doors[active_door].toggle();
 	var td_dr = doors[active_door].node.getNode("position-norm").getValue();
 	setprop("sim/model/bluebird/sound/door-direction", td_dr);  # attempt to determine direction
-
 	if (active_door == 0) {
 		setprop("sim/model/bluebird/sound/hatch0-trigger", 1);
 		settimer(reset_trigger0, 1);
@@ -736,119 +708,30 @@ setlistener("sim/model/bluebird/lighting/overhead/emission/factor", func(n) { em
 var amb_calc = 0.1;
 setlistener("sim/model/bluebird/lighting/interior-ambient-factor", func(n) { amb_calc = n.getValue() }, 1, 0);
 
-var set_I1_ambient = func {
+var set_ambient_I = func(i) {
 	# emission calculation base
-	livery_I1R = livery_I1AR + (livery_I1R_add * alert_level * int_switch * power_switch);
-	livery_I1G = livery_I1AG + (livery_I1G_add * alert_level * int_switch * power_switch);
-	livery_I1B = livery_I1AB + (livery_I1B_add * alert_level * int_switch * power_switch);
-	setprop("sim/model/bluebird/lighting/interior1-flooring/amb-dif/red", livery_I1R * amb_calc);
-	setprop("sim/model/bluebird/lighting/interior1-flooring/amb-dif/green", livery_I1G * amb_calc);
-	setprop("sim/model/bluebird/lighting/interior1-flooring/amb-dif/blue", livery_I1B * amb_calc);
+	livery_cabin_surface[i].ER = livery_cabin_surface[i].AR + (livery_cabin_surface[i].R_add * alert_level * int_switch * power_switch);
+	setprop("sim/model/bluebird/lighting/"~livery_cabin_surface[i].pname~"/amb-dif/red", livery_cabin_surface[i].ER * amb_calc);
+	livery_cabin_surface[i].EG = livery_cabin_surface[i].AG + (livery_cabin_surface[i].G_add * alert_level * int_switch * power_switch);
+	if (livery_cabin_surface[i].type == "GB") {
+		setprop("sim/model/bluebird/lighting/"~livery_cabin_surface[i].pname~"/amb-dif/gb", livery_cabin_surface[i].EG * amb_calc);
+	} else {
+		livery_cabin_surface[i].EB = livery_cabin_surface[i].AB + (livery_cabin_surface[i].B_add * alert_level * int_switch * power_switch);
+		setprop("sim/model/bluebird/lighting/"~livery_cabin_surface[i].pname~"/amb-dif/green", livery_cabin_surface[i].EG * amb_calc);
+		setprop("sim/model/bluebird/lighting/"~livery_cabin_surface[i].pname~"/amb-dif/blue", livery_cabin_surface[i].EB * amb_calc);
+	}
 }
 
-var recalc_material_I1 = func {
+var recalc_material_I = func(i) {
 	# calculate emission and ambient base levels upon loading new livery
-	var red_amb_flr_R = clamp(livery_I1AR * 1.5, 0.5, 1.0);     # tint calculations
-	var red_amb_flr_G = clamp(livery_I1AG * 0.75, 0, 1);
-	var red_amb_flr_B = clamp(livery_I1AB * 0.75, 0, 1);
-	livery_I1R_add = red_amb_flr_R - livery_I1AR;  # amount to add when calculating alert_level
-	livery_I1G_add = red_amb_flr_G - livery_I1AG;
-	livery_I1B_add = red_amb_flr_B - livery_I1AB;
-}
-
-var set_I2_ambient = func {
-	livery_I2R = livery_I2AR + (livery_I2R_add * alert_level * int_switch * power_switch);
-	livery_I2G = livery_I2AG + (livery_I2G_add * alert_level * int_switch * power_switch);
-	livery_I2B = livery_I2AB + (livery_I2B_add * alert_level * int_switch * power_switch);
-	setprop("sim/model/bluebird/lighting/interior2-door-panels/amb-dif/red", livery_I2R * amb_calc);
-	setprop("sim/model/bluebird/lighting/interior2-door-panels/amb-dif/green", livery_I2G * amb_calc);
-	setprop("sim/model/bluebird/lighting/interior2-door-panels/amb-dif/blue", livery_I2B * amb_calc);
-}
-
-var recalc_material_I2 = func {
-	var red_amb_flr_R = clamp(livery_I2AR * 1.5, 0.5, 1.0);
-	var red_amb_flr_G = clamp(livery_I2AG * 0.75, 0, 1);
-	var red_amb_flr_B = clamp(livery_I2AB * 0.75, 0, 1);
-	livery_I2R_add = red_amb_flr_R - livery_I2AR;
-	livery_I2G_add = red_amb_flr_G - livery_I2AG;
-	livery_I2B_add = red_amb_flr_B - livery_I2AB;
-}
-
-var set_I3_ambient = func {
-	livery_I3R = livery_I3AR + (livery_I3R_add * alert_level * int_switch * power_switch);
-	livery_I3G = livery_I3AG + (livery_I3G_add * alert_level * int_switch * power_switch);
-	livery_I3B = livery_I3AB + (livery_I3B_add * alert_level * int_switch * power_switch);
-	setprop("sim/model/bluebird/lighting/interior3-upper-walls/amb-dif/red", livery_I3R * amb_calc);
-	setprop("sim/model/bluebird/lighting/interior3-upper-walls/amb-dif/green", livery_I3G * amb_calc);
-	setprop("sim/model/bluebird/lighting/interior3-upper-walls/amb-dif/blue", livery_I3B * amb_calc);
-}
-
-var recalc_material_I3 = func {
-	var red_amb_flr_R = clamp(livery_I3AR * 1.5, 0.5, 1.0);
-	var red_amb_flr_G = clamp(livery_I3AG * 0.75, 0, 1);
-	var red_amb_flr_B = clamp(livery_I3AB * 0.75, 0, 1);
-	livery_I3R_add = red_amb_flr_R - livery_I3AR;
-	livery_I3G_add = red_amb_flr_G - livery_I3AG;
-	livery_I3B_add = red_amb_flr_B - livery_I3AB;
-}
-
-var set_I4_ambient = func {
-	livery_I4R = livery_I4AR + (livery_I4R_add * alert_level * int_switch * power_switch);
-	livery_I4G = livery_I4AG + (livery_I4G_add * alert_level * int_switch * power_switch);
-	livery_I4B = livery_I4AB + (livery_I4B_add * alert_level * int_switch * power_switch);
-	setprop("sim/model/bluebird/lighting/interior4-lower-walls/amb-dif/red", livery_I4R * amb_calc);
-	setprop("sim/model/bluebird/lighting/interior4-lower-walls/amb-dif/green", livery_I4G * amb_calc);
-	setprop("sim/model/bluebird/lighting/interior4-lower-walls/amb-dif/blue", livery_I4B * amb_calc);
-}
-
-var recalc_material_I4 = func {
-	var red_amb_flr_R = clamp(livery_I4AR * 1.5, 0.5, 1.0);
-	var red_amb_flr_G = clamp(livery_I4AG * 0.75, 0, 1);
-	var red_amb_flr_B = clamp(livery_I4AB * 0.75, 0, 1);
-	livery_I4R_add = red_amb_flr_R - livery_I4AR;
-	livery_I4G_add = red_amb_flr_G - livery_I4AG;
-	livery_I4B_add = red_amb_flr_B - livery_I4AB;
-}
-
-var set_I5_ambient = func {
-	livery_I5R = livery_I5AR + (livery_I5R_add * alert_level * int_switch * power_switch);
-	livery_I5G = livery_I5AG + (livery_I5G_add * alert_level * int_switch * power_switch);
-	livery_I5B = livery_I5AB + (livery_I5B_add * alert_level * int_switch * power_switch);
-	setprop("sim/model/bluebird/lighting/interior5-console/amb-dif/red", livery_I5R * amb_calc);
-	setprop("sim/model/bluebird/lighting/interior5-console/amb-dif/green", livery_I5G * amb_calc);
-	setprop("sim/model/bluebird/lighting/interior5-console/amb-dif/blue", livery_I5B * amb_calc);
-}
-
-var set_I6_ambient = func {
-	livery_I6R = livery_I6AR + (livery_I6R_add * alert_level * int_switch * power_switch);
-	livery_I6G = livery_I6AG + (livery_I6G_add * alert_level * int_switch * power_switch);
-	livery_I6B = livery_I6AB + (livery_I6B_add * alert_level * int_switch * power_switch);
-	setprop("sim/model/bluebird/lighting/interior6-chairs/amb-dif/red", livery_I6R * amb_calc);
-	setprop("sim/model/bluebird/lighting/interior6-chairs/amb-dif/green", livery_I6G * amb_calc);
-	setprop("sim/model/bluebird/lighting/interior6-chairs/amb-dif/blue", livery_I6B * amb_calc);
-}
-
-var set_I7_ambient = func {
-	livery_I7R = livery_I7AR + (livery_I7R_add * alert_level * int_switch * power_switch);
-	livery_I7G = livery_I7AG + (livery_I7G_add * alert_level * int_switch * power_switch);
-	livery_I7B = livery_I7AB + (livery_I7B_add * alert_level * int_switch * power_switch);
-	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/amb-dif/red", livery_I7R * amb_calc);
-	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/amb-dif/green", livery_I7G * amb_calc);
-	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/amb-dif/blue", livery_I7B * amb_calc);
-}
-
-var set_I8_ambient = func {
-	livery_I8R = livery_I8AR + (livery_I8R_add * alert_level * int_switch * power_switch);
-	livery_I8GB = livery_I8AGB + (livery_I8GB_add * alert_level * int_switch * power_switch);
-	setprop("sim/model/bluebird/lighting/interior8-light-frame/amb-dif/red", livery_I8R * amb_calc);
-	setprop("sim/model/bluebird/lighting/interior8-light-frame/amb-dif/gb", livery_I8GB * amb_calc);
-}
-
-var set_I9_ambient = func {
-	livery_I9R = livery_I9AR + (livery_I9R_add * alert_level * int_switch * power_switch);
-	livery_I9GB = livery_I9AGB + (livery_I9GB_add * alert_level * int_switch * power_switch);
-	setprop("sim/model/bluebird/lighting/interior9-buttons/amb-dif/red", livery_I9R * amb_calc);
-	setprop("sim/model/bluebird/lighting/interior9-buttons/amb-dif/gb", livery_I9GB * amb_calc);
+	var red_amb_flr_R = clamp(livery_cabin_surface[i].AR * 1.5, 0.5, 1.0);     # tint calculations
+	livery_cabin_surface[i].R_add = red_amb_flr_R - livery_cabin_surface[i].AR;  # amount to add when calculating alert_level
+	var red_amb_flr_G = clamp(livery_cabin_surface[i].AG * 0.75, 0, 1);
+	livery_cabin_surface[i].G_add = red_amb_flr_G - livery_cabin_surface[i].AG;
+	if (livery_cabin_surface[i].type != "GB") {
+		var red_amb_flr_B = clamp(livery_cabin_surface[i].AB * 0.75, 0, 1);
+		livery_cabin_surface[i].B_add = red_amb_flr_B - livery_cabin_surface[i].AB;
+	}
 }
 
 var hatch_interpolate = func (i_from, i_to, i_slider) {
@@ -856,186 +739,190 @@ var hatch_interpolate = func (i_from, i_to, i_slider) {
 }
 
 var hatch_lighting_update = func {
-	var door0_opening = clamp(((door0_position - 0.15) * 1.887), 0, 1);
-	setprop("sim/model/bluebird/lighting/door0/interior1-flooring/emission/red", hatch_interpolate((livery_I1R * interior_lighting_base_R), livery_I1AR, (door0_opening * 0.5)));
-	setprop("sim/model/bluebird/lighting/door0/interior1-flooring/emission/green", hatch_interpolate((livery_I1G * interior_lighting_base_GB), livery_I1AG, (door0_opening * 0.5)));
-	setprop("sim/model/bluebird/lighting/door0/interior1-flooring/emission/blue", hatch_interpolate((livery_I1B * interior_lighting_base_GB), livery_I1AB, (door0_opening * 0.5)));
-	setprop("sim/model/bluebird/lighting/door0/interior4-lower-walls/emission/red", hatch_interpolate(0, (livery_I4R * interior_lighting_base_R), door0_opening));
-	setprop("sim/model/bluebird/lighting/door0/interior4-lower-walls/emission/green", hatch_interpolate(0, (livery_I4G * interior_lighting_base_GB), door0_opening));
-	setprop("sim/model/bluebird/lighting/door0/interior4-lower-walls/emission/blue", hatch_interpolate(0, (livery_I4B * interior_lighting_base_GB), door0_opening));
-	setprop("sim/model/bluebird/lighting/door0/interior8-light-frame/emission/red", hatch_interpolate(0, (livery_I8R * interior_lighting_base_R), door0_opening));
-	setprop("sim/model/bluebird/lighting/door0/interior8-light-frame/emission/gb", hatch_interpolate(0, (livery_I8GB * interior_lighting_base_GB), door0_opening));
-	setprop("sim/model/bluebird/lighting/door0/hatchA-steps/emission/red", hatch_interpolate(0, (livery_IAARGB * interior_lighting_base_R), door0_opening));
-	setprop("sim/model/bluebird/lighting/door0/hatchA-steps/emission/gb", hatch_interpolate(0, (livery_IAARGB * interior_lighting_base_GB), door0_opening));
+	var sa_hatch = (sun_angle > 1.6 ? 0 : (1.6 - sun_angle) / 0.6);
+	var door0_opening = clamp(((door0_position - 0.15) * 1.887), 0, 1);	# adjust for size of actual opening
+	var door0_E_subtract = door0_opening * (1 - int_switch) * 0.45;
+	setprop("sim/model/bluebird/lighting/door0/interior1-flooring/emission/red", clamp(hatch_interpolate((livery_cabin_surface[1].ER * interior_lighting_base_R), livery_cabin_surface[1].AR, (door0_opening * sa_hatch)) - door0_E_subtract, 0,1));
+	setprop("sim/model/bluebird/lighting/door0/interior1-flooring/emission/green", clamp(hatch_interpolate((livery_cabin_surface[1].EG * interior_lighting_base_GB), livery_cabin_surface[1].AG, (door0_opening * sa_hatch)) - door0_E_subtract, 0,1));
+	setprop("sim/model/bluebird/lighting/door0/interior1-flooring/emission/blue", clamp(hatch_interpolate((livery_cabin_surface[1].EB * interior_lighting_base_GB), livery_cabin_surface[1].AB, (door0_opening * sa_hatch)) - door0_E_subtract, 0,1));
+	setprop("sim/model/bluebird/lighting/door0/interior4-lower-walls/emission/red", hatch_interpolate(0, (livery_cabin_surface[4].ER * interior_lighting_base_R), door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/interior4-lower-walls/emission/green", hatch_interpolate(0, (livery_cabin_surface[4].EG * interior_lighting_base_GB), door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/interior4-lower-walls/emission/blue", hatch_interpolate(0, (livery_cabin_surface[4].EB * interior_lighting_base_GB), door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/interior8-light-frame/emission/red", hatch_interpolate(0, (livery_cabin_surface[8].ER * interior_lighting_base_R), door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/interior8-light-frame/emission/gb", hatch_interpolate(0, (livery_cabin_surface[8].EG * interior_lighting_base_GB), door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/hatchA-steps/emission/red", hatch_interpolate(0, (livery_cabin_surface[0].ER * interior_lighting_base_R), door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/hatchA-steps/emission/gb", hatch_interpolate(0, (livery_cabin_surface[0].EG * interior_lighting_base_GB), door0_opening));
 
-	setprop("sim/model/bluebird/lighting/door0/interior1-flooring/amb-dif/red", hatch_interpolate((livery_I1R * interior_lighting_base_R), livery_I1AR, door0_opening));
-	setprop("sim/model/bluebird/lighting/door0/interior1-flooring/amb-dif/green", hatch_interpolate((livery_I1G * interior_lighting_base_GB), livery_I1AG, door0_opening));
-	setprop("sim/model/bluebird/lighting/door0/interior1-flooring/amb-dif/blue", hatch_interpolate((livery_I1B * interior_lighting_base_GB), livery_I1AB, door0_opening));
-	setprop("sim/model/bluebird/lighting/door0/interior4-lower-walls/amb-dif/red", hatch_interpolate((livery_I4R * interior_lighting_base_R), livery_I4AR, door0_opening));
-	setprop("sim/model/bluebird/lighting/door0/interior4-lower-walls/amb-dif/green", hatch_interpolate((livery_I4G * interior_lighting_base_GB), livery_I4AG, door0_opening));
-	setprop("sim/model/bluebird/lighting/door0/interior4-lower-walls/amb-dif/blue", hatch_interpolate((livery_I4B * interior_lighting_base_GB), livery_I4AB, door0_opening));
-	setprop("sim/model/bluebird/lighting/door0/interior8-light-frame/amb-dif/red", hatch_interpolate((livery_I8R * interior_lighting_base_R), livery_I8AR, door0_opening));
-	setprop("sim/model/bluebird/lighting/door0/interior8-light-frame/amb-dif/gb", hatch_interpolate((livery_I8GB * interior_lighting_base_GB), livery_I8AGB, door0_opening));
+	var door0_A_factor = door0_opening * (1 - int_switch) * sa_hatch * 0.5;
+	var door_A_add = int_switch * 0.1;
+	setprop("sim/model/bluebird/lighting/door0/interior1-flooring/amb-dif/red", (hatch_interpolate((livery_cabin_surface[1].ER * interior_lighting_base_R), livery_cabin_surface[1].AR, door0_opening) * door0_A_factor) + (door_A_add * interior_lighting_base_R));
+	setprop("sim/model/bluebird/lighting/door0/interior1-flooring/amb-dif/green", (hatch_interpolate((livery_cabin_surface[1].EG * interior_lighting_base_GB), livery_cabin_surface[1].AG, door0_opening) * door0_A_factor) + (door_A_add * interior_lighting_base_GB));
+	setprop("sim/model/bluebird/lighting/door0/interior1-flooring/amb-dif/blue", (hatch_interpolate((livery_cabin_surface[1].EB * interior_lighting_base_GB), livery_cabin_surface[1].AB, door0_opening) * door0_A_factor) + (door_A_add * interior_lighting_base_GB));
+	setprop("sim/model/bluebird/lighting/door0/interior4-lower-walls/amb-dif/red", hatch_interpolate((livery_cabin_surface[4].ER * interior_lighting_base_R), livery_cabin_surface[4].AR, door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/interior4-lower-walls/amb-dif/green", hatch_interpolate((livery_cabin_surface[4].EG * interior_lighting_base_GB), livery_cabin_surface[4].AG, door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/interior4-lower-walls/amb-dif/blue", hatch_interpolate((livery_cabin_surface[4].EB * interior_lighting_base_GB), livery_cabin_surface[4].AB, door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/interior8-light-frame/amb-dif/red", hatch_interpolate((livery_cabin_surface[8].ER * interior_lighting_base_R), livery_cabin_surface[8].AR, door0_opening));
+	setprop("sim/model/bluebird/lighting/door0/interior8-light-frame/amb-dif/gb", hatch_interpolate((livery_cabin_surface[8].EG * interior_lighting_base_GB), livery_cabin_surface[8].AG, door0_opening));
 
 	var door1_opening = clamp(((door1_position - 0.15) * 1.887), 0, 1);
-	setprop("sim/model/bluebird/lighting/door1/interior1-flooring/emission/red", hatch_interpolate((livery_I1R * interior_lighting_base_R), livery_I1AR, (door1_opening * 0.5)));
-	setprop("sim/model/bluebird/lighting/door1/interior1-flooring/emission/green", hatch_interpolate((livery_I1G * interior_lighting_base_GB), livery_I1AG, (door1_opening * 0.5)));
-	setprop("sim/model/bluebird/lighting/door1/interior1-flooring/emission/blue", hatch_interpolate((livery_I1B * interior_lighting_base_GB), livery_I1AB, (door1_opening * 0.5)));
-	setprop("sim/model/bluebird/lighting/door1/interior4-lower-walls/emission/red", hatch_interpolate(0, (livery_I4R * interior_lighting_base_R), door1_opening));
-	setprop("sim/model/bluebird/lighting/door1/interior4-lower-walls/emission/green", hatch_interpolate(0, (livery_I4G * interior_lighting_base_GB), door1_opening));
-	setprop("sim/model/bluebird/lighting/door1/interior4-lower-walls/emission/blue", hatch_interpolate(0, (livery_I4B * interior_lighting_base_GB), door1_opening));
-	setprop("sim/model/bluebird/lighting/door1/interior8-light-frame/emission/red", hatch_interpolate(0, (livery_I8R * interior_lighting_base_R), door1_opening));
-	setprop("sim/model/bluebird/lighting/door1/interior8-light-frame/emission/gb", hatch_interpolate(0, (livery_I8GB * interior_lighting_base_GB), door1_opening));
-	setprop("sim/model/bluebird/lighting/door1/hatchA-steps/emission/red", hatch_interpolate(0, (livery_IAARGB * interior_lighting_base_R), door1_opening));
-	setprop("sim/model/bluebird/lighting/door1/hatchA-steps/emission/gb", hatch_interpolate(0, (livery_IAARGB * interior_lighting_base_GB), door1_opening));
+	var door1_E_subtract = door1_opening * (1 - int_switch) * 0.45;
+	setprop("sim/model/bluebird/lighting/door1/interior1-flooring/emission/red", clamp(hatch_interpolate((livery_cabin_surface[1].ER * interior_lighting_base_R), livery_cabin_surface[1].AR, (door1_opening * sa_hatch)) - door1_E_subtract, 0,1));
+	setprop("sim/model/bluebird/lighting/door1/interior1-flooring/emission/green", clamp(hatch_interpolate((livery_cabin_surface[1].EG * interior_lighting_base_GB), livery_cabin_surface[1].AG, (door1_opening * sa_hatch)) - door1_E_subtract, 0,1));
+	setprop("sim/model/bluebird/lighting/door1/interior1-flooring/emission/blue", clamp(hatch_interpolate((livery_cabin_surface[1].EB * interior_lighting_base_GB), livery_cabin_surface[1].AB, (door1_opening * sa_hatch)) - door1_E_subtract, 0,1));
+	setprop("sim/model/bluebird/lighting/door1/interior4-lower-walls/emission/red", hatch_interpolate(0, (livery_cabin_surface[4].ER * interior_lighting_base_R), door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/interior4-lower-walls/emission/green", hatch_interpolate(0, (livery_cabin_surface[4].EG * interior_lighting_base_GB), door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/interior4-lower-walls/emission/blue", hatch_interpolate(0, (livery_cabin_surface[4].EB * interior_lighting_base_GB), door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/interior8-light-frame/emission/red", hatch_interpolate(0, (livery_cabin_surface[8].ER * interior_lighting_base_R), door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/interior8-light-frame/emission/gb", hatch_interpolate(0, (livery_cabin_surface[8].EG * interior_lighting_base_GB), door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/hatchA-steps/emission/red", hatch_interpolate(0, (livery_cabin_surface[0].ER * interior_lighting_base_R), door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/hatchA-steps/emission/gb", hatch_interpolate(0, (livery_cabin_surface[0].EG * interior_lighting_base_GB), door1_opening));
 
-	setprop("sim/model/bluebird/lighting/door1/interior1-flooring/amb-dif/red", hatch_interpolate((livery_I1R * interior_lighting_base_R), livery_I1AR, door1_opening));
-	setprop("sim/model/bluebird/lighting/door1/interior1-flooring/amb-dif/green", hatch_interpolate((livery_I1G * interior_lighting_base_GB), livery_I1AG, door1_opening));
-	setprop("sim/model/bluebird/lighting/door1/interior1-flooring/amb-dif/blue", hatch_interpolate((livery_I1B * interior_lighting_base_GB), livery_I1AB, door1_opening));
-	setprop("sim/model/bluebird/lighting/door1/interior4-lower-walls/amb-dif/red", hatch_interpolate((livery_I4R * interior_lighting_base_R), livery_I4AR, door1_opening));
-	setprop("sim/model/bluebird/lighting/door1/interior4-lower-walls/amb-dif/green", hatch_interpolate((livery_I4G * interior_lighting_base_GB), livery_I4AG, door1_opening));
-	setprop("sim/model/bluebird/lighting/door1/interior4-lower-walls/amb-dif/blue", hatch_interpolate((livery_I4B * interior_lighting_base_GB), livery_I4AB, door1_opening));
-	setprop("sim/model/bluebird/lighting/door1/interior8-light-frame/amb-dif/red", hatch_interpolate((livery_I8R * interior_lighting_base_R), livery_I8AR, door1_opening));
-	setprop("sim/model/bluebird/lighting/door1/interior8-light-frame/amb-dif/gb", hatch_interpolate((livery_I8GB * interior_lighting_base_GB), livery_I8AGB, door1_opening));
+	var door1_A_factor = door1_opening * (1 - int_switch) * sa_hatch * 0.5;
+	setprop("sim/model/bluebird/lighting/door1/interior1-flooring/amb-dif/red", (hatch_interpolate((livery_cabin_surface[1].ER * interior_lighting_base_R), livery_cabin_surface[1].AR, door1_opening) * door1_A_factor) + (door_A_add * interior_lighting_base_R));
+	setprop("sim/model/bluebird/lighting/door1/interior1-flooring/amb-dif/green", (hatch_interpolate((livery_cabin_surface[1].EG * interior_lighting_base_GB), livery_cabin_surface[1].AG, door1_opening) * door1_A_factor) + (door_A_add * interior_lighting_base_GB));
+	setprop("sim/model/bluebird/lighting/door1/interior1-flooring/amb-dif/blue", (hatch_interpolate((livery_cabin_surface[1].EB * interior_lighting_base_GB), livery_cabin_surface[1].AB, door1_opening) * door1_A_factor) + (door_A_add * interior_lighting_base_GB));
+	setprop("sim/model/bluebird/lighting/door1/interior4-lower-walls/amb-dif/red", hatch_interpolate((livery_cabin_surface[4].ER * interior_lighting_base_R), livery_cabin_surface[4].AR, door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/interior4-lower-walls/amb-dif/green", hatch_interpolate((livery_cabin_surface[4].EG * interior_lighting_base_GB), livery_cabin_surface[4].AG, door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/interior4-lower-walls/amb-dif/blue", hatch_interpolate((livery_cabin_surface[4].EB * interior_lighting_base_GB), livery_cabin_surface[4].AB, door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/interior8-light-frame/amb-dif/red", hatch_interpolate((livery_cabin_surface[8].ER * interior_lighting_base_R), livery_cabin_surface[8].AR, door1_opening));
+	setprop("sim/model/bluebird/lighting/door1/interior8-light-frame/amb-dif/gb", hatch_interpolate((livery_cabin_surface[8].EG * interior_lighting_base_GB), livery_cabin_surface[8].AG, door1_opening));
 	var doors0_1_opening = (door0_opening + door1_opening) * 0.5;
-	setprop("sim/model/bluebird/lighting/doors0-1/interior1-flooring/amb-dif/red", hatch_interpolate((livery_I1R * interior_lighting_base_R * amb_calc), livery_I1AR, doors0_1_opening));
-	setprop("sim/model/bluebird/lighting/doors0-1/interior1-flooring/amb-dif/green", hatch_interpolate((livery_I1G * interior_lighting_base_GB * amb_calc), livery_I1AG, doors0_1_opening));
-	setprop("sim/model/bluebird/lighting/doors0-1/interior1-flooring/amb-dif/blue", hatch_interpolate((livery_I1B * interior_lighting_base_GB * amb_calc), livery_I1AB, doors0_1_opening));
+	setprop("sim/model/bluebird/lighting/doors0-1/interior1-flooring/amb-dif/red", hatch_interpolate((livery_cabin_surface[1].ER * interior_lighting_base_R * amb_calc), livery_cabin_surface[1].AR, doors0_1_opening));
+	setprop("sim/model/bluebird/lighting/doors0-1/interior1-flooring/amb-dif/green", hatch_interpolate((livery_cabin_surface[1].EG * interior_lighting_base_GB * amb_calc), livery_cabin_surface[1].AG, doors0_1_opening));
+	setprop("sim/model/bluebird/lighting/doors0-1/interior1-flooring/amb-dif/blue", hatch_interpolate((livery_cabin_surface[1].EB * interior_lighting_base_GB * amb_calc), livery_cabin_surface[1].AB, doors0_1_opening));
 
 	var door5_opening = clamp((door5_position * 1.724), 0, 1);
 	setprop("sim/model/bluebird/lighting/door5/interior-specular", door5_opening);
 	var door5_E_factor = 1 - (door5_opening * 0.5);
 	var f5R = interior_lighting_base_R * door5_E_factor;
 	var f5GB = interior_lighting_base_GB * door5_E_factor;
-	setprop("sim/model/bluebird/lighting/door5/hatch1-flooring-center/emission/red", livery_I1R * f5R);
-	setprop("sim/model/bluebird/lighting/door5/hatch1-flooring-center/emission/green", livery_I1G * f5GB);
-	setprop("sim/model/bluebird/lighting/door5/hatch1-flooring-center/emission/blue", livery_I1B * f5GB);
-	setprop("sim/model/bluebird/lighting/door5/hatch3-upper-walls/emission/red", livery_I3R * f5R);
-	setprop("sim/model/bluebird/lighting/door5/hatch3-upper-walls/emission/green", livery_I3G * f5GB);
-	setprop("sim/model/bluebird/lighting/door5/hatch3-upper-walls/emission/blue", livery_I3B * f5GB);
-	setprop("sim/model/bluebird/lighting/door5/hatch4-lower-walls/emission/red", livery_I4R * f5R);
-	setprop("sim/model/bluebird/lighting/door5/hatch4-lower-walls/emission/green", livery_I4G * f5GB);
-	setprop("sim/model/bluebird/lighting/door5/hatch4-lower-walls/emission/blue", livery_I4B * f5GB);
-	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/emission/red", livery_I7R * f5R);
-	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/emission/green", livery_I7G * f5GB);
-	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/emission/blue", livery_I7B * f5GB);
-	setprop("sim/model/bluebird/lighting/door5/interior1-flooring/emission/red", hatch_interpolate((livery_I1R * interior_lighting_base_R), livery_I1AR, (door5_opening * 0.5)));
-	setprop("sim/model/bluebird/lighting/door5/interior1-flooring/emission/green", hatch_interpolate((livery_I1G * interior_lighting_base_GB), livery_I1AG, (door5_opening * 0.5)));
-	setprop("sim/model/bluebird/lighting/door5/interior1-flooring/emission/blue", hatch_interpolate((livery_I1B * interior_lighting_base_GB), livery_I1AB, (door5_opening * 0.5)));
+	setprop("sim/model/bluebird/lighting/door5/hatch1-flooring-center/emission/red", livery_cabin_surface[1].ER * f5R);
+	setprop("sim/model/bluebird/lighting/door5/hatch1-flooring-center/emission/green", livery_cabin_surface[1].EG * f5GB);
+	setprop("sim/model/bluebird/lighting/door5/hatch1-flooring-center/emission/blue", livery_cabin_surface[1].EB * f5GB);
+	setprop("sim/model/bluebird/lighting/door5/hatch3-upper-walls/emission/red", livery_cabin_surface[3].ER * f5R);
+	setprop("sim/model/bluebird/lighting/door5/hatch3-upper-walls/emission/green", livery_cabin_surface[3].EG * f5GB);
+	setprop("sim/model/bluebird/lighting/door5/hatch3-upper-walls/emission/blue", livery_cabin_surface[3].EB * f5GB);
+	setprop("sim/model/bluebird/lighting/door5/hatch4-lower-walls/emission/red", livery_cabin_surface[4].ER * f5R);
+	setprop("sim/model/bluebird/lighting/door5/hatch4-lower-walls/emission/green", livery_cabin_surface[4].EG * f5GB);
+	setprop("sim/model/bluebird/lighting/door5/hatch4-lower-walls/emission/blue", livery_cabin_surface[4].EB * f5GB);
+	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/emission/red", livery_cabin_surface[7].ER * f5R);
+	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/emission/green", livery_cabin_surface[7].EG * f5GB);
+	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/emission/blue", livery_cabin_surface[7].EB * f5GB);
 
-	setprop("sim/model/bluebird/lighting/door5/hatch1-flooring-center/amb-dif/red", livery_I1AR * door5_opening);
-	setprop("sim/model/bluebird/lighting/door5/hatch1-flooring-center/amb-dif/green", livery_I1AG * door5_opening);
-	setprop("sim/model/bluebird/lighting/door5/hatch1-flooring-center/amb-dif/blue", livery_I1AB * door5_opening);
-	setprop("sim/model/bluebird/lighting/door5/hatch3-upper-walls/amb-dif/red", livery_I3AR * door5_opening);
-	setprop("sim/model/bluebird/lighting/door5/hatch3-upper-walls/amb-dif/green", livery_I3AG * door5_opening);
-	setprop("sim/model/bluebird/lighting/door5/hatch3-upper-walls/amb-dif/blue", livery_I3AB * door5_opening);
-	setprop("sim/model/bluebird/lighting/door5/hatch4-lower-walls/amb-dif/red", livery_I4AR * door5_opening);
-	setprop("sim/model/bluebird/lighting/door5/hatch4-lower-walls/amb-dif/green", livery_I4AG * door5_opening);
-	setprop("sim/model/bluebird/lighting/door5/hatch4-lower-walls/amb-dif/blue", livery_I4AB * door5_opening);
-	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/amb-dif/red", livery_I7AR * door5_opening);
-	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/amb-dif/green", livery_I7AG * door5_opening);
-	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/amb-dif/blue", livery_I7AB * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch1-flooring-center/amb-dif/red", livery_cabin_surface[1].AR * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch1-flooring-center/amb-dif/green", livery_cabin_surface[1].AG * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch1-flooring-center/amb-dif/blue", livery_cabin_surface[1].AB * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch3-upper-walls/amb-dif/red", livery_cabin_surface[3].AR * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch3-upper-walls/amb-dif/green", livery_cabin_surface[3].AG * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch3-upper-walls/amb-dif/blue", livery_cabin_surface[3].AB * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch4-lower-walls/amb-dif/red", livery_cabin_surface[4].AR * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch4-lower-walls/amb-dif/green", livery_cabin_surface[4].AG * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch4-lower-walls/amb-dif/blue", livery_cabin_surface[4].AB * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/amb-dif/red", livery_cabin_surface[7].AR * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/amb-dif/green", livery_cabin_surface[7].AG * door5_opening);
+	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/amb-dif/blue", livery_cabin_surface[7].AB * door5_opening);
 
-	var f5 = door5_opening * (1 - int_switch);
-	setprop("sim/model/bluebird/lighting/door5/interior1-flooring/amb-dif/red", livery_I1AR * f5);
-	setprop("sim/model/bluebird/lighting/door5/interior1-flooring/amb-dif/green", livery_I1AG * f5);
-	setprop("sim/model/bluebird/lighting/door5/interior1-flooring/amb-dif/blue", livery_I1AB * f5);
-	setprop("sim/model/bluebird/lighting/door5/interior2-door-panels/amb-dif/red", livery_I2AR * f5 * 0.5);
-	setprop("sim/model/bluebird/lighting/door5/interior2-door-panels/amb-dif/green", livery_I2AG * f5 * 0.5);
-	setprop("sim/model/bluebird/lighting/door5/interior2-door-panels/amb-dif/blue", livery_I2AB * f5 * 0.5);
-	setprop("sim/model/bluebird/lighting/door5/interior3-upper-walls/amb-dif/red", livery_I3AR * f5 * 0.5);
-	setprop("sim/model/bluebird/lighting/door5/interior3-upper-walls/amb-dif/green", livery_I3AG * f5 * 0.5);
-	setprop("sim/model/bluebird/lighting/door5/interior3-upper-walls/amb-dif/blue", livery_I3AB * f5 * 0.5);
-	setprop("sim/model/bluebird/lighting/door5/interior4-lower-walls/amb-dif/red", livery_I4AR * f5 * 0.5);
-	setprop("sim/model/bluebird/lighting/door5/interior4-lower-walls/amb-dif/green", livery_I4AG * f5 * 0.5);
-	setprop("sim/model/bluebird/lighting/door5/interior4-lower-walls/amb-dif/blue", livery_I4AB * f5 * 0.5);
-	setprop("sim/model/bluebird/lighting/door5/interior8-light-frame/amb-dif/red", livery_I8AR * f5 * 0.5);
-	setprop("sim/model/bluebird/lighting/door5/interior8-light-frame/amb-dif/gb", livery_I8AGB * f5 * 0.5);
+	var door5_E_subtract = door5_opening * (1 - int_switch) * 0.45;
+	setprop("sim/model/bluebird/lighting/door5/interior1-flooring/emission/red", clamp(hatch_interpolate((livery_cabin_surface[1].ER * interior_lighting_base_R), livery_cabin_surface[1].AR, (door5_opening * sa_hatch)) - door5_E_subtract, 0,1));
+	setprop("sim/model/bluebird/lighting/door5/interior1-flooring/emission/green", clamp(hatch_interpolate((livery_cabin_surface[1].EG * interior_lighting_base_GB), livery_cabin_surface[1].AG, (door5_opening * sa_hatch)) - door5_E_subtract, 0,1));
+	setprop("sim/model/bluebird/lighting/door5/interior1-flooring/emission/blue", clamp(hatch_interpolate((livery_cabin_surface[1].EB * interior_lighting_base_GB), livery_cabin_surface[1].AB, (door5_opening * sa_hatch)) - door5_E_subtract, 0,1));
+	var door5_A_factor = door5_opening * (1 - int_switch) * sa_hatch * 0.5;
+	setprop("sim/model/bluebird/lighting/door5/interior1-flooring/amb-dif/red", (hatch_interpolate(livery_cabin_surface[1].ER, livery_cabin_surface[1].AR, door5_opening) * door5_A_factor) + (door_A_add * interior_lighting_base_R));
+	setprop("sim/model/bluebird/lighting/door5/interior1-flooring/amb-dif/green", (hatch_interpolate(livery_cabin_surface[1].EG, livery_cabin_surface[1].AG, door5_opening) * door5_A_factor) + (door_A_add * interior_lighting_base_GB));
+	setprop("sim/model/bluebird/lighting/door5/interior1-flooring/amb-dif/blue", (hatch_interpolate(livery_cabin_surface[1].EB, livery_cabin_surface[1].AB, door5_opening) * door5_A_factor) + (door_A_add * interior_lighting_base_GB));
+	for (var i = 2; i <= 4; i += 1) {
+		setprop("sim/model/bluebird/lighting/door5/"~livery_cabin_surface[i].pname~"/amb-dif/red", (hatch_interpolate(livery_cabin_surface[i].ER, livery_cabin_surface[i].AR, door5_opening) * door5_A_factor) + (door_A_add * interior_lighting_base_R));
+		setprop("sim/model/bluebird/lighting/door5/"~livery_cabin_surface[i].pname~"/amb-dif/green", (hatch_interpolate(livery_cabin_surface[i].EG, livery_cabin_surface[i].AG, door5_opening) * door5_A_factor) + (door_A_add * interior_lighting_base_GB));
+		setprop("sim/model/bluebird/lighting/door5/"~livery_cabin_surface[i].pname~"/amb-dif/blue", (hatch_interpolate(livery_cabin_surface[i].EB, livery_cabin_surface[i].AB, door5_opening) * door5_A_factor) + (door_A_add * interior_lighting_base_GB));
+	}
+	setprop("sim/model/bluebird/lighting/door5/interior8-light-frame/amb-dif/red", (hatch_interpolate(livery_cabin_surface[8].ER, livery_cabin_surface[8].AR, door5_opening) * door5_A_factor) + (door_A_add * interior_lighting_base_R));
+	setprop("sim/model/bluebird/lighting/door5/interior8-light-frame/amb-dif/gb", (hatch_interpolate(livery_cabin_surface[8].EG, livery_cabin_surface[8].AG, door5_opening) * door5_A_factor) + (door_A_add * interior_lighting_base_GB));
 }
 
 setlistener("sim/model/livery/material/interior-flooring/ambient/red", func(n) {
-	livery_I1AR = n.getValue();
-	recalc_material_I1();
-	set_I1_ambient();
+	livery_cabin_surface[1].AR = n.getValue();
+	recalc_material_I(1);
+	set_ambient_I(1);
 },, 0);
 
 setlistener("sim/model/livery/material/interior-flooring/ambient/green", func(n) {
-	livery_I1AG = n.getValue();
-	recalc_material_I1();
-	set_I1_ambient();
+	livery_cabin_surface[1].AG = n.getValue();
+	recalc_material_I(1);
+	set_ambient_I(1);
 },, 0);
 
 setlistener("sim/model/livery/material/interior-flooring/ambient/blue", func(n) {
-	livery_I1AB = n.getValue();
-	recalc_material_I1();
-	set_I1_ambient();
+	livery_cabin_surface[1].AB = n.getValue();
+	recalc_material_I(1);
+	set_ambient_I(1);
 },, 0);
 
 setlistener("sim/model/livery/material/interior-door-panels/ambient/red", func(n) {
-	livery_I2AR = n.getValue();
-	recalc_material_I2();
-	set_I2_ambient();
+	livery_cabin_surface[2].AR = n.getValue();
+	recalc_material_I(2);
+	set_ambient_I(2);
 },, 0);
 
 setlistener("sim/model/livery/material/interior-door-panels/ambient/green", func(n) {
-	livery_I2AG = n.getValue();
-	recalc_material_I2();
-	set_I2_ambient();
+	livery_cabin_surface[2].AG = n.getValue();
+	recalc_material_I(2);
+	set_ambient_I(2);
 },, 0);
 
 setlistener("sim/model/livery/material/interior-door-panels/ambient/blue", func(n) {
-	livery_I2AB = n.getValue();
-	recalc_material_I2();
-	set_I2_ambient();
+	livery_cabin_surface[2].AB = n.getValue();
+	recalc_material_I(2);
+	set_ambient_I(2);
 },, 0);
 
 setlistener("sim/model/livery/material/interior-upper/ambient/red", func(n) {
-	livery_I3AR = n.getValue();
-	recalc_material_I3();
-	set_I3_ambient();
+	livery_cabin_surface[3].AR = n.getValue();
+	recalc_material_I(3);
+	set_ambient_I(3);
 },, 0);
 
 setlistener("sim/model/livery/material/interior-upper/ambient/green", func(n) {
-	livery_I3AG = n.getValue();
-	recalc_material_I3();
-	set_I3_ambient();
+	livery_cabin_surface[3].AG = n.getValue();
+	recalc_material_I(3);
+	set_ambient_I(3);
 },, 0);
 
 setlistener("sim/model/livery/material/interior-upper/ambient/blue", func(n) {
-	livery_I3AB = n.getValue();
-	recalc_material_I3();
-	set_I3_ambient();
+	livery_cabin_surface[3].AB = n.getValue();
+	recalc_material_I(3);
+	set_ambient_I(3);
 },, 0);
 
 setlistener("sim/model/livery/material/interior-lower/ambient/red", func(n) {
-	livery_I4AR = n.getValue();
-	recalc_material_I4();
-	set_I4_ambient();
+	livery_cabin_surface[4].AR = n.getValue();
+	recalc_material_I(4);
+	set_ambient_I(4);
 },, 0);
 
 setlistener("sim/model/livery/material/interior-lower/ambient/green", func(n) {
-	livery_I4AG = n.getValue();
-	recalc_material_I4();
-	set_I4_ambient();
+	livery_cabin_surface[4].AG = n.getValue();
+	recalc_material_I(4);
+	set_ambient_I(4);
 },, 0);
 
 setlistener("sim/model/livery/material/interior-lower/ambient/blue", func(n) {
-	livery_I4AB = n.getValue();
-	recalc_material_I4();
-	set_I4_ambient();
+	livery_cabin_surface[4].AB = n.getValue();
+	recalc_material_I(4);
+	set_ambient_I(4);
 },, 0);
 
 setlistener("controls/lighting/alert", func {
-	alert_switch = alert_switch_Node.getValue();
+	alert_switch = getprop("controls/lighting/alert");
 	alert_level = alert_switch;  # reset brightness to full upon change
 	if (!alert_switch) {
 		setprop("sim/model/bluebird/lighting/overhead/emission/red", int_switch);
 		setprop("sim/model/bluebird/lighting/overhead/emission/gb", int_switch);
 	}
-	recalc_material_I1();
-	recalc_material_I2();
-	recalc_material_I3();
-	recalc_material_I4();
+	for (var i = 0; i < livery_cabin_count; i += 1) {
+		if (livery_cabin_surface[i].in_livery == 1) {
+			recalc_material_I(i);
+		}
+	}
 	interior_lighting_update();
 },, 0);
 
@@ -1262,7 +1149,6 @@ var buttonL67_update = func(b67_change_all) {
 	if (old_button_1 != button_LT6 or b67_change_all) {
 		set_button_color("left3-6-countergrav", button_LT6);
 	}
-
 	old_button_1 = button_LT7;
 	if (reactor_request) {	# countergrav powered on or on standby
 		if (reactor_drift) {	# not on standby, powering up
@@ -1518,7 +1404,7 @@ var panel_lighting_update = func {
 	}
 
 	old_button_1 = button_RT4;
-	var ipll = landing_light_switch.getValue();
+	var ipll = getprop("sim/model/bluebird/lighting/landing-lights");
 	if (power_switch and ipll and !damage_count) {
 		if ((ipll == 2 or sun_angle > 1.57) and gear_position > 0.4) {
 			if (gear_position > 0.5) {
@@ -1551,7 +1437,7 @@ var panel_lighting_update = func {
 	}
 
 	old_button_1 = button_RT6;
-	var ipnl = nav_light_switch.getValue();
+	var ipnl = getprop("sim/model/bluebird/lighting/nav-light-switch");
 	if (power_switch and ipnl) {	# on = 6green or dim green
 		button_RT6 = 18 - (ipnl * 8);
 	} else {
@@ -1562,7 +1448,7 @@ var panel_lighting_update = func {
 	}
 
 	old_button_1 = button_RT7;
-	if (power_switch and beacon_switch.getValue()) {	# on = 7green
+	if (power_switch and getprop("controls/lighting/beacon")) {	# on = 7green
 		button_RT7 = 2;
 	} else {
 		button_RT7 = unlit_lighting_base;
@@ -1572,7 +1458,7 @@ var panel_lighting_update = func {
 	}
 
 	old_button_1 = button_RT8;
-	if (power_switch and strobe_switch.getValue()) {	# on = 8green
+	if (power_switch and getprop("controls/lighting/strobe")) {	# on = 8green
 		button_RT8 = 2;
 	} else {
 		button_RT8 = unlit_lighting_base;
@@ -1695,46 +1581,23 @@ var interior_lighting_update = func {
 		setprop("sim/model/bluebird/lighting/waldo/emission/red", 0);
 		setprop("sim/model/bluebird/lighting/waldo/emission/gb", 0);
 	}
-	set_I1_ambient();  # calculate and set ambient levels
-	set_I2_ambient();
-	set_I3_ambient();
-	set_I4_ambient();
-	set_I5_ambient();
-	set_I6_ambient();
-	set_I7_ambient();
-	set_I8_ambient();
-	set_I9_ambient();
+	for (var i = 0; i < livery_cabin_count; i += 1) {
+		set_ambient_I(i);  # calculate and set ambient levels
+	}
 	# next calculate emissions for night lighting
 	interior_lighting_base_R = intlir;
-	setprop("sim/model/bluebird/lighting/interior1-flooring/emission/red", livery_I1R * intlir);
-	setprop("sim/model/bluebird/lighting/interior2-door-panels/emission/red", livery_I2R * intlir);
-	setprop("sim/model/bluebird/lighting/interior3-upper-walls/emission/red", livery_I3R * intlir);
-	setprop("sim/model/bluebird/lighting/interior4-lower-walls/emission/red", livery_I4R * intlir);
-	setprop("sim/model/bluebird/lighting/interior5-console/emission/red", livery_I5R * intlir);
-	setprop("sim/model/bluebird/lighting/interior6-chairs/emission/red", livery_I6R * intlir);
-	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/emission/red", livery_I7R * intlir);
-	setprop("sim/model/bluebird/lighting/interior8-light-frame/emission/red", livery_I8R * intlir);
-	setprop("sim/model/bluebird/lighting/interior9-buttons/emission/red", livery_I9R * intlir);
-	setprop("sim/model/bluebird/lighting/interiorA-door-seals/emission/red", livery_IAARGB * intlir);
+	for (var i = 0; i < livery_cabin_count; i += 1) {
+		setprop("sim/model/bluebird/lighting/"~livery_cabin_surface[i].pname~"/emission/red", livery_cabin_surface[i].ER * intlir);
+	}
 	interior_lighting_base_GB = intlig;
-	setprop("sim/model/bluebird/lighting/interior1-flooring/emission/green", livery_I1G * intlig);
-	setprop("sim/model/bluebird/lighting/interior1-flooring/emission/blue", livery_I1B * intlig);
-	setprop("sim/model/bluebird/lighting/interior2-door-panels/emission/green", livery_I2G * intlig);
-	setprop("sim/model/bluebird/lighting/interior2-door-panels/emission/blue", livery_I2B * intlig);
-	setprop("sim/model/bluebird/lighting/interior3-upper-walls/emission/green", livery_I3G * intlig);
-	setprop("sim/model/bluebird/lighting/interior3-upper-walls/emission/blue", livery_I3B * intlig);
-	setprop("sim/model/bluebird/lighting/interior4-lower-walls/emission/green", livery_I4G * intlig);
-	setprop("sim/model/bluebird/lighting/interior4-lower-walls/emission/blue", livery_I4B * intlig);
-	setprop("sim/model/bluebird/lighting/interior5-console/emission/green", livery_I5G * intlig);
-	setprop("sim/model/bluebird/lighting/interior5-console/emission/blue", livery_I5B * intlig);
-	setprop("sim/model/bluebird/lighting/interior6-chairs/emission/green", livery_I6G * intlig);
-	setprop("sim/model/bluebird/lighting/interior6-chairs/emission/blue", livery_I6B * intlig);
-	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/emission/green", livery_I7G * intlig);
-	setprop("sim/model/bluebird/lighting/door5/hatch7-flooring-side/emission/blue", livery_I7B * intlig);
-	setprop("sim/model/bluebird/lighting/interior8-light-frame/emission/gb", livery_I8GB * intlig);
-	setprop("sim/model/bluebird/lighting/interior9-buttons/emission/gb", livery_I9GB* intlig);
-	setprop("sim/model/bluebird/lighting/interiorA-door-seals/emission/gb", livery_IAARGB * intlig);
-
+	for (var i = 0; i < livery_cabin_count; i += 1) {
+		if (livery_cabin_surface[i].type == "GB") {
+			setprop("sim/model/bluebird/lighting/"~livery_cabin_surface[i].pname~"/emission/gb", livery_cabin_surface[i].EG * intlig);
+		} else {
+			setprop("sim/model/bluebird/lighting/"~livery_cabin_surface[i].pname~"/emission/green", livery_cabin_surface[i].EG * intlig);
+			setprop("sim/model/bluebird/lighting/"~livery_cabin_surface[i].pname~"/emission/blue", livery_cabin_surface[i].EB * intlig);
+		}
+	}
 	setprop("sim/model/bluebird/lighting/interior-specular", (0.5 - (0.5 * int_switch)));
 
 	hatch_lighting_update();
@@ -1759,7 +1622,7 @@ var interior_lighting_loop = func {
 #    or every 0.5 seconds when time warp ============================
 
 var nav_lighting_update = func {
-	var nlu_nav = nav_light_switch.getValue();
+	var nlu_nav = getprop("sim/model/bluebird/lighting/nav-light-switch");
 	if (nlu_nav == 2) {
 		nav_lights_state.setBoolValue(1);
 	} else {
@@ -1800,7 +1663,7 @@ var nav_light_loop = func {
 }
 
 # gear and wheels --------------------------------------------------
-setlistener("gear/gear-agl-m", func(n) { gear_height = n.getValue() },, 0);
+setlistener("gear/gear-agl-ft", func(n) { gear_height_ft = n.getValue() },, 0);
 
 setlistener("gear/gear[0]/position-norm", func(n) {
 	gear_position = n.getValue();
@@ -1813,7 +1676,7 @@ setlistener("gear/gear[0]/position-norm", func(n) {
 	} else {
 		setprop("gear/gear[0]/position-side-pads", gear_position);
 	}
-	setprop ("gear/gear-agl-m", (gear_position * 2.47) + wheel_height);
+	setprop ("gear/gear-agl-ft", (gear_position * 2.47) + wheel_height_ft);
 	if (door0_position > 0.7) {
 		door_update(0);
 	}
@@ -1823,7 +1686,7 @@ setlistener("gear/gear[0]/position-norm", func(n) {
 	if (door5_position > 0.7) {
 		door_update(5);
 	}
-	contact_altitude = altitude_ft_Node.getValue() - vertical_offset_ft - gear_height - hover_add;
+	contact_altitude_ft = getprop("position/altitude-ft") - vertical_offset_ft - gear_height_ft - hover_add - (gear1_damage_offset_m * globals.M2FT);
 	panel_lighting_update();
 },, 0);
 
@@ -1840,16 +1703,16 @@ setlistener("gear/gear[1]/position-norm", func(n) {
 	}
 	if (wheel_position > 0.5) {	# wheels below skid plate of main gear
 		if (wheel_position > 0.90) {	# calculate actual height
-			wheel_height = ((wheel_position - 0.9) * 1.31234) + 1.03893;
+			wheel_height_ft = ((wheel_position - 0.9) * 1.31234) + 1.03893;
 		} else {
-			wheel_height = (wheel_position - 0.5) * 2.59733;
+			wheel_height_ft = (wheel_position - 0.5) * 2.59733;
 		}
 	} else {
-		wheel_height = 0;
+		wheel_height_ft = 0;
 	}
-	setprop ("gear/gear-agl-m", (gear_position * 2.47) + wheel_height);
+	setprop ("gear/gear-agl-ft", (gear_position * 2.47) + wheel_height_ft);
 	# contact = altitude origin - offset - gear - (keep nacelle and nose from touching)
-	contact_altitude = altitude_ft_Node.getValue() - vertical_offset_ft - gear_height - hover_add;
+	contact_altitude_ft = getprop("position/altitude-ft") - vertical_offset_ft - gear_height_ft - hover_add - (gear1_damage_offset_m * globals.M2FT);
 	panel_lighting_update();
 },, 0);
 
@@ -1866,7 +1729,7 @@ var toggle_gear_mode = func(gm_request) {
 				setprop("controls/gear/height-switch", 1);
 			}
 		}
-	} else {	# no power to comply
+	} else {
 		popupTip2("Unable to comply. No power.");
 	}
 	bluebird.reloadDialog1();
@@ -1904,7 +1767,7 @@ setlistener("controls/gear/wheels-switch", func(n) {
 				}
 			}
 			gear[1].open();
-		} else {	# no power to comply
+		} else {
 			popupTip2("Unable to comply. No power.");
 			setprop("controls/gear/wheels-switch", 0);
 		}
@@ -1932,7 +1795,7 @@ controls.gearDown = func(direction) {
 			if (wheels_switch) {
 				gear[1].open();
 			}
-		} else {		# no power to comply
+		} else {
 			popupTip2("Unable to comply. No power.");
 		}
 	} elsif (direction < 0) {	# up requested
@@ -2023,13 +1886,13 @@ controls.flapsDown = func(fd_d) {  # 1 decrease speed gearing -1 increases by de
 				popupTip2("Unable to comply. Side hatch is open");
 			} elsif (check_max > 6 and door5_position > 0) {
 				popupTip2("Unable to comply. Rear hatch is open");
-			} elsif (check_max > 6 and contact_altitude < 15000) {
+			} elsif (check_max > 6 and contact_altitude_ft < 15000) {
 				popupTip2("Unable to comply below 15,000 ft.");
-			} elsif (check_max > 7 and contact_altitude < 50000) {
+			} elsif (check_max > 7 and contact_altitude_ft < 50000) {
 				popupTip2("Unable to comply below 50,000 ft.");
-			} elsif (check_max > 8 and contact_altitude < 328000) {
+			} elsif (check_max > 8 and contact_altitude_ft < 328000) {
 				popupTip2("Unable to comply below 328,000 ft. (100 Km) The boundary between atmosphere and space.");
-			} elsif (check_max > 9 and contact_altitude < 792000) {
+			} elsif (check_max > 9 and contact_altitude_ft < 792000) {
 				popupTip2("Unable to comply below 792,000 ft. (150 Miles) The NASA defined boundary for space.");
 			} else {
 				change_maximum(cpl, (cpl + 1), 1);
@@ -2040,7 +1903,7 @@ controls.flapsDown = func(fd_d) {  # 1 decrease speed gearing -1 increases by de
 			var ss = speed_mps[max_to];
 			popupTip2("Max. Speed " ~ ss ~ " m/s");
 		}
-		current.setValue(cpl);
+		setprop("engines/engine/speed-max-powerlevel", cpl);
 	} else {
 		popupTip2("Unable to comply. Main power is off.");
 	}
@@ -2053,54 +1916,56 @@ var reset_impact = func {
 	damage_blocker = 0;
 }
 
-setlistener("sim/model/bluebird/systems/groundslope-enable", func(n) {
-	groundslope_enabled = n.getValue();
-	if (!groundslope_enabled) {
-		setprop("orientation/ground-pitch", 0);
-		setprop("orientation/groundsloped-pitch-deg", 0);
-		setprop("orientation/ground-roll", 0);
-		setprop("orientation/groundsloped-roll-deg", 0);
-	}
-}, 1);
-
-var settle_to_level = func {
-	# determine slope of ground if on hill, necessary for ufo fdm
-	if (groundslope_enabled) {
-		var gear1_lat_lon = walk.xy2LatLonZ(-7.087,0);
-		var gear2_lat_lon = walk.xy2LatLonZ(4.918,-1.74);
-		var gear3_lat_lon = walk.xy2LatLonZ(4.918,1.74);
-		var gear1_gnd_elev_m = geo.elevation(gear1_lat_lon[0],gear1_lat_lon[1]);
-		var gear2_gnd_elev_m = geo.elevation(gear2_lat_lon[0],gear2_lat_lon[1]);
-		var gear3_gnd_elev_m = geo.elevation(gear3_lat_lon[0],gear3_lat_lon[1]);
-		var gear23_diff = gear2_gnd_elev_m - gear3_gnd_elev_m;
-		var gear23_oh = gear23_diff / (1.74 * 2);
-		var gear23_avg = (gear2_gnd_elev_m + gear3_gnd_elev_m) / 2;
-		var gear123_diff = gear1_gnd_elev_m - gear23_avg;
-		var gear123_oh = gear123_diff / (7.087+4.918);
-		if (abs(gear123_oh) > 1) {	# nose > rear gear  hyp distance
-			gear123_oh = 1;
-		}
-		if (gear23_oh > 1) {
-			gear23_oh = 1;
-		} elsif (gear23_oh < -1) {
-			gear23_oh = -1;
-		}
-		gear_y_roll_deg = walk.asin(gear23_oh) * RAD2DEG;
-		gear_x_pitch_deg = walk.asin(gear123_oh) * RAD2DEG;
-		setprop("orientation/ground-pitch",gear_x_pitch_deg);
-		setprop("orientation/groundsloped-pitch-deg",(gear_x_pitch_deg + pitch_d));
-		setprop("orientation/ground-roll",gear_y_roll_deg);
-		setprop("orientation/groundsloped-roll-deg",(gear_y_roll_deg + roll_d));
-	}
-	var hg_roll = roll_deg.getValue() * 0.75;
-	roll_deg.setValue(hg_roll);
-	var hg_roll = roll_control.getValue() * 0.75;
-	roll_control.setValue(hg_roll);
-	var hg_pitch = pitch_d * 0.75;
-	pitch_deg.setValue(hg_pitch);
-	var hg_pitch = pitch_control.getValue() * 0.75;
-	pitch_control.setValue(hg_pitch);
+var settle_to_ground = func {
+	var hg_roll = getprop("orientation/roll-deg") * 0.75;
+	setprop("orientation/roll-deg", (abs(hg_roll) < 0.001 ? 0 : hg_roll));
+	var hg_roll = getprop("controls/flight/aileron") * 0.75;
+	setprop("controls/flight/aileron", (abs(hg_roll) < 0.001 ? 0 : hg_roll));
+	pitch_d = getprop("orientation/pitch-deg") * 0.75;
+	setprop("orientation/pitch-deg", (abs(pitch_d) < 0.001 ? 0 : pitch_d));
+	var hg_pitch = getprop("controls/flight/elevator") * 0.75;
+	setprop("controls/flight/elevator", (abs(hg_pitch) < 0.001 ? 0 : hg_pitch));
 }
+
+var groundslope_update = func {
+	groundslope[0].ground_pitch = groundslope[1].ground_pitch;
+	groundslope[0].ground_roll = groundslope[1].ground_roll;
+	var gear_z_m = 0 - (gear_height_ft * globals.FT2M);
+	var gear1_lat_lon = walk.xy2LatLonZ(-7.087,0, gear_z_m,1);
+	var gear2_lat_lon = walk.xy2LatLonZ(4.918,-1.74, gear_z_m,1);
+	var gear3_lat_lon = walk.xy2LatLonZ(4.918,1.74, gear_z_m,1);
+	var gear1_gnd_elev_m = geo.elevation(gear1_lat_lon[0],gear1_lat_lon[1]);
+	var gear2_gnd_elev_m = geo.elevation(gear2_lat_lon[0],gear2_lat_lon[1]);
+	var gear3_gnd_elev_m = geo.elevation(gear3_lat_lon[0],gear3_lat_lon[1]);
+	var gear23_diff = gear2_gnd_elev_m - gear3_gnd_elev_m;
+	var gear23_oh = gear23_diff / (1.74 * 2);	# oh = opposite over hypotenuse
+	if (abs(gear23_oh) > slope_limit) {
+		gear23_oh = clamp(gear23_oh, -slope_limit, slope_limit);	# steeper hillsides give bumpy results, limit slope
+	}
+		# MARK: new angle changes elevations for next pass, is cause of rocking effect
+		# short term solution is to limit slope about 48 degrees
+	var gear23_avg = (gear2_gnd_elev_m + gear3_gnd_elev_m) / 2;
+	if (damage_count > 0) {
+		gear1_damage_offset_m = 7.087 * walk.sin((damage_count <= 2 ? damage_count : 2) + 1);
+	}
+	var gear123_diff = gear1_gnd_elev_m - gear1_damage_offset_m - gear23_avg;
+		# averaging instead of calculating actual intercept, only shows when crossing a ditch
+	var gear123_oh = gear123_diff / (7.087+4.918);
+	if (abs(gear123_oh) > slope_limit) {	# nose > rear gear  hyp distance
+		gear123_oh = clamp(gear123_oh, -slope_limit, slope_limit);
+	}
+
+#FIXME TODO  add more contact points
+#	var nacelleRL_lat_lon = walk.xy2LatLonZ(11.078,-5.802, 0,1);
+#	var nacelleRL_gnd_elev_m = geo.elevation(nacelleRL_lat_lon[0],nacelleRL_lat_lon[1]);
+#	var nacelleRR_lat_lon = walk.xy2LatLonZ(11.078,5.802, 0,1);
+#	var nacelleRR_gnd_elev_m = geo.elevation(nacelleRR_lat_lon[0],nacelleRR_lat_lon[1]);
+
+	groundslope[1].ground_roll = math.asin(gear23_oh) * RAD2DEG;
+	groundslope[1].ground_pitch = math.asin(gear123_oh) * RAD2DEG;
+}
+
+setlistener("sim/model/bluebird/damage/major-counter", func(n) { damage_count = n.getValue(); }, 1);
 
 var check_damage = func (dmg_add) {
 	var dmg = getprop("sim/model/bluebird/damage/hits-counter") + dmg_add;
@@ -2110,13 +1975,11 @@ var check_damage = func (dmg_add) {
 		alert_switch_Node.setBoolValue(1);
 		if (damage_blocker == 0) {
 			damage_blocker = 1;
-			damage_count += 1;
 			settimer(reset_impact, 2);
 			setprop("sim/model/bluebird/position/crash-wow", 1);
 			settimer(reset_crash, 5);
-			setprop("sim/model/bluebird/damage/major-counter", damage_count);
-			strobe_switch.setValue(0);
-			zNoseNode.setValue(2.4);
+			setprop("sim/model/bluebird/damage/major-counter", damage_count + 1);
+			setprop("controls/lighting/strobe", 0);
 			setprop("sim/model/bluebird/systems/nacelle-L-venting", 1);
 			setprop("sim/model/bluebird/systems/nacelle-R-venting", 1);
 			setprop("autopilot/locks/altitude", "");
@@ -2141,662 +2004,862 @@ var check_damage = func (dmg_add) {
 	}
 }
 
-var xyz2sloped = func (x,y,z) {
-	# given the x,y offsets of the cockpit view (in meters)
-	# translate into view offset considering ground slope
-	var c_head_rad = getprop("orientation/heading-deg") * walk.DEG2RAD;
-	var c_pitch = getprop("orientation/groundsloped-pitch-deg");
-	var c_roll = getprop("orientation/groundsloped-roll-deg");
-	var xZ_factor = math.cos(c_pitch * walk.DEG2RAD);
-	var x_Zadjust = x * xZ_factor;	# adjusted for pitch
-	var yZ_factor = math.cos(c_roll * walk.DEG2RAD);
-	var y_Zadjust = y * yZ_factor;	# adjusted for roll
-	var zxZ_m = -(x * math.sin(c_pitch * walk.DEG2RAD));
-	var zyZ_m = -(y * math.sin(c_roll * walk.DEG2RAD));
-	return [x_Zadjust,y_Zadjust,(zxZ_m+zyZ_m)];	# meters
-}
-
 #==========================================================================
 # -------- MAIN LOOP called by itself every cycle --------
-
 var update_main = func {
-	var gnd_elev = ground_elevation_ft.getValue();  # ground elevation
-	var altitude = altitude_ft_Node.getValue();  # aircraft altitude
-	if (gnd_elev == nil) {    # startup check
-		gnd_elev = 0;
+	# ----- pre-processing: only call countergrav.up once per cycle -----
+	if (countergrav.call) {
+		up((countergrav.momentum < 0 ? -1 : 1), countergrav.momentum, countergrav.input_type);
 	}
-	if (altitude == nil) {
-		altitude = -9999;
-	}
-	if (altitude > -9990) {   # wait until program has started
-		pitch_d = pitch_deg.getValue();   # update variables used by everybody
-		roll_d = roll_deg.getValue();
-		airspeed = airspeed_kt_Node.getValue();
-		asas = abs(airspeed);
-		abs_airspeed_Node.setDoubleValue(asas);
-		# ----- initialization checks -----
-		if (init_agl > 0) {
-			# trigger rumble sound to be on
-			setprop("controls/engines/engine/throttle",0.01);
-			# find real ground level
-			altitude = gnd_elev + init_agl;
-			altitude_ft_Node.setDoubleValue(altitude);
-			if (init_agl > 1) {
-				init_agl -= 0.75;
-			} elsif (init_agl > 0.25) {
-				init_agl -= 0.25;
-			} else {
-				init_agl -= 0.05;
-			}
-			if (init_agl <= 0) {
-				setprop("controls/engines/engine/throttle",0);
-			}
+	var gnd_elev = getprop("position/ground-elev-ft");  # ground elevation
+	var altitude = getprop("position/altitude-ft");  # aircraft altitude
+	# ----- update variables used by several functions and loops -----
+	pitch_d = getprop("orientation/pitch-deg");
+	roll_d = getprop("orientation/roll-deg");
+	airspeed = getprop("velocities/airspeed-kt");
+	asas = abs(airspeed);
+	abs_airspeed_Node.setDoubleValue(asas);
+	# ----- initialization checks -----
+	if (init_agl > 0) {
+		# trigger rumble sound to be on
+		setprop("controls/engines/engine/throttle",0.01);
+		# find real ground level
+		altitude = gnd_elev + init_agl;
+		altitude_ft_Node.setDoubleValue(altitude);
+		if (init_agl > 1) {
+			init_agl -= 0.75;
+		} elsif (init_agl > 0.25) {
+			init_agl -= 0.25;
+		} else {
+			init_agl -= 0.05;
 		}
-		var hover_ft = 0;
-		contact_altitude = altitude - vertical_offset_ft - gear_height - hover_add;   # adjust calculated altitude for gear up and nacelle/nose dip
-		# ----- only check hover if near ground ------------------
-		var new_ground_near = 0;   # see if indicator lights can be turned off
-		var new_ground_warning = 0;
+		if (init_agl <= 0) {
+			setprop("controls/engines/engine/throttle",0);
+			trajectory[1].time_elapsed_sec = getprop("sim/time/elapsed-sec");
+			trajectory[1].pitch_deg = pitch_d + groundslope[1].rotate_pitch;
+			trajectory[1].lat = getprop("position/latitude-deg");
+			trajectory[1].lon = getprop("position/longitude-deg");
+			trajectory[1].altitude_m = altitude * globals.FT2M;	# ft2m
+			trajectory[0].time_elapsed_sec = trajectory[1].time_elapsed_sec;
+			trajectory[0].pitch_deg = trajectory[1].pitch_deg;
+			trajectory[0].lat = trajectory[1].lat;
+			trajectory[0].lon = trajectory[1].lon;
+			trajectory[0].altitude_m = trajectory[1].altitude_m;
+		}
+		gs_trigger[1].alt = 0;
+	}
+	contact_altitude_ft = altitude - vertical_offset_ft - gear_height_ft - hover_add - (gear1_damage_offset_m * globals.M2FT);   # adjust calculated altitude for gear up and nacelle/nose dip
+	var hover_ft = 0;
+	var new_ground_near = 0;   # see if indicator lights can be turned off
+	var new_ground_warning = 0;
+	var override_groundslope_factor = 0;
+	if (asas > 200) {
 		var check_agl = (asas * 0.05) + 40;
-		if (check_agl < 50) {
-			check_agl = 50;
-		}
-		if (contact_altitude < (gnd_elev + check_agl)) {
-			new_ground_near = 1;
-			var rolld = abs(roll_deg.getValue()) / 3.5;
-			var skid_w2 = 0;
-			var skid_altitude_change = 0;
-			var g_pitch_d = pitch_d + gear_x_pitch_deg;
-			if (g_pitch_d > 0) {    # calculations optimized for gear Down
-				if (g_pitch_d < 7.6) {  # try to keep rear of nacelles from touching ground
-					hover_add = g_pitch_d / 2.8;
-				} elsif (g_pitch_d < 25) {
-					hover_add = ((g_pitch_d - 7.6) / 1.65) + 2.714;
-				} elsif (g_pitch_d < 52) {
-					hover_add = ((g_pitch_d - 25) / 1.8) + 13.259;  # ((25-7.6)/1.65)+2.714
-				} elsif (g_pitch_d < 75) {
-					hover_add = ((g_pitch_d - 52) / 3.25) + 28.259;
-				} else {
-					hover_add = ((g_pitch_d - 75) / 7.0) + 35.336;
-				}
+	} else {
+		var check_agl = 50;
+	}
+	# ----- only check hover if near ground ------------------
+	if (contact_altitude_ft < (gnd_elev + check_agl)) {
+		new_ground_near = 1;
+		groundslope_rotated = 1;	# activating watch down in groundslope section
+		var rolld = abs(getprop("orientation/roll-deg")) / 3.5;
+		var g_pitch_d = pitch_d + groundslope[1].rotate_pitch;
+		if (g_pitch_d > 0) {    # calculations optimized for gear Down
+			if (g_pitch_d < 7.6) {  # try to keep rear of nacelles from touching ground
+				hover_add = g_pitch_d / 2.8;
+			} elsif (g_pitch_d < 25) {
+				hover_add = ((g_pitch_d - 7.6) / 1.65) + 2.714;
+			} elsif (g_pitch_d < 52) {
+				hover_add = ((g_pitch_d - 25) / 1.8) + 13.259;  # ((25-7.6)/1.65)+2.714
+			} elsif (g_pitch_d < 75) {
+				hover_add = ((g_pitch_d - 52) / 3.25) + 28.259;
 			} else {
-				if (g_pitch_d > -7.6) {  # try to keep nose from touching ground
-					hover_add = abs(g_pitch_d / 2.2);
-				} elsif (g_pitch_d > -14) {
-					hover_add = abs((g_pitch_d + 7.6) / 2.05 ) + 3.455;
-				} elsif (g_pitch_d > -32) {
-					hover_add = abs((g_pitch_d + 14) / 1.6) + 6.576;
-				} elsif (g_pitch_d > -43) {
-					hover_add = abs((g_pitch_d + 32) / 1.8) + 17.826;
-				} elsif (g_pitch_d > -60) {
-					hover_add = abs((g_pitch_d + 43) / 2.2) + 23.937;
-				} elsif (g_pitch_d > -73) {
-					hover_add = abs((g_pitch_d + 60) / 3.0) + 31.664;
-				} else {
-					hover_add = abs((g_pitch_d + 73) / 6.5) + 35.997;
-				}
-			}
-			# 1st threshold rolld @ 27 degrees = 7.71
-			if (rolld > 7.71) {  # keep nacelles from touching ground
-				rolld = ((rolld - 7.71) / 0.6) + 7.71;
-			}
-			hover_add = hover_add + rolld;   # total clearance for model above gnd_elev
-			# add to hover_add the airspeed calculation to increase ground separation with airspeed
-			if (asas < 100) {  # near ground hovering altitude calculation
-				hover_ft = gear_height + (reactor_drift * asas * 0.03);
-			} elsif (asas > 1000) {  # increase separation from ground
-				hover_ft = gear_height + (reactor_drift * ((asas * 0.02) + 28));
-			} else {    # hold altitude above ground, increasing with velocity
-				hover_ft = gear_height + (reactor_drift * ((asas * 0.05) - 2));
-			}
-			if (gnd_elev < 0) {   
-				# likely over ocean water
-				gnd_elev = 0;  # keep above water until there is ocean bottom
-			}
-			contact_altitude = altitude - vertical_offset_ft - gear_height - hover_add;   # update with new hover amounts
-			hover_target_altitude = gnd_elev + hover_ft + hover_add + vertical_offset_ft;  # includes gear_height
-			h_contact_target_alt = hover_target_altitude - gear_height - hover_add - vertical_offset_ft;
-			if (screen_4R_on) {
-				var text_4R = sprintf("% 7.3f    % 7.3f    % 8.3f % 11.3f",g_pitch_d,rolld,hover_add,hover_ft);
-				displayScreens.scroll_4R(text_4R);
-			}
-			if (altitude < hover_target_altitude) {
-				# below ground/flight level
-				if (altitude > 0) {            # check for skid, smoothen sound effects
-					if (contact_altitude < gnd_elev) {
-						skid_w2 = (gnd_elev - contact_altitude);  # depth
-						if (skid_w2 < skid_last_value) {  # abrupt impact or
-							# below ground, contact should skid
-							skid_w2 = (skid_w2 + skid_last_value) * 0.75; # smoothen ascent
-						}
-					}
-				}
-				skid_altitude_change = hover_target_altitude - altitude;
-				if (skid_altitude_change > 0.5) {
-					new_ground_warning = 1;
-					if (skid_altitude_change < hover_ft) {
-						# hover increasing altitude, but still above ground
-						# add just enough skid to create the sound of 
-						# emergency counter-grav to increase elevation
-						if (skid_w2 < 1.0) {
-							skid_w2 = 1.0;
-						}
-					}
-					if (skid_altitude_change > skid_w2) {
-						# keep skid sound going and dig in if bounding up large hill
-						var impact_factor = (skid_altitude_change / asas * 25);
-						# vulnerability to impact. Increasing from 25 increases vulnerability
-						if (skid_altitude_change > impact_factor) {  # but not if on flat ground
-							new_ground_warning = 2;
-							skid_w2 = skid_altitude_change;  # choose the larger skid value
-						}
-					}
-				}
-				if (hover_ft < 0) {  # separate skid effects from actual impact
-					altitude = hover_target_altitude - hover_ft;
-				} else {
-					altitude = hover_target_altitude;
-				}
-				altitude_ft_Node.setDoubleValue(altitude);  # force above ground elev to hover elevation at contact
-				contact_altitude = altitude - vertical_offset_ft - gear_height - hover_add;
-				if (g_pitch_d > 0 or g_pitch_d < -0.5) {
-					# If aircraft hits ground, then nose/tail gets thrown up
-					if (asas > 500) {  # new pitch adjusted for airspeed
-						var airspeed_pch = 0.2;  # rough ride
-					} else {
-						var airspeed_pch = asas / 500 * 0.2;
-					}
-					if (airspeed > 0.1) {
-						if (g_pitch_d > 0) {
-							# going uphill
-#FIXME account for groundsloped
-							g_pitch_d = g_pitch_d * (1.0 + airspeed_pch);
-							pitch_d = g_pitch_d - gear_x_pitch_deg;
-							pitch_deg.setDoubleValue(pitch_d);
-						} else {
-							# nose down
-							g_pitch_d = g_pitch_d * (1.0 - airspeed_pch);
-							pitch_d = g_pitch_d - gear_x_pitch_deg;
-							pitch_deg.setDoubleValue(pitch_d);
-						}
-					} elsif (airspeed < -0.1) {    # reverse direction
-						if (g_pitch_d < 0) {  # uphill
-							g_pitch_d = g_pitch_d * (1.0 + airspeed_pch);
-							pitch_d = g_pitch_d - gear_x_pitch_deg;
-							pitch_deg.setDoubleValue(pitch_d);
-						} else {
-							g_pitch_d = g_pitch_d * (1.0 - airspeed_pch);
-							pitch_d = g_pitch_d - gear_x_pitch_deg;
-							pitch_deg.setDoubleValue(pitch_d);
-						}
-					}
-				}
-			} else {
-				# smoothen to zero
-				var skid_w2 = (skid_last_value) / 2;
-			}
-			if (skid_w2 < 0.001) {
-				skid_w2 = 0;
-			}
-			# threshold for determining a damage Hit
-			if (skid_w2 > 8 and asas > 80) {   
-				# impact greater than 480 feet per second
-				wildfire.ignite(geo.aircraft_position());
-				var dmg_factor = int(skid_w2 * 0.025 * (abs(g_pitch_d) * 0.011) + 1.0);  # vulnerability to impact
-				# increasing number from 0.025 ^^^^^ increases damage per hit
-				if (dmg_factor < 1) {  # if impact, then at least one damage unit
-					dmg_factor = 1;
-				} else {
-					var angle_of_damage_max = ((abs(g_pitch_d) * 0.67) + 30);
-					if (dmg_factor > angle_of_damage_max) {  # maximum damage per major impact
-						dmg_factor = angle_of_damage_max;
-					}
-				}
-				check_damage(dmg_factor);
-				var text_3L = sprintf("%3i  **  %4.1f  **  %4.1f  ** %2.0f",getprop("sim/model/bluebird/damage/hits-counter"),skid_w2,angle_of_damage_max,dmg_factor);
-				displayScreens.scroll_3L(text_3L);
-			}
-			var skid_w_vol = clamp((skid_w2 * 0.1), 0, 1);  # factor for volume usage
-			if (!damage_count and (skid_altitude_change < 5)) {
-				if (abs(g_pitch_d) < 3.75) {
-					skid_w_vol = skid_w_vol * (abs(g_pitch_d + 0.25)) * 0.25;
-				}
-			}
-			setprop("sim/model/bluebird/position/skid-wow", skid_w_vol);
-			skid_last_value = skid_w2;
-		} else { 
-			# not near ground, skipping hover
-			setprop("sim/model/bluebird/position/skid-wow", 0);
-			skid_last_value = 0;
-			hover_add = 0;
-			h_contact_target_alt = 0;
-			if (screen_4R_on) {
-				displayScreens.scroll_4R("Above ground envelope");
-			}
-		}
-		# update instrument warning lights if changed
-		if (new_ground_near != ground_near) {
-			if (new_ground_near) {
-				setprop("sim/model/bluebird/lighting/ground-near", 1);
-			} else {
-				setprop("sim/model/bluebird/lighting/ground-near", 0);
-			}
-			ground_near = new_ground_near;
-		}
-		if (new_ground_warning != ground_warning) {
-			setprop("sim/model/bluebird/lighting/ground-warning", new_ground_warning);
-			ground_warning = new_ground_warning;
-		}
-		# ----- lose altitude -----
-		if (damage_count > 0 or reactor_drift < 0.2 or power_switch == 0) {
-			if ((contact_altitude - 0.0001) < h_contact_target_alt) {
-				# already on/near ground
-				if (lose_altitude > 0.2) {
-					lose_altitude = 0.2;  # avoid bouncing by simulating gravity
-				}
-				if (!countergrav.request) {
-					if (!reactor_request) {
-						settle_to_level();
-					} else {
-						setprop("orientation/ground-pitch",0);
-						setprop("orientation/groundsloped-pitch-deg",pitch_d);
-						setprop("orientation/ground-roll",0);
-						setprop("orientation/groundsloped-roll-deg",roll_d);
-					}
-				} else {
-					lose_altitude = 0;
-				}
-			} else {
-				# not on/near ground
-				if (!(wave1_level and asas > 150)) {
-					# Wave-guide off and not fast enough to fly without counter-grav
-					lose_altitude += 0.01;
-	# need to adjust terminal velocity based on pitch and add actual physics
-					if (lose_altitude > 17) {
-						# maximum at terminal velocity with nose down unpowered estimated: 1026ft/sec
-						lose_altitude = 17;
-					}
-					if ((contact_altitude - h_contact_target_alt) < 3) {   # really close to ground but not below it
-						if (!reactor_request) {
-							settle_to_level();
-					} else {
-						setprop("orientation/ground-pitch",0);
-						setprop("orientation/groundsloped-pitch-deg",pitch_d);
-						setprop("orientation/ground-roll",0);
-						setprop("orientation/groundsloped-roll-deg",roll_d);
-						}
-					}
-				} else { # fast enough to fly without counter-grav
-					lose_altitude = lose_altitude * 0.5;
-					if (lose_altitude < 0.001) {
-						lose_altitude = 0;
-					}
-				}
-			}
-			if (lose_altitude > 0) {
-				up(-1, lose_altitude, 0);
+				hover_add = ((g_pitch_d - 75) / 7.0) + 35.336;
 			}
 		} else {
-			lose_altitude = 0;
-		}
-
-		# ----- also calculate altitude-agl since ufo model doesn't -----
-		var aa = altitude - gnd_elev;
-		setprop("sim/model/bluebird/position/shadow-alt-agl-ft", aa);  # shadow doesn't need adjustment for gear
-		var agl = contact_altitude - gnd_elev + hover_add;
-		setprop("sim/model/bluebird/position/altitude-agl-ft", agl);
-		var text_2R = sprintf("%12.2f", agl);
-		displayScreens.scroll_2R(text_2R);
-
-		# ----- handle traveling backwards and update movement variables ------
-		#       including updating sound based on airspeed
-		# === speed up or slow down from engine level ===
-		var max = maxspeed.getValue();
-		if ((damage_count > 0) or
-			(!nacelleL_attached and wave1_request > 0) or 
-			(!nacelleR_attached and wave1_request > 0) or
-			(!power_switch)) { 
-			if (wave1_request) {   # deny Wave-guide drive request
-				setprop("sim/model/bluebird/systems/wave1-request", 0);
-				wave1_request = 0;
-			}
-			if (wave2_request) {
-				setprop("sim/model/bluebird/systems/wave2-request", 0);
-				wave2_request = 0;
-			}
-			if (damage_count > 2) {
-				setprop("sim/model/bluebird/systems/reactor-request", 0);
-				reactor_request = 0;
-				setprop("sim/model/bluebird/systems/power-switch", 0);
-				if (shutdown_venting == 0) {    # turn off extra particles after 1 minute
-					shutdown_venting = 1;
-					settimer(func {
-						setprop("sim/model/bluebird/systems/nacelle-L-venting", 0);
-						setprop("sim/model/bluebird/systems/nacelle-R-venting", 0);
-						update_venting(1,0);
-						}, 60, 1);
-				}
+			if (g_pitch_d > -7.6) {  # try to keep nose from touching ground
+				hover_add = abs(g_pitch_d / 2.2);
+			} elsif (g_pitch_d > -14) {
+				hover_add = abs((g_pitch_d + 7.6) / 2.05 ) + 3.455;
+			} elsif (g_pitch_d > -32) {
+				hover_add = abs((g_pitch_d + 14) / 1.6) + 6.576;
+			} elsif (g_pitch_d > -43) {
+				hover_add = abs((g_pitch_d + 32) / 1.8) + 17.826;
+			} elsif (g_pitch_d > -60) {
+				hover_add = abs((g_pitch_d + 43) / 2.2) + 23.937;
+			} elsif (g_pitch_d > -73) {
+				hover_add = abs((g_pitch_d + 60) / 3.0) + 31.664;
+			} else {
+				hover_add = abs((g_pitch_d + 73) / 6.5) + 35.997;
 			}
 		}
-		if (cpl > 6) {
-			if (cpl > 10 and contact_altitude < 792000 and max_to > 10) {
-				popupTip2("Approaching planet. Reducing speed");
-				change_maximum(cpl, 10, 1); 
-			} elsif (cpl > 9 and contact_altitude < 328000 and max_to > 9) {
-				popupTip2("Entering upper atmosphere. Reducing speed");
-				change_maximum(cpl, 9, 1); 
-			} elsif (cpl > 8 and contact_altitude < 50000 and max_to > 8) {
-				popupTip2("Entering lower atmosphere. Reducing speed");
-				change_maximum(cpl, 8, 1); 
-			} elsif (cpl > 7 and contact_altitude < 15000 and max_to > 7) {
-				popupTip2("Entering lower atmosphere. Reducing speed");
-				change_maximum(cpl, 7, 1); 
-			}
+		# 1st threshold rolld @ 27 degrees = 7.71
+		if (rolld > 7.71) {  # keep nacelles from touching ground
+			rolld = ((rolld - 7.71) / 0.6) + 7.71;
 		}
-		if (!power_switch) {
-			change_maximum(cpl, 0, 2);
-			if (wave1_level) {
-				setprop("sim/model/bluebird/systems/wave1-level", 0);
-			}
-			if (wave2_level) {
-				wave2_level = 0;
-			}
-			if (agl > 10) {   # not in ground contact, glide
-				max_lose = max_lose + (0.005 * abs(pitch_d));
-			} else {     # rapid deceleration
-				if (gear_position) {
-					max_lose = (asas > 15 ? (asas * 0.2) : 3);
-				} else {
-					max_lose = (asas < 80 ? (asas > 20 ? 16 : ((100 - asas) * asas * 0.01)) : (asas * 0.2));
-				}
-			}
-	# need to import acceleration physics calculations from walker
-			if (max_lose > 10) {  # don't decelerate too quickly
-				if (agl > 10) {
-					max_lose = 10;
-				} else {
-					if (max_lose > 75) {
-						max_lose = 75;
+		hover_add = (hover_add + rolld) * reactor_drift;   # total clearance for model above gnd_elev * groundslope factor when cg powered down
+		# add to hover_add the airspeed calculation to increase ground separation with airspeed
+		if (asas < 100) {  # near ground hovering altitude calculation
+			hover_ft = gear_height_ft + (reactor_drift * asas * 0.03);
+		} elsif (asas > 1000) {  # increase separation from ground
+			hover_ft = gear_height_ft + (reactor_drift * ((asas * 0.02) + 28));
+		} else {    # hold altitude above ground, increasing with velocity
+			hover_ft = gear_height_ft + (reactor_drift * ((asas * 0.05) - 2));
+		}
+		if (gnd_elev < 0) {   
+			# likely over ocean water
+			gnd_elev = 0;  # keep above water until there is ocean bottom
+		}
+		contact_altitude_ft = altitude - vertical_offset_ft - gear_height_ft - hover_add - (gear1_damage_offset_m * globals.M2FT);   # update with new hover amounts
+		hover_target_altitude = gnd_elev + hover_ft + hover_add + vertical_offset_ft;  # includes gear_height
+		h_contact_target_alt = hover_target_altitude - gear_height_ft - hover_add - vertical_offset_ft - (gear1_damage_offset_m * globals.M2FT);
+		var skid_target_altitude = hover_target_altitude + gear_height_ft - hover_ft;  # exclude hover envelope
+		if (screen_4R_on) {
+			var text_4R = sprintf("% 7.3f    % 7.3f    % 8.3f % 11.3f",g_pitch_d,rolld,hover_add,hover_ft);
+			displayScreens.scroll_4R(text_4R);
+		}
+		skid[0].nose_in_deg = skid[1].nose_in_deg;
+		skid[0].altitude_change_ft = skid[1].altitude_change_ft;
+		skid[0].depth_ft = skid[1].depth_ft;
+		skid[0].impact_factor = skid[1].impact_factor;
+		if (airspeed > 0 and ((groundslope[1].rotate_pitch + pitch_d) < groundslope[1].ground_pitch)) {	# nose down below ground pitch moving forward
+			skid[1].nose_in_deg = groundslope[1].ground_pitch - (groundslope[1].rotate_pitch + pitch_d);
+		} elsif (airspeed < 0 and ((groundslope[1].rotate_pitch + pitch_d) > groundslope[1].ground_pitch)) { # tail down below ground pitch in reverse
+			skid[1].nose_in_deg = (groundslope[1].rotate_pitch + pitch_d) - groundslope[1].ground_pitch;
+		} else {
+			skid[1].nose_in_deg = 0;
+		}
+		if (altitude < hover_target_altitude) {
+			# below ground/flight level
+			new_ground_warning = 1;
+			gs_trigger[1].alt = 0;
+			skid[1].altitude_change_ft = skid_target_altitude - altitude;
+			skid[1].depth_ft = 0;
+			skid[1].impact_factor = 0;
+			if (altitude > 0) {            # not over ocean water, check for skid
+				if (contact_altitude_ft < (gnd_elev + hover_ft)) {
+					if (skid[1].nose_in_deg > 0.01) {	# nose/tail down below ground pitch
+						skid[1].depth_ft = (gnd_elev - contact_altitude_ft);
+						if (skid[1].depth_ft < 0) {
+							skid[1].depth_ft = 0;
+						}
+						if (skid[1].depth_ft < skid[0].depth_ft) {  # after abrupt impact or
+							# below ground, contact should lengthen skid
+							skid[1].depth_ft = (skid[1].depth_ft + skid[0].depth_ft) * 0.5; # smoothen
+						}
+						if (!reactor_level and (groundslope[1].ground_pitch > (groundslope[1].rotate_pitch + pitch_d + 0.2))) {
+							# impact
+							if (groundslope[1].ground_pitch > 0.1) {
+								pitch_d = 0;
+							} elsif (groundslope[1].ground_pitch < 0.1) {
+								pitch_d = groundslope[1].ground_pitch;
+							}
+							override_groundslope_factor = 1;
+							pitch_deg_Node.setDoubleValue(pitch_d);
+						} elsif (reactor_level and (groundslope[1].ground_pitch > (groundslope[1].rotate_pitch + pitch_d + 0.2))) {
+# TODO add here and also check for backwards?
+# did not catch nose in 1.7ft with gp -0.40. cp changed to zero slowly, should impact.
+							# impact
+							if (altitude < skid_target_altitude) {
+								if (groundslope[1].ground_pitch > 0.1) {
+									pitch_d = 0;
+									override_groundslope_factor = 1;
+								} elsif (groundslope[1].ground_pitch < 0.1) {
+									pitch_d = groundslope[1].ground_pitch;
+								} else {
+								}
+								pitch_deg_Node.setDoubleValue(pitch_d);
+								override_groundslope_factor = 1;
+							}
+						}
+					} else {
+						if (!reactor_level) {
+							if (pitch_d < 0) {
+								pitch_d = 0;
+								pitch_deg_Node.setDoubleValue(pitch_d);
+							}
+						}
+					}
+					if (reactor_level > 0.5) {
+						var reactor_factor = (reactor_level - 0.5) * 2;
+					} else {
+						var reactor_factor = 0;
+					}
+					var nose_factor = (((skid[0].nose_in_deg > skid[1].nose_in_deg) ? (skid[0].nose_in_deg + skid[1].nose_in_deg) * 0.5 : skid[1].nose_in_deg) - (reactor_factor * 10)) * 0.2;
+					if (nose_factor < 0) {
+						nose_factor = 0;
+					}
+					var airspeed_factor = clamp((asas / 200), 0.1, 5);
+					var depth_factor = ((skid[0].depth_ft > skid[1].depth_ft) ? ((skid[0].depth_ft + skid[1].depth_ft) * 0.5) : skid[1].depth_ft);
+					if (reactor_factor and skid[1].nose_in_deg > 10) {
+						var alt_ch_factor = skid[1].altitude_change_ft * nose_factor * 0.1;
+					} else {
+						var alt_ch_factor = 0
+					}
+					skid[1].impact_factor = nose_factor * airspeed_factor * (depth_factor + alt_ch_factor) * 2;
+						# vulnerability to impact. Increasing from 2 increases vulnerability
+					if (skid[0].impact_factor > 0.1) {
+						skid[1].impact_factor = skid[1].impact_factor * 0.05;
+						if (skid[1].impact_factor > 10) {
+							skid[1].impact_factor = 10;
+						}
+					} else {	
+						if (skid[1].impact_factor > 20) {
+							# remove exponential scale above 20 damage hits
+							skid[1].impact_factor = ((skid[1].impact_factor - 20) * 0.1) + 20;
+						}
+						if (skid[1].impact_factor > 51) {
+							skid[1].impact_factor = 51;
+						}
 					}
 				}
 			}
-			if (asas < 5) {  # already stopped
-				maxspeed.setDoubleValue(0);
-				setprop("controls/engines/engine/throttle", 0.0);
+			if (altitude < skid_target_altitude) {
+				altitude = skid_target_altitude;
+			} else {
+				# add up
+				var cg_add = clamp(altitude + (countergrav.control_factor * 0.15),skid_target_altitude,hover_target_altitude);
+				altitude = cg_add;
 			}
-			max_drift = max_lose;
-		} else {  # power is on
-			if (reactor_request != reactor_level) {
-				change_maximum(cpl, limit[(reactor_request + (wave1_level * 2) + (wave2_level * 4))] - damage_count, 2);
-				setprop("sim/model/bluebird/systems/reactor-level", reactor_request);
+			altitude_ft_Node.setDoubleValue(altitude);  # force above ground elev to hover elevation at contact
+			contact_altitude_ft = altitude - vertical_offset_ft - gear_height_ft - hover_add - (gear1_damage_offset_m * globals.M2FT);
+			if (skid[1].depth_ft < 0.001) {
+				skid[1].depth_ft = 0;
 			}
-			if (wave1_request != wave1_level) {
-				change_maximum(cpl, limit[(reactor_level + (wave1_request * 2) + (wave2_level * 4))] - damage_count, 2);
-				setprop("sim/model/bluebird/systems/wave1-level", wave1_request);
+			# threshold for determining a damage Hit
+			if (skid[1].impact_factor > 8) {
+				if (skid[1].impact_factor >= 40) {
+					wildfire.ignite(geo.aircraft_position());
+				}
+				check_damage(skid[1].impact_factor);
+				var text_3L = sprintf("%3i ** %4.1f %4.1f %4.1f %4.1f  %4.1f",getprop("sim/model/bluebird/damage/hits-counter"),nose_factor,airspeed_factor,depth_factor,alt_ch_factor,skid[1].impact_factor);
+				displayScreens.scroll_3L(text_3L);
 			}
-			if (wave2_request != wave2_level) {
-				change_maximum(cpl, limit[(reactor_level + (wave1_level * 2) + (wave2_request * 4))] - damage_count, 2);
-				wave2_level = wave2_request;
+		} else {
+			# smoothen to zero / airborne near ground
+			skid[1].depth_ft = (skid[0].depth_ft) / 2;
+			skid[1].altitude_change_ft = 0;
+			skid[1].depth_ft = 0;
+			skid[1].impact_factor = 0;
+		}
+		if (skid[1].depth_ft > 0.1) {
+			new_ground_warning = 2;
+		}
+		var skid_old_vol = getprop("sim/model/bluebird/position/skid-wow");
+		var skid_w_vol = clamp(((skid[1].impact_factor + skid[1].altitude_change_ft) * 0.5), 0, 1);  # factor for volume usage
+		if (skid_old_vol > skid_w_vol) {
+			skid_w_vol = (skid_old_vol + skid_w_vol) * 0.75;
+		}
+		setprop("sim/model/bluebird/position/skid-wow", skid_w_vol);
+	} else { 
+		# not near ground envelope, skipping hover
+		gs_trigger[1].alt = 1;
+		setprop("sim/model/bluebird/position/skid-wow", 0);
+		skid[1].depth_ft = 0;
+		skid[1].impact_factor = 0;
+		hover_add = 0;
+		h_contact_target_alt = 0;
+		if (screen_4R_on) {
+			displayScreens.scroll_4R("Above ground envelope");
+		}
+	}
+	# update instrument warning lights if changed
+	if (new_ground_near != ground_near) {
+		if (new_ground_near) {
+			setprop("sim/model/bluebird/lighting/ground-near", 1);
+		} else {
+			setprop("sim/model/bluebird/lighting/ground-near", 0);
+		}
+		ground_near = new_ground_near;
+	}
+	if (new_ground_warning != ground_warning) {
+		setprop("sim/model/bluebird/lighting/ground-warning", new_ground_warning);
+		ground_warning = new_ground_warning;
+	}
+	# ----- lose altitude -----
+	if (damage_count > 0 or reactor_drift < 0.2 or power_switch == 0) {
+		if ((contact_altitude_ft - 0.001) < h_contact_target_alt) {
+			# already on/near ground
+			if (!countergrav.request) {
+				if (asas < 150) {
+					if (lose_altitude > 0.75) {
+						# avoid bouncing by simulating gravity at 32 ft/s optimized for 43 fps
+						lose_altitude = 0.75;
+					}
+					if (!reactor_request) {
+						settle_to_ground();
+					}
+				} else {
+					if (lose_altitude > 0.2) {
+						lose_altitude = 0.2;
+					}
+				}
+			} else {
+				lose_altitude = 0;
+			}
+		} else {
+			# not on/near ground
+			if (!(wave1_level and asas > 150)) {
+				# Wave-guide off and not fast enough to fly without counter-grav
+				lose_altitude += 0.01;
+# TODO  need to adjust terminal velocity based on pitch and add actual physics
+				if (lose_altitude > 17) {
+					# maximum at terminal velocity with nose down unpowered estimated: 1026ft/sec
+					lose_altitude = 17;
+				}
+				if ((contact_altitude_ft - h_contact_target_alt) < 3) {   # really close to ground but not below it
+					if (!reactor_request) {
+						settle_to_ground();
+					}
+				}
+			} else { # fast enough to fly without counter-grav
+				lose_altitude = lose_altitude * 0.5;
+				if (lose_altitude < 0.001) {
+					lose_altitude = 0;
+				}
 			}
 		}
-		if (max > 1 and max_to < max_from) {      # decelerate smoothly
-			max -= (max_drift / 2);
-			if (max <= speed_mps[max_to]) {     # destination reached
+		if (lose_altitude > 0) {
+			up(-1, lose_altitude, 0);
+		}
+	} else {
+		lose_altitude = 0;
+	}
+	# ----- also calculate altitude-agl since ufo model doesn't -----
+	var aa = altitude - gnd_elev;
+	setprop("sim/model/bluebird/position/shadow-alt-agl-ft", aa);  # shadow doesn't need adjustment for gear
+	var agl = contact_altitude_ft - gnd_elev + hover_add;
+	setprop("sim/model/bluebird/position/altitude-agl-ft", agl);
+	var text_2R = sprintf("%12.2f", agl);
+	displayScreens.scroll_2R(text_2R);
+
+	# ----- trajectory -----
+	#  project first from last0 to nowlast1 to proj2, move nowlast1 to last0 and update now1, compare 1 and 2
+	var proj_time0 = trajectory[1].time_elapsed_sec - trajectory[0].time_elapsed_sec;	# elapsed OF prior run
+	var time_now_sec = getprop("sim/time/elapsed-sec");
+	var proj_time1 = time_now_sec - trajectory[1].time_elapsed_sec;		# elapsed SINCE last run
+	if (proj_time1 > 0.09) {	# add delay to attempt compensate for coarseness in elapsed-time (not double precision)
+		if (proj_time0 > 0 and trajectory[0].lat != 0 and trajectory[0].lon != 0) {
+			var proj_time_factor = proj_time1 / proj_time0;
+			var proj_lat = ((trajectory[1].lat - trajectory[0].lat) * proj_time_factor) + trajectory[1].lat;
+			var proj_lon = ((trajectory[1].lon - trajectory[0].lon) * proj_time_factor) + trajectory[1].lon;
+			var proj_alt = ((trajectory[1].altitude_m - trajectory[0].altitude_m) * proj_time_factor) + trajectory[1].altitude_m;
+			trajectory[0].time_elapsed_sec = trajectory[1].time_elapsed_sec;
+			trajectory[0].pitch_deg = trajectory[1].pitch_deg;
+			trajectory[0].lat = trajectory[1].lat;
+			trajectory[0].lon = trajectory[1].lon;
+			trajectory[0].altitude_m = trajectory[1].altitude_m;
+			trajectory[1].time_elapsed_sec = time_now_sec;
+			trajectory[1].pitch_deg = pitch_d + groundslope[1].rotate_pitch;
+			trajectory[1].lat = getprop("position/latitude-deg");
+			trajectory[1].lon = getprop("position/longitude-deg");
+			trajectory[1].altitude_m = altitude * globals.FT2M;	# ft2m
+			var ta = walk.sin((trajectory[1].lat - proj_lat) * 0.5);
+			var tb = walk.sin((trajectory[1].lon - proj_lon) * 0.5);
+			var tc = trajectory[1].altitude_m  - proj_alt + (9.8 * proj_time1);# * walk.cos(trajectory[1].pitch_deg));	# add gravity here?
+			var projected_2d_m = (2.0 * walk.ERAD * walk.asin(math.sqrt(ta * ta + walk.cos(trajectory[1].lat) * walk.cos(proj_lat) * tb * tb)));
+			var projected_3d_m = math.sqrt((projected_2d_m * projected_2d_m) + (tc * tc));
+			if (tc < 0) {
+				projected_3d_m = abs(projected_3d_m) * -1;
+			}
+			var dev_m_per_sec = projected_3d_m / proj_time1;
+			var t_gees = dev_m_per_sec / 9.8;
+		} else {
+			trajectory[1].time_elapsed_sec = time_now_sec;
+			var t_gees = 1;
+		}
+		if (power_switch) {
+			setprop ("instrumentation/gees/gees-float", t_gees);
+		}
+	}
+	setprop("instrumentation/gees/vsi-float", (asas * 0.51444444 * walk.sin(pitch_d + groundslope[1].rotate_pitch)) / 10.0);	# x10 m/sec
+
+	# ----- ground-slope handling -----
+	groundslope[0].factor = groundslope[1].factor;
+	groundslope[0].rotate_pitch = groundslope[1].rotate_pitch;
+	groundslope[0].rotate_roll = groundslope[1].rotate_roll;
+	var target_groundslope_factor = 0;
+	if (agl >= 50) {	# may not catch tall vertical cliffs, but those are rare
+		# only calculate ground slope when near ground, below 50 ft agl
+		groundslope[1].factor = 0;
+		groundslope[1].ground_pitch = 0;
+		groundslope[1].ground_roll = 0;
+	} else {
+		gs_trigger[0].cg = gs_trigger[1].cg;
+# not used		gs_trigger[0].as = gs_trigger[1].as;
+# not used		gs_trigger[0].alt = gs_trigger[1].alt;
+		groundslope_update();
+		if (init_agl > 0) {
+			target_groundslope_factor = 1;
+		} else {
+			var smooth_gs_factor = 1;
+			if (reactor_drift <= 0.5) {	# partial effect on groundslope
+				if (reactor_drift < 0.2) {
+					gs_trigger[1].cg = 0;	# full effect, can't fly (at low speed)
+				} else {
+					gs_trigger[1].cg = (reactor_drift * 3) - 0.55;
+				}
+			} else {
+				gs_trigger[1].cg = 1;	# sufficient lift. No effect, or positive removal of groundslope
+			}
+			if (asas < 150) {
+				if (asas < 75) {	# wings provide lift above 75 kts
+					gs_trigger[1].as = 0;
+				} else {
+					gs_trigger[1].as = (asas / 75) - 1;
+				}
+			} else {
+				gs_trigger[1].as = 1;	# sufficient lift. No effect from ground slope
+			}
+			var contact_agl = contact_altitude_ft - gnd_elev;
+			if (contact_agl > 2 and asas > 40) {
+				if (gs_trigger[1].alt != 1) {
+					gs_trigger[1].alt = 1;
+				}
+			} elsif ((groundslope[1].ground_pitch < 0 and airspeed > 0) and ((groundslope[1].rotate_pitch + pitch_d) > (groundslope[1].ground_pitch + 0.25))) {	# nose up from ground level
+				if (skid[1].depth_ft == 0) {
+					if (gs_trigger[1].as > 0.2 and gs_trigger[1].alt != 1) {	# nose up over ground slope, become airborne
+						gs_trigger[1].alt = 1;
+					}
+				}
+			} elsif ((groundslope[1].ground_pitch > 0 and airspeed < 0) and ((groundslope[1].rotate_pitch + pitch_d) < (groundslope[1].ground_pitch + 0.25))) {	# tail up from ground level
+				if (gs_trigger[1].as > 0.2 and gs_trigger[1].alt != 1) {	# tail up over ground slope, become airborne
+					gs_trigger[1].alt = 1;
+				}
+			} elsif (contact_agl < 1) {
+				if (gs_trigger[1].alt != 0) {
+					gs_trigger[1].alt = 0;
+				}
+			}
+			if (groundslope[0].ground_pitch >= 0 and groundslope[1].ground_pitch <= 0 and airspeed > 75) {	# catch going over crest of hill
+				smooth_gs_factor = 0;
+				gs_trigger[1].alt = 1;
+			} elsif (groundslope[0].ground_pitch <= 0 and groundslope[1].ground_pitch >= 0 and airspeed < -75) {	# and in reverse
+				smooth_gs_factor = 0;
+				gs_trigger[1].alt = 1;
+			} elsif (skid[1].depth_ft > 1) {	# unless crested hilltop
+				target_groundslope_factor = 1;
+				smooth_gs_factor = 0;
+			} else {
+				if (gs_trigger[1].cg <= 0.35 and gs_trigger[1].cg >= gs_trigger[0].cg and gs_trigger[1].alt == 0) {
+					target_groundslope_factor = 1;
+				} elsif (gs_trigger[1].alt == 1 ) {	# and no contact at ends or nose tip
+				} else {
+					if (reactor_drift > 0.2 and gs_trigger[1].cg >= gs_trigger[0].cg) {
+					} else {
+						target_groundslope_factor = (1 - clamp(((gs_trigger[1].cg + gs_trigger[1].as) / 2), 0, 1));
+					}
+				}
+			}
+			if (gs_trigger[1].alt) {
+				groundslope[1].factor = 0;
+			} elsif (override_groundslope_factor) {
+				target_groundslope_factor = override_groundslope_factor;
+				groundslope[1].factor = target_groundslope_factor;
+			} elsif (smooth_gs_factor == 0) {
+				groundslope[1].factor = target_groundslope_factor;
+			} else {	# smooth_gs_factor == 1 gradually return to level flight
+				var as_factor = (clamp(asas, 0, 75) / 75 * 0.05) + 0.05;
+				if (target_groundslope_factor > groundslope[0].factor) {
+					groundslope[1].factor = clamp((groundslope[0].factor + as_factor), 0, target_groundslope_factor);
+				} elsif (target_groundslope_factor < groundslope[0].factor) {
+					groundslope[1].factor = clamp((groundslope[0].factor - as_factor), target_groundslope_factor, 1);
+				}
+			}
+		}
+	}
+	if (groundslope_rotated or target_groundslope_factor) {
+		# zero slope effects after leaving ground
+		var rotation_limit_deg = (skid[1].depth_ft > 0.5 ? 45 : (asas > 100 ? 0.5 : (2.5 - (asas / 50))));
+		var target_gear_x_pitch_deg = groundslope[1].ground_pitch * groundslope[1].factor;
+		var change_gear_x_pitch_deg = target_gear_x_pitch_deg - groundslope[0].rotate_pitch;
+		if (change_gear_x_pitch_deg > 0) {
+			if (change_gear_x_pitch_deg > rotation_limit_deg) {
+				groundslope[1].rotate_pitch = groundslope[0].rotate_pitch + rotation_limit_deg;
+			} else {
+				groundslope[1].rotate_pitch = target_gear_x_pitch_deg;
+			}
+		} else {
+			if ((groundslope[0].rotate_pitch > 0) and (target_gear_x_pitch_deg < 0)) {
+				groundslope[1].rotate_pitch = 0;
+			} else {
+				if (change_gear_x_pitch_deg < -rotation_limit_deg) {
+					groundslope[1].rotate_pitch = groundslope[0].rotate_pitch - rotation_limit_deg;
+				} else {
+					groundslope[1].rotate_pitch = target_gear_x_pitch_deg;
+				}
+			}
+		}
+		var target_gear_y_roll_deg = groundslope[1].ground_roll * groundslope[1].factor;
+		if (abs (target_gear_y_roll_deg - groundslope[0].rotate_roll) > rotation_limit_deg) {
+			if (target_gear_y_roll_deg > groundslope[0].rotate_roll) {
+				groundslope[1].rotate_roll = groundslope[0].rotate_roll + rotation_limit_deg;
+			} else {
+				groundslope[1].rotate_roll = groundslope[0].rotate_roll - rotation_limit_deg;
+			}
+		} else {
+			groundslope[1].rotate_roll = target_gear_y_roll_deg;
+		}
+		if (groundslope[1].rotate_pitch == 0 and groundslope[1].rotate_roll == 0) {
+			groundslope_rotated = 0;
+		}
+	}
+	setprop("orientation/groundslope-factored-pitch", groundslope[1].rotate_pitch);
+	setprop("orientation/groundsloped-pitch-deg", (groundslope[1].rotate_pitch + pitch_d));
+	setprop("orientation/groundslope-factored-roll", groundslope[1].rotate_roll);
+	setprop("orientation/groundsloped-roll-deg", (groundslope[1].rotate_roll + roll_d));
+	if (groundslope[1].factor == 1) {
+		# add exception to modifying pitch etc
+		settle_to_ground();
+	}
+
+	# ----- handle traveling backwards and update movement variables ------
+	#       including updating sound based on airspeed
+	# === speed up or slow down from engine level ===
+	var max = getprop("engines/engine/speed-max-mps");
+	if ((damage_count > 0) or
+		(!nacelleL_attached and wave1_request > 0) or 
+		(!nacelleR_attached and wave1_request > 0) or
+		(!power_switch)) { 
+		if (wave1_request) {   # deny Wave-guide drive request
+			setprop("sim/model/bluebird/systems/wave1-request", 0);
+			wave1_request = 0;
+		}
+		if (wave2_request) {
+			setprop("sim/model/bluebird/systems/wave2-request", 0);
+			wave2_request = 0;
+		}
+		if (damage_count > 2) {
+			setprop("sim/model/bluebird/systems/reactor-request", 0);
+			reactor_request = 0;
+			setprop("sim/model/bluebird/systems/power-switch", 0);
+			if (shutdown_venting == 0) {    # turn off extra particles after 1 minute
+				shutdown_venting = 1;
+				settimer(func {
+					setprop("sim/model/bluebird/systems/nacelle-L-venting", 0);
+					setprop("sim/model/bluebird/systems/nacelle-R-venting", 0);
+					update_venting(1,0);
+					}, 60, 1);
+			}
+		}
+	}
+	if (cpl > 6) {
+		if (cpl > 10 and contact_altitude_ft < 792000 and max_to > 10) {
+			popupTip2("Approaching planet. Reducing speed");
+			change_maximum(cpl, 10, 1); 
+		} elsif (cpl > 9 and contact_altitude_ft < 328000 and max_to > 9) {
+			popupTip2("Entering upper atmosphere. Reducing speed");
+			change_maximum(cpl, 9, 1); 
+		} elsif (cpl > 8 and contact_altitude_ft < 50000 and max_to > 8) {
+			popupTip2("Entering lower atmosphere. Reducing speed");
+			change_maximum(cpl, 8, 1); 
+		} elsif (cpl > 7 and contact_altitude_ft < 15000 and max_to > 7) {
+			popupTip2("Entering lower atmosphere. Reducing speed");
+			change_maximum(cpl, 7, 1); 
+		}
+	}
+	if (!power_switch) {
+		change_maximum(cpl, 0, 2);
+		if (wave1_level) {
+			setprop("sim/model/bluebird/systems/wave1-level", 0);
+		}
+		if (wave2_level) {
+			wave2_level = 0;
+		}
+		if (agl > 10) {   # not in ground contact, glide
+			max_lose = max_lose + (0.005 * abs(pitch_d));
+		} else {     # rapid deceleration
+			if (gear_position) {
+				max_lose = (asas > 15 ? (asas * 0.2) : 3);
+			} else {
+				max_lose = (asas < 80 ? (asas > 20 ? 16 : ((100 - asas) * asas * 0.01)) : (asas * 0.2));
+			}
+		}
+# TODO  need to import acceleration physics calculations from walker
+		if (max_lose > 10) {  # don't decelerate too quickly
+			if (agl > 10) {
+				max_lose = 10;
+			} else {
+				if (max_lose > 75) {
+					max_lose = 75;
+				}
+			}
+		}
+		if (asas < 5) {  # already stopped
+			maxspeed.setDoubleValue(0);
+			setprop("controls/engines/engine/throttle", 0.0);
+		}
+		max_drift = max_lose;
+	} else {  # power is on
+		if (reactor_request != reactor_level) {
+			change_maximum(cpl, limit[(reactor_request + (wave1_level * 2) + (wave2_level * 4))] - damage_count, 2);
+			setprop("sim/model/bluebird/systems/reactor-level", reactor_request);
+		}
+		if (wave1_request != wave1_level) {
+			change_maximum(cpl, limit[(reactor_level + (wave1_request * 2) + (wave2_level * 4))] - damage_count, 2);
+			setprop("sim/model/bluebird/systems/wave1-level", wave1_request);
+		}
+		if (wave2_request != wave2_level) {
+			change_maximum(cpl, limit[(reactor_level + (wave1_level * 2) + (wave2_request * 4))] - damage_count, 2);
+			wave2_level = wave2_request;
+		}
+	}
+	if (max > 1 and max_to < max_from) {      # decelerate smoothly
+		max -= (max_drift / 2);
+		if (max <= speed_mps[max_to]) {     # destination reached
+			cpl = max_to;
+			max_from = max_to;
+			max = speed_mps[max_to];
+			max_drift = 0;
+			max_lose = 0;
+			if (!power_switch) {       # override if no power
+				max = 1;
+			}
+		}
+		maxspeed.setDoubleValue(max);
+	}
+	if (max_to > max_from) {         # accelerate
+		if (current_to == max_to) {   # normal request to change power-maxspeed
+			max += max_drift;
+			if (max >= speed_mps[max_to]) { 
+				# destination reached
 				cpl = max_to;
 				max_from = max_to;
 				max = speed_mps[max_to];
 				max_drift = 0;
 				max_lose = 0;
-				if (!power_switch) {       # override if no power
-					max = 1;
-				}
 			}
 			maxspeed.setDoubleValue(max);
-		}
-		if (max_to > max_from) {         # accelerate
-			if (current_to == max_to) {   # normal request to change power-maxspeed
-				max += max_drift;
-				if (max >= speed_mps[max_to]) { 
-					# destination reached
-					cpl = max_to;
-					max_from = max_to;
-					max = speed_mps[max_to];
-					max_drift = 0;
-					max_lose = 0;
-				}
-				maxspeed.setDoubleValue(max);
-			} else {    # only change maximum, as when turning on an engine
-				max_from = max_to;
-				max_drift = 0;
-				max_lose = 0;
-				if (cpl == 0 and current_to == 0) {     # turned on power from a complete shutdown
-					maxspeed.setDoubleValue(speed_mps[2]);
-					current_to = max_to;
-					cpl = 2;
-				}
+		} else {    # only change maximum, as when turning on an engine
+			max_from = max_to;
+			max_drift = 0;
+			max_lose = 0;
+			if (cpl == 0 and current_to == 0) {     # turned on power from a complete shutdown
+				maxspeed.setDoubleValue(speed_mps[2]);
+				current_to = max_to;
+				cpl = 2;
 			}
 		}
-		current.setValue(cpl);
+	}
+	setprop("engines/engine/speed-max-powerlevel", cpl);
 
-		# vtol control in cockpit yoke
-		if (hover_reset_timer > 0) {
-			hover_reset_timer -= 0.1;
-			if (hover_reset_timer < 0.9 or countergrav.momentum_watch < 3) {
-				var rh_x = (getprop("sim/model/bluebird/position/hover-rise") * 0.5);
-				if (abs(rh_x) < 0.1) {
-					setprop("sim/model/bluebird/position/hover-rise", 0);
-					hover_reset_timer = 0;
-				} else {
-					setprop("sim/model/bluebird/position/hover-rise", rh_x);
-				}
-			}
-		}
-
-		# === sound section based on position/airspeed/altitude ===
-		var slv = sound_level;
-		var old_engine_level = reactor_drift;
-		if (power_switch) {
-			if (reactor_drift < 1 and slv > 1) {  # shutdown reactor before timer shutdown of standby power
-				slv = 0.99;
-			}
-			if (asas < 1 and agl < 2 and !countergrav.request) {
-				if (sound_state and slv > 0.999) {  # shutdown request by landing has 2.5 sec delay
-					slv = 2.5;
-				}
-				sound_state = 0;
+	# ----- vtol control in cockpit yoke -----
+	if (hover_reset_timer > 0) {
+		hover_reset_timer -= 0.1;
+		if (hover_reset_timer < 0.9 or countergrav.momentum_watch < 3) {
+			var rh_x = (getprop("sim/model/bluebird/position/hover-rise") * 0.5);
+			if (abs(rh_x) < 0.1) {
+				setprop("sim/model/bluebird/position/hover-rise", 0);
+				hover_reset_timer = 0;
 			} else {
-				if (((reactor_state < reactor_drift) or (!reactor_state)) and asas < 5 and !countergrav.request) {  # countergrav shutdown
+				setprop("sim/model/bluebird/position/hover-rise", rh_x);
+			}
+		}
+	}
+
+	# === sound section based on position/airspeed/altitude ===
+	var slv = sound_level;
+	var old_engine_level = reactor_drift;
+	if (power_switch) {
+		if (reactor_drift < 1 and slv > 1) {  # shutdown reactor before timer shutdown of standby power
+			slv = 0.99;
+		}
+		if (asas < 1 and agl < 2 and !countergrav.request) {
+			if (sound_state and slv > 0.999) {  # shutdown request by landing has 2.5 sec delay
+				slv = 2.5;
+			}
+			sound_state = 0;
+		} else {
+			if (((reactor_state < reactor_drift) or (!reactor_state)) and asas < 5 and !countergrav.request) {  # countergrav shutdown
+				sound_state = 0;
+				countergrav.request = 0;
+				if (countergrav.momentum_watch) {
+					countergrav.up_factor = 0;
+					countergrav.momentum_watch -= 1;
+				}
+				if (slv >= 1) {
+					slv = 0.99;
+				}
+			} else {
+				if (asas > 5 or agl >= 2 or countergrav.request) {
+					sound_state = 1;
+				} else {
 					sound_state = 0;
-					countergrav.request = 0;
-					if (countergrav.momentum_watch) {
-						countergrav.up_factor = 0;
-						countergrav.momentum_watch -= 1;
-					}
-					if (slv >= 1) {
-						slv = 0.99;
-					}
-				} else {
-					if (asas > 5 or agl >= 2 or countergrav.request) {
-						sound_state = 1;
-					} else {
-						sound_state = 0;
-					}
 				}
 			}
-		} else {
-			if (sound_state) {  # power shutdown with reactor on. single entry.
-				slv = 0.99;
-				sound_state = 0;
-				countergrav.request = 0;
-			}
 		}
-		if (sound_state != slv) {  # ramp up reactor sound fast or down slow
-			if (sound_state) { 
-				slv += 0.02;
-			} else {
-				slv -= 0.00625;
-			}
-			if (sound_state and slv > 1.0) {  # bounds check
-				slv = 1.000;
-				countergrav.request = 0;
-			}
-			if (slv > 0.5 and countergrav.request > 0) {
-				if (countergrav.request <= 1) {
-					countergrav.request -= 0.025;  # reached sufficient power to turn off trigger
-					slv -= 0.02;  # hold this level for a couple seconds until either another
-					# keyboard/joystick request confirms startup, or time expires and shutdown
-					if (countergrav.request < 0.1) {
-						countergrav.request = 0;  # holding time expired
-					}
+	} else {
+		if (sound_state) {  # power shutdown with reactor on. single entry.
+			slv = 0.99;
+			sound_state = 0;
+			countergrav.request = 0;
+		}
+	}
+	if (sound_state != slv) {  # ramp up reactor sound fast or down slow
+		if (sound_state) { 
+			slv += 0.02;
+		} else {
+			slv -= 0.00625;
+		}
+		if (sound_state and slv > 1.0) {  # bounds check
+			slv = 1.000;
+			countergrav.request = 0;
+		}
+		if (slv > 0.5 and countergrav.request > 0) {
+			if (countergrav.request <= 1) {
+				countergrav.request -= 0.025;  # reached sufficient power to turn off trigger
+				slv -= 0.02;  # hold this level for a couple seconds until either another
+				# keyboard/joystick request confirms startup, or time expires and shutdown
+				if (countergrav.request < 0.1) {
+					countergrav.request = 0;  # holding time expired
 				}
 			}
-			if (slv < 0.0) {
-				slv = 0.000;
-			}
-			sound_level = slv;
 		}
-		# engine rumble sound
-		if (asas < 200) {
-			var a1 = 0.1 + (asas * 0.002);
-		} elsif (asas < 4000) {
-			var a1 = 0.5 + ((asas - 200) * 0.0001315);
-		} else {
-			var a1 = 1.0;
+		if (slv < 0.0) {
+			slv = 0.000;
 		}
-		var a3 = (asas * 0.000187) + 0.25;
-		if (a3 > 0.75) {
-			a3 = ((asas - 4000) / 384000) + 0.75;
-		}
-		if (slv > 1.0) {    # timer to shutdown
-			var a2 = a1;
-			var a6 = 1;
-		} else {      # shutdown progressing
-			var a2 = a1 * slv;
-			a3 = a3 * slv;
-			var a6 = slv;
-		}
-		if (wave1_level) {
-			if (asas > 1 or slv == 1.0 or slv > 2.0) {
-				wave_state = (asas * 0.0004) + 0.2;
-			} elsif (slv > 1.6) {
-				wave_state = ((slv * 3) - 5) * ((asas * 0.0004) + 0.2);
-			} else {
-				wave_state = 0;
-			}
+		sound_level = slv;
+	}
+	# engine rumble sound
+	if (asas < 200) {
+		var a1 = 0.1 + (asas * 0.002);
+	} elsif (asas < 4000) {
+		var a1 = 0.5 + ((asas - 200) * 0.0001315);
+	} else {
+		var a1 = 1.0;
+	}
+	var a3 = (asas * 0.000187) + 0.25;
+	if (a3 > 0.75) {
+		a3 = ((asas - 4000) / 384000) + 0.75;
+	}
+	if (slv > 1.0) {    # timer to shutdown
+		var a2 = a1;
+		var a6 = 1;
+	} else {      # shutdown progressing
+		var a2 = a1 * slv;
+		a3 = a3 * slv;
+		var a6 = slv;
+	}
+	if (wave1_level) {
+		if (asas > 1 or slv == 1.0 or slv > 2.0) {
+			wave_state = (asas * 0.0004) + 0.2;
+		} elsif (slv > 1.6) {
+			wave_state = ((slv * 3) - 5) * ((asas * 0.0004) + 0.2);
 		} else {
 			wave_state = 0;
 		}
-		if (reactor_level) {
-			if (damage_count) {
-				reactor_state = a6 * 0.5;
-				setprop("instrumentation/display-screens/t1L-3", "50%");
-			} else {
-				reactor_state = a6;
-			}
+	} else {
+		wave_state = 0;
+	}
+	if (reactor_level) {
+		if (damage_count) {
+			reactor_state = a6 * 0.5;
+			setprop("instrumentation/display-screens/t1L-3", "50%");
 		} else {
-			reactor_state = 0;
+			reactor_state = a6;
 		}
-		if (power_switch) {
-			if (reactor_state > reactor_drift) {
-				reactor_drift += 0.04;
-				setprop("instrumentation/display-screens/t1L-3", "POWERING UP");
-				if (reactor_drift > reactor_state) {
-					reactor_drift = reactor_state;
-				}
-			} elsif (reactor_state < reactor_drift) {
-				setprop("instrumentation/display-screens/t1L-3", "POWERING DOWN");
-				if (reactor_level) {
-					reactor_drift = reactor_state;
-				} else {
-					reactor_drift -= 0.02;
-				}
+	} else {
+		reactor_state = 0;
+	}
+	if (power_switch) {
+		if (reactor_state > reactor_drift) {
+			reactor_drift += 0.04;
+			setprop("instrumentation/display-screens/t1L-3", "POWERING UP");
+			if (reactor_drift > reactor_state) {
+				reactor_drift = reactor_state;
 			}
-		} else {
-			reactor_drift -= 0.02;
+		} elsif (reactor_state < reactor_drift) {
 			setprop("instrumentation/display-screens/t1L-3", "POWERING DOWN");
-		}
-		if (reactor_drift < 0) {  # bounds check
-			reactor_drift = 0;
-		}
-		if (wave_state > wave_drift) {
-			wave_drift += 0.1;
-			if (wave_drift > wave_state) {
-				wave_drift = wave_state;
-			}
-		} elsif (wave_state < wave_drift) {
-			if (wave1_level) {
-				wave_drift -= 0.1;
+			if (reactor_level) {
+				reactor_drift = reactor_state;
 			} else {
-				wave_drift -= 0.02;
-			}
-			if (wave_drift < wave_state) {
-				wave_drift = wave_state;
+				reactor_drift -= 0.02;
 			}
 		}
-		var a4 = wave_drift;
-		if (!reactor_level and !wave1_level) {
-			a2 = a2 / 2;
+	} else {
+		reactor_drift -= 0.02;
+		setprop("instrumentation/display-screens/t1L-3", "POWERING DOWN");
+	}
+	if (reactor_drift < 0) {  # bounds check
+		reactor_drift = 0;
+	}
+	if (wave_state > wave_drift) {
+		wave_drift += 0.1;
+		if (wave_drift > wave_state) {
+			wave_drift = wave_state;
 		}
-		if (a3 > 2.0) {  # upper limit of pitch factoring
-			a3 = 2.0;
-		}
-		if (a4 > 1.75) {
-			a4 = 1.75;
-		}
-		setprop("sim/model/bluebird/sound/engines-volume-level", a2);
-		setprop("sim/model/bluebird/sound/pitch-level", a3);
-		if (old_engine_level != reactor_drift) {
-			setprop("sim/model/bluebird/lighting/engine-glow", reactor_drift);
-			buttonL67_update(0);
-		}
-		if (!power_switch) {
-			setprop("sim/model/bluebird/lighting/power-glow", reactor_drift);
-		}
-		if (reactor_level) {
-			if (!reactor_drift and !power_switch and !slv) {
-				setprop("sim/model/bluebird/systems/reactor-level", 0);
-			}
-		}
-		setprop("sim/model/bluebird/lighting/wave-guide-glow", a4);
-		var a9 = (wave_drift * 56.41) - 9;
-		if (a9 > 90) {
-			a9 = 78.898 + (math.sqrt(wave_drift) * 8.38);
-		} elsif (a9 < 0) {
-			a9 = 0;
-		}
-		setprop("instrumentation/display-screens/t1L-10", int(a9));
-		var a7 = getprop("sim/model/bluebird/lighting/wave-guide-halo-spin");
-		var a8 = a7 + (airspeed * 0.00017);
-		if (a8 < 0) {
-			a8 = abs(1 + a8);
-		}
-		a7 = abs(a8 - int(a8));
-		setprop("sim/model/bluebird/lighting/wave-guide-halo-spin", a7);
-
-		if (cockpitView == 1 or cockpitView == 4) {
-			var damage_adjust_z = 0;
+	} elsif (wave_state < wave_drift) {
+		if (wave1_level) {
+			wave_drift -= 0.1;
 		} else {
-			var damage_adjust_z = (damage_count <= 2 ? damage_count : 2);
+			wave_drift -= 0.02;
 		}
+		if (wave_drift < wave_state) {
+			wave_drift = wave_state;
+		}
+	}
+	var a4 = wave_drift;
+	if (!reactor_level and !wave1_level) {
+		a2 = a2 / 2;
+	}
+	if (a3 > 2.0) {  # upper limit of pitch factoring
+		a3 = 2.0;
+	}
+	if (a4 > 1.75) {
+		a4 = 1.75;
+	}
+	setprop("sim/model/bluebird/sound/engines-volume-level", a2);
+	setprop("sim/model/bluebird/sound/pitch-level", a3);
+	if (old_engine_level != reactor_drift) {
+		setprop("sim/model/bluebird/lighting/engine-glow", reactor_drift);
+		buttonL67_update(0);
+	}
+	if (!power_switch) {
+		setprop("sim/model/bluebird/lighting/power-glow", reactor_drift);
+	}
+	if (reactor_level) {
+		if (!reactor_drift and !power_switch and !slv) {
+			setprop("sim/model/bluebird/systems/reactor-level", 0);
+		}
+	}
+	setprop("sim/model/bluebird/lighting/wave-guide-glow", a4);
+	var a9 = (wave_drift * 56.41) - 9;
+	if (a9 > 90) {
+		a9 = 78.898 + (math.sqrt(wave_drift) * 8.38);
+	} elsif (a9 < 0) {
+		a9 = 0;
+	}
+	setprop("instrumentation/display-screens/t1L-10", int(a9));
+	var a7 = getprop("sim/model/bluebird/lighting/wave-guide-halo-spin");
+	var a8 = a7 + (airspeed * 0.00017);
+	if (a8 < 0) {
+		a8 = abs(1 + a8);
+	}
+	a7 = abs(a8 - int(a8));
+	setprop("sim/model/bluebird/lighting/wave-guide-halo-spin", a7);
 
-		if (groundslope_enabled) {
-			var view0_coord = xyz2sloped(cockpit_locations[cockpitView].x,cockpit_locations[cockpitView].y,cockpit_locations[cockpitView].z[damage_adjust_z]);
-			setprop("/sim/view[0]/config/z-offset-m", (cockpit_locations[cockpitView].x + view0_coord[0]));
-			setprop("/sim/view[0]/config/x-offset-m", (cockpit_locations[cockpitView].y + view0_coord[1]));
-			setprop("/sim/view[0]/config/y-offset-m", (cockpit_locations[cockpitView].z[damage_adjust_z] + view0_coord[2]));
-			setprop("/sim/view[0]/config/pitch-offset-deg", (getprop("/orientation/pitch-deg") + gear_x_pitch_deg));
-			setprop("/sim/view[0]/config/roll-offset-deg", (getprop("/orientation/roll-deg") + gear_y_roll_deg));
-			if (getprop("sim/current-view/view-number") == 0) {
-				xViewNode.setValue(view0_coord[0]);
-				yViewNode.setValue(view0_coord[1]);
-				zViewNode.setValue(cockpit_locations[cockpitView].z[damage_adjust_z] + view0_coord[2]);
-			}
-		}
-
-		# nacelle venting
-		if (venting_direction >= -1) {
-			update_venting(0,0);
-		}
+	var damage_offset_z = 0;
+	if (cockpitView != 1 and cockpitView != 4) { # rotation is already factored in for walking positions
+		damage_offset_z = (((damage_count > 0) and (cockpit_locations[cockpitView].x < 0)) ? -cockpit_locations[cockpitView].x * walk.sin((damage_count <= 2 ? damage_count : 2) + 1) : 0);
+	}
+	# given the x,y offsets of the cockpit view (in meters)
+	# translate into view offset considering ground slope
+	var view0_coord = walk.xyz2vector(cockpit_locations[cockpitView].x,cockpit_locations[cockpitView].y,(cockpit_locations[cockpitView].z_floor_m + cockpit_locations[cockpitView].z_eye_offset_m + damage_offset_z),groundslope[1].rotate_pitch,groundslope[1].rotate_roll);
+	setprop("/sim/view[0]/config/z-offset-m", view0_coord[0]);
+	setprop("/sim/view[0]/config/x-offset-m", view0_coord[1]);
+	setprop("/sim/view[0]/config/y-offset-m", view0_coord[2]);
+	setprop("/sim/view[0]/config/pitch-offset-deg", (groundslope[1].rotate_pitch - 2));
+	setprop("/sim/view[0]/config/roll-offset-deg", (roll_d + groundslope[1].rotate_roll));
+	if (getprop("sim/current-view/view-number") == 0) {
+		setprop("sim/current-view/z-offset-m", view0_coord[0]);
+		setprop("sim/current-view/x-offset-m", view0_coord[1]);
+		setprop("sim/current-view/y-offset-m", view0_coord[2]);
+		setprop("sim/current-view/config/pitch-offset-deg", (groundslope[1].rotate_pitch - 2));
+		setprop("sim/current-view/config/roll-offset-deg", (roll_d + groundslope[1].rotate_roll));
+	}
+	# nacelle venting
+	if (venting_direction >= -1) {
+		update_venting(0,0);
 	}
 	settimer(update_main, 0);
 }
@@ -2807,11 +2870,11 @@ controls.aileronTrim = func(at_d) {
 	if (!at_d) {
 		return;
 	} else {
-		var js1collective = abs(joystick_collective.getValue());
+		var js1collective = abs(getprop("controls/engines/countergrav-factor"));
 		if (at_d < 0 and js1collective >= 1) {
-			joystick_collective.setValue(js1collective - 1);
+			setprop("controls/engines/countergrav-factor", js1collective - 1);
 		} elsif (at_d <= 15) {
-			joystick_collective.setValue(js1collective + 1);
+			setprop("controls/engines/countergrav-factor", js1collective + 1);
 		}
 	}
 }
@@ -2821,7 +2884,7 @@ controls.elevatorTrim = func(et_d) {
 		return;
 	} else {
 		countergrav.input_type = 2;
-		var js1pitch = abs(joystick_elevator.getValue());
+		var js1pitch = abs(getprop("input/joysticks/js/axis[1]/binding/setting"));
 		up((et_d < 0 ? -1 : 1), js1pitch, 2);
 	}
 }
@@ -2872,7 +2935,7 @@ setlistener("/devices/status/mice/mouse/button[1]", func(n) {
 		return;
 	if (mouse.mmb) {
 		controls.centerFlightControls();
-#		mouse.savex = mouse.x;
+# not used	mouse.savex = mouse.x;
 		mouse.savey = mouse.y;
 		gui.setCursor(mouse.centerx, mouse.centery, "none");
 	} else {
@@ -2896,7 +2959,7 @@ mouse.loop = func {
 	if (mouse.mode or !mouse.mmb) {
 		return settimer(mouse.loop, 0);
 	}
-#	var dx = mouse.x - mouse.centerx;
+# not used	var dx = mouse.x - mouse.centerx;
 	var dy = -mouse.y + mouse.centery;
 	if (dy) {
 		countergrav.input_type = 3;
@@ -2953,7 +3016,9 @@ var coast_up = func (id) {
 		}
 	}
 	if (countergrav.momentum) {
-		up((countergrav.momentum < 0 ? -1 : 1), countergrav.momentum, countergrav.input_type);
+		countergrav.call = 1;
+	} else {
+		countergrav.call = 0;
 	}
 	if (countergrav.momentum_watch) {
 		settimer(func { coast_up(coast_loop_id += 1) }, 0);
@@ -2963,9 +3028,9 @@ var coast_up = func (id) {
 }
 
 var up = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=source of request
-	var entry_altitude = altitude_ft_Node.getValue();
+	var entry_altitude = getprop("position/altitude-ft");
 	var altitude = entry_altitude;
-	contact_altitude = altitude - vertical_offset_ft - gear_height - hover_add;
+	contact_altitude_ft = altitude - vertical_offset_ft - gear_height_ft - hover_add - (gear1_damage_offset_m * globals.M2FT);
 	if (hg_mode == 1 or hg_mode == 3) {
 		# 1 = keyboard , 3 = mouse
 		var hg_rise = countergrav.momentum * countergrav.control_factor;
@@ -2973,11 +3038,12 @@ var up = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=sour
 		# 0 = gravity , 2 = joystick
 		var hg_rise = hg_thrust * countergrav.control_factor * hg_dir;
 	}
-	var contact_rise = contact_altitude + hg_rise;
+	var contact_rise = contact_altitude_ft + hg_rise;
 	if (hg_dir < 0) {    # down requested by drift, fall, or VTOL down buttons
 		if (contact_rise < h_contact_target_alt) {  # too low
 			contact_rise = h_contact_target_alt + 0.0001;
-			if ((contact_rise < contact_altitude) and !countergrav.request) {
+			if ((contact_rise < contact_altitude_ft) and !countergrav.request) {
+				gs_trigger[1].alt = 0;
 				if (asas < 40) {  # ground contact by landing or falling fast
 					if (lose_altitude > 0.2 or hg_rise < -0.5) {
 						var already_landed = getprop("sim/model/bluebird/position/landing-wow");
@@ -2989,12 +3055,7 @@ var up = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=sour
 						displayScreens.scroll_3L(text_3L);
 						lose_altitude = 0;
 						if (!reactor_request) {
-							settle_to_level();
-						} else {
-							setprop("orientation/ground-pitch",0);
-							setprop("orientation/groundsloped-pitch-deg",pitch_d);
-							setprop("orientation/ground-roll",0);
-							setprop("orientation/groundsloped-roll-deg",roll_d);
+							settle_to_ground();
 						}
 					} else {
 						lose_altitude = lose_altitude * 0.5;
@@ -3006,12 +3067,7 @@ var up = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=sour
 					var text_3L = sprintf("%3i  **             %4.1f",getprop("sim/model/bluebird/damage/hits-counter"), (lose_altitude * 5));
 					displayScreens.scroll_3L(text_3L);
 					if (!reactor_request) {
-						settle_to_level();
-					} else {
-						setprop("orientation/ground-pitch",0);
-						setprop("orientation/groundsloped-pitch-deg",pitch_d);
-						setprop("orientation/ground-roll",0);
-						setprop("orientation/groundsloped-roll-deg",roll_d);
+						settle_to_ground();
 					}
 				}
 			} else {
@@ -3019,9 +3075,9 @@ var up = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=sour
 			}
 		}
 		if (!countergrav.request) {  # fall unless countergrav just requested
-			altitude = contact_rise + vertical_offset_ft + gear_height + hover_add;
+			altitude = contact_rise + vertical_offset_ft + gear_height_ft + hover_add;
 			altitude_ft_Node.setDoubleValue(altitude);
-			contact_altitude = contact_rise;
+			contact_altitude_ft = contact_rise;
 		}
 	} elsif (hg_dir > 0) {  # up
 		if (reactor_drift < 0.5 and reactor_level) {  # on standby, power up requested for hover up
@@ -3032,10 +3088,10 @@ var up = func(hg_dir, hg_thrust, hg_mode) {  # d=direction p=thrust_power m=sour
 			}
 		}
 		if (reactor_drift > 0.2 and reactor_level) {  # sufficient power to comply and lift
-			contact_rise = contact_altitude + (reactor_drift * hg_rise);
-			altitude = contact_rise + vertical_offset_ft + gear_height + hover_add;
+			contact_rise = contact_altitude_ft + (reactor_drift * hg_rise);
+			altitude = contact_rise + vertical_offset_ft + gear_height_ft + hover_add;
 			altitude_ft_Node.setDoubleValue(altitude);
-			contact_altitude = contact_rise;
+			contact_altitude_ft = contact_rise;
 		}
 	}
 	if (screen_5R_on) {
@@ -3138,13 +3194,13 @@ var toggle_lighting = func(tl_button_num) {
 	} elsif (tl_button_num == 6) {
 		set_nav_lights(-1);
 	} elsif (tl_button_num == 7) {
-		if (beacon_switch.getValue()) {
+		if (getprop("controls/lighting/beacon")) {
 			beacon_switch.setBoolValue(0);
 		} else {
 			beacon_switch.setBoolValue(1);
 		}
 	} elsif (tl_button_num == 8) {
-		if (strobe_switch.getValue()) {
+		if (getprop("controls/lighting/strobe")) {
 			strobe_switch.setBoolValue(0);
 		} else {
 			strobe_switch.setBoolValue(1);
@@ -3187,12 +3243,14 @@ var set_cockpit = func(cockpitPosition) {
 	var num_positions = size(cockpit_locations) - 1;
 	if (cockpitPosition > num_positions) {
 		cockpitPosition = 0;
+	} elsif (cockpitPosition < 0) {
+		cockpitPosition = num_positions;
 	}
-	if (cockpitPosition < 0) { cockpitPosition = num_positions; }
 	setprop("sim/model/bluebird/crew/cockpit-position", cockpitPosition);
 	if (!getprop("sim/walker/outside")) {
 		setprop("sim/model/bluebird/crew/walker/x-offset-m", cockpit_locations[cockpitPosition].x);
 		setprop("sim/model/bluebird/crew/walker/y-offset-m", cockpit_locations[cockpitPosition].y);
+		setprop("sim/model/bluebird/crew/walker/z-offset-m", cockpit_locations[cockpitPosition].z_floor_m);
 	}
 	if (getprop("sim/current-view/view-number") == 0) {
 		var damage_adjust_x = (damage_count == 0 ? cockpit_locations[cockpitPosition].x : cockpit_locations[cockpitPosition].x - 0.1);
@@ -3204,14 +3262,15 @@ var set_cockpit = func(cockpitPosition) {
 		# axis are different for current-view
 		#  x = right/left
 		#  y = up/down
-		#  z = aft/fore
+		#  view z = aft/fore x
 		setprop("sim/current-view/z-offset-m", damage_adjust_x);
 		setprop("sim/current-view/x-offset-m", cockpit_locations[cockpitPosition].y);
-		setprop("sim/current-view/y-offset-m", cockpit_locations[cockpitPosition].z[damage_adjust_z]);
+		setprop("sim/current-view/y-offset-m", cockpit_locations[cockpitPosition].z_floor_m + cockpit_locations[cockpitPosition].z_eye_offset_m) + (((damage_count > 0) and (damage_adjust_x < 0)) ? -damage_adjust_x * walk.sin((damage_count <= 2 ? damage_count : 2) + 1) : 0);
 		setprop("sim/current-view/goal-heading-offset-deg", cockpit_locations[cockpitPosition].h);
 		setprop("sim/current-view/heading-offset-deg", cockpit_locations[cockpitPosition].h);
 		setprop("sim/current-view/goal-pitch-offset-deg", cockpit_locations[cockpitPosition].p);
 		setprop("sim/current-view/pitch-offset-deg", cockpit_locations[cockpitPosition].p);
+		setprop("sim/current-view/goal-roll-offset-deg", 0);
 		setprop("sim/current-view/field-of-view", cockpit_locations[cockpitPosition].fov);
 	}
 }
@@ -3225,9 +3284,50 @@ var cycle_cockpit = func(cc_i) {
 	}
 	set_cockpit(cockpitView);
 	if (cc_i == 10) {
-		hViewNode.setValue(0.0);
+		setprop("sim/current-view/heading-offset-deg", 0.0);
 		setprop("sim/current-view/goal-roll-offset-deg", 0.0);
 	}
+}
+
+var hatch_z_offset_m = func(door_loc,pos_m) {
+	var loc2door = [9, 0, 1, 9, 5];
+	var z_offset_m = 0;
+	var door_str = "sim/model/bluebird/doors/door[" ~ loc2door[door_loc] ~ "]/position-adj";
+	var door_pos = getprop(door_str);
+	if (door_loc > 0 and door_pos > 0.625) {
+		var y_indx = 0;
+		if ((door_loc == 1 or door_loc == 2) and (door_pos > 0.685)) {
+			var door01_steps = [ [0, 0.014, -0.037, -0.183, -0.329, -0.481],
+					[0, 0.013, -0.175, -0.394, -0.614, -0.830],
+					[0, 0.012, -0.239 , -0.492, -0.743, -0.994] ];
+			var door01_pos_indx = clamp(int((door_pos - 0.793) / 0.09 + 1), 0, 2);
+			var y_out_door = abs(pos_m) - 2.238;
+			if (y_out_door > 0) {
+				y_indx = clamp(int(y_out_door / 0.3673), 0, 5);
+			}
+			z_offset_m = door01_steps[door01_pos_indx][y_indx];
+		} elsif (door_loc == 4) {
+			door5_ramp =  [ [0.625, 0.006, 1.655],
+					[0.900,-0.904, 1.414],
+					[0.935,-0.977, 1.367],
+					[0.971,-1.025, 1.334],
+					[1.000,-1.025, 1.333] ];
+			var x_out_door = pos_m - 9.27;
+			var x_indx = 0;
+			var found = 0;
+			while ((!found) and (x_indx <=3)) {
+				if ((door5_ramp[x_indx][0] < door_pos) and (door5_ramp[x_indx+1][0] >= door_pos)) {
+					var d_i_pct = (door_pos - door5_ramp[x_indx][0]) / (door5_ramp[x_indx+1][0] - door5_ramp[x_indx][0]);
+					var x_travel = door5_ramp[x_indx+1][2] - door5_ramp[x_indx][2];
+					var x_ramp_edge_offset_m = (d_i_pct * x_travel) + door5_ramp[x_indx][2];
+					var x_pct = clamp(x_out_door / x_ramp_edge_offset_m, 0, 1);
+					z_offset_m = d_i_pct * ((door5_ramp[x_indx+1][1] - door5_ramp[x_indx][1]) + door5_ramp[x_indx][1]) * x_pct;
+				}
+				x_indx += 1;
+			}
+		}
+	}
+	return z_offset_m;
 }
 
 var walk_about_cabin = func(wa_distance, walk_offset) {
@@ -3238,7 +3338,7 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 	var w_out = 0;
 	var cpos = getprop("sim/model/bluebird/crew/cockpit-position");
 	if (cpos != 0) {
-		var view_head = hViewNode.getValue();
+		var view_head = getprop("sim/current-view/heading-offset-deg");
 		setprop("sim/model/bluebird/crew/walker/head-offset-deg", view_head);
 		var heading = walk_offset + view_head;
 		while (heading >= 360.0) {
@@ -3247,9 +3347,10 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 		while (heading < 0.0) {
 			heading += 360.0;
 		}
-		var wa_heading_rad = heading * 0.01745329252;
+		var wa_heading_rad = heading * walk.DEG2RAD;
 		var new_x_position = getprop("sim/model/bluebird/crew/walker/x-offset-m") - (math.cos(wa_heading_rad) * wa_distance);
 		var new_y_position = getprop("sim/model/bluebird/crew/walker/y-offset-m") - (math.sin(wa_heading_rad) * wa_distance);
+		var new_zf_position = 0.495; # cockpit floor starting level
 		var door0_barrier = (door0_position < 0.62 ? -1.3 : -4.42);
 		var door1_barrier = (door1_position < 0.62 ? 1.3 : 4.42);
 		var door5_barrier = (door5_position < 0.62 ? 8.9 : 10.57);	# 10.8 when hatch up in flight
@@ -3263,7 +3364,7 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 			}
 		}
 		# check outside walls
-		if (new_x_position <= -1.92) {	# divide search by half
+		if (new_x_position <= -1.94) {	# divide search by half
 			if (new_x_position <= -8.0) {
 				new_x_position = -8.0;
 				if (new_y_position < -0.4) {
@@ -3330,6 +3431,7 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 				} elsif (new_y_position > 1.1) {
 					new_y_position = 1.1;
 				}
+				new_zf_position += hatch_z_offset_m((new_y_position > 0 ? 2 : 1), new_y_position);
 			} elsif (new_x_position > -3.1 and new_x_position < -2.1) {
 				# between front hatches
 				if (new_x_position < -3.1 and 
@@ -3350,6 +3452,7 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 					}
 					new_y_position = door1_barrier;
 				}
+				new_zf_position += hatch_z_offset_m((new_y_position > 0 ? 2 : 1),new_y_position);
 			} elsif (new_x_position >= -2.1 and new_x_position <= -1.94) {
 				if (new_y_position < door0_barrier) {
 					new_x_position = -2.1;
@@ -3366,6 +3469,7 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 				} elsif (new_y_position > 1.1) {
 					new_y_position = 1.1;
 				}
+				new_zf_position += hatch_z_offset_m((new_y_position > 0 ? 2 : 1),new_y_position);
 			}
 		} else {
 			if (new_x_position > -1.94 and new_x_position < -1.52) {
@@ -3483,7 +3587,7 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 				}
 			} elsif (new_x_position > door5_barrier) {
 				if (door5_position > 0.62) {
-					w_out = 5;
+					w_out = 4;
 				}
 				new_x_position = door5_barrier;
 				if (new_y_position < -1.62) {
@@ -3492,16 +3596,27 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 					new_y_position = 1.62;
 				}
 			}
+			if (new_x_position > 9.27) {
+				new_zf_position += hatch_z_offset_m(4, new_x_position);
+			}
+		}
+		if (damage_count and (new_x_position < 0)) {
+			var new_zf_rot = -new_x_position * walk.sin((damage_count <= 2 ? damage_count : 2) + 1);
+			new_zf_position += new_zf_rot;
 		}
 		if (w_out) {
 			walk.get_out(w_out);
 		} else {
-			if (getprop("sim/current-view/view-number") == 0) {
-				xViewNode.setValue(new_x_position);
-				yViewNode.setValue(new_y_position);
-			}
 			setprop("sim/model/bluebird/crew/walker/x-offset-m", new_x_position);
 			setprop("sim/model/bluebird/crew/walker/y-offset-m", new_y_position);
+			setprop("sim/model/bluebird/crew/walker/z-offset-m", new_zf_position);
+			if (cockpit_locations[cockpitView].can_walk) {
+				cockpit_locations[cockpitView].x = new_x_position;
+				cockpit_locations[cockpitView].y = new_y_position;
+				cockpit_locations[cockpitView].z_floor_m = new_zf_position;
+				cockpit_locations[cockpitView].h = view_head;
+				cockpit_locations[cockpitView].p = getprop("sim/current-view/pitch-offset-deg");
+			}
 		}
 	}
 }
@@ -3509,7 +3624,7 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 # dialog functions --------------------------------------------------
 
 var set_nav_lights = func(snl_i) {
-	var snl_new = nav_light_switch.getValue();
+	var snl_new = getprop("sim/model/bluebird/lighting/nav-light-switch");
 	if (snl_i == -1) {
 		snl_new += 1;
 		if (snl_new > 2) {
@@ -3518,7 +3633,7 @@ var set_nav_lights = func(snl_i) {
 	} else {
 		snl_new = snl_i;
 	}
-	nav_light_switch.setValue(snl_new);
+	setprop("sim/model/bluebird/lighting/nav-light-switch", snl_new);
 	active_nav_button = [ 3, 3, 3];
 	if (snl_new == 0) {
 		active_nav_button[0]=1;
@@ -3532,7 +3647,7 @@ var set_nav_lights = func(snl_i) {
 }
 
 var set_landing_lights = func(sll_i) {
-	var sll_new = landing_light_switch.getValue();
+	var sll_new = getprop("sim/model/bluebird/lighting/landing-lights");
 	if (sll_i == -1) {
 		sll_new += 1;
 		if (sll_new > 2) {
@@ -3541,7 +3656,7 @@ var set_landing_lights = func(sll_i) {
 	} else {
 		sll_new = sll_i;
 	}
-	landing_light_switch.setValue(sll_new);
+	setprop("sim/model/bluebird/lighting/landing-lights", sll_new);
 	active_landing_button = [ 3, 3, 3];
 	if (sll_new == 0) {
 		active_landing_button[0]=1;
@@ -4148,20 +4263,6 @@ var showDialog2 = func {
 	w.set("property", "logging/walker-debug");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 
-	config_dialog.addChild("hrule").addChild("dummy");
-
-	w = checkbox("Experimental ground slope based orientation");
-	w.set("property", "sim/model/bluebird/systems/groundslope-enable");
-	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
-
-	g = config_dialog.addChild("group");
-	g.set("layout", "hbox");
-	g.addChild("empty").set("pref-width", 40);
-	w = g.addChild("text");
-	w.set("halign", "left");
-	w.set("label", "(Effective when counter-grav hover is off)");
-	g.addChild("empty").set("stretch", 1);
-
 	# finale
 	config_dialog.addChild("empty").set("pref-height", "3");
 	fgcommand("dialog-new", config_dialog.prop());
@@ -4244,20 +4345,30 @@ var showLiveryDialog1 = func {
 	gui.showDialog(name);
 }
 
-
 #==========================================================================
 #                 === initial calls at startup ===
- setlistener("sim/signals/fdm-initialized", func {
+var prestart_main = func {
+	var gnd_elev = getprop("position/ground-elev-ft");
+	var altitude = getprop("position/altitude-ft");
+	if ((gnd_elev == nil) or (altitude == nil)) {
+		main_loop_id += 1;
+		settimer(prestart_main, 0.1);
+	} else {
+		print ("  version 10.92  release date 2014.Feb.02  by Stewart Andreason");
+		update_main();
+	}
+}
 
- update_main();  # starts continuous loop
- settimer(interior_lighting_loop, 0.25);
- settimer(interior_lighting_update, 0.5);
- settimer(nav_light_loop, 0.5);
- if (getprop("sim/ai-traffic/enabled") or getprop("sim/multiplay/rxport")) {
- 	setprop("instrumentation/tracking/enabled", 1);
- }
-
- var t = getprop("/sim/description");
- print (t);
- print ("  version 10.4  release date 2010.Mar.01  by Stewart Andreason");
+setlistener("sim/signals/fdm-initialized", func {
+	settimer(interior_lighting_loop, 0.25);
+	settimer(interior_lighting_update, 0.5);
+	settimer(nav_light_loop, 0.5);
+	if (getprop("sim/ai-traffic/enabled") or getprop("sim/multiplay/rxport")) {
+		setprop("instrumentation/tracking/enabled", 1);
+	}
+	setprop("sim/atc/enabled", 0);
+	setprop("sim/sound/chatter", 0);
+	var t = getprop("/sim/description");
+	print (t);
+	prestart_main();
 });

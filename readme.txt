@@ -5,7 +5,7 @@ Choose your aircraft:
  start Flightgear with the following parameter:
 
 If you are running the newest version of FlightGear, 
-  version 2.0, 1.9 or cvs built with OpenSceneGraph,
+  version 1.9 - 3.0 (built with OpenSceneGraph),
     --aircraft=bluebird
 
 If you are running FlightGear version 1.0 (with Plib)
@@ -37,10 +37,10 @@ When editing an animation for Waldo Walker,
    the dialog, or the current position ( like pressing [+] or [-] )
 
 -------------------------------------------------
-2009 by Stewart Andreason for FlightGear
+2014 by Stewart Andreason for FlightGear
 
 Send Suggestions? Comments? Problems? or Encouragement to:
-  sandreas41 <at> gmail <dot> com
+  stewart <at> seahorsecorral <dot> org
 Stay current with latest version. This model came from: 
   http://seahorseCorral.org/flightgear_aircraft.html
 
@@ -103,6 +103,7 @@ Current development level is: Early-Production
                  workaround is in place, see ufo-ai.xml
              Can not land or drive on hills. Flight attitude is hard linked to 
                joystick controls.
+                 workaround: groundslope adjusts the aircraft orientation.
 
 -------------------------------------------------
 Credits:

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 9.1  ==-->
+<!--== Bluebird Explorer Hovercraft  version 10.8  ==-->
 
 <PropertyList>
 	<name>screen messages text 4L</name>
@@ -23,11 +23,11 @@
 					</less-than>
 					<greater-than>
 						<property>sim/current-view/x-offset-m</property>
-						<value>-0.9</value>
+						<value>-1.6</value>
 					</greater-than>
 					<less-than>
 						<property>sim/current-view/x-offset-m</property>
-						<value>1.35</value>
+						<value>1.6</value>
 					</less-than>
 				</and>
 			</condition>
