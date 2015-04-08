@@ -6,8 +6,8 @@
 
 <!-- expect this model to be placed in the FG Aircraft directory, and
 		for the generic instruments, provided in base package, to be present. -->
- <path>../../../Instruments-3d/ai/ai.ac</path>
- <texture-path>../../../Instruments-3d/ai</texture-path>
+ <path>Aircraft/Instruments-3d/ai/ai.ac</path>
+ <texture-path>Aircraft/Instruments-3d/ai</texture-path>
 
  <animation>
 	<type>material</type>
