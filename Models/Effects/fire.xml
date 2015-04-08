@@ -5,7 +5,7 @@
   <particlesystem>
     <name>fire</name>
     <type>normal</type>
-    <texture>../../../Generic/Effects/smoke.png</texture>
+    <texture>Aircraft/Generic/Effects/smoke.png</texture>
 
     <offsets>
       <x-m> 0.0 </x-m>
