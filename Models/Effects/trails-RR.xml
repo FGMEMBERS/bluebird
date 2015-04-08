@@ -25,7 +25,7 @@
 				</equals>
 			</and>
 		</condition>
-		<texture>../../../Generic/Effects/smoke.png</texture>
+		<texture>Aircraft/Generic/Effects/smoke.png</texture>
 		<emissive>false</emissive>
 		<lighting>false</lighting>
 		<align>billboard</align>
