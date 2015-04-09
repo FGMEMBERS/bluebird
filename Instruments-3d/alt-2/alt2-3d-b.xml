@@ -4,8 +4,8 @@
 
 <PropertyList>
 
- <path>../../../Instruments-3d/alt-2/alt2.ac</path>
- <texture-path>../../../Instruments-3d/alt-2</texture-path>
+ <path>Aircraft/Instruments-3d/alt-2/alt2.ac</path>
+ <texture-path>Aircraft/Instruments-3d/alt-2</texture-path>
 
  <animation>
 	<type>material</type>

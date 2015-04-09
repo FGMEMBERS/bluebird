@@ -4,8 +4,8 @@
 <!-- expect this model to be placed in the FG Aircraft directory, and
      for the generic instruments, provided in base package, to be present. -->
 <PropertyList> 
- <path>../../../Instruments-3d/yoke/yoke.ac</path>
- <texture-path>../../../Instruments-3d/yoke</texture-path>
+ <path>Aircraft/Instruments-3d/yoke/yoke.ac</path>
+ <texture-path>Aircraft/Instruments-3d/yoke</texture-path>
  <animation>
 	<type>translate</type>
 	<object-name>Yoke</object-name>
