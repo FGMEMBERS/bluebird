@@ -3,11 +3,22 @@
 <PropertyList include="bluebird-base.xml">
  <sim>
 	<description>Bluebird Explorer Hovercraft</description>
-	<aircraft-version>10.93</aircraft-version>
+	<aircraft-version>11.0</aircraft-version>
 	<author>S Andreason</author>
 	<model>
 		<path>Aircraft/bluebird/Models/bluebird-osg.xml</path>
 	</model>
+	<tags>
+		<tag>experimental</tag>
+		<tag>fictional</tag>
+		<tag>multi-engine</tag>
+		<tag>passenger</tag>
+		<tag>pressurized</tag>
+		<tag>retractable-gear</tag>
+		<tag>spaceship</tag>
+		<tag>supersonic</tag>
+		<tag>vtol</tag>
+	</tags>
 
 	<help>
 		<key n="20">

@@ -1,4 +1,14 @@
 Version# Vertices PolygonFaces Comments
+2018.Nov.11
+11.0		no change to models
+	Add preferred fov to allow saving your fov for your hardware, no longer assume 4:3 screen.
+	Improve instrumentation lighting color codes, and display on right monitor #1.
+	Add new tags for launcher.
+
+2015.Apr.08
+10.93		no change to models
+	automated editing of Incorrect path to Instruments-3d in fg aircraft library, changes did not get to me.
+
 2014.Feb.02
 10.92		no change to models
 	Change key for Configuration dialog from Tab to Equal, for compliance with FG 3.0

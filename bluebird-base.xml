@@ -4,7 +4,7 @@
  <sim>
 	<aero>bluebird</aero>
 	<status>early-production</status>
-	<aircraft-version>10.93</aircraft-version>
+	<aircraft-version>11.0</aircraft-version>
 	<author>S Andreason</author>
 	<aircraft-status>
 		<fdm>early-production</fdm>
@@ -1314,6 +1314,7 @@
 				<factor type="float">0</factor>
 			</instruments>
 		</material>
+		<preferred_fov>55</preferred_fov>
 
 		<walker n="0">
 			<animate>

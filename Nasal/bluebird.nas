@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 10.92 for FlightGear 1.9 OSG =====
+# ===== Bluebird Explorer Hovercraft  version 11.0 for FlightGear 1.9 OSG =====
 
 # strobes -----------------------------------------------------------
 var strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
@@ -43,7 +43,7 @@ var clamp = func(v, min, max) { v < min ? min : v > max ? max : v }
 var RAD2DEG = 180 / math.pi;
 
 # === global nodes, and constants ===================================
-
+var preferred_fov = 55;		# default for 4:3 screen
 var vertical_offset_ft = 0.5830;
 	# keep shadow off ground at expense of keeping wheels and gear
 	# at ground level. Also adjust Shadow in bluebird.xml line# 13997 with negative
@@ -281,11 +281,11 @@ var sound_state = 0;
 var alert_level = 0;
 # ------- walker ---------
 var cockpit_locations = [
-	{ x: -7.35, y:  0   , z_floor_m: 0.495, h: 0 , p: -2, fov: 55, can_walk: 0, z_eye_offset_m: 0.975 },
-	{ x: -5.6 , y:  0   , z_floor_m: 0.495, h: 0 , p:  0, fov: 55, can_walk: 1, z_eye_offset_m: 1.625 },
-	{ x: -5.94, y: -0.73, z_floor_m: 0.495, h: 0 , p:  0, fov: 55, can_walk: 0, z_eye_offset_m: 0.975 },
-	{ x: -5.93, y:  0.77, z_floor_m: 0.495, h: 0 , p:  0, fov: 55, can_walk: 0, z_eye_offset_m: 0.975 },
-	{ x:  8.4 , y:  1.60, z_floor_m: 0.495, h:135, p:  0, fov: 55, can_walk: 1, z_eye_offset_m: 1.625 } ];	# left doorway
+	{ x: -7.35, y:  0   , z_floor_m: 0.495, h: 0 , p: -2, can_walk: 0, z_eye_offset_m: 0.975 },
+	{ x: -5.6 , y:  0   , z_floor_m: 0.495, h: 0 , p:  0, can_walk: 1, z_eye_offset_m: 1.625 },
+	{ x: -5.94, y: -0.73, z_floor_m: 0.495, h: 0 , p:  0, can_walk: 0, z_eye_offset_m: 0.975 },
+	{ x: -5.93, y:  0.77, z_floor_m: 0.495, h: 0 , p:  0, can_walk: 0, z_eye_offset_m: 0.975 },
+	{ x:  8.4 , y:  1.60, z_floor_m: 0.495, h:135, p:  0, can_walk: 1, z_eye_offset_m: 1.625 } ];	# left doorway
 	# Waldo eye height is 1.625m
 var cockpitView = 0;
 # ----- gui dialogs -----
@@ -535,7 +535,7 @@ var door_update = func(door_number) {
 		var gear_position2 = clamp(((gear_position * gear_position * 0.1207) + (gear_position * 0.2299) + 0.79), 0, 1);
 		door5_position = getprop("sim/model/bluebird/doors/door[5]/position-norm");
 		if (door5_position > 0.66 and airspeed > 40) {
-			door5_position = 0.66;
+			door5_position = 0.66;		#FIXME jumps if door is closed after increasing airspeed. door_update does not get called until door is in motion.
 		}
 		if (door5_position > gear_position2) {
 			setprop("sim/model/bluebird/doors/door[5]/position-adj", gear_position2);
@@ -1244,39 +1244,23 @@ var panel_lighting_update = func {
 	var old_button_2 = button_G3;
 	if (power_switch) {
 		if (gear_position == 0) {	# up
-			if (wheel_position == 0) {	# up = 1green
-				button_G1 = 2;
-			} else {		# wheels barely down = 1yellow
+			if (wheel_position == 0) {	# up = 1:white
+				button_G1 = 15;
+			} else {		# wheels extended = 1:yellow
 				button_G1 = 3;
 			}
 			button_G3 = unlit_lighting_base;
-		} elsif (gear_position == 1 or (gear_position > 0.409 and gear_position < 0.411)) {
-			if (wheel_position < 0.5) {	# skid-plate down = 3blue
-				button_G3 = 4;
-			} else {			# wheels down = 3green
-				button_G3 = 2;
-			}
+		} elsif (gear_position == 1 or (gear_position > 0.409 and gear_position < 0.411)) {	# down and locked
+			button_G3 = 2;
 			button_G1 = unlit_lighting_base;
 		} else {
-			plu_return = 1;
-			var plu_time = getprop("sim/time/elapsed-sec") * 0.5;
-			plu_time = int((plu_time - int(plu_time)) * 10);
-			if (isodd(plu_time)) {
-				if (!gear_request) {		# moving up = 1yellow-flash
-					button_G1 = 3;
-					button_G3 = unlit_lighting_base;
-				} else {			# moving down = 3yellow-flash
-					button_G1 = unlit_lighting_base;
-					button_G3 = 3;
-				}
-			} else {
-				if (!gear_request) {		# moving up
-					button_G1 = 9;
-					button_G3 = unlit_lighting_base;
-				} else {			# moving down
-					button_G1 = unlit_lighting_base;
-					button_G3 = 9;
-				}
+			plu_return = 1;		# in transit red
+			if (!gear_request) {		# moving up
+				button_G1 = 9;
+				button_G3 = unlit_lighting_base;
+			} else {			# moving down
+				button_G1 = unlit_lighting_base;
+				button_G3 = 9;
 			}
 		}
 	} else {
@@ -1292,9 +1276,9 @@ var panel_lighting_update = func {
 
 	old_button_1 = button_G2;
 	if (power_switch and gear_mode) {
-		if (gear_position) {		# down and relevant = 2yellow
+		if (gear_position) {		# down and relevant = 2:yellow
 			button_G2 = 3;
-		} else {			# up and on standby = 2grey
+		} else {			# up and on standby = 2:white
 			button_G2 = 15;
 		}
 	} else {
@@ -1306,23 +1290,17 @@ var panel_lighting_update = func {
 
 	old_button_1 = button_G4;
 	if (power_switch) {
-		if (wheel_position == 1) {		# wheels down = 4green
+		if (wheel_position == 1) {		# wheels down = 4:green
 			button_G4 = 2;
 		} elsif (wheel_position == 0) {
-			if (wheels_switch) {		# wheels up and on standby = 4grey
+			if (wheels_switch) {		# wheels up and on standby = 4:white
 				button_G4 = 15;
 			} else {
 				button_G4 = unlit_lighting_base;
 			}
-		} else {				# in transit = 4yellow flashing
+		} else {				# in transit = 4:red in transit
 			plu_return = 1;
-			var plu_time = getprop("sim/time/elapsed-sec") * 0.5;
-			plu_time = int((plu_time - int(plu_time)) * 10);
-			if (isodd(plu_time)) {
-				button_G4 = 3;
-			} else {
-				button_G4 = 9;
-			}
+			button_G4 = 9;
 		}
 	} else {
 		button_G4 = unlit_lighting_base;
@@ -1333,20 +1311,13 @@ var panel_lighting_update = func {
 
 	old_button_1 = button_RT1;
 	if (power_switch) {
-		if (door0_position == 0) {	# closed = 1green
+		if (door0_position == 0) {	# closed = 1:green
 			button_RT1 = 2;
-		} elsif (door0_position == 1) {	# open = 1red
-			button_RT1 = 1;
-		} elsif (isodd(door0_position * 10)) {	# in transit = 1yellow flashing
+		} elsif (door0_position == 1) {	# open = 1:yellow
 			button_RT1 = 3;
+		} else {			# in transit = 1:red
 			plu_return = 1;
-		} else {
-			plu_return = 1;
-			if (doors[0].target) {
-				button_RT1 = 10;
-			} else {
-				button_RT1 = 9;
-			}
+			button_RT1 = 1;
 		}
 	} else {
 		button_RT1 = unlit_lighting_base;
@@ -1357,19 +1328,12 @@ var panel_lighting_update = func {
 
 	old_button_1 = button_RT2;
 	if (power_switch) {
-		if (door1_position == 0) {	# closed = 2green
+		if (door1_position == 0) {	# closed = 2:green
 			button_RT2 = 2;
-		} elsif (door1_position == 1) {	# open = 2red
-			button_RT2 = 1;
-		} elsif (isodd(door1_position * 10)) {	# in transit = 2yellow flashing
+		} elsif (door1_position == 1) {	# open = 2:yellow
 			button_RT2 = 3;
-			plu_return = 1;
 		} else {
-			if (doors[1].target) {
-				button_RT2 = 10;
-			} else {
-				button_RT2 = 9;
-			}
+			button_RT2 = 1;
 			plu_return = 1;
 		}
 	} else {
@@ -1381,20 +1345,13 @@ var panel_lighting_update = func {
 
 	old_button_1 = button_RT3;
 	if (power_switch) {
-		if (door5_position == 0) {	# closed = 3green
+		if (door5_position == 0) {	# closed = 3:green
 			button_RT3 = 2;
-		} elsif (door5_position == 1) {	# open = 3red
-			button_RT3 = 1;
-		} elsif (isodd(door5_position * 40)) {	# in transit = 3yellow flashing
+		} elsif (door5_position == 1) {	# open = 3:yellow
 			button_RT3 = 3;
-			plu_return = 1;
 		} else {
 			plu_return = 1;
-			if (doors[5].target) {
-				button_RT3 = 10;
-			} else {
-				button_RT3 = 9;
-			}
+			button_RT3 = 1;
 		}
 	} else {
 		button_RT3 = unlit_lighting_base;
@@ -1423,7 +1380,7 @@ var panel_lighting_update = func {
 	}
 
 	old_button_1 = button_RT5;
-	if (power_switch and ipll and !damage_count) {	# on = 5green or dim green
+	if (power_switch and ipll and !damage_count) {	# on = 5:green or dim green
 		if (ipll == 2 or sun_angle > 1.57) {
 			button_RT5 = 18 - (ipll * 8);
 		} else {
@@ -1438,7 +1395,7 @@ var panel_lighting_update = func {
 
 	old_button_1 = button_RT6;
 	var ipnl = getprop("sim/model/bluebird/lighting/nav-light-switch");
-	if (power_switch and ipnl) {	# on = 6green or dim green
+	if (power_switch and ipnl) {	# on = 6:green or dim green
 		button_RT6 = 18 - (ipnl * 8);
 	} else {
 		button_RT6 = unlit_lighting_base;
@@ -1448,7 +1405,7 @@ var panel_lighting_update = func {
 	}
 
 	old_button_1 = button_RT7;
-	if (power_switch and getprop("controls/lighting/beacon")) {	# on = 7green
+	if (power_switch and getprop("controls/lighting/beacon")) {	# on = 7:green
 		button_RT7 = 2;
 	} else {
 		button_RT7 = unlit_lighting_base;
@@ -1458,7 +1415,7 @@ var panel_lighting_update = func {
 	}
 
 	old_button_1 = button_RT8;
-	if (power_switch and getprop("controls/lighting/strobe")) {	# on = 8green
+	if (power_switch and getprop("controls/lighting/strobe")) {	# on = 8:green
 		button_RT8 = 2;
 	} else {
 		button_RT8 = unlit_lighting_base;
@@ -1468,7 +1425,7 @@ var panel_lighting_update = func {
 	}
 
 	old_button_1 = button_LT1;
-	if (power_switch) {	# main power = 1green
+	if (power_switch) {	# main power = 1:green
 		button_LT1 = 2;
 	} else {
 		button_LT1 = unlit_lighting_base;
@@ -1478,7 +1435,7 @@ var panel_lighting_update = func {
 	}
 
 	old_button_1 = button_LT2;
-	if (power_switch and reactor_request) {	# power subsystem on = 2green
+	if (power_switch and reactor_request) {	# power subsystem on = 2:green
 		button_LT2 = 2;
 	} else {
 		button_LT2 = unlit_lighting_base;
@@ -1490,10 +1447,10 @@ var panel_lighting_update = func {
 	buttonL67_update(plu_change_all);
 
 	old_button_1 = button_LT8;
-	if (wave1_level == 1) {	# engine (request) on = 8green
+	if (wave1_level == 1) {	# engine (request) on = 8:green
 		if (wave_drift) {	# not on standby
 			button_LT8 = 2;
-		} else {	# standby =8grey
+		} else {	# standby =8:white
 			button_LT8 = 15;
 		}
 	} else {
@@ -1508,10 +1465,10 @@ var panel_lighting_update = func {
 	}
 
 	old_button_1 = button_LT9;
-	if (wave2_level == 1) {	# orbital power = 9green
+	if (wave2_level == 1) {	# orbital power = 9:green
 		if (wave_drift) {	# not on standby
 			button_LT9 = 2;
-		} else {	# standby = 9grey
+		} else {	# standby = 9:white
 			button_LT9 = 15;
 		}
 	} else {
@@ -3271,7 +3228,7 @@ var set_cockpit = func(cockpitPosition) {
 		setprop("sim/current-view/goal-pitch-offset-deg", cockpit_locations[cockpitPosition].p);
 		setprop("sim/current-view/pitch-offset-deg", cockpit_locations[cockpitPosition].p);
 		setprop("sim/current-view/goal-roll-offset-deg", 0);
-		setprop("sim/current-view/field-of-view", cockpit_locations[cockpitPosition].fov);
+		setprop("sim/current-view/field-of-view", preferred_fov);
 	}
 }
 
@@ -3329,6 +3286,16 @@ var hatch_z_offset_m = func(door_loc,pos_m) {
 	}
 	return z_offset_m;
 }
+
+setlistener("sim/model/preferred_fov", func {
+	preferred_fov = getprop("sim/model/preferred_fov");	# keep variable in sync when changed from menu
+	if (preferred_fov < 5 or preferred_fov > 120) {	# bounds sanity check
+		preferred_fov = 66.7;			# assume wider than 4:3 with 55 deg fov
+	}
+	setprop("sim/current-view/field-of-view", preferred_fov);
+	setprop("sim/view/config/default-field-of-view-deg", preferred_fov);
+	# if checkbox then set defaults for other views too?
+});
 
 var walk_about_cabin = func(wa_distance, walk_offset) {
 	# x,y,z axis are as expected here. Check boundaries/walls.
@@ -4176,6 +4143,29 @@ var showDialog2 = func {
 	box.prop().getNode("binding[1]/script", 1).setValue("bluebird.config_dialog = nil");
 	box.prop().getNode("binding[2]/command", 1).setValue("dialog-close");
 
+	# fov
+	g = config_dialog.addChild("group");
+	g.set("layout", "hbox");
+	g.addChild("empty").set("pref-width", 40);
+	w = g.addChild("text");
+	w.set("halign", "left");
+	w.set("label", "Preferred field of view:");
+	g.addChild("empty").set("stretch", 1);
+	var box = g.addChild("slider");
+	box.set("name", "Preferred FOV");
+	box.set("property", "sim/model/preferred_fov");
+	box.set("legend", "narrow  < >  wide   ");
+	box.set("pref-width", 150);
+	box.set("pref-height", 16);
+	box.set("live", 1);
+	box.set("min", 10);
+	box.set("max", 120);
+	box.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+	box.prop().getNode("binding[0]/object-name", 1).setValue("Preferred FOV");
+#	box.prop().getNode("binding[1]/command", 1).setValue("property-assign");
+#	box.prop().getNode("binding[1]/property", 1).setValue("sim/model/view_modified");
+#	box.prop().getNode("binding[1]/value", 1).setValue(1);
+
 	config_dialog.addChild("hrule").addChild("dummy");
 
 	# walk around cabin
@@ -4350,11 +4340,13 @@ var showLiveryDialog1 = func {
 var prestart_main = func {
 	var gnd_elev = getprop("position/ground-elev-ft");
 	var altitude = getprop("position/altitude-ft");
+	preferred_fov = getprop("sim/model/preferred_fov");	# load saved value
+	setprop("sim/model/preferred_fov", (int(preferred_fov*10)*0.1));	# implement fov
 	if ((gnd_elev == nil) or (altitude == nil)) {
 		main_loop_id += 1;
 		settimer(prestart_main, 0.1);
 	} else {
-		print ("  version 10.92  release date 2014.Feb.02  by Stewart Andreason");
+		print ("  version 11.0  release date 2018.Nov.11  by Stewart Andreason");
 		update_main();
 	}
 }
