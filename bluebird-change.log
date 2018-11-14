@@ -1,4 +1,11 @@
 Version# Vertices PolygonFaces Comments
+
+2018.Nov.14
+11.1	Fix loss of homing airport tracking after reset. No longer crashes subsystem.
+	Fix bug in rear hatch, now moves smoothly between flight modes.
+	Fix bug in hatch indicator lights and status monitor.
+	Add performance indicators to "status bar" on monitor.
+
 2018.Nov.11
 11.0		no change to models
 	Add preferred fov to allow saving your fov for your hardware, no longer assume 4:3 screen.

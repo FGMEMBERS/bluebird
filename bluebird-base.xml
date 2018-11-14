@@ -4,7 +4,7 @@
  <sim>
 	<aero>bluebird</aero>
 	<status>early-production</status>
-	<aircraft-version>11.0</aircraft-version>
+	<aircraft-version>11.1</aircraft-version>
 	<author>S Andreason</author>
 	<aircraft-status>
 		<fdm>early-production</fdm>
@@ -2295,6 +2295,20 @@
 		<t1L-22 type="string"> </t1L-22>
 		<t1L-23 type="string"> </t1L-23>
 		<t1L-24 type="string"> </t1L-24>
+		<enabled-1LA type="bool">true</enabled-1LA>
+		<t1L-B1 type="string"> </t1L-B1>
+		<t1L-B2 type="string"> </t1L-B2>
+		<t1L-B3 type="string"> </t1L-B3>
+		<t1L-B4 type="string"> </t1L-B4>
+		<t1L-B5 type="string"> </t1L-B5>
+		<t1L-B6 type="string"> </t1L-B6>
+		<t1L-B7 type="string"> </t1L-B7>
+		<t1L-B8 type="string"> </t1L-B8>
+		<t1L-B9 type="string"> </t1L-B9>
+		<t1L-B10 type="string"> .</t1L-B10>
+		<t1L-B11 type="string"> </t1L-B11>
+		<t1L-B12 type="string"> </t1L-B12>
+		<enabled-1LB type="bool">false</enabled-1LB>
 		<t2L-1 type="string">Nearby aircraft</t2L-1>
 		<t2L-2 type="string"> </t2L-2>
 		<t2L-3a type="string"> </t2L-3a>

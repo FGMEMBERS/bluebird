@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 10.4 =====
+# ===== Bluebird Explorer Hovercraft  version 11.1 =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
@@ -141,12 +141,17 @@ var mp1e_L = nil;
 var ap2c_L = nil;
 var ap2d_L = nil;
 var ap2e_L = nil;
-ap2_callsign.setValue(getprop("sim/startup/options/airport"));
+var apsoa = getprop("sim/startup/options/airport");
+if (apsoa == nil ) {
+	apsoa = "Erased by Reset";
+}
+ap2_callsign.setValue(apsoa);
 
 var id = "";
 var node = props.globals.getNode("/sim/gui/dialogs/airports", 1);
-if (node.getNode("list") == nil)
+if (node.getNode("list") == nil) {
 	node.getNode("list", 1).setValue("");
+}
 
 node = node.getNode("list");
 

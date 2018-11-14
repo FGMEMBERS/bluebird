@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 11.0  ==-->
+<!--== Bluebird Explorer Hovercraft  version 11.1  ==-->
 
 <PropertyList>
 	<name>screen messages text 1R</name>
@@ -119,10 +119,50 @@ NEAREST AIRPORT</text>
 				</layer>
 
 				<layer>
+					<name>left hatch line 1 yellow</name>
+					<type>text</type>
+					<condition>
+						<greater-than>
+							<property>sim/model/bluebird/doors/door[0]/position-norm</property>
+							<value>0.998</value>
+						</greater-than>
+					</condition>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>0.1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>literal</type>
+							<text>OPEN</text>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-4</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>232</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
 					<name>left hatch line 1 red</name>
 					<type>text</type>
 					<condition>
-						<property>sim/model/bluebird/doors/door[0]/position-norm</property>
+						<and>
+							<property>sim/model/bluebird/doors/door[0]/position-norm</property>
+							<less-than>
+								<property>sim/model/bluebird/doors/door[0]/position-norm</property>
+								<value>0.999</value>
+							</less-than>
+						</and>
 					</condition>
 					<font>arial_black</font>
 					<point-size>16</point-size>
@@ -224,10 +264,50 @@ NEAREST AIRPORT</text>
 				</layer>
 
 				<layer>
+					<name>right hatch line 2 yellow</name>
+					<type>text</type>
+					<condition>
+						<greater-than>
+							<property>sim/model/bluebird/doors/door[1]/position-norm</property>
+							<value>0.998</value>
+						</greater-than>
+					</condition>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>0.1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>literal</type>
+							<text>OPEN</text>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-4</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>216</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
 					<name>right hatch line 2 red</name>
 					<type>text</type>
 					<condition>
-						<property>sim/model/bluebird/doors/door[1]/position-norm</property>
+						<and>
+							<property>sim/model/bluebird/doors/door[1]/position-norm</property>
+							<less-than>
+								<property>sim/model/bluebird/doors/door[1]/position-norm</property>
+								<value>0.999</value>
+							</less-than>
+						</and>
 					</condition>
 					<font>arial_black</font>
 					<point-size>16</point-size>
@@ -329,10 +409,50 @@ NEAREST AIRPORT</text>
 				</layer>
 
 				<layer>
+					<name>rear hatch line 3 yellow</name>
+					<type>text</type>
+					<condition>
+						<greater-than>
+							<property>sim/model/bluebird/doors/door[5]/position-norm</property>
+							<value>0.658</value>
+						</greater-than>
+					</condition>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>0.1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>literal</type>
+							<text>OPEN</text>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-4</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>200</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
 					<name>rear hatch line 3 red</name>
 					<type>text</type>
 					<condition>
-						<property>sim/model/bluebird/doors/door[5]/position-norm</property>
+						<and>
+							<property>sim/model/bluebird/doors/door[5]/position-norm</property>
+							<less-than>
+								<property>sim/model/bluebird/doors/door[5]/position-norm</property>
+								<value>0.659</value>
+							</less-than>
+						</and>
 					</condition>
 					<font>arial_black</font>
 					<point-size>16</point-size>
@@ -365,11 +485,11 @@ NEAREST AIRPORT</text>
 					<condition>
 						<and>
 							<greater-than>
-								<property>sim/model/bluebird/doors/door[5]/position-norm</property>
+								<property>sim/model/bluebird/doors/door[5]/position-adj</property>
 								<value>0</value>
 							</greater-than>
 							<less-than>
-								<property>sim/model/bluebird/doors/door[5]/position-norm</property>
+								<property>sim/model/bluebird/doors/door[5]/position-adj</property>
 								<value>1</value>
 							</less-than>
 						</and>
@@ -384,7 +504,7 @@ NEAREST AIRPORT</text>
 					<chunks>
 						<chunk>
 							<type>number-value</type>
-							<property>sim/model/bluebird/doors/door[5]/position-norm</property>
+							<property>sim/model/bluebird/doors/door[5]/position-adj</property>
 							<format>%3.2f</format>
 						</chunk>
 					</chunks>
