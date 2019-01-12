@@ -1,5 +1,8 @@
 Version# Vertices PolygonFaces Comments
 
+2019.Jan.12
+11.21	Remove detachment animation to make aircraft default as visible
+
 2019.Jan.11
 11.2	Change how multiplay textures and liveries are loaded.
 	Fix vapor texture bug by removing dependency on Generic directory.

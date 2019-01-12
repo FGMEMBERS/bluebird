@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 10.93 for OSG                  ==-->
+<!--== Bluebird version 11.21 for OSG                  ==-->
 
 <PropertyList>
 	<model>
@@ -12,7 +12,7 @@
 		</offsets>
 	</model>
 
-<!--== some components may detach or deform in a crash ==-->
+<!--== some components may detach or deform in a crash
 	<animation>
 		<type>select</type>
 		<object-name>Body</object-name>
@@ -27,7 +27,7 @@
 		<condition>
 			<property>sim/model/bluebird/components/nose</property>
 		</condition>
-	</animation>
+	</animation> but shall no longer disappear. ==-->
 
 <!-- clickable button block for osg only -->
 	<animation>
