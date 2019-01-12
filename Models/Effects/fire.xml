@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
+<!-- Bluebird Explorer Hovercraft  version 11.2 for FlightGear OSG -->
 
 <PropertyList>
 
   <particlesystem>
     <name>fire</name>
     <type>normal</type>
-    <texture>Aircraft/Generic/Effects/smoke.png</texture>
+    <texture>smoke.png</texture>
 
     <offsets>
       <x-m> 0.0 </x-m>

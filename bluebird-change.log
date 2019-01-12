@@ -1,5 +1,8 @@
 Version# Vertices PolygonFaces Comments
 
+2019.Jan.11
+11.2	Change how multiplay textures and effects textures are loaded.
+
 2018.Nov.14
 11.1	Fix loss of homing airport tracking after reset. No longer crashes subsystem.
 	Fix bug in rear hatch, now moves smoothly between flight modes.

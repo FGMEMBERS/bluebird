@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 11.1 for FlightGear 1.9 OSG =====
+# ===== Bluebird Explorer Hovercraft  version 11.2 for FlightGear 1.9 OSG =====
 
 # strobes -----------------------------------------------------------
 var strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
@@ -4391,7 +4391,7 @@ var prestart_main = func {
 		main_loop_id += 1;
 		settimer(prestart_main, 0.1);
 	} else {
-		print ("  version 11.1  release date 2018.Nov.14  by Stewart Andreason");
+		print ("  version 11.2  release date 2019.Jan.11  by Stewart Andreason");
 		update_main();
 	}
 }
