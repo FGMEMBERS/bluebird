@@ -1,5 +1,9 @@
 Version# Vertices PolygonFaces Comments
 
+2019.Jan.19
+11.31	Fix when pilot is visible.
+	Add livery for AI multiplayer.
+
 2019.Jan.18
 11.3	No change to models.
 	Reorganize model properties for compatibility with multiplay in 2018 FG.

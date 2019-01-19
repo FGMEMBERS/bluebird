@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 11.3 for OSG                  ==-->
+<!--== Bluebird version 11.31 for OSG                  ==-->
 
 <PropertyList>
 	<model>
@@ -1081,7 +1081,7 @@
 	<nasal>
 		<load>
 			var self = cmdarg();
-			print("Loading bluebird-osg version 11.3  release date 2019.Jan.18  at ", self.getPath());
+			print("Loading bluebird-osg version 11.31  release date 2019.Jan.19  at ", self.getPath());
 			var livery_update = aircraft.livery_update.new(
 				"Aircraft/bluebird/Models/Liveries", 10,
 				func {
@@ -1176,6 +1176,11 @@
 				chair_state.setBoolValue(bits.test(state, 4));
 				cg_state.setBoolValue(bits.test(state, 5));
 				lights_interior_state.setBoolValue(bits.test(state, 6));
+				if (bits.test(state, 4)) {
+					self.getNode("sim/model/bluebird/crew/pilot/visible").setValue(0);
+				} else {
+					self.getNode("sim/model/bluebird/crew/pilot/visible").setValue(1);
+				}
 			}, 1, 0);
 
 			var power_state_node = self.getNode("sim/multiplay/generic/int[2]").getPath();
