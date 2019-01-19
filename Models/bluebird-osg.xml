@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 11.21 for OSG                  ==-->
+<!--== Bluebird version 11.3 for OSG                  ==-->
 
 <PropertyList>
 	<model>
@@ -12,22 +12,1231 @@
 		</offsets>
 	</model>
 
-<!--== some components may detach or deform in a crash
-	<animation>
-		<type>select</type>
-		<object-name>Body</object-name>
-		<condition>
-			<property>sim/model/bluebird/components/body</property>
-		</condition>
-	</animation>
+	<!-- set up dependencies that are constants in multiplay -->
+	<multiplay>
+		<ai>
+			<submodels>
+				<engine-L-flaring type="bool">false</engine-L-flaring>
+				<engine-R-flaring type="bool">false</engine-R-flaring>
+				<engine-L-smoking type="bool">false</engine-L-smoking>
+				<engine-R-smoking type="bool">false</engine-R-smoking>
+				<nacelle-LF-venting type="bool">false</nacelle-LF-venting>
+				<nacelle-LR-venting type="bool">false</nacelle-LR-venting>
+				<nacelle-RF-venting type="bool">false</nacelle-RF-venting>
+				<nacelle-RR-venting type="bool">false</nacelle-RR-venting>
+			</submodels>
+		</ai>
+		<sim>
+			<model>
+				<bluebird>
+					<components>
+						<nacelle-L type="bool">true</nacelle-L>
+						<nacelle-R type="bool">true</nacelle-R>
+						<engine-cover1 type="bool">true</engine-cover1>
+						<engine-cover2 type="bool">true</engine-cover2>
+						<engine-cover3 type="bool">true</engine-cover3>
+						<engine-cover4 type="bool">true</engine-cover4>
+					</components>
+					<crew>
+						<cockpit-position type="int">0</cockpit-position>
+						<pilot>
+							<chair-back type="int">0</chair-back>
+							<visible type="bool">true</visible>
+						</pilot>
+						<walker>
+							<visible type="bool">false</visible>
+							<x-offset-m type="double">-0.8</x-offset-m>
+							<y-offset-m type="double">1.2</y-offset-m>
+							<z-offset-m type="double">0.0</z-offset-m>
+							<head-offset-deg type="double">0.0</head-offset-deg>
+						</walker>
+					</crew>
+					<damage>
+						<hits-counter type="int">0</hits-counter>
+						<major-counter type="int">0</major-counter>
+					</damage>
+					<doors>
+						<door>
+							<enabled type="bool">true</enabled>
+						</door>
+						<door>
+							<enabled type="bool">true</enabled>
+						</door>
+						<door>
+							<enabled type="bool">true</enabled>
+						</door>
+						<door>
+							<enabled type="bool">true</enabled>
+						</door>
+						<door>
+							<enabled type="bool">true</enabled>
+						</door>
+						<door>
+							<enabled type="bool">true</enabled>
+						</door>
+					</doors>
+					<lighting>
+						<engine-glow type="float">0</engine-glow>
+						<interior-switch type="bool">true</interior-switch>
+						<landing-lights type="int">2</landing-lights>
+						<nav-lights-state type="bool">true</nav-lights-state>
+						<nav-light-switch type="int">2</nav-light-switch>
+						<power-glow type="float">1</power-glow>
+						<wave-guide-glow type="float">0</wave-guide-glow>
+						<wave-guide-halo-spin type="float">0</wave-guide-halo-spin>
+						<window-factor type="float">0.5</window-factor>
+						<interior-ambient-factor type="float">0.1</interior-ambient-factor>
+						<interior-specular type="float">0</interior-specular>
+						<overhead>
+							<emission>
+								<red type="float">1.0</red>
+								<gb type="float">1.0</gb>
+								<factor type="float">0.7</factor>
+							</emission>
+						</overhead>
+						<waldo>
+							<emission>
+								<red type="float">1</red>
+								<gb type="float">1</gb>
+							</emission>
+						</waldo>
+						<interior1-flooring>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0.9</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</interior1-flooring>
+						<interior2-door-panels>
+							<amb-dif>
+								<red type="float">0.5</red>
+								<green type="float">0.7</green>
+								<blue type="float">0.9</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</interior2-door-panels>
+						<interior3-upper-walls>
+							<amb-dif>
+								<red type="float">0.70</red>
+								<green type="float">0.69</green>
+								<blue type="float">0.55</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</interior3-upper-walls>
+						<interior4-lower-walls>
+							<amb-dif>
+								<red type="float">0.6</red>
+								<green type="float">0.6</green>
+								<blue type="float">0.6</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</interior4-lower-walls>
+						<interior5-console>
+							<amb-dif>
+								<red type="float">0.36</red>
+								<green type="float">0.37</green>
+								<blue type="float">0.32</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</interior5-console>
+						<interior6-chairs>
+							<amb-dif>
+								<red type="float">0.70</red>
+								<green type="float">0.69</green>
+								<blue type="float">0.59</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</interior6-chairs>
+						<interior8-light-frame>
+							<amb-dif>
+								<red type="float">0.8</red>
+								<gb type="float">0.8</gb>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<gb type="float">0</gb>
+							</emission>
+						</interior8-light-frame>
+						<interior9-buttons>
+							<amb-dif>
+								<red type="float">0.6</red>
+								<gb type="float">0.6</gb>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<gb type="float">0</gb>
+							</emission>
+						</interior9-buttons>
+						<interiorA-door-seals>
+							<amb-dif>
+								<red type="float">0.02</red>
+								<gb type="float">0.02</gb>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<gb type="float">0</gb>
+							</emission>
+						</interiorA-door-seals>
+						<interiorB-door-lights>
+							<amb-dif>
+								<rgb type="float">1.0</rgb>
+							</amb-dif>
+							<emission>
+								<rgb type="float">1.0</rgb>
+							</emission>
+						</interiorB-door-lights>
+						<interiorC-safety-lights>
+							<amb-dif>
+								<rg type="float">1.0</rg>
+							</amb-dif>
+							<emission>
+								<rg type="float">1.0</rg>
+							</emission>
+						</interiorC-safety-lights>
+						<door0>
+							<interior1-flooring>
+								<amb-dif>
+									<red type="float">0</red>
+									<green type="float">0</green>
+									<blue type="float">0.9</blue>
+								</amb-dif>
+								<emission>
+									<red type="float">0</red>
+									<green type="float">0</green>
+									<blue type="float">0</blue>
+								</emission>
+							</interior1-flooring>
+							<interior4-lower-walls>
+								<amb-dif>
+									<red type="float">0.6</red>
+									<green type="float">0.6</green>
+									<blue type="float">0.6</blue>
+								</amb-dif>
+								<emission>
+									<red type="float">0</red>
+									<green type="float">0</green>
+									<blue type="float">0</blue>
+								</emission>
+							</interior4-lower-walls>
+							<interior8-light-frame>
+								<amb-dif>
+									<red type="float">0.8</red>
+									<gb type="float">0.8</gb>
+								</amb-dif>
+								<emission>
+									<red type="float">0</red>
+									<gb type="float">0</gb>
+								</emission>
+							</interior8-light-frame>
+							<hatchA-steps>
+								<amb-dif>
+									<red type="float">0.02</red>
+									<gb type="float">0.02</gb>
+								</amb-dif>
+								<emission>
+									<red type="float">0</red>
+									<gb type="float">0</gb>
+								</emission>
+							</hatchA-steps>
+						</door0>
+						<door1>
+							<interior1-flooring>
+								<amb-dif>
+									<red type="float">0</red>
+									<green type="float">0</green>
+									<blue type="float">0.9</blue>
+								</amb-dif>
+								<emission>
+									<red type="float">0</red>
+									<green type="float">0</green>
+									<blue type="float">0</blue>
+								</emission>
+							</interior1-flooring>
+							<interior4-lower-walls>
+								<amb-dif>
+									<red type="float">0.6</red>
+									<green type="float">0.6</green>
+									<blue type="float">0.6</blue>
+								</amb-dif>
+								<emission>
+									<red type="float">0</red>
+									<green type="float">0</green>
+									<blue type="float">0</blue>
+								</emission>
+							</interior4-lower-walls>
+							<interior8-light-frame>
+								<amb-dif>
+									<red type="float">0.8</red>
+									<gb type="float">0.8</gb>
+								</amb-dif>
+								<emission>
+									<red type="float">0</red>
+									<gb type="float">0</gb>
+								</emission>
+							</interior8-light-frame>
+							<hatchA-steps>
+								<amb-dif>
+									<red type="float">0.02</red>
+									<gb type="float">0.02</gb>
+								</amb-dif>
+								<emission>
+									<red type="float">0</red>
+									<gb type="float">0</gb>
+								</emission>
+							</hatchA-steps>
+						</door1>
+						<doors0-1>
+							<interior1-flooring>
+								<amb-dif>
+									<red type="float">0</red>
+									<green type="float">0</green>
+									<blue type="float">0.9</blue>
+								</amb-dif>
+							</interior1-flooring>
+						</doors0-1>
+						<door5>
+							<hatch1-flooring-center>
+								<amb-dif>
+									<red type="float">0</red>
+									<green type="float">0</green>
+									<blue type="float">0.9</blue>
+								</amb-dif>
+								<emission>
+									<red type="float">0</red>
+									<green type="float">0</green>
+									<blue type="float">0</blue>
+								</emission>
+							</hatch1-flooring-center>
+							<hatch3-upper-walls>
+								<amb-dif>
+									<red type="float">0.70</red>
+									<green type="float">0.69</green>
+									<blue type="float">0.55</blue>
+								</amb-dif>
+								<emission>
+									<red type="float">0</red>
+									<green type="float">0</green>
+									<blue type="float">0</blue>
+								</emission>
+							</hatch3-upper-walls>
+							<hatch4-lower-walls>
+								<amb-dif>
+									<red type="float">0.6</red>
+									<green type="float">0.6</green>
+									<blue type="float">0.6</blue>
+								</amb-dif>
+								<emission>
+									<red type="float">0</red>
+									<green type="float">0</green>
+									<blue type="float">0</blue>
+								</emission>
+							</hatch4-lower-walls>
+							<hatch7-flooring-side>
+								<amb-dif>
+									<red type="float">0.25</red>
+									<green type="float">0.25</green>
+									<blue type="float">0.17</blue>
+								</amb-dif>
+								<emission>
+									<red type="float">0</red>
+									<green type="float">0</green>
+									<blue type="float">0</blue>
+								</emission>
+							</hatch7-flooring-side>
+							<interior1-flooring>
+								<amb-dif>
+									<red type="float">0</red>
+									<green type="float">0</green>
+									<blue type="float">0.9</blue>
+								</amb-dif>
+								<emission>
+									<red type="float">0</red>
+									<green type="float">0</green>
+									<blue type="float">0</blue>
+								</emission>
+							</interior1-flooring>
+							<interior2-door-panels>
+								<amb-dif>
+									<red type="float">0.5</red>
+									<green type="float">0.7</green>
+									<blue type="float">0.9</blue>
+								</amb-dif>
+							</interior2-door-panels>
+							<interior3-upper-walls>
+								<amb-dif>
+									<red type="float">0.70</red>
+									<green type="float">0.69</green>
+									<blue type="float">0.55</blue>
+								</amb-dif>
+							</interior3-upper-walls>
+							<interior4-lower-walls>
+								<amb-dif>
+									<red type="float">0.6</red>
+									<green type="float">0.6</green>
+									<blue type="float">0.6</blue>
+								</amb-dif>
+							</interior4-lower-walls>
+							<interior8-light-frame>
+								<amb-dif>
+									<red type="float">0.8</red>
+									<gb type="float">0.8</gb>
+								</amb-dif>
+							</interior8-light-frame>
+							<interior-specular type="float">0</interior-specular>
+						</door5>
+						<buttons>
+							<left1-power>
+								<edge-b>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-b>
+								<edge-k>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-k>
+								<face>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</face>
+								<specular type="float">0</specular>
+							</left1-power>
+							<left2-reactor>
+								<edge-b>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-b>
+								<edge-k>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-k>
+								<face>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</face>
+								<specular type="float">0</specular>
+							</left2-reactor>
+							<left3-6-countergrav>
+								<edge-b>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-b>
+								<edge-k>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-k>
+								<face>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</face>
+								<specular type="float">0</specular>
+							</left3-6-countergrav>
+							<left7-countergrav>
+								<edge-b>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-b>
+								<edge-k>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-k>
+								<face>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</face>
+								<specular type="float">0</specular>
+							</left7-countergrav>
+							<left8-wave-guide>
+								<edge-b>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-b>
+								<edge-k>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-k>
+								<face>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</face>
+								<specular type="float">0</specular>
+							</left8-wave-guide>
+							<left9-overdrive>
+								<edge-b>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-b>
+								<edge-k>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-k>
+								<face>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</face>
+								<specular type="float">0</specular>
+							</left9-overdrive>
+							<gear1-up>
+								<edge-b>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-b>
+								<edge-k>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-k>
+								<face>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</face>
+								<specular type="float">0</specular>
+							</gear1-up>
+							<gear2-mode>
+								<edge-b>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-b>
+								<edge-k>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-k>
+								<face>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</face>
+								<specular type="float">0</specular>
+							</gear2-mode>
+							<gear3-down>
+								<edge-b>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-b>
+								<edge-k>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-k>
+								<face>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</face>
+								<specular type="float">0</specular>
+							</gear3-down>
+							<gear4-wheels>
+								<edge-b>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-b>
+								<edge-k>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-k>
+								<face>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</face>
+								<specular type="float">0</specular>
+							</gear4-wheels>
+							<right1-hatch-left>
+								<edge-b>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-b>
+								<edge-k>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-k>
+								<face>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</face>
+								<specular type="float">0</specular>
+							</right1-hatch-left>
+							<right2-hatch-right>
+								<edge-b>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-b>
+								<edge-k>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-k>
+								<face>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</face>
+								<specular type="float">0</specular>
+							</right2-hatch-right>
+							<right3-hatch-rear>
+								<edge-b>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-b>
+								<edge-k>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-k>
+								<face>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</face>
+								<specular type="float">0</specular>
+							</right3-hatch-rear>
+							<right4-landing-down>
+								<edge-b>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-b>
+								<edge-k>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-k>
+								<face>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</face>
+								<specular type="float">0</specular>
+							</right4-landing-down>
+							<right5-landing-forward>
+								<edge-b>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-b>
+								<edge-k>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-k>
+								<face>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</face>
+								<specular type="float">0</specular>
+							</right5-landing-forward>
+							<right6-nav>
+								<edge-b>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-b>
+								<edge-k>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-k>
+								<face>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</face>
+								<specular type="float">0</specular>
+							</right6-nav>
+							<right7-beacon>
+								<edge-b>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-b>
+								<edge-k>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-k>
+								<face>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</face>
+								<specular type="float">0</specular>
+							</right7-beacon>
+							<right8-strobe>
+								<edge-b>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-b>
+								<edge-k>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-k>
+								<face>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</face>
+								<specular type="float">0</specular>
+							</right8-strobe>
+							<right9-overhead>
+								<edge-b>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-b>
+								<edge-k>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</edge-k>
+								<face>
+									<amb-dif>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</amb-dif>
+									<emission>
+										<red type="float">0</red>
+										<green type="float">0</green>
+										<blue type="float">0</blue>
+									</emission>
+								</face>
+								<specular type="float">0</specular>
+							</right9-overhead>
+						</buttons>
+					</lighting>
+					<position>
+						<altitude-agl-ft type="double">9000</altitude-agl-ft>	<!-- disable -->
+						<shadow-alt-agl-ft type="double">9000</shadow-alt-agl-ft>	<!-- disable -->
+					</position>
+					<shadow type="bool">true</shadow>	<!-- faster than a 3d rendered shadow -->
+					<systems>
+						<nacelle-L-venting type="bool">false</nacelle-L-venting>
+						<nacelle-R-venting type="bool">false</nacelle-R-venting>
+						<power-switch type="bool">true</power-switch>
+						<reactor-request type="bool">true</reactor-request>
+						<reactor-level type="int">1</reactor-level>
+						<wave1-request type="bool">true</wave1-request>
+						<wave1-level type="int">1</wave1-level>
+						<wave2-request type="bool">false</wave2-request>
+					</systems>
+				</bluebird>
+			</model>
+		</sim>
+	</multiplay>
 
-	<animation>
-		<type>select</type>
-		<object-name>Nose</object-name>
-		<condition>
-			<property>sim/model/bluebird/components/nose</property>
-		</condition>
-	</animation> but shall no longer disappear. ==-->
+	<nasal>
+		<load>
+			var self = cmdarg();
+			print("Loading bluebird-osg version 11.3  release date 2019.Jan.18  at ", self.getPath());
+			var livery_update = aircraft.livery_update.new(
+				"Aircraft/bluebird/Models/Liveries", 10,
+				func {
+					print("bluebird-osg livery update");
+					var temp_amb_R = self.getNode("sim/model/livery/material/interior-flooring/ambient/red");
+					var temp_amb_G = self.getNode("sim/model/livery/material/interior-flooring/ambient/green");
+					var temp_amb_B = self.getNode("sim/model/livery/material/interior-flooring/ambient/blue");
+					self.getNode("sim/model/bluebird/lighting/interior1-flooring/amb-dif/red").setValue(temp_amb_R.getValue());
+					self.getNode("sim/model/bluebird/lighting/interior1-flooring/amb-dif/green").setValue(temp_amb_G.getValue());
+					self.getNode("sim/model/bluebird/lighting/interior1-flooring/amb-dif/blue").setValue(temp_amb_B.getValue());
+					self.getNode("sim/model/bluebird/lighting/door0/interior1-flooring/amb-dif/red").setValue(temp_amb_R.getValue());
+					self.getNode("sim/model/bluebird/lighting/door0/interior1-flooring/amb-dif/green").setValue(temp_amb_G.getValue());
+					self.getNode("sim/model/bluebird/lighting/door0/interior1-flooring/amb-dif/blue").setValue(temp_amb_B.getValue());
+					self.getNode("sim/model/bluebird/lighting/door1/interior1-flooring/amb-dif/red").setValue(temp_amb_R.getValue());
+					self.getNode("sim/model/bluebird/lighting/door1/interior1-flooring/amb-dif/green").setValue(temp_amb_G.getValue());
+					self.getNode("sim/model/bluebird/lighting/door1/interior1-flooring/amb-dif/blue").setValue(temp_amb_B.getValue());
+					self.getNode("sim/model/bluebird/lighting/doors0-1/interior1-flooring/amb-dif/red").setValue(temp_amb_R.getValue());
+					self.getNode("sim/model/bluebird/lighting/doors0-1/interior1-flooring/amb-dif/green").setValue(temp_amb_G.getValue());
+					self.getNode("sim/model/bluebird/lighting/doors0-1/interior1-flooring/amb-dif/blue").setValue(temp_amb_B.getValue());
+					self.getNode("sim/model/bluebird/lighting/door5/hatch1-flooring-center/amb-dif/red").setValue(temp_amb_R.getValue());
+					self.getNode("sim/model/bluebird/lighting/door5/hatch1-flooring-center/amb-dif/green").setValue(temp_amb_G.getValue());
+					self.getNode("sim/model/bluebird/lighting/door5/hatch1-flooring-center/amb-dif/blue").setValue(temp_amb_B.getValue());
+					self.getNode("sim/model/bluebird/lighting/door5/interior1-flooring/amb-dif/red").setValue(temp_amb_R.getValue());
+					self.getNode("sim/model/bluebird/lighting/door5/interior1-flooring/amb-dif/green").setValue(temp_amb_G.getValue());
+					self.getNode("sim/model/bluebird/lighting/door5/interior1-flooring/amb-dif/blue").setValue(temp_amb_B.getValue());
+					temp_amb_R = self.getNode("sim/model/livery/material/interior-door-panels/ambient/red");
+					temp_amb_G = self.getNode("sim/model/livery/material/interior-door-panels/ambient/green");
+					temp_amb_B = self.getNode("sim/model/livery/material/interior-door-panels/ambient/blue");
+					self.getNode("sim/model/bluebird/lighting/interior2-door-panels/amb-dif/red").setValue(temp_amb_R.getValue());
+					self.getNode("sim/model/bluebird/lighting/interior2-door-panels/amb-dif/green").setValue(temp_amb_G.getValue());
+					self.getNode("sim/model/bluebird/lighting/interior2-door-panels/amb-dif/blue").setValue(temp_amb_B.getValue());
+					self.getNode("sim/model/bluebird/lighting/door5/interior2-door-panels/amb-dif/red").setValue(temp_amb_R.getValue());
+					self.getNode("sim/model/bluebird/lighting/door5/interior2-door-panels/amb-dif/green").setValue(temp_amb_G.getValue());
+					self.getNode("sim/model/bluebird/lighting/door5/interior2-door-panels/amb-dif/blue").setValue(temp_amb_B.getValue());
+					temp_amb_R = self.getNode("sim/model/livery/material/interior-upper/ambient/red");
+					temp_amb_G = self.getNode("sim/model/livery/material/interior-upper/ambient/green");
+					temp_amb_B = self.getNode("sim/model/livery/material/interior-upper/ambient/blue");
+					self.getNode("sim/model/bluebird/lighting/interior3-upper-walls/amb-dif/red").setValue(temp_amb_R.getValue());
+					self.getNode("sim/model/bluebird/lighting/interior3-upper-walls/amb-dif/green").setValue(temp_amb_G.getValue());
+					self.getNode("sim/model/bluebird/lighting/interior3-upper-walls/amb-dif/blue").setValue(temp_amb_B.getValue());
+					self.getNode("sim/model/bluebird/lighting/door5/hatch3-upper-walls/amb-dif/red").setValue(temp_amb_R.getValue());
+					self.getNode("sim/model/bluebird/lighting/door5/hatch3-upper-walls/amb-dif/green").setValue(temp_amb_G.getValue());
+					self.getNode("sim/model/bluebird/lighting/door5/hatch3-upper-walls/amb-dif/blue").setValue(temp_amb_B.getValue());
+					self.getNode("sim/model/bluebird/lighting/door5/interior3-upper-walls/amb-dif/red").setValue(temp_amb_R.getValue());
+					self.getNode("sim/model/bluebird/lighting/door5/interior3-upper-walls/amb-dif/green").setValue(temp_amb_G.getValue());
+					self.getNode("sim/model/bluebird/lighting/door5/interior3-upper-walls/amb-dif/blue").setValue(temp_amb_B.getValue());
+					temp_amb_R = self.getNode("sim/model/livery/material/interior-lower/ambient/red");
+					temp_amb_G = self.getNode("sim/model/livery/material/interior-lower/ambient/green");
+					temp_amb_B = self.getNode("sim/model/livery/material/interior-lower/ambient/blue");
+					self.getNode("sim/model/bluebird/lighting/interior4-lower-walls/amb-dif/red").setValue(temp_amb_R.getValue());
+					self.getNode("sim/model/bluebird/lighting/interior4-lower-walls/amb-dif/green").setValue(temp_amb_G.getValue());
+					self.getNode("sim/model/bluebird/lighting/interior4-lower-walls/amb-dif/blue").setValue(temp_amb_B.getValue());
+					self.getNode("sim/model/bluebird/lighting/door0/interior4-lower-walls/amb-dif/red").setValue(temp_amb_R.getValue());
+					self.getNode("sim/model/bluebird/lighting/door0/interior4-lower-walls/amb-dif/green").setValue(temp_amb_G.getValue());
+					self.getNode("sim/model/bluebird/lighting/door0/interior4-lower-walls/amb-dif/blue").setValue(temp_amb_B.getValue());
+					self.getNode("sim/model/bluebird/lighting/door1/interior4-lower-walls/amb-dif/red").setValue(temp_amb_R.getValue());
+					self.getNode("sim/model/bluebird/lighting/door1/interior4-lower-walls/amb-dif/green").setValue(temp_amb_G.getValue());
+					self.getNode("sim/model/bluebird/lighting/door1/interior4-lower-walls/amb-dif/blue").setValue(temp_amb_B.getValue());
+					self.getNode("sim/model/bluebird/lighting/door5/hatch4-lower-walls/amb-dif/red").setValue(temp_amb_R.getValue());
+					self.getNode("sim/model/bluebird/lighting/door5/hatch4-lower-walls/amb-dif/green").setValue(temp_amb_G.getValue());
+					self.getNode("sim/model/bluebird/lighting/door5/hatch4-lower-walls/amb-dif/blue").setValue(temp_amb_B.getValue());
+					self.getNode("sim/model/bluebird/lighting/door5/interior4-lower-walls/amb-dif/red").setValue(temp_amb_R.getValue());
+					self.getNode("sim/model/bluebird/lighting/door5/interior4-lower-walls/amb-dif/green").setValue(temp_amb_G.getValue());
+					self.getNode("sim/model/bluebird/lighting/door5/interior4-lower-walls/amb-dif/blue").setValue(temp_amb_B.getValue());
+				});
+
+			# Beacon and strobes lighting
+			var lighting_beacons_enabled = self.getNode("sim/multiplay/generic/int[9]").getPath();
+			var lighting_strobes_enabled = self.getNode("sim/multiplay/generic/int[10]").getPath();
+			var beacon_light_state = self.getNode("sim/model/bluebird/lighting/beacon1").getPath();
+			var strobe_light_state = self.getNode("sim/model/bluebird/lighting/strobe1").getPath();
+			aircraft.light.new(beacon_light_state, [0.35, 1.6], lighting_beacons_enabled);
+			aircraft.light.new(strobe_light_state, [0.1, 0.2, 0.1, 1.5], lighting_strobes_enabled);
+
+			# Detail bits in byte not visible in AI low-poly and older fg
+			var byte_state = self.getNode("sim/multiplay/generic/int[13]").getPath();
+
+			var cover1_state = self.initNode("sim/model/bluebird/components/engine-cover1", 1, "BOOL");
+			var cover2_state = self.initNode("sim/model/bluebird/components/engine-cover2", 1, "BOOL");
+			var cover3_state = self.initNode("sim/model/bluebird/components/engine-cover3", 1, "BOOL");
+			var cover4_state = self.initNode("sim/model/bluebird/components/engine-cover4", 1, "BOOL");
+			var chair_state = self.initNode("sim/model/bluebird/crew/pilot/chair-back", 1, "BOOL");
+			var cg_state = self.initNode("controls/engines/countergrav-factor", 1, "BOOL");
+			var lights_interior_state = self.initNode("sim/model/bluebird/lighting/interior-switch", 1, "BOOL");
+
+			setlistener(byte_state, func (node) {
+				var state = node.getValue();
+				cover1_state.setBoolValue(bits.test(state, 0));
+				cover2_state.setBoolValue(bits.test(state, 1));
+				cover3_state.setBoolValue(bits.test(state, 2));
+				cover4_state.setBoolValue(bits.test(state, 3));
+				chair_state.setBoolValue(bits.test(state, 4));
+				cg_state.setBoolValue(bits.test(state, 5));
+				lights_interior_state.setBoolValue(bits.test(state, 6));
+			}, 1, 0);
+
+			var power_state_node = self.getNode("sim/multiplay/generic/int[2]").getPath();
+			var lights_overhead_red_node = self.getNode("sim/model/bluebird/lighting/overhead/emission/red");
+			var lights_overhead_gb_node = self.getNode("sim/model/bluebird/lighting/overhead/emission/gb");
+			var lights_door_safety_rgb_node = self.getNode("sim/model/bluebird/lighting/interiorB-door-lights/emission/rgb");
+			var lights_hatch_safety_rg_node = self.getNode("sim/model/bluebird/lighting/interiorC-safety-lights/emission/rg");
+			setlistener(lights_overhead_gb_node, func (node) {
+				lights_state = node.getValue();
+				self.getNode("sim/model/bluebird/lighting/interior1-flooring/emission/red").setValue(lights_state*0.7);
+				self.getNode("sim/model/bluebird/lighting/interior1-flooring/emission/green").setValue(lights_state*0.7);
+				self.getNode("sim/model/bluebird/lighting/interior1-flooring/emission/blue").setValue(lights_state*0.7);
+				self.getNode("sim/model/bluebird/lighting/door0/interior1-flooring/emission/red").setValue(lights_state*0.7);
+				self.getNode("sim/model/bluebird/lighting/door0/interior1-flooring/emission/green").setValue(lights_state*0.7);
+				self.getNode("sim/model/bluebird/lighting/door0/interior1-flooring/emission/blue").setValue(lights_state*0.7);
+				self.getNode("sim/model/bluebird/lighting/door1/interior1-flooring/emission/red").setValue(lights_state*0.7);
+				self.getNode("sim/model/bluebird/lighting/door1/interior1-flooring/emission/green").setValue(lights_state*0.7);
+				self.getNode("sim/model/bluebird/lighting/door1/interior1-flooring/emission/blue").setValue(lights_state*0.7);
+				self.getNode("sim/model/bluebird/lighting/door5/hatch1-flooring-center/emission/red").setValue(0.5);
+				self.getNode("sim/model/bluebird/lighting/door5/hatch1-flooring-center/emission/green").setValue(0.5);
+				self.getNode("sim/model/bluebird/lighting/door5/hatch1-flooring-center/emission/blue").setValue(0.5);
+				self.getNode("sim/model/bluebird/lighting/door5/interior1-flooring/emission/red").setValue(lights_state*0.7);
+				self.getNode("sim/model/bluebird/lighting/door5/interior1-flooring/emission/green").setValue(lights_state*0.7);
+				self.getNode("sim/model/bluebird/lighting/door5/interior1-flooring/emission/blue").setValue(lights_state*0.7);
+				self.getNode("sim/model/bluebird/lighting/interior3-upper-walls/emission/red").setValue(lights_state*0.2);
+				self.getNode("sim/model/bluebird/lighting/interior3-upper-walls/emission/green").setValue(lights_state*0.2);
+				self.getNode("sim/model/bluebird/lighting/interior3-upper-walls/emission/blue").setValue(lights_state*0.2);
+				self.getNode("sim/model/bluebird/lighting/interior4-lower-walls/emission/red").setValue(lights_state*0.33);
+				self.getNode("sim/model/bluebird/lighting/interior4-lower-walls/emission/green").setValue(lights_state*0.33);
+				self.getNode("sim/model/bluebird/lighting/interior4-lower-walls/emission/blue").setValue(lights_state*0.33);
+			}, 1, 0);
+			setlistener(power_state_node, func (node) {
+				power_state = node.getValue();
+				lights_overhead_red_node.setValue(power_state);
+				lights_overhead_gb_node.setValue(power_state);
+				lights_door_safety_rgb_node.setValue(power_state);
+				self.getNode("sim/model/bluebird/lighting/interiorC-safety-lights/emission/rg").setValue(power_state);
+			}, 1, 0);
+
+			var nacelle_L_venting = self.getNode("sim/multiplay/generic/int[3]").getPath();
+			var nacelle_LR_venting = self.getNode("sim/model/bluebird/systems/nacelle-L-venting");
+			var submodel_LR_venting = self.getNode("ai/submodels/nacelle-LR-venting");
+			setlistener(nacelle_L_venting, func (node) {
+				var state = node.getValue();
+				nacelle_LR_venting.setValue(state);
+				submodel_LR_venting.setValue(state);
+			}, 1, 0);
+			var nacelle_R_venting = self.getNode("sim/multiplay/generic/int[4]").getPath();
+			var nacelle_RR_venting = self.getNode("sim/model/bluebird/systems/nacelle-R-venting");
+			var submodel_RR_venting = self.getNode("ai/submodels/nacelle-RR-venting");
+			setlistener(nacelle_R_venting, func (node) {
+				var state = node.getValue();
+				nacelle_RR_venting.setValue(state);
+				submodel_RR_venting.setValue(state);
+			}, 1, 0);
+		</load>
+		<unload>
+			print("Unloading bluebird-osg ", cmdarg().getPath());
+			livery_update.stop();
+		</unload>
+	</nasal>
 
 <!-- clickable button block for osg only -->
 	<animation>
@@ -1105,7 +2314,7 @@
 				<value>80</value>
 			</less-than>
 			<greater-than>
-				<property>sim/model/bluebird/lighting/engine-glow</property>
+				<property>sim/multiplay/generic/float[8]</property>
 				<value>0.2</value>
 			</greater-than>
 		</condition>
@@ -1120,7 +2329,7 @@
 			<phi-max-deg>10</phi-max-deg>
 			<!-- roatate on y-axis, measured in front: from 10 degrees below to 15 above -->
 			<speed-mps>
-				<property>sim/model/bluebird/lighting/engine-glow</property>
+				<property>sim/multiplay/generic/float[8]</property>
 				<factor>30</factor>
 			</speed-mps>
 			<rotation-speed>
@@ -1230,7 +2439,7 @@
 				<value>80</value>
 			</less-than>
 			<greater-than>
-				<property>sim/model/bluebird/lighting/engine-glow</property>
+				<property>sim/multiplay/generic/float[8]</property>
 				<value>0.2</value>
 			</greater-than>
 		</condition>
@@ -1241,7 +2450,7 @@
 			<phi-min-deg>-15</phi-min-deg>
 			<phi-max-deg>10</phi-max-deg>
 			<speed-mps>
-				<property>sim/model/bluebird/lighting/engine-glow</property>
+				<property>sim/multiplay/generic/float[8]</property>
 				<factor>30</factor>
 			</speed-mps>
 			<rotation-speed>
@@ -1351,7 +2560,7 @@
 				<value>80</value>
 			</less-than>
 			<greater-than>
-				<property>sim/model/bluebird/lighting/engine-glow</property>
+				<property>sim/multiplay/generic/float[8]</property>
 				<value>0.2</value>
 			</greater-than>
 		</condition>
@@ -1362,7 +2571,7 @@
 			<phi-min-deg>-10</phi-min-deg>
 			<phi-max-deg>25</phi-max-deg>
 			<speed-mps>
-				<property>sim/model/bluebird/lighting/engine-glow</property>
+				<property>sim/multiplay/generic/float[8]</property>
 				<factor>30</factor>
 			</speed-mps>
 			<rotation-speed>
@@ -1472,7 +2681,7 @@
 				<value>80</value>
 			</less-than>
 			<greater-than>
-				<property>sim/model/bluebird/lighting/engine-glow</property>
+				<property>sim/multiplay/generic/float[8]</property>
 				<value>0.2</value>
 			</greater-than>
 		</condition>
@@ -1483,7 +2692,7 @@
 			<phi-min-deg>-10</phi-min-deg>
 			<phi-max-deg>25</phi-max-deg>
 			<speed-mps>
-				<property>sim/model/bluebird/lighting/engine-glow</property>
+				<property>sim/multiplay/generic/float[8]</property>
 				<factor>30</factor>
 			</speed-mps>
 			<rotation-speed>
@@ -1817,7 +3026,7 @@
 				<not>
 					<property>sim/paused</property>
 				</not>
-				<property>ai/submodels/engine-L-venting</property>
+				<property>ai/submodels/engine-L-smoking</property>
 			</and>
 		</condition>
 		<offsets>
@@ -1837,7 +3046,7 @@
 				<not>
 					<property>sim/paused</property>
 				</not>
-				<property>ai/submodels/engine-L-venting</property>
+				<property>ai/submodels/engine-L-smoking</property>
 			</and>
 		</condition>
 		<offsets>
@@ -1857,7 +3066,7 @@
 				<not>
 					<property>sim/paused</property>
 				</not>
-				<property>ai/submodels/engine-L-venting</property>
+				<property>ai/submodels/engine-L-smoking</property>
 			</and>
 		</condition>
 		<offsets>
@@ -1877,7 +3086,7 @@
 				<not>
 					<property>sim/paused</property>
 				</not>
-				<property>ai/submodels/engine-R-venting</property>
+				<property>ai/submodels/engine-R-smoking</property>
 			</and>
 		</condition>
 		<offsets>
@@ -1897,7 +3106,7 @@
 				<not>
 					<property>sim/paused</property>
 				</not>
-				<property>ai/submodels/engine-R-venting</property>
+				<property>ai/submodels/engine-R-smoking</property>
 			</and>
 		</condition>
 		<offsets>
@@ -1917,7 +3126,7 @@
 				<not>
 					<property>sim/paused</property>
 				</not>
-				<property>ai/submodels/engine-R-venting</property>
+				<property>ai/submodels/engine-R-smoking</property>
 			</and>
 		</condition>
 		<offsets>

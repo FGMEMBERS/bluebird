@@ -1,5 +1,6 @@
-# ===== Bluebird Explorer Hovercraft  version 11.2 for FlightGear 1.9 OSG =====
+# ===== Bluebird Explorer Hovercraft  version 11.3 for FlightGear 1.9 OSG =====
 
+var self = cmdarg();
 # strobes -----------------------------------------------------------
 var strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
 var strobe_light = aircraft.light.new("sim/model/bluebird/lighting/strobe1", [0.1, 0.2, 0.1, 1.4], strobe_switch);
@@ -74,6 +75,7 @@ var door5_adjpos = props.globals.getNode("sim/model/bluebird/doors/door[5]/posit
 var gear = [];
 append(gear, aircraft.door.new("gear/gear[0]", 3));
 append(gear, aircraft.door.new("gear/gear[1]", 2.8));
+append(gear, aircraft.door.new("gear/gear[2]", 1.5));
 
 # movement and position ---------------------------------------------
 var airspeed_kt_Node = props.globals.getNode("velocities/airspeed-kt", 1);
@@ -967,11 +969,11 @@ setlistener("sim/model/bluebird/components/nacelle-L", func(n) {
 			setprop ("sim/model/bluebird/systems/nacelle-L-venting", 0);
 		}
 		if (damage_count) {
-			setprop ("ai/submodels/engine-L-venting", 1);
+			setprop ("ai/submodels/engine-L-smoking", 1);
 		}
 	} else {
 		setprop ("ai/submodels/engine-L-flaring", 0);
-		setprop ("ai/submodels/engine-L-venting", 0);
+		setprop ("ai/submodels/engine-L-smoking", 0);
 	}
 }, 1);
 
@@ -985,11 +987,11 @@ setlistener("sim/model/bluebird/components/nacelle-R", func(n) {
 			setprop ("sim/model/bluebird/systems/nacelle-R-venting", 0);
 		}
 		if (damage_count) {
-			setprop ("ai/submodels/engine-R-venting", 1);
+			setprop ("ai/submodels/engine-R-smoking", 1);
 		}
 	} else {
 		setprop ("ai/submodels/engine-R-flaring", 0);
-		setprop ("ai/submodels/engine-R-venting", 0);
+		setprop ("ai/submodels/engine-R-smoking", 0);
 	}
 }, 1);
 
@@ -1021,7 +1023,7 @@ var update_venting = func(uv_change, left_right) {	# 1=left,2=right
 					new_venting = 1;
 				} else {
 					setprop ("ai/submodels/engine-L-flaring", 1);
-					setprop ("ai/submodels/engine-L-venting", 1);
+					setprop ("ai/submodels/engine-L-smoking", 1);
 				}
 			} else {
 				setprop ("ai/submodels/nacelle-LR-venting", 0);
@@ -1042,7 +1044,7 @@ var update_venting = func(uv_change, left_right) {	# 1=left,2=right
 					new_venting += 2;
 				} else {
 					setprop ("ai/submodels/engine-R-flaring", 1);
-					setprop ("ai/submodels/engine-R-venting", 1);
+					setprop ("ai/submodels/engine-R-smoking", 1);
 				}
 			} else {
 				setprop ("ai/submodels/nacelle-RR-venting", 0);
@@ -1664,12 +1666,16 @@ setlistener("gear/gear[0]/position-norm", func(n) {
 	gear_position = n.getValue();
 	if (wheel_position) {
 		var ppos = gear_position - wheel_position;
+		# FIXME change over to gear2, add trigger and timing at right points instead of setting position directly.	gear[].open =1=down .close =0=up
+		# flowchart: if gear0==1 and gear1==1 then gear2=0	if gear0==0 then gear2=0; ignore gear1
+		#	     if gear0==0 and gear1 trigger then no change to gear2
+		#	     if gear1.close and gear0==1 then gear2.
 		if (ppos < 0) {
 			ppos = 0;
 		}
-		setprop("gear/gear[0]/position-side-pads", ppos);
+		setprop("gear/gear[2]/position-norm", ppos);
 	} else {
-		setprop("gear/gear[0]/position-side-pads", gear_position);
+		setprop("gear/gear[2]/position-norm", gear_position);
 	}
 	setprop ("gear/gear-agl-ft", (gear_position * 2.47) + wheel_height_ft);
 	if (door0_position > 0.7) {
@@ -1692,9 +1698,9 @@ setlistener("gear/gear[1]/position-norm", func(n) {
 		if (ppos < 0) {
 			ppos = 0;
 		}
-		setprop("gear/gear[0]/position-side-pads", ppos);
+		setprop("gear/gear[2]/position-norm", ppos);
 	} else {
-		setprop("gear/gear[0]/position-side-pads", gear_position);
+		setprop("gear/gear[2]/position-norm", gear_position);
 	}
 	if (wheel_position > 0.5) {	# wheels below skid plate of main gear
 		if (wheel_position > 0.90) {	# calculate actual height
@@ -4314,6 +4320,35 @@ for (var i = 0; i < size(livery_hull_list); i += 1) {
 }
 gui_livery_node = gui_livery_node.getNode("list", 1);
 
+var update_byte = func {
+	var state = 0;
+#	state = bits.switch(state, 0, getprop("controls/lighting/beacon"));
+#	state = bits.switch(state, 1, getprop("controls/lighting/strobe"));
+#	state = bits.switch(state, 2, getprop("sim/model/bluebird/lighting/nav-lights-state"));
+#	state = bits.switch(state, 3, getprop("sim/model/bluebird/lighting/landing-lights"));
+	state = bits.switch(state, 0, getprop("sim/model/bluebird/components/engine-cover1"));
+	state = bits.switch(state, 1, getprop("sim/model/bluebird/components/engine-cover2"));
+	state = bits.switch(state, 2, getprop("sim/model/bluebird/components/engine-cover3"));
+	state = bits.switch(state, 3, getprop("sim/model/bluebird/components/engine-cover4"));
+	state = bits.switch(state, 4, getprop("sim/model/bluebird/crew/pilot/chair-back"));
+	state = bits.switch(state, 5, getprop("controls/engines/countergrav-factor"));
+	state = bits.switch(state, 6, getprop("sim/model/bluebird/lighting/interior-switch"));
+	setprop("sim/model/bluebird/detail-byte", state);
+};
+
+#setlistener("controls/lighting/beacon", update_byte, 0, 0);
+#setlistener("controls/lighting/strobe", update_byte, 0, 0);
+#setlistener("sim/model/bluebird/lighting/nav-lights-state", update_byte, 0, 0);
+#setlistener("sim/model/bluebird/lighting/landing-lights", update_byte, 0, 0);
+setlistener("sim/model/bluebird/components/engine-cover1", update_byte, 0, 0);
+setlistener("sim/model/bluebird/components/engine-cover2", update_byte, 0, 0);
+setlistener("sim/model/bluebird/components/engine-cover3", update_byte, 0, 0);
+setlistener("sim/model/bluebird/components/engine-cover4", update_byte, 0, 0);
+setlistener("sim/model/bluebird/crew/pilot/chair-back", update_byte, 0, 0);
+setlistener("controls/engines/countergrav-factor", update_byte, 0, 0);
+setlistener("sim/model/bluebird/lighting/interior-switch", update_byte, 0, 0);
+update_byte();
+
 var listbox_apply = func {
 	material.showDialog("sim/model/livery/material/" ~ gui_livery_node.getValue() ~ "/", nil, getprop("/sim/startup/xsize") - 200, 20);
 }
@@ -4391,9 +4426,35 @@ var prestart_main = func {
 		main_loop_id += 1;
 		settimer(prestart_main, 0.1);
 	} else {
-		print ("  version 11.21  release date 2019.Jan.12  by Stewart Andreason");
+		print ("  version 11.3  release date 2019.Jan.18  by Stewart Andreason");
 		update_main();
 	}
+	settimer(func {	# wake up, livery was loaded but did not trigger the listeners
+		liv_tmp = getprop("sim/model/livery/material/interior-flooring/ambient/red");
+		setprop("sim/model/livery/material/interior-flooring/ambient/red", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-flooring/ambient/green");
+		setprop("sim/model/livery/material/interior-flooring/ambient/green", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-flooring/ambient/blue");
+		setprop("sim/model/livery/material/interior-flooring/ambient/blue", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-door-panels/ambient/red");
+		setprop("sim/model/livery/material/interior-door-panels/ambient/red", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-door-panels/ambient/green");
+		setprop("sim/model/livery/material/interior-door-panels/ambient/green", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-door-panels/ambient/blue");
+		setprop("sim/model/livery/material/interior-door-panels/ambient/blue", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-upper/ambient/red");
+		setprop("sim/model/livery/material/interior-upper/ambient/red", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-upper/ambient/green");
+		setprop("sim/model/livery/material/interior-upper/ambient/green", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-upper/ambient/blue");
+		setprop("sim/model/livery/material/interior-upper/ambient/blue", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-lower/ambient/red");
+		setprop("sim/model/livery/material/interior-lower/ambient/red", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-lower/ambient/green");
+		setprop("sim/model/livery/material/interior-lower/ambient/green", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-lower/ambient/blue");
+		setprop("sim/model/livery/material/interior-lower/ambient/blue", liv_tmp);
+	}, 4.4, 1);
 }
 
 setlistener("sim/signals/fdm-initialized", func {

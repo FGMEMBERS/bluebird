@@ -1,7 +1,19 @@
 Version# Vertices PolygonFaces Comments
 
+2019.Jan.18
+11.3	No change to models.
+	Reorganize model properties for compatibility with multiplay in 2018 FG.
+	Add interior livery and lighting for external viewing in multiplay for 2018 FG.
+	Fix flooring livery not updating at initialization.
+
+2019.Jan.15
+11.23	Remove duplicate livery for AI multiplayer.
+
+2019.Jan.13
+11.22	Revert livery path for AI multiplayer.
+
 2019.Jan.12
-11.21	Remove detachment animation to make aircraft default as visible
+11.21	Remove detachment animation to make aircraft default as always visible.
 
 2019.Jan.11
 11.2	Change how multiplay textures and liveries are loaded.

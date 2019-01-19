@@ -1,4 +1,4 @@
-<!--== Bluebird version 10.5 common base ==-->
+<!--== Bluebird version 11.3 common base ==-->
 
 <PropertyList>
 
@@ -65,7 +65,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>Nose</object-name>
-		<property>sim/model/bluebird/damage/major-counter</property>
+		<property>sim/multiplay/generic/int[7]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -167,17 +167,14 @@
 		<type>select</type>
 		<object-name>NacelleL</object-name>
 		<condition>
-			<and>
-				<property>sim/model/bluebird/components/nacelle-L</property>
-				<property>sim/model/bluebird/components/body</property>
-			</and>
+			<property>sim/multiplay/generic/int[0]</property>
 		</condition>
 	</animation>
 
 	<animation>
 		<type>rotate</type>
 		<object-name>NacelleL</object-name>
-		<property>sim/model/bluebird/damage/major-counter</property>
+		<property>sim/multiplay/generic/int[7]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -208,17 +205,14 @@
 		<type>select</type>
 		<object-name>NacelleR</object-name>
 		<condition>
-			<and>
-				<property>sim/model/bluebird/components/nacelle-R</property>
-				<property>sim/model/bluebird/components/body</property>
-			</and>
+			<property>sim/multiplay/generic/int[1]</property>
 		</condition>
 	</animation>
 
 	<animation>
 		<type>rotate</type>
 		<object-name>NacelleR</object-name>
-		<property>sim/model/bluebird/damage/major-counter</property>
+		<property>sim/multiplay/generic/int[7]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -257,7 +251,7 @@
 	<animation>
 		<type>spin</type>
 		<object-name>Nose.FanLf</object-name>
-		<property>sim/model/bluebird/lighting/engine-glow</property>
+		<property>sim/multiplay/generic/float[8]</property>
 		<factor>200</factor>
 		<center>
 			<x-m>-9.112</x-m>
@@ -274,11 +268,11 @@
 	<animation>
 		<type>material</type>
 		<object-name>Nose.FanLf</object-name>
-		<property-base>sim/model/bluebird/lighting</property-base>
+		<property-base>sim/multiplay/generic</property-base>
 		<emission>
-			<red-prop>engine-glow</red-prop>
-			<green-prop>engine-glow</green-prop>
-			<blue-prop>engine-glow</blue-prop>
+			<red-prop>float[8]</red-prop>
+			<green-prop>float[8]</green-prop>
+			<blue-prop>float[8]</blue-prop>
 			<factor>0.5</factor>
 		</emission>
 	</animation>
@@ -293,7 +287,7 @@
 	<animation>
 		<type>spin</type>
 		<object-name>Nose.FanRf</object-name>
-		<property>sim/model/bluebird/lighting/engine-glow</property>
+		<property>sim/multiplay/generic/float[8]</property>
 		<factor>200</factor>
 		<center>
 			<x-m>-9.112</x-m>
@@ -310,11 +304,11 @@
 	<animation>
 		<type>material</type>
 		<object-name>Nose.FanRf</object-name>
-		<property-base>sim/model/bluebird/lighting</property-base>
+		<property-base>sim/multiplay/generic</property-base>
 		<emission>
-			<red-prop>engine-glow</red-prop>
-			<green-prop>engine-glow</green-prop>
-			<blue-prop>engine-glow</blue-prop>
+			<red-prop>float[8]</red-prop>
+			<green-prop>float[8]</green-prop>
+			<blue-prop>float[8]</blue-prop>
 			<factor>0.5</factor>
 		</emission>
 	</animation>
@@ -329,7 +323,7 @@
 	<animation>
 		<type>spin</type>
 		<object-name>Body.FanLr</object-name>
-		<property>sim/model/bluebird/lighting/engine-glow</property>
+		<property>sim/multiplay/generic/float[8]</property>
 		<factor>200</factor>
 		<center>
 			<x-m>5.512</x-m>
@@ -346,11 +340,11 @@
 	<animation>
 		<type>material</type>
 		<object-name>Body.FanLr</object-name>
-		<property-base>sim/model/bluebird/lighting</property-base>
+		<property-base>sim/multiplay/generic</property-base>
 		<emission>
-			<red-prop>engine-glow</red-prop>
-			<green-prop>engine-glow</green-prop>
-			<blue-prop>engine-glow</blue-prop>
+			<red-prop>float[8]</red-prop>
+			<green-prop>float[8]</green-prop>
+			<blue-prop>float[8]</blue-prop>
 			<factor>0.5</factor>
 		</emission>
 	</animation>
@@ -365,7 +359,7 @@
 	<animation>
 		<type>spin</type>
 		<object-name>Body.FanRr</object-name>
-		<property>sim/model/bluebird/lighting/engine-glow</property>
+		<property>sim/multiplay/generic/float[8]</property>
 		<factor>200</factor>
 		<center>
 			<x-m>5.512</x-m>
@@ -382,11 +376,11 @@
 	<animation>
 		<type>material</type>
 		<object-name>Body.FanRr</object-name>
-		<property-base>sim/model/bluebird/lighting</property-base>
+		<property-base>sim/multiplay/generic</property-base>
 		<emission>
-			<red-prop>engine-glow</red-prop>
-			<green-prop>engine-glow</green-prop>
-			<blue-prop>engine-glow</blue-prop>
+			<red-prop>float[8]</red-prop>
+			<green-prop>float[8]</green-prop>
+			<blue-prop>float[8]</blue-prop>
 			<factor>0.5</factor>
 		</emission>
 	</animation>
@@ -411,7 +405,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>Nose.Door0Left</object-name>
-		<property>sim/model/bluebird/doors/door[0]/position-adj</property>
+		<property>sim/multiplay/generic/float[0]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -485,7 +479,7 @@
 		<type>rotate</type>
 		<object-name>Nose.Door0L.Step1.a</object-name>
 		<object-name>Nose.Door0L.Step1.c</object-name>
-		<property>sim/model/bluebird/doors/door[0]/position-adj</property>
+		<property>sim/multiplay/generic/float[0]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -530,7 +524,7 @@
 		<type>rotate</type>
 		<object-name>Nose.Door0L.Step1-up</object-name>
 		<object-name>Nose.Door0L.Step1.0</object-name>
-		<property>sim/model/bluebird/doors/door[0]/position-adj</property>
+		<property>sim/multiplay/generic/float[0]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -567,7 +561,7 @@
 		<type>rotate</type>
 		<object-name>Nose.Door0L.Step2.a</object-name>
 		<object-name>Nose.Door0L.Step2.c</object-name>
-		<property>sim/model/bluebird/doors/door[0]/position-adj</property>
+		<property>sim/multiplay/generic/float[0]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -612,7 +606,7 @@
 		<type>rotate</type>
 		<object-name>Nose.Door0L.Step2-up</object-name>
 		<object-name>Nose.Door0L.Step2.0</object-name>
-		<property>sim/model/bluebird/doors/door[0]/position-adj</property>
+		<property>sim/multiplay/generic/float[0]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -649,7 +643,7 @@
 		<type>rotate</type>
 		<object-name>Nose.Door0L.Step3.a</object-name>
 		<object-name>Nose.Door0L.Step3.c</object-name>
-		<property>sim/model/bluebird/doors/door[0]/position-adj</property>
+		<property>sim/multiplay/generic/float[0]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -694,7 +688,7 @@
 		<type>rotate</type>
 		<object-name>Nose.Door0L.Step3-lo</object-name>
 		<object-name>Nose.Door0L.Step3.0</object-name>
-		<property>sim/model/bluebird/doors/door[0]/position-adj</property>
+		<property>sim/multiplay/generic/float[0]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -731,7 +725,7 @@
 		<type>rotate</type>
 		<object-name>Nose.Door0L.Step4.a</object-name>
 		<object-name>Nose.Door0L.Step4.c</object-name>
-		<property>sim/model/bluebird/doors/door[0]/position-adj</property>
+		<property>sim/multiplay/generic/float[0]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -768,7 +762,7 @@
 		<type>rotate</type>
 		<object-name>Nose.Door0L.Step5.a</object-name>
 		<object-name>Nose.Door0L.Step5.c</object-name>
-		<property>sim/model/bluebird/doors/door[0]/position-adj</property>
+		<property>sim/multiplay/generic/float[0]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -805,7 +799,7 @@
 		<type>rotate</type>
 		<object-name>Nose.Door0L.Step4-lo</object-name>
 		<object-name>Nose.Door0L.Step4.0</object-name>
-		<property>sim/model/bluebird/doors/door[0]/position-adj</property>
+		<property>sim/multiplay/generic/float[0]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -850,7 +844,7 @@
 		<type>rotate</type>
 		<object-name>Nose.Door0L.Step4-lo</object-name>
 		<object-name>Nose.Door0L.Step4.0</object-name>
-		<property>sim/model/bluebird/doors/door[0]/position-adj</property>
+		<property>sim/multiplay/generic/float[0]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -893,7 +887,7 @@
 	<animation>
 		<type>translate</type>
 		<object-name>Nose.LeftSlideMech</object-name>
-		<property>sim/model/bluebird/doors/door[0]/position-norm</property>
+		<property>sim/multiplay/generic/float[0]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -949,7 +943,7 @@
 		<object-name>Door0L.2.6</object-name>
 		<object-name>Door0L.8.0h0</object-name>
 		<object-name>Door0L.2.0h0</object-name>
-		<property>sim/model/bluebird/doors/door[0]/position-norm</property>
+		<property>sim/multiplay/generic/float[0]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1120,7 +1114,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>Nose.Door1Right</object-name>
-		<property>sim/model/bluebird/doors/door[1]/position-adj</property>
+		<property>sim/multiplay/generic/float[1]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1194,7 +1188,7 @@
 		<type>rotate</type>
 		<object-name>Nose.Door1R.Step1.a</object-name>
 		<object-name>Nose.Door1R.Step1.c</object-name>
-		<property>sim/model/bluebird/doors/door[1]/position-adj</property>
+		<property>sim/multiplay/generic/float[1]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1239,7 +1233,7 @@
 		<type>rotate</type>
 		<object-name>Nose.Door1R.Step1-up</object-name>
 		<object-name>Nose.Door1R.Step1.0</object-name>
-		<property>sim/model/bluebird/doors/door[1]/position-adj</property>
+		<property>sim/multiplay/generic/float[1]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1276,7 +1270,7 @@
 		<type>rotate</type>
 		<object-name>Nose.Door1R.Step2.a</object-name>
 		<object-name>Nose.Door1R.Step2.c</object-name>
-		<property>sim/model/bluebird/doors/door[1]/position-adj</property>
+		<property>sim/multiplay/generic/float[1]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1321,7 +1315,7 @@
 		<type>rotate</type>
 		<object-name>Nose.Door1R.Step2-up</object-name>
 		<object-name>Nose.Door1R.Step2.0</object-name>
-		<property>sim/model/bluebird/doors/door[1]/position-adj</property>
+		<property>sim/multiplay/generic/float[1]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1358,7 +1352,7 @@
 		<type>rotate</type>
 		<object-name>Nose.Door1R.Step3.a</object-name>
 		<object-name>Nose.Door1R.Step3.c</object-name>
-		<property>sim/model/bluebird/doors/door[1]/position-adj</property>
+		<property>sim/multiplay/generic/float[1]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1403,7 +1397,7 @@
 		<type>rotate</type>
 		<object-name>Nose.Door1R.Step3-lo</object-name>
 		<object-name>Nose.Door1R.Step3.0</object-name>
-		<property>sim/model/bluebird/doors/door[1]/position-adj</property>
+		<property>sim/multiplay/generic/float[1]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1440,7 +1434,7 @@
 		<type>rotate</type>
 		<object-name>Nose.Door1R.Step4.a</object-name>
 		<object-name>Nose.Door1R.Step4.c</object-name>
-		<property>sim/model/bluebird/doors/door[1]/position-adj</property>
+		<property>sim/multiplay/generic/float[1]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1477,7 +1471,7 @@
 		<type>rotate</type>
 		<object-name>Nose.Door1R.Step5.a</object-name>
 		<object-name>Nose.Door1R.Step5.c</object-name>
-		<property>sim/model/bluebird/doors/door[1]/position-adj</property>
+		<property>sim/multiplay/generic/float[1]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1522,7 +1516,7 @@
 		<type>rotate</type>
 		<object-name>Nose.Door1R.Step4-lo</object-name>
 		<object-name>Nose.Door1R.Step4.0</object-name>
-		<property>sim/model/bluebird/doors/door[1]/position-adj</property>
+		<property>sim/multiplay/generic/float[1]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1559,7 +1553,7 @@
 		<type>rotate</type>
 		<object-name>Nose.Door1R.Step4-lo</object-name>
 		<object-name>Nose.Door1R.Step4.0</object-name>
-		<property>sim/model/bluebird/doors/door[1]/position-adj</property>
+		<property>sim/multiplay/generic/float[1]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1602,7 +1596,7 @@
 	<animation>
 		<type>translate</type>
 		<object-name>Nose.RightSlideMech</object-name>
-		<property>sim/model/bluebird/doors/door[1]/position-norm</property>
+		<property>sim/multiplay/generic/float[1]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1658,7 +1652,7 @@
 		<object-name>Door1R.2.6</object-name>
 		<object-name>Door1R.8.1h0</object-name>
 		<object-name>Door1R.2.1h0</object-name>
-		<property>sim/model/bluebird/doors/door[1]/position-norm</property>
+		<property>sim/multiplay/generic/float[1]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1868,7 +1862,7 @@
 		<object-name>Door2L.8.7</object-name>
 		<object-name>Door2L.b</object-name>
 		<object-name>Door2L.2.7</object-name>
-		<property>sim/model/bluebird/doors/door[2]/position-norm</property>
+		<property>sim/multiplay/generic/float[3]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1992,7 +1986,7 @@
 		<object-name>Door2R.8.7</object-name>
 		<object-name>Door2R.b</object-name>
 		<object-name>Door2R.2.7</object-name>
-		<property>sim/model/bluebird/doors/door[2]/position-norm</property>
+		<property>sim/multiplay/generic/float[3]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -2371,7 +2365,7 @@
 		<object-name>Door4L.8.7</object-name>
 		<object-name>Door4L.b</object-name>
 		<object-name>Door4L.2.7</object-name>
-		<property>sim/model/bluebird/doors/door[4]/position-norm</property>
+		<property>sim/multiplay/generic/float[12]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -2492,7 +2486,7 @@
 		<object-name>Door4R.8.7</object-name>
 		<object-name>Door4R.b</object-name>
 		<object-name>Door4R.2.7</object-name>
-		<property>sim/model/bluebird/doors/door[4]/position-norm</property>
+		<property>sim/multiplay/generic/float[12]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -2631,7 +2625,7 @@
 		<object-name>RearHatch5.BottomH</object-name>
 		<object-name>RearHatch5.BottomI</object-name>
 		<object-name>Hatch5B.1.8</object-name>
-		<property>sim/model/bluebird/doors/door[5]/position-adj</property>
+		<property>sim/multiplay/generic/float[2]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -2707,7 +2701,7 @@
 		<type>rotate</type>
 		<object-name>RearHatch5.TopH</object-name>
 		<object-name>RearHatch5.TopI</object-name>
-		<property>sim/model/bluebird/doors/door[5]/position-adj</property>
+		<property>sim/multiplay/generic/float[2]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -2988,7 +2982,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>NoseGear4L</object-name>
-		<property>gear/gear[0]/position-side-pads</property>
+		<property>gear/gear[2]/position-norm</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -3016,7 +3010,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>NoseGear4R</object-name>
-		<property>gear/gear[0]/position-side-pads</property>
+		<property>gear/gear[2]/position-norm</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -3166,7 +3160,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>LeftGear4L</object-name>
-		<property>gear/gear[0]/position-side-pads</property>
+		<property>gear/gear[2]/position-norm</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -3194,7 +3188,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>LeftGear4R</object-name>
-		<property>gear/gear[0]/position-side-pads</property>
+		<property>gear/gear[2]/position-norm</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -3344,7 +3338,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>RightGear4L</object-name>
-		<property>gear/gear[0]/position-side-pads</property>
+		<property>gear/gear[2]/position-norm</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -3372,7 +3366,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>RightGear4R</object-name>
-		<property>gear/gear[0]/position-side-pads</property>
+		<property>gear/gear[2]/position-norm</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -3569,7 +3563,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>Nose.Wheel6</object-name>
-		<property>controls/flight/rudder</property>
+		<property>sim/multiplay/generic/float[11]</property>
 		<factor>-45</factor>
 		<min-deg>-45</min-deg>
 		<max-deg>45</max-deg>
@@ -4235,13 +4229,13 @@
 		<condition>
 			<or>
 				<not>
-					<property>sim/model/bluebird/lighting/nav-lights-state</property>
+					<property>sim/multiplay/generic/int[11]</property>
 				</not>
 				<not>
-					<property>sim/model/bluebird/systems/power-switch</property>
+					<property>sim/multiplay/generic/int[2]</property>
 				</not>
 				<greater-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>0</value>
 				</greater-than>
 			</or>
@@ -4253,10 +4247,10 @@
 		<object-name>NavL1.on</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/lighting/nav-lights-state</property>
-				<property>sim/model/bluebird/systems/power-switch</property>
+				<property>sim/multiplay/generic/int[11]</property>
+				<property>sim/multiplay/generic/int[2]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<less-than>
@@ -4272,10 +4266,10 @@
 		<object-name>nav_halo_L1</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/lighting/nav-lights-state</property>
-				<property>sim/model/bluebird/systems/power-switch</property>
+				<property>sim/multiplay/generic/int[11]</property>
+				<property>sim/multiplay/generic/int[2]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<greater-than>
@@ -4369,17 +4363,16 @@
 		<object-name>NavL2.off</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/components/nacelle-L</property>
-				<property>sim/model/bluebird/components/body</property>
+				<property>sim/multiplay/generic/int[0]</property>
 				<or>
 					<not>
-						<property>sim/model/bluebird/lighting/nav-lights-state</property>
+						<property>sim/multiplay/generic/int[11]</property>
 					</not>
 					<not>
-						<property>sim/model/bluebird/systems/power-switch</property>
+						<property>sim/multiplay/generic/int[2]</property>
 					</not>
 					<greater-than>
-						<property>sim/model/bluebird/damage/major-counter</property>
+						<property>sim/multiplay/generic/int[7]</property>
 						<value>0</value>
 					</greater-than>
 				</or>
@@ -4392,12 +4385,11 @@
 		<object-name>NavL2.on</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/components/nacelle-L</property>
-				<property>sim/model/bluebird/components/body</property>
-				<property>sim/model/bluebird/lighting/nav-lights-state</property>
-				<property>sim/model/bluebird/systems/power-switch</property>
+				<property>sim/multiplay/generic/int[0]</property>
+				<property>sim/multiplay/generic/int[11]</property>
+				<property>sim/multiplay/generic/int[2]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<less-than>
@@ -4413,12 +4405,11 @@
 		<object-name>nav_halo_L2</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/components/nacelle-L</property>
-				<property>sim/model/bluebird/components/body</property>
-				<property>sim/model/bluebird/lighting/nav-lights-state</property>
-				<property>sim/model/bluebird/systems/power-switch</property>
+				<property>sim/multiplay/generic/int[0]</property>
+				<property>sim/multiplay/generic/int[11]</property>
+				<property>sim/multiplay/generic/int[2]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<greater-than>
@@ -4514,13 +4505,13 @@
 		<condition>
 			<or>
 				<not>
-					<property>sim/model/bluebird/lighting/nav-lights-state</property>
+					<property>sim/multiplay/generic/int[11]</property>
 				</not>
 				<not>
-					<property>sim/model/bluebird/systems/power-switch</property>
+					<property>sim/multiplay/generic/int[2]</property>
 				</not>
 				<greater-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>0</value>
 				</greater-than>
 			</or>
@@ -4532,10 +4523,10 @@
 		<object-name>NavR1.on</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/lighting/nav-lights-state</property>
-				<property>sim/model/bluebird/systems/power-switch</property>
+				<property>sim/multiplay/generic/int[11]</property>
+				<property>sim/multiplay/generic/int[2]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<less-than>
@@ -4551,10 +4542,10 @@
 		<object-name>nav_halo_R1</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/lighting/nav-lights-state</property>
-				<property>sim/model/bluebird/systems/power-switch</property>
+				<property>sim/multiplay/generic/int[11]</property>
+				<property>sim/multiplay/generic/int[2]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<greater-than>
@@ -4648,17 +4639,16 @@
 		<object-name>NavR2.off</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/components/nacelle-R</property>
-				<property>sim/model/bluebird/components/body</property>
+				<property>sim/multiplay/generic/int[1]</property>
 				<or>
 					<not>
-						<property>sim/model/bluebird/lighting/nav-lights-state</property>
+						<property>sim/multiplay/generic/int[11]</property>
 					</not>
 					<not>
-						<property>sim/model/bluebird/systems/power-switch</property>
+						<property>sim/multiplay/generic/int[2]</property>
 					</not>
 					<greater-than>
-						<property>sim/model/bluebird/damage/major-counter</property>
+						<property>sim/multiplay/generic/int[7]</property>
 						<value>0</value>
 					</greater-than>
 				</or>
@@ -4671,12 +4661,11 @@
 		<object-name>NavR2.on</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/components/nacelle-R</property>
-				<property>sim/model/bluebird/components/body</property>
-				<property>sim/model/bluebird/lighting/nav-lights-state</property>
-				<property>sim/model/bluebird/systems/power-switch</property>
+				<property>sim/multiplay/generic/int[1]</property>
+				<property>sim/multiplay/generic/int[11]</property>
+				<property>sim/multiplay/generic/int[2]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<less-than>
@@ -4692,12 +4681,11 @@
 		<object-name>nav_halo_R2</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/components/nacelle-R</property>
-				<property>sim/model/bluebird/components/body</property>
-				<property>sim/model/bluebird/lighting/nav-lights-state</property>
-				<property>sim/model/bluebird/systems/power-switch</property>
+				<property>sim/multiplay/generic/int[1]</property>
+				<property>sim/multiplay/generic/int[11]</property>
+				<property>sim/multiplay/generic/int[2]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<greater-than>
@@ -4792,17 +4780,16 @@
 		<object-name>NavLc.off</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/components/nacelle-L</property>
-				<property>sim/model/bluebird/components/body</property>
+				<property>sim/multiplay/generic/int[0]</property>
 				<or>
 					<not>
 						<property>sim/model/bluebird/lighting/strobe1/state</property>
 					</not>
 					<not>
-						<property>sim/model/bluebird/systems/power-switch</property>
+						<property>sim/multiplay/generic/int[2]</property>
 					</not>
 					<greater-than>
-						<property>sim/model/bluebird/damage/major-counter</property>
+						<property>sim/multiplay/generic/int[7]</property>
 						<value>0</value>
 					</greater-than>
 				</or>
@@ -4816,11 +4803,10 @@
 		<condition>
 			<and>
 				<property>sim/model/bluebird/lighting/strobe1/state</property>
-				<property>sim/model/bluebird/components/nacelle-L</property>
-				<property>sim/model/bluebird/components/body</property>
-				<property>sim/model/bluebird/systems/power-switch</property>
+				<property>sim/multiplay/generic/int[0]</property>
+				<property>sim/multiplay/generic/int[2]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 			</and>
@@ -4910,17 +4896,16 @@
 		<object-name>NavRc.off</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/components/nacelle-R</property>
-				<property>sim/model/bluebird/components/body</property>
+				<property>sim/multiplay/generic/int[1]</property>
 				<or>
 					<not>
 						<property>sim/model/bluebird/lighting/strobe1/state</property>
 					</not>
 					<not>
-						<property>sim/model/bluebird/systems/power-switch</property>
+						<property>sim/multiplay/generic/int[2]</property>
 					</not>
 					<greater-than>
-						<property>sim/model/bluebird/damage/major-counter</property>
+						<property>sim/multiplay/generic/int[7]</property>
 						<value>0</value>
 					</greater-than>
 				</or>
@@ -4934,11 +4919,10 @@
 		<condition>
 			<and>
 				<property>sim/model/bluebird/lighting/strobe1/state</property>
-				<property>sim/model/bluebird/components/nacelle-R</property>
-				<property>sim/model/bluebird/components/body</property>
-				<property>sim/model/bluebird/systems/power-switch</property>
+				<property>sim/multiplay/generic/int[1]</property>
+				<property>sim/multiplay/generic/int[2]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 			</and>
@@ -5071,10 +5055,10 @@
 		<object-name>nav_sphere_L1</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/lighting/nav-lights-state</property>
-				<property>sim/model/bluebird/systems/power-switch</property>
+				<property>sim/multiplay/generic/int[11]</property>
+				<property>sim/multiplay/generic/int[2]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<greater-than>
@@ -5090,12 +5074,11 @@
 		<object-name>nav_sphere_L2</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/components/nacelle-L</property>
-				<property>sim/model/bluebird/components/body</property>
-				<property>sim/model/bluebird/lighting/nav-lights-state</property>
-				<property>sim/model/bluebird/systems/power-switch</property>
+				<property>sim/multiplay/generic/int[0]</property>
+				<property>sim/multiplay/generic/int[11]</property>
+				<property>sim/multiplay/generic/int[2]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<greater-than>
@@ -5111,10 +5094,10 @@
 		<object-name>nav_sphere_R1</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/lighting/nav-lights-state</property>
-				<property>sim/model/bluebird/systems/power-switch</property>
+				<property>sim/multiplay/generic/int[11]</property>
+				<property>sim/multiplay/generic/int[2]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<greater-than>
@@ -5130,12 +5113,11 @@
 		<object-name>nav_sphere_R2</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/components/nacelle-R</property>
-				<property>sim/model/bluebird/components/body</property>
-				<property>sim/model/bluebird/lighting/nav-lights-state</property>
-				<property>sim/model/bluebird/systems/power-switch</property>
+				<property>sim/multiplay/generic/int[1]</property>
+				<property>sim/multiplay/generic/int[11]</property>
+				<property>sim/multiplay/generic/int[2]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<greater-than>
@@ -5152,11 +5134,10 @@
 		<condition>
 			<and>
 				<property>sim/model/bluebird/lighting/strobe1/state</property>
-				<property>sim/model/bluebird/components/nacelle-L</property>
-				<property>sim/model/bluebird/components/body</property>
-				<property>sim/model/bluebird/systems/power-switch</property>
+				<property>sim/multiplay/generic/int[0]</property>
+				<property>sim/multiplay/generic/int[2]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 			</and>
@@ -5169,11 +5150,10 @@
 		<condition>
 			<and>
 				<property>sim/model/bluebird/lighting/strobe1/state</property>
-				<property>sim/model/bluebird/components/nacelle-R</property>
-				<property>sim/model/bluebird/components/body</property>
-				<property>sim/model/bluebird/systems/power-switch</property>
+				<property>sim/multiplay/generic/int[1]</property>
+				<property>sim/multiplay/generic/int[2]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 			</and>
@@ -5209,14 +5189,11 @@
 		<object-name>Body.BeaconT</object-name>
 		<condition>
 			<or>
-				<and>
-					<property>sim/model/bluebird/components/body</property>
-					<not>
-						<property>sim/model/bluebird/lighting/beacon1/state</property>
-					</not>
-				</and>
 				<not>
-					<property>sim/model/bluebird/systems/power-switch</property>
+					<property>sim/model/bluebird/lighting/beacon1/state</property>
+				</not>
+				<not>
+					<property>sim/multiplay/generic/int[2]</property>
 				</not>
 			</or>
 		</condition>
@@ -5227,9 +5204,8 @@
 		<object-name>beacon_halo_T</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/components/body</property>
 				<property>sim/model/bluebird/lighting/beacon1/state</property>
-				<property>sim/model/bluebird/systems/power-switch</property>
+				<property>sim/multiplay/generic/int[2]</property>
 			</and>
 		</condition>
 	</animation>
@@ -5317,20 +5293,17 @@
 		<object-name>Nose.BeaconB</object-name>
 		<condition>
 			<or>
-				<and>
-					<or>
-						<not>
-							<property>sim/model/bluebird/lighting/beacon1/state</property>
-						</not>
-						<greater-than>
-							<property>sim/model/bluebird/damage/major-counter</property>
-							<value>0</value>
-						</greater-than>
-					</or>
-					<property>sim/model/bluebird/components/nose</property>
-				</and>
+				<or>
+					<not>
+						<property>sim/model/bluebird/lighting/beacon1/state</property>
+					</not>
+					<greater-than>
+						<property>sim/multiplay/generic/int[7]</property>
+						<value>0</value>
+					</greater-than>
+				</or>
 				<not>
-					<property>sim/model/bluebird/systems/power-switch</property>
+					<property>sim/multiplay/generic/int[2]</property>
 				</not>
 			</or>
 		</condition>
@@ -5342,10 +5315,9 @@
 		<condition>
 			<and>
 				<property>sim/model/bluebird/lighting/beacon1/state</property>
-				<property>sim/model/bluebird/components/nose</property>
-				<property>sim/model/bluebird/systems/power-switch</property>
+				<property>sim/multiplay/generic/int[2]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 			</and>
@@ -5414,10 +5386,10 @@
 		<condition>
 			<not>
 				<and>
-					<property>sim/model/bluebird/systems/power-switch</property>
-					<property>sim/model/bluebird/lighting/landing-lights</property>
+					<property>sim/multiplay/generic/int[2]</property>
+					<property>sim/multiplay/generic/int[12]</property>
 					<less-than>
-						<property>sim/model/bluebird/damage/major-counter</property>
+						<property>sim/multiplay/generic/int[7]</property>
 						<value>1</value>
 					</less-than>
 					<or>
@@ -5426,7 +5398,7 @@
 							<value>1.57</value>
 						</greater-than>
 						<equals>
-							<property>sim/model/bluebird/lighting/landing-lights</property>
+							<property>sim/multiplay/generic/int[12]</property>
 							<value>2</value>
 						</equals>
 					</or>
@@ -5440,10 +5412,10 @@
 		<object-name>Nose.WingsLight.on</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/systems/power-switch</property>
-				<property>sim/model/bluebird/lighting/landing-lights</property>
+				<property>sim/multiplay/generic/int[2]</property>
+				<property>sim/multiplay/generic/int[12]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<or>
@@ -5452,7 +5424,7 @@
 						<value>1.57</value>
 					</greater-than>
 					<equals>
-						<property>sim/model/bluebird/lighting/landing-lights</property>
+						<property>sim/multiplay/generic/int[12]</property>
 						<value>2</value>
 					</equals>
 				</or>
@@ -5465,10 +5437,10 @@
 		<object-name>flash_halo_L</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/systems/power-switch</property>
-				<property>sim/model/bluebird/lighting/landing-lights</property>
+				<property>sim/multiplay/generic/int[2]</property>
+				<property>sim/multiplay/generic/int[12]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<or>
@@ -5477,7 +5449,7 @@
 						<value>1.57</value>
 					</greater-than>
 					<equals>
-						<property>sim/model/bluebird/lighting/landing-lights</property>
+						<property>sim/multiplay/generic/int[12]</property>
 						<value>2</value>
 					</equals>
 				</or>
@@ -5513,10 +5485,10 @@
 		<object-name>flash_halo_R</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/systems/power-switch</property>
-				<property>sim/model/bluebird/lighting/landing-lights</property>
+				<property>sim/multiplay/generic/int[2]</property>
+				<property>sim/multiplay/generic/int[12]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<or>
@@ -5525,7 +5497,7 @@
 						<value>1.57</value>
 					</greater-than>
 					<equals>
-						<property>sim/model/bluebird/lighting/landing-lights</property>
+						<property>sim/multiplay/generic/int[12]</property>
 						<value>2</value>
 					</equals>
 				</or>
@@ -5566,10 +5538,10 @@
 					<property>gear/gear[0]/position-norm</property>
 					<value>0.4</value>
 				</greater-than>
-				<property>sim/model/bluebird/systems/power-switch</property>
-				<property>sim/model/bluebird/lighting/landing-lights</property>
+				<property>sim/multiplay/generic/int[2]</property>
+				<property>sim/multiplay/generic/int[12]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<or>
@@ -5578,7 +5550,7 @@
 						<value>1.57</value>
 					</greater-than>
 					<equals>
-						<property>sim/model/bluebird/lighting/landing-lights</property>
+						<property>sim/multiplay/generic/int[12]</property>
 						<value>2</value>
 					</equals>
 				</or>
@@ -5595,10 +5567,10 @@
 					<property>gear/gear[0]/position-norm</property>
 					<value>0.5</value>
 				</greater-than>
-				<property>sim/model/bluebird/systems/power-switch</property>
-				<property>sim/model/bluebird/lighting/landing-lights</property>
+				<property>sim/multiplay/generic/int[2]</property>
+				<property>sim/multiplay/generic/int[12]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<or>
@@ -5607,7 +5579,7 @@
 						<value>1.57</value>
 					</greater-than>
 					<equals>
-						<property>sim/model/bluebird/lighting/landing-lights</property>
+						<property>sim/multiplay/generic/int[12]</property>
 						<value>2</value>
 					</equals>
 				</or>
@@ -5648,10 +5620,10 @@
 					<property>gear/gear[0]/position-norm</property>
 					<value>0.5</value>
 				</greater-than>
-				<property>sim/model/bluebird/systems/power-switch</property>
-				<property>sim/model/bluebird/lighting/landing-lights</property>
+				<property>sim/multiplay/generic/int[2]</property>
+				<property>sim/multiplay/generic/int[12]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<or>
@@ -5660,7 +5632,7 @@
 						<value>1.57</value>
 					</greater-than>
 					<equals>
-						<property>sim/model/bluebird/lighting/landing-lights</property>
+						<property>sim/multiplay/generic/int[12]</property>
 						<value>2</value>
 					</equals>
 				</or>
@@ -5701,10 +5673,10 @@
 					<property>gear/gear[0]/position-norm</property>
 					<value>0.4</value>
 				</greater-than>
-				<property>sim/model/bluebird/systems/power-switch</property>
-				<property>sim/model/bluebird/lighting/landing-lights</property>
+				<property>sim/multiplay/generic/int[2]</property>
+				<property>sim/multiplay/generic/int[12]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<or>
@@ -5713,7 +5685,7 @@
 						<value>1.57</value>
 					</greater-than>
 					<equals>
-						<property>sim/model/bluebird/lighting/landing-lights</property>
+						<property>sim/multiplay/generic/int[12]</property>
 						<value>2</value>
 					</equals>
 				</or>
@@ -5754,10 +5726,10 @@
 					<property>gear/gear[0]/position-norm</property>
 					<value>0.4</value>
 				</greater-than>
-				<property>sim/model/bluebird/systems/power-switch</property>
-				<property>sim/model/bluebird/lighting/landing-lights</property>
+				<property>sim/multiplay/generic/int[2]</property>
+				<property>sim/multiplay/generic/int[12]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<or>
@@ -5766,7 +5738,7 @@
 						<value>1.57</value>
 					</greater-than>
 					<equals>
-						<property>sim/model/bluebird/lighting/landing-lights</property>
+						<property>sim/multiplay/generic/int[12]</property>
 						<value>2</value>
 					</equals>
 				</or>
@@ -5783,10 +5755,10 @@
 					<property>gear/gear[0]/position-norm</property>
 					<value>0.5</value>
 				</greater-than>
-				<property>sim/model/bluebird/systems/power-switch</property>
-				<property>sim/model/bluebird/lighting/landing-lights</property>
+				<property>sim/multiplay/generic/int[2]</property>
+				<property>sim/multiplay/generic/int[12]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<or>
@@ -5795,7 +5767,7 @@
 						<value>1.57</value>
 					</greater-than>
 					<equals>
-						<property>sim/model/bluebird/lighting/landing-lights</property>
+						<property>sim/multiplay/generic/int[12]</property>
 						<value>2</value>
 					</equals>
 				</or>
@@ -5836,10 +5808,10 @@
 					<property>gear/gear[0]/position-norm</property>
 					<value>0.5</value>
 				</greater-than>
-				<property>sim/model/bluebird/systems/power-switch</property>
-				<property>sim/model/bluebird/lighting/landing-lights</property>
+				<property>sim/multiplay/generic/int[2]</property>
+				<property>sim/multiplay/generic/int[12]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<or>
@@ -5848,7 +5820,7 @@
 						<value>1.57</value>
 					</greater-than>
 					<equals>
-						<property>sim/model/bluebird/lighting/landing-lights</property>
+						<property>sim/multiplay/generic/int[12]</property>
 						<value>2</value>
 					</equals>
 				</or>
@@ -5889,10 +5861,10 @@
 					<property>gear/gear[0]/position-norm</property>
 					<value>0.4</value>
 				</greater-than>
-				<property>sim/model/bluebird/systems/power-switch</property>
-				<property>sim/model/bluebird/lighting/landing-lights</property>
+				<property>sim/multiplay/generic/int[2]</property>
+				<property>sim/multiplay/generic/int[12]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<or>
@@ -5901,7 +5873,7 @@
 						<value>1.57</value>
 					</greater-than>
 					<equals>
-						<property>sim/model/bluebird/lighting/landing-lights</property>
+						<property>sim/multiplay/generic/int[12]</property>
 						<value>2</value>
 					</equals>
 				</or>
@@ -5942,10 +5914,10 @@
 					<property>gear/gear[0]/position-norm</property>
 					<value>0.4</value>
 				</greater-than>
-				<property>sim/model/bluebird/systems/power-switch</property>
-				<property>sim/model/bluebird/lighting/landing-lights</property>
+				<property>sim/multiplay/generic/int[2]</property>
+				<property>sim/multiplay/generic/int[12]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<or>
@@ -5954,7 +5926,7 @@
 						<value>1.57</value>
 					</greater-than>
 					<equals>
-						<property>sim/model/bluebird/lighting/landing-lights</property>
+						<property>sim/multiplay/generic/int[12]</property>
 						<value>2</value>
 					</equals>
 				</or>
@@ -5971,10 +5943,10 @@
 					<property>gear/gear[0]/position-norm</property>
 					<value>0.5</value>
 				</greater-than>
-				<property>sim/model/bluebird/systems/power-switch</property>
-				<property>sim/model/bluebird/lighting/landing-lights</property>
+				<property>sim/multiplay/generic/int[2]</property>
+				<property>sim/multiplay/generic/int[12]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<or>
@@ -5983,7 +5955,7 @@
 						<value>1.57</value>
 					</greater-than>
 					<equals>
-						<property>sim/model/bluebird/lighting/landing-lights</property>
+						<property>sim/multiplay/generic/int[12]</property>
 						<value>2</value>
 					</equals>
 				</or>
@@ -6024,10 +5996,10 @@
 					<property>gear/gear[0]/position-norm</property>
 					<value>0.5</value>
 				</greater-than>
-				<property>sim/model/bluebird/systems/power-switch</property>
-				<property>sim/model/bluebird/lighting/landing-lights</property>
+				<property>sim/multiplay/generic/int[2]</property>
+				<property>sim/multiplay/generic/int[12]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<or>
@@ -6036,7 +6008,7 @@
 						<value>1.57</value>
 					</greater-than>
 					<equals>
-						<property>sim/model/bluebird/lighting/landing-lights</property>
+						<property>sim/multiplay/generic/int[12]</property>
 						<value>2</value>
 					</equals>
 				</or>
@@ -6077,10 +6049,10 @@
 					<property>gear/gear[0]/position-norm</property>
 					<value>0.4</value>
 				</greater-than>
-				<property>sim/model/bluebird/systems/power-switch</property>
-				<property>sim/model/bluebird/lighting/landing-lights</property>
+				<property>sim/multiplay/generic/int[2]</property>
+				<property>sim/multiplay/generic/int[12]</property>
 				<less-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
+					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
 				<or>
@@ -6089,7 +6061,7 @@
 						<value>1.57</value>
 					</greater-than>
 					<equals>
-						<property>sim/model/bluebird/lighting/landing-lights</property>
+						<property>sim/multiplay/generic/int[12]</property>
 						<value>2</value>
 					</equals>
 				</or>
@@ -6134,7 +6106,7 @@
 		<type>material</type>
 		<object-name>NacelleL.Drive</object-name>
 		<emission>
-			<factor-prop>sim/model/bluebird/lighting/wave-guide-glow</factor-prop>
+			<factor-prop>sim/multiplay/generic/float[9]</factor-prop>
 			<red>1</red>
 			<green>0.5</green>
 			<blue>1</blue>
@@ -6152,7 +6124,7 @@
 		<type>material</type>
 		<object-name>NacelleR.Drive</object-name>
 		<emission>
-			<factor-prop>sim/model/bluebird/lighting/wave-guide-glow</factor-prop>
+			<factor-prop>sim/multiplay/generic/float[9]</factor-prop>
 			<red>1</red>
 			<green>0.5</green>
 			<blue>1</blue>
@@ -6170,7 +6142,7 @@
 		<type>material</type>
 		<object-name>NacelleL.Inside</object-name>
 		<emission>
-			<factor-prop>sim/model/bluebird/lighting/wave-guide-glow</factor-prop>
+			<factor-prop>sim/multiplay/generic/float[9]</factor-prop>
 			<red>0.33</red>
 			<green>0.2</green>
 			<blue>0.25</blue>
@@ -6188,7 +6160,7 @@
 		<type>material</type>
 		<object-name>NacelleR.Inside</object-name>
 		<emission>
-			<factor-prop>sim/model/bluebird/lighting/wave-guide-glow</factor-prop>
+			<factor-prop>sim/multiplay/generic/float[9]</factor-prop>
 			<red>0.33</red>
 			<green>0.2</green>
 			<blue>0.25</blue>
@@ -6208,9 +6180,9 @@
 		<object-name>rail_halo_LC</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/systems/wave1-level</property>
+				<property>sim/multiplay/generic/int[14]</property>
 				<greater-than>
-					<property>velocities/abs-airspeed-kt</property>
+					<property>sim/multiplay/generic/float[13]</property>
 					<value>50.0</value>
 				</greater-than>
 			</and>
@@ -6241,9 +6213,9 @@
 		<object-name>rail_halo_LT</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/systems/wave1-level</property>
+				<property>sim/multiplay/generic/int[14]</property>
 				<greater-than>
-					<property>velocities/abs-airspeed-kt</property>
+					<property>sim/multiplay/generic/float[13]</property>
 					<value>50.0</value>
 				</greater-than>
 			</and>
@@ -6274,9 +6246,9 @@
 		<object-name>rail_halo_LB</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/systems/wave1-level</property>
+				<property>sim/multiplay/generic/int[14]</property>
 				<greater-than>
-					<property>velocities/abs-airspeed-kt</property>
+					<property>sim/multiplay/generic/float[13]</property>
 					<value>50.0</value>
 				</greater-than>
 			</and>
@@ -6309,9 +6281,9 @@
 		<object-name>rail_halo_RC</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/systems/wave1-level</property>
+				<property>sim/multiplay/generic/int[14]</property>
 				<greater-than>
-					<property>velocities/abs-airspeed-kt</property>
+					<property>sim/multiplay/generic/float[13]</property>
 					<value>50.0</value>
 				</greater-than>
 			</and>
@@ -6342,9 +6314,9 @@
 		<object-name>rail_halo_RT</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/systems/wave1-level</property>
+				<property>sim/multiplay/generic/int[14]</property>
 				<greater-than>
-					<property>velocities/abs-airspeed-kt</property>
+					<property>sim/multiplay/generic/float[13]</property>
 					<value>50.0</value>
 				</greater-than>
 			</and>
@@ -6375,9 +6347,9 @@
 		<object-name>rail_halo_RB</object-name>
 		<condition>
 			<and>
-				<property>sim/model/bluebird/systems/wave1-level</property>
+				<property>sim/multiplay/generic/int[14]</property>
 				<greater-than>
-					<property>velocities/abs-airspeed-kt</property>
+					<property>sim/multiplay/generic/float[13]</property>
 					<value>50.0</value>
 				</greater-than>
 			</and>
@@ -6417,7 +6389,7 @@
 					<property>sim/model/bluebird/lighting/interior-switch</property>
 				</not>
 				<not>
-					<property>sim/model/bluebird/systems/power-switch</property>
+					<property>sim/multiplay/generic/int[2]</property>
 				</not>
 			</or>
 		</condition>
@@ -6432,7 +6404,7 @@
 					<property>sim/model/bluebird/lighting/interior-switch</property>
 				</not>
 				<not>
-					<property>sim/model/bluebird/systems/power-switch</property>
+					<property>sim/multiplay/generic/int[2]</property>
 				</not>
 			</or>
 		</condition>
@@ -6444,7 +6416,7 @@
 		<condition>
 			<and>
 				<property>sim/model/bluebird/lighting/interior-switch</property>
-				<property>sim/model/bluebird/systems/power-switch</property>
+				<property>sim/multiplay/generic/int[2]</property>
 			</and>
 		</condition>
 	</animation>
@@ -6455,7 +6427,7 @@
 		<condition>
 			<and>
 				<property>sim/model/bluebird/lighting/interior-switch</property>
-				<property>sim/model/bluebird/systems/power-switch</property>
+				<property>sim/multiplay/generic/int[2]</property>
 			</and>
 		</condition>
 	</animation>
@@ -14218,9 +14190,8 @@
 					<property>sim/model/bluebird/position/shadow-alt-agl-ft</property>
 					<value>500</value>
 				</less-than>
-				<property>sim/model/bluebird/components/body</property>
-				<property>sim/model/bluebird/components/nacelle-L</property>
-				<property>sim/model/bluebird/components/nacelle-R</property>
+				<property>sim/multiplay/generic/int[0]</property>
+				<property>sim/multiplay/generic/int[1]</property>
 			</and>
 		</condition>
 	</animation>
@@ -14323,7 +14294,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>Controls.Throttle</object-name>
-		<property>controls/engines/engine/throttle</property>
+		<property>sim/multiplay/generic/float[10]</property>
 		<factor>75.6</factor>
 		<axis>
 			<x1-m>-7.652</x1-m>
@@ -14438,7 +14409,7 @@
 		<type>rotate</type>
 		<object-name>PEDALS</object-name>
 		<object-name>YOKE</object-name>
-		<property>sim/model/bluebird/damage/major-counter</property>
+		<property>sim/multiplay/generic/int[7]</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
