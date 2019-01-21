@@ -2,6 +2,7 @@ Version# Vertices PolygonFaces Comments
 
 2019.Jan.20
 11.32	Fix inside flooring color in multiplayer.
+	Include some inside surfaces in lighting updates in multiplayer.
 
 2019.Jan.19
 11.31	Fix when pilot is visible.
