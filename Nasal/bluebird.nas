@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 11.3 for FlightGear 1.9 OSG =====
+# ===== Bluebird Explorer Hovercraft  version 11.32 for FlightGear 1.9 OSG =====
 
 var self = cmdarg();
 # strobes -----------------------------------------------------------
@@ -4322,10 +4322,6 @@ gui_livery_node = gui_livery_node.getNode("list", 1);
 
 var update_byte = func {
 	var state = 0;
-#	state = bits.switch(state, 0, getprop("controls/lighting/beacon"));
-#	state = bits.switch(state, 1, getprop("controls/lighting/strobe"));
-#	state = bits.switch(state, 2, getprop("sim/model/bluebird/lighting/nav-lights-state"));
-#	state = bits.switch(state, 3, getprop("sim/model/bluebird/lighting/landing-lights"));
 	state = bits.switch(state, 0, getprop("sim/model/bluebird/components/engine-cover1"));
 	state = bits.switch(state, 1, getprop("sim/model/bluebird/components/engine-cover2"));
 	state = bits.switch(state, 2, getprop("sim/model/bluebird/components/engine-cover3"));
@@ -4333,13 +4329,10 @@ var update_byte = func {
 	state = bits.switch(state, 4, getprop("sim/model/bluebird/crew/pilot/chair-back"));
 	state = bits.switch(state, 5, getprop("controls/engines/countergrav-factor"));
 	state = bits.switch(state, 6, getprop("sim/model/bluebird/lighting/interior-switch"));
+	state = bits.switch(state, 7, getprop("controls/lighting/alert"));
 	setprop("sim/model/bluebird/detail-byte", state);
 };
 
-#setlistener("controls/lighting/beacon", update_byte, 0, 0);
-#setlistener("controls/lighting/strobe", update_byte, 0, 0);
-#setlistener("sim/model/bluebird/lighting/nav-lights-state", update_byte, 0, 0);
-#setlistener("sim/model/bluebird/lighting/landing-lights", update_byte, 0, 0);
 setlistener("sim/model/bluebird/components/engine-cover1", update_byte, 0, 0);
 setlistener("sim/model/bluebird/components/engine-cover2", update_byte, 0, 0);
 setlistener("sim/model/bluebird/components/engine-cover3", update_byte, 0, 0);
@@ -4347,6 +4340,7 @@ setlistener("sim/model/bluebird/components/engine-cover4", update_byte, 0, 0);
 setlistener("sim/model/bluebird/crew/pilot/chair-back", update_byte, 0, 0);
 setlistener("controls/engines/countergrav-factor", update_byte, 0, 0);
 setlistener("sim/model/bluebird/lighting/interior-switch", update_byte, 0, 0);
+setlistener("controls/lighting/alert", update_byte, 0, 0);
 update_byte();
 
 var listbox_apply = func {
@@ -4426,7 +4420,7 @@ var prestart_main = func {
 		main_loop_id += 1;
 		settimer(prestart_main, 0.1);
 	} else {
-		print ("  version 11.3  release date 2019.Jan.18  by Stewart Andreason");
+		print ("  version 11.32  release date 2019.Jan.20  by Stewart Andreason");
 		update_main();
 	}
 	settimer(func {	# wake up, livery was loaded but did not trigger the listeners

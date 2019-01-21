@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
+<!--== Bluebird version 11.3 common base ==-->
 
 <PropertyList>
  <sim>
 	<aero>bluebird</aero>
 	<status>early-production</status>
-	<aircraft-version>11.31</aircraft-version>
 	<author>S Andreason</author>
 	<aircraft-status>
 		<fdm>early-production</fdm>

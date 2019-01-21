@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 11.31 for OSG                  ==-->
+<!--== Bluebird version 11.32 for OSG                  ==-->
 
 <PropertyList>
 	<model>
@@ -1081,11 +1081,10 @@
 	<nasal>
 		<load>
 			var self = cmdarg();
-			print("Loading bluebird-osg version 11.31  release date 2019.Jan.19  at ", self.getPath());
+			print("Loading bluebird-osg version 11.32  release date 2019.Jan.20  at ", self.getPath());
 			var livery_update = aircraft.livery_update.new(
 				"Aircraft/bluebird/Models/Liveries", 10,
 				func {
-					print("bluebird-osg livery update");
 					var temp_amb_R = self.getNode("sim/model/livery/material/interior-flooring/ambient/red");
 					var temp_amb_G = self.getNode("sim/model/livery/material/interior-flooring/ambient/green");
 					var temp_amb_B = self.getNode("sim/model/livery/material/interior-flooring/ambient/blue");
@@ -1146,6 +1145,7 @@
 					self.getNode("sim/model/bluebird/lighting/door5/interior4-lower-walls/amb-dif/red").setValue(temp_amb_R.getValue());
 					self.getNode("sim/model/bluebird/lighting/door5/interior4-lower-walls/amb-dif/green").setValue(temp_amb_G.getValue());
 					self.getNode("sim/model/bluebird/lighting/door5/interior4-lower-walls/amb-dif/blue").setValue(temp_amb_B.getValue());
+					print(" bluebird-osg livery ",self.getNode("sim/model/livery/name").getValue()," updated at ", self.getPath());
 				});
 
 			# Beacon and strobes lighting
@@ -1156,9 +1156,6 @@
 			aircraft.light.new(beacon_light_state, [0.35, 1.6], lighting_beacons_enabled);
 			aircraft.light.new(strobe_light_state, [0.1, 0.2, 0.1, 1.5], lighting_strobes_enabled);
 
-			# Detail bits in byte not visible in AI low-poly and older fg
-			var byte_state = self.getNode("sim/multiplay/generic/int[13]").getPath();
-
 			var cover1_state = self.initNode("sim/model/bluebird/components/engine-cover1", 1, "BOOL");
 			var cover2_state = self.initNode("sim/model/bluebird/components/engine-cover2", 1, "BOOL");
 			var cover3_state = self.initNode("sim/model/bluebird/components/engine-cover3", 1, "BOOL");
@@ -1166,7 +1163,13 @@
 			var chair_state = self.initNode("sim/model/bluebird/crew/pilot/chair-back", 1, "BOOL");
 			var cg_state = self.initNode("controls/engines/countergrav-factor", 1, "BOOL");
 			var lights_interior_state = self.initNode("sim/model/bluebird/lighting/interior-switch", 1, "BOOL");
+			var lights_alert_state = self.initNode("controls/lighting/alert", 0, "BOOL");
+			var lights_overhead_red = self.getNode("sim/model/bluebird/lighting/overhead/emission/red");
+			var lights_overhead_gb = self.getNode("sim/model/bluebird/lighting/overhead/emission/gb");
+			var power_state_path = self.getNode("sim/multiplay/generic/int[2]").getPath();
 
+			# Detail bits in byte not visible in AI low-poly and older fg
+			var byte_state = self.getNode("sim/multiplay/generic/int[13]").getPath();
 			setlistener(byte_state, func (node) {
 				var state = node.getValue();
 				cover1_state.setBoolValue(bits.test(state, 0));
@@ -1176,48 +1179,67 @@
 				chair_state.setBoolValue(bits.test(state, 4));
 				cg_state.setBoolValue(bits.test(state, 5));
 				lights_interior_state.setBoolValue(bits.test(state, 6));
+				lights_alert_state.setBoolValue(bits.test(state, 7));
 				if (bits.test(state, 4)) {
 					self.getNode("sim/model/bluebird/crew/pilot/visible").setValue(0);
 				} else {
 					self.getNode("sim/model/bluebird/crew/pilot/visible").setValue(1);
 				}
+				lights_overhead_red.setValue(bits.test(state, 6) * self.getNode("sim/multiplay/generic/int[2]").getValue());
+				if (bits.test(state, 7)) {
+					lights_overhead_gb.setValue(0);
+				} else {
+					lights_overhead_gb.setValue(bits.test(state, 6) * self.getNode("sim/multiplay/generic/int[2]").getValue());
+				}
 			}, 1, 0);
 
-			var power_state_node = self.getNode("sim/multiplay/generic/int[2]").getPath();
-			var lights_overhead_red_node = self.getNode("sim/model/bluebird/lighting/overhead/emission/red");
-			var lights_overhead_gb_node = self.getNode("sim/model/bluebird/lighting/overhead/emission/gb");
 			var lights_door_safety_rgb_node = self.getNode("sim/model/bluebird/lighting/interiorB-door-lights/emission/rgb");
 			var lights_hatch_safety_rg_node = self.getNode("sim/model/bluebird/lighting/interiorC-safety-lights/emission/rg");
-			setlistener(lights_overhead_gb_node, func (node) {
+			setlistener(lights_overhead_red, func (node) {
 				lights_state = node.getValue();
 				self.getNode("sim/model/bluebird/lighting/interior1-flooring/emission/red").setValue(lights_state*0.7);
+				self.getNode("sim/model/bluebird/lighting/door0/interior1-flooring/emission/red").setValue(lights_state*0.7);
+				self.getNode("sim/model/bluebird/lighting/door1/interior1-flooring/emission/red").setValue(lights_state*0.7);
+				self.getNode("sim/model/bluebird/lighting/door5/hatch1-flooring-center/emission/red").setValue(lights_state*0.4);
+				self.getNode("sim/model/bluebird/lighting/door5/interior1-flooring/emission/red").setValue(lights_state*0.55);
+				self.getNode("sim/model/bluebird/lighting/interior3-upper-walls/emission/red").setValue(lights_state*0.2);
+				self.getNode("sim/model/bluebird/lighting/interior4-lower-walls/emission/red").setValue(lights_state*0.33);
+				self.getNode("sim/model/bluebird/lighting/waldo/emission/red").setValue(lights_state*0.3);
+				self.getNode("sim/model/bluebird/lighting/buttons/right9-overhead/face/emission/red").setValue(lights_alert_state.getValue());
+				self.getNode("sim/model/bluebird/lighting/buttons/right9-overhead/face/emission/green").setValue(lights_alert_state.getValue() ? 0 : lights_state);
+			}, 1, 0);
+			setlistener(lights_overhead_gb, func (node) {
+				lights_state = node.getValue();
 				self.getNode("sim/model/bluebird/lighting/interior1-flooring/emission/green").setValue(lights_state*0.7);
 				self.getNode("sim/model/bluebird/lighting/interior1-flooring/emission/blue").setValue(lights_state*0.7);
-				self.getNode("sim/model/bluebird/lighting/door0/interior1-flooring/emission/red").setValue(lights_state*0.7);
 				self.getNode("sim/model/bluebird/lighting/door0/interior1-flooring/emission/green").setValue(lights_state*0.7);
 				self.getNode("sim/model/bluebird/lighting/door0/interior1-flooring/emission/blue").setValue(lights_state*0.7);
-				self.getNode("sim/model/bluebird/lighting/door1/interior1-flooring/emission/red").setValue(lights_state*0.7);
 				self.getNode("sim/model/bluebird/lighting/door1/interior1-flooring/emission/green").setValue(lights_state*0.7);
 				self.getNode("sim/model/bluebird/lighting/door1/interior1-flooring/emission/blue").setValue(lights_state*0.7);
-				self.getNode("sim/model/bluebird/lighting/door5/hatch1-flooring-center/emission/red").setValue(0.5);
-				self.getNode("sim/model/bluebird/lighting/door5/hatch1-flooring-center/emission/green").setValue(0.5);
-				self.getNode("sim/model/bluebird/lighting/door5/hatch1-flooring-center/emission/blue").setValue(0.5);
-				self.getNode("sim/model/bluebird/lighting/door5/interior1-flooring/emission/red").setValue(lights_state*0.7);
-				self.getNode("sim/model/bluebird/lighting/door5/interior1-flooring/emission/green").setValue(lights_state*0.7);
-				self.getNode("sim/model/bluebird/lighting/door5/interior1-flooring/emission/blue").setValue(lights_state*0.7);
-				self.getNode("sim/model/bluebird/lighting/interior3-upper-walls/emission/red").setValue(lights_state*0.2);
+				self.getNode("sim/model/bluebird/lighting/door5/hatch1-flooring-center/emission/green").setValue(lights_state*0.4);
+				self.getNode("sim/model/bluebird/lighting/door5/hatch1-flooring-center/emission/blue").setValue(lights_state*0.4);
+				self.getNode("sim/model/bluebird/lighting/door5/interior1-flooring/emission/green").setValue(lights_state*0.55);
+				self.getNode("sim/model/bluebird/lighting/door5/interior1-flooring/emission/blue").setValue(lights_state*0.55);
 				self.getNode("sim/model/bluebird/lighting/interior3-upper-walls/emission/green").setValue(lights_state*0.2);
 				self.getNode("sim/model/bluebird/lighting/interior3-upper-walls/emission/blue").setValue(lights_state*0.2);
-				self.getNode("sim/model/bluebird/lighting/interior4-lower-walls/emission/red").setValue(lights_state*0.33);
 				self.getNode("sim/model/bluebird/lighting/interior4-lower-walls/emission/green").setValue(lights_state*0.33);
 				self.getNode("sim/model/bluebird/lighting/interior4-lower-walls/emission/blue").setValue(lights_state*0.33);
+				self.getNode("sim/model/bluebird/lighting/waldo/emission/gb").setValue(lights_state*0.3);
+				self.getNode("sim/model/bluebird/lighting/buttons/right9-overhead/face/emission/red").setValue(lights_alert_state.getValue());
+				self.getNode("sim/model/bluebird/lighting/buttons/right9-overhead/face/emission/green").setValue(lights_alert_state.getValue() ? 0 : lights_state);
 			}, 1, 0);
-			setlistener(power_state_node, func (node) {
+			setlistener(power_state_path, func (node) {
 				power_state = node.getValue();
-				lights_overhead_red_node.setValue(power_state);
-				lights_overhead_gb_node.setValue(power_state);
 				lights_door_safety_rgb_node.setValue(power_state);
 				self.getNode("sim/model/bluebird/lighting/interiorC-safety-lights/emission/rg").setValue(power_state);
+				self.getNode("sim/model/bluebird/lighting/power-glow").setValue(power_state);
+				lights_overhead_red.setValue(power_state *lights_interior_state.getValue());
+				if (lights_alert_state.getValue()) {
+					lights_overhead_gb.setValue(0);
+				} else {
+					lights_overhead_gb.setValue(power_state *lights_interior_state.getValue());
+				}
+				self.getNode("sim/model/bluebird/lighting/buttons/left1-power/face/emission/green").setValue(power_state);
 			}, 1, 0);
 
 			var nacelle_L_venting = self.getNode("sim/multiplay/generic/int[3]").getPath();
