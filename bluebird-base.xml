@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 11.3 common base ==-->
+<!--== Bluebird version 11.4 common base ==-->
 
 <PropertyList>
  <sim>
@@ -58,6 +58,7 @@
 				<cockpit-position type="int">0</cockpit-position>
 				<pilot>
 					<chair-back type="int">0</chair-back>
+					<always-visible type="bool">false</always-visible>
 					<visible type="bool">true</visible>
 				</pilot>
 				<walker>

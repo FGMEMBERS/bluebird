@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 11.32 for FlightGear 1.9 OSG =====
+# ===== Bluebird Explorer Hovercraft  version 11.4 for FlightGear 1.9 OSG =====
 
 var self = cmdarg();
 # strobes -----------------------------------------------------------
@@ -137,7 +137,7 @@ var livery_cabin_surface = [	# A=ambient from livery, only updates upon livery c
 	{ AR: 0.60, AG: 0.60, AB: 0.60, R_add: 0.00 , G_add: 0.00 , B_add: 0.00 , ER: 0, EG: 0, EB: 0, pname: "interior4-lower-walls", type:"", in_livery:1},
 	{ AR: 0.36, AG: 0.37, AB: 0.32, R_add: 0.18 , G_add:-0.0925, B_add:-0.08 , ER: 0, EG: 0, EB: 0, pname: "interior5-console", type:"", in_livery:0},
 	{ AR: 0.70, AG: 0.69, AB: 0.59, R_add: 0.30 , G_add:-0.1725, B_add:-0.1475, ER: 0, EG: 0, EB: 0, pname: "interior6-chairs", type:"", in_livery:0},
-	{ AR: 0.25, AG: 0.25, AB: 0.17, R_add: 0.125, G_add:-0.06  , B_add:-0.0425, ER: 0, EG: 0, EB: 0, pname: "door5/hatch7-flooring-side", type:"", in_livery:0},
+	{ AR: 0.25, AG: 0.25, AB: 0.25, R_add: 0.125, G_add:-0.06  , B_add:-0.06  , ER: 0, EG: 0, EB: 0, pname: "door5/hatch7-flooring-side", type:"", in_livery:0},
 	{ AR: 0.80, AG: 0.80, AB: 0.80, R_add: 0.20 , G_add:-0.20  , B_add:-0.20  , ER: 0, EG: 0, EB: 0, pname: "interior8-light-frame", type:"GB", in_livery:0},
 	{ AR: 0.60, AG: 0.60, AB: 0.60, R_add: 0.20 , G_add:-0.20  , B_add:-0.20  , ER: 0, EG: 0, EB: 0, pname: "interior9-buttons", type:"GB", in_livery:0}
 	];
@@ -3235,10 +3235,23 @@ var delayed_panel_update = func {
 setlistener("sim/model/bluebird/crew/cockpit-position", func(n) {
 	cockpitView = n.getValue();
 	var move_chair = [0,1,0,0,1];
-	if (!getprop("sim/model/bluebird/crew/pilot/visible") and move_chair[cockpitView]) {
+	if (!getprop("sim/model/bluebird/crew/pilot/always-visible") and move_chair[cockpitView]) {
 		setprop("sim/model/bluebird/crew/pilot/chair-back", 1);
+		setprop("sim/model/bluebird/crew/pilot/visible", 0);
 	} else {
 		setprop("sim/model/bluebird/crew/pilot/chair-back", 0);
+		setprop("sim/model/bluebird/crew/pilot/visible", 1);
+	}
+});
+
+setlistener("sim/walker/outside", func(n) {
+	isOutside = n.getValue();
+	if (getprop("sim/model/bluebird/crew/pilot/always-visible") or (isOutside == 0 and getprop("sim/model/bluebird/crew/cockpit-position") == 0)) {
+		setprop("sim/model/bluebird/crew/pilot/chair-back", 0);
+		setprop("sim/model/bluebird/crew/pilot/visible", 1);
+	} else {
+		setprop("sim/model/bluebird/crew/pilot/chair-back", 1);
+		setprop("sim/model/bluebird/crew/pilot/visible", 0);
 	}
 });
 
@@ -4159,8 +4172,8 @@ var showDialog2 = func {
 
 	config_dialog.addChild("hrule").addChild("dummy");
 
-	w = checkbox("Pilot visible as separate person");
-	w.set("property", "sim/model/bluebird/crew/pilot/visible");
+	w = checkbox("Always keep a pilot visible at the controls");
+	w.set("property", "sim/model/bluebird/crew/pilot/always-visible");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 
 	g = config_dialog.addChild("group");
@@ -4420,7 +4433,7 @@ var prestart_main = func {
 		main_loop_id += 1;
 		settimer(prestart_main, 0.1);
 	} else {
-		print ("  version 11.32  release date 2019.Jan.20  by Stewart Andreason");
+		print ("  version 11.4  release date 2019.Jan.21  by Stewart Andreason");
 		update_main();
 	}
 	settimer(func {	# wake up, livery was loaded but did not trigger the listeners

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 11.32 for OSG                  ==-->
+<!--== Bluebird version 11.4 for OSG                  ==-->
 
 <PropertyList>
 	<model>
@@ -40,6 +40,7 @@
 					<crew>
 						<cockpit-position type="int">0</cockpit-position>
 						<pilot>
+							<always-visible type="bool">false</always-visible>
 							<chair-back type="int">0</chair-back>
 							<visible type="bool">true</visible>
 						</pilot>
@@ -1081,7 +1082,7 @@
 	<nasal>
 		<load>
 			var self = cmdarg();
-			print("Loading bluebird-osg version 11.32  release date 2019.Jan.20  at ", self.getPath());
+			print("Loading bluebird-osg version 11.4  release date 2019.Jan.21  at ", self.getPath());
 			var livery_update = aircraft.livery_update.new(
 				"Aircraft/bluebird/Models/Liveries", 10,
 				func {

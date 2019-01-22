@@ -1,5 +1,9 @@
 Version# Vertices PolygonFaces Comments
 
+2019.Jan.21
+11.4	Rewrite pilot rules for visibility, defaults now to disappear when you leave the cockpit.
+	Add 6 new livery colors. This will require other players to have the same version or newer to be seen correctly.
+
 2019.Jan.20
 11.32	Fix inside flooring color in multiplayer.
 	Include some inside surfaces in lighting updates in multiplayer.
