@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 11.4 for FlightGear 1.9 OSG =====
+# ===== Bluebird Explorer Hovercraft  version 11.42 for FlightGear 1.9 OSG =====
 
 var self = cmdarg();
 # strobes -----------------------------------------------------------
@@ -418,9 +418,7 @@ var reinit_bluebird = func {	# reset the above variables
 		fgcommand("dialog-close", props.Node.new({ "dialog-name" : name }));
 		systems_dialog = nil;
 	}
-	if (getprop("sim/ai-traffic/enabled") or getprop("sim/multiplay/rxport")) {
-		setprop("instrumentation/tracking/enabled", 1);
-	}
+	setprop("instrumentation/tracking/enabled", 0);
 }
 
 setlistener("sim/signals/reinit", func {
@@ -4433,7 +4431,7 @@ var prestart_main = func {
 		main_loop_id += 1;
 		settimer(prestart_main, 0.1);
 	} else {
-		print ("  version 11.4  release date 2019.Jan.21  by Stewart Andreason");
+		print ("  version 11.42  release date 2019.Jan.26  by Stewart Andreason");
 		update_main();
 	}
 	settimer(func {	# wake up, livery was loaded but did not trigger the listeners
@@ -4468,9 +4466,6 @@ setlistener("sim/signals/fdm-initialized", func {
 	settimer(interior_lighting_loop, 0.25);
 	settimer(interior_lighting_update, 0.5);
 	settimer(nav_light_loop, 0.5);
-	if (getprop("sim/ai-traffic/enabled") or getprop("sim/multiplay/rxport")) {
-		setprop("instrumentation/tracking/enabled", 1);
-	}
 	setprop("sim/atc/enabled", 0);
 	setprop("sim/sound/chatter", 0);
 	var t = getprop("/sim/description");

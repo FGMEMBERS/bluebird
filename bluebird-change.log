@@ -2,6 +2,7 @@ Version# Vertices PolygonFaces Comments
 
 2019.Jan.26
 11.42	Fix handling of nil bits for multiplayer.
+	Fix multiplay and AI tracking. Activate by clicking or turning on left display #2.
 
 2019.Jan.25
 11.41	Fix position property of AI, remove root from path.

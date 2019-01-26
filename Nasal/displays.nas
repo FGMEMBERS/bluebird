@@ -1,6 +1,6 @@
 # ===== text screen functions for FG version 1.9-2.0 (OSG) =====
 # ===== and backend for ai-vor
-# ===== for Bluebird Explorer Hovercraft version 10.4 =====
+# ===== for Bluebird Explorer Hovercraft version 11.42 =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
@@ -613,6 +613,18 @@ var init = func {
 	setlistener("instrumentation/display-screens/enabled-2L", func(n) {
 		if (n.getValue()) {
 			setprop("instrumentation/display-screens/t2L-2", "Callsign                 Distance   Altitude   Bearing");
+			var ai = getprop("sim/ai-traffic/enabled");
+			if (ai == nil) {
+				ai = -1;
+			}
+			var mp = getprop("sim/multiplay/txport");
+			var np = getprop("ai/models/num-players");
+			if ((ai > 0) or (mp > 0) or (np > 0)) {
+				setprop("instrumentation/tracking/enabled", 1);
+			}
+		} else {
+			setprop("instrumentation/display-screens/t2L-2", "");
+			setprop("instrumentation/tracking/enabled", 0);
 		}
 	}, 1);
 
