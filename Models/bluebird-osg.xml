@@ -1194,7 +1194,7 @@
 						lights_overhead_gb.setValue(bits.test(state, 6) * self.getNode("sim/multiplay/generic/int[2]").getValue());
 					}
 				} else {
-					print (" bluebird-osg on multiplay sent invalid bits, probably an older version.");
+					print (" bluebird-osg on multiplay sent invalid bits.");
 				}
 			}, 1, 0);
 
