@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 11.4 for OSG                  ==-->
+<!--== Bluebird version 11.42 for OSG                  ==-->
 
 <PropertyList>
 	<model>
@@ -1082,7 +1082,7 @@
 	<nasal>
 		<load>
 			var self = cmdarg();
-			print("Loading bluebird-osg version 11.4  release date 2019.Jan.21  at ", self.getPath());
+			print("Loading bluebird-osg version 11.42 release date 2019.Jan.26  at ", self.getPath());
 			var livery_update = aircraft.livery_update.new(
 				"Aircraft/bluebird/Models/Liveries", 10,
 				func {
@@ -1173,24 +1173,28 @@
 			var byte_state = self.getNode("sim/multiplay/generic/int[13]").getPath();
 			setlistener(byte_state, func (node) {
 				var state = node.getValue();
-				cover1_state.setBoolValue(bits.test(state, 0));
-				cover2_state.setBoolValue(bits.test(state, 1));
-				cover3_state.setBoolValue(bits.test(state, 2));
-				cover4_state.setBoolValue(bits.test(state, 3));
-				chair_state.setBoolValue(bits.test(state, 4));
-				cg_state.setBoolValue(bits.test(state, 5));
-				lights_interior_state.setBoolValue(bits.test(state, 6));
-				lights_alert_state.setBoolValue(bits.test(state, 7));
-				if (bits.test(state, 4)) {
-					self.getNode("sim/model/bluebird/crew/pilot/visible").setValue(0);
+				if (state != nil) {
+					cover1_state.setBoolValue(bits.test(state, 0));
+					cover2_state.setBoolValue(bits.test(state, 1));
+					cover3_state.setBoolValue(bits.test(state, 2));
+					cover4_state.setBoolValue(bits.test(state, 3));
+					chair_state.setBoolValue(bits.test(state, 4));
+					cg_state.setBoolValue(bits.test(state, 5));
+					lights_interior_state.setBoolValue(bits.test(state, 6));
+					lights_alert_state.setBoolValue(bits.test(state, 7));
+					if (bits.test(state, 4)) {
+						self.getNode("sim/model/bluebird/crew/pilot/visible").setValue(0);
+					} else {
+						self.getNode("sim/model/bluebird/crew/pilot/visible").setValue(1);
+					}
+					lights_overhead_red.setValue(bits.test(state, 6) * self.getNode("sim/multiplay/generic/int[2]").getValue());
+					if (bits.test(state, 7)) {
+						lights_overhead_gb.setValue(0);
+					} else {
+						lights_overhead_gb.setValue(bits.test(state, 6) * self.getNode("sim/multiplay/generic/int[2]").getValue());
+					}
 				} else {
-					self.getNode("sim/model/bluebird/crew/pilot/visible").setValue(1);
-				}
-				lights_overhead_red.setValue(bits.test(state, 6) * self.getNode("sim/multiplay/generic/int[2]").getValue());
-				if (bits.test(state, 7)) {
-					lights_overhead_gb.setValue(0);
-				} else {
-					lights_overhead_gb.setValue(bits.test(state, 6) * self.getNode("sim/multiplay/generic/int[2]").getValue());
+					print (" bluebird-osg on multiplay sent invalid bits, probably an older version.");
 				}
 			}, 1, 0);
 
