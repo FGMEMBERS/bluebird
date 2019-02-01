@@ -1,5 +1,9 @@
 Version# Vertices PolygonFaces Comments
 
+2019.Jan.31
+11.5	Add toggle to swap flaps for joystick and keyboard controls.
+	Removes confusion about inconsistency between normal flaps and ufo flaps by giving a choice.
+
 2019.Jan.26
 11.42	Fix handling of nil bits for multiplayer.
 	Fix multiplay and AI tracking. Activate by clicking or turning on left display #2.

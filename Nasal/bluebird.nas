@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 11.42 for FlightGear 1.9 OSG =====
+# ===== Bluebird Explorer Hovercraft  version 11.5 for FlightGear 1.9 OSG =====
 
 var self = cmdarg();
 # strobes -----------------------------------------------------------
@@ -281,6 +281,7 @@ var max_drift = 0;    # smoothen drift between maxspeed power levels
 var max_lose = 0;     # loss of momentum after shutdown of engines
 var max_from = 5;
 var max_to = 5;
+var swap_flaps = 0;   # flaps buttons on keyboard or joystick sometimes backward from expectations
 # -------- sounds --------
 var sound_level = 0;
 var sound_state = 0;
@@ -1852,15 +1853,24 @@ var change_maximum = func(cm_from, cm_to, cm_type) {
 
 # modify flaps to change maximum speed --------------------------
 
-controls.flapsDown = func(fd_d) {  # 1 decrease speed gearing -1 increases by default
-	var fd_return = 0;
+controls.flapsDown = func(fd_d) {  # 1/-1 from input 2/-2 from button
+	if (!fd_d) {
+		return;
+	}
 	if(power_switch) {
-		if (!fd_d) {
-			return;
-		} elsif (fd_d > 0 and cpl > 0) {    # reverse joystick buttons direction by exchanging < for >
+		var fd_return = 0;
+		var fd_a = 0;
+		if (fd_d > -2 and fd_d < 2) {
+			fd_a = (swap_flaps ? 0-fd_d : fd_d);
+		} elsif (fd_d == 2) {
+			fd_a = 1;
+		} elsif (fd_d == -2) {
+			fd_a = -1;
+		}
+		if (fd_a < 0 and cpl > 0) {
 			change_maximum(cpl, (cpl-1), 1);
 			fd_return = 1;
-		} elsif (fd_d < 0 and cpl < size(speed_mps) - 1) {    # reverse joystick buttons direction by exchanging < for >
+		} elsif (fd_a > 0 and cpl < size(speed_mps) - 1) {
 			var check_max = cpl;
 			if (max_drift > 0) {
 				check_max = max_to;
@@ -1908,6 +1918,7 @@ controls.flapsDown = func(fd_d) {  # 1 decrease speed gearing -1 increases by de
 	}
 }
 
+setlistener("sim/model/bluebird/systems/swap-flaps", func(n) { swap_flaps = n.getValue(); }, 1);
 
 # position adjustment function =====================================
 
@@ -4016,7 +4027,7 @@ var showDialog1 = func {
 	w.set("label", "Display screens:");
 	g.addChild("empty").set("stretch", 1);
 
-	w = checkbox("Left #2");
+	w = checkbox("Left #2 - AI/MP tracking");
 	w.set("property", "instrumentation/display-screens/enabled-2L");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 
@@ -4299,6 +4310,10 @@ var showDialog2 = func {
 
 	config_dialog.addChild("hrule").addChild("dummy");
 
+	w = checkbox("Swap flaps controls");
+	w.set("property", "sim/model/bluebird/systems/swap-flaps");
+	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+
 	w = checkbox("Performance monitor");
 	w.set("property", "instrumentation/display-screens/enabled-1LA");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
@@ -4431,7 +4446,7 @@ var prestart_main = func {
 		main_loop_id += 1;
 		settimer(prestart_main, 0.1);
 	} else {
-		print ("  version 11.42  release date 2019.Jan.26  by Stewart Andreason");
+		print ("  version 11.5  release date 2019.Jan.31  by Stewart Andreason");
 		update_main();
 	}
 	settimer(func {	# wake up, livery was loaded but did not trigger the listeners

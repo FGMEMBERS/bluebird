@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 11.4 common base ==-->
+<!--== Bluebird version 11.5 common base ==-->
 
 <PropertyList>
  <sim>
@@ -1123,6 +1123,7 @@
 				<power-switch type="bool">true</power-switch>		<!-- default: power up at startup -->
 				<reactor-request type="bool">true</reactor-request>
 				<reactor-level type="int">1</reactor-level>
+				<swap-flaps type="bool">false</swap-flaps>
 				<wave1-request type="bool">true</wave1-request>
 				<wave1-level type="int">1</wave1-level>
 				<wave2-request type="bool">false</wave2-request>
