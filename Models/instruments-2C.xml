@@ -1,0 +1,524 @@
+<?xml version="1.0"?>
+<!-- Bluebird Explorer Hovercraft  version 12.0 for FlightGear OSG only -->
+
+<PropertyList>
+
+<!-- instruments placement for bottom center console of bluebird cockpit
+	3rd row, top    line: x=-8.106 z=1.133 y=+-0.246
+	3rd row, bottom line: x=-8.060 z=1.048 y=+-0.249 
+	row 3 rise/run= 0.085/0.046 = 1.85 = -28.4 deg 
+-->
+
+ <model>
+	<name>COM1A</name>
+	<path>Aircraft/bluebird/Instruments-3d/digital2/com1a.xml</path>
+	<offsets>
+		<x-m>-8.096</x-m>
+		<y-m>0.027</y-m>
+		<z-m>1.113</z-m>
+		<pitch-deg>-28.65</pitch-deg>
+		<w>512</w>
+		<h>512</h>
+	</offsets>
+ </model>
+
+ <model>
+	<name>COM1S</name>
+	<path>Aircraft/bluebird/Instruments-3d/digital2/com1s.xml</path>
+	<offsets>
+		<x-m>-8.096</x-m>
+		<y-m>0.118</y-m>
+		<z-m>1.113</z-m>
+		<pitch-deg>-28.65</pitch-deg>
+		<w>512</w>
+		<h>512</h>
+	</offsets>
+ </model>
+
+ <model>
+	<name>COM2A</name>
+	<path>Aircraft/bluebird/Instruments-3d/digital2/com2a.xml</path>
+	<offsets>
+		<x-m>-8.074</x-m>
+		<y-m>0.027</y-m>
+		<z-m>1.074</z-m>
+		<pitch-deg>-28.65</pitch-deg>
+		<w>512</w>
+		<h>512</h>
+	</offsets>
+ </model>
+
+ <model>
+	<name>COM2S</name>
+	<path>Aircraft/bluebird/Instruments-3d/digital2/com2s.xml</path>
+	<offsets>
+		<x-m>-8.074</x-m>
+		<y-m>0.118</y-m>
+		<z-m>1.074</z-m>
+		<pitch-deg>-28.65</pitch-deg>
+		<w>512</w>
+		<h>512</h>
+	</offsets>
+ </model>
+
+ <animation>
+	<type>range</type>
+	<object-name>COM1A</object-name>
+	<object-name>COM1S</object-name>
+	<object-name>COM2A</object-name>
+	<object-name>COM2S</object-name>
+	<min-m>0</min-m>
+	<max-m>25</max-m>
+ </animation>
+
+ <animation>
+	<type>material</type>
+	<object-name>com1a.frame</object-name>
+	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
+	<emission>
+		<red-prop>emission/red</red-prop>
+		<green-prop>emission/green</green-prop>
+		<blue-prop>emission/blue</blue-prop>
+		<factor>1</factor>
+	</emission>
+	<specular>
+		<factor-prop>../interior-specular</factor-prop>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</specular>
+ </animation>
+
+ <animation>
+	<type>material</type>
+	<object-name>com1s.frame</object-name>
+	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
+	<emission>
+		<red-prop>emission/red</red-prop>
+		<green-prop>emission/green</green-prop>
+		<blue-prop>emission/blue</blue-prop>
+		<factor>1</factor>
+	</emission>
+	<specular>
+		<factor-prop>../interior-specular</factor-prop>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</specular>
+ </animation>
+
+ <animation>
+	<type>material</type>
+	<object-name>com2a.frame</object-name>
+	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
+	<emission>
+		<red-prop>emission/red</red-prop>
+		<green-prop>emission/green</green-prop>
+		<blue-prop>emission/blue</blue-prop>
+		<factor>1</factor>
+	</emission>
+	<specular>
+		<factor-prop>../interior-specular</factor-prop>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</specular>
+ </animation>
+
+ <animation>
+	<type>material</type>
+	<object-name>com2s.frame</object-name>
+	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
+	<emission>
+		<red-prop>emission/red</red-prop>
+		<green-prop>emission/green</green-prop>
+		<blue-prop>emission/blue</blue-prop>
+		<factor>1</factor>
+	</emission>
+	<specular>
+		<factor-prop>../interior-specular</factor-prop>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</specular>
+ </animation>
+
+ <!-- hotspot picks == buttons and knobs -->
+ <animation>
+	<type>pick</type>
+	<object-name>com1a.knob1L</object-name>
+	<action>
+		<name>decrease com1a by 0.05</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_com1aknob(-0.05)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com1a1L</tooltip-id>
+			<label>Center knob subtract 0.05</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com1a.knob1R</object-name>
+	<action>
+		<name>increase com1a by 0.05</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_com1aknob(0.05)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com1a1R</tooltip-id>
+			<label>Center knob add 0.05</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com1a.knob2L</object-name>
+	<action>
+		<name>decrease com1a by ones</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_com1aknob(-1.0)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com1a2L</tooltip-id>
+			<label>Outside ring subtract 1.0</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com1a.knob2R</object-name>
+	<action>
+		<name>increase com1a by ones</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_com1aknob(1.0)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com1a2R</tooltip-id>
+			<label>Outside ring add 1.0</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com1s.knob1L</object-name>
+	<action>
+		<name>decrease com1s by 0.05</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_com1sknob(-0.05)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com1s1L</tooltip-id>
+			<label>Center knob subtract 0.05</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com1s.knob1R</object-name>
+	<action>
+		<name>increase com1s by 0.05</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_com1sknob(0.05)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com1s1R</tooltip-id>
+			<label>Center knob add 0.05</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com1s.knob2L</object-name>
+	<action>
+		<name>decrease com1s by ones</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_com1sknob(-1.0)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com1s2L</tooltip-id>
+			<label>Outside ring subtract 1.0</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com1s.knob2R</object-name>
+	<action>
+		<name>increase com1s by ones</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_com1sknob(1.0)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com1s2R</tooltip-id>
+			<label>Outside ring add 1.0</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com2a.knob1L</object-name>
+	<action>
+		<name>decrease com2a by 0.05</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_com2aknob(-0.05)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com2a1L</tooltip-id>
+			<label>Center knob subtract 0.05</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com2a.knob1R</object-name>
+	<action>
+		<name>increase com2a by 0.05</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_com2aknob(0.05)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com2a1R</tooltip-id>
+			<label>Center knob add 0.05</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com2a.knob2L</object-name>
+	<action>
+		<name>decrease com2a by ones</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_com2aknob(-1.0)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com2a2L</tooltip-id>
+			<label>Outside ring subtract 1.0</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com2a.knob2R</object-name>
+	<action>
+		<name>increase com2a by ones</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_com2aknob(1.0)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com2a2R</tooltip-id>
+			<label>Outside ring add 1.0</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com2s.knob1L</object-name>
+	<action>
+		<name>decrease com2s by 0.05</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_com2sknob(-0.05)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com2s1L</tooltip-id>
+			<label>Center knob subtract 0.05</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com2s.knob1R</object-name>
+	<action>
+		<name>increase com2s by 0.05</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_com2sknob(0.05)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com2s1R</tooltip-id>
+			<label>Center knob add 0.05</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com2s.knob2L</object-name>
+	<action>
+		<name>decrease com2s by ones</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_com2sknob(-1.0)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com2s2L</tooltip-id>
+			<label>Outside ring subtract 1.0</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com2s.knob2R</object-name>
+	<action>
+		<name>increase com2s by ones</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_com2sknob(1.0)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com2s2R</tooltip-id>
+			<label>Outside ring add 1.0</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com1.button</object-name>
+	<action>
+		<name>swap frequencies for com1</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.press_com_swap(1)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com1-toggle</tooltip-id>
+			<label>Swap COM1 frequencies</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com2.button</object-name>
+	<action>
+		<name>swap frequencies for com2</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.press_com_swap(2)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com2-toggle</tooltip-id>
+			<label>Swap COM2 frequencies</label>
+		</binding>
+	</hovered>
+ </animation>
+</PropertyList>

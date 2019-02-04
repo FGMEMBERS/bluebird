@@ -1,17 +1,17 @@
 # ===== text screen functions for FG version 1.9-2.0 (OSG) =====
 # ===== and backend for ai-vor
-# ===== for Bluebird Explorer Hovercraft version 11.42 =====
+# ===== for Bluebird Explorer Hovercraft version 12.0 =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
 var asin = func(y) { math.atan2(y, math.sqrt(1-y*y)) }	# radians
 var ERAD = 6378138.12; 		# Earth radius (m)
-var m_2_conv = [0.000621371192, 0.001];
-var m_conv_units = [" MI"," KM"];
-var m_conv_format = [" %5.2f "," %4.3f "];
-var ft_2_conv = [1.0, 0.3048];
-var ft_conv_units = [" FT"," M"];
-var ft_conv_format = [" %7.0f "," %8.1f "];
+var m_2_conv = [0.000621371192, 0.001, 0.001, 0.000621371192];
+var m_conv_units = [" MI"," KM", " KM", " MI"];
+var m_conv_format = [" %5.2f "," %4.3f "," %4.3f "," %5.2f "];
+var ft_2_conv = [1.0, 0.304800, 0.0003048, 0.000189393939];
+var ft_conv_units = [" FT"," M", " KM", " MI"];
+var ft_conv_format = [" %7.0f "," %8.1f "," %4.3f "," %4.1f "];
 
 var normbearing = func (a,c) {
 	var h = a - c;
@@ -509,7 +509,7 @@ var update_3R = func {
 		var lon = getprop("position/longitude-deg");
 		var info = geodinfo(lat, lon);
 		var geo_gnd = info[0] * 3.280839895;
-		var text_3R = sprintf("    % 14.4f % 13.4f      % 6.4f    % 14.4f", gnd_elev, geo_gnd, (gnd_elev-geo_gnd), bluebird.contact_altitude);
+		var text_3R = sprintf("    % 14.4f % 13.4f      % 6.4f    % 14.4f", gnd_elev, geo_gnd, (gnd_elev-geo_gnd), bluebird.contact_altitude_ft);
 		displayScreens.scroll_3R(text_3R);
 	}
 	settimer(update_3R, 0.25);

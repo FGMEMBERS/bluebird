@@ -1,14 +1,14 @@
-<!--== Bluebird version 11.3 common base ==-->
+<!--== Bluebird version 12.0 common base ==-->
 
 <PropertyList>
 
-<!--== mesh series 10 == 23635 vertices == 17794 faces ==-->
+<!--== mesh series 12 == 23651 vertices == 17804 faces ==-->
 	<path>bluebird.ac</path>
 	<texture-path>Textures</texture-path>
 
 	<animation>
 		<type>rotate</type>
-		<object-name>BluebirdFlyer_v10</object-name>
+		<object-name>BluebirdFlyer_v12</object-name>
 		<property>orientation/groundslope-factored-pitch</property>
 		<axis>
 			<x>0</x>
@@ -19,7 +19,7 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>BluebirdFlyer_v10</object-name>
+		<object-name>BluebirdFlyer_v12</object-name>
 		<property>orientation/groundslope-factored-roll</property>
 		<axis>
 			<x>-1</x>
@@ -4198,8 +4198,6 @@
 		</axis>
 	</animation>
 
-
-<!-- landing lights -->
 <!-- red nav light (left) wing -->
 	<animation>
 		<type>rotate</type>
@@ -4255,7 +4253,7 @@
 				</less-than>
 				<less-than>
 					<property>/sim/time/sun-angle-rad</property>
-					<value>1.5</value>
+					<value>1.6</value>
 				</less-than>
 			</and>
 		</condition>
@@ -4272,10 +4270,6 @@
 					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
-				<greater-than>
-					<property>/sim/time/sun-angle-rad</property>
-					<value>1.5</value>
-				</greater-than>
 			</and>
 		</condition>
 	</animation>
@@ -4302,15 +4296,12 @@
 		<type>scale</type>
 		<object-name>nav_halo_L1</object-name>
 		<property>/sim/time/sun-angle-rad</property>
-		<x-factor>6</x-factor>
-		<y-factor>6</y-factor>
-		<z-factor>6</z-factor>
-		<x-offset>-1.4</x-offset>
-		<y-offset>-1.4</y-offset>
-		<z-offset>-1.4</z-offset>
-		<x-min>5</x-min>
-		<y-min>5</y-min>
-		<z-min>5</z-min>
+		<x-factor>34</x-factor>
+		<y-factor>34</y-factor>
+		<z-factor>34</z-factor>
+		<x-offset>-36</x-offset>
+		<y-offset>-36</y-offset>
+		<z-offset>-36</z-offset>
 	</animation>
 
 	<animation>
@@ -4324,14 +4315,14 @@
 		<type>dist-scale</type>
 		<object-name>nav_halo_L1</object-name>
 		<interpolation>
-			<entry><ind>0</ind><dep>1</dep></entry>
-			<entry><ind>100</ind><dep>1.6</dep></entry>
-			<entry><ind>400</ind><dep>2.75</dep></entry>
-			<entry><ind>1000</ind><dep>4.5</dep></entry>
-			<entry><ind>1500</ind><dep>5.6</dep></entry>
-			<entry><ind>3000</ind><dep>8.4</dep></entry>
-			<entry><ind>4000</ind><dep>10</dep></entry>
-			<entry><ind>6000</ind><dep>12</dep></entry>
+			<entry><ind>0</ind><dep>0.5</dep></entry>
+			<entry><ind>10</ind><dep>1</dep></entry>
+			<entry><ind>100</ind><dep>16</dep></entry>
+			<entry><ind>400</ind><dep>52</dep></entry>
+			<entry><ind>800</ind><dep>83</dep></entry>
+			<entry><ind>1600</ind><dep>132</dep></entry>
+			<entry><ind>3000</ind><dep>195</dep></entry>
+			<entry><ind>6000</ind><dep>275</dep></entry>
 		</interpolation>
 	</animation>
 
@@ -4392,10 +4383,6 @@
 					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
-				<less-than>
-					<property>/sim/time/sun-angle-rad</property>
-					<value>1.5</value>
-				</less-than>
 			</and>
 		</condition>
 	</animation>
@@ -4412,10 +4399,6 @@
 					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
-				<greater-than>
-					<property>/sim/time/sun-angle-rad</property>
-					<value>1.5</value>
-				</greater-than>
 			</and>
 		</condition>
 	</animation>
@@ -4442,15 +4425,12 @@
 		<type>scale</type>
 		<object-name>nav_halo_L2</object-name>
 		<property>/sim/time/sun-angle-rad</property>
-		<x-factor>6</x-factor>
-		<y-factor>6</y-factor>
-		<z-factor>6</z-factor>
-		<x-offset>-1.4</x-offset>
-		<y-offset>-1.4</y-offset>
-		<z-offset>-1.4</z-offset>
-		<x-min>5</x-min>
-		<y-min>5</y-min>
-		<z-min>5</z-min>
+		<x-factor>34</x-factor>
+		<y-factor>34</y-factor>
+		<z-factor>34</z-factor>
+		<x-offset>-36</x-offset>
+		<y-offset>-36</y-offset>
+		<z-offset>-36</z-offset>
 	</animation>
 
 	<animation>
@@ -4465,13 +4445,12 @@
 		<object-name>nav_halo_L2</object-name>
 		<interpolation>
 			<entry><ind>0</ind><dep>1</dep></entry>
-			<entry><ind>100</ind><dep>1.6</dep></entry>
-			<entry><ind>400</ind><dep>2.75</dep></entry>
-			<entry><ind>1000</ind><dep>4.5</dep></entry>
-			<entry><ind>1500</ind><dep>5.6</dep></entry>
-			<entry><ind>3000</ind><dep>8.4</dep></entry>
-			<entry><ind>4000</ind><dep>10</dep></entry>
-			<entry><ind>6000</ind><dep>12</dep></entry>
+			<entry><ind>100</ind><dep>16</dep></entry>
+			<entry><ind>400</ind><dep>52</dep></entry>
+			<entry><ind>800</ind><dep>83</dep></entry>
+			<entry><ind>1600</ind><dep>132</dep></entry>
+			<entry><ind>3000</ind><dep>195</dep></entry>
+			<entry><ind>6000</ind><dep>275</dep></entry>
 		</interpolation>
 	</animation>
 
@@ -4529,10 +4508,6 @@
 					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
-				<less-than>
-					<property>/sim/time/sun-angle-rad</property>
-					<value>1.5</value>
-				</less-than>
 			</and>
 		</condition>
 	</animation>
@@ -4548,10 +4523,6 @@
 					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
-				<greater-than>
-					<property>/sim/time/sun-angle-rad</property>
-					<value>1.5</value>
-				</greater-than>
 			</and>
 		</condition>
 	</animation>
@@ -4578,15 +4549,12 @@
 		<type>scale</type>
 		<object-name>nav_halo_R1</object-name>
 		<property>/sim/time/sun-angle-rad</property>
-		<x-factor>6</x-factor>
-		<y-factor>6</y-factor>
-		<z-factor>6</z-factor>
-		<x-offset>-1.4</x-offset>
-		<y-offset>-1.4</y-offset>
-		<z-offset>-1.4</z-offset>
-		<x-min>5</x-min>
-		<y-min>5</y-min>
-		<z-min>5</z-min>
+		<x-factor>34</x-factor>
+		<y-factor>34</y-factor>
+		<z-factor>34</z-factor>
+		<x-offset>-36</x-offset>
+		<y-offset>-36</y-offset>
+		<z-offset>-36</z-offset>
 	</animation>
 
 	<animation>
@@ -4600,14 +4568,14 @@
 		<type>dist-scale</type>
 		<object-name>nav_halo_R1</object-name>
 		<interpolation>
-			<entry><ind>0</ind><dep>1</dep></entry>
-			<entry><ind>100</ind><dep>1.6</dep></entry>
-			<entry><ind>400</ind><dep>2.75</dep></entry>
-			<entry><ind>1000</ind><dep>4.5</dep></entry>
-			<entry><ind>1500</ind><dep>5.6</dep></entry>
-			<entry><ind>3000</ind><dep>8.4</dep></entry>
-			<entry><ind>4000</ind><dep>10</dep></entry>
-			<entry><ind>6000</ind><dep>12</dep></entry>
+			<entry><ind>0</ind><dep>0.5</dep></entry>
+			<entry><ind>10</ind><dep>1</dep></entry>
+			<entry><ind>100</ind><dep>16</dep></entry>
+			<entry><ind>400</ind><dep>52</dep></entry>
+			<entry><ind>800</ind><dep>83</dep></entry>
+			<entry><ind>1600</ind><dep>132</dep></entry>
+			<entry><ind>3000</ind><dep>195</dep></entry>
+			<entry><ind>6000</ind><dep>275</dep></entry>
 		</interpolation>
 	</animation>
 
@@ -4668,10 +4636,6 @@
 					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
-				<less-than>
-					<property>/sim/time/sun-angle-rad</property>
-					<value>1.5</value>
-				</less-than>
 			</and>
 		</condition>
 	</animation>
@@ -4688,10 +4652,6 @@
 					<property>sim/multiplay/generic/int[7]</property>
 					<value>1</value>
 				</less-than>
-				<greater-than>
-					<property>/sim/time/sun-angle-rad</property>
-					<value>1.5</value>
-				</greater-than>
 			</and>
 		</condition>
 	</animation>
@@ -4718,15 +4678,12 @@
 		<type>scale</type>
 		<object-name>nav_halo_R2</object-name>
 		<property>/sim/time/sun-angle-rad</property>
-		<x-factor>6</x-factor>
-		<y-factor>6</y-factor>
-		<z-factor>6</z-factor>
-		<x-offset>-1.4</x-offset>
-		<y-offset>-1.4</y-offset>
-		<z-offset>-1.4</z-offset>
-		<x-min>5</x-min>
-		<y-min>5</y-min>
-		<z-min>5</z-min>
+		<x-factor>34</x-factor>
+		<y-factor>34</y-factor>
+		<z-factor>34</z-factor>
+		<x-offset>-36</x-offset>
+		<y-offset>-36</y-offset>
+		<z-offset>-36</z-offset>
 	</animation>
 
 	<animation>
@@ -4741,16 +4698,14 @@
 		<object-name>nav_halo_R2</object-name>
 		<interpolation>
 			<entry><ind>0</ind><dep>1</dep></entry>
-			<entry><ind>100</ind><dep>1.6</dep></entry>
-			<entry><ind>400</ind><dep>2.75</dep></entry>
-			<entry><ind>1000</ind><dep>4.5</dep></entry>
-			<entry><ind>1500</ind><dep>5.6</dep></entry>
-			<entry><ind>3000</ind><dep>8.4</dep></entry>
-			<entry><ind>4000</ind><dep>10</dep></entry>
-			<entry><ind>6000</ind><dep>12</dep></entry>
+			<entry><ind>100</ind><dep>16</dep></entry>
+			<entry><ind>400</ind><dep>52</dep></entry>
+			<entry><ind>800</ind><dep>83</dep></entry>
+			<entry><ind>1600</ind><dep>132</dep></entry>
+			<entry><ind>3000</ind><dep>195</dep></entry>
+			<entry><ind>6000</ind><dep>275</dep></entry>
 		</interpolation>
 	</animation>
-
 
 <!-- strobe left -->
 	<animation>
@@ -4817,11 +4772,11 @@
 	<animation>
 		<type>translate</type>
 		<object-name>strobe_halo_L</object-name>
-		<offset-m>6.929</offset-m>
+		<offset-m>6.976</offset-m>
 		<axis>
 			<x>0.495</x>
-			<y>-6.885</y>
-			<z>0.600</z>
+			<y>-6.910</y>
+			<z>0.830</z>
 		</axis>
 	</animation>
 
@@ -4835,15 +4790,15 @@
 		<type>scale</type>
 		<object-name>strobe_halo_L</object-name>
 		<property>/sim/time/sun-angle-rad</property>
-		<x-factor>12</x-factor>
-		<y-factor>12</y-factor>
-		<z-factor>12</z-factor>
-		<x-offset>-1.4</x-offset>
-		<y-offset>-1.4</y-offset>
-		<z-offset>-1.4</z-offset>
-		<x-min>1</x-min>
-		<y-min>1</y-min>
-		<z-min>1</z-min>
+		<x-factor>120</x-factor>
+		<y-factor>120</y-factor>
+		<z-factor>120</z-factor>
+		<x-offset>-108</x-offset>
+		<y-offset>-108</y-offset>
+		<z-offset>-108</z-offset>
+		<x-min>16</x-min>
+		<y-min>16</y-min>
+		<z-min>16</z-min>
 	</animation>
 
 	<animation>
@@ -4857,13 +4812,13 @@
 		<type>dist-scale</type>
 		<object-name>strobe_halo_L</object-name>
 		<interpolation>
-			<entry><ind>0</ind><dep>1.25</dep></entry>
-			<entry><ind>100</ind><dep>2.4</dep></entry>
-			<entry><ind>400</ind><dep>4</dep></entry>
-			<entry><ind>1000</ind><dep>6</dep></entry>
-			<entry><ind>2000</ind><dep>8.75</dep></entry>
-			<entry><ind>4000</ind><dep>13</dep></entry>
-			<entry><ind>8000</ind><dep>16.25</dep></entry>
+			<entry><ind>0</ind><dep>3</dep></entry>
+			<entry><ind>100</ind><dep>24</dep></entry>
+			<entry><ind>400</ind><dep>62</dep></entry>
+			<entry><ind>1000</ind><dep>106</dep></entry>
+			<entry><ind>2000</ind><dep>166</dep></entry>
+			<entry><ind>4000</ind><dep>260</dep></entry>
+			<entry><ind>8000</ind><dep>330</dep></entry>
 		</interpolation>
 	</animation>
 
@@ -4933,11 +4888,11 @@
 	<animation>
 		<type>translate</type>
 		<object-name>strobe_halo_R</object-name>
-		<offset-m>6.929</offset-m>
+		<offset-m>6.976</offset-m>
 		<axis>
 			<x>0.495</x>
-			<y>6.885</y>
-			<z>0.600</z>
+			<y>6.910</y>
+			<z>0.830</z>
 		</axis>
 	</animation>
 
@@ -4951,15 +4906,15 @@
 		<type>scale</type>
 		<object-name>strobe_halo_R</object-name>
 		<property>/sim/time/sun-angle-rad</property>
-		<x-factor>12</x-factor>
-		<y-factor>12</y-factor>
-		<z-factor>12</z-factor>
-		<x-offset>-1.4</x-offset>
-		<y-offset>-1.4</y-offset>
-		<z-offset>-1.4</z-offset>
-		<x-min>1</x-min>
-		<y-min>1</y-min>
-		<z-min>1</z-min>
+		<x-factor>120</x-factor>
+		<y-factor>120</y-factor>
+		<z-factor>120</z-factor>
+		<x-offset>-108</x-offset>
+		<y-offset>-108</y-offset>
+		<z-offset>-108</z-offset>
+		<x-min>16</x-min>
+		<y-min>16</y-min>
+		<z-min>16</z-min>
 	</animation>
 
 	<animation>
@@ -4973,13 +4928,13 @@
 		<type>dist-scale</type>
 		<object-name>strobe_halo_R</object-name>
 		<interpolation>
-			<entry><ind>0</ind><dep>1.25</dep></entry>
-			<entry><ind>100</ind><dep>2.4</dep></entry>
-			<entry><ind>400</ind><dep>4</dep></entry>
-			<entry><ind>1000</ind><dep>6</dep></entry>
-			<entry><ind>2000</ind><dep>8.75</dep></entry>
-			<entry><ind>4000</ind><dep>13</dep></entry>
-			<entry><ind>8000</ind><dep>16.25</dep></entry>
+			<entry><ind>0</ind><dep>3</dep></entry>
+			<entry><ind>100</ind><dep>24</dep></entry>
+			<entry><ind>400</ind><dep>62</dep></entry>
+			<entry><ind>1000</ind><dep>106</dep></entry>
+			<entry><ind>2000</ind><dep>166</dep></entry>
+			<entry><ind>4000</ind><dep>260</dep></entry>
+			<entry><ind>8000</ind><dep>330</dep></entry>
 		</interpolation>
 	</animation>
 
@@ -5063,7 +5018,7 @@
 				</less-than>
 				<greater-than>
 					<property>/sim/time/sun-angle-rad</property>
-					<value>1.2</value>
+					<value>1.5</value>
 				</greater-than>
 			</and>
 		</condition>
@@ -5083,7 +5038,7 @@
 				</less-than>
 				<greater-than>
 					<property>/sim/time/sun-angle-rad</property>
-					<value>1.2</value>
+					<value>1.5</value>
 				</greater-than>
 			</and>
 		</condition>
@@ -5102,7 +5057,7 @@
 				</less-than>
 				<greater-than>
 					<property>/sim/time/sun-angle-rad</property>
-					<value>1.2</value>
+					<value>1.5</value>
 				</greater-than>
 			</and>
 		</condition>
@@ -5122,7 +5077,7 @@
 				</less-than>
 				<greater-than>
 					<property>/sim/time/sun-angle-rad</property>
-					<value>1.2</value>
+					<value>1.5</value>
 				</greater-than>
 			</and>
 		</condition>
@@ -5232,15 +5187,15 @@
 		<type>scale</type>
 		<object-name>beacon_halo_T</object-name>
 		<property>/sim/time/sun-angle-rad</property>
-		<x-factor>5</x-factor>
-		<y-factor>5</y-factor>
-		<z-factor>5</z-factor>
-		<x-offset>-1.4</x-offset>
-		<y-offset>-1.4</y-offset>
-		<z-offset>-1.4</z-offset>
-		<x-min>5</x-min>
-		<y-min>5</y-min>
-		<z-min>5</z-min>
+		<x-factor>24</x-factor>
+		<y-factor>24</y-factor>
+		<z-factor>24</z-factor>
+		<x-offset>-22</x-offset>
+		<y-offset>-22</y-offset>
+		<z-offset>-22</z-offset>
+		<x-min>15</x-min>
+		<y-min>15</y-min>
+		<z-min>15</z-min>
 	</animation>
 
 	<animation>
@@ -5254,13 +5209,13 @@
 		<type>dist-scale</type>
 		<object-name>beacon_halo_T</object-name>
 		<interpolation>
-			<entry><ind>0</ind><dep>1.25</dep></entry>
-			<entry><ind>100</ind><dep>2.4</dep></entry>
-			<entry><ind>400</ind><dep>4</dep></entry>
-			<entry><ind>1000</ind><dep>6</dep></entry>
-			<entry><ind>2000</ind><dep>8.75</dep></entry>
-			<entry><ind>4000</ind><dep>13</dep></entry>
-			<entry><ind>8000</ind><dep>16.25</dep></entry>
+			<entry><ind>0</ind><dep>1</dep></entry>
+			<entry><ind>100</ind><dep>16</dep></entry>
+			<entry><ind>400</ind><dep>52</dep></entry>
+			<entry><ind>800</ind><dep>83</dep></entry>
+			<entry><ind>1600</ind><dep>132</dep></entry>
+			<entry><ind>3000</ind><dep>195</dep></entry>
+			<entry><ind>8000</ind><dep>330</dep></entry>
 		</interpolation>
 	</animation>
 

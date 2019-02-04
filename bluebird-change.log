@@ -1,5 +1,16 @@
 Version# Vertices PolygonFaces Comments
 
+2019.Feb.04
+12.0	23651	17804	replace bluebird model
+	Add instrument models:
+	 Autopilot: altitude and heading
+	 Com stack.
+	Improve existing digital instruments lighting, indicator lights, enlarge buttons.
+	Add tool tips to all clickable spots.
+	Add guard to master power button.
+	Fix bug in display screen #3 Right, nasal error.
+	Upgrade and replace strobe, nav lights, and top beacon.
+
 2019.Jan.31
 11.5	Add toggle to swap flaps for joystick and keyboard controls.
 	Removes confusion about inconsistency between normal flaps and ufo flaps by giving a choice.

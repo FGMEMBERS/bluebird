@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<!--== Bluebird Explorer Hovercraft  version 12.0 ==-->
+
+<PropertyList>
+
+ <path>ap1.ac</path>
+
+ <animation>
+	<name>ap1-lit</name>
+	<object-name>ap1.label</object-name>
+	<object-name>ap1.01</object-name>
+	<object-name>ap1.02</object-name>
+	<object-name>ap1.03</object-name>
+	<object-name>ap1.dec</object-name>
+	<object-name>ap1.heading</object-name>
+	<object-name>ap1.mag</object-name>
+	<object-name>ap1.true</object-name>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>ap1-lit</object-name>
+	<condition>
+		<property>sim/model/bluebird/systems/power-switch</property>
+	</condition>
+ </animation>
+
+ <animation>
+	<name>ap1-buttons-lit</name>
+	<object-name>ap1.knob1L</object-name>
+	<object-name>ap1.knob1R</object-name>
+	<object-name>ap1.knob2L</object-name>
+	<object-name>ap1.knob2R</object-name>
+	<object-name>ap1.button1</object-name>
+	<object-name>ap1.button2</object-name>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>ap1-buttons-lit</object-name>
+	<condition>
+		<property>sim/model/bluebird/systems/power-switch</property>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>ap1.01</object-name>
+	<object-name>ap1.02</object-name>
+	<object-name>ap1.03</object-name>
+	<object-name>ap1.dec</object-name>
+	<condition>
+		<greater-than>
+			<property>instrumentation/digital/ap1-mode</property>
+			<value>0</value>
+		</greater-than>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>ap1.true</object-name>
+	<condition>
+		<equals>
+			<property>instrumentation/digital/ap1-mode</property>
+			<value type="int">1</value>
+		</equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>ap1.mag</object-name>
+	<condition>
+		<equals>
+			<property>instrumentation/digital/ap1-mode</property>
+			<value type="int">2</value>
+		</equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>ap1.red.cmd</object-name>
+	<condition>
+		<and>
+			<not-equals>
+				<property>autopilot/locks/heading</property>
+				<value type="string"></value>
+			</not-equals>
+			<not-equals>
+				<property>autopilot/locks/heading</property>
+				<value type="string">true-heading-hold</value>
+			</not-equals>
+			<not-equals>
+				<property>autopilot/locks/heading</property>
+				<value type="string">dg-heading-hold</value>
+			</not-equals>
+		</and>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>ap1.green.cmd</object-name>
+	<condition>
+		<and>
+			<not>
+				<equals>
+					<property>autopilot/locks/heading</property>
+					<value type="string"></value>
+				</equals>
+			</not>
+			<or>
+				<equals>
+					<property>autopilot/locks/heading</property>
+					<value type="string">true-heading-hold</value>
+				</equals>
+				<equals>
+					<property>autopilot/locks/heading</property>
+					<value type="string">dg-heading-hold</value>
+				</equals>
+			</or>
+		</and>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>ap1.01</object-name>
+	<property>instrumentation/digital/ap1-whole</property>
+	<factor>0.001</factor>
+	<step>100</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>ap1.02</object-name>
+	<property>instrumentation/digital/ap1-whole</property>
+	<factor>0.01</factor>
+	<step>10</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>ap1.03</object-name>
+	<property>instrumentation/digital/ap1-whole</property>
+	<factor>0.1</factor>
+	<step>1</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+</PropertyList>

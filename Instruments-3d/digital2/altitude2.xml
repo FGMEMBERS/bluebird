@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 8.6 ==-->
+<!--== Bluebird Explorer Hovercraft  version 12.0 ==-->
 
 <PropertyList>
 
@@ -40,6 +40,21 @@
  <animation>
 	<type>select</type>
 	<object-name>altitude-lit</object-name>
+	<condition>
+		<property>sim/model/bluebird/systems/power-switch</property>
+	</condition>
+ </animation>
+
+ <animation>
+	<name>altitude-buttons-lit</name>
+	<object-name>agl.hold.button</object-name>
+	<object-name>alt.hold.button</object-name>
+	<object-name>altitude.button</object-name>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>altitude-buttons-lit</object-name>
 	<condition>
 		<property>sim/model/bluebird/systems/power-switch</property>
 	</condition>
@@ -395,6 +410,28 @@
 
  <animation>
 	<type>select</type>
+	<object-name>alt.km</object-name>
+	<condition>
+		<equals>
+			<property>instrumentation/digital/altitude-mode</property>
+			<value>2</value>
+		</equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>alt.mi</object-name>
+	<condition>
+		<equals>
+			<property>instrumentation/digital/altitude-mode</property>
+			<value>3</value>
+		</equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
 	<object-name>alt.warn1</object-name>
 	<condition>
 		<property>sim/model/bluebird/lighting/ground-near</property>
@@ -455,6 +492,12 @@
 				<equals>
 					<property>autopilot/locks/altitude</property>
 					<value type="string">altitude-hold</value>
+				</equals>
+			</not>
+			<not>
+				<equals>
+					<property>autopilot/locks/altitude</property>
+					<value type="string">vertical-speed-hold</value>
 				</equals>
 			</not>
 		</and>

@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<!--== Bluebird Explorer Hovercraft  version 12.0 ==-->
+
+<PropertyList>
+
+ <path>com2s.ac</path>
+
+ <animation>
+	<name>com2s-lit</name>
+	<object-name>com2s.label</object-name>
+	<object-name>com2s.01</object-name>
+	<object-name>com2s.02</object-name>
+	<object-name>com2s.03</object-name>
+	<object-name>com2s.dec</object-name>
+	<object-name>com2s.04</object-name>
+	<object-name>com2s.05</object-name>
+	<object-name>com2s.mhz</object-name>
+	<object-name>com2.standby</object-name>
+	<object-name>com2s.knob1L</object-name>
+	<object-name>com2s.knob1R</object-name>
+	<object-name>com2s.knob2L</object-name>
+	<object-name>com2s.knob2R</object-name>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>com2s-lit</object-name>
+	<condition>
+		<property>sim/model/bluebird/systems/power-switch</property>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>com2s.mhz</object-name>
+	<condition>
+		<property>instrumentation/digital/com2s-mhz-state</property>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>com2s.01</object-name>
+	<property>instrumentation/digital/com2s-whole</property>
+	<factor>0.00001</factor>
+	<step>10000</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>com2s.02</object-name>
+	<property>instrumentation/digital/com2s-whole</property>
+	<factor>0.0001</factor>
+	<step>1000</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>com2s.03</object-name>
+	<property>instrumentation/digital/com2s-whole</property>
+	<factor>0.001</factor>
+	<step>100</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>com2s.04</object-name>
+	<property>instrumentation/digital/com2s-whole</property>
+	<factor>0.01</factor>
+	<step>10</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>com2s.05</object-name>
+	<property>instrumentation/digital/com2s-whole</property>
+	<factor>0.1</factor>
+	<step>1</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+</PropertyList>

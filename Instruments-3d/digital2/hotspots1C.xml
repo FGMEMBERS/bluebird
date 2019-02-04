@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 11.5 for PLIB ==-->
+<!--== Bluebird Explorer Hovercraft  version 12.0 for PLIB ==-->
 
 <!DOCTYPE PropertyList SYSTEM "panel.dtd">
 <!-- This part should be the same for any 3D panel.  Customize the actions section -->
@@ -46,7 +46,7 @@
 						<property>instrumentation/digital/altitude-mode</property>
 						<step>1</step>
 						<min>0</min>
-						<max>2</max>
+						<max>4</max>
 						<wrap>true</wrap>
 					</binding>
 				</action>

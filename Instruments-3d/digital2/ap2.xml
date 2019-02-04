@@ -1,0 +1,318 @@
+<?xml version="1.0"?>
+<!--== Bluebird Explorer Hovercraft  version 12.0 ==-->
+
+<PropertyList>
+
+ <path>ap2.ac</path>
+
+ <animation>
+	<name>ap2-lit</name>
+	<object-name>ap2.label</object-name>
+	<object-name>ap2.01</object-name>
+	<object-name>ap2.02</object-name>
+	<object-name>ap2.comma</object-name>
+	<object-name>ap2.03</object-name>
+	<object-name>ap2.04</object-name>
+	<object-name>ap2.05</object-name>
+	<object-name>ap2.minus</object-name>
+	<object-name>ap2.plus</object-name>
+	<object-name>ap2.altitude</object-name>
+	<object-name>ap2.label</object-name>
+	<object-name>ap2.hld</object-name>
+	<object-name>ap2.agl</object-name>
+	<object-name>ap2.vs</object-name>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>ap2-lit</object-name>
+	<condition>
+		<property>sim/model/bluebird/systems/power-switch</property>
+	</condition>
+ </animation>
+
+ <animation>
+	<name>ap2-buttons-lit</name>
+	<object-name>ap2.knob1L</object-name>
+	<object-name>ap2.knob1R</object-name>
+	<object-name>ap2.knob2L</object-name>
+	<object-name>ap2.knob2R</object-name>
+	<object-name>ap2.button1</object-name>
+	<object-name>ap2.button2</object-name>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>ap2-buttons-lit</object-name>
+	<condition>
+		<property>sim/model/bluebird/systems/power-switch</property>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>ap2.04</object-name>
+	<object-name>ap2.05</object-name>
+	<condition>
+		<greater-than>
+			<property>instrumentation/digital/ap2-mode</property>
+			<value>0</value>
+		</greater-than>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>ap2.02</object-name>
+	<object-name>ap2.comma</object-name>
+	<condition>
+		<and>
+			<greater-than>
+				<property>instrumentation/digital/ap2-mode</property>
+				<value>0</value>
+			</greater-than>
+			<or>
+				<greater-than-equals>
+					<property>instrumentation/digital/ap2-whole</property>
+					<value>1000.0</value>
+				</greater-than-equals>
+				<less-than-equals>
+					<property>instrumentation/digital/ap2-whole</property>
+					<value>-1000.0</value>
+				</less-than-equals>
+			</or>
+		</and>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>ap2.03</object-name>
+	<condition>
+		<and>
+			<greater-than>
+				<property>instrumentation/digital/ap2-mode</property>
+				<value>0</value>
+			</greater-than>
+			<or>
+				<greater-than-equals>
+					<property>instrumentation/digital/ap2-whole</property>
+					<value>100.0</value>
+				</greater-than-equals>
+				<less-than-equals>
+					<property>instrumentation/digital/ap2-whole</property>
+					<value>-100.0</value>
+				</less-than-equals>
+			</or>
+		</and>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>ap2.hld</object-name>
+	<condition>
+		<equals>
+			<property>instrumentation/digital/ap2-mode</property>
+			<value type="int">1</value>
+		</equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>ap2.agl</object-name>
+	<condition>
+		<equals>
+			<property>instrumentation/digital/ap2-mode</property>
+			<value type="int">2</value>
+		</equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>ap2.vs</object-name>
+	<condition>
+		<equals>
+			<property>instrumentation/digital/ap2-mode</property>
+			<value type="int">3</value>
+		</equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>ap2.minus</object-name>
+	<condition>
+		<and>
+			<equals>
+				<property>instrumentation/digital/ap2-mode</property>
+				<value type="int">3</value>
+			</equals>
+			<less-than>
+				<property>instrumentation/digital/ap2-entry-fpm</property>
+				<value>0</value>
+			</less-than>
+		</and>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>ap2.plus</object-name>
+	<condition>
+		<and>
+			<equals>
+				<property>instrumentation/digital/ap2-mode</property>
+				<value type="int">3</value>
+			</equals>
+			<greater-than>
+				<property>instrumentation/digital/ap2-entry-fpm</property>
+				<value>0</value>
+			</greater-than>
+		</and>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>ap2.red.cmd</object-name>
+	<condition>
+		<and>
+			<not-equals>
+				<property>autopilot/locks/altitude</property>
+				<value type="string"></value>
+			</not-equals>
+			<not-equals>
+				<property>autopilot/locks/altitude</property>
+				<value type="string">altitude-hold</value>
+			</not-equals>
+			<not-equals>
+				<property>autopilot/locks/altitude</property>
+				<value type="string">agl-hold</value>
+			</not-equals>
+			<not-equals>
+				<property>autopilot/locks/altitude</property>
+				<value type="string">vertical-speed-hold</value>
+			</not-equals>
+		</and>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>ap2.green.cmd</object-name>
+	<condition>
+		<and>
+			<not-equals>
+				<property>autopilot/locks/altitude</property>
+				<value type="string"></value>
+			</not-equals>
+			<or>
+				<equals>
+					<property>autopilot/locks/altitude</property>
+					<value type="string">altitude-hold</value>
+				</equals>
+				<equals>
+					<property>autopilot/locks/altitude</property>
+					<value type="string">agl-hold</value>
+				</equals>
+				<equals>
+					<property>autopilot/locks/altitude</property>
+					<value type="string">vertical-speed-hold</value>
+				</equals>
+			</or>
+		</and>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>ap2.01</object-name>
+	<condition>
+		<and>
+			<equals>
+				<property>instrumentation/digital/ap2-mode</property>
+				<value type="int">1</value>
+			</equals>
+			<or>
+				<greater-than-equals>
+					<property>instrumentation/digital/ap2-whole</property>
+					<value>10000.0</value>
+				</greater-than-equals>
+				<less-than-equals>
+					<property>instrumentation/digital/ap2-whole</property>
+					<value>-10000.0</value>
+				</less-than-equals>
+			</or>
+		</and>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>ap2.01</object-name>
+	<property>instrumentation/digital/ap2-whole</property>
+	<factor>0.00001</factor>
+	<step>10000</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>ap2.02</object-name>
+	<property>instrumentation/digital/ap2-whole</property>
+	<factor>0.0001</factor>
+	<step>1000</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>ap2.03</object-name>
+	<property>instrumentation/digital/ap2-whole</property>
+	<factor>0.001</factor>
+	<step>100</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>ap2.04</object-name>
+	<property>instrumentation/digital/ap2-whole</property>
+	<factor>0.01</factor>
+	<step>10</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>ap2.05</object-name>
+	<property>instrumentation/digital/ap2-whole</property>
+	<factor>0.1</factor>
+	<step>1</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+</PropertyList>

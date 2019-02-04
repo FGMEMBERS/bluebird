@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 11.42 for OSG                  ==-->
+<!--== Bluebird version 12.0 for OSG                  ==-->
 
 <PropertyList>
 	<model>
@@ -1292,6 +1292,13 @@
 				<script>bluebird.toggle_power(0)</script>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>LT1-tip</tooltip-id>
+				<label>Master Power</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1315,6 +1322,13 @@
 				<script>bluebird.toggle_fusion()</script>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>LT1-tip</tooltip-id>
+				<label>Fusion Power</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1338,6 +1352,13 @@
 				<script>bluebird.toggle_fusion()</script>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>LT7-tip</tooltip-id>
+				<label>Counter-Grav Power</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1361,6 +1382,13 @@
 				<script>bluebird.toggle_wave1()</script>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>LT8-tip</tooltip-id>
+				<label>Nacelle Propulsion Power</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1384,6 +1412,13 @@
 				<script>bluebird.toggle_wave2()</script>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>LT9-tip</tooltip-id>
+				<label>Maximum Power for orbital velocities</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1430,6 +1465,19 @@
 				<script>bluebird.toggle_gear_mode(-1)</script>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>G2-tip</tooltip-id>
+				<label>Gear Extension Mode%s</label>
+				<mapping>nasal</mapping>
+				<script>
+					var modes = ['FULLY', 'PARTIALLY'];
+					return sprintf("\nCurrent mode: Deploy %s",modes[arg[0]]);
+				</script>
+				<property>controls/gear/height-switch</property>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1507,6 +1555,13 @@
 				<script>bluebird.toggle_door()</script>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>RT1-tip</tooltip-id>
+				<label>Left Hatch</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1534,6 +1589,13 @@
 				<script>bluebird.toggle_door()</script>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>RT2-tip</tooltip-id>
+				<label>Right Hatch</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1561,6 +1623,13 @@
 				<script>bluebird.toggle_door()</script>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>RT5-tip</tooltip-id>
+				<label>Rear Hatch</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1584,6 +1653,13 @@
 				<script>bluebird.toggle_lighting(5)</script>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>RT5-tip</tooltip-id>
+				<label>Gear and Landing Lights</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1607,6 +1683,13 @@
 				<script>bluebird.toggle_lighting(6)</script>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>RT6-tip</tooltip-id>
+				<label>Nav Lights</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1630,6 +1713,13 @@
 				<script>bluebird.toggle_lighting(7)</script>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>RT7-tip</tooltip-id>
+				<label>Beacon Lights</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1653,6 +1743,13 @@
 				<script>bluebird.toggle_lighting(8)</script>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>RT8-tip</tooltip-id>
+				<label>Strobe Lights</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1676,6 +1773,13 @@
 				<script>bluebird.toggle_lighting(9)</script>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>RT9-tip</tooltip-id>
+				<label>Interior Lights</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1865,6 +1969,19 @@
 				<script>bluebird.toggle_door()</script>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>D5T-tip</tooltip-id>
+				<label>Rear Hatch%s</label>
+				<mapping>nasal</mapping>
+				<script>
+					var modes = ['Press to OPEN', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'Press to CLOSE', 'Press to CLOSE', 'Press to CLOSE'];
+					return sprintf("\n %s",modes[(10*arg[0])]);
+				</script>
+				<property>sim/model/bluebird/doors/door[5]/position-norm</property>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1888,6 +2005,19 @@
 				<script>bluebird.toggle_gear_mode(-1)</script>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>D5B-tip</tooltip-id>
+				<label>Gear Extension Mode%s</label>
+				<mapping>nasal</mapping>
+				<script>
+					var modes = ['FULLY for ground clearance', 'PARTIALLY for cargo loading, or in flight sky-diving'];
+					return sprintf("\nCurrent height: Deployed %s",modes[arg[0]]);
+				</script>
+				<property>controls/gear/height-switch</property>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1903,6 +2033,13 @@
 				<value>1</value>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>CG1-tip</tooltip-id>
+				<label>Set Lift or Hover Power range at Minimum</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1918,6 +2055,13 @@
 				<value>2</value>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>CG2-tip</tooltip-id>
+				<label>Set Lift to position 2</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1933,6 +2077,13 @@
 				<value>3</value>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>CG3-tip</tooltip-id>
+				<label>Set Lift to position 3</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1948,6 +2099,13 @@
 				<value>4</value>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>CG4-tip</tooltip-id>
+				<label>Set Lift to position 4</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1963,6 +2121,13 @@
 				<value>5</value>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>CG5-tip</tooltip-id>
+				<label>Set Lift to position 5</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1978,6 +2143,13 @@
 				<value>6</value>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>CG6-tip</tooltip-id>
+				<label>Set Lift to position 6</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -1993,6 +2165,13 @@
 				<value>7</value>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>CG7-tip</tooltip-id>
+				<label>Set Lift to position 7</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -2008,6 +2187,13 @@
 				<value>8</value>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>CG8-tip</tooltip-id>
+				<label>Set Lift to position 8</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -2023,6 +2209,13 @@
 				<value>10</value>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>CG9-tip</tooltip-id>
+				<label>Set Lift to position 9</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -2038,6 +2231,13 @@
 				<value>12</value>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>CG10-tip</tooltip-id>
+				<label>Set Lift to position 10</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -2053,6 +2253,13 @@
 				<value>14</value>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>CG11-tip</tooltip-id>
+				<label>Set Lift to position 11</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -2068,6 +2275,13 @@
 				<value>16</value>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>CG12-tip</tooltip-id>
+				<label>Set Lift or Hover Power range to Maximum</label>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -2082,6 +2296,19 @@
 				<property>instrumentation/display-screens/enabled-2L</property>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>d2L-tip</tooltip-id>
+				<label>Display Screen 2 Left%s</label>
+				<mapping>nasal</mapping>
+				<script>
+					var modes = ['OFF', 'ON'];
+					return sprintf(" is %s\nClick to toggle power.\nAI and MP will appear sorted by distance.",modes[arg[0]]);
+				</script>
+				<property>instrumentation/display-screens/enabled-2L</property>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -2096,6 +2323,19 @@
 				<property>instrumentation/display-screens/enabled-2R</property>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>d2R-tip</tooltip-id>
+				<label>Display Screen 2 Right%s</label>
+				<mapping>nasal</mapping>
+				<script>
+					var modes = ['OFF', 'ON'];
+					return sprintf(" is %s\nClick to toggle power.\nDisplay AGL flight measurements.",modes[arg[0]]);
+				</script>
+				<property>instrumentation/display-screens/enabled-2R</property>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -2110,6 +2350,19 @@
 				<property>instrumentation/display-screens/enabled-3L</property>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>d3L-tip</tooltip-id>
+				<label>Display Screen 3 Left%s</label>
+				<mapping>nasal</mapping>
+				<script>
+					var modes = ['OFF', 'ON'];
+					return sprintf(" is %s\nClick to toggle power.\nDamage control station.",modes[arg[0]]);
+				</script>
+				<property>instrumentation/display-screens/enabled-3L</property>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -2124,6 +2377,19 @@
 				<property>instrumentation/display-screens/enabled-3R</property>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>d3R-tip</tooltip-id>
+				<label>Display Screen 3 Right%s</label>
+				<mapping>nasal</mapping>
+				<script>
+					var modes = ['OFF', 'ON'];
+					return sprintf(" is %s\nClick to toggle power.\nDisplay raw ground elevation variables.",modes[arg[0]]);
+				</script>
+				<property>instrumentation/display-screens/enabled-3R</property>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -2138,6 +2404,19 @@
 				<property>instrumentation/display-screens/enabled-4L</property>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>d4L-tip</tooltip-id>
+				<label>Display Screen 4 Left%s</label>
+				<mapping>nasal</mapping>
+				<script>
+					var modes = ['OFF', 'ON'];
+					return sprintf(" is %s\nClick to toggle power.",modes[arg[0]]);
+				</script>
+				<property>instrumentation/display-screens/enabled-4L</property>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -2152,6 +2431,19 @@
 				<property>instrumentation/display-screens/enabled-4R</property>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>d4R-tip</tooltip-id>
+				<label>Display Screen 4 Right%s</label>
+				<mapping>nasal</mapping>
+				<script>
+					var modes = ['OFF', 'ON'];
+					return sprintf(" is %s\nClick to toggle power.\nDisplay raw flight orientation and hover variables.",modes[arg[0]]);
+				</script>
+				<property>instrumentation/display-screens/enabled-4R</property>
+			</binding>
+		</hovered>
 	</animation>
 
 	<animation>
@@ -2166,6 +2458,19 @@
 				<property>instrumentation/display-screens/enabled-5R</property>
 			</binding>
 		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>d5R-tip</tooltip-id>
+				<label>Display Screen 5 Right%s</label>
+				<mapping>nasal</mapping>
+				<script>
+					var modes = ['OFF', 'ON'];
+					return sprintf(" is %s\nClick to toggle power.\nDisplay engine performance variables.",modes[arg[0]]);
+				</script>
+				<property>instrumentation/display-screens/enabled-5R</property>
+			</binding>
+		</hovered>
 	</animation>
 
 <!-- particle system effects -->
@@ -3513,6 +3818,26 @@
 		</offsets>
 	</model>
 
+	<model>
+		<name>InstrumentsAP</name>
+		<path>Aircraft/bluebird/Models/instruments-1L.xml</path>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>InstrumentsCOM</name>
+		<path>Aircraft/bluebird/Models/instruments-2C.xml</path>
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</offsets>
+	</model>
+
 	<animation>
 		<type>rotate</type>
 		<object-name>ALTITUDE</object-name>
@@ -3578,6 +3903,112 @@
 		<object-name>AI MP VOR Text</object-name>
 		<object-name>GEES</object-name>
 		<object-name>GEES Text</object-name>
+		<property>sim/model/bluebird/damage/major-counter</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>2</dep>
+			</entry>
+			<entry>
+				<ind>2</ind>
+				<dep>3</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>AP1</object-name>
+		<object-name>AP2</object-name>
+		<property>orientation/groundslope-factored-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>AP1</object-name>
+		<object-name>AP2</object-name>
+		<property>orientation/groundslope-factored-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>AP1</object-name>
+		<object-name>AP2</object-name>
+		<property>sim/model/bluebird/damage/major-counter</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>2</dep>
+			</entry>
+			<entry>
+				<ind>2</ind>
+				<dep>3</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>COM1A</object-name>
+		<object-name>COM1S</object-name>
+		<object-name>COM2A</object-name>
+		<object-name>COM2S</object-name>
+		<property>orientation/groundslope-factored-pitch</property>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>COM1A</object-name>
+		<object-name>COM1S</object-name>
+		<object-name>COM2A</object-name>
+		<object-name>COM2S</object-name>
+		<property>orientation/groundslope-factored-roll</property>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>COM1A</object-name>
+		<object-name>COM1S</object-name>
+		<object-name>COM2A</object-name>
+		<object-name>COM2S</object-name>
 		<property>sim/model/bluebird/damage/major-counter</property>
 		<interpolation>
 			<entry>

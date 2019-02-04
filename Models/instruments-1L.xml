@@ -1,0 +1,393 @@
+<?xml version="1.0"?>
+<!-- Bluebird Explorer Hovercraft  version 12.0 for FlightGear OSG only -->
+
+<PropertyList>
+
+<!-- instruments placement
+	========== side consoles, front1 ================
+	axis:  (8.327,0.280,1.240) - (7.891,0.819,1.240)
+		(7.885,0.212,1.025) - (7.671,0.477,1.025) = 25.68
+	angle= 28.90 on x axis , and 50.90 on z axis
+-->
+
+ <model>
+	<name>AP1</name>
+	<path>Aircraft/bluebird/Instruments-3d/digital2/ap1.xml</path>
+	<offsets>
+		<x-m>-8.1755</x-m>
+		<y-m>-0.3959</y-m>
+		<z-m>1.230</z-m>
+		<pitch-deg>-29.0</pitch-deg>
+		<heading-deg>38.98</heading-deg>
+		<w>512</w>
+		<h>512</h>
+	</offsets>
+ </model>
+
+ <model>
+	<name>AP2</name>
+	<path>Aircraft/bluebird/Instruments-3d/digital2/ap2.xml</path>
+	<offsets>
+		<x-m>-8.2336</x-m>
+		<y-m>-0.3244</y-m>
+		<z-m>1.230</z-m>
+		<pitch-deg>-29.0</pitch-deg>
+		<heading-deg>38.98</heading-deg>
+		<w>512</w>
+		<h>512</h>
+	</offsets>
+ </model>
+
+ <animation>
+	<type>range</type>
+	<object-name>AP1</object-name>
+	<object-name>AP2</object-name>
+	<min-m>0</min-m>
+	<max-m>25</max-m>
+ </animation>
+
+ <animation>
+	<type>material</type>
+	<object-name>ap1.frame</object-name>
+	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
+	<emission>
+		<red-prop>emission/red</red-prop>
+		<green-prop>emission/green</green-prop>
+		<blue-prop>emission/blue</blue-prop>
+		<factor>1</factor>
+	</emission>
+	<specular>
+		<factor-prop>../interior-specular</factor-prop>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</specular>
+ </animation>
+
+ <animation>
+	<type>material</type>
+	<object-name>ap2.frame</object-name>
+	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
+	<emission>
+		<red-prop>emission/red</red-prop>
+		<green-prop>emission/green</green-prop>
+		<blue-prop>emission/blue</blue-prop>
+		<factor>1</factor>
+	</emission>
+	<specular>
+		<factor-prop>../interior-specular</factor-prop>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</specular>
+ </animation>
+
+ <animation>
+	<type>material</type>
+	<object-name>ap1-lit</object-name>
+	<emission>
+		<factor-prop>sim/model/material/instruments/factor</factor-prop>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</emission>
+ </animation>
+
+ <animation>
+	<type>material</type>
+	<object-name>ap2-lit</object-name>
+	<emission>
+		<factor-prop>sim/model/material/instruments/factor</factor-prop>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</emission>
+ </animation>
+
+ <!-- buttons and knobs -->
+ <animation>
+	<type>pick</type>
+	<object-name>ap1.button1</object-name>
+	<action>
+		<name>increase ap1 mode</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-adjust</command>
+			<property>instrumentation/digital/ap1-mode</property>
+			<step>1</step>
+			<min>1</min>
+			<max>3</max>
+			<wrap>true</wrap>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>ap1mode</tooltip-id>
+			<label>Toggle True or Magnetic heading for autopilot</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>ap1.knob1L</object-name>
+	<action>
+		<name>decrease ap1 by ones</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_ap1knob(-1)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>ap11L</tooltip-id>
+			<label>Center knob subtract 1</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>ap1.knob1R</object-name>
+	<action>
+		<name>increase ap1 by ones</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_ap1knob(1)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>ap11R</tooltip-id>
+			<label>Center knob add 1</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>ap1.knob2L</object-name>
+	<action>
+		<name>decrease ap1 by tens</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_ap1knob(-10)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>ap12L</tooltip-id>
+			<label>Outer ring subtract 10</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>ap1.knob2R</object-name>
+	<action>
+		<name>increase ap1 by tens</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_ap1knob(10)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>ap12R</tooltip-id>
+			<label>Outer ring add 10</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>ap1.button2</object-name>
+	<action>
+		<name>toggle ap1 CMD</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.toggle_ap1cmd(0)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>ap1cmd</tooltip-id>
+			<label>Toggle Autopilot CoMmanD engage / disengage</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>ap2.button1</object-name>
+	<action>
+		<name>increase ap2 mode</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.press_ap2mode(1)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>ap2mode</tooltip-id>
+			<label>Select autopilot altitude mode%s</label>
+			<mapping>nasal</mapping>
+			<script>
+				var modes = ['off', 'ALTITUDE Hold FEET', 'AGL Hold FEET', 'VERTICAL SPEED Hold'];
+				return sprintf("\n Current mode: %s",modes[arg[0]]);
+			</script>
+			<property>instrumentation/digital/ap2-mode</property>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>ap2.knob1L</object-name>
+	<action>
+		<name>decrease ap2 by 100</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_ap2knob(-100)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>ap21L</tooltip-id>
+			<label>Center knob subtract %s</label>
+			<mapping>nasal</mapping>
+			<script>
+				var modes = ['100', '100', '100', '10'];
+				return modes[arg[0]];
+			</script>
+			<property>instrumentation/digital/ap2-mode</property>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>ap2.knob1R</object-name>
+	<action>
+		<name>increase ap2 by 100</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_ap2knob(100)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>ap21R</tooltip-id>
+			<label>Center knob add %s</label>
+			<mapping>nasal</mapping>
+			<script>
+				var modes = ['100', '100', '100', '10'];
+				return modes[arg[0]];
+			</script>
+			<property>instrumentation/digital/ap2-mode</property>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>ap2.knob2L</object-name>
+	<action>
+		<name>decrease ap2 by thousands</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_ap2knob(-1000)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>ap22L</tooltip-id>
+			<label>Outer ring subtract %s</label>
+			<mapping>nasal</mapping>
+			<script>
+				var modes = ['1000', '1000', '1000', '100'];
+				return modes[arg[0]];
+			</script>
+			<property>instrumentation/digital/ap2-mode</property>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>ap2.knob2R</object-name>
+	<action>
+		<name>increase ap2 by thousands</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_ap2knob(1000)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>ap22R</tooltip-id>
+			<label>Outer ring add %s</label>
+			<mapping>nasal</mapping>
+			<script>
+				var modes = ['1000', '1000', '1000', '100'];
+				return modes[arg[0]];
+			</script>
+			<property>instrumentation/digital/ap2-mode</property>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>ap2.button2</object-name>
+	<action>
+		<name>toggle ap2 CMD</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.toggle_ap2cmd(0)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>ap2cmd</tooltip-id>
+			<label>Toggle Autopilot CoMmanD engage / disengage</label>
+		</binding>
+	</hovered>
+ </animation>
+</PropertyList>

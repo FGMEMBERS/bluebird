@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!--== Bluebird Explorer Hovercraft  version 12.0 ==-->
+
+<PropertyList>
+
+ <path>com2a.ac</path>
+
+ <animation>
+	<name>com2a-lit</name>
+	<object-name>com2a.label</object-name>
+	<object-name>com2a.01</object-name>
+	<object-name>com2a.02</object-name>
+	<object-name>com2a.03</object-name>
+	<object-name>com2a.dec</object-name>
+	<object-name>com2a.04</object-name>
+	<object-name>com2a.05</object-name>
+	<object-name>com2a.mhz</object-name>
+	<object-name>com2.active</object-name>
+	<object-name>com2a.knob1L</object-name>
+	<object-name>com2a.knob1R</object-name>
+	<object-name>com2a.knob2L</object-name>
+	<object-name>com2a.knob2R</object-name>
+	<object-name>com2.button</object-name>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>com2a-lit</object-name>
+	<condition>
+		<property>sim/model/bluebird/systems/power-switch</property>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>com2a.mhz</object-name>
+	<condition>
+		<property>instrumentation/digital/com2a-mhz-state</property>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>com2a.01</object-name>
+	<property>instrumentation/digital/com2a-whole</property>
+	<factor>0.00001</factor>
+	<step>10000</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>com2a.02</object-name>
+	<property>instrumentation/digital/com2a-whole</property>
+	<factor>0.0001</factor>
+	<step>1000</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>com2a.03</object-name>
+	<property>instrumentation/digital/com2a-whole</property>
+	<factor>0.001</factor>
+	<step>100</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>com2a.04</object-name>
+	<property>instrumentation/digital/com2a-whole</property>
+	<factor>0.01</factor>
+	<step>10</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>com2a.05</object-name>
+	<property>instrumentation/digital/com2a-whole</property>
+	<factor>0.1</factor>
+	<step>1</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+</PropertyList>
