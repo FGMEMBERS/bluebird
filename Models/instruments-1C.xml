@@ -797,10 +797,15 @@
 		<binding>
 			<command>set-tooltip</command>
 			<tooltip-id>ged-tip</tooltip-id>
-			<label>Gees display.%s</label>
+			<label>%s</label>
 			<mapping>nasal</mapping>
 			<script>
-				return sprintf("\n Click to clear maximum.");
+				var geesmode = getprop("instrumentation/gees/mode");
+				if (geesmode == 0) {
+				  return sprintf("VSI display:\n %7.1f x10 m/s",arg[0]);
+				} else {
+				  return sprintf("Gees display:\n Click to clear maximum.");
+				}
 			</script>
 			<property>instrumentation/gees/vsi-float</property>
 		</binding>

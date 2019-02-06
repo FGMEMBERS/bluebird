@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Bluebird Explorer Hovercraft  version 12.0 for FlightGear OSG only -->
+<!-- Bluebird Explorer Hovercraft  version 12.01 for FlightGear OSG only -->
 
 <PropertyList>
 
@@ -188,7 +188,7 @@
 		<binding>
 			<command>set-tooltip</command>
 			<tooltip-id>ap12L</tooltip-id>
-			<label>Outer ring subtract 10</label>
+			<label>Outer ring subtract 10 when off</label>
 		</binding>
 	</hovered>
  </animation>
@@ -209,7 +209,7 @@
 		<binding>
 			<command>set-tooltip</command>
 			<tooltip-id>ap12R</tooltip-id>
-			<label>Outer ring add 10</label>
+			<label>Outer ring add 10 when off</label>
 		</binding>
 	</hovered>
  </animation>

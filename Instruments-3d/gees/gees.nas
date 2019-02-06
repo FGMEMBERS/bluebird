@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 10.9 =====
+# ===== Bluebird Explorer Hovercraft  version 12.01 =====
 
 # instrumentation ===================================================
 var vsi_float = props.globals.getNode("instrumentation/gees/vsi-float", 1);
@@ -67,7 +67,8 @@ instrumentation_loop = func {
 digital_update = func {
 	if (getprop("sim/current-view/view-number") == 0) {
 		if (gees_mode == 0) {
-			gees_string.setValue("   ");
+			var xx = sprintf(" %7.1f",vsi_float.getValue());
+			gees_string.setValue(xx);
 		} elsif (gees_mode == 2) {
 			if (max1_digital == -999) {
 				var xx = "Pk";
@@ -95,7 +96,7 @@ digital_loop = func {
 		digital_update();
 		if (gees_mode == 2) {
 			settimer(digital_loop, max1_refresh_sec);
-		} elsif (gees_mode == 1) {
+		} elsif (gees_mode <= 1) {
 			settimer(digital_loop, 0.05);
 		} else {
 			settimer(digital_loop, 5);
