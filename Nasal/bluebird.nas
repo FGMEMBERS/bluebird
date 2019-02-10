@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 11.5 for FlightGear 1.9 OSG =====
+# ===== Bluebird Explorer Hovercraft  version 12.1 for FlightGear 1.9 OSG =====
 
 var self = cmdarg();
 # strobes -----------------------------------------------------------
@@ -276,6 +276,7 @@ var ground_warning = 1;
 maxspeed.setValue(500);
 current.setValue(5);  # needed for engine-digital panel
 var cpl = 5;          # current power level
+var cpl_set = 5;
 var current_to = 5;   # distinguishes between change_maximum types. Current or To
 var max_drift = 0;    # smoothen drift between maxspeed power levels
 var max_lose = 0;     # loss of momentum after shutdown of engines
@@ -1912,7 +1913,10 @@ controls.flapsDown = func(fd_d) {  # 1/-1 from input 2/-2 from button
 			var ss = speed_mps[max_to];
 			popupTip2("Max. Speed " ~ ss ~ " m/s");
 		}
-		setprop("engines/engine/speed-max-powerlevel", cpl);
+		if (cpl != cpl_set) {
+			setprop("engines/engine/speed-max-powerlevel", cpl);
+			cpl_set = cpl;
+		}
 	} else {
 		popupTip2("Unable to comply. Main power is off.");
 	}
@@ -2653,7 +2657,10 @@ var update_main = func {
 			}
 		}
 	}
-	setprop("engines/engine/speed-max-powerlevel", cpl);
+	if (cpl != cpl_set) {
+		setprop("engines/engine/speed-max-powerlevel", cpl);
+		cpl_set = cpl;
+	}
 
 	# ----- vtol control in cockpit yoke -----
 	if (hover_reset_timer > 0) {
@@ -4446,7 +4453,7 @@ var prestart_main = func {
 		main_loop_id += 1;
 		settimer(prestart_main, 0.1);
 	} else {
-		print ("  version 12.01  release date 2019.Feb.06  by Stewart Andreason");
+		print ("  version 12.1  release date 2019.Feb.09  by Stewart Andreason");
 		update_main();
 	}
 	settimer(func {	# wake up, livery was loaded but did not trigger the listeners

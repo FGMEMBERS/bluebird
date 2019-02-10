@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 12.0 common base ==-->
+<!--== Bluebird version 12.1 common base ==-->
 
 <PropertyList>
  <sim>
@@ -2293,6 +2293,11 @@
 		<ap2-entry-ft type="float">0.0</ap2-entry-ft>
 		<ap2-entry-fpm type="float">0.0</ap2-entry-fpm>
 		<ap2-entry-agl-ft type="float">0.0</ap2-entry-agl-ft>
+		<ap3-mode type="int">0</ap3-mode>
+		<ap3-entry type="float">0.0</ap3-entry>
+		<ap3-entry-kt type="float">0.0</ap3-entry-kt>
+		<ap3-lock-state type="int">0</ap3-lock-state>
+		<ap3-target-throttle type="float">0.0</ap3-target-throttle>
 		<com1a-mhz-state type="bool">0</com1a-mhz-state>
 		<com2a-mhz-state type="bool">0</com2a-mhz-state>
 		<com1s-mhz-state type="bool">0</com1s-mhz-state>

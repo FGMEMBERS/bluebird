@@ -1,5 +1,8 @@
 Version# Vertices PolygonFaces Comments
 
+2019.Feb.09
+12.1	Add third autopilot module, with custom logic.
+
 2019.Feb.06
 12.01	Clarify tooltips.
 	Enable VSI display.

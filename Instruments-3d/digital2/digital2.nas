@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 12.0 =====
+# ===== Bluebird Explorer Hovercraft  version 12.1 =====
 
 # instrumentation ===================================================
 var lat_whole = props.globals.getNode("instrumentation/digital/lat-whole", 1);
@@ -16,6 +16,8 @@ var head_mode = props.globals.getNode("instrumentation/digital/heading-mode", 1)
 var vel_mode = props.globals.getNode("instrumentation/digital/velocity-mode", 1);
 var gps_mode = props.globals.getNode("sim/lon-lat-format", 1);
 var altitude_mode = props.globals.getNode("instrumentation/digital/altitude-mode", 1);
+var knots_2_conv = [0.514444444, 1.0, 1.150779448, 1.852, 1.524];
+	# MPS , Kts , MPH , KmPH , MACH
 
 instrumentation_update = func {
 	if (getprop("sim/current-view/view-number") == 0) {
@@ -74,8 +76,6 @@ instrumentation_update = func {
 		#===== velocity digital module ==============================
 		var vm = vel_mode.getValue();
 		var xx = int(abs(getprop("velocities/airspeed-kt")));		# Kts
-		var knots_2_conv = [0.514444444, 1.0, 1.150779448, 1.852, 1.524];
-			# MPS , Kts , MPH , KmPH , MACH
 		var ii = xx * knots_2_conv[vm];
 		# calculating mach at fixed pressure and temperature for 755mph
 		# actual speed of sound at: 60F = 760mph , -80F at 65,000ft = 650mph , at 100,000ft = 480mph
@@ -147,8 +147,23 @@ var ap2_entry_fpm = props.globals.getNode("instrumentation/digital/ap2-entry-fpm
 var ap2_entry_agl = props.globals.getNode("instrumentation/digital/ap2-entry-agl-ft", 1);
 var ap1_whole = props.globals.getNode("instrumentation/digital/ap1-whole", 1);
 var ap2_whole = props.globals.getNode("instrumentation/digital/ap2-whole", 1);
-var ap1_user_input = 0;
+var ap1_user_input = 0;	# did the pilot press the button
 var ap2_user_input = 0;
+var ap3_user_input = 0;
+var m_ap3_lock = props.globals.getNode("instrumentation/digital/ap3-lock-state", 1);
+var m_ap3_kt = props.globals.getNode("autopilot/settings/target-speed-kt", 1);
+var m_ap3_pct = props.globals.getNode("instrumentation/digital/ap3-target-throttle", 1);
+var ap3_mode = props.globals.getNode("instrumentation/digital/ap3-mode", 1);
+var ap3_entry = props.globals.getNode("instrumentation/digital/ap3-entry", 1);
+var ap3_entry_kt = 0;
+var ap3_entry_pct = 0;	# store as integer x10000 100.00
+var ap3_whole = props.globals.getNode("instrumentation/digital/ap3-whole", 1);
+var max_mps = props.globals.getNode("engines/engine/speed-max-mps", 1);
+var max_changing = 0;	# unrestricted adjusting throttle when changing wave1 power level (gearing)
+var last_max_mps = max_mps.getValue();
+var now_max_mps = last_max_mps;
+var loopid3 = 0;
+var map3lock = 0;
 
 autopilot_update = func (n) {
 	#===== autopilot heading select digital module ==============
@@ -156,6 +171,8 @@ autopilot_update = func (n) {
 	var ii = ap1_entry.getValue();
 	var ap1mode = ap1_mode.getValue();
 	var ap2mode = ap2_mode.getValue();
+	var jj = ap2_entry.getValue();
+	var kk = ap3_entry.getValue();
 	if (map1string != nil and map1string != "") {
 		var mi = ii;
 		if (map1string == "true-heading-hold") {
@@ -233,8 +250,8 @@ autopilot_update = func (n) {
 		} elsif (ap2mode == 3) {
 			ap2_entry_fpm.setValue(ii);
 		}
-		ap2_whole.setValue(int(abs(ii) + 0.5));
 	}
+	ap2_whole.setValue(int(abs(ii) + 0.5));
 	# detect change in dialog entry
 	if (ap2_user_input == 0) {
 		var map2lock = m_ap2_lock.getValue();
@@ -267,6 +284,57 @@ autopilot_update = func (n) {
 		if (dfi != -1 and dfi != ii) {
 			ap2_entry.setValue(dfi);
 			ap2_whole.setValue(int(dfi + 0.5));
+		}
+	}
+	#===== autopilot throttle hold digital module ===============
+	kk = ap3_entry.getValue();
+	if (kk == nil) {
+		kk = 0;
+	}
+	var ap3mode = ap3_mode.getValue();
+	if (ap3mode != nil and ap3mode != 0) {
+		if (ap3mode == 1) {
+			ap3_entry_kt = kk;
+			ap3_whole.setValue(int(abs(kk) + 0.5));
+		} elsif (ap3mode == 2) {
+			if (kk > 10000) {
+				kk = 10000;
+			} elsif (kk < 0) {
+				kk = 0;
+			}
+			ap3_entry_pct = kk;
+			ap3_whole.setValue(int(abs(kk) + 0.5));
+		}
+	} else {
+		ap3_whole.setValue(int(abs(kk) + 0.5));
+	}
+	if (ap3_user_input == 0) {
+		map3lock = m_ap3_lock.getValue();
+		var dfi = -1;
+		var snm = -1;
+		if (map3lock == 1) {
+			var dfi = m_ap3_kt.getValue();
+			snm = 1;
+		} elsif (map3lock != nil and map3lock != 0) {
+			snm = 0;
+		} else {
+			if (ap3mode == 1) {
+				var dfi = m_ap3_kt.getValue();
+			} elsif (ap3mode == 2) {
+				var dfi = m_ap3_pct.getValue();
+			}
+		}
+		if (snm >= 0 and snm != ap3mode) {
+			ap3mode = snm;
+			ap3_mode.setValue(snm);
+		}
+		if (dfi != -1 and dfi != kk) {
+			ap3_entry.setValue(dfi);
+			if (ap3mode == 2) {
+				ap3_whole.setValue(int((dfi*100) + 0.5));
+			} else {
+				ap3_whole.setValue(int(dfi + 0.5));
+			}
 		}
 	}
 }
@@ -387,16 +455,16 @@ press_ap2mode = func (n) {
 		ap2mode = ((ap2mode + 1) > 3 ? 1 : (ap2mode + 1));
 		var map2lock = m_ap2_lock.getValue();
 		if (map2lock != nil and map2lock != "") {
-			# AP does not work right if this is changed while AP CMD is on. Pressing mode disconnects the autopilot.
+			# built-in AP does not work right if this is changed while AP CMD is on. Pressing mode disconnects the autopilot.
 			toggle_ap2cmd(-1);
 		}
 		var dfi = -1;
 		if (ap2mode == 1) {
-			var dfi = m_ap2_ft.getValue();
+			dfi = m_ap2_ft.getValue();
 		} elsif (ap2mode == 2) {
-			var dfi = m_ap2_agl.getValue();
+			dfi = m_ap2_agl.getValue();
 		} elsif (ap2mode == 3) {
-			var dfi = m_ap2_fpm.getValue();
+			dfi = m_ap2_fpm.getValue();
 		}
 		if (dfi == nil) {
 			dfi = 0;
@@ -406,14 +474,14 @@ press_ap2mode = func (n) {
 			ii=dfi;
 		}
 		if (ap2mode == 1) {
-			var ii = ap2_entry_ft.getValue();
+			ii = ap2_entry_ft.getValue();
 		} elsif (ap2mode == 2) {
-			var ii = ap2_entry_agl.getValue();
+			ii = ap2_entry_agl.getValue();
 			if (ii == 0) {
 				ii = int((abs(getprop("sim/model/bluebird/position/altitude-agl-ft")) * 0.01) + 0.5) * 100;
 			}
 		} elsif (ap2mode == 3) {
-			var ii = ap2_entry_fpm.getValue();
+			ii = ap2_entry_fpm.getValue();
 		}
 	}
 	ap2_user_input = 2;
@@ -453,6 +521,194 @@ toggle_ap2cmd = func(n) {
 	}
 }
 
+#====== AP3 ==========
+setlistener("autopilot/locks/throttle", func(n) {
+	autopilot_update(8);
+}, 1);
+
+setlistener("autopilot/settings/target-speed-kt", func(n) {
+	autopilot_update(9);
+}, 1);
+
+init_ap3 = func (ia) {
+	var ii = getprop("velocities/airspeed-kt");
+	if (ia != nil and ia > 0 and ia < 100000) {
+		ii = ia;
+	}
+	return int(abs(ii) + 0.5);
+}
+
+ap3_speed_update = func {
+	var ap3mode = ap3_mode.getValue();
+	var maxmps = max_mps.getValue();
+	var maxkts = maxmps / knots_2_conv[0];
+	var fromthrottle = getprop("controls/engines/engine/throttle");
+	var fromkts = getprop("velocities/airspeed-kt");
+	var tokts = fromkts;
+	var tothrottle = fromthrottle;
+	if (ap3mode == 1) {
+		tokts = ap3_entry.getValue();
+		tothrottle = ((tokts + 0.01) / maxkts);
+	} elsif (ap3mode == 2) {
+		tothrottle = ap3_entry.getValue();
+		tothrottle = tothrottle * 0.0001;
+		tokts = tothrottle * maxkts;
+	}
+	var gomore = 0;
+	var nextthrottle = 0.0001;
+	if (now_max_mps != last_max_mps) {
+		max_changing = 1;
+	} else {
+		max_changing = 0;
+	}
+	last_max_mps = now_max_mps;
+	if (max_changing) {
+		nextthrottle = tothrottle;
+	} else {
+		var roc_thr = 0.0025;
+		if (fromkts > tokts) {
+			nextthrottle = fromthrottle - roc_thr;
+		} else {
+			nextthrottle = fromthrottle + roc_thr;
+		}
+		if (nextthrottle > 1.0) {
+			nextthrottle = 1.0;
+			tothrottle = 1.0;
+		} elsif (nextthrottle < 0.0) {
+			nextthrottle = 0.0;
+			tothrottle = 0.0;
+		} elsif (abs(tothrottle - nextthrottle) <= roc_thr) {
+			nextthrottle = tothrottle;
+		} else {
+			gomore = 1;
+		}
+	}
+	setprop("controls/engines/engine/throttle", nextthrottle);
+	return gomore;
+}
+
+ap3_loop = func {
+	if (map3lock) {
+		if (ap3_speed_update() > 0) {
+			loopid3 += 1;
+			settimer(ap3_loop, 0.05);
+		}
+	}
+}
+
+setlistener("engines/engine/speed-max-mps", func(n) {
+	var now_max_mps = max_mps.getValue();
+	loopid3 += 1;
+	settimer(ap3_loop, 0.05);
+}, 1);
+
+setlistener("instrumentation/digital/ap3-entry", func(n) {
+	var ii = n.getValue();
+	var ap3mode = ap3_mode.getValue();
+	if (map3lock == 1) {
+		if (ap3mode == 1) {
+			setprop("autopilot/settings/target-speed-kt", ii);
+		} elsif (ap3mode == 2) {
+			if (ii > 10000) {
+				ii = 10000;
+			} elsif (ii < 0) {
+				ii = 0;
+			}
+			n.setValue(ii);
+			setprop("instrumentation/digital/target-speed-throttle", ii);
+		}
+		loopid3 += 1;
+		settimer(ap3_loop, 0.05);
+	}
+	if (ap3_user_input) {
+		if (ap3mode == 1) {
+			m_ap3_kt.setValue(ii);
+		} elsif (ap3mode == 2) {
+			m_ap3_pct.setValue(ii);
+		}
+	}
+	autopilot_update(10);
+	ap3_user_input = 0;
+}, 1);
+
+press_ap3mode = func (n) {
+	var ap3mode = ap3_mode.getValue();
+	var ii = ap3_entry.getValue();
+	var savenew = 0;
+	if (ap3mode == 0) {
+		ap3mode = 1;
+		var dfi = m_ap3_kt.getValue();
+		ii = init_ap3(dfi);
+	} else {
+		ap3mode = ((ap3mode + 1) > 2 ? 0 : (ap3mode + 1));
+		if (map3lock != nil and map3lock != 0) {
+			toggle_ap3cmd(-1);
+		}
+		var dfi = -1;
+		if (ap3mode == 1) {
+			var dfi = m_ap3_kt.getValue();
+		} elsif (ap3mode == 2) {
+			var dfi = m_ap3_pct.getValue();
+		}
+		if (dfi == nil) {
+			dfi = 0;
+		}
+		if (dfi > 0 and dfi != ii) {
+			savenew = 1;
+			ii=dfi;
+		}
+		if (ap3mode == 1) {
+			ii = ap3_entry_kt;
+		} elsif (ap3mode == 2) {
+			ii = ap3_entry_pct;
+			if (ii == 0) {
+				ii = (getprop("controls/engines/engine/throttle") * 10000);
+			}
+		}
+	}
+	ap3_user_input = 2;
+	ap3_mode.setValue(ap3mode);
+	ap3_entry.setValue(ii);
+	if (savenew) {
+		if (ap3mode == 1) {
+			ap3_entry_kt = ii;
+		} elsif (ap3mode == 2) {
+			ap3_entry_pct = ii;
+		}
+	}
+	ap3_user_input = 0;
+}
+
+toggle_ap3cmd = func(n) {
+	map3lock = m_ap3_lock.getValue();
+	if ((map3lock == nil) or (map3lock == 0) or (n > 0)) {
+		var ap3mode = ap3_mode.getValue();
+		if (ap3mode == 1) {
+			var tokts = ap3_entry.getValue();
+			if (tokts == nil) { tokts = 0; }
+			m_ap3_kt.setValue(tokts);
+		} elsif (ap3mode == 2) {
+			var topct = ap3_entry.getValue();
+			if (topct == nil) { topct = (getprop("controls/engines/engine/throttle") * 10000); }
+			m_ap3_pct.setValue(topct);
+		}
+		if (ap3mode > 0) {
+			m_ap3_lock.setValue(1);
+			map3lock = 1;
+			loopid3 += 1;
+			settimer(ap3_loop, 0.05);
+		}
+	} else {
+		m_ap3_lock.setValue(0);
+		map3lock = 0;
+	}
+}
+
+setlistener("autopilot/locks/speed", func(n) {	#intercept system autopilot and replace it with our own.
+	n.setValue("");
+	toggle_ap3cmd(1);
+}, 1);
+
 turn_ap1knob = func (v) {
 	var ap1mode = ap1_mode.getValue();
 	if (ap1mode == 0) {
@@ -489,6 +745,21 @@ turn_ap2knob = func (v) {
 	}
 	ap2_user_input = 1;
 	ap2_entry.setValue(ni);
+}
+
+turn_ap3knob = func (v) {
+	var ap3mode = ap3_mode.getValue();
+	var ii = ap3_entry.getValue();
+	if (ap3mode == 0) {
+		ap3_mode.setValue(1);
+		var ni = init_ap3(-1);
+	} elsif (ap3mode == 2) {
+		var ni = int(abs(ii) + (v * 10));
+	} else {
+		var ni = int(abs(ii) + v);
+	}
+	ap3_user_input = 1;
+	ap3_entry.setValue(ni);
 }
 
 # 2C coms equipment =============================================

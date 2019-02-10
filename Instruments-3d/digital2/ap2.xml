@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 12.0 ==-->
+<!--== Bluebird Explorer Hovercraft  version 12.1 ==-->
 
 <PropertyList>
 
@@ -33,10 +33,8 @@
 
  <animation>
 	<name>ap2-buttons-lit</name>
-	<object-name>ap2.knob1L</object-name>
-	<object-name>ap2.knob1R</object-name>
-	<object-name>ap2.knob2L</object-name>
-	<object-name>ap2.knob2R</object-name>
+	<object-name>ap2.knobL</object-name>
+	<object-name>ap2.knobR</object-name>
 	<object-name>ap2.button1</object-name>
 	<object-name>ap2.button2</object-name>
  </animation>
