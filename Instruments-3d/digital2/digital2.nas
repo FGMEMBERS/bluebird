@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 12.1 =====
+# ===== Bluebird Explorer Hovercraft  version 12.11 =====
 
 # instrumentation ===================================================
 var lat_whole = props.globals.getNode("instrumentation/digital/lat-whole", 1);
@@ -786,6 +786,11 @@ var currTimer4 = 0;
 
 tune_freq = func (sf, add, d) {
 	var f2 = int(((sf + add) * 100) + 0.2);
+	if (f2 > 13795) {
+		f2 = 11800;
+	} elsif (f2 < 11800) {
+		f2 = 13795;
+	}
 	if (d) {
 		return (f2 * 0.01);
 	} else {
