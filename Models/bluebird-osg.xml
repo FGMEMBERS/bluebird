@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 12.1 for OSG                  ==-->
+<!--== Bluebird version 13.0 for OSG                  ==-->
 
 <PropertyList>
 	<model>
@@ -1780,6 +1780,104 @@
 				<label>Interior Lights</label>
 			</binding>
 		</hovered>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonLA1</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>Pick:ButtonLA1</object-name>
+		<object-name>Button.LA1.d</object-name>
+		<action>
+			<name>alarm1-press</name>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>bluebird.alarm1_reset(0)</script>
+			</binding>
+		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>LA1-tip</tooltip-id>
+				<label>Master Alarm</label>
+			</binding>
+		</hovered>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonLA2</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>Pick:ButtonLA2</object-name>
+		<object-name>Button.LA2.d</object-name>
+		<action>
+			<name>alarm2-press</name>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>bluebird.alarm2_reset(0)</script>
+			</binding>
+		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>LA2-tip</tooltip-id>
+				<label>Master Caution</label>
+			</binding>
+		</hovered>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonLA3</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>Pick:ButtonLA3</object-name>
+		<object-name>Button.LA3.d</object-name>
+		<action>
+			<name>autopilot-disconnect</name>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>bluebird.ap_disconnect(0)</script>
+			</binding>
+		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>LA3-tip</tooltip-id>
+				<label>Autopilot Disconnect</label>
+			</binding>
+		</hovered>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>Pick:ButtonLT2</object-name>
+		<condition>
+			<property>/sim/panel-hotspots</property>
+		</condition>
 	</animation>
 
 	<animation>

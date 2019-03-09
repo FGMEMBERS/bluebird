@@ -1,14 +1,14 @@
-<!--== Bluebird version 12.0 common base ==-->
+<!--== Bluebird version 13.0 common base ==-->
 
 <PropertyList>
 
-<!--== mesh series 12 == 23651 vertices == 17804 faces ==-->
+<!--== mesh series 13 == 23735 vertices == 17837 faces ==-->
 	<path>bluebird.ac</path>
 	<texture-path>Textures</texture-path>
 
 	<animation>
 		<type>rotate</type>
-		<object-name>BluebirdFlyer_v12</object-name>
+		<object-name>BluebirdFlyer_v13</object-name>
 		<property>orientation/groundslope-factored-pitch</property>
 		<axis>
 			<x>0</x>
@@ -19,7 +19,7 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>BluebirdFlyer_v12</object-name>
+		<object-name>BluebirdFlyer_v13</object-name>
 		<property>orientation/groundslope-factored-roll</property>
 		<axis>
 			<x>-1</x>
@@ -11176,6 +11176,267 @@
 		<type>material</type>
 		<object-name>Button.LT9.d</object-name>
 		<property-base>sim/model/bluebird/lighting/buttons/left9-overdrive</property-base>
+		<emission>
+			<red-prop>face/emission/red</red-prop>
+			<green-prop>face/emission/green</green-prop>
+			<blue-prop>face/emission/blue</blue-prop>
+			<factor>0.5</factor>
+		</emission>
+		<specular>
+			<factor-prop>specular</factor-prop>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+		</specular>
+		<ambient>
+			<red-prop>face/amb-dif/red</red-prop>
+			<green-prop>face/amb-dif/green</green-prop>
+			<blue-prop>face/amb-dif/blue</blue-prop>
+			<factor>0.9</factor>
+		</ambient>
+		<diffuse>
+			<red-prop>face/amb-dif/red</red-prop>
+			<green-prop>face/amb-dif/green</green-prop>
+			<blue-prop>face/amb-dif/blue</blue-prop>
+			<factor>0.9</factor>
+		</diffuse>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Button.LA1.b</object-name>
+		<property-base>sim/model/bluebird/lighting/buttons/alarm1-master</property-base>
+		<emission>
+			<red-prop>edge-b/emission/red</red-prop>
+			<green-prop>edge-b/emission/green</green-prop>
+			<blue-prop>edge-b/emission/blue</blue-prop>
+		</emission>
+		<specular>
+			<factor-prop>specular</factor-prop>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+		</specular>
+		<ambient>
+			<red-prop>face/amb-dif/red</red-prop>
+			<green-prop>face/amb-dif/green</green-prop>
+			<blue-prop>face/amb-dif/blue</blue-prop>
+		</ambient>
+		<diffuse>
+			<red-prop>face/amb-dif/red</red-prop>
+			<green-prop>face/amb-dif/green</green-prop>
+			<blue-prop>face/amb-dif/blue</blue-prop>
+		</diffuse>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Button.LA1.k</object-name>
+		<property-base>sim/model/bluebird/lighting/buttons/alarm1-master</property-base>
+		<emission>
+			<red-prop>edge-k/emission/red</red-prop>
+			<green-prop>edge-k/emission/green</green-prop>
+			<blue-prop>edge-k/emission/blue</blue-prop>
+			<factor>0.25</factor>
+		</emission>
+		<specular>
+			<factor-prop>specular</factor-prop>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+		</specular>
+		<ambient>
+			<red-prop>edge-k/amb-dif/red</red-prop>
+			<green-prop>edge-k/amb-dif/green</green-prop>
+			<blue-prop>edge-k/amb-dif/blue</blue-prop>
+			<factor>0.85</factor>
+		</ambient>
+		<diffuse>
+			<red-prop>edge-k/amb-dif/red</red-prop>
+			<green-prop>edge-k/amb-dif/green</green-prop>
+			<blue-prop>edge-k/amb-dif/blue</blue-prop>
+			<factor>0.85</factor>
+		</diffuse>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Button.LA1.d</object-name>
+		<property-base>sim/model/bluebird/lighting/buttons/alarm1-master</property-base>
+		<emission>
+			<red-prop>face/emission/red</red-prop>
+			<green-prop>face/emission/green</green-prop>
+			<blue-prop>face/emission/blue</blue-prop>
+			<factor>0.5</factor>
+		</emission>
+		<specular>
+			<factor-prop>specular</factor-prop>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+		</specular>
+		<ambient>
+			<red-prop>face/amb-dif/red</red-prop>
+			<green-prop>face/amb-dif/green</green-prop>
+			<blue-prop>face/amb-dif/blue</blue-prop>
+			<factor>0.9</factor>
+		</ambient>
+		<diffuse>
+			<red-prop>face/amb-dif/red</red-prop>
+			<green-prop>face/amb-dif/green</green-prop>
+			<blue-prop>face/amb-dif/blue</blue-prop>
+			<factor>0.9</factor>
+		</diffuse>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Button.LA2.b</object-name>
+		<property-base>sim/model/bluebird/lighting/buttons/alarm2-caution</property-base>
+		<emission>
+			<red-prop>edge-b/emission/red</red-prop>
+			<green-prop>edge-b/emission/green</green-prop>
+			<blue-prop>edge-b/emission/blue</blue-prop>
+		</emission>
+		<specular>
+			<factor-prop>specular</factor-prop>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+		</specular>
+		<ambient>
+			<red-prop>face/amb-dif/red</red-prop>
+			<green-prop>face/amb-dif/green</green-prop>
+			<blue-prop>face/amb-dif/blue</blue-prop>
+		</ambient>
+		<diffuse>
+			<red-prop>face/amb-dif/red</red-prop>
+			<green-prop>face/amb-dif/green</green-prop>
+			<blue-prop>face/amb-dif/blue</blue-prop>
+		</diffuse>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Button.LA2.k</object-name>
+		<property-base>sim/model/bluebird/lighting/buttons/alarm2-caution</property-base>
+		<emission>
+			<red-prop>edge-k/emission/red</red-prop>
+			<green-prop>edge-k/emission/green</green-prop>
+			<blue-prop>edge-k/emission/blue</blue-prop>
+			<factor>0.25</factor>
+		</emission>
+		<specular>
+			<factor-prop>specular</factor-prop>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+		</specular>
+		<ambient>
+			<red-prop>edge-k/amb-dif/red</red-prop>
+			<green-prop>edge-k/amb-dif/green</green-prop>
+			<blue-prop>edge-k/amb-dif/blue</blue-prop>
+			<factor>0.85</factor>
+		</ambient>
+		<diffuse>
+			<red-prop>edge-k/amb-dif/red</red-prop>
+			<green-prop>edge-k/amb-dif/green</green-prop>
+			<blue-prop>edge-k/amb-dif/blue</blue-prop>
+			<factor>0.85</factor>
+		</diffuse>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Button.LA2.d</object-name>
+		<property-base>sim/model/bluebird/lighting/buttons/alarm2-caution</property-base>
+		<emission>
+			<red-prop>face/emission/red</red-prop>
+			<green-prop>face/emission/green</green-prop>
+			<blue-prop>face/emission/blue</blue-prop>
+			<factor>0.5</factor>
+		</emission>
+		<specular>
+			<factor-prop>specular</factor-prop>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+		</specular>
+		<ambient>
+			<red-prop>face/amb-dif/red</red-prop>
+			<green-prop>face/amb-dif/green</green-prop>
+			<blue-prop>face/amb-dif/blue</blue-prop>
+			<factor>0.9</factor>
+		</ambient>
+		<diffuse>
+			<red-prop>face/amb-dif/red</red-prop>
+			<green-prop>face/amb-dif/green</green-prop>
+			<blue-prop>face/amb-dif/blue</blue-prop>
+			<factor>0.9</factor>
+		</diffuse>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Button.LA3.b</object-name>
+		<property-base>sim/model/bluebird/lighting/buttons/ap-disconnect</property-base>
+		<emission>
+			<red-prop>edge-b/emission/red</red-prop>
+			<green-prop>edge-b/emission/green</green-prop>
+			<blue-prop>edge-b/emission/blue</blue-prop>
+		</emission>
+		<specular>
+			<factor-prop>specular</factor-prop>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+		</specular>
+		<ambient>
+			<red-prop>face/amb-dif/red</red-prop>
+			<green-prop>face/amb-dif/green</green-prop>
+			<blue-prop>face/amb-dif/blue</blue-prop>
+		</ambient>
+		<diffuse>
+			<red-prop>face/amb-dif/red</red-prop>
+			<green-prop>face/amb-dif/green</green-prop>
+			<blue-prop>face/amb-dif/blue</blue-prop>
+		</diffuse>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Button.LA3.k</object-name>
+		<property-base>sim/model/bluebird/lighting/buttons/ap-disconnect</property-base>
+		<emission>
+			<red-prop>edge-k/emission/red</red-prop>
+			<green-prop>edge-k/emission/green</green-prop>
+			<blue-prop>edge-k/emission/blue</blue-prop>
+			<factor>0.25</factor>
+		</emission>
+		<specular>
+			<factor-prop>specular</factor-prop>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+		</specular>
+		<ambient>
+			<red-prop>edge-k/amb-dif/red</red-prop>
+			<green-prop>edge-k/amb-dif/green</green-prop>
+			<blue-prop>edge-k/amb-dif/blue</blue-prop>
+			<factor>0.85</factor>
+		</ambient>
+		<diffuse>
+			<red-prop>edge-k/amb-dif/red</red-prop>
+			<green-prop>edge-k/amb-dif/green</green-prop>
+			<blue-prop>edge-k/amb-dif/blue</blue-prop>
+			<factor>0.85</factor>
+		</diffuse>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>Button.LA3.d</object-name>
+		<property-base>sim/model/bluebird/lighting/buttons/ap-disconnect</property-base>
 		<emission>
 			<red-prop>face/emission/red</red-prop>
 			<green-prop>face/emission/green</green-prop>

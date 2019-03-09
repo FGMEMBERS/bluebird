@@ -1,5 +1,15 @@
 Version# Vertices PolygonFaces Comments
 
+2019.Mar.09
+13.0	23735	17837	replace bluebird model
+	add alarm buttons
+	add autopilot disconnect button
+	add alarm and warning sounds
+
+2019.Mar.05
+12.2	Fix background reflectivity in digital instruments background.
+	Replace digital instruments models.
+
 2019.Feb.10
 12.11	Fix bounds for com instruments.
 

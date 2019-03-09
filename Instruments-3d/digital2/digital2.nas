@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 12.11 =====
+# ===== Bluebird Explorer Hovercraft  version 13.0 =====
 
 # instrumentation ===================================================
 var lat_whole = props.globals.getNode("instrumentation/digital/lat-whole", 1);
@@ -164,6 +164,7 @@ var last_max_mps = max_mps.getValue();
 var now_max_mps = last_max_mps;
 var loopid3 = 0;
 var map3lock = 0;
+var roc_thr = 0.0025;
 
 autopilot_update = func (n) {
 	#===== autopilot heading select digital module ==============
@@ -310,12 +311,13 @@ autopilot_update = func (n) {
 	}
 	if (ap3_user_input == 0) {
 		map3lock = m_ap3_lock.getValue();
+		if (map3lock == nil) { map3lock = 0; }
 		var dfi = -1;
 		var snm = -1;
 		if (map3lock == 1) {
 			var dfi = m_ap3_kt.getValue();
 			snm = 1;
-		} elsif (map3lock != nil and map3lock != 0) {
+		} elsif (map3lock != 0) {
 			snm = 0;
 		} else {
 			if (ap3mode == 1) {
@@ -396,7 +398,12 @@ setlistener("instrumentation/digital/ap1-entry-deg", func(n) {
 
 toggle_ap1cmd = func(n) {
 	var lock1_string = m_ap1_lock.getValue();
-	if (lock1_string == nil or lock1_string == "" or n) {
+	if (n == -1) {
+		if (lock1_string != nil and lock1_string != "") {
+			setprop("sim/model/bluebird/systems/alarm3-state", 1);
+		}
+		m_ap1_lock.setValue("");
+	} elsif (lock1_string == nil or lock1_string == "" or n > 0) {
 		var ap1mode = ap1_mode.getValue();
 		var ap1entry = ap1_entry.getValue();
 		if (ap1entry == nil) { ap1entry = 0; }
@@ -501,7 +508,12 @@ press_ap2mode = func (n) {
 
 toggle_ap2cmd = func(n) {
 	var lock2_string = m_ap2_lock.getValue();
-	if (lock2_string == nil or lock2_string == "" or n > 0) {
+	if (n == -1) {
+		if (lock2_string != nil and lock2_string != "") {
+			setprop("sim/model/bluebird/systems/alarm3-state", 1);
+		}
+		m_ap2_lock.setValue("");
+	} elsif (lock2_string == nil or lock2_string == "" or n > 0) {
 		var ap2mode = ap2_mode.getValue();
 		var ap2entry = ap2_entry.getValue();
 		if (ap2entry == nil) { ap2entry = 0; }
@@ -565,7 +577,6 @@ ap3_speed_update = func {
 	if (max_changing) {
 		nextthrottle = tothrottle;
 	} else {
-		var roc_thr = 0.0025;
 		if (fromkts > tokts) {
 			nextthrottle = fromthrottle - roc_thr;
 		} else {
@@ -641,7 +652,7 @@ press_ap3mode = func (n) {
 		ii = init_ap3(dfi);
 	} else {
 		ap3mode = ((ap3mode + 1) > 2 ? 0 : (ap3mode + 1));
-		if (map3lock != nil and map3lock != 0) {
+		if (map3lock != 0) {
 			toggle_ap3cmd(-1);
 		}
 		var dfi = -1;
@@ -681,7 +692,14 @@ press_ap3mode = func (n) {
 
 toggle_ap3cmd = func(n) {
 	map3lock = m_ap3_lock.getValue();
-	if ((map3lock == nil) or (map3lock == 0) or (n > 0)) {
+	if (map3lock == nil) { map3lock = 0; }
+	if (n == -1) {
+		if (map3lock > 0) {
+			setprop("sim/model/bluebird/systems/alarm3-state", 1);
+		}
+		m_ap3_lock.setValue(0);
+		map3lock = 0;
+	} elsif ((map3lock == 0) or n > 0) {
 		var ap3mode = ap3_mode.getValue();
 		if (ap3mode == 1) {
 			var tokts = ap3_entry.getValue();

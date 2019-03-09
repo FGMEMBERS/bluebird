@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 12.1 for FlightGear 1.9 OSG =====
+# ===== Bluebird Explorer Hovercraft  version 13.0 for FlightGear 1.9 OSG =====
 
 var self = cmdarg();
 # strobes -----------------------------------------------------------
@@ -161,6 +161,9 @@ var button_RT6 = 0;
 var button_RT7 = 0;
 var button_RT8 = 0;
 var button_RT9 = 0;
+var button_LA1 = 0;
+var button_LA2 = 0;
+var button_LA3 = 0;
 var button_lit = 0;	# brightness. global to remember between updates
 var interior_lighting_base_R = 0;   # base for calculating individual colors inside
 var interior_lighting_base_GB = 0;  # Red, and GreenBlue
@@ -171,6 +174,10 @@ var panel_ambient_R = 0;
 var panel_ambient_GB = 0;
 var panel_specular = 0;
 var alert_switch = 0;
+var alarm1_switch = 0;
+var alarm2_switch = 0;
+var alarm3_switch = 0;
+var alarm4_switch = 0;
 var int_switch = 1;
 # specular reminder: 1 = full reflection, 0 = no reflection from sun
 
@@ -406,7 +413,14 @@ var reinit_bluebird = func {	# reset the above variables
 	button_RT7 = 0;
 	button_RT8 = 0;
 	button_RT9 = 0;
+	button_LA1 = 0;
+	button_LA2 = 0;
+	button_LA3 = 0;
 	button_lit = 0;
+	alarm1_switch = 0;
+	alarm2_switch = 0;
+	alarm3_switch = 0;
+	alarm4_switch = 0;
 	cockpitView = 0;
 	cycle_cockpit(0);
 	active_nav_button = [3, 3, 1];
@@ -426,6 +440,12 @@ var reinit_bluebird = func {	# reset the above variables
 setlistener("sim/signals/reinit", func {
 	reinit_bluebird();
 });
+
+var reset_alarm4_state = func() {
+	setprop("sim/model/bluebird/systems/alarm4-state", 0);
+	reset_alarm4_timer.stop();
+}
+var reset_alarm4_timer = maketimer(1.9, reset_alarm4_state);
 
 # display screens ---------------------------------------------------
 var screen_3R_on = 0;	# debug screen at 3 right
@@ -1511,6 +1531,28 @@ var panel_lighting_update = func {
 	if (old_button_1 != button_LT9 or plu_change_all) {
 		set_button_color("left9-overdrive", button_LT9);
 	}
+
+	old_button_1 = button_LA1;
+	if (power_switch and (alarm1_switch or alarm3_switch)) {	# master alarm
+		button_LA1 = 1;
+	} else {
+		button_LA1 = unlit_lighting_base;
+	}
+	if (old_button_1 != button_LA1 or plu_change_all) {
+		set_button_color("alarm1-master", button_LA1);
+	}
+	old_button_1 = button_LA2;
+	if (power_switch and (alarm2_switch or alarm4_switch)) {	# master caution
+		button_LA2 = 3;
+	} else {
+		button_LA2 = unlit_lighting_base;
+	}
+	if (old_button_1 != button_LA2 or plu_change_all) {
+		set_button_color("alarm2-caution", button_LA2);
+	}
+	if (button_LA3 != unlit_lighting_base or plu_change_all) {
+		set_button_color("ap-disconnect", unlit_lighting_base);
+	}
 	return plu_return;
 }
 
@@ -1519,6 +1561,23 @@ var panel_lighting_loop = func {
 		settimer(panel_lighting_loop, 0.05);
 	}
 }
+
+setlistener("sim/model/bluebird/systems/alarm1-state", func(n) {
+	alarm1_switch = n.getValue();
+	panel_lighting_update();
+}, 1);
+setlistener("sim/model/bluebird/systems/alarm2-state", func(n) {
+	alarm2_switch = n.getValue();
+	panel_lighting_update();
+}, 1);
+setlistener("sim/model/bluebird/systems/alarm3-state", func(n) {
+	alarm3_switch = n.getValue();
+	panel_lighting_update();
+}, 1);
+setlistener("sim/model/bluebird/systems/alarm4-state", func(n) {
+	alarm4_switch = n.getValue();
+	panel_lighting_update();
+}, 1);
 
 
 #==========================================================================
@@ -1987,6 +2046,7 @@ var check_damage = func (dmg_add) {
 	if (dmg > destruction_threshold) { 
 		# set condition-red damage
 		alert_switch_Node.setBoolValue(1);
+		setprop("sim/model/bluebird/systems/alarm1-state", 1);
 		if (damage_blocker == 0) {
 			damage_blocker = 1;
 			settimer(reset_impact, 2);
@@ -2015,6 +2075,8 @@ var check_damage = func (dmg_add) {
 				setprop("ai/submodels/engine-L-flaring", 1);
 			}
 		}
+	} elsif (dmg_add > 2) {
+		setprop("sim/model/bluebird/systems/alarm2-state", 1);
 	}
 }
 
@@ -2048,6 +2110,8 @@ var update_main = func {
 			init_agl -= 0.25;
 		} else {
 			init_agl -= 0.05;
+			alarm1_reset(0);
+			alarm2_reset(0);
 		}
 		if (init_agl <= 0) {
 			setprop("controls/engines/engine/throttle",0);
@@ -2172,6 +2236,7 @@ var update_main = func {
 							}
 							override_groundslope_factor = 1;
 							pitch_deg_Node.setDoubleValue(pitch_d);
+							setprop("sim/model/bluebird/systems/alarm4-state", 1);	# caution on rough terrain without damage
 						} elsif (reactor_level and (groundslope[1].ground_pitch > (groundslope[1].rotate_pitch + pitch_d + 0.2))) {
 # TODO add here and also check for backwards?
 # did not catch nose in 1.7ft with gp -0.40. cp changed to zero slowly, should impact.
@@ -2265,6 +2330,14 @@ var update_main = func {
 		var skid_w_vol = clamp(((skid[1].impact_factor + skid[1].altitude_change_ft) * 0.5), 0, 1);  # factor for volume usage
 		if (skid_old_vol > skid_w_vol) {
 			skid_w_vol = (skid_old_vol + skid_w_vol) * 0.75;
+			if (skid_w_vol < 0.01) {
+				skid_w_vol = 0;
+			} else {
+				if (asas > 100 and skid_w_vol > 0.4) {
+					setprop("sim/model/bluebird/systems/alarm4-state", 1);	# caution alarm
+					reset_alarm4_timer.start();
+				}
+			}
 		}
 		setprop("sim/model/bluebird/position/skid-wow", skid_w_vol);
 	} else { 
@@ -3662,6 +3735,32 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 	}
 }
 
+# autopilot buttons -------------------------------------------------
+
+var alarm1_reset = func(a1) {
+	setprop("sim/model/bluebird/systems/alarm1-state", 0);
+	setprop("sim/model/bluebird/systems/alarm3-state", 0);
+}
+
+var alarm2_reset = func(a2) {
+	setprop("sim/model/bluebird/systems/alarm2-state", 0);
+	setprop("sim/model/bluebird/systems/alarm4-state", 0);
+}
+
+var ap_disconnect = func(a3) {
+	var ap_state = 0;
+	var alarm1_previous = alarm1_switch;
+	if (getprop("autopilot/locks/heading")) { ap_state = 1; }
+	if (getprop("autopilot/locks/altitude")) { ap_state = 1; }
+	if (getprop("instrumentation/digital/ap3-lock-state")) { ap_state = 1; }
+	digitalPanel.toggle_ap1cmd(-1);
+	digitalPanel.toggle_ap2cmd(-1);
+	digitalPanel.toggle_ap3cmd(-1);
+	if (!alarm1_previous and ap_state) {
+		setprop("sim/model/bluebird/systems/alarm3-state", 1);
+	}
+}
+
 # dialog functions --------------------------------------------------
 
 var set_nav_lights = func(snl_i) {
@@ -4453,7 +4552,7 @@ var prestart_main = func {
 		main_loop_id += 1;
 		settimer(prestart_main, 0.1);
 	} else {
-		print ("  version 12.11  release date 2019.Feb.10  by Stewart Andreason");
+		print ("  version 13.0  release date 2019.Mar.09  by Stewart Andreason");
 		update_main();
 	}
 	settimer(func {	# wake up, livery was loaded but did not trigger the listeners

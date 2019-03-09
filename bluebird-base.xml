@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 12.1 common base ==-->
+<!--== Bluebird version 13.0 common base ==-->
 
 <PropertyList>
  <sim>
@@ -445,6 +445,108 @@
 					<interior-specular type="float">0</interior-specular>
 				</door5>
 				<buttons>
+					<alarm1-master>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</alarm1-master>
+					<alarm2-caution>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</alarm2-caution>
+					<ap-disconnect>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</ap-disconnect>
 					<left1-power>
 						<edge-b>
 							<emission>
@@ -1118,6 +1220,10 @@
 				<pitch-level type="float">0</pitch-level>
 			</sound>
 			<systems>
+				<alarm1-state type="bool">true</alarm1-state>
+				<alarm2-state type="bool">true</alarm2-state>
+				<alarm3-state type="bool">true</alarm3-state>
+				<alarm4-state type="bool">false</alarm4-state>
 				<nacelle-L-venting type="bool">false</nacelle-L-venting>
 				<nacelle-R-venting type="bool">false</nacelle-R-venting>
 				<power-switch type="bool">true</power-switch>		<!-- default: power up at startup -->

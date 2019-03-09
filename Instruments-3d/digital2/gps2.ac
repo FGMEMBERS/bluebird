@@ -2,9 +2,10 @@ AC3Db
 MATERIAL "metal" rgb 0.800 0.800 0.800  amb 0.800 0.800 0.800  emis 0.000 0.000 0.000  spec 0.500 0.500 0.500  shi 32 trans 0.000
 MATERIAL "WHITE_lit" rgb 1.000 1.000 1.000  amb 1.000 1.000 1.000  emis 0.900 0.900 0.900  spec 0.000 0.000 0.000  shi 32 trans 0.000
 MATERIAL "ORANGE_lit" rgb 0.640 0.480 0.240  amb 1.000 1.000 1.000  emis 0.500 0.250 0.125  spec 0.000 0.000 0.000  shi 12 trans 0.000
+MATERIAL "BLACK" rgb 0.000 0.000 0.000  amb 0.000 0.000 0.000  emis 0.000 0.000 0.000  spec 0.000 0.000 0.000  shi 12 trans 0.000
 OBJECT world
-name "Blender_exporter_v2.26__digital2-590_v12_gps2.ac"
-kids 23
+name "Blender_exporter_v2.26__digital2-630_v12.2_gps2.ac"
+kids 24
 OBJECT poly
 name "gps.frame"
 data 8
@@ -40,7 +41,7 @@ numvert 27
 0.0055 -0.0245 0.0995
 0 -0.0245 -0.0995
 0.0055 -0.0245 -0.0995
-numsurf 22
+numsurf 21
 SURF 0x20
 mat 0
 refs 4
@@ -110,13 +111,6 @@ refs 4
 10 0.989091 0.732617
 17 0.989091 0.732617
 16 0.989091 0.72966
-SURF 0x20
-mat 1
-refs 4
-17 0.13878 0.967932
-18 0.040967 0.967932
-15 0.040967 0.948483
-16 0.13878 0.948483
 SURF 0x20
 mat 0
 refs 4
@@ -193,6 +187,27 @@ refs 4
 22 0.010968 0.730144
 19 0.873683 0.730144
 12 0.873683 0.734086
+kids 0
+OBJECT poly
+name "gps.back"
+data 8
+Mesh.308
+texture "digital-hi.png"
+texrep 1.0 1.0
+crease 30.0
+numvert 4
+0.0022 -0.0143 0.0973
+0.0022 -0.0143 -0.09729
+0.0022 0.0143 -0.09729
+0.0022 0.0143 0.0973
+numsurf 1
+SURF 0x20
+mat 3
+refs 4
+2 0.13878 0.967932
+3 0.040967 0.967932
+0 0.040967 0.948483
+1 0.13878 0.948483
 kids 0
 OBJECT poly
 name "gps.button"
