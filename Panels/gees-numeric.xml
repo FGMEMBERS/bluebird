@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 10.8  ==-->
+<!--== Bluebird Explorer Hovercraft  version 13.1  ==-->
 
 <PropertyList>
 	<name>GEES numeric readout</name>
@@ -30,14 +30,14 @@
 			<h>128</h>
 			<layers>
 				<layer>
-					<name>text line orange</name>
+					<name>text line white</name>
 					<type>text</type>
 					<font>arial_black</font>
 					<point-size>96</point-size>
 					<color>
-						<red>0.87</red>
-						<green>0.37</green>
-						<blue>0.04</blue>
+						<red>0.90</red>
+						<green>0.99</green>
+						<blue>0.99</blue>
 					</color>
 					<chunks>
 						<chunk>

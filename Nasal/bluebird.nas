@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 13.0 for FlightGear 1.9 OSG =====
+# ===== Bluebird Explorer Hovercraft  version 13.1 for FlightGear 1.9 OSG =====
 
 var self = cmdarg();
 # strobes -----------------------------------------------------------
@@ -179,6 +179,7 @@ var alarm2_switch = 0;
 var alarm3_switch = 0;
 var alarm4_switch = 0;
 var int_switch = 1;
+var ap_state = 0;
 # specular reminder: 1 = full reflection, 0 = no reflection from sun
 
 # ------ components ------
@@ -747,6 +748,11 @@ setlistener("sim/model/bluebird/systems/wave2-request", func(n) { wave2_request 
 setlistener("sim/model/bluebird/lighting/interior-switch", func(n) { int_switch = n.getValue() },, 0);
 
 var isodd = func(n) { int(n / 2) * 2 != int(n) };
+
+setlistener("instrumentation/digital/ap-state", func(n) {
+	ap_state = n.getValue();
+	panel_lighting_update();
+},, 0);
 
 # lighting and texture ----------------------------------------------
 
@@ -1541,6 +1547,7 @@ var panel_lighting_update = func {
 	if (old_button_1 != button_LA1 or plu_change_all) {
 		set_button_color("alarm1-master", button_LA1);
 	}
+
 	old_button_1 = button_LA2;
 	if (power_switch and (alarm2_switch or alarm4_switch)) {	# master caution
 		button_LA2 = 3;
@@ -1550,9 +1557,17 @@ var panel_lighting_update = func {
 	if (old_button_1 != button_LA2 or plu_change_all) {
 		set_button_color("alarm2-caution", button_LA2);
 	}
-	if (button_LA3 != unlit_lighting_base or plu_change_all) {
-		set_button_color("ap-disconnect", unlit_lighting_base);
+
+	old_button_1 = button_LA3;
+	if (power_switch and ap_state) {
+		button_LA3 = 15;
+	} else {
+		button_LA3 = unlit_lighting_base;
 	}
+	if (old_button_1 != button_LA3 or plu_change_all) {
+		set_button_color("ap-disconnect", button_LA3);
+	}
+
 	return plu_return;
 }
 
@@ -3748,17 +3763,10 @@ var alarm2_reset = func(a2) {
 }
 
 var ap_disconnect = func(a3) {
-	var ap_state = 0;
-	var alarm1_previous = alarm1_switch;
-	if (getprop("autopilot/locks/heading")) { ap_state = 1; }
-	if (getprop("autopilot/locks/altitude")) { ap_state = 1; }
-	if (getprop("instrumentation/digital/ap3-lock-state")) { ap_state = 1; }
+	var ap_previous_state = ap_state;
 	digitalPanel.toggle_ap1cmd(-1);
 	digitalPanel.toggle_ap2cmd(-1);
 	digitalPanel.toggle_ap3cmd(-1);
-	if (!alarm1_previous and ap_state) {
-		setprop("sim/model/bluebird/systems/alarm3-state", 1);
-	}
 }
 
 # dialog functions --------------------------------------------------
@@ -4552,7 +4560,7 @@ var prestart_main = func {
 		main_loop_id += 1;
 		settimer(prestart_main, 0.1);
 	} else {
-		print ("  version 13.0  release date 2019.Mar.09  by Stewart Andreason");
+		print ("  version 13.1  release date 2019.Mar.10  by Stewart Andreason");
 		update_main();
 	}
 	settimer(func {	# wake up, livery was loaded but did not trigger the listeners

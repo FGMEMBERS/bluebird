@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 13.0 =====
+# ===== Bluebird Explorer Hovercraft  version 13.1 =====
 
 # instrumentation ===================================================
 var lat_whole = props.globals.getNode("instrumentation/digital/lat-whole", 1);
@@ -133,6 +133,10 @@ settimer(instrumentation_loop, 2);
 
 var m_ap1_lock = props.globals.getNode("autopilot/locks/heading", 1);
 var m_ap2_lock = props.globals.getNode("autopilot/locks/altitude", 1);
+var map1lock = 0;	# 1=true-heading 2=dg-heading
+var map2lock = 0;	# 1=altitude-hold 2=agl-hold 3=vertical-speed-hold
+var mapstate = 0;	# master autopilot state
+var ap_state = props.globals.getNode("instrumentation/digital/ap-state", 1);
 var m_ap1_mag = props.globals.getNode("autopilot/settings/heading-bug-deg", 1);
 var m_ap1_true = props.globals.getNode("autopilot/settings/true-heading-deg", 1);
 var m_ap2_ft = props.globals.getNode("autopilot/settings/target-altitude-ft", 1);
@@ -150,6 +154,7 @@ var ap2_whole = props.globals.getNode("instrumentation/digital/ap2-whole", 1);
 var ap1_user_input = 0;	# did the pilot press the button
 var ap2_user_input = 0;
 var ap3_user_input = 0;
+var map3lock = 0;
 var m_ap3_lock = props.globals.getNode("instrumentation/digital/ap3-lock-state", 1);
 var m_ap3_kt = props.globals.getNode("autopilot/settings/target-speed-kt", 1);
 var m_ap3_pct = props.globals.getNode("instrumentation/digital/ap3-target-throttle", 1);
@@ -163,20 +168,18 @@ var max_changing = 0;	# unrestricted adjusting throttle when changing wave1 powe
 var last_max_mps = max_mps.getValue();
 var now_max_mps = last_max_mps;
 var loopid3 = 0;
-var map3lock = 0;
 var roc_thr = 0.0025;
 
 autopilot_update = func (n) {
 	#===== autopilot heading select digital module ==============
-	var map1string = m_ap1_lock.getValue();
 	var ii = ap1_entry.getValue();
 	var ap1mode = ap1_mode.getValue();
 	var ap2mode = ap2_mode.getValue();
 	var jj = ap2_entry.getValue();
 	var kk = ap3_entry.getValue();
-	if (map1string != nil and map1string != "") {
+	if (map1lock > 0) {
 		var mi = ii;
-		if (map1string == "true-heading-hold") {
+		if (map1lock == 1) {
 			if (ap1mode != 1) {
 				if (ap1_user_input == 0) {
 					ap1_mode.setValue(1);
@@ -187,7 +190,7 @@ autopilot_update = func (n) {
 				var ii = m_ap1_true.getValue();
 			}
 			var mi = m_ap1_true.getValue();
-		} elsif (map1string == "dg-heading-hold") {
+		} elsif (map1lock == 2) {
 			if (ap1mode != 2) {
 				if (ap1_user_input == 0) {
 					ap1_mode.setValue(2);
@@ -211,16 +214,15 @@ autopilot_update = func (n) {
 	ap1_whole.setValue(int(ii + 0.5));
 	# detect change in dialog entry
 	if (ap1_user_input == 0) {
-		var map1lock = m_ap1_lock.getValue();
 		var dfi = -1;
 		var snm = -1;
-		if (map1lock == "true-heading-hold") {
+		if (map1lock == 1) {
 			var dfi = m_ap1_true.getValue();
 			snm = 1;
-		} elsif (map1lock == "dg-heading-hold") {
+		} elsif (map1lock == 2) {
 			var dfi = m_ap1_mag.getValue();
 			snm = 2;
-		} elsif (map1lock != nil and map1lock != "") {
+		} elsif (map1lock > 0) {
 			snm = 0;
 		} else {
 			if (ap1mode == 1) {
@@ -255,19 +257,18 @@ autopilot_update = func (n) {
 	ap2_whole.setValue(int(abs(ii) + 0.5));
 	# detect change in dialog entry
 	if (ap2_user_input == 0) {
-		var map2lock = m_ap2_lock.getValue();
 		var dfi = -1;
 		var snm = -1;
-		if (map2lock == "altitude-hold") {
+		if (map2lock == 1) {
 			var dfi = m_ap2_ft.getValue();
 			snm = 1;
-		} elsif (map2lock == "agl-hold") {
+		} elsif (map2lock == 2) {
 			var dfi = m_ap2_agl.getValue();
 			snm = 2;
-		} elsif (map2lock == "vertical-speed-hold") {
+		} elsif (map2lock == 3) {
 			var dfi = m_ap2_fpm.getValue();
 			snm = 3;
-		} elsif (map2lock != nil and map2lock != "") {
+		} elsif (map2lock > 0) {
 			snm = 0;
 		} else {
 			if (ap2mode == 1) {
@@ -310,8 +311,6 @@ autopilot_update = func (n) {
 		ap3_whole.setValue(int(abs(kk) + 0.5));
 	}
 	if (ap3_user_input == 0) {
-		map3lock = m_ap3_lock.getValue();
-		if (map3lock == nil) { map3lock = 0; }
 		var dfi = -1;
 		var snm = -1;
 		if (map3lock == 1) {
@@ -329,6 +328,9 @@ autopilot_update = func (n) {
 		if (snm >= 0 and snm != ap3mode) {
 			ap3mode = snm;
 			ap3_mode.setValue(snm);
+		}
+		if (dfi == nil) {
+			dfi = -1;
 		}
 		if (dfi != -1 and dfi != kk) {
 			ap3_entry.setValue(dfi);
@@ -362,28 +364,71 @@ setlistener("autopilot/settings/target-agl-ft", func(n) {
 }, 1);
 
 setlistener("instrumentation/digital/ap1-mode", func(n) {
-	var map1string = m_ap1_lock.getValue();
-	if (map1string != nil and map1string != "") {
+	if (map1lock > 0) {
 		ap1_user_input = 2;
 		toggle_ap1cmd(1);
 		ap1_user_input = 0;
 	}
 }, 1);
 
-setlistener("autopilot/locks/heading", func(n) {
+var refresh_mapstate = func {
+	if (map1lock or map2lock or map3lock) {
+		if (mapstate != 1) {
+			ap_state.setValue(1);
+			mapstate = 1;
+		}
+	} else {
+		if (mapstate != 0) {
+			ap_state.setValue(0);
+			mapstate = 0;
+		}
+	}
+}
+
+setlistener("autopilot/locks/heading", func(n) {	# m_ap1_lock
+	var map1string = n.getValue();
+	if (map1string != nil and map1string != "") {
+		if (map1string == "true-heading-hold") {
+			map1lock = 1;
+		} elsif (map1string == "dg-heading-hold") {
+			map1lock = 2;
+		} else {
+			map1lock = 9;
+		}
+	} else {
+		map1lock = 0;
+	}
 	autopilot_update(1);
+	refresh_mapstate();
 }, 1);
 
 setlistener("autopilot/locks/altitude", func(n) {
+	var map2string = n.getValue();
+	if (map2string != nil and map2string != "") {
+		if (map2string == "altitude-hold") {
+			map2lock = 1;
+		} elsif (map2string == "agl-hold") {
+			map2lock = 2;
+		} elsif (map2string == "vertical-speed-hold") {
+			map2lock = 3;
+		}
+	} else {
+		map2lock = 0;
+	}
 	autopilot_update(2);
+	refresh_mapstate();
+}, 1);
+
+setlistener("instrumentation/digital/ap3-lock-state", func(n) {
+	map3lock = n.getValue();
+	refresh_mapstate();
 }, 1);
 
 setlistener("instrumentation/digital/ap1-entry-deg", func(n) {
-	var map1lock = m_ap1_lock.getValue();
 	var ii = n.getValue();
-	if (map1lock == "dg-heading-hold") {
+	if (map1lock == 2) {
 		setprop("autopilot/settings/heading-bug-deg", ii);
-	} elsif (map1lock == "true-heading-hold") {
+	} elsif (map1lock == 1) {
 		setprop("autopilot/settings/true-heading-deg", ii);
 	}
 	if (ap1_user_input) {
@@ -397,13 +442,12 @@ setlistener("instrumentation/digital/ap1-entry-deg", func(n) {
 }, 1);
 
 toggle_ap1cmd = func(n) {
-	var lock1_string = m_ap1_lock.getValue();
 	if (n == -1) {
-		if (lock1_string != nil and lock1_string != "") {
+		if (map1lock > 0 and abs(getprop("orientation/roll-deg")) > 0.02) {
 			setprop("sim/model/bluebird/systems/alarm3-state", 1);
 		}
 		m_ap1_lock.setValue("");
-	} elsif (lock1_string == nil or lock1_string == "" or n > 0) {
+	} elsif (map1lock == 0 or n > 0) {
 		var ap1mode = ap1_mode.getValue();
 		var ap1entry = ap1_entry.getValue();
 		if (ap1entry == nil) { ap1entry = 0; }
@@ -415,6 +459,9 @@ toggle_ap1cmd = func(n) {
 			m_ap1_lock.setValue("dg-heading-hold");
 		}
 	} else {
+		if (map1lock > 0 and abs(getprop("orientation/roll-deg")) > 0.02) {
+			setprop("sim/model/bluebird/systems/alarm3-state", 1);
+		}
 		m_ap1_lock.setValue("");
 	}
 }
@@ -428,13 +475,12 @@ init_ap2 = func (ia) {
 }
 
 setlistener("instrumentation/digital/ap2-entry", func(n) {
-	var map2lock = m_ap2_lock.getValue();
 	var ii = n.getValue();
-	if (map2lock == "altitude-hold") {
+	if (map2lock == 1) {
 		setprop("autopilot/settings/target-altitude-ft", ii);
-	} elsif (map2lock == "agl-hold") {
+	} elsif (map2lock == 2) {
 		setprop("autopilot/settings/target-agl-ft", ii);
-	} elsif (map2lock == "vertical-speed-hold") {
+	} elsif (map2lock == 3) {
 		setprop("autopilot/settings/vertical-speed-fpm", ii);
 	}
 	if (ap2_user_input) {
@@ -460,8 +506,7 @@ press_ap2mode = func (n) {
 		ii = init_ap2(dfi);
 	} else {
 		ap2mode = ((ap2mode + 1) > 3 ? 1 : (ap2mode + 1));
-		var map2lock = m_ap2_lock.getValue();
-		if (map2lock != nil and map2lock != "") {
+		if (map2lock > 0) {
 			# built-in AP does not work right if this is changed while AP CMD is on. Pressing mode disconnects the autopilot.
 			toggle_ap2cmd(-1);
 		}
@@ -507,13 +552,13 @@ press_ap2mode = func (n) {
 }
 
 toggle_ap2cmd = func(n) {
-	var lock2_string = m_ap2_lock.getValue();
 	if (n == -1) {
-		if (lock2_string != nil and lock2_string != "") {
+		if (map2lock > 0 and (abs(getprop("orientation/pitch-deg")) > 0.02 or abs(getprop("controls/flight/elevator-trim")) > 0.02)) {
 			setprop("sim/model/bluebird/systems/alarm3-state", 1);
 		}
 		m_ap2_lock.setValue("");
-	} elsif (lock2_string == nil or lock2_string == "" or n > 0) {
+		setprop("controls/flight/elevator-trim", 0);
+	} elsif (map2lock == 0 or n > 0) {
 		var ap2mode = ap2_mode.getValue();
 		var ap2entry = ap2_entry.getValue();
 		if (ap2entry == nil) { ap2entry = 0; }
@@ -540,6 +585,18 @@ setlistener("autopilot/locks/throttle", func(n) {
 
 setlistener("autopilot/settings/target-speed-kt", func(n) {
 	autopilot_update(9);
+}, 1);
+
+setlistener("instrumentation/digital/ap3-roc", func(n) {
+	roc_thr = n.getValue();
+}, 1);
+
+setlistener("sim/model/bluebird/systems/wave1-request", func(n) {
+	if (n.getValue()) {
+		setprop("instrumentation/digital/ap3-roc", 0.0025);
+	} else {
+		setprop("instrumentation/digital/ap3-roc", 0.0002);
+	}
 }, 1);
 
 init_ap3 = func (ia) {
@@ -599,7 +656,7 @@ ap3_speed_update = func {
 }
 
 ap3_loop = func {
-	if (map3lock) {
+	if (map3lock > 0) {
 		if (ap3_speed_update() > 0) {
 			loopid3 += 1;
 			settimer(ap3_loop, 0.05);
@@ -691,14 +748,11 @@ press_ap3mode = func (n) {
 }
 
 toggle_ap3cmd = func(n) {
-	map3lock = m_ap3_lock.getValue();
-	if (map3lock == nil) { map3lock = 0; }
 	if (n == -1) {
 		if (map3lock > 0) {
 			setprop("sim/model/bluebird/systems/alarm3-state", 1);
 		}
 		m_ap3_lock.setValue(0);
-		map3lock = 0;
 	} elsif ((map3lock == 0) or n > 0) {
 		var ap3mode = ap3_mode.getValue();
 		if (ap3mode == 1) {
@@ -712,13 +766,14 @@ toggle_ap3cmd = func(n) {
 		}
 		if (ap3mode > 0) {
 			m_ap3_lock.setValue(1);
-			map3lock = 1;
 			loopid3 += 1;
 			settimer(ap3_loop, 0.05);
 		}
 	} else {
+		if (map3lock > 0) {
+			setprop("sim/model/bluebird/systems/alarm3-state", 1);
+		}
 		m_ap3_lock.setValue(0);
-		map3lock = 0;
 	}
 }
 
@@ -734,9 +789,8 @@ turn_ap1knob = func (v) {
 		var ii = getprop("orientation/heading-deg");
 		var oi = int(ii + 0.5);
 	} else {
-		var map1lock = m_ap1_lock.getValue();
 		var ii = ap1_entry.getValue();
-		if (map1lock != nil and map1lock != "") {
+		if (map1lock > 0) {
 			var ni = ii + (v<0?-1:1);
 		} else {
 			var ni = ii + v;

@@ -1,5 +1,12 @@
 Version# Vertices PolygonFaces Comments
 
+2019.Mar.10
+13.1	Update instrument models to change numerals color.
+	Adjust sounds at startup.
+	Add lighting to disconnect button.
+	Improve internal tracking of ap lock states.
+	Change autopilot acceleration to be variable with engines powered up.
+
 2019.Mar.09
 13.0	23735	17837	replace bluebird model
 	add alarm buttons
@@ -56,7 +63,7 @@ Version# Vertices PolygonFaces Comments
 	Add livery for AI multiplayer.
 
 2019.Jan.18
-11.3	No change to models.
+11.3		no change to models.
 	Reorganize model properties for compatibility with multiplay in 2018 FG.
 	Add interior livery and lighting for external viewing in multiplay for 2018 FG.
 	Fix flooring livery not updating at initialization.
