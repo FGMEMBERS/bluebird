@@ -1,5 +1,9 @@
 Version# Vertices PolygonFaces Comments
 
+13.11	23735	17837	replace bluebird model
+	Fix shadows and lighting of new alarm buttons.
+	Fix unnecessary alarm at some autopilot disconnect conditions.
+
 2019.Mar.10
 13.1	Update instrument models to change numerals color.
 	Adjust sounds at startup.

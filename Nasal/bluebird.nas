@@ -4560,7 +4560,7 @@ var prestart_main = func {
 		main_loop_id += 1;
 		settimer(prestart_main, 0.1);
 	} else {
-		print ("  version 13.1  release date 2019.Mar.10  by Stewart Andreason");
+		print ("  version 13.11  release date 2019.Mar.10  by Stewart Andreason");
 		update_main();
 	}
 	settimer(func {	# wake up, livery was loaded but did not trigger the listeners

@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 13.1 =====
+# ===== Bluebird Explorer Hovercraft  version 13.11 =====
 
 # instrumentation ===================================================
 var lat_whole = props.globals.getNode("instrumentation/digital/lat-whole", 1);
@@ -155,6 +155,7 @@ var ap1_user_input = 0;	# did the pilot press the button
 var ap2_user_input = 0;
 var ap3_user_input = 0;
 var map3lock = 0;
+var ap3_chasing = 0;
 var m_ap3_lock = props.globals.getNode("instrumentation/digital/ap3-lock-state", 1);
 var m_ap3_kt = props.globals.getNode("autopilot/settings/target-speed-kt", 1);
 var m_ap3_pct = props.globals.getNode("instrumentation/digital/ap3-target-throttle", 1);
@@ -652,6 +653,11 @@ ap3_speed_update = func {
 		}
 	}
 	setprop("controls/engines/engine/throttle", nextthrottle);
+	if (gomore > 0) {
+		ap3_chasing = 1;
+	} else {
+		ap3_chasing = 0;
+	}
 	return gomore;
 }
 
@@ -749,7 +755,7 @@ press_ap3mode = func (n) {
 
 toggle_ap3cmd = func(n) {
 	if (n == -1) {
-		if (map3lock > 0) {
+		if (map3lock > 0 and ap3_chasing) {
 			setprop("sim/model/bluebird/systems/alarm3-state", 1);
 		}
 		m_ap3_lock.setValue(0);
@@ -770,7 +776,7 @@ toggle_ap3cmd = func(n) {
 			settimer(ap3_loop, 0.05);
 		}
 	} else {
-		if (map3lock > 0) {
+		if (map3lock > 0 and ap3_chasing) {
 			setprop("sim/model/bluebird/systems/alarm3-state", 1);
 		}
 		m_ap3_lock.setValue(0);
