@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 12.0 ==-->
+<!--== Bluebird Explorer Hovercraft  version 13.2 ==-->
 
 <PropertyList>
 
@@ -33,6 +33,127 @@
 
  <animation>
 	<type>select</type>
+	<object-name>com1.sig00</object-name>
+	<condition>
+		<greater-than-equals>
+			<property>instrumentation/comm[0]/signal-quality-norm</property>
+			<value>0.05</value>
+		</greater-than-equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>com1.sig01</object-name>
+	<condition>
+		<greater-than-equals>
+			<property>instrumentation/comm[0]/signal-quality-norm</property>
+			<value>0.10</value>
+		</greater-than-equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>com1.sig02</object-name>
+	<condition>
+		<greater-than-equals>
+			<property>instrumentation/comm[0]/signal-quality-norm</property>
+			<value>0.20</value>
+		</greater-than-equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>com1.sig03</object-name>
+	<condition>
+		<greater-than-equals>
+			<property>instrumentation/comm[0]/signal-quality-norm</property>
+			<value>0.30</value>
+		</greater-than-equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>com1.sig04</object-name>
+	<condition>
+		<greater-than-equals>
+			<property>instrumentation/comm[0]/signal-quality-norm</property>
+			<value>0.40</value>
+		</greater-than-equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>com1.sig05</object-name>
+	<condition>
+		<greater-than-equals>
+			<property>instrumentation/comm[0]/signal-quality-norm</property>
+			<value>0.50</value>
+		</greater-than-equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>com1.sig06</object-name>
+	<condition>
+		<greater-than-equals>
+			<property>instrumentation/comm[0]/signal-quality-norm</property>
+			<value>0.60</value>
+		</greater-than-equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>com1.sig07</object-name>
+	<condition>
+		<greater-than-equals>
+			<property>instrumentation/comm[0]/signal-quality-norm</property>
+			<value>0.70</value>
+		</greater-than-equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>com1.sig08</object-name>
+	<condition>
+		<greater-than-equals>
+			<property>instrumentation/comm[0]/signal-quality-norm</property>
+			<value>0.80</value>
+		</greater-than-equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>com1.sig09</object-name>
+	<condition>
+		<greater-than-equals>
+			<property>instrumentation/comm[0]/signal-quality-norm</property>
+			<value>0.90</value>
+		</greater-than-equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>com1.sig10</object-name>
+	<condition>
+		<greater-than-equals>
+			<property>instrumentation/comm[0]/signal-quality-norm</property>
+			<value>0.999</value>
+		</greater-than-equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
 	<object-name>com1a.mhz</object-name>
 	<condition>
 		<property>instrumentation/digital/com1a-mhz-state</property>
@@ -42,6 +163,19 @@
  <animation>
 	<type>textranslate</type>
 	<object-name>com1a.01</object-name>
+	<property>instrumentation/digital/com1a-whole</property>
+	<factor>0.000001</factor>
+	<step>100000</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>com1a.02</object-name>
 	<property>instrumentation/digital/com1a-whole</property>
 	<factor>0.00001</factor>
 	<step>10000</step>
@@ -54,7 +188,7 @@
 
  <animation>
 	<type>textranslate</type>
-	<object-name>com1a.02</object-name>
+	<object-name>com1a.03</object-name>
 	<property>instrumentation/digital/com1a-whole</property>
 	<factor>0.0001</factor>
 	<step>1000</step>
@@ -67,7 +201,7 @@
 
  <animation>
 	<type>textranslate</type>
-	<object-name>com1a.03</object-name>
+	<object-name>com1a.04</object-name>
 	<property>instrumentation/digital/com1a-whole</property>
 	<factor>0.001</factor>
 	<step>100</step>
@@ -80,23 +214,10 @@
 
  <animation>
 	<type>textranslate</type>
-	<object-name>com1a.04</object-name>
+	<object-name>com1a.05</object-name>
 	<property>instrumentation/digital/com1a-whole</property>
 	<factor>0.01</factor>
 	<step>10</step>
-	<axis>
-		<x>1</x>
-		<y>0</y>
-		<z>0</z>
-	</axis>
- </animation>
-
- <animation>
-	<type>textranslate</type>
-	<object-name>com1a.05</object-name>
-	<property>instrumentation/digital/com1a-whole</property>
-	<factor>0.1</factor>
-	<step>1</step>
 	<axis>
 		<x>1</x>
 		<y>0</y>

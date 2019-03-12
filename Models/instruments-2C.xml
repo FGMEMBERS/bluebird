@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Bluebird Explorer Hovercraft  version 12.0 for FlightGear OSG only -->
+<!-- Bluebird Explorer Hovercraft  version 13.2 for FlightGear OSG only -->
 
 <PropertyList>
 
@@ -148,19 +148,19 @@
 	<type>pick</type>
 	<object-name>com1a.knob1L</object-name>
 	<action>
-		<name>decrease com1a by 0.05</name>
+		<name>decrease com1a by 0.025</name>
 		<button>0</button>
 		<repeatable>true</repeatable>
 		<binding>
 			<command>nasal</command>
-			<script>digitalPanel.turn_com1aknob(-0.05)</script>
+			<script>digitalPanel.turn_com1aknob(-0.025)</script>
 		</binding>
 	</action>
 	<hovered>
 		<binding>
 			<command>set-tooltip</command>
 			<tooltip-id>com1a1L</tooltip-id>
-			<label>Center knob subtract 0.05</label>
+			<label>Center knob subtract 0.025</label>
 		</binding>
 	</hovered>
  </animation>
@@ -169,19 +169,19 @@
 	<type>pick</type>
 	<object-name>com1a.knob1R</object-name>
 	<action>
-		<name>increase com1a by 0.05</name>
+		<name>increase com1a by 0.025</name>
 		<button>0</button>
 		<repeatable>true</repeatable>
 		<binding>
 			<command>nasal</command>
-			<script>digitalPanel.turn_com1aknob(0.05)</script>
+			<script>digitalPanel.turn_com1aknob(0.025)</script>
 		</binding>
 	</action>
 	<hovered>
 		<binding>
 			<command>set-tooltip</command>
 			<tooltip-id>com1a1R</tooltip-id>
-			<label>Center knob add 0.05</label>
+			<label>Center knob add 0.025</label>
 		</binding>
 	</hovered>
  </animation>
@@ -232,19 +232,19 @@
 	<type>pick</type>
 	<object-name>com1s.knob1L</object-name>
 	<action>
-		<name>decrease com1s by 0.05</name>
+		<name>decrease com1s by 0.025</name>
 		<button>0</button>
 		<repeatable>true</repeatable>
 		<binding>
 			<command>nasal</command>
-			<script>digitalPanel.turn_com1sknob(-0.05)</script>
+			<script>digitalPanel.turn_com1sknob(-0.025)</script>
 		</binding>
 	</action>
 	<hovered>
 		<binding>
 			<command>set-tooltip</command>
 			<tooltip-id>com1s1L</tooltip-id>
-			<label>Center knob subtract 0.05</label>
+			<label>Center knob subtract 0.025</label>
 		</binding>
 	</hovered>
  </animation>
@@ -253,19 +253,19 @@
 	<type>pick</type>
 	<object-name>com1s.knob1R</object-name>
 	<action>
-		<name>increase com1s by 0.05</name>
+		<name>increase com1s by 0.025</name>
 		<button>0</button>
 		<repeatable>true</repeatable>
 		<binding>
 			<command>nasal</command>
-			<script>digitalPanel.turn_com1sknob(0.05)</script>
+			<script>digitalPanel.turn_com1sknob(0.025)</script>
 		</binding>
 	</action>
 	<hovered>
 		<binding>
 			<command>set-tooltip</command>
 			<tooltip-id>com1s1R</tooltip-id>
-			<label>Center knob add 0.05</label>
+			<label>Center knob add 0.025</label>
 		</binding>
 	</hovered>
  </animation>
@@ -316,19 +316,19 @@
 	<type>pick</type>
 	<object-name>com2a.knob1L</object-name>
 	<action>
-		<name>decrease com2a by 0.05</name>
+		<name>decrease com2a by 0.025</name>
 		<button>0</button>
 		<repeatable>true</repeatable>
 		<binding>
 			<command>nasal</command>
-			<script>digitalPanel.turn_com2aknob(-0.05)</script>
+			<script>digitalPanel.turn_com2aknob(-0.025)</script>
 		</binding>
 	</action>
 	<hovered>
 		<binding>
 			<command>set-tooltip</command>
 			<tooltip-id>com2a1L</tooltip-id>
-			<label>Center knob subtract 0.05</label>
+			<label>Center knob subtract 0.025</label>
 		</binding>
 	</hovered>
  </animation>
@@ -337,19 +337,19 @@
 	<type>pick</type>
 	<object-name>com2a.knob1R</object-name>
 	<action>
-		<name>increase com2a by 0.05</name>
+		<name>increase com2a by 0.025</name>
 		<button>0</button>
 		<repeatable>true</repeatable>
 		<binding>
 			<command>nasal</command>
-			<script>digitalPanel.turn_com2aknob(0.05)</script>
+			<script>digitalPanel.turn_com2aknob(0.025)</script>
 		</binding>
 	</action>
 	<hovered>
 		<binding>
 			<command>set-tooltip</command>
 			<tooltip-id>com2a1R</tooltip-id>
-			<label>Center knob add 0.05</label>
+			<label>Center knob add 0.025</label>
 		</binding>
 	</hovered>
  </animation>
@@ -400,19 +400,19 @@
 	<type>pick</type>
 	<object-name>com2s.knob1L</object-name>
 	<action>
-		<name>decrease com2s by 0.05</name>
+		<name>decrease com2s by 0.025</name>
 		<button>0</button>
 		<repeatable>true</repeatable>
 		<binding>
 			<command>nasal</command>
-			<script>digitalPanel.turn_com2sknob(-0.05)</script>
+			<script>digitalPanel.turn_com2sknob(-0.025)</script>
 		</binding>
 	</action>
 	<hovered>
 		<binding>
 			<command>set-tooltip</command>
 			<tooltip-id>com2s1L</tooltip-id>
-			<label>Center knob subtract 0.05</label>
+			<label>Center knob subtract 0.025</label>
 		</binding>
 	</hovered>
  </animation>
@@ -421,19 +421,19 @@
 	<type>pick</type>
 	<object-name>com2s.knob1R</object-name>
 	<action>
-		<name>increase com2s by 0.05</name>
+		<name>increase com2s by 0.025</name>
 		<button>0</button>
 		<repeatable>true</repeatable>
 		<binding>
 			<command>nasal</command>
-			<script>digitalPanel.turn_com2sknob(0.05)</script>
+			<script>digitalPanel.turn_com2sknob(0.025)</script>
 		</binding>
 	</action>
 	<hovered>
 		<binding>
 			<command>set-tooltip</command>
 			<tooltip-id>com2s1R</tooltip-id>
-			<label>Center knob add 0.05</label>
+			<label>Center knob add 0.025</label>
 		</binding>
 	</hovered>
  </animation>

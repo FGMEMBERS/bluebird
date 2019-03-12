@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 11.1  ==-->
+<!--== Bluebird Explorer Hovercraft  version 13.2  ==-->
 
 <PropertyList>
 	<name>screen messages text 1R</name>
@@ -70,7 +70,20 @@ INTERIOR LIGHTS
 MAIN GEAR
 GEAR WHEELS
 
-NEAREST AIRPORT</text>
+NEAREST AIRPORT
+
+
+
+
+HOMING AIRPORT
+
+
+
+
+COM1
+
+
+COM2</text>
 						</chunk>
 					</chunks>
 					<transformations>
@@ -1562,34 +1575,6 @@ NEAREST AIRPORT</text>
 				</layer>
 
 				<layer>
-					<name>airport line 19a white</name>
-					<type>text</type>
-					<font>arial_black</font>
-					<point-size>16</point-size>
-					<color>
-						<red>1</red>
-						<green>1</green>
-						<blue>1</blue>
-					</color>
-					<chunks>
-						<chunk>
-							<type>literal</type>
-							<text>HOMING AIRPORT</text>
-						</chunk>
-					</chunks>
-					<transformations>
-						<transformation>
-							<type>x-shift</type>
-							<offset>-250</offset>
-						</transformation>
-						<transformation>
-							<type>y-shift</type>
-							<offset>-74</offset>
-						</transformation>
-					</transformations>
-				</layer>
-
-				<layer>
 					<name>airport line 19b cyan</name>
 					<type>text</type>
 					<font>arial_black</font>
@@ -1612,7 +1597,7 @@ NEAREST AIRPORT</text>
 						</transformation>
 						<transformation>
 							<type>y-shift</type>
-							<offset>-74</offset>
+							<offset>-72</offset>
 						</transformation>
 					</transformations>
 				</layer>
@@ -1839,7 +1824,7 @@ NEAREST AIRPORT</text>
 						</transformation>
 						<transformation>
 							<type>y-shift</type>
-							<offset>-124</offset>
+							<offset>-125</offset>
 						</transformation>
 					</transformations>
 				</layer>
@@ -1867,7 +1852,345 @@ NEAREST AIRPORT</text>
 						</transformation>
 						<transformation>
 							<type>y-shift</type>
-							<offset>-124</offset>
+							<offset>-125</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>com1 line 24a yellow</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>18</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>0</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>text-value</type>
+							<property>instrumentation/comm/airport-id</property>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-145</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-152</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>com1 line 24b yellow</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>14</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>0</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>text-value</type>
+							<property>instrumentation/comm/station-type</property>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>0</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-152</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>airport line 25a white</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>literal</type>
+							<text>HEADING</text>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-230</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-170</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>airport line 25b white</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>literal</type>
+							<text>RANGE</text>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-4</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-170</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>airport line 25a yellow</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>0</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>number-value</type>
+							<property>instrumentation/comm/true-bearing-to-deg</property>
+							<format>%3.0f</format>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-100</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-170</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>airport line 25b yellow</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>0</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>text-value</type>
+							<property>instrumentation/tracking/comm0-range</property>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>96</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-170</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>com1 line 27a yellow</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>18</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>0</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>text-value</type>
+							<property>instrumentation/comm[1]/airport-id</property>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-145</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-200</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>com1 line 27b yellow</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>14</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>0</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>text-value</type>
+							<property>instrumentation/comm[1]/station-type</property>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>0</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-200</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>airport line 28a white</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>literal</type>
+							<text>HEADING</text>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-230</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-218</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>airport line 28b white</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>literal</type>
+							<text>RANGE</text>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-4</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-218</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>airport line 28a yellow</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>0</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>number-value</type>
+							<property>instrumentation/comm[1]/true-bearing-to-deg</property>
+							<format>%3.0f</format>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-100</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-218</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>airport line 28b yellow</name>
+					<type>text</type>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>0</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>text-value</type>
+							<property>instrumentation/tracking/comm1-range</property>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>96</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-218</offset>
 						</transformation>
 					</transformations>
 				</layer>

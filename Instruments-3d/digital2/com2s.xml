@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 12.0 ==-->
+<!--== Bluebird Explorer Hovercraft  version 13.2 ==-->
 
 <PropertyList>
 
@@ -42,6 +42,19 @@
 	<type>textranslate</type>
 	<object-name>com2s.01</object-name>
 	<property>instrumentation/digital/com2s-whole</property>
+	<factor>0.000001</factor>
+	<step>100000</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>com2s.02</object-name>
+	<property>instrumentation/digital/com2s-whole</property>
 	<factor>0.00001</factor>
 	<step>10000</step>
 	<axis>
@@ -53,7 +66,7 @@
 
  <animation>
 	<type>textranslate</type>
-	<object-name>com2s.02</object-name>
+	<object-name>com2s.03</object-name>
 	<property>instrumentation/digital/com2s-whole</property>
 	<factor>0.0001</factor>
 	<step>1000</step>
@@ -66,7 +79,7 @@
 
  <animation>
 	<type>textranslate</type>
-	<object-name>com2s.03</object-name>
+	<object-name>com2s.04</object-name>
 	<property>instrumentation/digital/com2s-whole</property>
 	<factor>0.001</factor>
 	<step>100</step>
@@ -79,23 +92,10 @@
 
  <animation>
 	<type>textranslate</type>
-	<object-name>com2s.04</object-name>
+	<object-name>com2s.05</object-name>
 	<property>instrumentation/digital/com2s-whole</property>
 	<factor>0.01</factor>
 	<step>10</step>
-	<axis>
-		<x>1</x>
-		<y>0</y>
-		<z>0</z>
-	</axis>
- </animation>
-
- <animation>
-	<type>textranslate</type>
-	<object-name>com2s.05</object-name>
-	<property>instrumentation/digital/com2s-whole</property>
-	<factor>0.1</factor>
-	<step>1</step>
 	<axis>
 		<x>1</x>
 		<y>0</y>

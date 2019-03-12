@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 13.1 common base ==-->
+<!--== Bluebird version 13.2 common base ==-->
 
 <PropertyList>
  <sim>
@@ -2657,6 +2657,8 @@
 		<mp1-elevation-deg type="float">-99.0</mp1-elevation-deg>
 		<mp1-heading-offset-deg type="float">-99.0</mp1-heading-offset-deg>
 		<mp1-to-factor type="float">1</mp1-to-factor>
+		<comm0-range type="string"> </comm0-range>
+		<comm1-range type="string"> </comm1-range>
 	</tracking>
  </instrumentation>
 

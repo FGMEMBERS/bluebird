@@ -5,8 +5,8 @@ MATERIAL "WHITE_lit" rgb 1.000 1.000 1.000  amb 1.000 1.000 1.000  emis 0.900 0.
 MATERIAL "metal" rgb 0.800 0.800 0.800  amb 0.800 0.800 0.800  emis 0.000 0.000 0.000  spec 0.500 0.500 0.500  shi 32 trans 0.000
 MATERIAL "BLACK" rgb 0.000 0.000 0.000  amb 0.000 0.000 0.000  emis 0.000 0.000 0.000  spec 0.000 0.000 0.000  shi 12 trans 0.000
 OBJECT world
-name "Blender_exporter_v2.26__digital2-630_v13.1_com2a.ac"
-kids 16
+name "Blender_exporter_v2.26__digital2-641_v13.2_com2a.ac"
+kids 27
 OBJECT poly
 name "com2a.frame"
 data 8
@@ -842,6 +842,237 @@ refs 4
 1 0.336663 0.892288
 kids 0
 OBJECT poly
+name "com2.sig00"
+data 8
+Mesh.315
+crease 30.0
+texture "digital-hi.png"
+texrep 1 1
+numvert 4
+0.0033 0.014 0.00658
+0.0033 0.00764 0.00658
+0.0033 0.014 0.00796
+0.0033 0.00764 0.00796
+numsurf 1
+SURF 0X0
+mat 2
+refs 4
+0 0.252407 0.638328
+2 0.249546 0.638326
+3 0.249546 0.631197
+1 0.252407 0.631199
+kids 0
+OBJECT poly
+name "com2.sig01"
+data 8
+Mesh.316
+crease 30.0
+texture "digital-hi.png"
+texrep 1 1
+numvert 4
+0.0033 0.014 0.00658
+0.0033 0.00764 0.00658
+0.0033 0.014 0.00519
+0.0033 0.00764 0.00519
+numsurf 1
+SURF 0X0
+mat 2
+refs 4
+2 0.252407 0.63833
+0 0.249546 0.638328
+1 0.249546 0.631199
+3 0.252407 0.631201
+kids 0
+OBJECT poly
+name "com2.sig02"
+data 8
+Mesh.317
+crease 30.0
+texture "digital-hi.png"
+texrep 1 1
+numvert 4
+0.0033 0.014 0.0038
+0.0033 0.00764 0.0038
+0.0033 0.014 0.00519
+0.0033 0.00764 0.00519
+numsurf 1
+SURF 0X0
+mat 2
+refs 4
+0 0.252407 0.638332
+2 0.249546 0.63833
+3 0.249546 0.631201
+1 0.252407 0.631203
+kids 0
+OBJECT poly
+name "com2.sig03"
+data 8
+Mesh.318
+crease 30.0
+texture "digital-hi.png"
+texrep 1 1
+numvert 4
+0.0033 0.014 0.0038
+0.0033 0.00764 0.0038
+0.0033 0.014 0.00241
+0.0033 0.00764 0.00241
+numsurf 1
+SURF 0X0
+mat 2
+refs 4
+2 0.252407 0.638334
+0 0.249546 0.638332
+1 0.249546 0.631203
+3 0.252407 0.631205
+kids 0
+OBJECT poly
+name "com2.sig04"
+data 8
+Mesh.319
+crease 30.0
+texture "digital-hi.png"
+texrep 1 1
+numvert 4
+0.0033 0.014 0.00102
+0.0033 0.00764 0.00102
+0.0033 0.014 0.00241
+0.0033 0.00764 0.00241
+numsurf 1
+SURF 0X0
+mat 2
+refs 4
+0 0.252407 0.653956
+2 0.249546 0.653954
+3 0.249546 0.646825
+1 0.252407 0.646827
+kids 0
+OBJECT poly
+name "com2.sig05"
+data 8
+Mesh.320
+crease 30.0
+texture "digital-hi.png"
+texrep 1 1
+numvert 4
+0.0033 0.014 0.00102
+0.0033 0.00764 0.00102
+0.0033 0.014 -0.00036
+0.0033 0.00764 -0.00036
+numsurf 1
+SURF 0X0
+mat 2
+refs 4
+2 0.252407 0.653955
+0 0.249546 0.653953
+1 0.249546 0.646824
+3 0.252407 0.646826
+kids 0
+OBJECT poly
+name "com2.sig06"
+data 8
+Mesh.321
+crease 30.0
+texture "digital-hi.png"
+texrep 1 1
+numvert 4
+0.0033 0.014 -0.00175
+0.0033 0.00764 -0.00175
+0.0033 0.014 -0.00036
+0.0033 0.00764 -0.00036
+numsurf 1
+SURF 0X0
+mat 2
+refs 4
+0 0.252407 0.653957
+2 0.249546 0.653955
+3 0.249546 0.646826
+1 0.252407 0.646828
+kids 0
+OBJECT poly
+name "com2.sig07"
+data 8
+Mesh.322
+crease 30.0
+texture "digital-hi.png"
+texrep 1 1
+numvert 4
+0.0033 0.014 -0.00175
+0.0033 0.00764 -0.00175
+0.0033 0.014 -0.00314
+0.0033 0.00764 -0.00314
+numsurf 1
+SURF 0X0
+mat 2
+refs 4
+2 0.252407 0.669578
+0 0.249546 0.669576
+1 0.249546 0.662447
+3 0.252407 0.662449
+kids 0
+OBJECT poly
+name "com2.sig08"
+data 8
+Mesh.323
+crease 30.0
+texture "digital-hi.png"
+texrep 1 1
+numvert 4
+0.0033 0.014 -0.00453
+0.0033 0.00764 -0.00453
+0.0033 0.014 -0.00314
+0.0033 0.00764 -0.00314
+numsurf 1
+SURF 0X0
+mat 2
+refs 4
+0 0.252407 0.66958
+2 0.249546 0.669578
+3 0.249546 0.662449
+1 0.252407 0.662451
+kids 0
+OBJECT poly
+name "com2.sig09"
+data 8
+Mesh.324
+crease 30.0
+texture "digital-hi.png"
+texrep 1 1
+numvert 4
+0.0033 0.014 -0.00453
+0.0033 0.00764 -0.00453
+0.0033 0.014 -0.00591
+0.0033 0.00764 -0.00591
+numsurf 1
+SURF 0X0
+mat 2
+refs 4
+2 0.252407 0.669582
+0 0.249546 0.66958
+1 0.249546 0.662451
+3 0.252407 0.662453
+kids 0
+OBJECT poly
+name "com2.sig10"
+data 8
+Mesh.325
+crease 30.0
+texture "digital-hi.png"
+texrep 1 1
+numvert 4
+0.0033 0.014 -0.0073
+0.0033 0.00764 -0.0073
+0.0033 0.014 -0.00591
+0.0033 0.00764 -0.00591
+numsurf 1
+SURF 0X0
+mat 2
+refs 4
+0 0.252407 0.669584
+2 0.249546 0.669582
+3 0.249546 0.662453
+1 0.252407 0.662455
+kids 0
+OBJECT poly
 name "com2a.mhz"
 data 8
 Mesh.285
@@ -849,10 +1080,10 @@ crease 30.0
 texture "digital-hi.png"
 texrep 1 1
 numvert 4
-0.0033 0.0142 -0.01903
-0.0033 0.00778 -0.01903
-0.0033 0.00764 -0.0043
-0.0033 0.01406 -0.0043
+0.0033 0.0142 -0.02243
+0.0033 0.00778 -0.02243
+0.0033 0.00764 -0.0077
+0.0033 0.01406 -0.0077
 numsurf 1
 SURF 0X0
 mat 2

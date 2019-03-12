@@ -1,5 +1,12 @@
 Version# Vertices PolygonFaces Comments
 
+2019.Mar.11
+13.2	replace digital comm models
+	Add signal bars to model.
+	Add comm details to display 1-Right
+	Fix comm knob should increment by 25 KHz
+
+2019.Mar.10
 13.11	23735	17837	replace bluebird model
 	Fix shadows and lighting of new alarm buttons.
 	Fix unnecessary alarm at some autopilot disconnect conditions.
