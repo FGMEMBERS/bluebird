@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 13.2 =====
+# ===== Bluebird Explorer Hovercraft  version 13.3 =====
 
 # instrumentation ===================================================
 var lat_whole = props.globals.getNode("instrumentation/digital/lat-whole", 1);
@@ -846,14 +846,14 @@ var com1a_whole = props.globals.getNode("instrumentation/digital/com1a-whole", 1
 var com1s_whole = props.globals.getNode("instrumentation/digital/com1s-whole", 1);
 var com2a_whole = props.globals.getNode("instrumentation/digital/com2a-whole", 1);
 var com2s_whole = props.globals.getNode("instrumentation/digital/com2s-whole", 1);
-var com1a_mhz_state = props.globals.getNode("instrumentation/digital/com1a-mhz-state", 1);
-var com1s_mhz_state = props.globals.getNode("instrumentation/digital/com1s-mhz-state", 1);
-var com2a_mhz_state = props.globals.getNode("instrumentation/digital/com2a-mhz-state", 1);
-var com2s_mhz_state = props.globals.getNode("instrumentation/digital/com2s-mhz-state", 1);
+var com1_mhz_state = props.globals.getNode("instrumentation/digital/com1-mhz-state", 1);
+var com2_mhz_state = props.globals.getNode("instrumentation/digital/com2-mhz-state", 1);
 var m_com1a = props.globals.getNode("instrumentation/comm/frequencies/selected-mhz", 1);
 var m_com1s = props.globals.getNode("instrumentation/comm/frequencies/standby-mhz", 1);
 var m_com2a = props.globals.getNode("instrumentation/comm[1]/frequencies/selected-mhz", 1);
 var m_com2s = props.globals.getNode("instrumentation/comm[1]/frequencies/standby-mhz", 1);
+var com1_volume_Node = props.globals.getNode("instrumentation/comm[0]/volume", 1);
+var com2_volume_Node = props.globals.getNode("instrumentation/comm[1]/volume", 1);
 var mfi = 0;	# master freq in
 var wfi = 0;	# whole freq before update, define temp vars just once
 var wfn = 0;	# new whole freq
@@ -861,6 +861,8 @@ var currTimer1 = 0;
 var currTimer2 = 0;
 var currTimer3 = 0;
 var currTimer4 = 0;
+var comvol = [0.6 , 0.6];
+var commute = [0, 0];
 
 tune_freq = func (sf, add, d) {
 	var f2 = int(((sf + add) * 1000) + 0.2);
@@ -960,10 +962,10 @@ turn_com1aknob = func (v) {
 	if (cf != nil) {
 		m_com1a.setValue(tune_freq(cf,v,1));
 	}
-	com1a_mhz_state.setValue(1);
+	com1_mhz_state.setValue(1);
 	currTimer1 = currTimer1 + 2.0;
 	var thisTimer1 = currTimer1;
-	settimer(func { if(currTimer1 == thisTimer1) { com1a_mhz_state.setValue(0); } }, 2.0, 1);
+	settimer(func { if(currTimer1 == thisTimer1) { com1_mhz_state.setValue(0); } }, 2.0, 1);
 }
 
 turn_com1sknob = func (v) {
@@ -971,10 +973,10 @@ turn_com1sknob = func (v) {
 	if (cf != nil) {
 		m_com1s.setValue(tune_freq(cf,v,1));
 	}
-	com1s_mhz_state.setValue(1);
+	com1_mhz_state.setValue(1);
 	currTimer2 = currTimer2 + 2.0;
 	var thisTimer2 = currTimer2;
-	settimer(func { if(currTimer2 == thisTimer2) { com1s_mhz_state.setValue(0); } }, 2.0, 1);
+	settimer(func { if(currTimer2 == thisTimer2) { com1_mhz_state.setValue(0); } }, 2.0, 1);
 }
 
 turn_com2aknob = func (v) {
@@ -982,10 +984,10 @@ turn_com2aknob = func (v) {
 	if (cf != nil) {
 		m_com2a.setValue(tune_freq(cf,v,1));
 	}
-	com2a_mhz_state.setValue(1);
+	com2_mhz_state.setValue(1);
 	currTimer3 = currTimer3 + 2.0;
 	var thisTimer3 = currTimer3;
-	settimer(func { if(currTimer3 == thisTimer3) { com2a_mhz_state.setValue(0); } }, 2.0, 1);
+	settimer(func { if(currTimer3 == thisTimer3) { com2_mhz_state.setValue(0); } }, 2.0, 1);
 }
 
 turn_com2sknob = func (v) {
@@ -993,10 +995,10 @@ turn_com2sknob = func (v) {
 	if (cf != nil) {
 		m_com2s.setValue(tune_freq(cf,v,1));
 	}
-	com2s_mhz_state.setValue(1);
+	com2_mhz_state.setValue(1);
 	currTimer4 = currTimer4 + 2.0;
 	var thisTimer4 = currTimer4;
-	settimer(func { if(currTimer4 == thisTimer4) { com2s_mhz_state.setValue(0); } }, 2.0, 1);
+	settimer(func { if(currTimer4 == thisTimer4) { com2_mhz_state.setValue(0); } }, 2.0, 1);
 }
 
 press_com_swap = func (cc) {
@@ -1004,17 +1006,42 @@ press_com_swap = func (cc) {
 		var ftmp = m_com1a.getValue();
 		m_com1a.setValue(m_com1s.getValue());
 		m_com1s.setValue(ftmp);
-		com1a_mhz_state.setValue(1);
+		com1_mhz_state.setValue(1);
 		currTimer1 = currTimer1 + 3.0;
 		var thisTimer1 = currTimer1;
-		settimer(func { if(currTimer1 == thisTimer1) { com1a_mhz_state.setValue(0); } }, 3.0, 1);
+		settimer(func { if(currTimer1 == thisTimer1) { com1_mhz_state.setValue(0); } }, 3.0, 1);
 	} elsif (cc == 2) {
 		var ftmp = m_com2a.getValue();
 		m_com2a.setValue(m_com2s.getValue());
 		m_com2s.setValue(ftmp);
-		com2a_mhz_state.setValue(1);
+		com2_mhz_state.setValue(1);
 		currTimer3 = currTimer3 + 3.0;
 		var thisTimer3 = currTimer3;
-		settimer(func { if(currTimer3 == thisTimer3) { com2a_mhz_state.setValue(0); } }, 3.0, 1);
+		settimer(func { if(currTimer3 == thisTimer3) { com2_mhz_state.setValue(0); } }, 3.0, 1);
+	}
+}
+
+press_com_mute = func(rn) {
+	var cv = 0;
+	if (rn == 0) {
+		cv = com1_volume_Node.getValue();
+	} else {
+		cv = com2_volume_Node.getValue();
+	}
+	if (commute[rn] == 0) {
+		comvol[rn] = cv;
+		if (rn == 0) {
+			com1_volume_Node.setValue(0);
+		} else {
+			com2_volume_Node.setValue(0);
+		}
+		commute[rn] = 1;
+	} else {
+		if (rn == 0) {
+			com1_volume_Node.setValue(comvol[rn]);
+		} else {
+			com2_volume_Node.setValue(comvol[rn]);
+		}
+		commute[rn] = 0;
 	}
 }

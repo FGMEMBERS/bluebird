@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 13.2 common base ==-->
+<!--== Bluebird version 13.3 common base ==-->
 
 <PropertyList>
  <sim>
@@ -2406,10 +2406,8 @@
 		<ap3-target-throttle type="float">0.0</ap3-target-throttle>
 		<ap3-roc type="float">0.0025</ap3-roc>
 		<ap-state type="bool">0</ap-state>
-		<com1a-mhz-state type="bool">0</com1a-mhz-state>
-		<com2a-mhz-state type="bool">0</com2a-mhz-state>
-		<com1s-mhz-state type="bool">0</com1s-mhz-state>
-		<com2s-mhz-state type="bool">0</com2s-mhz-state>
+		<com1-mhz-state type="bool">0</com1-mhz-state>
+		<com2-mhz-state type="bool">0</com2-mhz-state>
 	</digital>
 	<nav n="0">
 		<frequencies>

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Bluebird Explorer Hovercraft  version 13.2 for FlightGear OSG only -->
+<!-- Bluebird Explorer Hovercraft  version 13.3 for FlightGear OSG only -->
 
 <PropertyList>
 
@@ -10,11 +10,11 @@
 -->
 
  <model>
-	<name>COM1A</name>
-	<path>Aircraft/bluebird/Instruments-3d/digital2/com1a.xml</path>
+	<name>COM1</name>
+	<path>Aircraft/bluebird/Instruments-3d/digital2/com1.xml</path>
 	<offsets>
 		<x-m>-8.096</x-m>
-		<y-m>0.027</y-m>
+		<y-m>0.006</y-m>
 		<z-m>1.113</z-m>
 		<pitch-deg>-28.65</pitch-deg>
 		<w>512</w>
@@ -23,38 +23,12 @@
  </model>
 
  <model>
-	<name>COM1S</name>
-	<path>Aircraft/bluebird/Instruments-3d/digital2/com1s.xml</path>
+	<name>COM2</name>
+	<path>Aircraft/bluebird/Instruments-3d/digital2/com2.xml</path>
 	<offsets>
 		<x-m>-8.096</x-m>
 		<y-m>0.118</y-m>
 		<z-m>1.113</z-m>
-		<pitch-deg>-28.65</pitch-deg>
-		<w>512</w>
-		<h>512</h>
-	</offsets>
- </model>
-
- <model>
-	<name>COM2A</name>
-	<path>Aircraft/bluebird/Instruments-3d/digital2/com2a.xml</path>
-	<offsets>
-		<x-m>-8.074</x-m>
-		<y-m>0.027</y-m>
-		<z-m>1.074</z-m>
-		<pitch-deg>-28.65</pitch-deg>
-		<w>512</w>
-		<h>512</h>
-	</offsets>
- </model>
-
- <model>
-	<name>COM2S</name>
-	<path>Aircraft/bluebird/Instruments-3d/digital2/com2s.xml</path>
-	<offsets>
-		<x-m>-8.074</x-m>
-		<y-m>0.118</y-m>
-		<z-m>1.074</z-m>
 		<pitch-deg>-28.65</pitch-deg>
 		<w>512</w>
 		<h>512</h>
@@ -63,17 +37,15 @@
 
  <animation>
 	<type>range</type>
-	<object-name>COM1A</object-name>
-	<object-name>COM1S</object-name>
-	<object-name>COM2A</object-name>
-	<object-name>COM2S</object-name>
+	<object-name>COM1</object-name>
+	<object-name>COM2</object-name>
 	<min-m>0</min-m>
 	<max-m>25</max-m>
  </animation>
 
  <animation>
 	<type>material</type>
-	<object-name>com1a.frame</object-name>
+	<object-name>com1.frame</object-name>
 	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
 	<emission>
 		<red-prop>emission/red</red-prop>
@@ -91,43 +63,7 @@
 
  <animation>
 	<type>material</type>
-	<object-name>com1s.frame</object-name>
-	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
-	<emission>
-		<red-prop>emission/red</red-prop>
-		<green-prop>emission/green</green-prop>
-		<blue-prop>emission/blue</blue-prop>
-		<factor>1</factor>
-	</emission>
-	<specular>
-		<factor-prop>../interior-specular</factor-prop>
-		<red>1</red>
-		<green>1</green>
-		<blue>1</blue>
-	</specular>
- </animation>
-
- <animation>
-	<type>material</type>
-	<object-name>com2a.frame</object-name>
-	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
-	<emission>
-		<red-prop>emission/red</red-prop>
-		<green-prop>emission/green</green-prop>
-		<blue-prop>emission/blue</blue-prop>
-		<factor>1</factor>
-	</emission>
-	<specular>
-		<factor-prop>../interior-specular</factor-prop>
-		<red>1</red>
-		<green>1</green>
-		<blue>1</blue>
-	</specular>
- </animation>
-
- <animation>
-	<type>material</type>
-	<object-name>com2s.frame</object-name>
+	<object-name>com2.frame</object-name>
 	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
 	<emission>
 		<red-prop>emission/red</red-prop>
@@ -482,7 +418,7 @@
 
  <animation>
 	<type>pick</type>
-	<object-name>com1.button</object-name>
+	<object-name>com1.button.swap</object-name>
 	<action>
 		<name>swap frequencies for com1</name>
 		<button>0</button>
@@ -503,7 +439,7 @@
 
  <animation>
 	<type>pick</type>
-	<object-name>com2.button</object-name>
+	<object-name>com2.button.swap</object-name>
 	<action>
 		<name>swap frequencies for com2</name>
 		<button>0</button>
@@ -520,5 +456,245 @@
 			<label>Swap COM2 frequencies</label>
 		</binding>
 	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com1.volume.knobL</object-name>
+	<action>
+		<name>decrease com1 volume</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>property-adjust</command>
+			<property>instrumentation/comm[0]/volume</property>
+			<step>-0.025</step>
+			<min>0</min>
+			<max>1</max>
+			<wrap>false</wrap>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com1volL</tooltip-id>
+			<label>Decrease COM1 volume</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com1.volume.knobR</object-name>
+	<action>
+		<name>increase com1 volume</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>property-adjust</command>
+			<property>instrumentation/comm[0]/volume</property>
+			<step>0.025</step>
+			<min>0</min>
+			<max>1</max>
+			<wrap>false</wrap>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com1volR</tooltip-id>
+			<label>Increase COM1 volume</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com1.button.mute</object-name>
+	<action>
+		<name>toggle com1 volume</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.press_com_mute(0)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com1mute</tooltip-id>
+			<label>Toggle COM1 volume mute</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com1.button.power</object-name>
+	<action>
+		<name>toggle com1 power</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-toggle</command>
+			<property>instrumentation/comm[0]/power-btn</property>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com1-power-tip</tooltip-id>
+			<label>Toggle COM1 power</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com1.button.power.off</object-name>
+	<action>
+		<name>toggle com1 power</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-toggle</command>
+			<property>instrumentation/comm[0]/power-btn</property>
+		</binding>
+	</action>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com1.button.power.on</object-name>
+	<action>
+		<name>toggle com1 power</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-toggle</command>
+			<property>instrumentation/comm[0]/power-btn</property>
+		</binding>
+	</action>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com2.volume.knobL</object-name>
+	<action>
+		<name>decrease com2 volume</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>property-adjust</command>
+			<property>instrumentation/comm[1]/volume</property>
+			<step>-0.025</step>
+			<min>0</min>
+			<max>1</max>
+			<wrap>false</wrap>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com2volL</tooltip-id>
+			<label>Decrease COM2 volume</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com2.button.mute</object-name>
+	<action>
+		<name>toggle com2 volume</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.press_com_mute(1)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com2mute</tooltip-id>
+			<label>Toggle COM2 volume mute</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com2.volume.knobR</object-name>
+	<action>
+		<name>increase com2 volume</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>property-adjust</command>
+			<property>instrumentation/comm[1]/volume</property>
+			<step>0.025</step>
+			<min>0</min>
+			<max>1</max>
+			<wrap>false</wrap>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com2volR</tooltip-id>
+			<label>Increase COM2 volume</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com2.button.power</object-name>
+	<action>
+		<name>toggle com2 power</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-toggle</command>
+			<property>instrumentation/comm[1]/power-btn</property>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>com2-power-tip</tooltip-id>
+			<label>Toggle COM2 power</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com2.button.power.off</object-name>
+	<action>
+		<name>toggle com2 power</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-toggle</command>
+			<property>instrumentation/comm[1]/power-btn</property>
+		</binding>
+	</action>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>com2.button.power.on</object-name>
+	<action>
+		<name>toggle com2 power</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-toggle</command>
+			<property>instrumentation/comm[1]/power-btn</property>
+		</binding>
+	</action>
  </animation>
 </PropertyList>

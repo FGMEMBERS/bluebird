@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 12.0 ==-->
+<!--== Bluebird Explorer Hovercraft  version 13.3 ==-->
 
 <PropertyList>
 
@@ -53,11 +53,14 @@
  </animation>
 
  <animation>
-	<type>select</type>
+	<type>material</type>
 	<object-name>altitude-buttons-lit</object-name>
-	<condition>
-		<property>sim/model/bluebird/systems/power-switch</property>
-	</condition>
+	<emission>
+		<factor-prop>sim/model/bluebird/systems/power-switch</factor-prop>
+		<red>0.5</red>
+		<green>0.25</green>
+		<blue>0.125</blue>
+	</emission>
  </animation>
 
  <animation>

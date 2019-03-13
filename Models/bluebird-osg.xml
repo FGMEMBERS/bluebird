@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 13.0 for OSG                  ==-->
+<!--== Bluebird version 13.3 for OSG                  ==-->
 
 <PropertyList>
 	<model>
@@ -4088,10 +4088,8 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>COM1A</object-name>
-		<object-name>COM1S</object-name>
-		<object-name>COM2A</object-name>
-		<object-name>COM2S</object-name>
+		<object-name>COM1</object-name>
+		<object-name>COM2</object-name>
 		<property>orientation/groundslope-factored-pitch</property>
 		<axis>
 			<x>0</x>
@@ -4102,10 +4100,8 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>COM1A</object-name>
-		<object-name>COM1S</object-name>
-		<object-name>COM2A</object-name>
-		<object-name>COM2S</object-name>
+		<object-name>COM1</object-name>
+		<object-name>COM2</object-name>
 		<property>orientation/groundslope-factored-roll</property>
 		<axis>
 			<x>-1</x>
@@ -4116,10 +4112,8 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>COM1A</object-name>
-		<object-name>COM1S</object-name>
-		<object-name>COM2A</object-name>
-		<object-name>COM2S</object-name>
+		<object-name>COM1</object-name>
+		<object-name>COM2</object-name>
 		<property>sim/model/bluebird/damage/major-counter</property>
 		<interpolation>
 			<entry>

@@ -1,8 +1,14 @@
 Version# Vertices PolygonFaces Comments
 
+2019.Mar.13
+13.3	Replace separate com panels with integrated ones. Group Standby below Active.
+	Add power and volume controls to comm model.
+	Replace all digital instrument models:
+	Fix visibility of knobs during main power off.
+
 2019.Mar.11
 13.2	replace digital comm models
-	Add signal bars to model.
+	Add signal bars to comm model.
 	Add comm details to display 1-Right
 	Fix comm knob should increment by 25 KHz
 

@@ -5,7 +5,7 @@ MATERIAL "metal" rgb 0.800 0.800 0.800  amb 0.800 0.800 0.800  emis 0.000 0.000 
 MATERIAL "bare-metal" rgb 0.187 0.187 0.187  amb 0.000 0.000 0.000  emis 0.000 0.000 0.000  spec 0.450 0.450 0.450  shi 12 trans 0.000
 MATERIAL "BLACK" rgb 0.000 0.000 0.000  amb 0.000 0.000 0.000  emis 0.000 0.000 0.000  spec 0.000 0.000 0.000  shi 12 trans 0.000
 OBJECT world
-name "Blender_exporter_v2.26__digital2-630_v13.1_ap1.ac"
+name "Blender_exporter_v2.26__digital2-801_v13.3_ap1.ac"
 kids 18
 OBJECT poly
 name "ap1.frame"
@@ -228,11 +228,7 @@ Mesh.312
 crease 30.0
 texture "digital-hi.png"
 texrep 1 1
-numvert 8
-0.0055 -0.0223 -0.016
-0.0055 -0.0223 0.0045
-0.0055 -0.0143 -0.016
-0.0055 -0.0143 0.0045
+numvert 4
 0.0022 -0.0143 0.0433
 0.0022 -0.0143 -0.04329
 0.0022 0.0143 -0.04329
@@ -241,10 +237,10 @@ numsurf 1
 SURF 0X20
 mat 4
 refs 4
-6 0.13878 0.967932
-7 0.040967 0.967932
-4 0.040967 0.948483
-5 0.13878 0.948483
+2 0.1075 0.654256
+3 0.009688 0.654256
+0 0.009688 0.634807
+1 0.1075 0.634807
 kids 0
 OBJECT poly
 name "ap1.knob1L"
