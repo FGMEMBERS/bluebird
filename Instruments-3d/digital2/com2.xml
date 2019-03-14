@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 13.3 ==-->
+<!--== Bluebird Explorer Hovercraft  version 13.4 ==-->
 
 <PropertyList>
 
@@ -43,9 +43,13 @@
  </animation>
 
  <animation>
-	<name>com2-buttons-lit</name>
+	<name>com2-buttons-lit-off</name>
 	<object-name>com2.button.power</object-name>
 	<object-name>com2.button.power.off</object-name>
+ </animation>
+
+ <animation>
+	<name>com2-buttons-lit-on</name>
 	<object-name>com2.button.power.on</object-name>
 	<object-name>com2.button.mute</object-name>
 	<object-name>com2.button.swap</object-name>
@@ -63,9 +67,20 @@
 
  <animation>
 	<type>material</type>
-	<object-name>com2-buttons-lit</object-name>
+	<object-name>com2-buttons-lit-off</object-name>
 	<emission>
 		<factor-prop>sim/model/bluebird/systems/power-switch</factor-prop>
+		<red>0.5</red>
+		<green>0.25</green>
+		<blue>0.125</blue>
+	</emission>
+ </animation>
+
+ <animation>
+	<type>material</type>
+	<object-name>com2-buttons-lit-on</object-name>
+	<emission>
+		<factor-prop>sim/model/bluebird/lighting/buttons/com2-backlit</factor-prop>
 		<red>0.5</red>
 		<green>0.25</green>
 		<blue>0.125</blue>
@@ -118,14 +133,12 @@
 	<type>select</type>
 	<object-name>com2.button.power.off</object-name>
 	<condition>
-		<or>
-			<not>
+		<not>
+			<and>
 				<property>sim/model/bluebird/systems/power-switch</property>
-			</not>
-			<not>
 				<property>instrumentation/comm[1]/power-btn</property>
-			</not>
-		</or>
+			</and>
+		</not>
 	</condition>
  </animation>
 

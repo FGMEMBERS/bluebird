@@ -1,5 +1,9 @@
 Version# Vertices PolygonFaces Comments
 
+2019.Mar.14
+13.4	Improve comm buttons lighting, fix bug in crossed material definitions.
+	Fix bug, catch unexpected nil in property.
+
 2019.Mar.13
 13.3	Replace separate com panels with integrated ones. Group Standby below Active.
 	Add power and volume controls to comm model.

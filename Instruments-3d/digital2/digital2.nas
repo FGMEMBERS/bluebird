@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 13.3 =====
+# ===== Bluebird Explorer Hovercraft  version 13.4 =====
 
 # instrumentation ===================================================
 var lat_whole = props.globals.getNode("instrumentation/digital/lat-whole", 1);
@@ -279,6 +279,9 @@ autopilot_update = func (n) {
 			} elsif (ap2mode == 3) {
 				var dfi = m_ap2_fpm.getValue();
 			}
+		}
+		if (dfi == nil) {
+			dfi = 0;
 		}
 		if (snm >= 0 and snm != ap2mode) {
 			ap2_mode.setValue(snm);
@@ -854,6 +857,9 @@ var m_com2a = props.globals.getNode("instrumentation/comm[1]/frequencies/selecte
 var m_com2s = props.globals.getNode("instrumentation/comm[1]/frequencies/standby-mhz", 1);
 var com1_volume_Node = props.globals.getNode("instrumentation/comm[0]/volume", 1);
 var com2_volume_Node = props.globals.getNode("instrumentation/comm[1]/volume", 1);
+var msp_Node = props.globals.getNode("sim/model/bluebird/systems/power-switch", 1);
+var com1_p_Node = props.globals.getNode("instrumentation/comm[0]/power-btn", 1);
+var com2_p_Node = props.globals.getNode("instrumentation/comm[1]/power-btn", 1);
 var mfi = 0;	# master freq in
 var wfi = 0;	# whole freq before update, define temp vars just once
 var wfn = 0;	# new whole freq
@@ -955,6 +961,34 @@ setlistener("instrumentation/comm[1]/frequencies/selected-mhz", func(n) {
 
 setlistener("instrumentation/comm[1]/frequencies/standby-mhz", func(n) {
 	coms_update(4);
+}, 1);
+
+coms_lighting_update = func {
+	var power_switch = msp_Node.getValue();
+	var com1_power_switch = com1_p_Node.getValue();
+	var com2_power_switch = com2_p_Node.getValue();
+	if (power_switch and com1_power_switch) {
+		setprop("sim/model/bluebird/lighting/buttons/com1-backlit", 1);
+	} else {
+		setprop("sim/model/bluebird/lighting/buttons/com1-backlit", 0);
+	}
+	if (power_switch and com2_power_switch) {
+		setprop("sim/model/bluebird/lighting/buttons/com2-backlit", 1);
+	} else {
+		setprop("sim/model/bluebird/lighting/buttons/com2-backlit", 0);
+	}
+}
+
+setlistener("sim/model/bluebird/systems/power-switch", func {
+	coms_lighting_update();
+}, 1);
+
+setlistener("instrumentation/comm[0]/power-btn", func {
+	coms_lighting_update();
+}, 1);
+
+setlistener("instrumentation/comm[1]/power-btn", func {
+	coms_lighting_update();
 }, 1);
 
 turn_com1aknob = func (v) {
