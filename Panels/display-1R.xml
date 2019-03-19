@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 13.3  ==-->
+<!--== Bluebird Explorer Hovercraft  version 13.5  ==-->
 
 <PropertyList>
 	<name>screen messages text 1R</name>
@@ -80,10 +80,10 @@ HOMING AIRPORT
 
 
 
-COM1
+COMM1
 
 
-COM2</text>
+COMM2</text>
 						</chunk>
 					</chunks>
 					<transformations>

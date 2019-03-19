@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 13.4 =====
+# ===== Bluebird Explorer Hovercraft  version 13.5 =====
 
 # instrumentation ===================================================
 var lat_whole = props.globals.getNode("instrumentation/digital/lat-whole", 1);
@@ -845,21 +845,21 @@ turn_ap3knob = func (v) {
 
 # 2C coms equipment =============================================
 
-var com1a_whole = props.globals.getNode("instrumentation/digital/com1a-whole", 1);
-var com1s_whole = props.globals.getNode("instrumentation/digital/com1s-whole", 1);
-var com2a_whole = props.globals.getNode("instrumentation/digital/com2a-whole", 1);
-var com2s_whole = props.globals.getNode("instrumentation/digital/com2s-whole", 1);
-var com1_mhz_state = props.globals.getNode("instrumentation/digital/com1-mhz-state", 1);
-var com2_mhz_state = props.globals.getNode("instrumentation/digital/com2-mhz-state", 1);
-var m_com1a = props.globals.getNode("instrumentation/comm/frequencies/selected-mhz", 1);
-var m_com1s = props.globals.getNode("instrumentation/comm/frequencies/standby-mhz", 1);
-var m_com2a = props.globals.getNode("instrumentation/comm[1]/frequencies/selected-mhz", 1);
-var m_com2s = props.globals.getNode("instrumentation/comm[1]/frequencies/standby-mhz", 1);
-var com1_volume_Node = props.globals.getNode("instrumentation/comm[0]/volume", 1);
-var com2_volume_Node = props.globals.getNode("instrumentation/comm[1]/volume", 1);
+var comm1a_whole = props.globals.getNode("instrumentation/digital/comm1a-whole", 1);
+var comm1s_whole = props.globals.getNode("instrumentation/digital/comm1s-whole", 1);
+var comm2a_whole = props.globals.getNode("instrumentation/digital/comm2a-whole", 1);
+var comm2s_whole = props.globals.getNode("instrumentation/digital/comm2s-whole", 1);
+var comm1_mhz_state = props.globals.getNode("instrumentation/digital/comm1-mhz-state", 1);
+var comm2_mhz_state = props.globals.getNode("instrumentation/digital/comm2-mhz-state", 1);
+var m_comm1a = props.globals.getNode("instrumentation/comm/frequencies/selected-mhz", 1);
+var m_comm1s = props.globals.getNode("instrumentation/comm/frequencies/standby-mhz", 1);
+var m_comm2a = props.globals.getNode("instrumentation/comm[1]/frequencies/selected-mhz", 1);
+var m_comm2s = props.globals.getNode("instrumentation/comm[1]/frequencies/standby-mhz", 1);
+var comm1_volume_Node = props.globals.getNode("instrumentation/comm[0]/volume", 1);
+var comm2_volume_Node = props.globals.getNode("instrumentation/comm[1]/volume", 1);
 var msp_Node = props.globals.getNode("sim/model/bluebird/systems/power-switch", 1);
-var com1_p_Node = props.globals.getNode("instrumentation/comm[0]/power-btn", 1);
-var com2_p_Node = props.globals.getNode("instrumentation/comm[1]/power-btn", 1);
+var comm1_p_Node = props.globals.getNode("instrumentation/comm[0]/power-btn", 1);
+var comm2_p_Node = props.globals.getNode("instrumentation/comm[1]/power-btn", 1);
 var mfi = 0;	# master freq in
 var wfi = 0;	# whole freq before update, define temp vars just once
 var wfn = 0;	# new whole freq
@@ -885,65 +885,65 @@ tune_freq = func (sf, add, d) {
 }
 
 coms_update = func (r) {
-	if (r == 1) {	#===== com1 active digital module ===========================
-		mfi = m_com1a.getValue();
+	if (r == 1) {	#===== comm1 active digital module ===========================
+		mfi = m_comm1a.getValue();
 		if (mfi == nil) {
 			wfn = 0;
 		} else {
 			wfn = tune_freq(mfi, 0.00, 0);
-			wfi = com1a_whole.getValue();
+			wfi = comm1a_whole.getValue();
 			if (wfi != nil) {
 				if (wfi != wfn) {
-					m_com1a.setValue(mfi);
+					m_comm1a.setValue(mfi);
 				}
 			}
 		}
-		com1a_whole.setValue(int(wfn));
+		comm1a_whole.setValue(int(wfn));
 	}
-	if (r == 2) {	#===== com1 standby digital module ===========================
-		mfi = m_com1s.getValue();
+	if (r == 2) {	#===== comm1 standby digital module ===========================
+		mfi = m_comm1s.getValue();
 		if (mfi == nil) {
 			wfn = 0;
 		} else {
 			wfn = tune_freq(mfi, 0.00, 0);
-			wfi = com1s_whole.getValue();
+			wfi = comm1s_whole.getValue();
 			if (wfi != nil) {
 				if (wfi != wfn) {
-					m_com1s.setValue(mfi);
+					m_comm1s.setValue(mfi);
 				}
 			}
 		}
-		com1s_whole.setValue(int(wfn));
+		comm1s_whole.setValue(int(wfn));
 	}
-	if (r == 3) {	#===== com2 active digital module ===========================
-		mfi = m_com2a.getValue();
+	if (r == 3) {	#===== comm2 active digital module ===========================
+		mfi = m_comm2a.getValue();
 		if (mfi == nil) {
 			wfn = 0;
 		} else {
 			wfn = tune_freq(mfi, 0.00, 0);
-			wfi = com2a_whole.getValue();
+			wfi = comm2a_whole.getValue();
 			if (wfi != nil) {
 				if (wfi != wfn) {
-					m_com2a.setValue(mfi);
+					m_comm2a.setValue(mfi);
 				}
 			}
 		}
-		com2a_whole.setValue(int(wfn));
+		comm2a_whole.setValue(int(wfn));
 	}
-	if (r == 4) {	#===== com2 standby digital module ===========================
-		mfi = m_com2s.getValue();
+	if (r == 4) {	#===== comm2 standby digital module ===========================
+		mfi = m_comm2s.getValue();
 		if (mfi == nil) {
 			wfn = 0;
 		} else {
 			wfn = tune_freq(mfi, 0.00, 0);
-			wfi = com2s_whole.getValue();
+			wfi = comm2s_whole.getValue();
 			if (wfi != nil) {
 				if (wfi != wfn) {
-					m_com2s.setValue(mfi);
+					m_comm2s.setValue(mfi);
 				}
 			}
 		}
-		com2s_whole.setValue(int(wfn));
+		comm2s_whole.setValue(int(wfn));
 	}
 }
 
@@ -965,17 +965,17 @@ setlistener("instrumentation/comm[1]/frequencies/standby-mhz", func(n) {
 
 coms_lighting_update = func {
 	var power_switch = msp_Node.getValue();
-	var com1_power_switch = com1_p_Node.getValue();
-	var com2_power_switch = com2_p_Node.getValue();
-	if (power_switch and com1_power_switch) {
-		setprop("sim/model/bluebird/lighting/buttons/com1-backlit", 1);
+	var comm1_power_switch = comm1_p_Node.getValue();
+	var comm2_power_switch = comm2_p_Node.getValue();
+	if (power_switch and comm1_power_switch) {
+		setprop("sim/model/bluebird/lighting/buttons/comm1-backlit", 1);
 	} else {
-		setprop("sim/model/bluebird/lighting/buttons/com1-backlit", 0);
+		setprop("sim/model/bluebird/lighting/buttons/comm1-backlit", 0);
 	}
-	if (power_switch and com2_power_switch) {
-		setprop("sim/model/bluebird/lighting/buttons/com2-backlit", 1);
+	if (power_switch and comm2_power_switch) {
+		setprop("sim/model/bluebird/lighting/buttons/comm2-backlit", 1);
 	} else {
-		setprop("sim/model/bluebird/lighting/buttons/com2-backlit", 0);
+		setprop("sim/model/bluebird/lighting/buttons/comm2-backlit", 0);
 	}
 }
 
@@ -991,90 +991,90 @@ setlistener("instrumentation/comm[1]/power-btn", func {
 	coms_lighting_update();
 }, 1);
 
-turn_com1aknob = func (v) {
-	var cf = m_com1a.getValue();
+turn_comm1aknob = func (v) {
+	var cf = m_comm1a.getValue();
 	if (cf != nil) {
-		m_com1a.setValue(tune_freq(cf,v,1));
+		m_comm1a.setValue(tune_freq(cf,v,1));
 	}
-	com1_mhz_state.setValue(1);
+	comm1_mhz_state.setValue(1);
 	currTimer1 = currTimer1 + 2.0;
 	var thisTimer1 = currTimer1;
-	settimer(func { if(currTimer1 == thisTimer1) { com1_mhz_state.setValue(0); } }, 2.0, 1);
+	settimer(func { if(currTimer1 == thisTimer1) { comm1_mhz_state.setValue(0); } }, 2.0, 1);
 }
 
-turn_com1sknob = func (v) {
-	var cf = m_com1s.getValue();
+turn_comm1sknob = func (v) {
+	var cf = m_comm1s.getValue();
 	if (cf != nil) {
-		m_com1s.setValue(tune_freq(cf,v,1));
+		m_comm1s.setValue(tune_freq(cf,v,1));
 	}
-	com1_mhz_state.setValue(1);
+	comm1_mhz_state.setValue(1);
 	currTimer2 = currTimer2 + 2.0;
 	var thisTimer2 = currTimer2;
-	settimer(func { if(currTimer2 == thisTimer2) { com1_mhz_state.setValue(0); } }, 2.0, 1);
+	settimer(func { if(currTimer2 == thisTimer2) { comm1_mhz_state.setValue(0); } }, 2.0, 1);
 }
 
-turn_com2aknob = func (v) {
-	var cf = m_com2a.getValue();
+turn_comm2aknob = func (v) {
+	var cf = m_comm2a.getValue();
 	if (cf != nil) {
-		m_com2a.setValue(tune_freq(cf,v,1));
+		m_comm2a.setValue(tune_freq(cf,v,1));
 	}
-	com2_mhz_state.setValue(1);
+	comm2_mhz_state.setValue(1);
 	currTimer3 = currTimer3 + 2.0;
 	var thisTimer3 = currTimer3;
-	settimer(func { if(currTimer3 == thisTimer3) { com2_mhz_state.setValue(0); } }, 2.0, 1);
+	settimer(func { if(currTimer3 == thisTimer3) { comm2_mhz_state.setValue(0); } }, 2.0, 1);
 }
 
-turn_com2sknob = func (v) {
-	var cf = m_com2s.getValue();
+turn_comm2sknob = func (v) {
+	var cf = m_comm2s.getValue();
 	if (cf != nil) {
-		m_com2s.setValue(tune_freq(cf,v,1));
+		m_comm2s.setValue(tune_freq(cf,v,1));
 	}
-	com2_mhz_state.setValue(1);
+	comm2_mhz_state.setValue(1);
 	currTimer4 = currTimer4 + 2.0;
 	var thisTimer4 = currTimer4;
-	settimer(func { if(currTimer4 == thisTimer4) { com2_mhz_state.setValue(0); } }, 2.0, 1);
+	settimer(func { if(currTimer4 == thisTimer4) { comm2_mhz_state.setValue(0); } }, 2.0, 1);
 }
 
 press_com_swap = func (cc) {
 	if (cc == 1) {
-		var ftmp = m_com1a.getValue();
-		m_com1a.setValue(m_com1s.getValue());
-		m_com1s.setValue(ftmp);
-		com1_mhz_state.setValue(1);
+		var ftmp = m_comm1a.getValue();
+		m_comm1a.setValue(m_comm1s.getValue());
+		m_comm1s.setValue(ftmp);
+		comm1_mhz_state.setValue(1);
 		currTimer1 = currTimer1 + 3.0;
 		var thisTimer1 = currTimer1;
-		settimer(func { if(currTimer1 == thisTimer1) { com1_mhz_state.setValue(0); } }, 3.0, 1);
+		settimer(func { if(currTimer1 == thisTimer1) { comm1_mhz_state.setValue(0); } }, 3.0, 1);
 	} elsif (cc == 2) {
-		var ftmp = m_com2a.getValue();
-		m_com2a.setValue(m_com2s.getValue());
-		m_com2s.setValue(ftmp);
-		com2_mhz_state.setValue(1);
+		var ftmp = m_comm2a.getValue();
+		m_comm2a.setValue(m_comm2s.getValue());
+		m_comm2s.setValue(ftmp);
+		comm2_mhz_state.setValue(1);
 		currTimer3 = currTimer3 + 3.0;
 		var thisTimer3 = currTimer3;
-		settimer(func { if(currTimer3 == thisTimer3) { com2_mhz_state.setValue(0); } }, 3.0, 1);
+		settimer(func { if(currTimer3 == thisTimer3) { comm2_mhz_state.setValue(0); } }, 3.0, 1);
 	}
 }
 
 press_com_mute = func(rn) {
 	var cv = 0;
 	if (rn == 0) {
-		cv = com1_volume_Node.getValue();
+		cv = comm1_volume_Node.getValue();
 	} else {
-		cv = com2_volume_Node.getValue();
+		cv = comm2_volume_Node.getValue();
 	}
 	if (commute[rn] == 0) {
 		comvol[rn] = cv;
 		if (rn == 0) {
-			com1_volume_Node.setValue(0);
+			comm1_volume_Node.setValue(0);
 		} else {
-			com2_volume_Node.setValue(0);
+			comm2_volume_Node.setValue(0);
 		}
 		commute[rn] = 1;
 	} else {
 		if (rn == 0) {
-			com1_volume_Node.setValue(comvol[rn]);
+			comm1_volume_Node.setValue(comvol[rn]);
 		} else {
-			com2_volume_Node.setValue(comvol[rn]);
+			comm2_volume_Node.setValue(comvol[rn]);
 		}
 		commute[rn] = 0;
 	}

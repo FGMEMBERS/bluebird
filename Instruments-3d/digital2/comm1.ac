@@ -4,10 +4,10 @@ MATERIAL "ORANGE_lit" rgb 0.640 0.480 0.240  amb 1.000 1.000 1.000  emis 0.500 0
 MATERIAL "BLACK" rgb 0.000 0.000 0.000  amb 0.000 0.000 0.000  emis 0.000 0.000 0.000  spec 0.000 0.000 0.000  shi 12 trans 0.000
 MATERIAL "metal" rgb 0.800 0.800 0.800  amb 0.800 0.800 0.800  emis 0.000 0.000 0.000  spec 0.500 0.500 0.500  shi 32 trans 0.000
 OBJECT world
-name "Blender_exporter_v2.26__digital2-801_v13.4_com2.ac"
+name "Blender_exporter_v2.26__digital2-801_v13.5_comm1.ac"
 kids 46
 OBJECT poly
-name "com2.frame"
+name "comm1.frame"
 data 8
 Mesh.280
 crease 30.0
@@ -174,7 +174,7 @@ refs 4
 21 0.030591 0.732169
 kids 0
 OBJECT poly
-name "com2.back"
+name "comm1.back"
 data 8
 Mesh.314
 crease 30.0
@@ -195,7 +195,7 @@ refs 4
 1 0.100345 0.645852
 kids 0
 OBJECT poly
-name "com2.button.power"
+name "comm1.button.power"
 data 8
 Mesh.340
 crease 30.0
@@ -295,7 +295,7 @@ refs 4
 11 0.685727 0.492532
 kids 0
 OBJECT poly
-name "com2.button.power.off"
+name "comm1.button.power.off"
 data 8
 Mesh.346
 crease 30.0
@@ -316,7 +316,7 @@ refs 4
 3 0.768539 0.591797
 kids 0
 OBJECT poly
-name "com2.button.power.on"
+name "comm1.button.power.on"
 data 8
 Mesh.345
 crease 30.0
@@ -337,7 +337,7 @@ refs 4
 3 0.72557 0.591797
 kids 0
 OBJECT poly
-name "com2.volume.knobL"
+name "comm1.volume.knobL"
 data 8
 Mesh.342
 crease 30.0
@@ -440,7 +440,7 @@ refs 4
 6 0.93717 0.986217
 kids 0
 OBJECT poly
-name "com2.volume.knobR"
+name "comm1.volume.knobR"
 data 8
 Mesh.343
 crease 30.0
@@ -543,7 +543,7 @@ refs 4
 13 0.957218 0.986217
 kids 0
 OBJECT poly
-name "com2.button.mute"
+name "comm1.button.mute"
 data 8
 Mesh.341
 crease 30.0
@@ -628,7 +628,7 @@ refs 4
 9 0.963771 0.51737
 kids 0
 OBJECT poly
-name "com2.button.swap"
+name "comm1.button.swap"
 data 8
 Mesh.286
 crease 30.0
@@ -713,7 +713,7 @@ refs 4
 9 0.963771 0.51737
 kids 0
 OBJECT poly
-name "com2a.knob1L"
+name "comm1a.knob1L"
 data 8
 Mesh.331
 crease 30.0
@@ -816,7 +816,7 @@ refs 4
 6 0.93717 0.986217
 kids 0
 OBJECT poly
-name "com2a.knob1R"
+name "comm1a.knob1R"
 data 8
 Mesh.332
 crease 30.0
@@ -919,7 +919,7 @@ refs 4
 13 0.957218 0.986217
 kids 0
 OBJECT poly
-name "com2a.knob2L"
+name "comm1a.knob2L"
 data 8
 Mesh.334
 crease 30.0
@@ -1066,7 +1066,7 @@ refs 3
 0 0.957413 0.909961
 kids 0
 OBJECT poly
-name "com2a.knob2R"
+name "comm1a.knob2R"
 data 8
 Mesh.333
 crease 30.0
@@ -1213,7 +1213,7 @@ refs 3
 3 0.974979 0.920104
 kids 0
 OBJECT poly
-name "com2s.knob1L"
+name "comm1s.knob1L"
 data 8
 Mesh.335
 crease 30.0
@@ -1316,7 +1316,7 @@ refs 4
 6 0.93717 0.986217
 kids 0
 OBJECT poly
-name "com2s.knob1R"
+name "comm1s.knob1R"
 data 8
 Mesh.336
 crease 30.0
@@ -1419,7 +1419,7 @@ refs 4
 13 0.957218 0.986217
 kids 0
 OBJECT poly
-name "com2s.knob2L"
+name "comm1s.knob2L"
 data 8
 Mesh.338
 crease 30.0
@@ -1566,7 +1566,7 @@ refs 3
 0 0.957413 0.909961
 kids 0
 OBJECT poly
-name "com2s.knob2R"
+name "comm1s.knob2R"
 data 8
 Mesh.337
 crease 30.0
@@ -1713,7 +1713,7 @@ refs 3
 3 0.974979 0.920104
 kids 0
 OBJECT poly
-name "com2.button.power.lit"
+name "comm1.button.power.lit"
 data 8
 Mesh.347
 crease 30.0
@@ -1734,7 +1734,7 @@ refs 4
 0 0.159446 0.702429
 kids 0
 OBJECT poly
-name "com2.volume.bar"
+name "comm1.volume.bar"
 data 8
 Mesh.344
 crease 30.0
@@ -1755,28 +1755,28 @@ refs 4
 1 0.250079 0.653434
 kids 0
 OBJECT poly
-name "com2.label"
+name "comm1.label"
 data 8
-Mesh.277
+Mesh.276
 crease 30.0
 texture "digital-hi.png"
 texrep 1 1
 numvert 4
-0.004 0.01378 0.01099
-0.004 0.00653 0.01095
-0.004 0.00653 0.0354
-0.004 0.01378 0.03543
+0.004 0.01378 0.01199
+0.004 0.00653 0.01195
+0.004 0.00653 0.0364
+0.004 0.01378 0.03643
 numsurf 1
 SURF 0X20
 mat 0
 refs 4
-0 0.325966 0.974601
-3 0.193498 0.974601
-2 0.193678 0.936802
-1 0.32592 0.936802
+0 0.167763 0.974601
+3 0.035295 0.974601
+2 0.035475 0.936802
+1 0.167717 0.936802
 kids 0
 OBJECT poly
-name "com2.sig00"
+name "comm1.sig00"
 data 8
 Mesh.315
 crease 30.0
@@ -1797,7 +1797,7 @@ refs 4
 1 0.252407 0.631199
 kids 0
 OBJECT poly
-name "com2.sig01"
+name "comm1.sig01"
 data 8
 Mesh.316
 crease 30.0
@@ -1818,7 +1818,7 @@ refs 4
 3 0.252407 0.631201
 kids 0
 OBJECT poly
-name "com2.sig02"
+name "comm1.sig02"
 data 8
 Mesh.317
 crease 30.0
@@ -1839,7 +1839,7 @@ refs 4
 1 0.252407 0.631203
 kids 0
 OBJECT poly
-name "com2.sig03"
+name "comm1.sig03"
 data 8
 Mesh.318
 crease 30.0
@@ -1860,7 +1860,7 @@ refs 4
 3 0.252407 0.631205
 kids 0
 OBJECT poly
-name "com2.sig04"
+name "comm1.sig04"
 data 8
 Mesh.319
 crease 30.0
@@ -1881,7 +1881,7 @@ refs 4
 1 0.252407 0.646827
 kids 0
 OBJECT poly
-name "com2.sig05"
+name "comm1.sig05"
 data 8
 Mesh.320
 crease 30.0
@@ -1902,7 +1902,7 @@ refs 4
 3 0.252407 0.646826
 kids 0
 OBJECT poly
-name "com2.sig06"
+name "comm1.sig06"
 data 8
 Mesh.321
 crease 30.0
@@ -1923,7 +1923,7 @@ refs 4
 1 0.252407 0.646828
 kids 0
 OBJECT poly
-name "com2.sig07"
+name "comm1.sig07"
 data 8
 Mesh.322
 crease 30.0
@@ -1944,7 +1944,7 @@ refs 4
 3 0.252407 0.662449
 kids 0
 OBJECT poly
-name "com2.sig08"
+name "comm1.sig08"
 data 8
 Mesh.323
 crease 30.0
@@ -1965,7 +1965,7 @@ refs 4
 1 0.252407 0.662451
 kids 0
 OBJECT poly
-name "com2.sig09"
+name "comm1.sig09"
 data 8
 Mesh.324
 crease 30.0
@@ -1986,7 +1986,7 @@ refs 4
 3 0.252407 0.662453
 kids 0
 OBJECT poly
-name "com2.sig10"
+name "comm1.sig10"
 data 8
 Mesh.325
 crease 30.0
@@ -2007,7 +2007,7 @@ refs 4
 1 0.252407 0.662455
 kids 0
 OBJECT poly
-name "com2.mhz"
+name "comm1.mhz"
 data 8
 Mesh.285
 crease 30.0
@@ -2028,7 +2028,7 @@ refs 4
 1 0.997056 0.284761
 kids 0
 OBJECT poly
-name "com2.active"
+name "comm1.active"
 data 8
 Mesh.287
 crease 30.0
@@ -2049,7 +2049,7 @@ refs 4
 0 0.34197 0.935356
 kids 0
 OBJECT poly
-name "com2.standby"
+name "comm1.standby"
 data 8
 Mesh.288
 crease 30.0
@@ -2070,7 +2070,7 @@ refs 4
 3 0.385645 0.935356
 kids 0
 OBJECT poly
-name "com2a.01"
+name "comm1a.01"
 data 8
 Mesh.293
 crease 30.0
@@ -2091,7 +2091,7 @@ refs 4
 1 0.09375 0.003906
 kids 0
 OBJECT poly
-name "com2a.02"
+name "comm1a.02"
 data 8
 Mesh.292
 crease 30.0
@@ -2112,7 +2112,7 @@ refs 4
 1 0.09375 0.003906
 kids 0
 OBJECT poly
-name "com2a.03"
+name "comm1a.03"
 data 8
 Mesh.291
 crease 30.0
@@ -2133,7 +2133,7 @@ refs 4
 1 0.09375 0.003906
 kids 0
 OBJECT poly
-name "com2a.dec"
+name "comm1a.dec"
 data 8
 Mesh.284
 crease 30.0
@@ -2200,7 +2200,7 @@ refs 3
 7 0.851468 0.160022
 kids 0
 OBJECT poly
-name "com2a.04"
+name "comm1a.04"
 data 8
 Mesh.294
 crease 30.0
@@ -2221,7 +2221,7 @@ refs 4
 1 0.09375 0.003906
 kids 0
 OBJECT poly
-name "com2a.05"
+name "comm1a.05"
 data 8
 Mesh.295
 crease 30.0
@@ -2242,7 +2242,7 @@ refs 4
 1 0.09375 0.003906
 kids 0
 OBJECT poly
-name "com2s.01"
+name "comm1s.01"
 data 8
 Mesh.326
 crease 30.0
@@ -2263,7 +2263,7 @@ refs 4
 1 0.09375 0.003906
 kids 0
 OBJECT poly
-name "com2s.02"
+name "comm1s.02"
 data 8
 Mesh.327
 crease 30.0
@@ -2284,7 +2284,7 @@ refs 4
 1 0.09375 0.003906
 kids 0
 OBJECT poly
-name "com2s.03"
+name "comm1s.03"
 data 8
 Mesh.328
 crease 30.0
@@ -2305,7 +2305,7 @@ refs 4
 1 0.09375 0.003906
 kids 0
 OBJECT poly
-name "com2s.dec"
+name "comm1s.dec"
 data 8
 Mesh.339
 crease 30.0
@@ -2372,7 +2372,7 @@ refs 3
 7 0.851468 0.160022
 kids 0
 OBJECT poly
-name "com2s.04"
+name "comm1s.04"
 data 8
 Mesh.329
 crease 30.0
@@ -2393,7 +2393,7 @@ refs 4
 1 0.09375 0.003906
 kids 0
 OBJECT poly
-name "com2s.05"
+name "comm1s.05"
 data 8
 Mesh.330
 crease 30.0

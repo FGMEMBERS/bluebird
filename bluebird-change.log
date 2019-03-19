@@ -1,5 +1,8 @@
 Version# Vertices PolygonFaces Comments
 
+2019.Mar.19
+13.5	Fix names of COM to COMM because COM1 is a device and can not be a filename.
+
 2019.Mar.14
 13.4	Improve comm buttons lighting, fix bug in crossed material definitions.
 	Fix bug, catch unexpected nil in property.

@@ -1,73 +1,73 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 13.4 ==-->
+<!--== Bluebird Explorer Hovercraft  version 13.5 ==-->
 
 <PropertyList>
 
- <path>com2.ac</path>
+ <path>comm2.ac</path>
 
  <animation>
-	<name>com2-lit</name>
-	<object-name>com2.button.power.lit</object-name>
-	<object-name>com2.volume.bar</object-name>
-	<object-name>com2.label</object-name>
-	<object-name>com2.sig00</object-name>
-	<object-name>com2.sig01</object-name>
-	<object-name>com2.sig02</object-name>
-	<object-name>com2.sig03</object-name>
-	<object-name>com2.sig04</object-name>
-	<object-name>com2.sig05</object-name>
-	<object-name>com2.sig06</object-name>
-	<object-name>com2.sig07</object-name>
-	<object-name>com2.sig08</object-name>
-	<object-name>com2.sig09</object-name>
-	<object-name>com2.sig10</object-name>
-	<object-name>com2.mhz</object-name>
-	<object-name>com2.active</object-name>
-	<object-name>com2.standby</object-name>
-	<object-name>com2a.01</object-name>
-	<object-name>com2a.02</object-name>
-	<object-name>com2a.03</object-name>
-	<object-name>com2a.dec</object-name>
-	<object-name>com2a.04</object-name>
-	<object-name>com2a.05</object-name>
+	<name>comm2-lit</name>
+	<object-name>comm2.button.power.lit</object-name>
+	<object-name>comm2.volume.bar</object-name>
+	<object-name>comm2.label</object-name>
+	<object-name>comm2.sig00</object-name>
+	<object-name>comm2.sig01</object-name>
+	<object-name>comm2.sig02</object-name>
+	<object-name>comm2.sig03</object-name>
+	<object-name>comm2.sig04</object-name>
+	<object-name>comm2.sig05</object-name>
+	<object-name>comm2.sig06</object-name>
+	<object-name>comm2.sig07</object-name>
+	<object-name>comm2.sig08</object-name>
+	<object-name>comm2.sig09</object-name>
+	<object-name>comm2.sig10</object-name>
+	<object-name>comm2.mhz</object-name>
+	<object-name>comm2.active</object-name>
+	<object-name>comm2.standby</object-name>
+	<object-name>comm2a.01</object-name>
+	<object-name>comm2a.02</object-name>
+	<object-name>comm2a.03</object-name>
+	<object-name>comm2a.dec</object-name>
+	<object-name>comm2a.04</object-name>
+	<object-name>comm2a.05</object-name>
  </animation>
 
  <animation>
-	<name>com2s-digits-lit</name>
-	<object-name>com2s.01</object-name>
-	<object-name>com2s.02</object-name>
-	<object-name>com2s.03</object-name>
-	<object-name>com2s.dec</object-name>
-	<object-name>com2s.04</object-name>
-	<object-name>com2s.05</object-name>
+	<name>comm2s-digits-lit</name>
+	<object-name>comm2s.01</object-name>
+	<object-name>comm2s.02</object-name>
+	<object-name>comm2s.03</object-name>
+	<object-name>comm2s.dec</object-name>
+	<object-name>comm2s.04</object-name>
+	<object-name>comm2s.05</object-name>
  </animation>
 
  <animation>
-	<name>com2-buttons-lit-off</name>
-	<object-name>com2.button.power</object-name>
-	<object-name>com2.button.power.off</object-name>
+	<name>comm2-buttons-lit-off</name>
+	<object-name>comm2.button.power</object-name>
+	<object-name>comm2.button.power.off</object-name>
  </animation>
 
  <animation>
-	<name>com2-buttons-lit-on</name>
-	<object-name>com2.button.power.on</object-name>
-	<object-name>com2.button.mute</object-name>
-	<object-name>com2.button.swap</object-name>
-	<object-name>com2.volume.knobL</object-name>
-	<object-name>com2.volume.knobR</object-name>
-	<object-name>com2a.knob1L</object-name>
-	<object-name>com2a.knob1R</object-name>
-	<object-name>com2a.knob2L</object-name>
-	<object-name>com2a.knob2R</object-name>
-	<object-name>com2s.knob1L</object-name>
-	<object-name>com2s.knob1R</object-name>
-	<object-name>com2s.knob2L</object-name>
-	<object-name>com2s.knob2R</object-name>
+	<name>comm2-buttons-lit-on</name>
+	<object-name>comm2.button.power.on</object-name>
+	<object-name>comm2.button.mute</object-name>
+	<object-name>comm2.button.swap</object-name>
+	<object-name>comm2.volume.knobL</object-name>
+	<object-name>comm2.volume.knobR</object-name>
+	<object-name>comm2a.knob1L</object-name>
+	<object-name>comm2a.knob1R</object-name>
+	<object-name>comm2a.knob2L</object-name>
+	<object-name>comm2a.knob2R</object-name>
+	<object-name>comm2s.knob1L</object-name>
+	<object-name>comm2s.knob1R</object-name>
+	<object-name>comm2s.knob2L</object-name>
+	<object-name>comm2s.knob2R</object-name>
  </animation>
 
  <animation>
 	<type>material</type>
-	<object-name>com2-buttons-lit-off</object-name>
+	<object-name>comm2-buttons-lit-off</object-name>
 	<emission>
 		<factor-prop>sim/model/bluebird/systems/power-switch</factor-prop>
 		<red>0.5</red>
@@ -78,9 +78,9 @@
 
  <animation>
 	<type>material</type>
-	<object-name>com2-buttons-lit-on</object-name>
+	<object-name>comm2-buttons-lit-on</object-name>
 	<emission>
-		<factor-prop>sim/model/bluebird/lighting/buttons/com2-backlit</factor-prop>
+		<factor-prop>sim/model/bluebird/lighting/buttons/comm2-backlit</factor-prop>
 		<red>0.5</red>
 		<green>0.25</green>
 		<blue>0.125</blue>
@@ -89,7 +89,7 @@
 
  <animation>
 	<type>select</type>
-	<object-name>com2-lit</object-name>
+	<object-name>comm2-lit</object-name>
 	<condition>
 		<and>
 			<property>sim/model/bluebird/systems/power-switch</property>
@@ -100,7 +100,7 @@
 
  <animation>
 	<type>select</type>
-	<object-name>com2s-digits-lit</object-name>
+	<object-name>comm2s-digits-lit</object-name>
 	<condition>
 		<and>
 			<property>sim/model/bluebird/systems/power-switch</property>
@@ -111,7 +111,7 @@
 
  <animation>
 	<type>material</type>
-	<object-name>com2s-digits-lit</object-name>
+	<object-name>comm2s-digits-lit</object-name>
 	<emission>
 		<red>0.83</red>
 		<green>0.30</green>
@@ -131,7 +131,7 @@
 
  <animation>
 	<type>select</type>
-	<object-name>com2.button.power.off</object-name>
+	<object-name>comm2.button.power.off</object-name>
 	<condition>
 		<not>
 			<and>
@@ -144,7 +144,7 @@
 
  <animation>
 	<type>select</type>
-	<object-name>com2.button.power.on</object-name>
+	<object-name>comm2.button.power.on</object-name>
 	<condition>
 		<property>instrumentation/comm[1]/power-btn</property>
 	</condition>
@@ -152,7 +152,7 @@
 
  <animation>
 	<type>select</type>
-	<object-name>com2.button.power.lit</object-name>
+	<object-name>comm2.button.power.lit</object-name>
 	<condition>
 		<property>instrumentation/comm[1]/power-btn</property>
 	</condition>
@@ -160,7 +160,7 @@
 
  <animation>
 	<type>textranslate</type>
-	<object-name>com2.volume.bar</object-name>
+	<object-name>comm2.volume.bar</object-name>
 	<property>instrumentation/comm[1]/volume</property>
 	<factor>0.25</factor>
 	<step>1</step>
@@ -174,7 +174,7 @@
 
  <animation>
 	<type>select</type>
-	<object-name>com2.sig00</object-name>
+	<object-name>comm2.sig00</object-name>
 	<condition>
 		<greater-than-equals>
 			<property>instrumentation/comm[1]/signal-quality-norm</property>
@@ -185,7 +185,7 @@
 
  <animation>
 	<type>select</type>
-	<object-name>com2.sig01</object-name>
+	<object-name>comm2.sig01</object-name>
 	<condition>
 		<greater-than-equals>
 			<property>instrumentation/comm[1]/signal-quality-norm</property>
@@ -196,7 +196,7 @@
 
  <animation>
 	<type>select</type>
-	<object-name>com2.sig02</object-name>
+	<object-name>comm2.sig02</object-name>
 	<condition>
 		<greater-than-equals>
 			<property>instrumentation/comm[1]/signal-quality-norm</property>
@@ -207,7 +207,7 @@
 
  <animation>
 	<type>select</type>
-	<object-name>com2.sig03</object-name>
+	<object-name>comm2.sig03</object-name>
 	<condition>
 		<greater-than-equals>
 			<property>instrumentation/comm[1]/signal-quality-norm</property>
@@ -218,7 +218,7 @@
 
  <animation>
 	<type>select</type>
-	<object-name>com2.sig04</object-name>
+	<object-name>comm2.sig04</object-name>
 	<condition>
 		<greater-than-equals>
 			<property>instrumentation/comm[1]/signal-quality-norm</property>
@@ -229,7 +229,7 @@
 
  <animation>
 	<type>select</type>
-	<object-name>com2.sig05</object-name>
+	<object-name>comm2.sig05</object-name>
 	<condition>
 		<greater-than-equals>
 			<property>instrumentation/comm[1]/signal-quality-norm</property>
@@ -240,7 +240,7 @@
 
  <animation>
 	<type>select</type>
-	<object-name>com2.sig06</object-name>
+	<object-name>comm2.sig06</object-name>
 	<condition>
 		<greater-than-equals>
 			<property>instrumentation/comm[1]/signal-quality-norm</property>
@@ -251,7 +251,7 @@
 
  <animation>
 	<type>select</type>
-	<object-name>com2.sig07</object-name>
+	<object-name>comm2.sig07</object-name>
 	<condition>
 		<greater-than-equals>
 			<property>instrumentation/comm[1]/signal-quality-norm</property>
@@ -262,7 +262,7 @@
 
  <animation>
 	<type>select</type>
-	<object-name>com2.sig08</object-name>
+	<object-name>comm2.sig08</object-name>
 	<condition>
 		<greater-than-equals>
 			<property>instrumentation/comm[1]/signal-quality-norm</property>
@@ -273,7 +273,7 @@
 
  <animation>
 	<type>select</type>
-	<object-name>com2.sig09</object-name>
+	<object-name>comm2.sig09</object-name>
 	<condition>
 		<greater-than-equals>
 			<property>instrumentation/comm[1]/signal-quality-norm</property>
@@ -284,7 +284,7 @@
 
  <animation>
 	<type>select</type>
-	<object-name>com2.sig10</object-name>
+	<object-name>comm2.sig10</object-name>
 	<condition>
 		<greater-than-equals>
 			<property>instrumentation/comm[1]/signal-quality-norm</property>
@@ -295,16 +295,16 @@
 
  <animation>
 	<type>select</type>
-	<object-name>com2.mhz</object-name>
+	<object-name>comm2.mhz</object-name>
 	<condition>
-		<property>instrumentation/digital/com2-mhz-state</property>
+		<property>instrumentation/digital/comm2-mhz-state</property>
 	</condition>
  </animation>
 
  <animation>
 	<type>textranslate</type>
-	<object-name>com2a.01</object-name>
-	<property>instrumentation/digital/com2a-whole</property>
+	<object-name>comm2a.01</object-name>
+	<property>instrumentation/digital/comm2a-whole</property>
 	<factor>0.000001</factor>
 	<step>100000</step>
 	<axis>
@@ -316,8 +316,8 @@
 
  <animation>
 	<type>textranslate</type>
-	<object-name>com2a.02</object-name>
-	<property>instrumentation/digital/com2a-whole</property>
+	<object-name>comm2a.02</object-name>
+	<property>instrumentation/digital/comm2a-whole</property>
 	<factor>0.00001</factor>
 	<step>10000</step>
 	<axis>
@@ -329,8 +329,8 @@
 
  <animation>
 	<type>textranslate</type>
-	<object-name>com2a.03</object-name>
-	<property>instrumentation/digital/com2a-whole</property>
+	<object-name>comm2a.03</object-name>
+	<property>instrumentation/digital/comm2a-whole</property>
 	<factor>0.0001</factor>
 	<step>1000</step>
 	<axis>
@@ -342,8 +342,8 @@
 
  <animation>
 	<type>textranslate</type>
-	<object-name>com2a.04</object-name>
-	<property>instrumentation/digital/com2a-whole</property>
+	<object-name>comm2a.04</object-name>
+	<property>instrumentation/digital/comm2a-whole</property>
 	<factor>0.001</factor>
 	<step>100</step>
 	<axis>
@@ -355,8 +355,8 @@
 
  <animation>
 	<type>textranslate</type>
-	<object-name>com2a.05</object-name>
-	<property>instrumentation/digital/com2a-whole</property>
+	<object-name>comm2a.05</object-name>
+	<property>instrumentation/digital/comm2a-whole</property>
 	<factor>0.01</factor>
 	<step>10</step>
 	<axis>
@@ -368,8 +368,8 @@
 
  <animation>
 	<type>textranslate</type>
-	<object-name>com2s.01</object-name>
-	<property>instrumentation/digital/com2s-whole</property>
+	<object-name>comm2s.01</object-name>
+	<property>instrumentation/digital/comm2s-whole</property>
 	<factor>0.000001</factor>
 	<step>100000</step>
 	<axis>
@@ -381,8 +381,8 @@
 
  <animation>
 	<type>textranslate</type>
-	<object-name>com2s.02</object-name>
-	<property>instrumentation/digital/com2s-whole</property>
+	<object-name>comm2s.02</object-name>
+	<property>instrumentation/digital/comm2s-whole</property>
 	<factor>0.00001</factor>
 	<step>10000</step>
 	<axis>
@@ -394,8 +394,8 @@
 
  <animation>
 	<type>textranslate</type>
-	<object-name>com2s.03</object-name>
-	<property>instrumentation/digital/com2s-whole</property>
+	<object-name>comm2s.03</object-name>
+	<property>instrumentation/digital/comm2s-whole</property>
 	<factor>0.0001</factor>
 	<step>1000</step>
 	<axis>
@@ -407,8 +407,8 @@
 
  <animation>
 	<type>textranslate</type>
-	<object-name>com2s.04</object-name>
-	<property>instrumentation/digital/com2s-whole</property>
+	<object-name>comm2s.04</object-name>
+	<property>instrumentation/digital/comm2s-whole</property>
 	<factor>0.001</factor>
 	<step>100</step>
 	<axis>
@@ -420,8 +420,8 @@
 
  <animation>
 	<type>textranslate</type>
-	<object-name>com2s.05</object-name>
-	<property>instrumentation/digital/com2s-whole</property>
+	<object-name>comm2s.05</object-name>
+	<property>instrumentation/digital/comm2s-whole</property>
 	<factor>0.01</factor>
 	<step>10</step>
 	<axis>

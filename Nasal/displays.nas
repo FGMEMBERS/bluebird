@@ -1,6 +1,6 @@
 # ===== text screen functions for FG version 1.9-2.0 (OSG) =====
 # ===== and backend for ai-vor
-# ===== for Bluebird Explorer Hovercraft version 13.2 =====
+# ===== for Bluebird Explorer Hovercraft version 13.5 =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
@@ -54,8 +54,8 @@ var ap1_name_Node = props.globals.getNode("instrumentation/tracking/ap1-name", 1
 var ap1_lat_Node = props.globals.getNode("instrumentation/tracking/ap1-lat", 1);
 var ap1_lon_Node = props.globals.getNode("instrumentation/tracking/ap1-lon", 1);
 var ap1_range_Node = props.globals.getNode("instrumentation/tracking/ap1-range", 1);
-var com0_range_Node = props.globals.getNode("instrumentation/tracking/comm0-range", 1);
-var com1_range_Node = props.globals.getNode("instrumentation/tracking/comm1-range", 1);
+var comm0_range_Node = props.globals.getNode("instrumentation/tracking/comm0-range", 1);
+var comm1_range_Node = props.globals.getNode("instrumentation/tracking/comm1-range", 1);
 var apt_loop_id = 0;
 var apt_loop = func (id) {
 	id == apt_loop_id or return;
@@ -126,11 +126,11 @@ var apt_update = func (id) {
 		range = getprop("instrumentation/comm[0]/track-distance-m");
 		range = range * m_2_conv[a_mode];
 		var txt25 = sprintf("%7.2f",range) ~ m_conv_units[a_mode];
-		com0_range_Node.setValue(txt25);
+		comm0_range_Node.setValue(txt25);
 		range = getprop("instrumentation/comm[1]/track-distance-m");
 		range = range * m_2_conv[a_mode];
 		var txt28 = sprintf("%7.2f",range) ~ m_conv_units[a_mode];
-		com1_range_Node.setValue(txt28);
+		comm1_range_Node.setValue(txt28);
 	}
 	settimer(func { apt_update(id) }, 0.25);
 }
