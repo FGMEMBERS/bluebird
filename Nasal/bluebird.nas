@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 13.1 for FlightGear 1.9 OSG =====
+# ===== Bluebird Explorer Hovercraft  version 13.6 for FlightGear 1.9 OSG =====
 
 var self = cmdarg();
 # strobes -----------------------------------------------------------
@@ -3763,10 +3763,13 @@ var alarm2_reset = func(a2) {
 }
 
 var ap_disconnect = func(a3) {
-	var ap_previous_state = ap_state;
-	digitalPanel.toggle_ap1cmd(-1);
-	digitalPanel.toggle_ap2cmd(-1);
-	digitalPanel.toggle_ap3cmd(-1);
+	if (alarm3_switch and !ap_state and button_LA1==1) {	# double tap to silence
+		alarm1_reset(0);
+	} else {
+		digitalPanel.toggle_ap1cmd(-1);
+		digitalPanel.toggle_ap2cmd(-1);
+		digitalPanel.toggle_ap3cmd(-1);
+	}
 }
 
 # dialog functions --------------------------------------------------
@@ -4560,7 +4563,7 @@ var prestart_main = func {
 		main_loop_id += 1;
 		settimer(prestart_main, 0.1);
 	} else {
-		print ("  version 13.5  release date 2019.Mar.19  by Stewart Andreason");
+		print ("  version 13.6  release date 2019.Apr.14  by Stewart Andreason");
 		update_main();
 	}
 	settimer(func {	# wake up, livery was loaded but did not trigger the listeners

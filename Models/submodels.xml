@@ -1,20 +1,23 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 10.7 ==-->
+<!--== Bluebird Explorer Hovercraft  version 13.6 ==-->
 
 <PropertyList>
 	<submodel>
 		<name>flare1-L</name>
 		<model>Models/Geometry/flare.xml</model>
 		<trigger>ai/submodels/engine-L-flaring</trigger>
-		<speed>-6</speed>
+		<speed>2</speed>
 		<repeat>true</repeat>
 		<delay>0.37</delay>
 		<count>-1</count>
-		<x-offset>-11.8</x-offset>
-		<y-offset>-19.7</y-offset>
-		<z-offset>2.29</z-offset>
-		<yaw-offset>180</yaw-offset>
-		<pitch-offset>60</pitch-offset>
+		<offsets>
+			<x-m>2.429</x-m>
+			<y-m>-5.82</y-m>
+			<z-m>0.6</z-m>
+			<pitch-deg>
+				<property>orientation/groundslope-factored-pitch</property>
+			</pitch-deg>
+		</offsets>
 		<life>0.3</life>
 		<buoyancy>36</buoyancy>
 		<aero-stabilise>false</aero-stabilise>
@@ -29,11 +32,17 @@
 		<repeat>true</repeat>
 		<delay>0.54</delay>
 		<count>-1</count>
-		<x-offset>-14.8</x-offset>
-		<y-offset>-19.7</y-offset>
-		<z-offset>2.29</z-offset>
-		<yaw-offset>135</yaw-offset>
-		<pitch-offset>135</pitch-offset>
+		<offsets>
+			<x-m>2.728</x-m>
+			<y-m>-5.82</y-m>
+			<z-m>0.6</z-m>
+			<pitch-deg>
+				<property>orientation/groundslope-factored-pitch</property>
+			</pitch-deg>
+			<roll-deg>
+				<property>orientation/groundslope-factored-roll</property>
+			</roll-deg>
+		</offsets>
 		<life>0.7</life>
 		<buoyancy>30</buoyancy>
 		<aero-stabilise>false</aero-stabilise>
@@ -44,14 +53,21 @@
 		<name>flare3-L</name>
 		<model>Models/Geometry/flare.xml</model>
 		<trigger>ai/submodels/engine-L-flaring</trigger>
-		<speed>-2</speed>
+		<speed>1</speed>
 		<repeat>true</repeat>
 		<delay>0.25</delay>
 		<count>-1</count>
-		<x-offset>-19.8</x-offset>
-		<y-offset>-19.7</y-offset>
-		<z-offset>2.29</z-offset>
-		<yaw-offset>180</yaw-offset>
+		<offsets>
+			<x-m>6.10</x-m>
+			<y-m>-5.82</y-m>
+			<z-m>0.6</z-m>
+			<pitch-deg>
+				<property>orientation/groundslope-factored-pitch</property>
+			</pitch-deg>
+			<roll-deg>
+				<property>orientation/groundslope-factored-roll</property>
+			</roll-deg>
+		</offsets>
 		<life>0.5</life>
 		<buoyancy>36</buoyancy>
 		<aero-stabilise>false</aero-stabilise>
@@ -66,11 +82,17 @@
 		<repeat>true</repeat>
 		<delay>0.37</delay>
 		<count>-1</count>
-		<x-offset>-11.8</x-offset>
-		<y-offset>19.7</y-offset>
-		<z-offset>2.29</z-offset>
-		<yaw-offset>180</yaw-offset>
-		<pitch-offset>60</pitch-offset>
+		<offsets>
+			<x-m>2.429</x-m>
+			<y-m>5.82</y-m>
+			<z-m>0.6</z-m>
+			<pitch-deg>
+				<property>orientation/groundslope-factored-pitch</property>
+			</pitch-deg>
+			<roll-deg>
+				<property>orientation/groundslope-factored-roll</property>
+			</roll-deg>
+		</offsets>
 		<life>0.3</life>
 		<buoyancy>36</buoyancy>
 		<aero-stabilise>false</aero-stabilise>
@@ -85,11 +107,17 @@
 		<repeat>true</repeat>
 		<delay>0.54</delay>
 		<count>-1</count>
-		<x-offset>-14.8</x-offset>
-		<y-offset>19.7</y-offset>
-		<z-offset>2.29</z-offset>
-		<yaw-offset>135</yaw-offset>
-		<pitch-offset>135</pitch-offset>
+		<offsets>
+			<x-m>2.728</x-m>
+			<y-m>5.82</y-m>
+			<z-m>0.6</z-m>
+			<pitch-deg>
+				<property>orientation/groundslope-factored-pitch</property>
+			</pitch-deg>
+			<roll-deg>
+				<property>orientation/groundslope-factored-roll</property>
+			</roll-deg>
+		</offsets>
 		<life>0.7</life>
 		<buoyancy>30</buoyancy>
 		<aero-stabilise>false</aero-stabilise>
@@ -100,14 +128,21 @@
 		<name>flare6-R</name>
 		<model>Models/Geometry/flare.xml</model>
 		<trigger>ai/submodels/engine-R-flaring</trigger>
-		<speed>-2</speed>
+		<speed>1.5</speed>
 		<repeat>true</repeat>
 		<delay>0.25</delay>
 		<count>-1</count>
-		<x-offset>-19.8</x-offset>
-		<y-offset>19.7</y-offset>
-		<z-offset>2.29</z-offset>
-		<yaw-offset>180</yaw-offset>
+		<offsets>
+			<x-m>6.10</x-m>
+			<y-m>5.82</y-m>
+			<z-m>0.6</z-m>
+			<pitch-deg>
+				<property>orientation/groundslope-factored-pitch</property>
+			</pitch-deg>
+			<roll-deg>
+				<property>orientation/groundslope-factored-roll</property>
+			</roll-deg>
+		</offsets>
 		<life>0.5</life>
 		<buoyancy>36</buoyancy>
 		<aero-stabilise>false</aero-stabilise>

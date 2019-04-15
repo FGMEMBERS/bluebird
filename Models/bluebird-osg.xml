@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 13.5 for OSG                  ==-->
+<!--== Bluebird version 13.6 for OSG                  ==-->
 
 <PropertyList>
 	<model>
@@ -2762,7 +2762,7 @@
 			<!-- (rotate on z-axis) from bearing 240 to 045 -->
 			<phi-min-deg>-15</phi-min-deg>
 			<phi-max-deg>10</phi-max-deg>
-			<!-- roatate on y-axis, measured in front: from 10 degrees below to 15 above -->
+			<!-- rotate on y-axis, measured in front: from 10 degrees below to 15 above -->
 			<speed-mps>
 				<property>sim/multiplay/generic/float[8]</property>
 				<factor>30</factor>
@@ -2783,7 +2783,6 @@
 				<factor>-10</factor>
 				<offset-m>800</offset-m>
 			</particles-per-sec>
-
 		</counter>
 
 		<align>billboard</align>
@@ -2904,7 +2903,6 @@
 				<factor>-10</factor>
 				<offset-m>800</offset-m>
 			</particles-per-sec>
-
 		</counter>
 
 		<align>billboard</align>
@@ -3025,7 +3023,6 @@
 				<factor>-10</factor>
 				<offset-m>800</offset-m>
 			</particles-per-sec>
-
 		</counter>
 
 		<align>billboard</align>
@@ -3146,7 +3143,6 @@
 				<factor>-10</factor>
 				<offset-m>800</offset-m>
 			</particles-per-sec>
-
 		</counter>
 
 		<align>billboard</align>
@@ -3276,7 +3272,7 @@
 		</condition>
 		<offsets>
 			<x-m>2.529</x-m>
-			<y-m>5.82</y-m>
+			<y-m>5.85</y-m>
 			<z-m>0.6</z-m>
 			<roll-deg>180</roll-deg>
 		</offsets>
@@ -3295,7 +3291,7 @@
 		</condition>
 		<offsets>
 			<x-m>2.828</x-m>
-			<y-m>5.82</y-m>
+			<y-m>5.85</y-m>
 			<z-m>0.6</z-m>
 			<roll-deg>180</roll-deg>
 		</offsets>
@@ -3314,7 +3310,7 @@
 		</condition>
 		<offsets>
 			<x-m>6.20</x-m>
-			<y-m>5.82</y-m>
+			<y-m>5.85</y-m>
 			<z-m>0.6</z-m>
 			<roll-deg>180</roll-deg>
 		</offsets>
@@ -3468,14 +3464,14 @@
 			<x-m>2.429</x-m>
 			<y-m>-5.82</y-m>
 			<z-m>0.6</z-m>
-			<pitch-deg>100</pitch-deg>
-			<roll-deg>-135</roll-deg>
+			<pitch-deg>45</pitch-deg>
+			<heading-deg>85</heading-deg>
 		</offsets>
 	</model>
 
 	<model>
 		<name>smoke2</name>
-		<path>Aircraft/bluebird/Models/Effects/smoke-fast.xml</path>
+		<path>Aircraft/bluebird/Models/Effects/smoke-short.xml</path>
 		<condition>
 			<and>
 				<not>
@@ -3489,13 +3485,13 @@
 			<y-m>-5.82</y-m>
 			<z-m>0.6</z-m>
 			<pitch-deg>80</pitch-deg>
-			<roll-deg>-135</roll-deg>
+			<heading-deg>95</heading-deg>
 		</offsets>
 	</model>
 
 	<model>
 		<name>smoke3</name>
-		<path>Aircraft/bluebird/Models/Effects/smoke-slow.xml</path>
+		<path>Aircraft/bluebird/Models/Effects/smoke-short.xml</path>
 		<condition>
 			<and>
 				<not>
@@ -3508,8 +3504,8 @@
 			<x-m>6.10</x-m>
 			<y-m>-5.82</y-m>
 			<z-m>0.6</z-m>
-			<pitch-deg>80</pitch-deg>
-			<roll-deg>-135</roll-deg>
+			<pitch-deg>35</pitch-deg>
+			<heading-deg>105</heading-deg>
 		</offsets>
 	</model>
 
@@ -3528,14 +3524,14 @@
 			<x-m>2.529</x-m>
 			<y-m>5.82</y-m>
 			<z-m>0.6</z-m>
-			<pitch-deg>-100</pitch-deg>
-			<roll-deg>-45</roll-deg>
+			<pitch-deg>45</pitch-deg>
+			<heading-deg>-65</heading-deg>
 		</offsets>
 	</model>
 
 	<model>
 		<name>smoke5</name>
-		<path>Aircraft/bluebird/Models/Effects/smoke-fast.xml</path>
+		<path>Aircraft/bluebird/Models/Effects/smoke-short.xml</path>
 		<condition>
 			<and>
 				<not>
@@ -3548,14 +3544,14 @@
 			<x-m>2.828</x-m>
 			<y-m>5.82</y-m>
 			<z-m>0.6</z-m>
-			<pitch-deg>-80</pitch-deg>
-			<roll-deg>-45</roll-deg>
+			<pitch-deg>80</pitch-deg>
+			<heading-deg>-85</heading-deg>
 		</offsets>
 	</model>
 
 	<model>
 		<name>smoke6</name>
-		<path>Aircraft/bluebird/Models/Effects/smoke-slow.xml</path>
+		<path>Aircraft/bluebird/Models/Effects/smoke-short.xml</path>
 		<condition>
 			<and>
 				<not>
@@ -3568,57 +3564,11 @@
 			<x-m>6.20</x-m>
 			<y-m>5.82</y-m>
 			<z-m>0.6</z-m>
-			<pitch-deg>-80</pitch-deg>
-			<roll-deg>-45</roll-deg>
+			<pitch-deg>35</pitch-deg>
+			<heading-deg>-90</heading-deg>
 		</offsets>
 	</model>
 <!-- junction between nose and body -->
-	<model>
-		<name>smoke7</name>
-		<path>Aircraft/bluebird/Models/Effects/smoke-fast.xml</path>
-		<condition>
-			<and>
-				<not>
-					<property>sim/paused</property>
-				</not>
-				<greater-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
-					<value>1</value>
-				</greater-than>
-			</and>
-		</condition>
-		<offsets>
-			<x-m>-0.074</x-m>
-			<y-m>-2.5</y-m>
-			<z-m>0.2</z-m>
-			<pitch-deg>90</pitch-deg>
-			<roll-deg>-135</roll-deg>
-		</offsets>
-	</model>
-
-	<model>
-		<name>smoke8</name>
-		<path>Aircraft/bluebird/Models/Effects/smoke-fast.xml</path>
-		<condition>
-			<and>
-				<not>
-					<property>sim/paused</property>
-				</not>
-				<greater-than>
-					<property>sim/model/bluebird/damage/major-counter</property>
-					<value>1</value>
-				</greater-than>
-			</and>
-		</condition>
-		<offsets>
-			<x-m>-0.074</x-m>
-			<y-m>2.5</y-m>
-			<z-m>0.2</z-m>
-			<pitch-deg>-90</pitch-deg>
-			<roll-deg>-45</roll-deg>
-		</offsets>
-	</model>
-
 	<model>
 		<name>smoke9</name>
 		<path>Aircraft/bluebird/Models/Effects/smoke-short.xml</path>
@@ -3799,50 +3749,6 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>smoke7</object-name>
-		<property>orientation/groundslope-factored-pitch</property>
-		<axis>
-			<x>0</x>
-			<y>1</y>
-			<z>0</z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>smoke7</object-name>
-		<property>orientation/groundslope-factored-roll</property>
-		<axis>
-			<x>-1</x>
-			<y>0</y>
-			<z>0</z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>smoke8</object-name>
-		<property>orientation/groundslope-factored-pitch</property>
-		<axis>
-			<x>0</x>
-			<y>1</y>
-			<z>0</z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>smoke8</object-name>
-		<property>orientation/groundslope-factored-roll</property>
-		<axis>
-			<x>-1</x>
-			<y>0</y>
-			<z>0</z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
 		<object-name>smoke9</object-name>
 		<property>orientation/groundslope-factored-pitch</property>
 		<axis>
@@ -3917,7 +3823,7 @@
 	</model>
 
 	<model>
-		<name>InstrumentsAP</name>
+		<name>InstrumentsAP1</name>
 		<path>Aircraft/bluebird/Models/instruments-1L.xml</path>
 		<offsets>
 			<x-m>0</x-m>
@@ -3927,7 +3833,7 @@
 	</model>
 
 	<model>
-		<name>InstrumentsAP</name>
+		<name>InstrumentsAP3</name>
 		<path>Aircraft/bluebird/Models/instruments-1R.xml</path>
 		<offsets>
 			<x-m>0</x-m>

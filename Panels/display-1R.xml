@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 13.5  ==-->
+<!--== Bluebird Explorer Hovercraft  version 13.6  ==-->
 
 <PropertyList>
 	<name>screen messages text 1R</name>
@@ -1853,6 +1853,74 @@ COMM2</text>
 						<transformation>
 							<type>y-shift</type>
 							<offset>-125</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>comm1 line 24a red</name>
+					<type>text</type>
+					<condition>
+						<equals>
+							<property>sim/model/bluebird/lighting/buttons/comm1-backlit</property>
+							<value type="float">0</value>
+						</equals>
+					</condition>
+					<font>arial_black</font>
+					<point-size>18</point-size>
+					<color>
+						<red>1</red>
+						<green>0</green>
+						<blue>0</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>literal</type>
+							<text>OFF</text>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-4</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-152</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>comm2 line 27a red</name>
+					<type>text</type>
+					<condition>
+						<equals>
+							<property>sim/model/bluebird/lighting/buttons/comm2-backlit</property>
+							<value type="float">0</value>
+						</equals>
+					</condition>
+					<font>arial_black</font>
+					<point-size>18</point-size>
+					<color>
+						<red>1</red>
+						<green>0</green>
+						<blue>0</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>literal</type>
+							<text>OFF</text>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-4</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-200</offset>
 						</transformation>
 					</transformations>
 				</layer>

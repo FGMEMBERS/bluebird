@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 13.5 common base ==-->
+<!--== Bluebird version 13.6 common base ==-->
 
 <PropertyList>
  <sim>
@@ -513,8 +513,8 @@
 						</face>
 						<specular type="float">0</specular>
 					</alarm2-caution>
-					<comm0-backlit type="float">0</comm0-backlit>
 					<comm1-backlit type="float">0</comm1-backlit>
+					<comm2-backlit type="float">0</comm2-backlit>
 					<ap-disconnect>
 						<edge-b>
 							<emission>
