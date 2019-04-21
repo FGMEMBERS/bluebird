@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 13.6 for FlightGear 1.9 OSG =====
+# ===== Bluebird Explorer Hovercraft  version 13.7 for FlightGear 1.9 OSG =====
 
 var self = cmdarg();
 # strobes -----------------------------------------------------------
@@ -2025,6 +2025,15 @@ var groundslope_update = func {
 	var gear1_gnd_elev_m = geo.elevation(gear1_lat_lon[0],gear1_lat_lon[1]);
 	var gear2_gnd_elev_m = geo.elevation(gear2_lat_lon[0],gear2_lat_lon[1]);
 	var gear3_gnd_elev_m = geo.elevation(gear3_lat_lon[0],gear3_lat_lon[1]);
+	if(gear1_gnd_elev_m == nil) {	# catch nil
+		gear1_gnd_elev_m = 0;
+	}
+	if(gear2_gnd_elev_m == nil) {
+		gear2_gnd_elev_m = 0;
+	}
+	if(gear3_gnd_elev_m == nil) {
+		gear3_gnd_elev_m = 0;
+	}
 	var gear23_diff = gear2_gnd_elev_m - gear3_gnd_elev_m;
 	var gear23_oh = gear23_diff / (1.74 * 2);	# oh = opposite over hypotenuse
 	if (abs(gear23_oh) > slope_limit) {
@@ -4563,7 +4572,7 @@ var prestart_main = func {
 		main_loop_id += 1;
 		settimer(prestart_main, 0.1);
 	} else {
-		print ("  version 13.6  release date 2019.Apr.14  by Stewart Andreason");
+		print ("  version 13.7  release date 2019.Apr.21  by Stewart Andreason");
 		update_main();
 	}
 	settimer(func {	# wake up, livery was loaded but did not trigger the listeners
@@ -4600,6 +4609,7 @@ setlistener("sim/signals/fdm-initialized", func {
 	settimer(nav_light_loop, 0.5);
 	setprop("sim/atc/enabled", 0);
 	setprop("sim/sound/chatter", 0);
+	walk.reinit_walker();
 	var t = getprop("/sim/description");
 	print (t);
 	prestart_main();

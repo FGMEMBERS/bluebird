@@ -1,4 +1,4 @@
-# ===== Bluebird Explorer Hovercraft  version 13.5 =====
+# ===== Bluebird Explorer Hovercraft  version 13.7 =====
 
 # instrumentation ===================================================
 var lat_whole = props.globals.getNode("instrumentation/digital/lat-whole", 1);
@@ -18,6 +18,11 @@ var gps_mode = props.globals.getNode("sim/lon-lat-format", 1);
 var altitude_mode = props.globals.getNode("instrumentation/digital/altitude-mode", 1);
 var knots_2_conv = [0.514444444, 1.0, 1.150779448, 1.852, 1.524];
 	# MPS , Kts , MPH , KmPH , MACH
+var clock_node = props.globals.getNode("instrumentation/digital/clock-mode", 1);
+var clock_mode = 0;
+var clock_hh = props.globals.getNode("instrumentation/digital/clock-hh", 1);
+var clock_mm = props.globals.getNode("instrumentation/digital/clock-mm", 1);
+var clock_ss = props.globals.getNode("instrumentation/digital/clock-ss", 1);
 
 instrumentation_update = func {
 	if (getprop("sim/current-view/view-number") == 0) {
@@ -119,6 +124,20 @@ instrumentation_update = func {
 		#===== throttle digital module ==============================
 		var xx = abs(getprop("controls/engines/engine/throttle")) * 100;
 		throttle_whole.setValue(int(xx));
+		#===== clock digital module =================================
+		if (clock_mode) {
+			var cu = getprop("sim/time/local-day-seconds");
+			var xh = int(cu / 3600);
+			var xm = int((cu - (xh * 3600)) / 60);
+			var xs = cu - (xh* 3600) - (xm * 60);
+		} else {
+			var xh = getprop("sim/time/utc/hour");
+			var xm = getprop("sim/time/utc/minute");
+			var xs = getprop("sim/time/utc/second");
+		}
+		clock_hh.setValue(xh);
+		clock_mm.setValue(xm);
+		clock_ss.setValue(xs);
 		#===================================
 	}
 }
@@ -128,6 +147,8 @@ instrumentation_loop = func {
 	settimer(instrumentation_loop, 0);
 }
 settimer(instrumentation_loop, 2);
+
+setlistener("instrumentation/digital/clock-mode", func(n) { clock_mode = n.getValue(); }, 1);
 
 # 1L autopilot instruments ======================================
 

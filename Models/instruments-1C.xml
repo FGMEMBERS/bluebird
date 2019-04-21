@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Bluebird Explorer Hovercraft  version 12.0 for FlightGear OSG only -->
+<!-- Bluebird Explorer Hovercraft  version 13.7 for FlightGear OSG only -->
 
 <PropertyList>
 
@@ -178,16 +178,34 @@
 
  <model>
 	<name>CLOCK</name>
-	<path>Aircraft/bluebird/Instruments-3d/clock/clock-b.xml</path>
+	<path>Aircraft/bluebird/Instruments-3d/digital2/clock.xml</path>
 	<offsets>
-		<x-m>-8.082</x-m>
-		<y-m>0.2</y-m>
-		<z-m>1.091</z-m>
+		<x-m>-8.0955</x-m>
+		<y-m>0.2015</y-m>
+		<z-m>1.1125</z-m>
 		<pitch-deg>-28.4</pitch-deg>
 		<w>512</w>
 		<h>512</h>
 	</offsets>
  </model>
+
+ <animation>
+	<type>material</type>
+	<object-name>clock.frame</object-name>
+	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
+	<emission>
+		<red-prop>emission/red</red-prop>
+		<green-prop>emission/green</green-prop>
+		<blue-prop>emission/blue</blue-prop>
+		<factor>1</factor>
+	</emission>
+	<specular>
+		<factor-prop>../interior-specular</factor-prop>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</specular>
+ </animation>
 
 	<animation>
 		<type>range</type>
@@ -690,6 +708,31 @@
 	</hovered>
  </animation>
 
+ <animation>
+	<type>pick</type>
+	<object-name>clock.button</object-name>
+	<action>
+		<name>clock-mode-select</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-adjust</command>
+			<property>instrumentation/digital/clock-mode</property>
+			<step>1</step>
+			<min>0</min>
+			<max>2</max>
+			<wrap>true</wrap>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>clock-mode</tooltip-id>
+			<label>Toggle clock display mode</label>
+		</binding>
+	</hovered>
+ </animation>
+
 <!--	VOR 1 Radial adjust  -->
  <animation>
 	<type>pick</type>
@@ -874,7 +917,7 @@
 	</hovered>
  </animation>
 
- <!-- tooltips -->
+ <!-- general tooltips -->
  <animation>
 	<type>pick</type>
 	<object-name>altitude.frame</object-name>

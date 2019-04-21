@@ -1,5 +1,10 @@
 Version# Vertices PolygonFaces Comments
 
+2019.Apr.21
+13.7	Fix bug: catch nil capable of crashing nasal subroutine.
+	Remove debugging change from submodels.
+	Replace clock with digital model to improve readability.
+
 2019.Apr.14
 13.6	Fix mis-matched comm naming.
 	Add comm OFF indicator to right panel.

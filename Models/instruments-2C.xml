@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Bluebird Explorer Hovercraft  version 13.5 for FlightGear OSG only -->
+<!-- Bluebird Explorer Hovercraft  version 13.7 for FlightGear OSG only -->
 
 <PropertyList>
 
@@ -14,7 +14,7 @@
 	<path>Aircraft/bluebird/Instruments-3d/digital2/comm1.xml</path>
 	<offsets>
 		<x-m>-8.096</x-m>
-		<y-m>0.006</y-m>
+		<y-m>-0.001</y-m>
 		<z-m>1.113</z-m>
 		<pitch-deg>-28.65</pitch-deg>
 		<w>512</w>
@@ -27,7 +27,7 @@
 	<path>Aircraft/bluebird/Instruments-3d/digital2/comm2.xml</path>
 	<offsets>
 		<x-m>-8.096</x-m>
-		<y-m>0.118</y-m>
+		<y-m>0.111</y-m>
 		<z-m>1.113</z-m>
 		<pitch-deg>-28.65</pitch-deg>
 		<w>512</w>

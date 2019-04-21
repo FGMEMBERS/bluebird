@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird version 13.6 common base ==-->
+<!--== Bluebird version 13.7 common base ==-->
 
 <PropertyList>
  <sim>
@@ -2410,6 +2410,7 @@
 		<ap-state type="bool">0</ap-state>
 		<comm1-mhz-state type="bool">0</comm1-mhz-state>
 		<comm2-mhz-state type="bool">0</comm2-mhz-state>
+		<clock-mode type="int">0</clock-mode>
 	</digital>
 	<nav n="0">
 		<frequencies>
