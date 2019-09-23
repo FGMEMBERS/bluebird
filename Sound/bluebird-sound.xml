@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 8.8 ==-->
+<!--== Bluebird Explorer Hovercraft  version 13.0 ==-->
  
 <PropertyList>
  <fx>
-
 	<engine>
 		<name>rumble</name>
 		<mode>looped</mode>
@@ -1272,5 +1271,62 @@
 		</condition>
 	</crash>
 
+<!-- instrumentation -->
+	<horn>
+		<name>alarm1-horn</name>
+		<mode>looped</mode>
+		<path>Aircraft/bluebird/Sound/ap-disconnect-horn.wav</path>
+		<condition>
+			<and>
+				<property>sim/model/bluebird/systems/alarm1-state</property>
+				<property>sim/model/bluebird/systems/power-switch</property>
+			</and>
+		</condition>
+		<position>
+			<x>-8.11</x>
+			<y>1.2</y>
+			<z>0.4</z>
+		</position>
+		<reference-dist>3</reference-dist>
+		<max-dist>15</max-dist>
+	</horn>
+
+	<horn>
+		<name>alarm2-horn</name>
+		<mode>looped</mode>
+		<path>Aircraft/bluebird/Sound/caution-horn.wav</path>
+		<condition>
+			<and>
+				<property>sim/model/bluebird/systems/alarm2-state</property>
+				<property>sim/model/bluebird/systems/power-switch</property>
+			</and>
+		</condition>
+		<position>
+			<x>-8.11</x>
+			<y>1.2</y>
+			<z>0.4</z>
+		</position>
+		<reference-dist>3</reference-dist>
+		<max-dist>15</max-dist>
+	</horn>
+
+	<horn>
+		<name>alarm3-horn</name>
+		<mode>once</mode>
+		<path>Aircraft/bluebird/Sound/ap-disconnect-horn.wav</path>
+		<condition>
+			<and>
+				<property>sim/model/bluebird/systems/alarm3-state</property>
+				<property>sim/model/bluebird/systems/power-switch</property>
+			</and>
+		</condition>
+		<position>
+			<x>-8.11</x>
+			<y>1.2</y>
+			<z>0.4</z>
+		</position>
+		<reference-dist>3</reference-dist>
+		<max-dist>15</max-dist>
+	</horn>
  </fx>
 </PropertyList>

@@ -1,5 +1,6 @@
-# ===== Bluebird Explorer Hovercraft  version 10.92 for FlightGear 1.9 OSG =====
+# ===== Bluebird Explorer Hovercraft  version 13.7 for FlightGear 1.9 OSG =====
 
+var self = cmdarg();
 # strobes -----------------------------------------------------------
 var strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
 var strobe_light = aircraft.light.new("sim/model/bluebird/lighting/strobe1", [0.1, 0.2, 0.1, 1.4], strobe_switch);
@@ -43,7 +44,7 @@ var clamp = func(v, min, max) { v < min ? min : v > max ? max : v }
 var RAD2DEG = 180 / math.pi;
 
 # === global nodes, and constants ===================================
-
+var preferred_fov = 55;		# default for 4:3 screen
 var vertical_offset_ft = 0.5830;
 	# keep shadow off ground at expense of keeping wheels and gear
 	# at ground level. Also adjust Shadow in bluebird.xml line# 13997 with negative
@@ -74,6 +75,7 @@ var door5_adjpos = props.globals.getNode("sim/model/bluebird/doors/door[5]/posit
 var gear = [];
 append(gear, aircraft.door.new("gear/gear[0]", 3));
 append(gear, aircraft.door.new("gear/gear[1]", 2.8));
+append(gear, aircraft.door.new("gear/gear[2]", 1.5));
 
 # movement and position ---------------------------------------------
 var airspeed_kt_Node = props.globals.getNode("velocities/airspeed-kt", 1);
@@ -135,7 +137,7 @@ var livery_cabin_surface = [	# A=ambient from livery, only updates upon livery c
 	{ AR: 0.60, AG: 0.60, AB: 0.60, R_add: 0.00 , G_add: 0.00 , B_add: 0.00 , ER: 0, EG: 0, EB: 0, pname: "interior4-lower-walls", type:"", in_livery:1},
 	{ AR: 0.36, AG: 0.37, AB: 0.32, R_add: 0.18 , G_add:-0.0925, B_add:-0.08 , ER: 0, EG: 0, EB: 0, pname: "interior5-console", type:"", in_livery:0},
 	{ AR: 0.70, AG: 0.69, AB: 0.59, R_add: 0.30 , G_add:-0.1725, B_add:-0.1475, ER: 0, EG: 0, EB: 0, pname: "interior6-chairs", type:"", in_livery:0},
-	{ AR: 0.25, AG: 0.25, AB: 0.17, R_add: 0.125, G_add:-0.06  , B_add:-0.0425, ER: 0, EG: 0, EB: 0, pname: "door5/hatch7-flooring-side", type:"", in_livery:0},
+	{ AR: 0.25, AG: 0.25, AB: 0.25, R_add: 0.125, G_add:-0.06  , B_add:-0.06  , ER: 0, EG: 0, EB: 0, pname: "door5/hatch7-flooring-side", type:"", in_livery:0},
 	{ AR: 0.80, AG: 0.80, AB: 0.80, R_add: 0.20 , G_add:-0.20  , B_add:-0.20  , ER: 0, EG: 0, EB: 0, pname: "interior8-light-frame", type:"GB", in_livery:0},
 	{ AR: 0.60, AG: 0.60, AB: 0.60, R_add: 0.20 , G_add:-0.20  , B_add:-0.20  , ER: 0, EG: 0, EB: 0, pname: "interior9-buttons", type:"GB", in_livery:0}
 	];
@@ -159,6 +161,9 @@ var button_RT6 = 0;
 var button_RT7 = 0;
 var button_RT8 = 0;
 var button_RT9 = 0;
+var button_LA1 = 0;
+var button_LA2 = 0;
+var button_LA3 = 0;
 var button_lit = 0;	# brightness. global to remember between updates
 var interior_lighting_base_R = 0;   # base for calculating individual colors inside
 var interior_lighting_base_GB = 0;  # Red, and GreenBlue
@@ -169,7 +174,12 @@ var panel_ambient_R = 0;
 var panel_ambient_GB = 0;
 var panel_specular = 0;
 var alert_switch = 0;
+var alarm1_switch = 0;
+var alarm2_switch = 0;
+var alarm3_switch = 0;
+var alarm4_switch = 0;
 var int_switch = 1;
+var ap_state = 0;
 # specular reminder: 1 = full reflection, 0 = no reflection from sun
 
 # ------ components ------
@@ -215,7 +225,11 @@ door1_adjpos.setValue(0);
 door5_adjpos.setValue(0);
 var door0_position = 0;
 var door1_position = 0;
-var door5_position = 0;
+var door5_actual_position = 0;
+var door5_old_logic_position = 0;
+var door5_new_logic_position = 0;
+var door5_new_temp = 0;
+var door5_direction = 0;
 var active_door = 0;
 # -------- engines -------
 	# /sim/model/bluebird/lighting/power-glow from fusion reactor under hull cover,
@@ -270,22 +284,24 @@ var ground_warning = 1;
 maxspeed.setValue(500);
 current.setValue(5);  # needed for engine-digital panel
 var cpl = 5;          # current power level
+var cpl_set = 5;
 var current_to = 5;   # distinguishes between change_maximum types. Current or To
 var max_drift = 0;    # smoothen drift between maxspeed power levels
 var max_lose = 0;     # loss of momentum after shutdown of engines
 var max_from = 5;
 var max_to = 5;
+var swap_flaps = 0;   # flaps buttons on keyboard or joystick sometimes backward from expectations
 # -------- sounds --------
 var sound_level = 0;
 var sound_state = 0;
 var alert_level = 0;
 # ------- walker ---------
 var cockpit_locations = [
-	{ x: -7.35, y:  0   , z_floor_m: 0.495, h: 0 , p: -2, fov: 55, can_walk: 0, z_eye_offset_m: 0.975 },
-	{ x: -5.6 , y:  0   , z_floor_m: 0.495, h: 0 , p:  0, fov: 55, can_walk: 1, z_eye_offset_m: 1.625 },
-	{ x: -5.94, y: -0.73, z_floor_m: 0.495, h: 0 , p:  0, fov: 55, can_walk: 0, z_eye_offset_m: 0.975 },
-	{ x: -5.93, y:  0.77, z_floor_m: 0.495, h: 0 , p:  0, fov: 55, can_walk: 0, z_eye_offset_m: 0.975 },
-	{ x:  8.4 , y:  1.60, z_floor_m: 0.495, h:135, p:  0, fov: 55, can_walk: 1, z_eye_offset_m: 1.625 } ];	# left doorway
+	{ x: -7.35, y:  0   , z_floor_m: 0.495, h: 0 , p: -2, can_walk: 0, z_eye_offset_m: 0.975 },
+	{ x: -5.6 , y:  0   , z_floor_m: 0.495, h: 0 , p:  0, can_walk: 1, z_eye_offset_m: 1.625 },
+	{ x: -5.94, y: -0.73, z_floor_m: 0.495, h: 0 , p:  0, can_walk: 0, z_eye_offset_m: 0.975 },
+	{ x: -5.93, y:  0.77, z_floor_m: 0.495, h: 0 , p:  0, can_walk: 0, z_eye_offset_m: 0.975 },
+	{ x:  8.4 , y:  1.60, z_floor_m: 0.495, h:135, p:  0, can_walk: 1, z_eye_offset_m: 1.625 } ];	# left doorway
 	# Waldo eye height is 1.625m
 var cockpitView = 0;
 # ----- gui dialogs -----
@@ -294,6 +310,14 @@ var active_landing_button = [3, 1, 3];
 var config_dialog = nil;
 var systems_dialog = nil;
 var livery_dialog = nil;
+var ant_list = [".", " .", "  .", "-", " -", "  -" ];
+var spinner_list = ["0","1","2","3","4","5","6","7","8","9"," 0"," 1"," 2"," 3"," 4"," 5"," 6"," 7"," 8"," 9" ];
+var spinner4 = 0;
+var ant5 = 0;
+var ant6 = 0;
+var ant7 = 0;
+var ant8 = 0;
+var ant9 = 0;
 
 var reinit_bluebird = func {	# reset the above variables
 	damage_blocker = 0;
@@ -322,7 +346,10 @@ var reinit_bluebird = func {	# reset the above variables
 	gear1_damage_offset_m = 0;
 	door0_position = 0;
 	door1_position = 0;
-	door5_position = 0;
+	door5_actual_position = 0;
+	door5_old_logic_position = 0;
+	door5_new_logic_position = 0;
+	door5_direction = 0;
 	active_door = 0;
 	power_switch = 1;
 	reactor_request = 1;
@@ -387,7 +414,14 @@ var reinit_bluebird = func {	# reset the above variables
 	button_RT7 = 0;
 	button_RT8 = 0;
 	button_RT9 = 0;
+	button_LA1 = 0;
+	button_LA2 = 0;
+	button_LA3 = 0;
 	button_lit = 0;
+	alarm1_switch = 0;
+	alarm2_switch = 0;
+	alarm3_switch = 0;
+	alarm4_switch = 0;
 	cockpitView = 0;
 	cycle_cockpit(0);
 	active_nav_button = [3, 3, 1];
@@ -401,14 +435,18 @@ var reinit_bluebird = func {	# reset the above variables
 		fgcommand("dialog-close", props.Node.new({ "dialog-name" : name }));
 		systems_dialog = nil;
 	}
-	if (getprop("sim/ai-traffic/enabled") or getprop("sim/multiplay/rxport")) {
-		setprop("instrumentation/tracking/enabled", 1);
-	}
+	setprop("instrumentation/tracking/enabled", 0);
 }
 
 setlistener("sim/signals/reinit", func {
 	reinit_bluebird();
 });
+
+var reset_alarm4_state = func() {
+	setprop("sim/model/bluebird/systems/alarm4-state", 0);
+	reset_alarm4_timer.stop();
+}
+var reset_alarm4_timer = maketimer(1.9, reset_alarm4_state);
 
 # display screens ---------------------------------------------------
 var screen_3R_on = 0;	# debug screen at 3 right
@@ -532,18 +570,30 @@ var door_update = func(door_number) {
 	} elsif (door_number == 4) {
 		setprop("sim/model/bluebird/sound/door4-volume", doorProximityVolume(c_view, 4, x_position, y_position));
 	} elsif (door_number == 5) {
-		var gear_position2 = clamp(((gear_position * gear_position * 0.1207) + (gear_position * 0.2299) + 0.79), 0, 1);
-		door5_position = getprop("sim/model/bluebird/doors/door[5]/position-norm");
-		if (door5_position > 0.66 and airspeed > 40) {
-			door5_position = 0.66;
-		}
-		if (door5_position > gear_position2) {
-			setprop("sim/model/bluebird/doors/door[5]/position-adj", gear_position2);
+		door5_old_logic_position = door5_new_logic_position;
+		door5_new_logic_position = getprop("sim/model/bluebird/doors/door[5]/position-norm");
+		if (door5_new_logic_position > door5_old_logic_position) {
+			door5_direction = 1;
+		} elsif (door5_new_logic_position < door5_old_logic_position) {
+			door5_direction = -1;
 		} else {
-			setprop("sim/model/bluebird/doors/door[5]/position-adj", door5_position);
+			door5_direction = 0;
 		}
+		door5_new_temp = door5_new_logic_position;
+		var gear_position2 = clamp(((gear_position * gear_position * 0.1207) + (gear_position * 0.2299) + 0.79), 0, 1);
+		if (door5_new_logic_position > 0.66 and airspeed > 40 and door5_direction > 0) {
+			door5_new_temp = 0.66;		# do not push against the airflow
+		}
+		if (door5_new_temp > gear_position2) {
+			door5_new_temp = gear_position2;	# do not go below the gear level, implying flat ground level
+		}
+		if (door5_direction < 0 and door5_new_logic_position > door5_actual_position) {
+			door5_new_temp = door5_actual_position;
+		}
+		door5_actual_position = door5_new_temp;
+		setprop("sim/model/bluebird/doors/door[5]/position-adj", door5_actual_position);
 		if (getprop("sim/model/bluebird/crew/walker/x-offset-m") > 8.9) {
-			if (door5_position < 0.62) {
+			if (door5_actual_position < 0.62) {	# step inside or be pushed away from door
 				setprop("sim/model/bluebird/crew/walker/x-offset-m", 8.9);
 				cockpit_locations[cockpitView].x = 8.9;
 				setprop("sim/model/bluebird/crew/walker/z-offset-m", 0.495);
@@ -594,7 +644,7 @@ var toggle_door = func {
 			(active_door == 5 and airspeed > 3900)) {
 		if ((active_door == 0 and door0_position == 0) or
 				(active_door == 1 and door1_position == 0) or
-				(active_door == 5 and door5_position == 0)) {
+				(active_door == 5 and door5_actual_position == 0)) {
 			popupTip2("Unable to comply. Velocity too fast for safe deployment.");
 			return 2;
 		}
@@ -699,6 +749,11 @@ setlistener("sim/model/bluebird/lighting/interior-switch", func(n) { int_switch 
 
 var isodd = func(n) { int(n / 2) * 2 != int(n) };
 
+setlistener("instrumentation/digital/ap-state", func(n) {
+	ap_state = n.getValue();
+	panel_lighting_update();
+},, 0);
+
 # lighting and texture ----------------------------------------------
 
 setlistener("environment/visibility-m", func(n) { visibility = n.getValue() }, 1, 0);
@@ -739,6 +794,8 @@ var hatch_interpolate = func (i_from, i_to, i_slider) {
 }
 
 var hatch_lighting_update = func {
+	ant9 = ((ant9 + 1)>5 ? 0 : (ant9+1));
+	setprop("instrumentation/display-screens/t1L-B9", ant_list[ant9]);
 	var sa_hatch = (sun_angle > 1.6 ? 0 : (1.6 - sun_angle) / 0.6);
 	var door0_opening = clamp(((door0_position - 0.15) * 1.887), 0, 1);	# adjust for size of actual opening
 	var door0_E_subtract = door0_opening * (1 - int_switch) * 0.45;
@@ -791,7 +848,7 @@ var hatch_lighting_update = func {
 	setprop("sim/model/bluebird/lighting/doors0-1/interior1-flooring/amb-dif/green", hatch_interpolate((livery_cabin_surface[1].EG * interior_lighting_base_GB * amb_calc), livery_cabin_surface[1].AG, doors0_1_opening));
 	setprop("sim/model/bluebird/lighting/doors0-1/interior1-flooring/amb-dif/blue", hatch_interpolate((livery_cabin_surface[1].EB * interior_lighting_base_GB * amb_calc), livery_cabin_surface[1].AB, doors0_1_opening));
 
-	var door5_opening = clamp((door5_position * 1.724), 0, 1);
+	var door5_opening = clamp((door5_actual_position * 1.724), 0, 1);
 	setprop("sim/model/bluebird/lighting/door5/interior-specular", door5_opening);
 	var door5_E_factor = 1 - (door5_opening * 0.5);
 	var f5R = interior_lighting_base_R * door5_E_factor;
@@ -938,11 +995,11 @@ setlistener("sim/model/bluebird/components/nacelle-L", func(n) {
 			setprop ("sim/model/bluebird/systems/nacelle-L-venting", 0);
 		}
 		if (damage_count) {
-			setprop ("ai/submodels/engine-L-venting", 1);
+			setprop ("ai/submodels/engine-L-smoking", 1);
 		}
 	} else {
 		setprop ("ai/submodels/engine-L-flaring", 0);
-		setprop ("ai/submodels/engine-L-venting", 0);
+		setprop ("ai/submodels/engine-L-smoking", 0);
 	}
 }, 1);
 
@@ -956,11 +1013,11 @@ setlistener("sim/model/bluebird/components/nacelle-R", func(n) {
 			setprop ("sim/model/bluebird/systems/nacelle-R-venting", 0);
 		}
 		if (damage_count) {
-			setprop ("ai/submodels/engine-R-venting", 1);
+			setprop ("ai/submodels/engine-R-smoking", 1);
 		}
 	} else {
 		setprop ("ai/submodels/engine-R-flaring", 0);
-		setprop ("ai/submodels/engine-R-venting", 0);
+		setprop ("ai/submodels/engine-R-smoking", 0);
 	}
 }, 1);
 
@@ -992,7 +1049,7 @@ var update_venting = func(uv_change, left_right) {	# 1=left,2=right
 					new_venting = 1;
 				} else {
 					setprop ("ai/submodels/engine-L-flaring", 1);
-					setprop ("ai/submodels/engine-L-venting", 1);
+					setprop ("ai/submodels/engine-L-smoking", 1);
 				}
 			} else {
 				setprop ("ai/submodels/nacelle-LR-venting", 0);
@@ -1013,7 +1070,7 @@ var update_venting = func(uv_change, left_right) {	# 1=left,2=right
 					new_venting += 2;
 				} else {
 					setprop ("ai/submodels/engine-R-flaring", 1);
-					setprop ("ai/submodels/engine-R-venting", 1);
+					setprop ("ai/submodels/engine-R-smoking", 1);
 				}
 			} else {
 				setprop ("ai/submodels/nacelle-RR-venting", 0);
@@ -1185,6 +1242,8 @@ var buttonL67_update = func(b67_change_all) {
 #   only when changes are in progress ===============================
 
 var panel_lighting_update = func {
+	ant8 = ((ant8 + 1)>5 ? 0 : (ant8+1));
+	setprop("instrumentation/display-screens/t1L-B8", ant_list[ant9]);
 	var plu_return = 0;
 	var old_lit = button_lit;
 	# instrument panel sun angle
@@ -1244,39 +1303,23 @@ var panel_lighting_update = func {
 	var old_button_2 = button_G3;
 	if (power_switch) {
 		if (gear_position == 0) {	# up
-			if (wheel_position == 0) {	# up = 1green
-				button_G1 = 2;
-			} else {		# wheels barely down = 1yellow
+			if (wheel_position == 0) {	# up = 1:white
+				button_G1 = 15;
+			} else {		# wheels extended = 1:yellow
 				button_G1 = 3;
 			}
 			button_G3 = unlit_lighting_base;
-		} elsif (gear_position == 1 or (gear_position > 0.409 and gear_position < 0.411)) {
-			if (wheel_position < 0.5) {	# skid-plate down = 3blue
-				button_G3 = 4;
-			} else {			# wheels down = 3green
-				button_G3 = 2;
-			}
+		} elsif (gear_position == 1 or (gear_position > 0.409 and gear_position < 0.411)) {	# down and locked
+			button_G3 = 2;
 			button_G1 = unlit_lighting_base;
 		} else {
-			plu_return = 1;
-			var plu_time = getprop("sim/time/elapsed-sec") * 0.5;
-			plu_time = int((plu_time - int(plu_time)) * 10);
-			if (isodd(plu_time)) {
-				if (!gear_request) {		# moving up = 1yellow-flash
-					button_G1 = 3;
-					button_G3 = unlit_lighting_base;
-				} else {			# moving down = 3yellow-flash
-					button_G1 = unlit_lighting_base;
-					button_G3 = 3;
-				}
-			} else {
-				if (!gear_request) {		# moving up
-					button_G1 = 9;
-					button_G3 = unlit_lighting_base;
-				} else {			# moving down
-					button_G1 = unlit_lighting_base;
-					button_G3 = 9;
-				}
+			plu_return = 1;		# in transit red
+			if (!gear_request) {		# moving up
+				button_G1 = 9;
+				button_G3 = unlit_lighting_base;
+			} else {			# moving down
+				button_G1 = unlit_lighting_base;
+				button_G3 = 9;
 			}
 		}
 	} else {
@@ -1292,9 +1335,9 @@ var panel_lighting_update = func {
 
 	old_button_1 = button_G2;
 	if (power_switch and gear_mode) {
-		if (gear_position) {		# down and relevant = 2yellow
+		if (gear_position) {		# down and relevant = 2:yellow
 			button_G2 = 3;
-		} else {			# up and on standby = 2grey
+		} else {			# up and on standby = 2:white
 			button_G2 = 15;
 		}
 	} else {
@@ -1306,23 +1349,17 @@ var panel_lighting_update = func {
 
 	old_button_1 = button_G4;
 	if (power_switch) {
-		if (wheel_position == 1) {		# wheels down = 4green
+		if (wheel_position == 1) {		# wheels down = 4:green
 			button_G4 = 2;
 		} elsif (wheel_position == 0) {
-			if (wheels_switch) {		# wheels up and on standby = 4grey
+			if (wheels_switch) {		# wheels up and on standby = 4:white
 				button_G4 = 15;
 			} else {
 				button_G4 = unlit_lighting_base;
 			}
-		} else {				# in transit = 4yellow flashing
+		} else {				# in transit = 4:red in transit
 			plu_return = 1;
-			var plu_time = getprop("sim/time/elapsed-sec") * 0.5;
-			plu_time = int((plu_time - int(plu_time)) * 10);
-			if (isodd(plu_time)) {
-				button_G4 = 3;
-			} else {
-				button_G4 = 9;
-			}
+			button_G4 = 9;
 		}
 	} else {
 		button_G4 = unlit_lighting_base;
@@ -1333,20 +1370,13 @@ var panel_lighting_update = func {
 
 	old_button_1 = button_RT1;
 	if (power_switch) {
-		if (door0_position == 0) {	# closed = 1green
+		if (door0_position == 0) {	# closed = 1:green
 			button_RT1 = 2;
-		} elsif (door0_position == 1) {	# open = 1red
-			button_RT1 = 1;
-		} elsif (isodd(door0_position * 10)) {	# in transit = 1yellow flashing
+		} elsif (door0_position == 1) {	# open = 1:yellow
 			button_RT1 = 3;
+		} else {			# in transit = 1:red
 			plu_return = 1;
-		} else {
-			plu_return = 1;
-			if (doors[0].target) {
-				button_RT1 = 10;
-			} else {
-				button_RT1 = 9;
-			}
+			button_RT1 = 1;
 		}
 	} else {
 		button_RT1 = unlit_lighting_base;
@@ -1357,19 +1387,12 @@ var panel_lighting_update = func {
 
 	old_button_1 = button_RT2;
 	if (power_switch) {
-		if (door1_position == 0) {	# closed = 2green
+		if (door1_position == 0) {	# closed = 2:green
 			button_RT2 = 2;
-		} elsif (door1_position == 1) {	# open = 2red
-			button_RT2 = 1;
-		} elsif (isodd(door1_position * 10)) {	# in transit = 2yellow flashing
+		} elsif (door1_position == 1) {	# open = 2:yellow
 			button_RT2 = 3;
-			plu_return = 1;
 		} else {
-			if (doors[1].target) {
-				button_RT2 = 10;
-			} else {
-				button_RT2 = 9;
-			}
+			button_RT2 = 1;
 			plu_return = 1;
 		}
 	} else {
@@ -1381,20 +1404,14 @@ var panel_lighting_update = func {
 
 	old_button_1 = button_RT3;
 	if (power_switch) {
-		if (door5_position == 0) {	# closed = 3green
+		if (door5_actual_position == 0) {	# closed = 3:green
 			button_RT3 = 2;
-		} elsif (door5_position == 1) {	# open = 3red
-			button_RT3 = 1;
-		} elsif (isodd(door5_position * 40)) {	# in transit = 3yellow flashing
-			button_RT3 = 3;
+		} elsif (door5_actual_position > 0.65) {	# open = 3:yellow
 			plu_return = 1;
+			button_RT3 = 3;
 		} else {
 			plu_return = 1;
-			if (doors[5].target) {
-				button_RT3 = 10;
-			} else {
-				button_RT3 = 9;
-			}
+			button_RT3 = 1;
 		}
 	} else {
 		button_RT3 = unlit_lighting_base;
@@ -1423,7 +1440,7 @@ var panel_lighting_update = func {
 	}
 
 	old_button_1 = button_RT5;
-	if (power_switch and ipll and !damage_count) {	# on = 5green or dim green
+	if (power_switch and ipll and !damage_count) {	# on = 5:green or dim green
 		if (ipll == 2 or sun_angle > 1.57) {
 			button_RT5 = 18 - (ipll * 8);
 		} else {
@@ -1438,7 +1455,7 @@ var panel_lighting_update = func {
 
 	old_button_1 = button_RT6;
 	var ipnl = getprop("sim/model/bluebird/lighting/nav-light-switch");
-	if (power_switch and ipnl) {	# on = 6green or dim green
+	if (power_switch and ipnl) {	# on = 6:green or dim green
 		button_RT6 = 18 - (ipnl * 8);
 	} else {
 		button_RT6 = unlit_lighting_base;
@@ -1448,7 +1465,7 @@ var panel_lighting_update = func {
 	}
 
 	old_button_1 = button_RT7;
-	if (power_switch and getprop("controls/lighting/beacon")) {	# on = 7green
+	if (power_switch and getprop("controls/lighting/beacon")) {	# on = 7:green
 		button_RT7 = 2;
 	} else {
 		button_RT7 = unlit_lighting_base;
@@ -1458,7 +1475,7 @@ var panel_lighting_update = func {
 	}
 
 	old_button_1 = button_RT8;
-	if (power_switch and getprop("controls/lighting/strobe")) {	# on = 8green
+	if (power_switch and getprop("controls/lighting/strobe")) {	# on = 8:green
 		button_RT8 = 2;
 	} else {
 		button_RT8 = unlit_lighting_base;
@@ -1468,7 +1485,7 @@ var panel_lighting_update = func {
 	}
 
 	old_button_1 = button_LT1;
-	if (power_switch) {	# main power = 1green
+	if (power_switch) {	# main power = 1:green
 		button_LT1 = 2;
 	} else {
 		button_LT1 = unlit_lighting_base;
@@ -1478,7 +1495,7 @@ var panel_lighting_update = func {
 	}
 
 	old_button_1 = button_LT2;
-	if (power_switch and reactor_request) {	# power subsystem on = 2green
+	if (power_switch and reactor_request) {	# power subsystem on = 2:green
 		button_LT2 = 2;
 	} else {
 		button_LT2 = unlit_lighting_base;
@@ -1490,10 +1507,10 @@ var panel_lighting_update = func {
 	buttonL67_update(plu_change_all);
 
 	old_button_1 = button_LT8;
-	if (wave1_level == 1) {	# engine (request) on = 8green
+	if (wave1_level == 1) {	# engine (request) on = 8:green
 		if (wave_drift) {	# not on standby
 			button_LT8 = 2;
-		} else {	# standby =8grey
+		} else {	# standby =8:white
 			button_LT8 = 15;
 		}
 	} else {
@@ -1508,10 +1525,10 @@ var panel_lighting_update = func {
 	}
 
 	old_button_1 = button_LT9;
-	if (wave2_level == 1) {	# orbital power = 9green
+	if (wave2_level == 1) {	# orbital power = 9:green
 		if (wave_drift) {	# not on standby
 			button_LT9 = 2;
-		} else {	# standby = 9grey
+		} else {	# standby = 9:white
 			button_LT9 = 15;
 		}
 	} else {
@@ -1520,6 +1537,37 @@ var panel_lighting_update = func {
 	if (old_button_1 != button_LT9 or plu_change_all) {
 		set_button_color("left9-overdrive", button_LT9);
 	}
+
+	old_button_1 = button_LA1;
+	if (power_switch and (alarm1_switch or alarm3_switch)) {	# master alarm
+		button_LA1 = 1;
+	} else {
+		button_LA1 = unlit_lighting_base;
+	}
+	if (old_button_1 != button_LA1 or plu_change_all) {
+		set_button_color("alarm1-master", button_LA1);
+	}
+
+	old_button_1 = button_LA2;
+	if (power_switch and (alarm2_switch or alarm4_switch)) {	# master caution
+		button_LA2 = 3;
+	} else {
+		button_LA2 = unlit_lighting_base;
+	}
+	if (old_button_1 != button_LA2 or plu_change_all) {
+		set_button_color("alarm2-caution", button_LA2);
+	}
+
+	old_button_1 = button_LA3;
+	if (power_switch and ap_state) {
+		button_LA3 = 15;
+	} else {
+		button_LA3 = unlit_lighting_base;
+	}
+	if (old_button_1 != button_LA3 or plu_change_all) {
+		set_button_color("ap-disconnect", button_LA3);
+	}
+
 	return plu_return;
 }
 
@@ -1529,12 +1577,31 @@ var panel_lighting_loop = func {
 	}
 }
 
+setlistener("sim/model/bluebird/systems/alarm1-state", func(n) {
+	alarm1_switch = n.getValue();
+	panel_lighting_update();
+}, 1);
+setlistener("sim/model/bluebird/systems/alarm2-state", func(n) {
+	alarm2_switch = n.getValue();
+	panel_lighting_update();
+}, 1);
+setlistener("sim/model/bluebird/systems/alarm3-state", func(n) {
+	alarm3_switch = n.getValue();
+	panel_lighting_update();
+}, 1);
+setlistener("sim/model/bluebird/systems/alarm4-state", func(n) {
+	alarm4_switch = n.getValue();
+	panel_lighting_update();
+}, 1);
+
 
 #==========================================================================
 # loop function #2 called by interior_lighting_loop every 3 seconds
 #    or every 0.25 when time warp or every 0.05 during condition red lighting
 
 var interior_lighting_update = func {
+	ant7 = ((ant7 + 1)>5 ? 0 : (ant7+1));
+	setprop("instrumentation/display-screens/t1L-B7", ant_list[ant9]);
 	var intli = 0;    # calculate brightness of interior lighting as sun goes down
 	var intlir = 0;    # condition lighting tint for red emissions
 	var intlig = 0;    # condition lighting tint for green and blue emissions
@@ -1605,6 +1672,8 @@ var interior_lighting_update = func {
 }
 
 var interior_lighting_loop = func {
+	ant6 = ((ant6 + 1)>5 ? 0 : (ant6+1));
+	setprop("instrumentation/display-screens/t1L-B6", ant_list[ant9]);
 	interior_lighting_update();
 	if (alert_switch) {
 		settimer(interior_lighting_loop, 0.05);
@@ -1622,6 +1691,8 @@ var interior_lighting_loop = func {
 #    or every 0.5 seconds when time warp ============================
 
 var nav_lighting_update = func {
+	ant5 = ((ant5 + 1)>5 ? 0 : (ant5+1));
+	setprop("instrumentation/display-screens/t1L-B5", ant_list[ant9]);
 	var nlu_nav = getprop("sim/model/bluebird/lighting/nav-light-switch");
 	if (nlu_nav == 2) {
 		nav_lights_state.setBoolValue(1);
@@ -1669,12 +1740,16 @@ setlistener("gear/gear[0]/position-norm", func(n) {
 	gear_position = n.getValue();
 	if (wheel_position) {
 		var ppos = gear_position - wheel_position;
+		# FIXME change over to gear2, add trigger and timing at right points instead of setting position directly.	gear[].open =1=down .close =0=up
+		# flowchart: if gear0==1 and gear1==1 then gear2=0	if gear0==0 then gear2=0; ignore gear1
+		#	     if gear0==0 and gear1 trigger then no change to gear2
+		#	     if gear1.close and gear0==1 then gear2.
 		if (ppos < 0) {
 			ppos = 0;
 		}
-		setprop("gear/gear[0]/position-side-pads", ppos);
+		setprop("gear/gear[2]/position-norm", ppos);
 	} else {
-		setprop("gear/gear[0]/position-side-pads", gear_position);
+		setprop("gear/gear[2]/position-norm", gear_position);
 	}
 	setprop ("gear/gear-agl-ft", (gear_position * 2.47) + wheel_height_ft);
 	if (door0_position > 0.7) {
@@ -1683,7 +1758,7 @@ setlistener("gear/gear[0]/position-norm", func(n) {
 	if (door1_position > 0.7) {
 		door_update(1);
 	}
-	if (door5_position > 0.7) {
+	if (door5_actual_position > 0.7) {
 		door_update(5);
 	}
 	contact_altitude_ft = getprop("position/altitude-ft") - vertical_offset_ft - gear_height_ft - hover_add - (gear1_damage_offset_m * globals.M2FT);
@@ -1697,9 +1772,9 @@ setlistener("gear/gear[1]/position-norm", func(n) {
 		if (ppos < 0) {
 			ppos = 0;
 		}
-		setprop("gear/gear[0]/position-side-pads", ppos);
+		setprop("gear/gear[2]/position-norm", ppos);
 	} else {
-		setprop("gear/gear[0]/position-side-pads", gear_position);
+		setprop("gear/gear[2]/position-norm", gear_position);
 	}
 	if (wheel_position > 0.5) {	# wheels below skid plate of main gear
 		if (wheel_position > 0.90) {	# calculate actual height
@@ -1853,15 +1928,24 @@ var change_maximum = func(cm_from, cm_to, cm_type) {
 
 # modify flaps to change maximum speed --------------------------
 
-controls.flapsDown = func(fd_d) {  # 1 decrease speed gearing -1 increases by default
-	var fd_return = 0;
+controls.flapsDown = func(fd_d) {  # 1/-1 from input 2/-2 from button
+	if (!fd_d) {
+		return;
+	}
 	if(power_switch) {
-		if (!fd_d) {
-			return;
-		} elsif (fd_d > 0 and cpl > 0) {    # reverse joystick buttons direction by exchanging < for >
+		var fd_return = 0;
+		var fd_a = 0;
+		if (fd_d > -2 and fd_d < 2) {
+			fd_a = (swap_flaps ? 0-fd_d : fd_d);
+		} elsif (fd_d == 2) {
+			fd_a = 1;
+		} elsif (fd_d == -2) {
+			fd_a = -1;
+		}
+		if (fd_a < 0 and cpl > 0) {
 			change_maximum(cpl, (cpl-1), 1);
 			fd_return = 1;
-		} elsif (fd_d < 0 and cpl < size(speed_mps) - 1) {    # reverse joystick buttons direction by exchanging < for >
+		} elsif (fd_a > 0 and cpl < size(speed_mps) - 1) {
 			var check_max = cpl;
 			if (max_drift > 0) {
 				check_max = max_to;
@@ -1884,7 +1968,7 @@ controls.flapsDown = func(fd_d) {  # 1 decrease speed gearing -1 increases by de
 				popupTip2("Unable to comply. Side hatch is open");
 			} elsif (check_max > 4 and door1_position > 0) {
 				popupTip2("Unable to comply. Side hatch is open");
-			} elsif (check_max > 6 and door5_position > 0) {
+			} elsif (check_max > 6 and door5_actual_position > 0) {
 				popupTip2("Unable to comply. Rear hatch is open");
 			} elsif (check_max > 6 and contact_altitude_ft < 15000) {
 				popupTip2("Unable to comply below 15,000 ft.");
@@ -1903,12 +1987,16 @@ controls.flapsDown = func(fd_d) {  # 1 decrease speed gearing -1 increases by de
 			var ss = speed_mps[max_to];
 			popupTip2("Max. Speed " ~ ss ~ " m/s");
 		}
-		setprop("engines/engine/speed-max-powerlevel", cpl);
+		if (cpl != cpl_set) {
+			setprop("engines/engine/speed-max-powerlevel", cpl);
+			cpl_set = cpl;
+		}
 	} else {
 		popupTip2("Unable to comply. Main power is off.");
 	}
 }
 
+setlistener("sim/model/bluebird/systems/swap-flaps", func(n) { swap_flaps = n.getValue(); }, 1);
 
 # position adjustment function =====================================
 
@@ -1937,6 +2025,15 @@ var groundslope_update = func {
 	var gear1_gnd_elev_m = geo.elevation(gear1_lat_lon[0],gear1_lat_lon[1]);
 	var gear2_gnd_elev_m = geo.elevation(gear2_lat_lon[0],gear2_lat_lon[1]);
 	var gear3_gnd_elev_m = geo.elevation(gear3_lat_lon[0],gear3_lat_lon[1]);
+	if(gear1_gnd_elev_m == nil) {	# catch nil
+		gear1_gnd_elev_m = 0;
+	}
+	if(gear2_gnd_elev_m == nil) {
+		gear2_gnd_elev_m = 0;
+	}
+	if(gear3_gnd_elev_m == nil) {
+		gear3_gnd_elev_m = 0;
+	}
 	var gear23_diff = gear2_gnd_elev_m - gear3_gnd_elev_m;
 	var gear23_oh = gear23_diff / (1.74 * 2);	# oh = opposite over hypotenuse
 	if (abs(gear23_oh) > slope_limit) {
@@ -1973,6 +2070,7 @@ var check_damage = func (dmg_add) {
 	if (dmg > destruction_threshold) { 
 		# set condition-red damage
 		alert_switch_Node.setBoolValue(1);
+		setprop("sim/model/bluebird/systems/alarm1-state", 1);
 		if (damage_blocker == 0) {
 			damage_blocker = 1;
 			settimer(reset_impact, 2);
@@ -2001,12 +2099,16 @@ var check_damage = func (dmg_add) {
 				setprop("ai/submodels/engine-L-flaring", 1);
 			}
 		}
+	} elsif (dmg_add > 2) {
+		setprop("sim/model/bluebird/systems/alarm2-state", 1);
 	}
 }
 
 #==========================================================================
 # -------- MAIN LOOP called by itself every cycle --------
 var update_main = func {
+	spinner4 = ((spinner4 + 1)>19 ? 0 : (spinner4+1));
+	setprop("instrumentation/display-screens/t1L-B4", spinner_list[spinner4]);
 	# ----- pre-processing: only call countergrav.up once per cycle -----
 	if (countergrav.call) {
 		up((countergrav.momentum < 0 ? -1 : 1), countergrav.momentum, countergrav.input_type);
@@ -2032,6 +2134,8 @@ var update_main = func {
 			init_agl -= 0.25;
 		} else {
 			init_agl -= 0.05;
+			alarm1_reset(0);
+			alarm2_reset(0);
 		}
 		if (init_agl <= 0) {
 			setprop("controls/engines/engine/throttle",0);
@@ -2156,6 +2260,7 @@ var update_main = func {
 							}
 							override_groundslope_factor = 1;
 							pitch_deg_Node.setDoubleValue(pitch_d);
+							setprop("sim/model/bluebird/systems/alarm4-state", 1);	# caution on rough terrain without damage
 						} elsif (reactor_level and (groundslope[1].ground_pitch > (groundslope[1].rotate_pitch + pitch_d + 0.2))) {
 # TODO add here and also check for backwards?
 # did not catch nose in 1.7ft with gp -0.40. cp changed to zero slowly, should impact.
@@ -2249,6 +2354,14 @@ var update_main = func {
 		var skid_w_vol = clamp(((skid[1].impact_factor + skid[1].altitude_change_ft) * 0.5), 0, 1);  # factor for volume usage
 		if (skid_old_vol > skid_w_vol) {
 			skid_w_vol = (skid_old_vol + skid_w_vol) * 0.75;
+			if (skid_w_vol < 0.01) {
+				skid_w_vol = 0;
+			} else {
+				if (asas > 100 and skid_w_vol > 0.4) {
+					setprop("sim/model/bluebird/systems/alarm4-state", 1);	# caution alarm
+					reset_alarm4_timer.start();
+				}
+			}
 		}
 		setprop("sim/model/bluebird/position/skid-wow", skid_w_vol);
 	} else { 
@@ -2641,7 +2754,10 @@ var update_main = func {
 			}
 		}
 	}
-	setprop("engines/engine/speed-max-powerlevel", cpl);
+	if (cpl != cpl_set) {
+		setprop("engines/engine/speed-max-powerlevel", cpl);
+		cpl_set = cpl;
+	}
 
 	# ----- vtol control in cockpit yoke -----
 	if (hover_reset_timer > 0) {
@@ -3232,10 +3348,23 @@ var delayed_panel_update = func {
 setlistener("sim/model/bluebird/crew/cockpit-position", func(n) {
 	cockpitView = n.getValue();
 	var move_chair = [0,1,0,0,1];
-	if (!getprop("sim/model/bluebird/crew/pilot/visible") and move_chair[cockpitView]) {
+	if (!getprop("sim/model/bluebird/crew/pilot/always-visible") and move_chair[cockpitView]) {
 		setprop("sim/model/bluebird/crew/pilot/chair-back", 1);
+		setprop("sim/model/bluebird/crew/pilot/visible", 0);
 	} else {
 		setprop("sim/model/bluebird/crew/pilot/chair-back", 0);
+		setprop("sim/model/bluebird/crew/pilot/visible", 1);
+	}
+});
+
+setlistener("sim/walker/outside", func(n) {
+	isOutside = n.getValue();
+	if (getprop("sim/model/bluebird/crew/pilot/always-visible") or (isOutside == 0 and getprop("sim/model/bluebird/crew/cockpit-position") == 0)) {
+		setprop("sim/model/bluebird/crew/pilot/chair-back", 0);
+		setprop("sim/model/bluebird/crew/pilot/visible", 1);
+	} else {
+		setprop("sim/model/bluebird/crew/pilot/chair-back", 1);
+		setprop("sim/model/bluebird/crew/pilot/visible", 0);
 	}
 });
 
@@ -3271,7 +3400,7 @@ var set_cockpit = func(cockpitPosition) {
 		setprop("sim/current-view/goal-pitch-offset-deg", cockpit_locations[cockpitPosition].p);
 		setprop("sim/current-view/pitch-offset-deg", cockpit_locations[cockpitPosition].p);
 		setprop("sim/current-view/goal-roll-offset-deg", 0);
-		setprop("sim/current-view/field-of-view", cockpit_locations[cockpitPosition].fov);
+		setprop("sim/current-view/field-of-view", preferred_fov);
 	}
 }
 
@@ -3330,6 +3459,15 @@ var hatch_z_offset_m = func(door_loc,pos_m) {
 	return z_offset_m;
 }
 
+setlistener("sim/model/preferred_fov", func {
+	preferred_fov = getprop("sim/model/preferred_fov");	# keep variable in sync when changed from menu
+	if (preferred_fov < 5 or preferred_fov > 120) {	# bounds sanity check
+		preferred_fov = 66.7;			# assume wider than 4:3 (with 55 deg fov) for cockpit
+	}
+	setprop("sim/current-view/field-of-view", preferred_fov);
+	setprop("sim/view/config/default-field-of-view-deg", preferred_fov);
+});
+
 var walk_about_cabin = func(wa_distance, walk_offset) {
 	# x,y,z axis are as expected here. Check boundaries/walls.
 	#  x = aft/fore
@@ -3353,7 +3491,7 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 		var new_zf_position = 0.495; # cockpit floor starting level
 		var door0_barrier = (door0_position < 0.62 ? -1.3 : -4.42);
 		var door1_barrier = (door1_position < 0.62 ? 1.3 : 4.42);
-		var door5_barrier = (door5_position < 0.62 ? 8.9 : 10.57);	# 10.8 when hatch up in flight
+		var door5_barrier = (door5_actual_position < 0.62 ? 8.9 : 10.57);	# 10.8 when hatch up in flight
 		if (cpos == 1 or cpos == 4) {
 			if (new_x_position < -5.85) {
 				new_x_position = -5.85;
@@ -3586,7 +3724,7 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 					new_y_position = 1.62;
 				}
 			} elsif (new_x_position > door5_barrier) {
-				if (door5_position > 0.62) {
+				if (door5_actual_position > 0.62) {
 					w_out = 4;
 				}
 				new_x_position = door5_barrier;
@@ -3618,6 +3756,28 @@ var walk_about_cabin = func(wa_distance, walk_offset) {
 				cockpit_locations[cockpitView].p = getprop("sim/current-view/pitch-offset-deg");
 			}
 		}
+	}
+}
+
+# autopilot buttons -------------------------------------------------
+
+var alarm1_reset = func(a1) {
+	setprop("sim/model/bluebird/systems/alarm1-state", 0);
+	setprop("sim/model/bluebird/systems/alarm3-state", 0);
+}
+
+var alarm2_reset = func(a2) {
+	setprop("sim/model/bluebird/systems/alarm2-state", 0);
+	setprop("sim/model/bluebird/systems/alarm4-state", 0);
+}
+
+var ap_disconnect = func(a3) {
+	if (alarm3_switch and !ap_state and button_LA1==1) {	# double tap to silence
+		alarm1_reset(0);
+	} else {
+		digitalPanel.toggle_ap1cmd(-1);
+		digitalPanel.toggle_ap2cmd(-1);
+		digitalPanel.toggle_ap3cmd(-1);
 	}
 }
 
@@ -3993,7 +4153,7 @@ var showDialog1 = func {
 	w.set("label", "Display screens:");
 	g.addChild("empty").set("stretch", 1);
 
-	w = checkbox("Left #2");
+	w = checkbox("Left #2 - AI/MP tracking");
 	w.set("property", "instrumentation/display-screens/enabled-2L");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 
@@ -4147,8 +4307,8 @@ var showDialog2 = func {
 
 	config_dialog.addChild("hrule").addChild("dummy");
 
-	w = checkbox("Pilot visible as separate person");
-	w.set("property", "sim/model/bluebird/crew/pilot/visible");
+	w = checkbox("Always keep a pilot visible at the controls");
+	w.set("property", "sim/model/bluebird/crew/pilot/always-visible");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
 
 	g = config_dialog.addChild("group");
@@ -4175,6 +4335,27 @@ var showDialog2 = func {
 	box.prop().getNode("binding[1]/command", 1).setValue("nasal");
 	box.prop().getNode("binding[1]/script", 1).setValue("bluebird.config_dialog = nil");
 	box.prop().getNode("binding[2]/command", 1).setValue("dialog-close");
+
+	# fov
+	g = config_dialog.addChild("group");
+	g.set("layout", "hbox");
+	g.addChild("empty").set("pref-width", 4);
+	w = g.addChild("text");
+	w.set("halign", "left");
+	w.set("label", "Preferred cockpit field of view:");
+	g.addChild("empty").set("stretch", 1);
+	var box = g.addChild("slider");
+	box.set("name", "Preferred FOV");
+	box.set("property", "sim/model/preferred_fov");
+	box.set("legend", "narrow  < >  wide   ");
+	box.set("pref-width", 150);
+	box.set("pref-height", 16);
+	box.set("live", 1);
+	box.set("min", 10);
+	box.set("max", 120);
+	box.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+	box.prop().getNode("binding[0]/object-name", 1).setValue("Preferred FOV");
+	g.addChild("empty").set("pref-width", 4);
 
 	config_dialog.addChild("hrule").addChild("dummy");
 
@@ -4255,6 +4436,18 @@ var showDialog2 = func {
 
 	config_dialog.addChild("hrule").addChild("dummy");
 
+	w = checkbox("Swap flaps controls");
+	w.set("property", "sim/model/bluebird/systems/swap-flaps");
+	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+
+	w = checkbox("Performance monitor");
+	w.set("property", "instrumentation/display-screens/enabled-1LA");
+	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+
+	w = checkbox("Performance spinners");
+	w.set("property", "instrumentation/display-screens/enabled-1LB");
+	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+
 	w = checkbox("Output position of walker/skydiver");
 	w.set("property", "logging/walker-position");
 	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
@@ -4278,6 +4471,29 @@ for (var i = 0; i < size(livery_hull_list); i += 1) {
 	gui_livery_node.getNode("list["~i~"]", 1).setValue(livery_hull_list[i]);
 }
 gui_livery_node = gui_livery_node.getNode("list", 1);
+
+var update_byte = func {
+	var state = 0;
+	state = bits.switch(state, 0, getprop("sim/model/bluebird/components/engine-cover1"));
+	state = bits.switch(state, 1, getprop("sim/model/bluebird/components/engine-cover2"));
+	state = bits.switch(state, 2, getprop("sim/model/bluebird/components/engine-cover3"));
+	state = bits.switch(state, 3, getprop("sim/model/bluebird/components/engine-cover4"));
+	state = bits.switch(state, 4, getprop("sim/model/bluebird/crew/pilot/chair-back"));
+	state = bits.switch(state, 5, getprop("controls/engines/countergrav-factor"));
+	state = bits.switch(state, 6, getprop("sim/model/bluebird/lighting/interior-switch"));
+	state = bits.switch(state, 7, getprop("controls/lighting/alert"));
+	setprop("sim/model/bluebird/detail-byte", state);
+};
+
+setlistener("sim/model/bluebird/components/engine-cover1", update_byte, 0, 0);
+setlistener("sim/model/bluebird/components/engine-cover2", update_byte, 0, 0);
+setlistener("sim/model/bluebird/components/engine-cover3", update_byte, 0, 0);
+setlistener("sim/model/bluebird/components/engine-cover4", update_byte, 0, 0);
+setlistener("sim/model/bluebird/crew/pilot/chair-back", update_byte, 0, 0);
+setlistener("controls/engines/countergrav-factor", update_byte, 0, 0);
+setlistener("sim/model/bluebird/lighting/interior-switch", update_byte, 0, 0);
+setlistener("controls/lighting/alert", update_byte, 0, 0);
+update_byte();
 
 var listbox_apply = func {
 	material.showDialog("sim/model/livery/material/" ~ gui_livery_node.getValue() ~ "/", nil, getprop("/sim/startup/xsize") - 200, 20);
@@ -4350,24 +4566,50 @@ var showLiveryDialog1 = func {
 var prestart_main = func {
 	var gnd_elev = getprop("position/ground-elev-ft");
 	var altitude = getprop("position/altitude-ft");
+	preferred_fov = getprop("sim/model/preferred_fov");	# load saved value
+	setprop("sim/model/preferred_fov", (int(preferred_fov*10)*0.1));	# implement fov
 	if ((gnd_elev == nil) or (altitude == nil)) {
 		main_loop_id += 1;
 		settimer(prestart_main, 0.1);
 	} else {
-		print ("  version 10.92  release date 2014.Feb.02  by Stewart Andreason");
+		print ("  version 13.7  release date 2019.Apr.21  by Stewart Andreason");
 		update_main();
 	}
+	settimer(func {	# wake up, livery was loaded but did not trigger the listeners
+		liv_tmp = getprop("sim/model/livery/material/interior-flooring/ambient/red");
+		setprop("sim/model/livery/material/interior-flooring/ambient/red", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-flooring/ambient/green");
+		setprop("sim/model/livery/material/interior-flooring/ambient/green", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-flooring/ambient/blue");
+		setprop("sim/model/livery/material/interior-flooring/ambient/blue", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-door-panels/ambient/red");
+		setprop("sim/model/livery/material/interior-door-panels/ambient/red", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-door-panels/ambient/green");
+		setprop("sim/model/livery/material/interior-door-panels/ambient/green", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-door-panels/ambient/blue");
+		setprop("sim/model/livery/material/interior-door-panels/ambient/blue", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-upper/ambient/red");
+		setprop("sim/model/livery/material/interior-upper/ambient/red", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-upper/ambient/green");
+		setprop("sim/model/livery/material/interior-upper/ambient/green", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-upper/ambient/blue");
+		setprop("sim/model/livery/material/interior-upper/ambient/blue", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-lower/ambient/red");
+		setprop("sim/model/livery/material/interior-lower/ambient/red", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-lower/ambient/green");
+		setprop("sim/model/livery/material/interior-lower/ambient/green", liv_tmp);
+		liv_tmp = getprop("sim/model/livery/material/interior-lower/ambient/blue");
+		setprop("sim/model/livery/material/interior-lower/ambient/blue", liv_tmp);
+	}, 4.4, 1);
 }
 
 setlistener("sim/signals/fdm-initialized", func {
 	settimer(interior_lighting_loop, 0.25);
 	settimer(interior_lighting_update, 0.5);
 	settimer(nav_light_loop, 0.5);
-	if (getprop("sim/ai-traffic/enabled") or getprop("sim/multiplay/rxport")) {
-		setprop("instrumentation/tracking/enabled", 1);
-	}
 	setprop("sim/atc/enabled", 0);
 	setprop("sim/sound/chatter", 0);
+	walk.reinit_walker();
 	var t = getprop("/sim/description");
 	print (t);
 	prestart_main();

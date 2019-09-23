@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<!--== Bluebird Explorer Hovercraft  version 13.7 ==-->
+
+<PropertyList>
+
+ <path>clock.ac</path>
+
+ <animation>
+	<name>clock-lit</name>
+	<object-name>clock.label</object-name>
+	<object-name>clock.101</object-name>
+	<object-name>clock.102</object-name>
+	<object-name>clock.103</object-name>
+	<object-name>clock.104</object-name>
+	<object-name>clock.105</object-name>
+	<object-name>clock.106</object-name>
+	<object-name>clock.dec</object-name>
+	<object-name>clock.utc</object-name>
+	<object-name>clock.lcl</object-name>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>clock-lit</object-name>
+	<condition>
+		<property>sim/model/bluebird/systems/power-switch</property>
+	</condition>
+ </animation>
+
+ <animation>
+	<name>clock-buttons-lit</name>
+	<object-name>clock.button</object-name>
+ </animation>
+
+ <animation>
+	<type>material</type>
+	<object-name>clock-buttons-lit</object-name>
+	<emission>
+		<factor-prop>sim/model/bluebird/systems/power-switch</factor-prop>
+		<red>0.5</red>
+		<green>0.25</green>
+		<blue>0.125</blue>
+	</emission>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>clock.utc</object-name>
+	<condition>
+		<equals>
+			<property>instrumentation/digital/clock-mode</property>
+			<value type="int">0</value>
+		</equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>select</type>
+	<object-name>clock.lcl</object-name>
+	<condition>
+		<equals>
+			<property>instrumentation/digital/clock-mode</property>
+			<value type="int">1</value>
+		</equals>
+	</condition>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>clock.101</object-name>
+	<property>instrumentation/digital/clock-hh</property>
+	<factor>0.01</factor>
+	<step>10</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>clock.102</object-name>
+	<property>instrumentation/digital/clock-hh</property>
+	<factor>0.1</factor>
+	<step>1</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>clock.103</object-name>
+	<property>instrumentation/digital/clock-mm</property>
+	<factor>0.01</factor>
+	<step>10</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>clock.104</object-name>
+	<property>instrumentation/digital/clock-mm</property>
+	<factor>0.1</factor>
+	<step>1</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>clock.105</object-name>
+	<property>instrumentation/digital/clock-ss</property>
+	<factor>0.01</factor>
+	<step>10</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+ <animation>
+	<type>textranslate</type>
+	<object-name>clock.106</object-name>
+	<property>instrumentation/digital/clock-ss</property>
+	<factor>0.1</factor>
+	<step>1</step>
+	<axis>
+		<x>1</x>
+		<y>0</y>
+		<z>0</z>
+	</axis>
+ </animation>
+
+</PropertyList>

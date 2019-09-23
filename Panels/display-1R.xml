@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--== Bluebird Explorer Hovercraft  version 10.4  ==-->
+<!--== Bluebird Explorer Hovercraft  version 13.6  ==-->
 
 <PropertyList>
 	<name>screen messages text 1R</name>
@@ -70,7 +70,20 @@ INTERIOR LIGHTS
 MAIN GEAR
 GEAR WHEELS
 
-NEAREST AIRPORT</text>
+NEAREST AIRPORT
+
+
+
+
+HOMING AIRPORT
+
+
+
+
+COMM1
+
+
+COMM2</text>
 						</chunk>
 					</chunks>
 					<transformations>
@@ -119,10 +132,50 @@ NEAREST AIRPORT</text>
 				</layer>
 
 				<layer>
+					<name>left hatch line 1 yellow</name>
+					<type>text</type>
+					<condition>
+						<greater-than>
+							<property>sim/model/bluebird/doors/door[0]/position-norm</property>
+							<value>0.998</value>
+						</greater-than>
+					</condition>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>0.1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>literal</type>
+							<text>OPEN</text>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-4</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>232</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
 					<name>left hatch line 1 red</name>
 					<type>text</type>
 					<condition>
-						<property>sim/model/bluebird/doors/door[0]/position-norm</property>
+						<and>
+							<property>sim/model/bluebird/doors/door[0]/position-norm</property>
+							<less-than>
+								<property>sim/model/bluebird/doors/door[0]/position-norm</property>
+								<value>0.999</value>
+							</less-than>
+						</and>
 					</condition>
 					<font>arial_black</font>
 					<point-size>16</point-size>
@@ -150,7 +203,7 @@ NEAREST AIRPORT</text>
 				</layer>
 
 				<layer>
-					<name>left hatch line 1 yellow</name>
+					<name>left hatch line 1b red</name>
 					<type>text</type>
 					<condition>
 						<and>
@@ -224,10 +277,50 @@ NEAREST AIRPORT</text>
 				</layer>
 
 				<layer>
+					<name>right hatch line 2 yellow</name>
+					<type>text</type>
+					<condition>
+						<greater-than>
+							<property>sim/model/bluebird/doors/door[1]/position-norm</property>
+							<value>0.998</value>
+						</greater-than>
+					</condition>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>0.1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>literal</type>
+							<text>OPEN</text>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-4</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>216</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
 					<name>right hatch line 2 red</name>
 					<type>text</type>
 					<condition>
-						<property>sim/model/bluebird/doors/door[1]/position-norm</property>
+						<and>
+							<property>sim/model/bluebird/doors/door[1]/position-norm</property>
+							<less-than>
+								<property>sim/model/bluebird/doors/door[1]/position-norm</property>
+								<value>0.999</value>
+							</less-than>
+						</and>
 					</condition>
 					<font>arial_black</font>
 					<point-size>16</point-size>
@@ -255,7 +348,7 @@ NEAREST AIRPORT</text>
 				</layer>
 
 				<layer>
-					<name>right hatch line 2 yellow</name>
+					<name>right hatch line 2b red</name>
 					<type>text</type>
 					<condition>
 						<and>
@@ -329,10 +422,50 @@ NEAREST AIRPORT</text>
 				</layer>
 
 				<layer>
+					<name>rear hatch line 3 yellow</name>
+					<type>text</type>
+					<condition>
+						<greater-than>
+							<property>sim/model/bluebird/doors/door[5]/position-norm</property>
+							<value>0.658</value>
+						</greater-than>
+					</condition>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>1</red>
+						<green>1</green>
+						<blue>0.1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>literal</type>
+							<text>OPEN</text>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-4</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>200</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
 					<name>rear hatch line 3 red</name>
 					<type>text</type>
 					<condition>
-						<property>sim/model/bluebird/doors/door[5]/position-norm</property>
+						<and>
+							<property>sim/model/bluebird/doors/door[5]/position-norm</property>
+							<less-than>
+								<property>sim/model/bluebird/doors/door[5]/position-norm</property>
+								<value>0.659</value>
+							</less-than>
+						</and>
 					</condition>
 					<font>arial_black</font>
 					<point-size>16</point-size>
@@ -360,16 +493,16 @@ NEAREST AIRPORT</text>
 				</layer>
 
 				<layer>
-					<name>rear hatch line 3 yellow</name>
+					<name>rear hatch line 3b red</name>
 					<type>text</type>
 					<condition>
 						<and>
 							<greater-than>
-								<property>sim/model/bluebird/doors/door[5]/position-norm</property>
+								<property>sim/model/bluebird/doors/door[5]/position-adj</property>
 								<value>0</value>
 							</greater-than>
 							<less-than>
-								<property>sim/model/bluebird/doors/door[5]/position-norm</property>
+								<property>sim/model/bluebird/doors/door[5]/position-adj</property>
 								<value>1</value>
 							</less-than>
 						</and>
@@ -384,7 +517,7 @@ NEAREST AIRPORT</text>
 					<chunks>
 						<chunk>
 							<type>number-value</type>
-							<property>sim/model/bluebird/doors/door[5]/position-norm</property>
+							<property>sim/model/bluebird/doors/door[5]/position-adj</property>
 							<format>%3.2f</format>
 						</chunk>
 					</chunks>
@@ -435,7 +568,7 @@ NEAREST AIRPORT</text>
 				</layer>
 
 				<layer>
-					<name>landing lights line 5 green</name>
+					<name>landing lights line 5b green</name>
 					<type>text</type>
 					<condition>
 						<equals>
@@ -536,7 +669,7 @@ NEAREST AIRPORT</text>
 				</layer>
 
 				<layer>
-					<name>nav lights line 6 green</name>
+					<name>nav lights line 6b green</name>
 					<type>text</type>
 					<condition>
 						<equals>
@@ -795,7 +928,7 @@ NEAREST AIRPORT</text>
 				</layer>
 
 				<layer>
-					<name>main gear line 12 green</name>
+					<name>main gear line 12 white</name>
 					<type>text</type>
 					<condition>
 						<equals>
@@ -806,9 +939,9 @@ NEAREST AIRPORT</text>
 					<font>arial_black</font>
 					<point-size>16</point-size>
 					<color>
-						<red>0.1</red>
+						<red>1</red>
 						<green>1</green>
-						<blue>0.1</blue>
+						<blue>1</blue>
 					</color>
 					<chunks>
 						<chunk>
@@ -829,32 +962,26 @@ NEAREST AIRPORT</text>
 				</layer>
 
 				<layer>
-					<name>main gear line 12 red</name>
+					<name>main gear line 12 yellow</name>
 					<type>text</type>
 					<condition>
-						<or>
-							<equals>
+						<and>
+							<property>controls/gear/height-switch</property>
+							<greater-than>
 								<property>gear/gear[0]/position-norm</property>
-								<value>1</value>
-							</equals>
-							<and>
-								<property>controls/gear/height-switch</property>
-								<greater-than>
-									<property>gear/gear[0]/position-norm</property>
-									<value>0.40</value>
-								</greater-than>
-								<less-than>
-									<property>gear/gear[0]/position-norm</property>
-									<value>0.42</value>
-								</less-than>
-							</and>
-						</or>
+								<value>0.40</value>
+							</greater-than>
+							<less-than>
+								<property>gear/gear[0]/position-norm</property>
+								<value>0.42</value>
+							</less-than>
+						</and>
 					</condition>
 					<font>arial_black</font>
 					<point-size>16</point-size>
 					<color>
 						<red>1</red>
-						<green>0.1</green>
+						<green>1</green>
 						<blue>0.1</blue>
 					</color>
 					<chunks>
@@ -876,19 +1003,63 @@ NEAREST AIRPORT</text>
 				</layer>
 
 				<layer>
-					<name>main gear line 12 red</name>
+					<name>main gear line 12 green</name>
 					<type>text</type>
 					<condition>
-						<equals>
-							<property>gear/gear[0]/position-norm</property>
-							<value>1</value>
-						</equals>
+						<and>
+							<equals>
+								<property>gear/gear[0]/position-norm</property>
+								<value>1</value>
+							</equals>
+							<not>
+								<property>controls/gear/height-switch</property>
+							</not>
+						</and>
+					</condition>
+					<font>arial_black</font>
+					<point-size>16</point-size>
+					<color>
+						<red>0.1</red>
+						<green>1</green>
+						<blue>0.1</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>literal</type>
+							<text>DOWN</text>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-4</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>56</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>main gear line 12b green</name>
+					<type>text</type>
+					<condition>
+						<and>
+							<equals>
+								<property>gear/gear[0]/position-norm</property>
+								<value>1</value>
+							</equals>
+							<not>
+								<property>controls/gear/height-switch</property>
+							</not>
+						</and>
 					</condition>
 					<font>arial_black</font>
 					<point-size>12</point-size>
 					<color>
-						<red>1</red>
-						<green>0.1</green>
+						<red>0.1</red>
+						<green>1</green>
 						<blue>0.1</blue>
 					</color>
 					<chunks>
@@ -910,7 +1081,7 @@ NEAREST AIRPORT</text>
 				</layer>
 
 				<layer>
-					<name>main gear down line 12 yellow</name>
+					<name>main gear down line 12b yellow</name>
 					<type>text</type>
 					<condition>
 						<and>
@@ -951,7 +1122,7 @@ NEAREST AIRPORT</text>
 				</layer>
 
 				<layer>
-					<name>main gear line 12 yellow</name>
+					<name>main gear line 12c red</name>
 					<type>text</type>
 					<condition>
 						<or>
@@ -1008,7 +1179,7 @@ NEAREST AIRPORT</text>
 				</layer>
 
 				<layer>
-					<name>gear wheels line 13 green</name>
+					<name>gear wheels line 13 white</name>
 					<type>text</type>
 					<condition>
 						<equals>
@@ -1019,9 +1190,9 @@ NEAREST AIRPORT</text>
 					<font>arial_black</font>
 					<point-size>16</point-size>
 					<color>
-						<red>0.1</red>
+						<red>1</red>
 						<green>1</green>
-						<blue>0.1</blue>
+						<blue>1</blue>
 					</color>
 					<chunks>
 						<chunk>
@@ -1042,7 +1213,7 @@ NEAREST AIRPORT</text>
 				</layer>
 
 				<layer>
-					<name>gear wheels line 13 red</name>
+					<name>gear wheels line 13 green</name>
 					<type>text</type>
 					<condition>
 						<equals>
@@ -1053,8 +1224,8 @@ NEAREST AIRPORT</text>
 					<font>arial_black</font>
 					<point-size>16</point-size>
 					<color>
-						<red>1</red>
-						<green>0.1</green>
+						<red>0.1</red>
+						<green>1</green>
 						<blue>0.1</blue>
 					</color>
 					<chunks>
@@ -1076,7 +1247,7 @@ NEAREST AIRPORT</text>
 				</layer>
 
 				<layer>
-					<name>gear wheels line 13 yellow</name>
+					<name>gear wheels line 13 red</name>
 					<type>text</type>
 					<condition>
 						<and>
@@ -1404,34 +1575,6 @@ NEAREST AIRPORT</text>
 				</layer>
 
 				<layer>
-					<name>airport line 19a white</name>
-					<type>text</type>
-					<font>arial_black</font>
-					<point-size>16</point-size>
-					<color>
-						<red>1</red>
-						<green>1</green>
-						<blue>1</blue>
-					</color>
-					<chunks>
-						<chunk>
-							<type>literal</type>
-							<text>HOMING AIRPORT</text>
-						</chunk>
-					</chunks>
-					<transformations>
-						<transformation>
-							<type>x-shift</type>
-							<offset>-250</offset>
-						</transformation>
-						<transformation>
-							<type>y-shift</type>
-							<offset>-74</offset>
-						</transformation>
-					</transformations>
-				</layer>
-
-				<layer>
 					<name>airport line 19b cyan</name>
 					<type>text</type>
 					<font>arial_black</font>
@@ -1454,7 +1597,7 @@ NEAREST AIRPORT</text>
 						</transformation>
 						<transformation>
 							<type>y-shift</type>
-							<offset>-74</offset>
+							<offset>-72</offset>
 						</transformation>
 					</transformations>
 				</layer>
@@ -1681,7 +1824,7 @@ NEAREST AIRPORT</text>
 						</transformation>
 						<transformation>
 							<type>y-shift</type>
-							<offset>-124</offset>
+							<offset>-125</offset>
 						</transformation>
 					</transformations>
 				</layer>
@@ -1709,7 +1852,75 @@ NEAREST AIRPORT</text>
 						</transformation>
 						<transformation>
 							<type>y-shift</type>
-							<offset>-124</offset>
+							<offset>-125</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>comm1 line 24a red</name>
+					<type>text</type>
+					<condition>
+						<equals>
+							<property>sim/model/bluebird/lighting/buttons/comm1-backlit</property>
+							<value type="float">0</value>
+						</equals>
+					</condition>
+					<font>arial_black</font>
+					<point-size>18</point-size>
+					<color>
+						<red>1</red>
+						<green>0</green>
+						<blue>0</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>literal</type>
+							<text>OFF</text>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-4</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-152</offset>
+						</transformation>
+					</transformations>
+				</layer>
+
+				<layer>
+					<name>comm2 line 27a red</name>
+					<type>text</type>
+					<condition>
+						<equals>
+							<property>sim/model/bluebird/lighting/buttons/comm2-backlit</property>
+							<value type="float">0</value>
+						</equals>
+					</condition>
+					<font>arial_black</font>
+					<point-size>18</point-size>
+					<color>
+						<red>1</red>
+						<green>0</green>
+						<blue>0</blue>
+					</color>
+					<chunks>
+						<chunk>
+							<type>literal</type>
+							<text>OFF</text>
+						</chunk>
+					</chunks>
+					<transformations>
+						<transformation>
+							<type>x-shift</type>
+							<offset>-4</offset>
+						</transformation>
+						<transformation>
+							<type>y-shift</type>
+							<offset>-200</offset>
 						</transformation>
 					</transformations>
 				</layer>

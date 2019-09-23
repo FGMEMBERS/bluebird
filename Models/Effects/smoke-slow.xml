@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
+<!-- Bluebird Explorer Hovercraft  version 13.6 for FlightGear OSG -->
 
 <PropertyList>
 
   <particlesystem>
     <name>smoke2</name>
     <type>normal</type>
-    <texture>Aircraft/Generic/Effects/smoke.png</texture>
+    <texture>smoke.png</texture>
 
     <offsets>
       <x-m> 0.0 </x-m>
@@ -32,22 +33,22 @@
       <phi-max-deg>2.5</phi-max-deg>
       <speed-mps>
         <value>0.01</value>
-        <spread>10</spread>
+        <spread>0</spread>
       </speed-mps>
       <rotation-speed>
-        <x-min-deg-sec>  2 </x-min-deg-sec>
-        <y-min-deg-sec>  2 </y-min-deg-sec>
-        <z-min-deg-sec>  2 </z-min-deg-sec>
-        <x-max-deg-sec> 20 </x-max-deg-sec>
-        <y-max-deg-sec> 20 </y-max-deg-sec>
-        <z-max-deg-sec> 20 </z-max-deg-sec>
+        <x-min-deg-sec> 0.2 </x-min-deg-sec>
+        <y-min-deg-sec> 0.2 </y-min-deg-sec>
+        <z-min-deg-sec> 0.2 </z-min-deg-sec>
+        <x-max-deg-sec> 2 </x-max-deg-sec>
+        <y-max-deg-sec> 2 </y-max-deg-sec>
+        <z-max-deg-sec> 2 </z-max-deg-sec>
       </rotation-speed>
     </shooter>
 
     <counter>
       <particles-per-sec>
         <value>3</value>
-        <spread>10</spread>
+        <spread>1</spread>
       </particles-per-sec>
     </counter>
       

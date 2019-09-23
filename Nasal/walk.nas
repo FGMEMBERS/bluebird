@@ -1,5 +1,5 @@
-# == walking functions v5.0 for FlightGear version 1.9-2.0 OSG ==
-# == plus coordinates for Bluebird Explorer Hovercraft 10.7    ==
+# == walking functions v5.1 for FlightGear version 1.9-2.0 OSG ==
+# == plus coordinates for Bluebird Explorer Hovercraft 11.0    ==
 
 # aircraft specific section:
 var hatch_specs = {
@@ -727,7 +727,7 @@ var get_in = func (loc) {
 			new_walker_p = getprop("sim/current-view/pitch-offset-deg");
 			bluebird.cockpit_locations[c_pos].p = new_walker_p;
 		}
-		var new_walker_fov = bluebird.cockpit_locations[c_pos].fov;
+		var new_walker_fov = bluebird.preferred_fov;
 		setprop("sim/model/bluebird/crew/walker/x-offset-m", new_walker_x);
 		setprop("sim/model/bluebird/crew/walker/y-offset-m", new_walker_y);
 		setprop("sim/model/bluebird/crew/walker/z-offset-m", new_walker_z);

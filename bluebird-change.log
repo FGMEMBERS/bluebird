@@ -1,4 +1,139 @@
 Version# Vertices PolygonFaces Comments
+
+2019.Apr.21
+13.7	Fix bug: catch nil capable of crashing nasal subroutine.
+	Remove debugging change from submodels.
+	Replace clock with digital model to improve readability.
+
+2019.Apr.14
+13.6	Fix mis-matched comm naming.
+	Add comm OFF indicator to right panel.
+	Add double tap disconnect to silence alarm.
+	Fix another texture not loading bug.
+	Realign particle shooters.
+	Rework flare submodels.
+
+2019.Mar.19
+13.5	Fix names of COM to COMM because COM1 is a device and can not be a filename.
+
+2019.Mar.14
+13.4	Improve comm buttons lighting, fix bug in crossed material definitions.
+	Fix bug, catch unexpected nil in property.
+
+2019.Mar.13
+13.3	Replace separate com panels with integrated ones. Group Standby below Active.
+	Add power and volume controls to comm model.
+	Replace all digital instrument models:
+	Fix visibility of knobs during main power off.
+
+2019.Mar.11
+13.2	replace digital comm models
+	Add signal bars to comm model.
+	Add comm details to display 1-Right
+	Fix comm knob should increment by 25 KHz
+
+2019.Mar.10
+13.11	23735	17837	replace bluebird model
+	Fix shadows and lighting of new alarm buttons.
+	Fix unnecessary alarm at some autopilot disconnect conditions.
+
+2019.Mar.10
+13.1	Update instrument models to change numerals color.
+	Adjust sounds at startup.
+	Add lighting to disconnect button.
+	Improve internal tracking of ap lock states.
+	Change autopilot acceleration to be variable with engines powered up.
+
+2019.Mar.09
+13.0	23735	17837	replace bluebird model
+	add alarm buttons
+	add autopilot disconnect button
+	add alarm and warning sounds
+
+2019.Mar.05
+12.2	Fix background reflectivity in digital instruments background.
+	Replace digital instruments models.
+
+2019.Feb.10
+12.11	Fix bounds for com instruments.
+
+2019.Feb.09
+12.1	Add third autopilot module, with custom logic.
+
+2019.Feb.06
+12.01	Clarify tooltips.
+	Enable VSI display.
+	Fine tune instrument texture map.
+
+2019.Feb.04
+12.0	23651	17804	replace bluebird model
+	Add instrument models:
+	 Autopilot: altitude and heading
+	 Com stack.
+	Improve existing digital instruments lighting, indicator lights, enlarge buttons.
+	Add tool tips to all clickable spots.
+	Add guard to master power button.
+	Fix bug in display screen #3 Right, nasal error.
+	Upgrade and replace strobe, nav lights, and top beacon.
+
+2019.Jan.31
+11.5	Add toggle to swap flaps for joystick and keyboard controls.
+	Removes confusion about inconsistency between normal flaps and ufo flaps by giving a choice.
+
+2019.Jan.26
+11.42	Fix handling of nil bits for multiplayer.
+	Fix multiplay and AI tracking. Activate by clicking or turning on left display #2.
+
+2019.Jan.25
+11.41	Fix position property of AI, remove root from path.
+
+2019.Jan.21
+11.4	Rewrite pilot rules for visibility, defaults now to disappear when you leave the cockpit.
+	Add 7 new livery colors. This will require other players to have the same version or newer to be seen correctly.
+
+2019.Jan.20
+11.32	Fix inside flooring color in multiplayer.
+	Include some inside surfaces in lighting updates in multiplayer.
+
+2019.Jan.19
+11.31	Fix when pilot is visible.
+	Add livery for AI multiplayer.
+
+2019.Jan.18
+11.3		no change to models.
+	Reorganize model properties for compatibility with multiplay in 2018 FG.
+	Add interior livery and lighting for external viewing in multiplay for 2018 FG.
+	Fix flooring livery not updating at initialization.
+
+2019.Jan.15
+11.23	Remove duplicate livery for AI multiplayer.
+
+2019.Jan.13
+11.22	Revert livery path for AI multiplayer.
+
+2019.Jan.12
+11.21	Remove detachment animation to make aircraft default as always visible.
+
+2019.Jan.11
+11.2	Change how multiplay textures and liveries are loaded.
+	Fix vapor texture bug by removing dependency on Generic directory.
+
+2018.Nov.14
+11.1	Fix loss of homing airport tracking after reset. No longer crashes subsystem.
+	Fix bug in rear hatch, now moves smoothly between flight modes.
+	Fix bug in hatch indicator lights and status monitor.
+	Add performance indicators to "status bar" on monitor.
+
+2018.Nov.11
+11.0		no change to models
+	Add preferred fov to allow saving your fov for your hardware, no longer assume 4:3 screen.
+	Improve instrumentation lighting color codes, and display on right monitor #1.
+	Add new tags for launcher.
+
+2015.Apr.08
+10.93		no change to models
+	automated editing of Incorrect path to Instruments-3d in fg aircraft library, changes did not get to me.
+
 2014.Feb.02
 10.92		no change to models
 	Change key for Configuration dialog from Tab to Equal, for compliance with FG 3.0

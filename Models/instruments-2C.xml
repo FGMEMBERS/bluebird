@@ -1,0 +1,700 @@
+<?xml version="1.0"?>
+<!-- Bluebird Explorer Hovercraft  version 13.7 for FlightGear OSG only -->
+
+<PropertyList>
+
+<!-- instruments placement for bottom center console of bluebird cockpit
+	3rd row, top    line: x=-8.106 z=1.133 y=+-0.246
+	3rd row, bottom line: x=-8.060 z=1.048 y=+-0.249 
+	row 3 rise/run= 0.085/0.046 = 1.85 = -28.4 deg 
+-->
+
+ <model>
+	<name>COMM1</name>
+	<path>Aircraft/bluebird/Instruments-3d/digital2/comm1.xml</path>
+	<offsets>
+		<x-m>-8.096</x-m>
+		<y-m>-0.001</y-m>
+		<z-m>1.113</z-m>
+		<pitch-deg>-28.65</pitch-deg>
+		<w>512</w>
+		<h>512</h>
+	</offsets>
+ </model>
+
+ <model>
+	<name>COMM2</name>
+	<path>Aircraft/bluebird/Instruments-3d/digital2/comm2.xml</path>
+	<offsets>
+		<x-m>-8.096</x-m>
+		<y-m>0.111</y-m>
+		<z-m>1.113</z-m>
+		<pitch-deg>-28.65</pitch-deg>
+		<w>512</w>
+		<h>512</h>
+	</offsets>
+ </model>
+
+ <animation>
+	<type>range</type>
+	<object-name>COMM1</object-name>
+	<object-name>COMM2</object-name>
+	<min-m>0</min-m>
+	<max-m>25</max-m>
+ </animation>
+
+ <animation>
+	<type>material</type>
+	<object-name>comm1.frame</object-name>
+	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
+	<emission>
+		<red-prop>emission/red</red-prop>
+		<green-prop>emission/green</green-prop>
+		<blue-prop>emission/blue</blue-prop>
+		<factor>1</factor>
+	</emission>
+	<specular>
+		<factor-prop>../interior-specular</factor-prop>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</specular>
+ </animation>
+
+ <animation>
+	<type>material</type>
+	<object-name>comm2.frame</object-name>
+	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
+	<emission>
+		<red-prop>emission/red</red-prop>
+		<green-prop>emission/green</green-prop>
+		<blue-prop>emission/blue</blue-prop>
+		<factor>1</factor>
+	</emission>
+	<specular>
+		<factor-prop>../interior-specular</factor-prop>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</specular>
+ </animation>
+
+ <!-- hotspot picks == buttons and knobs -->
+ <animation>
+	<type>pick</type>
+	<object-name>comm1a.knob1L</object-name>
+	<action>
+		<name>decrease comm1a by 0.025</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_comm1aknob(-0.025)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm1a1L</tooltip-id>
+			<label>Center knob subtract 0.025</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm1a.knob1R</object-name>
+	<action>
+		<name>increase comm1a by 0.025</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_comm1aknob(0.025)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm1a1R</tooltip-id>
+			<label>Center knob add 0.025</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm1a.knob2L</object-name>
+	<action>
+		<name>decrease comm1a by ones</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_comm1aknob(-1.0)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm1a2L</tooltip-id>
+			<label>Outside ring subtract 1.0</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm1a.knob2R</object-name>
+	<action>
+		<name>increase comm1a by ones</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_comm1aknob(1.0)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm1a2R</tooltip-id>
+			<label>Outside ring add 1.0</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm1s.knob1L</object-name>
+	<action>
+		<name>decrease comm1s by 0.025</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_comm1sknob(-0.025)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm1s1L</tooltip-id>
+			<label>Center knob subtract 0.025</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm1s.knob1R</object-name>
+	<action>
+		<name>increase comm1s by 0.025</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_comm1sknob(0.025)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm1s1R</tooltip-id>
+			<label>Center knob add 0.025</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm1s.knob2L</object-name>
+	<action>
+		<name>decrease comm1s by ones</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_comm1sknob(-1.0)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm1s2L</tooltip-id>
+			<label>Outside ring subtract 1.0</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm1s.knob2R</object-name>
+	<action>
+		<name>increase comm1s by ones</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_comm1sknob(1.0)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm1s2R</tooltip-id>
+			<label>Outside ring add 1.0</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm2a.knob1L</object-name>
+	<action>
+		<name>decrease comm2a by 0.025</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_comm2aknob(-0.025)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm2a1L</tooltip-id>
+			<label>Center knob subtract 0.025</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm2a.knob1R</object-name>
+	<action>
+		<name>increase comm2a by 0.025</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_comm2aknob(0.025)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm2a1R</tooltip-id>
+			<label>Center knob add 0.025</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm2a.knob2L</object-name>
+	<action>
+		<name>decrease comm2a by ones</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_comm2aknob(-1.0)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm2a2L</tooltip-id>
+			<label>Outside ring subtract 1.0</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm2a.knob2R</object-name>
+	<action>
+		<name>increase comm2a by ones</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_comm2aknob(1.0)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm2a2R</tooltip-id>
+			<label>Outside ring add 1.0</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm2s.knob1L</object-name>
+	<action>
+		<name>decrease comm2s by 0.025</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_comm2sknob(-0.025)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm2s1L</tooltip-id>
+			<label>Center knob subtract 0.025</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm2s.knob1R</object-name>
+	<action>
+		<name>increase comm2s by 0.025</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_comm2sknob(0.025)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm2s1R</tooltip-id>
+			<label>Center knob add 0.025</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm2s.knob2L</object-name>
+	<action>
+		<name>decrease comm2s by ones</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_comm2sknob(-1.0)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm2s2L</tooltip-id>
+			<label>Outside ring subtract 1.0</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm2s.knob2R</object-name>
+	<action>
+		<name>increase comm2s by ones</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_comm2sknob(1.0)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm2s2R</tooltip-id>
+			<label>Outside ring add 1.0</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm1.button.swap</object-name>
+	<action>
+		<name>swap frequencies for comm1</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.press_com_swap(1)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm1-toggle</tooltip-id>
+			<label>Swap COMM1 frequencies</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm2.button.swap</object-name>
+	<action>
+		<name>swap frequencies for comm2</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.press_com_swap(2)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm2-toggle</tooltip-id>
+			<label>Swap COMM2 frequencies</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm1.volume.knobL</object-name>
+	<action>
+		<name>decrease comm1 volume</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>property-adjust</command>
+			<property>instrumentation/comm[0]/volume</property>
+			<step>-0.025</step>
+			<min>0</min>
+			<max>1</max>
+			<wrap>false</wrap>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm1volL</tooltip-id>
+			<label>Decrease COMM1 volume</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm1.volume.knobR</object-name>
+	<action>
+		<name>increase comm1 volume</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>property-adjust</command>
+			<property>instrumentation/comm[0]/volume</property>
+			<step>0.025</step>
+			<min>0</min>
+			<max>1</max>
+			<wrap>false</wrap>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm1volR</tooltip-id>
+			<label>Increase COMM1 volume</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm1.button.mute</object-name>
+	<action>
+		<name>toggle comm1 volume</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.press_com_mute(0)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm1mute</tooltip-id>
+			<label>Toggle COMM1 volume mute</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm1.button.power</object-name>
+	<action>
+		<name>toggle comm1 power</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-toggle</command>
+			<property>instrumentation/comm[0]/power-btn</property>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm1-power-tip</tooltip-id>
+			<label>Toggle COMM1 power</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm1.button.power.off</object-name>
+	<action>
+		<name>toggle comm1 power</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-toggle</command>
+			<property>instrumentation/comm[0]/power-btn</property>
+		</binding>
+	</action>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm1.button.power.on</object-name>
+	<action>
+		<name>toggle comm1 power</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-toggle</command>
+			<property>instrumentation/comm[0]/power-btn</property>
+		</binding>
+	</action>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm2.volume.knobL</object-name>
+	<action>
+		<name>decrease comm2 volume</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>property-adjust</command>
+			<property>instrumentation/comm[1]/volume</property>
+			<step>-0.025</step>
+			<min>0</min>
+			<max>1</max>
+			<wrap>false</wrap>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm2volL</tooltip-id>
+			<label>Decrease COMM2 volume</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm2.button.mute</object-name>
+	<action>
+		<name>toggle comm2 volume</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.press_com_mute(1)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm2mute</tooltip-id>
+			<label>Toggle COMM2 volume mute</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm2.volume.knobR</object-name>
+	<action>
+		<name>increase comm2 volume</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>property-adjust</command>
+			<property>instrumentation/comm[1]/volume</property>
+			<step>0.025</step>
+			<min>0</min>
+			<max>1</max>
+			<wrap>false</wrap>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm2volR</tooltip-id>
+			<label>Increase COMM2 volume</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm2.button.power</object-name>
+	<action>
+		<name>toggle comm2 power</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-toggle</command>
+			<property>instrumentation/comm[1]/power-btn</property>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>comm2-power-tip</tooltip-id>
+			<label>Toggle COMM2 power</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm2.button.power.off</object-name>
+	<action>
+		<name>toggle comm2 power</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-toggle</command>
+			<property>instrumentation/comm[1]/power-btn</property>
+		</binding>
+	</action>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>comm2.button.power.on</object-name>
+	<action>
+		<name>toggle comm2 power</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-toggle</command>
+			<property>instrumentation/comm[1]/power-btn</property>
+		</binding>
+	</action>
+ </animation>
+</PropertyList>

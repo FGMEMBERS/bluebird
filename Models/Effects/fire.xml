@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
+<!-- Bluebird Explorer Hovercraft  version 13.6 for FlightGear OSG -->
 
 <PropertyList>
 
   <particlesystem>
     <name>fire</name>
     <type>normal</type>
-    <texture>Aircraft/Generic/Effects/smoke.png</texture>
+    <texture>fire.png</texture>
 
     <offsets>
       <x-m> 0.0 </x-m>
@@ -79,7 +80,7 @@
       </end>
         
       <life-sec>
-        <value>0.20</value>
+        <value>0.30</value>
       </life-sec>
         
       <mass-kg>0.25</mass-kg>

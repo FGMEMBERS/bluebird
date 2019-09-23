@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
+<!--== Bluebird version 13.7 common base ==-->
 
 <PropertyList>
  <sim>
 	<aero>bluebird</aero>
 	<status>early-production</status>
-	<aircraft-version>10.93</aircraft-version>
 	<author>S Andreason</author>
 	<aircraft-status>
 		<fdm>early-production</fdm>
@@ -31,6 +31,7 @@
 		<is-hovercraft type="bool">true</is-hovercraft>
 		<is-ufo type="bool">true</is-ufo>
 	</type-of-aircraft>
+	<minimum-fg-version>2.4</minimum-fg-version>
 
 	<flight-model>ufo</flight-model>
 
@@ -57,6 +58,7 @@
 				<cockpit-position type="int">0</cockpit-position>
 				<pilot>
 					<chair-back type="int">0</chair-back>
+					<always-visible type="bool">false</always-visible>
 					<visible type="bool">true</visible>
 				</pilot>
 				<walker>
@@ -443,6 +445,110 @@
 					<interior-specular type="float">0</interior-specular>
 				</door5>
 				<buttons>
+					<alarm1-master>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</alarm1-master>
+					<alarm2-caution>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</alarm2-caution>
+					<comm1-backlit type="float">0</comm1-backlit>
+					<comm2-backlit type="float">0</comm2-backlit>
+					<ap-disconnect>
+						<edge-b>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-b>
+						<edge-k>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</edge-k>
+						<face>
+							<amb-dif>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</amb-dif>
+							<emission>
+								<red type="float">0</red>
+								<green type="float">0</green>
+								<blue type="float">0</blue>
+							</emission>
+						</face>
+						<specular type="float">0</specular>
+					</ap-disconnect>
 					<left1-power>
 						<edge-b>
 							<emission>
@@ -1116,15 +1222,21 @@
 				<pitch-level type="float">0</pitch-level>
 			</sound>
 			<systems>
+				<alarm1-state type="bool">false</alarm1-state>
+				<alarm2-state type="bool">true</alarm2-state>
+				<alarm3-state type="bool">true</alarm3-state>
+				<alarm4-state type="bool">false</alarm4-state>
 				<nacelle-L-venting type="bool">false</nacelle-L-venting>
 				<nacelle-R-venting type="bool">false</nacelle-R-venting>
 				<power-switch type="bool">true</power-switch>		<!-- default: power up at startup -->
 				<reactor-request type="bool">true</reactor-request>
 				<reactor-level type="int">1</reactor-level>
+				<swap-flaps type="bool">false</swap-flaps>
 				<wave1-request type="bool">true</wave1-request>
 				<wave1-level type="int">1</wave1-level>
 				<wave2-request type="bool">false</wave2-request>
 			</systems>
+			<detail-byte type="int">255</detail-byte>
 		</bluebird>
 
 		<variant type="int">0</variant>
@@ -1314,6 +1426,7 @@
 				<factor type="float">0</factor>
 			</instruments>
 		</material>
+		<preferred_fov>55</preferred_fov>
 
 		<walker n="0">
 			<animate>
@@ -1494,20 +1607,32 @@
 			<int n="0" alias="/sim/model/bluebird/components/nacelle-L"/>
 			<int n="1" alias="/sim/model/bluebird/components/nacelle-R"/>
 			<int n="2" alias="/sim/model/bluebird/systems/power-switch"/>
-			<int n="3" alias="/ai/submodels/nacelle-LR-venting"/>
-			<int n="4" alias="/ai/submodels/nacelle-RR-venting"/>
-			<int n="5" alias="/ai/submodels/engine-L-venting"/>
-			<int n="6" alias="/ai/submodels/engine-R-venting"/>
+			<int n="3" alias="/sim/model/bluebird/systems/nacelle-L-venting"/>
+			<int n="4" alias="/sim/model/bluebird/systems/nacelle-R-venting"/>
+			<int n="5" alias="/ai/submodels/engine-L-smoking"/>
+			<int n="6" alias="/ai/submodels/engine-R-smoking"/>
 			<int n="7" alias="/sim/model/bluebird/damage/major-counter"/>
 			<int n="8" alias="/sim/walker/outside"/>
+			<int n="9" alias="/controls/lighting/beacon"/>
+			<int n="10" alias="/controls/lighting/strobe"/>
+			<int n="11" alias="/sim/model/bluebird/lighting/nav-lights-state"/>
+			<int n="12" alias="/sim/model/bluebird/lighting/landing-lights"/>
+			<int n="13" alias="/sim/model/bluebird/detail-byte"/>
+			<int n="14" alias="/sim/model/bluebird/systems/wave1-level"/>
 			<float n="0" alias="/sim/model/bluebird/doors/door[0]/position-adj"/>
 			<float n="1" alias="/sim/model/bluebird/doors/door[1]/position-adj"/>
 			<float n="2" alias="/sim/model/bluebird/doors/door[5]/position-adj"/>
-			<float n="3" alias="/sim/model/bluebird/lighting/landing-lights"/>
+			<float n="3" alias="/sim/model/bluebird/doors/door[2]/position-norm"/>
 			<float n="4" alias="/sim/walker/longitude-deg"/>
 			<float n="5" alias="/sim/walker/latitude-deg"/>
 			<float n="6" alias="/sim/walker/altitude-ft"/>
 			<float n="7" alias="/sim/walker/model-heading-deg"/>
+			<float n="8" alias="/sim/model/bluebird/lighting/engine-glow"/>
+			<float n="9" alias="/sim/model/bluebird/lighting/wave-guide-glow"/>
+			<float n="10" alias="/controls/engines/engine/throttle"/>
+			<float n="11" alias="/controls/flight/rudder"/>
+			<float n="12" alias="/sim/model/bluebird/doors/door[4]/position-norm"/>
+			<float n="13" alias="/velocities/abs-airspeed-kt"/>
 		</generic>
 	</multiplay>
 
@@ -1755,8 +1880,8 @@
 	<submodels>
 		<engine-L-flaring type="bool">false</engine-L-flaring>
 		<engine-R-flaring type="bool">false</engine-R-flaring>
-		<engine-L-venting type="bool">false</engine-L-venting>
-		<engine-R-venting type="bool">false</engine-R-venting>
+		<engine-L-smoking type="bool">false</engine-L-smoking>
+		<engine-R-smoking type="bool">false</engine-R-smoking>
 		<nacelle-LF-venting type="bool">false</nacelle-LF-venting>
 		<nacelle-LR-venting type="bool">false</nacelle-LR-venting>
 		<nacelle-RF-venting type="bool">false</nacelle-RF-venting>
@@ -1766,7 +1891,7 @@
 
  <controls>
 	<engines>
-		<countergrav-factor type="int">6</countergrav-factor>
+		<countergrav-factor type="int">3</countergrav-factor>
 	</engines>
 	<lighting>
 		<alert type="bool">false</alert>
@@ -1790,13 +1915,15 @@
  <gear>
 	<gear n="0">
 		<position-norm type="float">1</position-norm>
-		<position-side-pads type="float">1</position-side-pads>
 		<last-request type="int">1</last-request>
 		<!-- hint for the route manager -->
 		<wow type="bool">false</wow>
 	</gear>
 	<gear n="1">
 		<position-norm type="float">1</position-norm>
+	</gear>
+	<gear n="2">
+		<position-norm type="float">0</position-norm>
 	</gear>
 	<gear-agl-ft type="float">3.640164</gear-agl-ft>
  </gear>
@@ -2267,6 +2394,23 @@
 		<heading-mode type="int">0</heading-mode>
 		<pitch-neg type="int">0</pitch-neg>
 		<velocity-mode type="int">1</velocity-mode>
+		<ap1-mode type="int">0</ap1-mode>
+		<ap1-entry-deg type="float">0.0</ap1-entry-deg>
+		<ap2-mode type="int">0</ap2-mode>
+		<ap2-entry type="float">0.0</ap2-entry>
+		<ap2-entry-ft type="float">0.0</ap2-entry-ft>
+		<ap2-entry-fpm type="float">0.0</ap2-entry-fpm>
+		<ap2-entry-agl-ft type="float">0.0</ap2-entry-agl-ft>
+		<ap3-mode type="int">0</ap3-mode>
+		<ap3-entry type="float">0.0</ap3-entry>
+		<ap3-entry-kt type="float">0.0</ap3-entry-kt>
+		<ap3-lock-state type="int">0</ap3-lock-state>
+		<ap3-target-throttle type="float">0.0</ap3-target-throttle>
+		<ap3-roc type="float">0.0025</ap3-roc>
+		<ap-state type="bool">0</ap-state>
+		<comm1-mhz-state type="bool">0</comm1-mhz-state>
+		<comm2-mhz-state type="bool">0</comm2-mhz-state>
+		<clock-mode type="int">0</clock-mode>
 	</digital>
 	<nav n="0">
 		<frequencies>
@@ -2294,6 +2438,20 @@
 		<t1L-22 type="string"> </t1L-22>
 		<t1L-23 type="string"> </t1L-23>
 		<t1L-24 type="string"> </t1L-24>
+		<enabled-1LA type="bool">true</enabled-1LA>
+		<t1L-B1 type="string"> </t1L-B1>
+		<t1L-B2 type="string"> </t1L-B2>
+		<t1L-B3 type="string"> </t1L-B3>
+		<t1L-B4 type="string"> </t1L-B4>
+		<t1L-B5 type="string"> </t1L-B5>
+		<t1L-B6 type="string"> </t1L-B6>
+		<t1L-B7 type="string"> </t1L-B7>
+		<t1L-B8 type="string"> </t1L-B8>
+		<t1L-B9 type="string"> </t1L-B9>
+		<t1L-B10 type="string"> .</t1L-B10>
+		<t1L-B11 type="string"> </t1L-B11>
+		<t1L-B12 type="string"> </t1L-B12>
+		<enabled-1LB type="bool">false</enabled-1LB>
 		<t2L-1 type="string">Nearby aircraft</t2L-1>
 		<t2L-2 type="string"> </t2L-2>
 		<t2L-3a type="string"> </t2L-3a>
@@ -2500,6 +2658,8 @@
 		<mp1-elevation-deg type="float">-99.0</mp1-elevation-deg>
 		<mp1-heading-offset-deg type="float">-99.0</mp1-heading-offset-deg>
 		<mp1-to-factor type="float">1</mp1-to-factor>
+		<comm0-range type="string"> </comm0-range>
+		<comm1-range type="string"> </comm1-range>
 	</tracking>
  </instrumentation>
 

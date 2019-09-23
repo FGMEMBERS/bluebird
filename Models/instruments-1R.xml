@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+<!-- Bluebird Explorer Hovercraft  version 12.1 for FlightGear OSG only -->
+
+<PropertyList>
+
+<!-- instruments placement
+	========== side consoles, front1 ================
+	axis:  (8.327,0.280,1.240) - (7.891,0.819,1.240)
+		(7.885,0.212,1.025) - (7.671,0.477,1.025) = 25.68
+	angle= 28.90 on x axis , and 50.90 on z axis
+-->
+
+ <model>
+	<name>AP3</name>
+	<path>Aircraft/bluebird/Instruments-3d/digital2/ap3.xml</path>
+	<offsets>
+		<x-m>-8.2336</x-m>
+		<y-m>0.3244</y-m>
+		<z-m>1.230</z-m>
+		<pitch-deg>-29.0</pitch-deg>
+		<heading-deg>-38.98</heading-deg>
+		<w>512</w>
+		<h>512</h>
+	</offsets>
+ </model>
+
+ <animation>
+	<type>range</type>
+	<object-name>AP3</object-name>
+	<min-m>0</min-m>
+	<max-m>25</max-m>
+ </animation>
+
+ <animation>
+	<type>material</type>
+	<object-name>ap3.frame</object-name>
+	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
+	<emission>
+		<red-prop>emission/red</red-prop>
+		<green-prop>emission/green</green-prop>
+		<blue-prop>emission/blue</blue-prop>
+		<factor>1</factor>
+	</emission>
+	<specular>
+		<factor-prop>../interior-specular</factor-prop>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</specular>
+ </animation>
+
+ <animation>
+	<type>material</type>
+	<object-name>ap3-lit</object-name>
+	<emission>
+		<factor-prop>sim/model/material/instruments/factor</factor-prop>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</emission>
+ </animation>
+
+ <!-- buttons and knobs -->
+ <animation>
+	<type>pick</type>
+	<object-name>ap3.button1</object-name>
+	<action>
+		<name>increase ap3 mode</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.press_ap3mode(1)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>ap3mode</tooltip-id>
+			<label>Toggle Knots or Percent for autopilot</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>ap3.knob1L</object-name>
+	<action>
+		<name>decrease ap3 by ones</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_ap3knob(-1)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>ap31L</tooltip-id>
+			<label>Center knob subtract %s</label>
+			<mapping>nasal</mapping>
+			<script>
+				var modes = ['1', '1', '0.1'];
+				return modes[arg[0]];
+			</script>
+			<property>instrumentation/digital/ap3-mode</property>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>ap3.knob1R</object-name>
+	<action>
+		<name>increase ap3 by ones</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_ap3knob(1)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>ap31R</tooltip-id>
+			<label>Center knob add %s</label>
+			<mapping>nasal</mapping>
+			<script>
+				var modes = ['1', '1', '0.1'];
+				return modes[arg[0]];
+			</script>
+			<property>instrumentation/digital/ap3-mode</property>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>ap3.knob2L</object-name>
+	<action>
+		<name>decrease ap3 by tens</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_ap3knob(-10)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>ap32L</tooltip-id>
+			<label>Outer ring subtract %s</label>
+			<mapping>nasal</mapping>
+			<script>
+				var modes = ['10', '10', '1.0'];
+				return modes[arg[0]];
+			</script>
+			<property>instrumentation/digital/ap3-mode</property>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>ap3.knob2R</object-name>
+	<action>
+		<name>increase ap3 by tens</name>
+		<button>0</button>
+		<repeatable>true</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.turn_ap3knob(10)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>ap32R</tooltip-id>
+			<label>Outer ring add %s</label>
+			<mapping>nasal</mapping>
+			<script>
+				var modes = ['10', '10', '1.0'];
+				return modes[arg[0]];
+			</script>
+			<property>instrumentation/digital/ap3-mode</property>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>ap3.button2</object-name>
+	<action>
+		<name>toggle ap3 CMD</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>digitalPanel.toggle_ap3cmd(0)</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>ap3cmd</tooltip-id>
+			<label>Toggle Autopilot CoMmanD engage / disengage</label>
+		</binding>
+	</hovered>
+ </animation>
+</PropertyList>

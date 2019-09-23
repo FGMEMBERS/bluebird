@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Bluebird Explorer Hovercraft  version 10.8 for FlightGear OSG only -->
+<!-- Bluebird Explorer Hovercraft  version 13.7 for FlightGear OSG only -->
 
 <PropertyList>
 
@@ -178,16 +178,34 @@
 
  <model>
 	<name>CLOCK</name>
-	<path>Aircraft/bluebird/Instruments-3d/clock/clock-b.xml</path>
+	<path>Aircraft/bluebird/Instruments-3d/digital2/clock.xml</path>
 	<offsets>
-		<x-m>-8.082</x-m>
-		<y-m>0.2</y-m>
-		<z-m>1.091</z-m>
+		<x-m>-8.0955</x-m>
+		<y-m>0.2015</y-m>
+		<z-m>1.1125</z-m>
 		<pitch-deg>-28.4</pitch-deg>
 		<w>512</w>
 		<h>512</h>
 	</offsets>
  </model>
+
+ <animation>
+	<type>material</type>
+	<object-name>clock.frame</object-name>
+	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
+	<emission>
+		<red-prop>emission/red</red-prop>
+		<green-prop>emission/green</green-prop>
+		<blue-prop>emission/blue</blue-prop>
+		<factor>1</factor>
+	</emission>
+	<specular>
+		<factor-prop>../interior-specular</factor-prop>
+		<red>1</red>
+		<green>1</green>
+		<blue>1</blue>
+	</specular>
+ </animation>
 
 	<animation>
 		<type>range</type>
@@ -226,97 +244,7 @@
 
  <animation>
 	<type>material</type>
-	<object-name>alt.hold.button</object-name>
-	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
-	<emission>
-		<red-prop>emission/red</red-prop>
-		<green-prop>emission/green</green-prop>
-		<blue-prop>emission/blue</blue-prop>
-		<factor>1</factor>
-	</emission>
-	<specular>
-		<factor-prop>../interior-specular</factor-prop>
-		<red>1</red>
-		<green>1</green>
-		<blue>1</blue>
-	</specular>
- </animation>
-
- <animation>
-	<type>material</type>
-	<object-name>agl.hold.button</object-name>
-	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
-	<emission>
-		<red-prop>emission/red</red-prop>
-		<green-prop>emission/green</green-prop>
-		<blue-prop>emission/blue</blue-prop>
-		<factor>1</factor>
-	</emission>
-	<specular>
-		<factor-prop>../interior-specular</factor-prop>
-		<red>1</red>
-		<green>1</green>
-		<blue>1</blue>
-	</specular>
- </animation>
-
- <animation>
-	<type>material</type>
-	<object-name>altitude.button</object-name>
-	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
-	<emission>
-		<red-prop>emission/red</red-prop>
-		<green-prop>emission/green</green-prop>
-		<blue-prop>emission/blue</blue-prop>
-		<factor>1</factor>
-	</emission>
-	<specular>
-		<factor-prop>../interior-specular</factor-prop>
-		<red>1</red>
-		<green>1</green>
-		<blue>1</blue>
-	</specular>
- </animation>
-
- <animation>
-	<type>material</type>
 	<object-name>heading.frame</object-name>
-	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
-	<emission>
-		<red-prop>emission/red</red-prop>
-		<green-prop>emission/green</green-prop>
-		<blue-prop>emission/blue</blue-prop>
-		<factor>1</factor>
-	</emission>
-	<specular>
-		<factor-prop>../interior-specular</factor-prop>
-		<red>1</red>
-		<green>1</green>
-		<blue>1</blue>
-	</specular>
- </animation>
-
- <animation>
-	<type>material</type>
-	<object-name>head.hold.button</object-name>
-	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
-	<emission>
-		<red-prop>emission/red</red-prop>
-		<green-prop>emission/green</green-prop>
-		<blue-prop>emission/blue</blue-prop>
-		<factor>1</factor>
-	</emission>
-	<specular>
-		<factor-prop>../interior-specular</factor-prop>
-		<red>1</red>
-		<green>1</green>
-		<blue>1</blue>
-	</specular>
- </animation>
-
- <animation>
-	<type>material</type>
-	<object-name>heading.button</object-name>
 	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
 	<emission>
 		<red-prop>emission/red</red-prop>
@@ -352,24 +280,6 @@
 
  <animation>
 	<type>material</type>
-	<object-name>velocity.button</object-name>
-	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
-	<emission>
-		<red-prop>emission/red</red-prop>
-		<green-prop>emission/green</green-prop>
-		<blue-prop>emission/blue</blue-prop>
-		<factor>1</factor>
-	</emission>
-	<specular>
-		<factor-prop>../interior-specular</factor-prop>
-		<red>1</red>
-		<green>1</green>
-		<blue>1</blue>
-	</specular>
- </animation>
-
- <animation>
-	<type>material</type>
 	<object-name>gps.frame</object-name>
 	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
 	<emission>
@@ -388,61 +298,7 @@
 
  <animation>
 	<type>material</type>
-	<object-name>gps.button</object-name>
-	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
-	<emission>
-		<red-prop>emission/red</red-prop>
-		<green-prop>emission/green</green-prop>
-		<blue-prop>emission/blue</blue-prop>
-		<factor>1</factor>
-	</emission>
-	<specular>
-		<factor-prop>../interior-specular</factor-prop>
-		<red>1</red>
-		<green>1</green>
-		<blue>1</blue>
-	</specular>
- </animation>
-
- <animation>
-	<type>material</type>
 	<object-name>engine.frame</object-name>
-	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
-	<emission>
-		<red-prop>emission/red</red-prop>
-		<green-prop>emission/green</green-prop>
-		<blue-prop>emission/blue</blue-prop>
-		<factor>1</factor>
-	</emission>
-	<specular>
-		<factor-prop>../interior-specular</factor-prop>
-		<red>1</red>
-		<green>1</green>
-		<blue>1</blue>
-	</specular>
- </animation>
-
- <animation>
-	<type>material</type>
-	<object-name>engine.button.up</object-name>
-	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
-	<emission>
-		<red-prop>emission/red</red-prop>
-		<green-prop>emission/green</green-prop>
-		<blue-prop>emission/blue</blue-prop>
-		<factor>1</factor>
-	</emission>
-	<specular>
-		<factor-prop>../interior-specular</factor-prop>
-		<red>1</red>
-		<green>1</green>
-		<blue>1</blue>
-	</specular>
- </animation>
-
- <animation>
-	<type>material</type>
-	<object-name>engine.button.down</object-name>
 	<property-base>sim/model/bluebird/lighting/interior5-console</property-base>
 	<emission>
 		<red-prop>emission/red</red-prop>
@@ -591,7 +447,7 @@
 	</emission>
  </animation>
 
-<!-- hotspot picks -->
+<!-- hotspot picks == buttons -->
  <animation>
 	<type>pick</type>
 	<object-name>alt.hold.button</object-name>
@@ -613,6 +469,13 @@
 			</script>
 		</binding>
 	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>altitude-hold</tooltip-id>
+			<label>Toggle Altitude Lock for autopilot</label>
+		</binding>
+	</hovered>
  </animation>
 
  <animation>
@@ -636,6 +499,13 @@
 			</script>
 		</binding>
 	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>agl-hold</tooltip-id>
+			<label>Toggle altitude Above Ground Level lock for autopilot</label>
+		</binding>
+	</hovered>
  </animation>
 
  <animation>
@@ -646,14 +516,30 @@
 		<button>0</button>
 		<repeatable>false</repeatable>
 		<binding>
-			<command>property-adjust</command>
-			<property>instrumentation/digital/altitude-mode</property>
-			<step>1</step>
-			<min>0</min>
-			<max>2</max>
-			<wrap>true</wrap>
+			<command>nasal</command>
+			<script>
+				var node = props.globals.getNode("instrumentation/digital/altitude-mode", 1);
+				var nm = node.getValue();
+				var cpl = getprop("engines/engine/speed-max-powerlevel");
+				var maxu = (cpl > 7 ? 3 : 1);
+				nm = (nm + 1 > maxu? 0: nm+1);
+				node.setValue( nm );
+			</script>
 		</binding>
 	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>altitude-mode-tip</tooltip-id>
+			<label>Select units for altitude display: %s</label>
+			<mapping>nasal</mapping>
+				<script>
+				  var modes = ['FEET', 'METERs', 'KM', 'MILEs'];
+				  return sprintf("\nCurrent mode: %s\nAvailable options: Feet,  Meters,  Km, Miles",modes[arg[0]]);
+				</script>
+			<property>instrumentation/digital/altitude-mode</property>
+		</binding>
+	</hovered>
  </animation>
 
  <animation>
@@ -669,13 +555,23 @@
 				var node = props.globals.getNode("autopilot/locks/heading", 1);
 				if ( node.getValue() == "true-heading-hold" ) {
 					node.setValue( "" );
+				} elsif ( node.getValue() == "dg-heading-hold" ) {
+					node.setValue( "" );
 				} else {
+					setprop("instrumentation/digital/ap1-mode", 1);
 					setprop("autopilot/settings/true-heading-deg", getprop("orientation/heading-deg"));
 					node.setValue( "true-heading-hold" );
 				}
 			</script>
 		</binding>
 	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>heading-hold</tooltip-id>
+			<label>Toggle Hold true Heading, Lock for autopilot</label>
+		</binding>
+	</hovered>
  </animation>
 
  <animation>
@@ -694,6 +590,19 @@
 			<wrap>true</wrap>
 		</binding>
 	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>heading-mode</tooltip-id>
+			<label>Heading is %s</label>
+			<mapping>nasal</mapping>
+				<script>
+				  var modes = ['-180 .. +180', '0 .. +360'];
+				  return sprintf("TRUE.\n Select units for heading pitch:\nCurrent pitch mode: %s",modes[arg[0]]);
+				</script>
+			<property>instrumentation/digital/heading-mode</property>
+		</binding>
+	</hovered>
  </animation>
 
  <animation>
@@ -712,24 +621,19 @@
 			<wrap>true</wrap>
 		</binding>
 	</action>
- </animation>
-
- <animation>
-	<type>pick</type>
-	<object-name>gps.frame</object-name>
-	<action>
-		<name>gps-mode-select</name>
-		<button>0</button>
-		<repeatable>false</repeatable>
+	<hovered>
 		<binding>
-			<command>property-adjust</command>
-			<property>sim/lon-lat-format</property>
-			<step>1</step>
-			<min>0</min>
-			<max>3</max>
-			<wrap>true</wrap>
+			<command>set-tooltip</command>
+			<tooltip-id>velocity-units</tooltip-id>
+			<label>Select Units for velocity display: %s</label>
+			<mapping>nasal</mapping>
+				<script>
+				  var modes = ['MPS', 'KNOTs', 'MPH', 'KmPH', 'MACH'];
+				  return sprintf("\nCurrent mode: %s\nAvailable options:\n Mach,  MPS,  Knots,  MPH,  KmPH",modes[arg[0]]);
+				</script>
+			<property>instrumentation/digital/velocity-mode</property>
 		</binding>
-	</action>
+	</hovered>
  </animation>
 
  <animation>
@@ -748,6 +652,18 @@
 			<wrap>true</wrap>
 		</binding>
 	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>gps-mode</tooltip-id>
+			<label>Select GPS Units: %s</label>
+			<mapping>nasal</mapping>
+			<script>
+				return sprintf("\n DD.DDDDD\n DD MM.MMM'\n DD MM' SS\"");
+			</script>
+			<property>sim/lon-lat-format</property>
+		</binding>
+	</hovered>
  </animation>
 
  <animation>
@@ -759,9 +675,16 @@
 		<repeatable>false</repeatable>
 		<binding>
 			<command>nasal</command>
-			<script>controls.flapsDown(-1)</script>
+			<script>controls.flapsDown(2)</script>
 		</binding>
 	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>engine-up</tooltip-id>
+			<label>Increase engine range</label>
+		</binding>
+	</hovered>
  </animation>
 
  <animation>
@@ -773,109 +696,321 @@
 		<repeatable>false</repeatable>
 		<binding>
 			<command>nasal</command>
-			<script>controls.flapsDown(1)</script>
+			<script>controls.flapsDown(-2)</script>
 		</binding>
 	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>engine-down</tooltip-id>
+			<label>Decrease engine range</label>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>clock.button</object-name>
+	<action>
+		<name>clock-mode-select</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-adjust</command>
+			<property>instrumentation/digital/clock-mode</property>
+			<step>1</step>
+			<min>0</min>
+			<max>2</max>
+			<wrap>true</wrap>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>clock-mode</tooltip-id>
+			<label>Toggle clock display mode</label>
+		</binding>
+	</hovered>
  </animation>
 
 <!--	VOR 1 Radial adjust  -->
-	<animation>
-		<type>pick</type>
-		<object-name>click-L</object-name>
-		<action>
-			<name>decrease vor mode</name>
-			<button>0</button>
-			<repeatable>false</repeatable>
-			<binding>
-				<command>property-adjust</command>
-				<property>instrumentation/ai-vor/mode</property>
-				<step>-1</step>
-				<min>0</min>
-				<max>4</max>
-				<wrap>true</wrap>
-			</binding>
-		</action>
-	</animation>
+ <animation>
+	<type>pick</type>
+	<object-name>click-L</object-name>
+	<action>
+		<name>decrease vor mode</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-adjust</command>
+			<property>instrumentation/ai-vor/mode</property>
+			<step>-1</step>
+			<min>0</min>
+			<max>4</max>
+			<wrap>true</wrap>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>vorLtip</tooltip-id>
+			<label>Turn Center knob Left.%s</label>
+			<mapping>nasal</mapping>
+				<script>
+				  var modes = ['Nearest Airport 1', 'AI closest', 'MP closest', 'Homing Airport 2'];
+				  return sprintf("\n Select what target for homing.\nCurrent: %s",modes[arg[0]]);
+				</script>
+			<property>instrumentation/ai-vor/mode</property>
+		</binding>
+	</hovered>
+ </animation>
 
-	<animation>
-		<type>pick</type>
-		<object-name>click-R</object-name>
-		<action>
-			<name>increase vor mode</name>
-			<button>0</button>
-			<repeatable>false</repeatable>
-			<binding>
-				<command>property-adjust</command>
-				<property>instrumentation/ai-vor/mode</property>
-				<step>1</step>
-				<min>0</min>
-				<max>4</max>
-				<wrap>true</wrap>
-			</binding>
-		</action>
-	</animation>
+<animation>
+	<type>pick</type>
+	<object-name>click-R</object-name>
+	<action>
+		<name>increase vor mode</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-adjust</command>
+			<property>instrumentation/ai-vor/mode</property>
+			<step>1</step>
+			<min>0</min>
+			<max>4</max>
+			<wrap>true</wrap>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>vorRtip</tooltip-id>
+			<label>Turn Center knob Right.%s</label>
+			<mapping>nasal</mapping>
+			<script>
+				var modes = ['Nearest Airport 1', 'AI closest', 'MP closest', 'Homing Airport 2'];
+				return sprintf("\n Select what target for homing.\nCurrent: %s",modes[arg[0]]);
+			</script>
+			<property>instrumentation/ai-vor/mode</property>
+		</binding>
+	</hovered>
+</animation>
 
-	<animation>
-		<type>pick</type>
-		<object-name>Pick:APdisplay</object-name>
-		<action>
-			<name>Airport dialog</name>
-			<button>0</button>
-			<repeatable>false</repeatable>
-			<binding>
-				<command>nasal</command>
-				<script>aiVORinstrument.ap_dialog()</script>
-			</binding>
-		</action>
-	</animation>
+ <animation>
+	<type>pick</type>
+	<object-name>Pick:APdisplay</object-name>
+	<action>
+		<name>Airport dialog</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>aiVORinstrument.ap_dialog()</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>apd-tip</tooltip-id>
+			<label>Homing callsign: %s</label>
+			<mapping>nasal</mapping>
+			<script>
+				var apdmode = getprop("instrumentation/ai-vor/mode");
+				var modes = ['Nearest Airport 1', 'AI closest', 'MP closest', 'Homing Airport 2'];
+				return sprintf("%s\n Click to open Airport Search dialog.\n Search for key text, then must click on list item to select Homing airport 2.\nCurrent: %s",modes[apdmode],arg[0]);
+			</script>
+			<property>instrumentation/ai-vor/callsign</property>
+		</binding>
+	</hovered>
+ </animation>
 
-	<animation>
-		<type>pick</type>
-		<object-name>Pick:Gdisplay</object-name>
-		<action>
-			<name>Gees digital display</name>
-			<button>0</button>
-			<repeatable>false</repeatable>
-			<binding>
-				<command>nasal</command>
-				<script>gees.tapDisplay()</script>
-			</binding>
-		</action>
-	</animation>
+ <animation>
+	<type>pick</type>
+	<object-name>Pick:Gdisplay</object-name>
+	<action>
+		<name>Gees digital display</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>nasal</command>
+			<script>gees.tapDisplay()</script>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>ged-tip</tooltip-id>
+			<label>%s</label>
+			<mapping>nasal</mapping>
+			<script>
+				var geesmode = getprop("instrumentation/gees/mode");
+				if (geesmode == 0) {
+				  return sprintf("VSI display:\n %7.1f x10 m/s",arg[0]);
+				} else {
+				  return sprintf("Gees display:\n Click to clear maximum.");
+				}
+			</script>
+			<property>instrumentation/gees/vsi-float</property>
+		</binding>
+	</hovered>
+ </animation>
 
-	<animation>
-		<type>pick</type>
-		<object-name>Pick:Gclick-L</object-name>
-		<action>
-			<name>decrease vor mode</name>
-			<button>0</button>
-			<repeatable>false</repeatable>
-			<binding>
-				<command>property-adjust</command>
-				<property>instrumentation/gees/mode</property>
-				<step>-1</step>
-				<min>0</min>
-				<max>4</max>
-				<wrap>true</wrap>
-			</binding>
-		</action>
-	</animation>
+ <animation>
+	<type>pick</type>
+	<object-name>Pick:Gclick-L</object-name>
+	<action>
+		<name>decrease vor mode</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-adjust</command>
+			<property>instrumentation/gees/mode</property>
+			<step>-1</step>
+			<min>0</min>
+			<max>4</max>
+			<wrap>true</wrap>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>geeLtip</tooltip-id>
+			<label>Turn Center knob Left.%s</label>
+			<mapping>nasal</mapping>
+				<script>
+				  var modes = ['Vertical Speed Indicator', 'Gees current', 'Gees with 2 second Peak', 'Gees with Maximum'];
+				  return sprintf("\n Select mode for VSI/Gees.\nCurrent: %s",modes[arg[0]]);
+				</script>
+			<property>instrumentation/gees/mode</property>
+		</binding>
+	</hovered>
+ </animation>
 
-	<animation>
-		<type>pick</type>
-		<object-name>Pick:Gclick-R</object-name>
-		<action>
-			<name>increase vor mode</name>
-			<button>0</button>
-			<repeatable>false</repeatable>
-			<binding>
-				<command>property-adjust</command>
-				<property>instrumentation/gees/mode</property>
-				<step>1</step>
-				<min>0</min>
-				<max>4</max>
-				<wrap>true</wrap>
-			</binding>
-		</action>
-	</animation>
+ <animation>
+	<type>pick</type>
+	<object-name>Pick:Gclick-R</object-name>
+	<action>
+		<name>increase vor mode</name>
+		<button>0</button>
+		<repeatable>false</repeatable>
+		<binding>
+			<command>property-adjust</command>
+			<property>instrumentation/gees/mode</property>
+			<step>1</step>
+			<min>0</min>
+			<max>4</max>
+			<wrap>true</wrap>
+		</binding>
+	</action>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>geeRtip</tooltip-id>
+			<label>Turn Center knob Right.%s</label>
+			<mapping>nasal</mapping>
+				<script>
+				  var modes = ['Vertical Speed Indicator', 'Gees current', 'Gees with 2 second Peak', 'Gees with Maximum'];
+				  return sprintf("\n Select mode for VSI/Gees.\nCurrent: %s",modes[arg[0]]);
+				</script>
+			<property>instrumentation/gees/mode</property>
+		</binding>
+	</hovered>
+ </animation>
+
+ <!-- general tooltips -->
+ <animation>
+	<type>pick</type>
+	<object-name>altitude.frame</object-name>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>altitude-info</tooltip-id>
+			<label>Elevation: %s</label>
+			<mapping>nasal</mapping>
+				<script>
+				  var modes = ['FEET', 'METERs', 'Km', 'MILEs'];
+				  var altft = getprop("position/altitude-ft");
+				  var aglft = getprop("sim/model/bluebird/position/altitude-agl-ft");
+				  return sprintf("%8d feet\n Altitude Display Units: %s\nAGL: %8d feet",altft,modes[arg[0]],aglft);
+				</script>
+			<property>instrumentation/digital/altitude-mode</property>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>heading.frame</object-name>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>heading-info</tooltip-id>
+			<label>Heading: %s</label>
+			<mapping>nasal</mapping>
+				<script>
+				  var modes = ['-180..+180', '0..+360'];
+				  var headd = getprop("orientation/heading-deg");
+				  return sprintf("%3.1f True.\n Pitch mode: %s",headd,modes[arg[0]]);
+				</script>
+			<property>instrumentation/digital/heading-mode</property>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>velocity.frame</object-name>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>velocity-info</tooltip-id>
+			<label>Velocity:%s</label>
+			<mapping>nasal</mapping>
+				<script>
+				  var modes = ['MPS', 'KNOTs', 'MPH', 'KmPH', 'MACH'];
+				  var speed = getprop("velocities/airspeed-kt");
+				  var thr = getprop("instrumentation/digital/throttle-whole");
+				  var smax = getprop("engines/engine/speed-max-powerlevel");
+				  return sprintf("%7d knots.\nDisplay Units: %s \nThrottle: %3d%% within current range %1d",speed,modes[arg[0]],thr,smax);
+				</script>
+			<property>instrumentation/digital/velocity-mode</property>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>gps.frame</object-name>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>gps-info</tooltip-id>
+			<label>GPS units: %s</label>
+			<mapping>nasal</mapping>
+				<script>
+				  var modes = ['Decimal degrees', 'Degrees Minutes', 'Degrees Minutes Seconds'];
+				  return modes[arg[0]];
+				</script>
+			<property>sim/lon-lat-format</property>
+		</binding>
+	</hovered>
+ </animation>
+
+ <animation>
+	<type>pick</type>
+	<object-name>engine.chart</object-name>
+	<hovered>
+		<binding>
+			<command>set-tooltip</command>
+			<tooltip-id>engineering-info</tooltip-id>
+			<label>Engine Level: %s</label>
+			<mapping>nasal</mapping>
+				<script>
+				  var modek = ['1', '38', '97', '194', '388', '971', '1943', '3887', '9719', '21724', '38876', 'O/L'];
+				  return sprintf("Range %2d\n speeds between 0 .. %s knots",arg[0],modek[arg[0]]);
+				</script>
+			<property>engines/engine/speed-max-powerlevel</property>
+		</binding>
+	</hovered>
+ </animation>
 </PropertyList>

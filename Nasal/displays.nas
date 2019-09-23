@@ -1,17 +1,17 @@
 # ===== text screen functions for FG version 1.9-2.0 (OSG) =====
 # ===== and backend for ai-vor
-# ===== for Bluebird Explorer Hovercraft version 10.4 =====
+# ===== for Bluebird Explorer Hovercraft version 13.5 =====
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }	# degrees
 var cos = func(a) { math.cos(a * math.pi / 180.0) }
 var asin = func(y) { math.atan2(y, math.sqrt(1-y*y)) }	# radians
 var ERAD = 6378138.12; 		# Earth radius (m)
-var m_2_conv = [0.000621371192, 0.001];
-var m_conv_units = [" MI"," KM"];
-var m_conv_format = [" %5.2f "," %4.3f "];
-var ft_2_conv = [1.0, 0.3048];
-var ft_conv_units = [" FT"," M"];
-var ft_conv_format = [" %7.0f "," %8.1f "];
+var m_2_conv = [0.000621371192, 0.001, 0.001, 0.000621371192];
+var m_conv_units = [" MI"," KM", " KM", " MI"];
+var m_conv_format = [" %5.2f "," %4.3f "," %4.3f "," %5.2f "];
+var ft_2_conv = [1.0, 0.304800, 0.0003048, 0.000189393939];
+var ft_conv_units = [" FT"," M", " KM", " MI"];
+var ft_conv_format = [" %7.0f "," %8.1f "," %4.3f "," %4.1f "];
 
 var normbearing = func (a,c) {
 	var h = a - c;
@@ -54,6 +54,8 @@ var ap1_name_Node = props.globals.getNode("instrumentation/tracking/ap1-name", 1
 var ap1_lat_Node = props.globals.getNode("instrumentation/tracking/ap1-lat", 1);
 var ap1_lon_Node = props.globals.getNode("instrumentation/tracking/ap1-lon", 1);
 var ap1_range_Node = props.globals.getNode("instrumentation/tracking/ap1-range", 1);
+var comm0_range_Node = props.globals.getNode("instrumentation/tracking/comm0-range", 1);
+var comm1_range_Node = props.globals.getNode("instrumentation/tracking/comm1-range", 1);
 var apt_loop_id = 0;
 var apt_loop = func (id) {
 	id == apt_loop_id or return;
@@ -121,6 +123,14 @@ var apt_update = func (id) {
 		range = range * m_2_conv[a_mode];
 		var txt18 = sprintf("%7.2f",range) ~ m_conv_units[a_mode];
 		ap1_range_Node.setValue(txt18);
+		range = getprop("instrumentation/comm[0]/track-distance-m");
+		range = range * m_2_conv[a_mode];
+		var txt25 = sprintf("%7.2f",range) ~ m_conv_units[a_mode];
+		comm0_range_Node.setValue(txt25);
+		range = getprop("instrumentation/comm[1]/track-distance-m");
+		range = range * m_2_conv[a_mode];
+		var txt28 = sprintf("%7.2f",range) ~ m_conv_units[a_mode];
+		comm1_range_Node.setValue(txt28);
 	}
 	settimer(func { apt_update(id) }, 0.25);
 }
@@ -509,7 +519,7 @@ var update_3R = func {
 		var lon = getprop("position/longitude-deg");
 		var info = geodinfo(lat, lon);
 		var geo_gnd = info[0] * 3.280839895;
-		var text_3R = sprintf("    % 14.4f % 13.4f      % 6.4f    % 14.4f", gnd_elev, geo_gnd, (gnd_elev-geo_gnd), bluebird.contact_altitude);
+		var text_3R = sprintf("    % 14.4f % 13.4f      % 6.4f    % 14.4f", gnd_elev, geo_gnd, (gnd_elev-geo_gnd), bluebird.contact_altitude_ft);
 		displayScreens.scroll_3R(text_3R);
 	}
 	settimer(update_3R, 0.25);
@@ -613,6 +623,18 @@ var init = func {
 	setlistener("instrumentation/display-screens/enabled-2L", func(n) {
 		if (n.getValue()) {
 			setprop("instrumentation/display-screens/t2L-2", "Callsign                 Distance   Altitude   Bearing");
+			var ai = getprop("sim/ai-traffic/enabled");
+			if (ai == nil) {
+				ai = -1;
+			}
+			var mp = getprop("sim/multiplay/txport");
+			var np = getprop("ai/models/num-players");
+			if ((ai > 0) or (mp > 0) or (np > 0)) {
+				setprop("instrumentation/tracking/enabled", 1);
+			}
+		} else {
+			setprop("instrumentation/display-screens/t2L-2", "");
+			setprop("instrumentation/tracking/enabled", 0);
 		}
 	}, 1);
 

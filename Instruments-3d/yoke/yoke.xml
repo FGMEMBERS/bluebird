@@ -1,6 +1,6 @@
 <?xml version="1.0" ?> 
-<!--== modified to add vertical hover axis                      ==-->
-<!--== integrated for Bluebird Explorer Hovercraft  version 5.0 ==-->
+<!--== modified to add vertical hover axis                        ==-->
+<!--== integrated for Bluebird Explorer Hovercraft  version 10.93 ==-->
 <!-- expect this model to be placed in the FG Aircraft directory, and
      for the generic instruments, provided in base package, to be present. -->
 <PropertyList> 
